@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VeganLife.Views.SettingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <VerticalStackLayout>
+        <Label
+            HorizontalOptions="Start"
+            Text="Thông tin kỹ thuật"
+            VerticalOptions="Start" />
+        <Label
+            HorizontalOptions="Start"
+            Text="Phiên bản"
+            VerticalOptions="Start" />
+        <Label HorizontalOptions="Start" Text="Giấy phép" />
+    </VerticalStackLayout>
+</ContentPage>

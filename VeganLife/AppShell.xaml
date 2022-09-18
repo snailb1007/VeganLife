@@ -4,20 +4,33 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:VeganLife"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:view="clr-namespace:VeganLife.Views"
+    Shell.FlyoutBehavior="Flyout">
 
-    <!--<ShellContent
-        Title="Trang chủ"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-    <FlyoutItem Title="Trang chủ">
+    <TabBar>
         <Tab Title="Trang chủ">
+            <Tab.Icon>
+                <FontImageSource Glyph="&#xf015;"  FontFamily="AwesomeSolid"/>
+            </Tab.Icon>
             <ShellContent
-                Title="Content"
                 ContentTemplate="{DataTemplate local:MainPage}"
-                Route="Home1" />
+                Route="Home" />
         </Tab>
-    </FlyoutItem>
-
-
+        <Tab Title="Tìm kiếm">
+            <Tab.Icon>
+                <FontImageSource Glyph="&#xf002;"  FontFamily="AwesomeSolid"/>
+            </Tab.Icon>
+            <ShellContent
+                ContentTemplate="{DataTemplate view:SearchPage}"
+                Route="Search" />
+        </Tab>
+        <Tab Title="Cài đặt">
+            <Tab.Icon>
+                <FontImageSource Glyph="&#xf013;"  FontFamily="AwesomeSolid"/>
+            </Tab.Icon>
+            <ShellContent
+                ContentTemplate="{DataTemplate view:SettingPage}"
+                Route="Setting" />
+        </Tab>
+    </TabBar>
 </Shell>
