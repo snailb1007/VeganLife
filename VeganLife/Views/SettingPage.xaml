@@ -5,6 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <VerticalStackLayout>
         <Label
+            FontFamily="AwesomeSolid"
+            FontSize="20"
+            Text="{AppThemeBinding Dark=&#xf186;,
+                                   Light=&#xf185;}"
+            TextColor="{AppThemeBinding Dark=White,
+                                        Light=Orange}" />
+        <Switch
+            HorizontalOptions="Center"
+            IsToggled="{Binding IsDarkMode}"
+            ThumbColor="Green"
+            Toggled="Switch_Toggled" />
+        <Label
             HorizontalOptions="Start"
             Text="Thông tin kỹ thuật"
             VerticalOptions="Start" />
