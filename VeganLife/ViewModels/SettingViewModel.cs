@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using VeganLife.Views;
 
 namespace VeganLife.ViewModels
 {
@@ -12,7 +9,14 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         bool _isDarkMode = false;
 
+        [RelayCommand]
+        async Task GoToolsCommand()
+        {
+            await Shell.Current.GoToAsync(nameof(BMICalculatorPage));
+        }
+
         public SettingViewModel()
         { }
+
     }
 }

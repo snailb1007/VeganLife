@@ -5,32 +5,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:VeganLife"
     xmlns:view="clr-namespace:VeganLife.Views"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
         <Tab Title="Trang chủ">
             <Tab.Icon>
-                <FontImageSource Glyph="&#xf015;"  FontFamily="AwesomeSolid"/>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf015;" />
             </Tab.Icon>
-            <ShellContent
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="Home" />
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="Home" />
         </Tab>
         <Tab Title="Tìm kiếm">
             <Tab.Icon>
-                <FontImageSource Glyph="&#xf002;"  FontFamily="AwesomeSolid"/>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf002;" />
             </Tab.Icon>
-            <ShellContent
-                ContentTemplate="{DataTemplate view:SearchPage}"
-                Route="Search" />
+            <ShellContent ContentTemplate="{DataTemplate view:SearchPage}" Route="Search" />
         </Tab>
         <Tab Title="Cài đặt">
             <Tab.Icon>
-                <FontImageSource Glyph="&#xf013;"  FontFamily="AwesomeSolid"/>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf013;" />
             </Tab.Icon>
-            <ShellContent
-                ContentTemplate="{DataTemplate view:SettingPage}"
-                Route="Setting" />
+            <ShellContent ContentTemplate="{DataTemplate view:SettingPage}" Route="Setting" />
         </Tab>
     </TabBar>
 </Shell>
