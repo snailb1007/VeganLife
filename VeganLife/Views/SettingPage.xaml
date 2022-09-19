@@ -3,22 +3,36 @@
     x:Class="VeganLife.Views.SettingPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <VerticalStackLayout>
-        <Label
-            FontFamily="AwesomeSolid"
-            FontSize="20"
-            Text="{AppThemeBinding Dark=&#xf186;,
-                                   Light=&#xf185;}"
-            TextColor="{AppThemeBinding Dark=White,
-                                        Light=Orange}" />
-        <Switch
-            HorizontalOptions="Center"
-            IsToggled="{Binding IsDarkMode}"
-            ThumbColor="Green"
-            Toggled="Switch_Toggled" />
+    <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+        <Label Text="Tùy chọn" TextColor="Gray" />
+        <StackLayout
+            Margin="0"
+            Padding="0"
+            HorizontalOptions="Fill"
+            Orientation="Horizontal">
+            <Label
+                Margin="0,0,10,0"
+                FontFamily="AwesomeSolid"
+                FontSize="20"
+                HorizontalOptions="Start"
+                Text="{AppThemeBinding Dark=&#xf186;,
+                                       Light=&#xf185;}"
+                TextColor="{AppThemeBinding Dark=White,
+                                            Light=Orange}"
+                VerticalOptions="Center" />
+            <Label Text="{AppThemeBinding Dark=Tối, Light=Sáng}" VerticalOptions="Center" />
+            <Switch
+                HorizontalOptions="EndAndExpand"
+                IsToggled="{Binding IsDarkMode}"
+                ThumbColor="Green"
+                Toggled="Switch_Toggled"
+                VerticalOptions="Center" />
+        </StackLayout>
+
         <Label
             HorizontalOptions="Start"
             Text="Thông tin kỹ thuật"
+            TextColor="Gray"
             VerticalOptions="Start" />
         <Label
             HorizontalOptions="Start"
