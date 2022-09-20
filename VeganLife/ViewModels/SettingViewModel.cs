@@ -10,7 +10,7 @@ namespace VeganLife.ViewModels
         bool _isDarkMode = false;
 
         [RelayCommand]
-        async Task GoToolsCommand()
+        async Task GoTools()
         {
             await Shell.Current.GoToAsync(nameof(BMICalculatorPage));
         }
