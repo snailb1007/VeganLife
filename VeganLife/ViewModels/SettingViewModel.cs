@@ -16,7 +16,14 @@ namespace VeganLife.ViewModels
         }
 
         public SettingViewModel()
-        { }
+        {
+            Init();
+        }
 
+        private void Init()
+        {
+            var currentDeviceTheme = App.Current.PlatformAppTheme;
+            _isDarkMode = currentDeviceTheme == AppTheme.Dark;
+        }
     }
 }

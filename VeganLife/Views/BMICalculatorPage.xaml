@@ -42,5 +42,39 @@
                     VerticalOptions="Center" />
             </Frame>
         </HorizontalStackLayout>
+        <Grid ColumnDefinitions="*,6*,*">
+            <Frame
+                Grid.Column="1"
+                Padding="5"
+                BackgroundColor="Transparent"
+                BorderColor="Gray"
+                CornerRadius="5"
+                IsClippedToBounds="True">
+                <VerticalStackLayout Margin="5" Spacing="5">
+                    <Label
+                        Margin="0,0,0,10"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        Text="Chiều cao" />
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                        <Label
+                            FontSize="27"
+                            Text="{Binding Source={x:Reference sliderHeight}, Path=Value, StringFormat='{0:F1}'}"
+                            VerticalOptions="Center" />
+                        <Label Text="cm" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <Grid ColumnDefinitions="*,5*,*" HorizontalOptions="FillAndExpand">
+                        <Slider
+                            x:Name="sliderHeight"
+                            Grid.Column="1"
+                            HorizontalOptions="FillAndExpand"
+                            Maximum="250"
+                            Minimum="50"
+                            VerticalOptions="FillAndExpand" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

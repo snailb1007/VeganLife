@@ -26,14 +26,22 @@
                                             Light=Orange}"
                 VerticalOptions="Center" />
             <Label Text="{AppThemeBinding Dark=Tối, Light=Sáng}" VerticalOptions="Center" />
-            <Switch
+            <Frame
+                Padding="1.5,1"
+                BackgroundColor="{AppThemeBinding Dark=Gray,
+                                                  Light=Orange}"
+                BorderColor="Transparent"
                 HorizontalOptions="EndAndExpand"
-                IsToggled="{Binding IsDarkMode}"
-                OnColor="{AppThemeBinding Dark=White,
-                                          Light=Gray}"
-                ThumbColor="Green"
-                Toggled="Switch_Toggled"
-                VerticalOptions="Center" />
+                VerticalOptions="Center">
+                <Switch
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding IsDarkMode}"
+                    OnColor="{AppThemeBinding Dark=White,
+                                              Light=Gray}"
+                    ThumbColor="Green"
+                    Toggled="Switch_Toggled"
+                    VerticalOptions="Center" />
+            </Frame>
         </StackLayout>
 
         <Label
