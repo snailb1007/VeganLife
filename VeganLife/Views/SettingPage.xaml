@@ -27,10 +27,11 @@
                 VerticalOptions="Center" />
             <Label Text="{AppThemeBinding Dark=Tối, Light=Sáng}" VerticalOptions="Center" />
             <Frame
-                Padding="1.5,1"
+                Padding="1"
                 BackgroundColor="{AppThemeBinding Dark=Gray,
-                                                  Light=Orange}"
+                                                  Light=White}"
                 BorderColor="Transparent"
+                HasShadow="False"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center">
                 <Switch
