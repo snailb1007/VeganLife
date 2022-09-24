@@ -50,20 +50,35 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
+	  <None Remove="Resources\Images\dark_mode_image_background.jpg" />
+	  <None Remove="Resources\Images\dark_mode_universe.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
 	  <Folder Include="Data\" />
-	  <Folder Include="Helpers\" />
 	  <Folder Include="Services\" />
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\ContentViews\" />
 	  <Folder Include="Views\Popups\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Translations\AppResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AppResources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Translations\AppResources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\BMICalculatorPage.xaml">

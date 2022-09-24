@@ -3,127 +3,142 @@
     x:Class="VeganLife.Views.BMICalculatorPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="BMI calculator">
-    <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
-        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
-            <Label
-                FontAttributes="Bold"
-                FontSize="20"
-                Text="Giới tính sinh học" />
-            <Label
-                FontFamily="AwesomeSolid"
-                FontSize="15"
-                Text="&#xf05a;"
-                TextColor="CadetBlue" />
-        </HorizontalStackLayout>
-        <Grid
-            ColumnDefinitions="9*,*"
-            ColumnSpacing="2"
-            HorizontalOptions="Center">
-            <Frame Padding="3" HorizontalOptions="Center">
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
+    x:DataType="viewmodel:BMICalculatorViewModel">
+    <ScrollView>
+        <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
                 <Label
-                    FontSize="12"
-                    HorizontalOptions="Center"
-                    Text="Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính" />
-            </Frame>
-            <Label
-                Grid.Column="1"
-                FontFamily="AwesomeSolid"
-                HorizontalOptions="Start"
-                Text="&#xf057;" />
-        </Grid>
-
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-            <Frame
-                Padding="5"
-                BackgroundColor="Transparent"
-                BorderColor="CadetBlue"
-                CornerRadius="5">
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Giới tính sinh học" />
                 <Label
                     FontFamily="AwesomeSolid"
-                    FontSize="20"
-                    Text="&#xf221;"
-                    VerticalOptions="Center" />
-            </Frame>
-            <Frame
-                Padding="5"
-                BackgroundColor="Transparent"
-                BorderColor="CadetBlue"
-                CornerRadius="5">
+                    FontSize="15"
+                    Text="&#xf05a;"
+                    TextColor="CadetBlue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HelpSexDetailCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+            <Grid
+                Margin="15,0"
+                ColumnDefinitions="9*,Auto"
+                ColumnSpacing="2"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsDisplayedSexDetail}">
+                <Frame
+                    Padding="10"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center">
+                    <Label
+                        FontSize="12"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính" />
+                </Frame>
                 <Label
                     Grid.Column="1"
+                    Padding="2"
                     FontFamily="AwesomeSolid"
-                    FontSize="20"
-                    Text="&#xf222;"
-                    VerticalOptions="Center" />
-            </Frame>
-        </HorizontalStackLayout>
-        <Grid ColumnDefinitions="*,7*,*">
-            <VerticalStackLayout Grid.Column="1" Spacing="20">
+                    HorizontalOptions="StartAndExpand"
+                    Text="&#xf057;" />
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                 <Frame
                     Padding="5"
                     BackgroundColor="Transparent"
-                    BorderColor="Gray"
-                    CornerRadius="5"
-                    IsClippedToBounds="True">
-                    <VerticalStackLayout Margin="5" Spacing="5">
-                        <Label
-                            Margin="0,0,0,5"
-                            FontAttributes="Bold"
-                            FontSize="22"
-                            HorizontalOptions="Center"
-                            Text="Chiều cao" />
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Label
-                                FontSize="25"
-                                Text="{Binding Source={x:Reference sliderHeight}, Path=Value, StringFormat='{0:F1}'}"
-                                VerticalOptions="Center" />
-                            <Label Text="cm" VerticalOptions="Center" />
-                        </HorizontalStackLayout>
-                        <Grid ColumnDefinitions="*,5*,*" HorizontalOptions="FillAndExpand">
-                            <Slider
-                                x:Name="sliderHeight"
-                                Grid.Column="1"
-                                HorizontalOptions="FillAndExpand"
-                                Maximum="250"
-                                Minimum="50"
-                                VerticalOptions="FillAndExpand" />
-                        </Grid>
-                    </VerticalStackLayout>
+                    BorderColor="CadetBlue"
+                    CornerRadius="5">
+                    <Label
+                        FontFamily="AwesomeSolid"
+                        FontSize="20"
+                        Text="&#xf221;"
+                        VerticalOptions="Center" />
                 </Frame>
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                    <Frame>
-                        <VerticalStackLayout>
+                <Frame
+                    Padding="5"
+                    BackgroundColor="Transparent"
+                    BorderColor="CadetBlue"
+                    CornerRadius="5">
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="AwesomeSolid"
+                        FontSize="20"
+                        Text="&#xf222;"
+                        VerticalOptions="Center" />
+                </Frame>
+            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="*,7*,*">
+                <VerticalStackLayout Grid.Column="1" Spacing="20">
+                    <Frame
+                        Padding="5"
+                        BackgroundColor="Transparent"
+                        BorderColor="Gray"
+                        CornerRadius="5"
+                        IsClippedToBounds="True">
+                        <VerticalStackLayout Margin="5" Spacing="5">
                             <Label
+                                Margin="0,0,0,5"
+                                FontAttributes="Bold"
                                 FontSize="22"
                                 HorizontalOptions="Center"
-                                Text="Cân nặng" />
-                            <Label HorizontalOptions="Center">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span FontSize="25" Text="50" />
-                                        <Span Text="Kg" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
+                                Text="Chiều cao" />
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                                <Label
+                                    FontSize="25"
+                                    Text="{Binding Source={x:Reference sliderHeight}, Path=Value, StringFormat='{0:F1}'}"
+                                    VerticalOptions="Center" />
+                                <Label Text="cm" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,5*,*" HorizontalOptions="FillAndExpand">
+                                <Slider
+                                    x:Name="sliderHeight"
+                                    Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    Maximum="250"
+                                    Minimum="50"
+                                    VerticalOptions="FillAndExpand" />
+                            </Grid>
                         </VerticalStackLayout>
                     </Frame>
-                    <Frame Grid.Column="1">
-                        <VerticalStackLayout>
-                            <Label
-                                FontSize="22"
-                                HorizontalOptions="Center"
-                                Text="Độ tuổi" />
-                            <Label
-                                FontSize="25"
-                                HorizontalOptions="Center"
-                                Text="20" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </Grid>
-
-                <Button Margin="20,0" Text="Tính BMI" />
-            </VerticalStackLayout>
-        </Grid>
-    </VerticalStackLayout>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Frame>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="22"
+                                    HorizontalOptions="Center"
+                                    Text="Cân nặng" />
+                                <Label HorizontalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontSize="25" Text="50" />
+                                            <Span Text="Kg" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Frame Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="22"
+                                    HorizontalOptions="Center"
+                                    Text="Độ tuổi" />
+                                <Label
+                                    FontSize="25"
+                                    HorizontalOptions="Center"
+                                    Text="20" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                    <Button Margin="20,0" Text="Tính BMI" />
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
