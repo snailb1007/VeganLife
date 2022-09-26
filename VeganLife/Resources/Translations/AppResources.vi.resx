@@ -126,4 +126,7 @@
 	<data name="title_bmiCalculatePage" xml:space="preserve">
         <value>BMI Calculate</value>
     </data>
+	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
+        <value>Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính</value>
+    </data>
 </root>

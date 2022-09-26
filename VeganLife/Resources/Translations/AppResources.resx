@@ -126,4 +126,7 @@
 	<data name="title_bmiCalculatePage" xml:space="preserve">
         <value>BMI Calculate</value>
     </data>
+	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
+        <value>N/A</value>
+    </data>
 </root>

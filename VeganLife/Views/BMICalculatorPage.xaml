@@ -33,12 +33,13 @@
                 <Frame
                     Padding="10"
                     BackgroundColor="Transparent"
+                    BorderColor="Gray"
                     HorizontalOptions="Center">
                     <Label
                         FontSize="12"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text="Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính" />
+                        Text="{x:Static translate:AppResources.sexDetail_content_bmiCalculatePage}" />
                 </Frame>
                 <Label
                     Grid.Column="1"
@@ -107,32 +108,31 @@
                         </VerticalStackLayout>
                     </Frame>
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                        <Frame>
+                        <Frame BackgroundColor="Transparent" BorderColor="Gray">
                             <VerticalStackLayout>
                                 <Label
                                     FontSize="22"
                                     HorizontalOptions="Center"
                                     Text="Cân nặng" />
-                                <Label HorizontalOptions="Center">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span FontSize="25" Text="50" />
-                                            <Span Text="Kg" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                                <Entry
+                                    Keyboard="Numeric"
+                                    Placeholder="50kg"
+                                    Text="{Binding WeightValue}" />
                             </VerticalStackLayout>
                         </Frame>
-                        <Frame Grid.Column="1">
+                        <Frame
+                            Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            BorderColor="Gray">
                             <VerticalStackLayout>
                                 <Label
                                     FontSize="22"
                                     HorizontalOptions="Center"
                                     Text="Độ tuổi" />
-                                <Label
-                                    FontSize="25"
-                                    HorizontalOptions="Center"
-                                    Text="20" />
+                                <Entry
+                                    Keyboard="Numeric"
+                                    Placeholder="20"
+                                    Text="{Binding AgeValue}" />
                             </VerticalStackLayout>
                         </Frame>
                     </Grid>
