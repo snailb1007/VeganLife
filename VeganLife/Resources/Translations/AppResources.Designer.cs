@@ -124,6 +124,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        internal static string sexDetail_content_bmiCalculatePage {
+            get {
+                return ResourceManager.GetString("sexDetail_content_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Technical info.
         /// </summary>
         internal static string technicalTitle_settingTab {
