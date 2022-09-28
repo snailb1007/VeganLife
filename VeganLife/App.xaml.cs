@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
 
 namespace VeganLife;
@@ -8,6 +9,7 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
+		AppThemeHelper.SetTheme(App.Current.PlatformAppTheme);
 		SetupLanguage();
 
 		MainPage = new AppShell();

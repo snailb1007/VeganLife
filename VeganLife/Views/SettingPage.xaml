@@ -7,7 +7,7 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     Title="{x:Static translate:AppResources.app_common_settingTab}"
     x:DataType="viewmodel:SettingViewModel"
-    BackgroundImageSource="dark_mode_universe.jpg">
+    BackgroundImageSource="https://i.imgur.com/IHnQcdF.jpg">
     <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
         <Label
             Margin="0,10,0,0"

@@ -6,7 +6,8 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
-    x:DataType="viewmodel:BMICalculatorViewModel">
+    x:DataType="viewmodel:BMICalculatorViewModel"
+    BackgroundImageSource="{Binding BackgroundIMG}">
     <ScrollView>
         <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
@@ -24,6 +25,7 @@
                     </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>
+            <Label Text="{Binding IsDisplayedSexDetail}" />
             <Grid
                 Margin="15,0"
                 ColumnDefinitions="9*,Auto"
@@ -136,7 +138,11 @@
                             </VerticalStackLayout>
                         </Frame>
                     </Grid>
-                    <Button Margin="20,0" Text="Tính BMI" />
+                    <Button
+                        Margin="20,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Tính BMI" />
                 </VerticalStackLayout>
             </Grid>
         </VerticalStackLayout>

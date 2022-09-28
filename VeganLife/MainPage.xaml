@@ -4,8 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
-    Title="{x:Static translate:AppResources.app_common_homeTab}"
-    BackgroundImageSource="dark_mode_image_background.jpg">
+    Title="{x:Static translate:AppResources.app_common_homeTab}">
 
     <ScrollView>
         <VerticalStackLayout

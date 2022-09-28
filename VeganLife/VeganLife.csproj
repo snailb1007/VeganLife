@@ -50,8 +50,6 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
-	  <None Remove="Resources\Images\dark_mode_image_background.jpg" />
-	  <None Remove="Resources\Images\dark_mode_universe.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>

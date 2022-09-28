@@ -1,18 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.ViewModels
 {
     public partial class BMICalculatorViewModel : ObservableObject
     {
         [ObservableProperty]
-        bool _isDisplayedSexDetail = true;
+        bool _isDisplayedSexDetail;
 
         [ObservableProperty]
         string _weightValue;
 
         [ObservableProperty]
         string _ageValue;
+
+        [ObservableProperty]
+        string _backgroundIMG;
 
         [RelayCommand]
         void HelpSexDetail()
@@ -22,6 +26,7 @@ namespace VeganLife.ViewModels
 
         public BMICalculatorViewModel()
         {
+            Init();
         }
 
         private void Init()

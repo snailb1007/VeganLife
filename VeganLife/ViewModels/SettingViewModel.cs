@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Views;
 
 namespace VeganLife.ViewModels
@@ -13,6 +14,14 @@ namespace VeganLife.ViewModels
         async Task GoTools()
         {
             await Shell.Current.GoToAsync(nameof(BMICalculatorPage));
+        }
+
+        [RelayCommand]
+        void SwitchTheme(Switch parameter)
+        {
+            if (parameter == null)
+                return;
+            AppThemeHelper.SetTheme(parameter.IsToggled ? AppTheme.Dark : AppTheme.Light);
         }
 
         public SettingViewModel()
