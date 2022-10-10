@@ -9,7 +9,7 @@
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="True"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
-                                                  Light=#74e39a}">
+                                                  Light=White}">
 
     <TabBar>
         <Tab Title="{x:Static translate:AppResources.app_common_homeTab}">

@@ -19,7 +19,7 @@ namespace VeganLife.Helpers.AppSetting
             string result = string.Empty;
             if (ConstantHelper.ThemeInfo.IsDarkMode)
             {
-                result = ConstantHelper.ThemeInfo.UniverseDarkLink;
+                result = ConstantHelper.ThemeInfo.ImgBackground;
             }
 
             return result;

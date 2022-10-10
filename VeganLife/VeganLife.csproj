@@ -15,7 +15,7 @@
 		<ApplicationTitle>VeganLife</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.veganlife</ApplicationId>
+		<ApplicationId>com.snailb.veganlife</ApplicationId>
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -62,6 +62,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
