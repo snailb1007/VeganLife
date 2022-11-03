@@ -1,9 +1,6 @@
 ﻿using Firebase.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using VeganLife.Models;
 
 namespace VeganLife.Data.FireBaseData
 {
@@ -19,9 +16,27 @@ namespace VeganLife.Data.FireBaseData
 
         public async Task<string> GetBackgroundImage(string goal)
         {
-            var result = new Dictionary<string, string>();
             var data = await FirebaseDatabase.Child($"Backgrounds/Themes/{goal}").OnceAsync<string>();
             return data.Select(item => item.Object.ToString()).FirstOrDefault();
+        }
+
+        public async Task<List<FoodModel>> GetFoods()
+        {
+            try
+            {
+                var data = await FirebaseDatabase.Child("Foods/SummaryFoods").OnceAsync<JArray>();
+                return data.Select(item => new FoodModel
+                {
+                    Name = string.Empty,
+                    Content = string.Empty,
+                    Image = string.Empty
+                }).ToList();
+            }
+            catch (FirebaseException e)
+            {
+                Console.WriteLine(e.Message);
+                return new List<FoodModel>();
+            }
         }
     }
 }

@@ -1,13 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Database;
+using VeganLife.Data.FireBaseData;
 
 namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
     {
-        public static class FirebaseRealtimeData
+        public const string Language_Vietnam = "vi";
+        public const string Language_English = "en";
+
+        public const string Theme_Mode_Auto = "auto";
+        public const string Theme_Mode_Fixed = "fixed";
+
+
+        public static class FirebaseData
         {
-            public static FirebaseClient FirebaseClient;
+            public static FirebaseRealtimeData FirebaseRealtimeData;
         }
 
         public static class ThemeInfo

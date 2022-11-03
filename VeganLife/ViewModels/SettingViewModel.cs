@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using VeganLife.Data.FireBaseData;
+using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Views;
 
@@ -12,7 +13,7 @@ namespace VeganLife.ViewModels
         const string _universePickerOption = "Vũ trụ";
 
         [ObservableProperty]
-        bool _isDarkMode = false;
+        bool _isDarkMode;
 
         [ObservableProperty]
         string _imgBackground = string.Empty;
@@ -34,8 +35,12 @@ namespace VeganLife.ViewModels
         {
             if (parameter == null)
                 return;
-            bool isDarkMode = parameter.IsToggled;
-            AppThemeHelper.SetTheme(isDarkMode ? AppTheme.Dark : AppTheme.Light);
+            IsDarkMode = parameter.IsToggled;
+            var goalTheme = _isDarkMode ? AppTheme.Dark : AppTheme.Light;
+            AppThemeHelper.SetTheme(goalTheme);
+
+            UserSettingsHelper.Set(UserSettingKey.ThemeMode, ConstantHelper.Theme_Mode_Fixed);
+            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
         }
 
         public SettingViewModel()
@@ -46,11 +51,9 @@ namespace VeganLife.ViewModels
         private void Init()
         {
             IndexPickerOption = 0;
-            var currentDeviceTheme = App.Current.PlatformAppTheme;
-            if (currentDeviceTheme == AppTheme.Dark)
-            {
-                IsDarkMode = true;
-            }
+            ImgBackground = ConstantHelper.ThemeInfo.ImgBackground;
+            var currentDeviceTheme = App.Current.UserAppTheme;
+            IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }
 
         partial void OnIndexPickerOptionChanged(int value)
@@ -63,9 +66,14 @@ namespace VeganLife.ViewModels
 
         private async Task SetupThemeIMG()
         {
-            var data = new FirebaseRealtimeData();
-            var backgrounds = await data.GetBackgroundImage("dark_2k");
-            ImgBackground = backgrounds;
+            if (ConstantHelper.FirebaseData.FirebaseRealtimeData == null)
+            {
+                ConstantHelper.FirebaseData.FirebaseRealtimeData = new FirebaseRealtimeData();
+            }
+
+            var backgrounds = await ConstantHelper.FirebaseData.FirebaseRealtimeData.GetBackgroundImage("dark_2k");
+            ConstantHelper.ThemeInfo.ImgBackground = backgrounds;
+            App.Current.MainPage = new AppShell();
         }
     }
 }

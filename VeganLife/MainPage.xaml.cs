@@ -1,14 +1,13 @@
-﻿namespace VeganLife;
+﻿using VeganLife.ViewModels;
+
+namespace VeganLife;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+	public MainPage(MainViewModel vm)
 	{
 		InitializeComponent();
-	}
-
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-	}
+        BindingContext = vm;
+    }
 }
 

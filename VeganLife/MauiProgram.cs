@@ -21,7 +21,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<SettingViewModel>();
 		builder.Services.AddSingleton<BMICalculatorPage>();
 		builder.Services.AddSingleton<BMICalculatorViewModel>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainViewModel>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }

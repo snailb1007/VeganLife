@@ -5,10 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="settingRoot"
     Title="{x:Static translate:AppResources.app_common_settingTab}"
     x:DataType="viewmodel:SettingViewModel">
     <ContentPage.BackgroundImageSource>
-        <UriImageSource Uri="{Binding ImgBackground}" />
+        <UriImageSource Uri="{Binding Source={x:Reference settingRoot}, Path=BindingContext.ImgBackground}" />
     </ContentPage.BackgroundImageSource>
     <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
         <Label
@@ -78,7 +79,7 @@
                 BorderColor="Transparent"
                 HasShadow="False"
                 HorizontalOptions="EndAndExpand"
-                VerticalOptions="Center">
+                VerticalOptions="StartAndExpand">
                 <Switch
                     HorizontalOptions="Center"
                     IsToggled="{Binding IsDarkMode}"
