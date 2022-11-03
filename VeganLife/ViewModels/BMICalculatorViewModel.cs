@@ -1,11 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Kotlin.Text;
+using System.Globalization;
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Services;
+using VeganLife.Views;
 
 namespace VeganLife.ViewModels
 {
     public partial class BMICalculatorViewModel : ObservableObject
     {
+        private float _weight;
+        private short _age;
+
         [ObservableProperty]
         bool _isDisplayedSexDetail;
 
@@ -18,10 +25,44 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         string _backgroundIMG;
 
+        [ObservableProperty]
+        string _weightErrMess;
+
+        [ObservableProperty]
+        string _ageErrMess;
+
         [RelayCommand]
-        void HelpSexDetail()
+        void HelpSexDetail(string parameter)
         {
-            IsDisplayedSexDetail = !IsDisplayedSexDetail;
+            if (!string.IsNullOrEmpty(parameter) && parameter.Equals("closeSexDetail"))
+                IsDisplayedSexDetail = false;
+            else
+                IsDisplayedSexDetail = !IsDisplayedSexDetail;
+        }
+
+        [RelayCommand]
+        void UnFocus(object obj)
+        {
+            if (obj == null)
+                return;
+            var view = (BMICalculatorPage)obj;
+            var entryWeight = view.FindByName("entryWeight") as Entry;
+
+            if (entryWeight != null && entryWeight.IsFocused)
+            {
+                var deviceService = new DeviceService();
+                deviceService.HideKeyboard();
+                entryWeight.Unfocus();
+                return;
+            }
+
+            var entryAge = view.FindByName("entryAge") as Entry;
+            if (entryAge != null && entryAge.IsFocused)
+            {
+                var deviceService = new DeviceService();
+                deviceService.HideKeyboard();
+                entryAge.Unfocus();
+            }
         }
 
         public BMICalculatorViewModel()
@@ -34,14 +75,29 @@ namespace VeganLife.ViewModels
 
         partial void OnWeightValueChanged(string value)
         {
-            if (value.Length < 6)
+            if (string.IsNullOrEmpty(value))
+            {
+                WeightErrMess = null;
                 return;
-            var abc = string.Format("0:0.00", value);
-            bool isSuccess = float.TryParse(value, out float x);
-            string result = x.ToString();
-            if (!isSuccess || !result.Equals(value))
-                return;
-            WeightValue = result;
+            }
+
+            Regex pattern = new (ConstantHelper.Validator.WeightBMIRegexPattern);
+            if (pattern.Matches(value))
+            {
+                _weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+                if (_weight < 2 && _weight > 635)
+                {
+                    WeightErrMess = "";
+                }
+                else
+                {
+                    WeightErrMess = null;
+                }
+            }
+            else
+            {
+                WeightErrMess = "Sai định dạng";
+            }
         }
 
         partial void OnAgeValueChanged(string value)

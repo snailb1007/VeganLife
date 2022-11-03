@@ -3,13 +3,23 @@
     x:Class="VeganLife.Views.BMICalculatorPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="bmiCalculatorPage"
     Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
     x:DataType="viewmodel:BMICalculatorViewModel"
     BackgroundImageSource="{Binding BackgroundIMG}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference bmiCalculatorPage}" />
+            </VerticalStackLayout.GestureRecognizers>
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
                 <Label
                     FontAttributes="Bold"
@@ -25,7 +35,6 @@
                     </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>
-            <Label Text="{Binding IsDisplayedSexDetail}" />
             <Grid
                 Margin="15,0"
                 ColumnDefinitions="9*,Auto"
@@ -48,7 +57,11 @@
                     Padding="2"
                     FontFamily="AwesomeSolid"
                     HorizontalOptions="StartAndExpand"
-                    Text="&#xf057;" />
+                    Text="&#xf057;">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HelpSexDetailCommand}" CommandParameter="closeSexDetail" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
 
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
@@ -117,9 +130,18 @@
                                     HorizontalOptions="Center"
                                     Text="Cân nặng" />
                                 <Entry
+                                    x:Name="entryWeight"
+                                    HorizontalOptions="Center"
                                     Keyboard="Numeric"
                                     Placeholder="50kg"
                                     Text="{Binding WeightValue}" />
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding WeightErrMess, Converter={StaticResource NullToFalseConverter}}"
+                                    MaxLines="2"
+                                    Text="{Binding WeightErrMess}"
+                                    TextColor="Red" />
                             </VerticalStackLayout>
                         </Frame>
                         <Frame
@@ -132,6 +154,8 @@
                                     HorizontalOptions="Center"
                                     Text="Độ tuổi" />
                                 <Entry
+                                    x:Name="entryAge"
+                                    HorizontalOptions="Center"
                                     Keyboard="Numeric"
                                     Placeholder="20"
                                     Text="{Binding AgeValue}" />

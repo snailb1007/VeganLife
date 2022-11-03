@@ -23,5 +23,11 @@ namespace VeganLife.Helpers.AppSetting
             public static string ImgBackground { get; set; }
             public static bool IsDarkMode { get; set; }
         }
+
+        public static class Validator
+        {
+            public static string WeightBMIRegexPattern = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
+        }
+
     }
 }
