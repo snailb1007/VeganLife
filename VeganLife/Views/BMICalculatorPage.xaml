@@ -159,13 +159,22 @@
                                     Keyboard="Numeric"
                                     Placeholder="20"
                                     Text="{Binding AgeValue}" />
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding AgeErrMess, Converter={StaticResource NullToFalseConverter}}"
+                                    MaxLines="2"
+                                    Text="{Binding AgeErrMess}"
+                                    TextColor="Red" />
                             </VerticalStackLayout>
                         </Frame>
                     </Grid>
+                    <Label IsVisible="{Binding GeneralError, Converter={StaticResource NullToFalseConverter}}" Text="{Binding GeneralError}" />
                     <Button
                         Margin="20,0"
                         FontAttributes="Bold"
                         FontSize="20"
+                        IsEnabled="{Binding IsEnableSubmit}"
                         Text="Tính BMI" />
                 </VerticalStackLayout>
             </Grid>

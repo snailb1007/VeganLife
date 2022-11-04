@@ -26,7 +26,8 @@ namespace VeganLife.Helpers.AppSetting
 
         public static class Validator
         {
-            public static string WeightBMIRegexPattern = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
+            public const string WeightBMIRegexPattern = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
+            public const string AgeBMIRegexPattern = @"^\d+$";
         }
 
     }

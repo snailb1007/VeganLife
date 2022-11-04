@@ -31,6 +31,12 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         string _ageErrMess;
 
+        [ObservableProperty]
+        string _generalError;
+
+        public bool IsEnableSubmit => string.IsNullOrEmpty(_weightErrMess) && string.IsNullOrEmpty(_ageValue)
+            && !string.IsNullOrEmpty(_weightValue) && !string.IsNullOrEmpty(_ageValue);
+
         [RelayCommand]
         void HelpSexDetail(string parameter)
         {
@@ -85,9 +91,13 @@ namespace VeganLife.ViewModels
             if (pattern.Matches(value))
             {
                 _weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
-                if (_weight < 2 && _weight > 635)
+                if (_weight < 2)
                 {
-                    WeightErrMess = "";
+                    WeightErrMess = "Qúa thấp, dường như bạn nhập sai";
+                }
+                else if (_weight > 635)
+                {
+                    WeightErrMess = "Qúa lớn, dường như bạn nhập sai";
                 }
                 else
                 {
@@ -102,7 +112,33 @@ namespace VeganLife.ViewModels
 
         partial void OnAgeValueChanged(string value)
         {
-            Console.WriteLine($"thien==>{_ageValue}");
+            if (string.IsNullOrEmpty(value))
+            {
+                AgeErrMess = null;
+                return;
+            }
+
+            Regex pattern = new(ConstantHelper.Validator.AgeBMIRegexPattern);
+            if (pattern.Matches(value))
+            {
+                _age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+                if (_age <= 1)
+                {
+                    AgeErrMess = "Quá nhỏ, nhập lại";
+                }
+                else if (_age >= 140)
+                {
+                    AgeErrMess = "Quá lớn, dường như bạn nhập sai";
+                }
+                else
+                {
+                    AgeErrMess = null;
+                }
+            }
+            else
+            {
+                AgeErrMess = "Sai định dạng";
+            }
         }
     }
 }
