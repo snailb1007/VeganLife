@@ -17,6 +17,12 @@ namespace VeganLife.ViewModels
         bool _isDisplayedSexDetail;
 
         [ObservableProperty]
+        bool _isMale;
+
+        [ObservableProperty]
+        bool _isEnableSubmit;
+
+        [ObservableProperty]
         string _weightValue;
 
         [ObservableProperty]
@@ -33,9 +39,6 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         string _generalError;
-
-        public bool IsEnableSubmit => string.IsNullOrEmpty(_weightErrMess) && string.IsNullOrEmpty(_ageValue)
-            && !string.IsNullOrEmpty(_weightValue) && !string.IsNullOrEmpty(_ageValue);
 
         [RelayCommand]
         void HelpSexDetail(string parameter)
@@ -71,6 +74,18 @@ namespace VeganLife.ViewModels
             }
         }
 
+        [RelayCommand]
+        void SelectGender(string parameter)
+        {
+            IsMale = !IsMale;
+        }
+
+        [RelayCommand]
+        void CalculateBMI()
+        {
+
+        }
+
         public BMICalculatorViewModel()
         {
             Init();
@@ -84,6 +99,7 @@ namespace VeganLife.ViewModels
             if (string.IsNullOrEmpty(value))
             {
                 WeightErrMess = null;
+                IsEnableSubmit = false;
                 return;
             }
 
@@ -108,6 +124,8 @@ namespace VeganLife.ViewModels
             {
                 WeightErrMess = "Sai định dạng";
             }
+
+            IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
         partial void OnAgeValueChanged(string value)
@@ -115,6 +133,7 @@ namespace VeganLife.ViewModels
             if (string.IsNullOrEmpty(value))
             {
                 AgeErrMess = null;
+                IsEnableSubmit = false;
                 return;
             }
 
@@ -139,6 +158,14 @@ namespace VeganLife.ViewModels
             {
                 AgeErrMess = "Sai định dạng";
             }
+
+            IsEnableSubmit = CheckEnableButtonCalculate();
+        }
+
+        private bool CheckEnableButtonCalculate()
+        {
+            return string.IsNullOrEmpty(_weightErrMess) && string.IsNullOrEmpty(_ageErrMess)
+            && !string.IsNullOrEmpty(_weightValue) && !string.IsNullOrEmpty(_ageValue);
         }
     }
 }
