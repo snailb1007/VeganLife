@@ -1,9 +1,4 @@
 ﻿using Microsoft.Maui.Platform;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VeganLife.Services
 {
@@ -14,5 +9,9 @@ namespace VeganLife.Services
             if (Platform.CurrentActivity.CurrentFocus != null)
                 Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus);
         }
+
+        public bool IsAndroid() => DeviceInfo.Current.Platform == DevicePlatform.Android;
+
+        public bool IsVirtual = DeviceInfo.Current.DeviceType switch { DeviceType.Physical => false, DeviceType.Virtual => true, _ => false };
     }
 }

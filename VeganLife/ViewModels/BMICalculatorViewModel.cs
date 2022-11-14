@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Kotlin.Text;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Services;
 using VeganLife.Views;
@@ -104,7 +104,7 @@ namespace VeganLife.ViewModels
             }
 
             Regex pattern = new (ConstantHelper.Validator.WeightBMIRegexPattern);
-            if (pattern.Matches(value))
+            if (pattern.IsMatch(value))
             {
                 _weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
                 if (_weight < 2)
@@ -138,7 +138,7 @@ namespace VeganLife.ViewModels
             }
 
             Regex pattern = new(ConstantHelper.Validator.AgeBMIRegexPattern);
-            if (pattern.Matches(value))
+            if (pattern.IsMatch(value))
             {
                 _age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
                 if (_age <= 1)
