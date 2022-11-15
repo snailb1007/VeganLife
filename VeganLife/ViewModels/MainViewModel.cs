@@ -28,9 +28,34 @@ namespace VeganLife.ViewModels
             //    ConstantHelper.FirebaseData.FirebaseRealtimeData = new FirebaseRealtimeData();
             //}
 
-            var x = new FirebaseRealtimeData();
+            //var x = new FirebaseRealtimeData();
 
-            Foods = await x.GetFoods();
+            //Foods = await x.GetFoods();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://vnexpress.net/rss/suc-khoe.rss"),
+                //Headers =
+                //{
+                //    { "X-RapidAPI-Key", "SIGN-UP-FOR-KEY" },
+                //    { "X-RapidAPI-Host", "bloomberg-market-and-financial-news.p.rapidapi.com" },
+                //},
+            };
+
+            try
+            {
+                using (var response = await client.SendAsync(request))
+                {
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(body);
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }

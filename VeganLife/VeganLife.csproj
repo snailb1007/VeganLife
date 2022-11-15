@@ -57,6 +57,7 @@
 	  <Folder Include="Data\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="Views\ContentViews\" />
+	  <Folder Include="Views\Templates\" />
 	  <Folder Include="Views\Popups\" />
 	</ItemGroup>
 
