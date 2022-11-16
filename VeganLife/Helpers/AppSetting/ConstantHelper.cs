@@ -12,6 +12,10 @@ namespace VeganLife.Helpers.AppSetting
         public const string Theme_Mode_Auto = "auto";
         public const string Theme_Mode_Fixed = "fixed";
 
+        public static class RssFeedNews
+        {
+            public const string Google_News = "https://news.google.com/rss/search?q=monchayngon&hl=vi&gl=VN&ceid=VN%3Avi";
+        }
 
         public static class FirebaseData
         {

@@ -24,6 +24,12 @@
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate view:SearchPage}" Route="Search" />
         </Tab>
+        <Tab Title="News">
+            <Tab.Icon>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf1ea;" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate view:NewsFeedPage}" Route="News" />
+        </Tab>
         <Tab Title="Cài đặt">
             <Tab.Icon>
                 <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf013;" />

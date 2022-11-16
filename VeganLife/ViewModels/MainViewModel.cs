@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
+using System.Xml;
 using VeganLife.Data.FireBaseData;
+using VeganLife.Data.RssFeedsData;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Models;
 
 namespace VeganLife.ViewModels
@@ -9,6 +13,9 @@ namespace VeganLife.ViewModels
     {
         [ObservableProperty]
         IEnumerable<FoodModel> _foods;
+
+        [ObservableProperty]
+        IEnumerable<Item> _feeds;
 
         [RelayCommand]
         void RefreshFoods()
@@ -23,39 +30,13 @@ namespace VeganLife.ViewModels
 
         public async void LoadData()
         {
-            //if (ConstantHelper.FirebaseData.FirebaseRealtimeData == null)
-            //{
-            //    ConstantHelper.FirebaseData.FirebaseRealtimeData = new FirebaseRealtimeData();
-            //}
-
-            //var x = new FirebaseRealtimeData();
-
-            //Foods = await x.GetFoods();
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://vnexpress.net/rss/suc-khoe.rss"),
-                //Headers =
-                //{
-                //    { "X-RapidAPI-Key", "SIGN-UP-FOR-KEY" },
-                //    { "X-RapidAPI-Host", "bloomberg-market-and-financial-news.p.rapidapi.com" },
-                //},
-            };
-
-            try
-            {
-                using (var response = await client.SendAsync(request))
-                {
-                    response.EnsureSuccessStatusCode();
-                    var body = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(body);
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            var rss = new RssFeedsHttpRequest();
+            var data = await rss.GetRssData(ConstantHelper.RssFeedNews.Google_News);
+            var doc = new XmlDocument();
+            doc.LoadXml(data);
+            var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
+            var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
+            Feeds = baseData.rss.channel.item.ToList();
         }
     }
 }
