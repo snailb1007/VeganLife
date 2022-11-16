@@ -3,11 +3,26 @@
     x:Class="VeganLife.Views.NewsFeedPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="NewsFeedPage">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="NewsFeedPage"
+    xmlns:model="clr-namespace:VeganLife.Models"
+    x:DataType="viewmodel:NewsFeedViewModel">
+    <ScrollView>
+        <RefreshView Command="{Binding RefreshFoodsCommand}">
+            <ListView ItemsSource="{Binding Feeds}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Item">
+                        <ViewCell>
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="3*,*">
+                                <Grid>
+                                    <Label Text="{Binding title.cdatasection}"/>
+                                </Grid>
+                                <Label Grid.Column="1" Text="{Binding description.cdatasection}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RefreshView>
+    </ScrollView>
 </ContentPage>
