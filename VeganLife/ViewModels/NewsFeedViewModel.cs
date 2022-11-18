@@ -1,13 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Xml;
 using VeganLife.Data.RssFeedsData;
+using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models;
 
@@ -15,20 +12,105 @@ namespace VeganLife.ViewModels
 {
     public partial class NewsFeedViewModel : ObservableObject
     {
+        Database _database;
+
         [ObservableProperty]
-        IEnumerable<Item> _feeds;
+        bool _isLoading;
+
+        [ObservableProperty]
+        ObservableCollection<Item> _feeds;
+
+        [ObservableProperty]
+        List<Discovery> _discoveryMenu;
 
         [RelayCommand]
         void RefreshFoods()
         {
+            if (IsLoading)
+                return;
+            Initialize();
+        }
+
+        [RelayCommand]
+        void SelectDiscoveryMenu(object obj)
+        {
+            if (IsLoading)
+                return;
+            IsLoading = true;
+            var itemSelected = obj as Discovery;
+            if (itemSelected != null)
+            {
+                DiscoveryMenu.ForEach(i => i.IsSelected = false);
+                itemSelected.IsSelected = true;
+            }
+
+            IsLoading = false;
         }
 
         public NewsFeedViewModel()
         {
-            LoadData();
+            _database = new Database();
+            Initialize();
         }
 
-        public async void LoadData()
+        private void Initialize()
+        {
+            IsLoading = true;
+            if (Feeds != null && Feeds.Any())
+                Feeds.Clear();
+            if (DiscoveryMenu != null && DiscoveryMenu.Any())
+                DiscoveryMenu.Clear();
+            Feeds = _database.LoadData();
+            InitMenu();
+            IsLoading= false;
+        }
+
+        private void InitMenu()
+        {
+            DiscoveryMenu = new List<Discovery>()
+            {
+                new Discovery(){ ImgSource =  "https://i.imgur.com/anDoRUb.jpg", Title= "Món chay"},
+                new Discovery(){ ImgSource =  "https://i.imgur.com/tH9PSUe.jpg", Title= "Sức khỏe"},
+                new Discovery(){ ImgSource =  "https://i.imgur.com/dlDuKhf.jpgg", Title= "Tín ngưỡng"},
+                new Discovery(){ ImgSource =  "https://i.imgur.com/sySiZVa.jpg", Title= "Sống khỏe"}
+            };
+        }
+    }
+
+    public partial class Discovery : ObservableObject
+    {
+        public string ImgSource { get; set; }
+        public string Title { get; set; }
+
+        [ObservableProperty]
+        bool _isSelected;
+    }
+
+    class Database
+    {
+        private bool _isLoaded;
+        private ObservableCollection<Item> _data = new ObservableCollection<Item>();
+        public ObservableCollection<Item> LoadData()
+        {
+            EnsureLoad();
+            return _data;
+        }
+
+        async void EnsureLoad()
+        {
+            lock(this)
+            {
+                if (_isLoaded)
+                    return;
+                _isLoaded = true;
+            }
+
+            // actual loading
+            var resultList = await LoadGoogleNews();
+            resultList.ForEach(i => _data.Add(i));
+        }
+
+        async Task<List<Item>> LoadGoogleNews()
         {
             var rss = new RssFeedsHttpRequest();
             var data = await rss.GetRssData(ConstantHelper.RssFeedNews.Google_News);
@@ -36,7 +118,9 @@ namespace VeganLife.ViewModels
             doc.LoadXml(data);
             var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
-            Feeds = baseData.rss.channel.item.ToList();
+            var feeds = baseData.rss.channel.item;
+            feeds.ForEach(item => item.description.cdatasection = StringProcessHelper.ExtractImgSrc(item.description?.cdatasection) ?? string.Empty);
+            return feeds;
         }
     }
 }

@@ -3,26 +3,266 @@
     x:Class="VeganLife.Views.NewsFeedPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="NewsFeedPage"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:model="clr-namespace:VeganLife.Models"
-    x:DataType="viewmodel:NewsFeedViewModel">
-    <ScrollView>
-        <RefreshView Command="{Binding RefreshFoodsCommand}">
-            <ListView ItemsSource="{Binding Feeds}">
-                <ListView.ItemTemplate>
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="newsFeedPageRoot"
+    Title="NewsFeedPage"
+    x:DataType="viewmodel:NewsFeedViewModel"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView BackgroundColor="{AppThemeBinding Light=#f8f8f8, Dark=Black}">
+        <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+            <StackLayout Orientation="Horizontal">
+                <Line
+                    Margin="0,0,5,0"
+                    BackgroundColor="{AppThemeBinding Dark=White,
+                                                      Light=Black}"
+                    HeightRequest="{Binding Source={x:Reference lbHottestTitle}, Path=FontSize}"
+                    WidthRequest="5" />
+                <Label
+                    x:Name="lbHottestTitle"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Nóng nhất" />
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="End"
+                    Text="Nhiều hơn"
+                    TextColor="{AppThemeBinding Dark=LightGray,
+                                                Light=Gray}"
+                    VerticalOptions="End" />
+            </StackLayout>
+            <CollectionView ItemsSource="{Binding Feeds}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Item">
-                        <ViewCell>
-                            <Grid ColumnDefinitions="*,*" RowDefinitions="3*,*">
-                                <Grid>
-                                    <Label Text="{Binding title.cdatasection}"/>
-                                </Grid>
-                                <Label Grid.Column="1" Text="{Binding description.cdatasection}"/>
+                        <Frame
+                            Margin="0,0,0,5"
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            BorderColor="Transparent"
+                            CornerRadius="20"
+                            WidthRequest="250">
+                            <Grid
+                                BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
+                                                                  Light=#ffffff}"
+                                RowDefinitions="150,*"
+                                RowSpacing="8">
+                                <Frame
+                                    Margin="5,3,5,0"
+                                    Padding="0"
+                                    BorderColor="Transparent"
+                                    CornerRadius="25">
+                                    <Grid>
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="150"
+                                            Source="{Binding description.cdatasection}"
+                                            WidthRequest="250" />
+                                        <Frame
+                                            Margin="5,5,0,0"
+                                            Padding="5,4"
+                                            BackgroundColor="#3380ef"
+                                            BorderColor="Transparent"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start">
+                                            <Label
+                                                Margin="1"
+                                                FontAttributes="Bold"
+                                                FontSize="10"
+                                                Text="Sức khỏe"
+                                                TextColor="White"
+                                                VerticalOptions="Center" />
+                                        </Frame>
+                                    </Grid>
+                                </Frame>
+                                <VerticalStackLayout
+                                    Grid.Row="1"
+                                    Margin="10,0,10,5"
+                                    Spacing="5">
+                                    <Label
+                                        FontSize="14"
+                                        MaxLines="2"
+                                        Text="{Binding title.cdatasection}" />
+                                    <StackLayout Orientation="Horizontal" Spacing="2">
+                                        <Image Source="trending_fire" WidthRequest="20" />
+                                        <Label
+                                            FontSize="10"
+                                            HorizontalOptions="StartAndExpand"
+                                            Text="Trending"
+                                            TextColor="Gray"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            FontFamily="AwesomeSolid"
+                                            HorizontalOptions="End"
+                                            Text="&#xf017;"
+                                            TextColor="Gray"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="10"
+                                            HorizontalOptions="End"
+                                            Text="2 days"
+                                            TextColor="Gray"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="10"
+                                            HorizontalOptions="StartAndExpand"
+                                            Text="{Binding dccreator.cdatasection}"
+                                            VerticalOptions="Center" />
+                                        <Frame Padding="0" HorizontalOptions="End">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Text="···"
+                                                TextColor="Gray"
+                                                VerticalOptions="Start" />
+                                        </Frame>
+                                    </StackLayout>
+                                </VerticalStackLayout>
                             </Grid>
-                        </ViewCell>
+                        </Frame>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </RefreshView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                WidthRequest="50"
+                Color="Black" />
+            <StackLayout Orientation="Horizontal">
+                <Line
+                    Margin="0,0,5,0"
+                    BackgroundColor="{AppThemeBinding Dark=White,
+                                                      Light=Black}"
+                    HeightRequest="{Binding Source={x:Reference lbHottestTitle}, Path=FontSize}"
+                    VerticalOptions="Center"
+                    WidthRequest="5" />
+                <Label
+                    Margin="0,5,0,0"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="Khám phá"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodel:Discovery">
+                        <VerticalStackLayout Spacing="5">
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                CornerRadius="50"
+                                HorizontalOptions="Center">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid BackgroundColor="Transparent">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        Source="{Binding ImgSource}"
+                                        WidthRequest="90" />
+                                    <Label
+                                        Padding="2,0"
+                                        BackgroundColor="Gray"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        TextColor="White"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                            <Label
+                                FontFamily="AwesomeSolid"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsSelected}"
+                                Text="&#xf0d8;"
+                                TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <RefreshView Margin="0,0,10,0" Command="{Binding RefreshFoodsCommand}">
+                <CollectionView IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}" ItemsSource="{Binding Feeds}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Item">
+                            <Frame Padding="0">
+                                <Grid
+                                    BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
+                                                                      Light=#ffffff}"
+                                    ColumnDefinitions="2*,*"
+                                    ColumnSpacing="10"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Grid Margin="10,0">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="15"
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding title.cdatasection}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </Grid>
+                                    <Frame
+                                        Grid.Column="1"
+                                        Margin="0,5,5,5"
+                                        Padding="0"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        CornerRadius="20"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsClippedToBounds="True"
+                                        VerticalOptions="FillAndExpand"
+                                        WidthRequest="100">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="100"
+                                            HorizontalOptions="FillAndExpand"
+                                            Source="{Binding description.cdatasection}"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="100" />
+                                    </Frame>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Label
+                FontFamily="AwesomeSolid"
+                FontSize="18"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsSelected}"
+                Text="&#xf2f9;"
+                TextColor="Gray" />
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

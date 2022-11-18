@@ -7,7 +7,7 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="True"
+    Shell.NavBarIsVisible="False"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
                                                   Light=White}">
 
