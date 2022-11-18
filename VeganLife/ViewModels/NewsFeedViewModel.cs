@@ -75,6 +75,11 @@ namespace VeganLife.ViewModels
                 new Discovery(){ ImgSource =  "https://i.imgur.com/sySiZVa.jpg", Title= "Sống khỏe"}
             };
         }
+
+        partial void OnDiscoveryMenuChanged(List<Discovery> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public partial class Discovery : ObservableObject
