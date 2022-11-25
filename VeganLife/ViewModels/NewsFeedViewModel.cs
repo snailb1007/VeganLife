@@ -78,7 +78,6 @@ namespace VeganLife.ViewModels
 
         partial void OnDiscoveryMenuChanged(List<Discovery> value)
         {
-            throw new NotImplementedException();
         }
     }
 

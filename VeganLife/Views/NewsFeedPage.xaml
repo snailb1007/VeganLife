@@ -260,7 +260,6 @@
                 FontFamily="AwesomeSolid"
                 FontSize="18"
                 HorizontalOptions="Center"
-                IsVisible="{Binding IsSelected}"
                 Text="&#xf2f9;"
                 TextColor="Gray" />
         </VerticalStackLayout>
