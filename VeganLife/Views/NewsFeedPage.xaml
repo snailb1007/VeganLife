@@ -67,11 +67,11 @@
                                     BorderColor="Transparent"
                                     CornerRadius="25">
                                     <Grid>
-                                        <Image
+                                        <!--<Image
                                             Aspect="AspectFill"
                                             HeightRequest="150"
-                                            Source="{Binding description.cdatasection}"
-                                            WidthRequest="250" />
+                                            Source="{Binding description.}"
+                                            WidthRequest="250" />-->
                                         <Frame
                                             Margin="5,5,0,0"
                                             Padding="5,4"
@@ -96,7 +96,7 @@
                                     <Label
                                         FontSize="14"
                                         MaxLines="2"
-                                        Text="{Binding title.cdatasection}" />
+                                        Text="{Binding title}" />
                                     <StackLayout Orientation="Horizontal" Spacing="2">
                                         <Image Source="trending_fire" WidthRequest="20" />
                                         <Label
@@ -124,7 +124,7 @@
                                             FontAttributes="Bold"
                                             FontSize="10"
                                             HorizontalOptions="StartAndExpand"
-                                            Text="{Binding dccreator.cdatasection}"
+                                            Text="{Binding title}"
                                             VerticalOptions="Center" />
                                         <Frame Padding="0" HorizontalOptions="End">
                                             <Label
@@ -143,11 +143,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <ActivityIndicator
-                IsRunning="{Binding IsLoading}"
-                IsVisible="{Binding IsLoading}"
-                WidthRequest="50"
-                Color="Black" />
             <StackLayout Orientation="Horizontal">
                 <Line
                     Margin="0,0,5,0"
@@ -164,6 +159,11 @@
                     VerticalOptions="Center" />
             </StackLayout>
 
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                WidthRequest="50"
+                Color="Black" />
             <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
@@ -227,7 +227,7 @@
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="WordWrap"
                                             MaxLines="2"
-                                            Text="{Binding title.cdatasection}"
+                                            Text="{Binding title}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </Grid>
@@ -242,13 +242,13 @@
                                         IsClippedToBounds="True"
                                         VerticalOptions="FillAndExpand"
                                         WidthRequest="100">
-                                        <Image
+                                        <!--<Image
                                             Aspect="AspectFill"
                                             HeightRequest="100"
                                             HorizontalOptions="FillAndExpand"
                                             Source="{Binding description.cdatasection}"
                                             VerticalOptions="FillAndExpand"
-                                            WidthRequest="100" />
+                                            WidthRequest="100" />-->
                                     </Frame>
                                 </Grid>
                             </Frame>

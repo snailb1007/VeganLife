@@ -14,7 +14,7 @@ namespace VeganLife.Helpers.AppSetting
 
         public static class RssFeedNews
         {
-            public const string Google_News = "https://rss.app/feeds/7fS2eOsF7lFj2faH.xml";
+            public const string Google_News = "https://news.google.com/rss/search?q=m%C3%B3n%20chay&hl=vi&gl=VN&ceid=VN%3Avi";
         }
 
         public static class FirebaseData

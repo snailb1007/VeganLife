@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Net;
+using System.Text;
 using System.Xml;
 using VeganLife.Data.RssFeedsData;
 using VeganLife.Helpers;
@@ -121,10 +123,27 @@ namespace VeganLife.ViewModels
             var doc = new XmlDocument();
             doc.LoadXml(data);
             var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
+            if (string.IsNullOrEmpty(json))
+                return new List<Item>();
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             var feeds = baseData.rss.channel.item;
-            feeds.ForEach(item => item.description.cdatasection = StringProcessHelper.ExtractImgSrc(item.description?.cdatasection) ?? string.Empty);
+            LoadUrlPreview(feeds.FirstOrDefault().link);
+            //feeds.ForEach(item => item.description.cdatasection = StringProcessHelper.ExtractImgSrc(item.description?.cdatasection) ?? string.Empty);
             return feeds;
+        }
+
+
+        async void LoadUrlPreview(string url)
+        {
+            using (var response = await (new HttpClient()).GetAsync("https://zingnews.vn/ronaldo-noi-gi-sau-khi-bo-dao-nha-bi-loai-post1383984.html"))
+            using (var content = response.Content)
+            {
+                if (content != null && response.IsSuccessStatusCode)
+                {
+                    var buffer = await response.Content.ReadAsStringAsync();
+                    //var responeString = Encoding.UTF8.GetString(buffer);
+                }
+            }
         }
     }
 }
