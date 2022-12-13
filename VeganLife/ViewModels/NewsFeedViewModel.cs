@@ -9,6 +9,7 @@ using VeganLife.Data.RssFeedsData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models;
+using HtmlAgilityPack;
 
 namespace VeganLife.ViewModels
 {
@@ -135,15 +136,30 @@ namespace VeganLife.ViewModels
 
         async void LoadUrlPreview(string url)
         {
-            using (var response = await (new HttpClient()).GetAsync("https://zingnews.vn/ronaldo-noi-gi-sau-khi-bo-dao-nha-bi-loai-post1383984.html"))
-            using (var content = response.Content)
-            {
-                if (content != null && response.IsSuccessStatusCode)
-                {
-                    var buffer = await response.Content.ReadAsStringAsync();
-                    //var responeString = Encoding.UTF8.GetString(buffer);
-                }
-            }
+            HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
+            HtmlDocument htmlDoc = htmlWeb.Load(url);
+            Console.WriteLine("thien==>" + htmlDoc.ParsedText);
+            //using (var response = await (new HttpClient()).GetAsync(url))
+            //using (var content = response.Content)
+            //{
+            //    if (content != null && response.IsSuccessStatusCode)
+            //    {
+            //        var buffer = await response.Content.ReadAsStringAsync();
+            //    }
+            //}
+            //var threadItems = htmlDoc.DocumentNode.SelectNodes("//ul[@id='threads']/li").ToList();
+
+            //var items = new List<object>();
+            //foreach (var item in threadItems)
+            //{
+            //    //Extract các giá trị từ các tag con của tag li
+            //    var linkNode = item.SelectSingleNode(".//a[contains(@class,'title')]");
+            //    var link = linkNode.Attributes["href"].Value;
+            //    var text = linkNode.InnerText;
+            //    var readCount = item.SelectSingleNode(".//div[@class='folTypPost']/ul/li/b").InnerText;
+
+            //    items.Add(new { text, readCount, link });
+            //}
         }
     }
 }
