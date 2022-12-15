@@ -255,6 +255,9 @@
                                     <Label FontFamily="AwesomeSolid"
                                             FontSize="15"
                                             Text="&#xF059F;"/>
+                                    <Label FontFamily="AwesomeSolid"
+                                            FontSize="15"
+                                            Text="&#xF09FE;"/>
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>
