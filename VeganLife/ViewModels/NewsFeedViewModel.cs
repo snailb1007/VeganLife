@@ -128,25 +128,26 @@ namespace VeganLife.ViewModels
                 return new List<Item>();
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             var feeds = baseData.rss.channel.item;
-            LoadUrlPreview(feeds.FirstOrDefault().link);
-            //feeds.ForEach(item => item.description.cdatasection = StringProcessHelper.ExtractImgSrc(item.description?.cdatasection) ?? string.Empty);
+            foreach (var item in feeds)
+            {
+                var image = LoadUrlPreview(item.link);
+            }
             return feeds;
         }
 
 
-        async void LoadUrlPreview(string url)
+        string LoadUrlPreview(string url)
         {
             HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
             HtmlDocument htmlDoc = htmlWeb.Load(url);
             Console.WriteLine("thien==>" + htmlDoc.ParsedText);
-            //using (var response = await (new HttpClient()).GetAsync(url))
-            //using (var content = response.Content)
-            //{
-            //    if (content != null && response.IsSuccessStatusCode)
-            //    {
-            //        var buffer = await response.Content.ReadAsStringAsync();
-            //    }
-            //}
+            string result = string.Empty;
+            if (htmlDoc == null) return string.Empty;
+            if (string.IsNullOrEmpty(htmlDoc.ParsedText)) return string.Empty;
+            if (htmlDoc.ParsedText.Contains("�")) return string.Empty;
+
+            return result;
+
             //var threadItems = htmlDoc.DocumentNode.SelectNodes("//ul[@id='threads']/li").ToList();
 
             //var items = new List<object>();

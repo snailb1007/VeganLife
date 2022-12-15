@@ -14,25 +14,25 @@
     <TabBar>
         <Tab Title="{x:Static translate:AppResources.app_common_homeTab}">
             <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf015;" />
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF02DC;" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="Home" />
         </Tab>
         <Tab Title="Tìm kiếm">
             <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf002;" />
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF070F;" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate view:SearchPage}" Route="Search" />
         </Tab>
         <Tab Title="News">
             <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf1ea;" />
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF0395;" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate view:NewsFeedPage}" Route="News" />
         </Tab>
         <Tab Title="Cài đặt">
             <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf013;" />
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF0493;" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate view:SettingPage}" Route="Setting" />
         </Tab>

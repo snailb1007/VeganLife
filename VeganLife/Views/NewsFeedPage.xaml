@@ -214,14 +214,15 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Item">
                             <Frame Padding="0">
-                                <Grid
+                                <StackLayout>
+                                    <Grid
                                     BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
                                                                       Light=#ffffff}"
                                     ColumnDefinitions="2*,*"
                                     ColumnSpacing="10"
                                     VerticalOptions="CenterAndExpand">
-                                    <Grid Margin="10,0">
-                                        <Label
+                                        <Grid Margin="5,0">
+                                            <Label
                                             FontAttributes="Bold"
                                             FontSize="15"
                                             HorizontalTextAlignment="Start"
@@ -230,27 +231,31 @@
                                             Text="{Binding title}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </Grid>
-                                    <Frame
+                                        </Grid>
+                                        <Frame
                                         Grid.Column="1"
                                         Margin="0,5,5,5"
                                         Padding="0"
-                                        BackgroundColor="Transparent"
+                                        BackgroundColor="Aqua"
                                         BorderColor="Transparent"
                                         CornerRadius="20"
                                         HorizontalOptions="FillAndExpand"
                                         IsClippedToBounds="True"
                                         VerticalOptions="FillAndExpand"
                                         WidthRequest="100">
-                                        <!--<Image
+                                            <!--<Image
                                             Aspect="AspectFill"
                                             HeightRequest="100"
                                             HorizontalOptions="FillAndExpand"
                                             Source="{Binding description.cdatasection}"
                                             VerticalOptions="FillAndExpand"
                                             WidthRequest="100" />-->
-                                    </Frame>
-                                </Grid>
+                                        </Frame>
+                                    </Grid>
+                                    <Label FontFamily="AwesomeSolid"
+                                            FontSize="15"
+                                            Text="&#xF059F;"/>
+                                </StackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

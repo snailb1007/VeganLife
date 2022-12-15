@@ -48,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
+	  <None Remove="Resources\Fonts\materialdesignicons-webfont.ttf" />
 	  <None Remove="Resources\Images\loading_circle.gif" />
 	  <None Remove="Resources\Images\trending_fire.png" />
 	</ItemGroup>
