@@ -10,12 +10,11 @@ public partial class SettingPage : ContentPage
 		BindingContext = vm;
 	}
 
-	private void Switch_Toggled(object sender, ToggledEventArgs e)
+	private SettingViewModel _viewModel => BindingContext as SettingViewModel;
+
+    private void Switch_Toggled(object sender, ToggledEventArgs e)
 	{
 		var x = sender as Switch;
-		if (x != null && x.IsToggled)
-			App.Current.UserAppTheme = AppTheme.Dark;
-		else
-            App.Current.UserAppTheme = AppTheme.Light;
+		_viewModel.SwitchThemeCommand.Execute(x);
     }
 }

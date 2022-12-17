@@ -4,33 +4,37 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:VeganLife"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
+                                                  Light=White}">
 
     <TabBar>
-        <Tab Title="Trang chủ">
+        <Tab Title="{x:Static translate:AppResources.app_common_homeTab}">
             <Tab.Icon>
-                <FontImageSource Glyph="&#xf015;"  FontFamily="AwesomeSolid"/>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF02DC;" />
             </Tab.Icon>
-            <ShellContent
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="Home" />
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="Home" />
         </Tab>
         <Tab Title="Tìm kiếm">
             <Tab.Icon>
-                <FontImageSource Glyph="&#xf002;"  FontFamily="AwesomeSolid"/>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF070F;" />
             </Tab.Icon>
-            <ShellContent
-                ContentTemplate="{DataTemplate view:SearchPage}"
-                Route="Search" />
+            <ShellContent ContentTemplate="{DataTemplate view:SearchPage}" Route="Search" />
+        </Tab>
+        <Tab Title="News">
+            <Tab.Icon>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF0395;" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate view:NewsFeedPage}" Route="News" />
         </Tab>
         <Tab Title="Cài đặt">
             <Tab.Icon>
-                <FontImageSource Glyph="&#xf013;"  FontFamily="AwesomeSolid"/>
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF0493;" />
             </Tab.Icon>
-            <ShellContent
-                ContentTemplate="{DataTemplate view:SettingPage}"
-                Route="Setting" />
+            <ShellContent ContentTemplate="{DataTemplate view:SettingPage}" Route="Setting" />
         </Tab>
     </TabBar>
 </Shell>
