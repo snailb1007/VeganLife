@@ -207,7 +207,11 @@
             </CollectionView>
 
             <RefreshView Margin="0,0,10,0" Command="{Binding RefreshFoodsCommand}">
-                <CollectionView IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}" ItemsSource="{Binding Feeds}">
+                <CollectionView
+                    IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}"
+                    ItemsSource="{Binding Feeds}"
+                    RemainingItemsThreshold="2"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemCommand}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
@@ -216,33 +220,33 @@
                             <Frame Padding="0">
                                 <StackLayout>
                                     <Grid
-                                    BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
-                                                                      Light=#ffffff}"
-                                    ColumnDefinitions="2*,*"
-                                    ColumnSpacing="10"
-                                    VerticalOptions="CenterAndExpand">
+                                        BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
+                                                                          Light=#ffffff}"
+                                        ColumnDefinitions="2*,*"
+                                        ColumnSpacing="10"
+                                        VerticalOptions="CenterAndExpand">
                                         <Grid Margin="5,0">
                                             <Label
-                                            FontAttributes="Bold"
-                                            FontSize="15"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            MaxLines="2"
-                                            Text="{Binding title}"
-                                            VerticalOptions="Center"
-                                            VerticalTextAlignment="Center" />
+                                                FontAttributes="Bold"
+                                                FontSize="15"
+                                                HorizontalTextAlignment="Start"
+                                                LineBreakMode="WordWrap"
+                                                MaxLines="2"
+                                                Text="{Binding title}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
                                         </Grid>
                                         <Frame
-                                        Grid.Column="1"
-                                        Margin="0,5,5,5"
-                                        Padding="0"
-                                        BackgroundColor="Aqua"
-                                        BorderColor="Transparent"
-                                        CornerRadius="20"
-                                        HorizontalOptions="FillAndExpand"
-                                        IsClippedToBounds="True"
-                                        VerticalOptions="FillAndExpand"
-                                        WidthRequest="100">
+                                            Grid.Column="1"
+                                            Margin="0,5,5,5"
+                                            Padding="0"
+                                            BackgroundColor="Aqua"
+                                            BorderColor="Transparent"
+                                            CornerRadius="20"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsClippedToBounds="True"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="100">
                                             <!--<Image
                                             Aspect="AspectFill"
                                             HeightRequest="100"
@@ -252,12 +256,19 @@
                                             WidthRequest="100" />-->
                                         </Frame>
                                     </Grid>
-                                    <Label FontFamily="AwesomeSolid"
-                                            FontSize="15"
-                                            Text="&#xF059F;"/>
-                                    <Label FontFamily="AwesomeSolid"
-                                            FontSize="15"
-                                            Text="&#xF09FE;"/>
+                                    <Label
+                                        FontFamily="AwesomeSolid"
+                                        FontSize="15"
+                                        Text="&#xF059F;">
+                                        <Label.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CanOpenInApp}"
+                                                TargetType="Label"
+                                                Value="true">
+                                                <Setter Property="Text" Value="&#xF09FE;" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>

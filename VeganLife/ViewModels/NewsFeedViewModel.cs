@@ -10,18 +10,20 @@ using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace VeganLife.ViewModels
 {
     public partial class NewsFeedViewModel : ObservableObject
     {
         Database _database;
+        ObservableCollection<Item> _allVeganFoodFeeds;
 
         [ObservableProperty]
         bool _isLoading;
 
         [ObservableProperty]
-        ObservableCollection<Item> _feeds;
+        List<Item> _feeds;
 
         [ObservableProperty]
         List<Discovery> _discoveryMenu;
@@ -50,6 +52,16 @@ namespace VeganLife.ViewModels
             IsLoading = false;
         }
 
+        bool _isLoadingMoreItem = false;
+        [RelayCommand]
+        void LoadMoreItem()
+        {
+            if (_isLoadingMoreItem) return;
+            _isLoadingMoreItem = true;
+
+            _isLoadingMoreItem = false;
+        }
+
         public NewsFeedViewModel()
         {
             _database = new Database();
@@ -63,9 +75,40 @@ namespace VeganLife.ViewModels
                 Feeds.Clear();
             if (DiscoveryMenu != null && DiscoveryMenu.Any())
                 DiscoveryMenu.Clear();
-            Feeds = _database.LoadData();
+            _allVeganFoodFeeds = _database.LoadData();
             InitMenu();
+            _ = DisplayFeeds(false);
             IsLoading= false;
+        }
+
+        partial void OnDiscoveryMenuChanged(List<Discovery> value)
+        {
+        }
+
+        byte _currentNumberOfItem = 0;
+        TaskCompletionSource<bool> _taskLoadingFeeds;
+        async Task DisplayFeeds(bool isLoadMore)
+        {
+            if (_taskLoadingFeeds != null && !_taskLoadingFeeds.Task.IsCompleted)
+                await _taskLoadingFeeds.Task;
+            _taskLoadingFeeds = new TaskCompletionSource<bool>();
+            if (isLoadMore)
+            {
+
+            }
+            else
+            {
+                _currentNumberOfItem = 20;
+                Feeds = new List<Item>();
+                foreach (var item in _allVeganFoodFeeds.Take(20))
+                {
+                    if (string.IsNullOrEmpty(LoadUrlPreview(item.link)))
+                        item.CanOpenInApp = false;
+                    else
+                        item.CanOpenInApp = true;
+                    Feeds.Add(item);
+                }
+            }
         }
 
         private void InitMenu()
@@ -79,8 +122,23 @@ namespace VeganLife.ViewModels
             };
         }
 
-        partial void OnDiscoveryMenuChanged(List<Discovery> value)
+        string LoadUrlPreview(string url)
         {
+            HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
+            HtmlDocument htmlDoc = htmlWeb.Load(url);
+            string result = htmlDoc.ParsedText ?? string.Empty;
+            if (htmlDoc.ParsedText.Contains("�"))
+            {
+                result = HttpUtility.HtmlDecode(result);
+                return string.Empty;
+            }
+
+            return result;
+        }
+
+        bool CheckEncode(string url)
+        {
+            return true;
         }
     }
 
@@ -128,39 +186,7 @@ namespace VeganLife.ViewModels
                 return new List<Item>();
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             var feeds = baseData.rss.channel.item;
-            foreach (var item in feeds)
-            {
-                var image = LoadUrlPreview(item.link);
-            }
             return feeds;
-        }
-
-
-        string LoadUrlPreview(string url)
-        {
-            HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
-            HtmlDocument htmlDoc = htmlWeb.Load(url);
-            Console.WriteLine("thien==>" + htmlDoc.ParsedText);
-            string result = string.Empty;
-            if (htmlDoc == null) return string.Empty;
-            if (string.IsNullOrEmpty(htmlDoc.ParsedText)) return string.Empty;
-            if (htmlDoc.ParsedText.Contains("�")) return string.Empty;
-
-            return result;
-
-            //var threadItems = htmlDoc.DocumentNode.SelectNodes("//ul[@id='threads']/li").ToList();
-
-            //var items = new List<object>();
-            //foreach (var item in threadItems)
-            //{
-            //    //Extract các giá trị từ các tag con của tag li
-            //    var linkNode = item.SelectSingleNode(".//a[contains(@class,'title')]");
-            //    var link = linkNode.Attributes["href"].Value;
-            //    var text = linkNode.InnerText;
-            //    var readCount = item.SelectSingleNode(".//div[@class='folTypPost']/ul/li/b").InnerText;
-
-            //    items.Add(new { text, readCount, link });
-            //}
         }
     }
 }
