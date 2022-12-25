@@ -37,7 +37,7 @@ namespace VeganLife.Models
         public string pubDate { get; set; }
         public string description { get; set; }
         public Source source { get; set; }
-        public bool CanOpenInApp { get; set; }
+        public string ImageTitleUri { get; set; }
     }
 
     public class Rss

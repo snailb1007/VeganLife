@@ -43,12 +43,12 @@
                                                 Light=Gray}"
                     VerticalOptions="End" />
             </StackLayout>
-            <CollectionView ItemsSource="{Binding Feeds}">
+            <CollectionView ItemsSource="{Binding HotFeeds}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Item">
+                    <DataTemplate x:DataType="viewmodel:HotItem">
                         <Frame
                             Margin="0,0,0,5"
                             Padding="0"
@@ -67,11 +67,11 @@
                                     BorderColor="Transparent"
                                     CornerRadius="25">
                                     <Grid>
-                                        <!--<Image
+                                        <Image
                                             Aspect="AspectFill"
                                             HeightRequest="150"
-                                            Source="{Binding description.}"
-                                            WidthRequest="250" />-->
+                                            Source="{Binding ImageTitleUri}"
+                                            WidthRequest="250" />
                                         <Frame
                                             Margin="5,5,0,0"
                                             Padding="5,4"
@@ -83,7 +83,7 @@
                                                 Margin="1"
                                                 FontAttributes="Bold"
                                                 FontSize="10"
-                                                Text="Sức khỏe"
+                                                Text="{Binding Topic}"
                                                 TextColor="White"
                                                 VerticalOptions="Center" />
                                         </Frame>
@@ -200,7 +200,7 @@
                                 HorizontalOptions="Center"
                                 IsVisible="{Binding IsSelected}"
                                 Text="&#xf0d8;"
-                                TextColor="Gray" />
+                                TextColor="Red" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -240,20 +240,19 @@
                                             Grid.Column="1"
                                             Margin="0,5,5,5"
                                             Padding="0"
-                                            BackgroundColor="Aqua"
                                             BorderColor="Transparent"
                                             CornerRadius="20"
                                             HorizontalOptions="FillAndExpand"
                                             IsClippedToBounds="True"
                                             VerticalOptions="FillAndExpand"
                                             WidthRequest="100">
-                                            <!--<Image
-                                            Aspect="AspectFill"
-                                            HeightRequest="100"
-                                            HorizontalOptions="FillAndExpand"
-                                            Source="{Binding description.cdatasection}"
-                                            VerticalOptions="FillAndExpand"
-                                            WidthRequest="100" />-->
+                                            <Image
+                                                Aspect="Fill"
+                                                HeightRequest="70"
+                                                HorizontalOptions="FillAndExpand"
+                                                Source="{Binding ImageTitleUri}"
+                                                VerticalOptions="FillAndExpand"
+                                                WidthRequest="100" />
                                         </Frame>
                                     </Grid>
                                     <Label
@@ -275,12 +274,17 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <Label
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                WidthRequest="50"
+                Color="Black" />
+            <!--<Label
                 FontFamily="AwesomeSolid"
                 FontSize="18"
                 HorizontalOptions="Center"
                 Text="&#xf2f9;"
-                TextColor="Gray" />
+                TextColor="Gray" />-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

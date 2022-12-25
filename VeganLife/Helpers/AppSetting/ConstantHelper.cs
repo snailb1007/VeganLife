@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Firebase.Database;
-using VeganLife.Data.FireBaseData;
+﻿using VeganLife.Data.FireBaseData;
 
 namespace VeganLife.Helpers.AppSetting
 {
@@ -14,7 +12,10 @@ namespace VeganLife.Helpers.AppSetting
 
         public static class RssFeedNews
         {
-            public const string Google_News = "https://news.google.com/rss/search?q=m%C3%B3n%20chay&hl=vi&gl=VN&ceid=VN%3Avi";
+            public const string Google_News_VeganFoods = "https://news.google.com/rss/search?q=m%C3%B3n%20chay&hl=vi&gl=VN&ceid=VN%3Avi";
+            public const string Google_News_VeganHealthy = "https://news.google.com/rss/search?q=s%C6%B0c%20kh%E1%BB%8Fe%20thu%E1%BA%A7n%20chay&hl=vi&gl=VN&ceid=VN%3Avi";
+            public const string Google_News_Religion = "https://news.google.com/rss/search?q=%C4%91%E1%BA%A1o%20ph%E1%BA%ADt&hl=vi&gl=VN&ceid=VN%3Avi";
+            public const string Google_News_LiveStrong = "https://news.google.com/rss/search?q=t%E1%BA%ADp%20luy%E1%BB%87n%20s%E1%BB%91ng%20kh%E1%BB%8Fe&hl=vi&gl=VN&ceid=VN%3Avi";
         }
 
         public static class FirebaseData
