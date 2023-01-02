@@ -129,4 +129,46 @@
 	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
         <value>Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính</value>
     </data>
+	<data name="appSet_dateTime_1s_ago" xml:space="preserve">
+        <value>vừa xong</value>
+    </data>
+	<data name="appSet_dateTime_manyS_ago" xml:space="preserve">
+        <value> giây trước</value>
+    </data>
+	<data name="appSet_dateTime_1m_ago" xml:space="preserve">
+        <value>phút trước</value>
+    </data>
+	<data name="appSet_dateTime_manyM_ago" xml:space="preserve">
+        <value> phút trước</value>
+    </data>
+	<data name="appSet_dateTime_1h_ago" xml:space="preserve">
+        <value>giờ trước</value>
+    </data>
+	<data name="appSet_dateTime_manyH_ago" xml:space="preserve">
+        <value> giờ trước</value>
+    </data>
+	<data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
+        <value>hôm qua</value>
+    </data>
+	<data name="appSet_dateTime_days_ago" xml:space="preserve">
+        <value> ngày trước</value>
+    </data>
+	<data name="appSet_dateTime_1Month_ago" xml:space="preserve">
+        <value>tháng trước</value>
+    </data>
+	<data name="appSet_dateTime_months_ago" xml:space="preserve">
+        <value> tháng trước</value>
+    </data>
+	<data name="veganFood_feedPage" xml:space="preserve">
+        <value>Món chay</value>
+    </data>
+	<data name="healthy_feedPage" xml:space="preserve">
+        <value>Sức khỏe</value>
+    </data>
+	<data name="religion_feedPage" xml:space="preserve">
+        <value>Tín ngưỡng</value>
+    </data>
+	<data name="liveStrong_feedPage" xml:space="preserve">
+        <value>Sống khỏe</value>
+    </data>
 </root>

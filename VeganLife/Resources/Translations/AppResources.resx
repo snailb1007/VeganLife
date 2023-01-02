@@ -129,4 +129,46 @@
 	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
         <value>N/A</value>
     </data>
+	<data name="appSet_dateTime_1s_ago" xml:space="preserve">
+        <value>one second ago</value>
+    </data>
+	<data name="appSet_dateTime_manyS_ago" xml:space="preserve">
+        <value> seconds ago</value>
+    </data>
+	<data name="appSet_dateTime_1m_ago" xml:space="preserve">
+        <value>a minute ago</value>
+    </data>
+	<data name="appSet_dateTime_manyM_ago" xml:space="preserve">
+        <value> minutes ago</value>
+    </data>
+	<data name="appSet_dateTime_1h_ago" xml:space="preserve">
+        <value>an hour ago</value>
+    </data>
+	<data name="appSet_dateTime_manyH_ago" xml:space="preserve">
+        <value> hours ago</value>
+    </data>
+	<data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
+        <value>yesterday</value>
+    </data>
+	<data name="appSet_dateTime_days_ago" xml:space="preserve">
+        <value> days ago</value>
+    </data>
+	<data name="appSet_dateTime_1Month_ago" xml:space="preserve">
+        <value>one month ago</value>
+    </data>
+	<data name="appSet_dateTime_months_ago" xml:space="preserve">
+        <value> months ago</value>
+    </data>
+	<data name="veganFood_feedPage" xml:space="preserve">
+        <value>Vegan food</value>
+    </data>
+	<data name="healthy_feedPage" xml:space="preserve">
+        <value>Healthy</value>
+    </data>
+	<data name="religion_feedPage" xml:space="preserve">
+        <value>Religion</value>
+    </data>
+	<data name="liveStrong_feedPage" xml:space="preserve">
+        <value>Strong</value>
+    </data>
 </root>

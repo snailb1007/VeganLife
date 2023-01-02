@@ -88,11 +88,110 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to an hour ago.
+        /// </summary>
+        internal static string appSet_dateTime_1h_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_1h_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a minute ago.
+        /// </summary>
+        internal static string appSet_dateTime_1m_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_1m_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to one month ago.
+        /// </summary>
+        internal static string appSet_dateTime_1Month_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_1Month_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to one second ago.
+        /// </summary>
+        internal static string appSet_dateTime_1s_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_1s_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  days ago.
+        /// </summary>
+        internal static string appSet_dateTime_days_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_days_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  hours ago.
+        /// </summary>
+        internal static string appSet_dateTime_manyH_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_manyH_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  minutes ago.
+        /// </summary>
+        internal static string appSet_dateTime_manyM_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_manyM_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  seconds ago.
+        /// </summary>
+        internal static string appSet_dateTime_manyS_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_manyS_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  months ago.
+        /// </summary>
+        internal static string appSet_dateTime_months_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_months_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yesterday.
+        /// </summary>
+        internal static string appSet_dateTime_yesterday_ago {
+            get {
+                return ResourceManager.GetString("appSet_dateTime_yesterday_ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         internal static string darkMode_option_settingTab {
             get {
                 return ResourceManager.GetString("darkMode_option_settingTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Healthy.
+        /// </summary>
+        internal static string healthy_feedPage {
+            get {
+                return ResourceManager.GetString("healthy_feedPage", resourceCulture);
             }
         }
         
@@ -115,11 +214,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Strong.
+        /// </summary>
+        internal static string liveStrong_feedPage {
+            get {
+                return ResourceManager.GetString("liveStrong_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options setting.
         /// </summary>
         internal static string optionTitle_settingTab {
             get {
                 return ResourceManager.GetString("optionTitle_settingTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Religion.
+        /// </summary>
+        internal static string religion_feedPage {
+            get {
+                return ResourceManager.GetString("religion_feedPage", resourceCulture);
             }
         }
         
@@ -147,6 +264,15 @@ namespace VeganLife.Resources.Translations {
         internal static string title_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("title_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vegan food.
+        /// </summary>
+        internal static string veganFood_feedPage {
+            get {
+                return ResourceManager.GetString("veganFood_feedPage", resourceCulture);
             }
         }
     }

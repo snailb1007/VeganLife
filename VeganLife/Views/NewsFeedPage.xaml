@@ -108,14 +108,14 @@
                                         <Label
                                             FontFamily="AwesomeSolid"
                                             HorizontalOptions="End"
-                                            Text="&#xf017;"
+                                            Text="&#xF051F;"
                                             TextColor="Gray"
                                             VerticalOptions="End" />
                                         <Label
                                             Margin="5,0,0,0"
                                             FontSize="10"
                                             HorizontalOptions="End"
-                                            Text="2 days"
+                                            Text="{Binding TimeAgoDisplay}"
                                             TextColor="Gray"
                                             VerticalOptions="End" />
                                     </StackLayout>
@@ -124,7 +124,7 @@
                                             FontAttributes="Bold"
                                             FontSize="10"
                                             HorizontalOptions="StartAndExpand"
-                                            Text="{Binding title}"
+                                            Text="{Binding source.text}"
                                             VerticalOptions="Center" />
                                         <Frame Padding="0" HorizontalOptions="End">
                                             <Label
@@ -179,6 +179,11 @@
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame" Binding="{Binding IsSelected}" Value="false">
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
                                 <Grid BackgroundColor="Transparent">
                                     <Image
                                         Aspect="AspectFill"
@@ -199,7 +204,7 @@
                                 FontSize="18"
                                 HorizontalOptions="Center"
                                 IsVisible="{Binding IsSelected}"
-                                Text="&#xf0d8;"
+                                Text="&#xF043E;"
                                 TextColor="Red" />
                         </VerticalStackLayout>
                     </DataTemplate>
@@ -217,15 +222,14 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Item">
-                            <Frame Padding="0">
+                            <Frame Padding="2" BackgroundColor="{AppThemeBinding Dark=#2b2d2e, Light=#ffffff}">
                                 <StackLayout>
                                     <Grid
-                                        BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
-                                                                          Light=#ffffff}"
-                                        ColumnDefinitions="2*,*"
+                                        BackgroundColor="Transparent"
+                                        ColumnDefinitions="9*,*"
                                         ColumnSpacing="10"
                                         VerticalOptions="CenterAndExpand">
-                                        <Grid Margin="5,0">
+                                        <VerticalStackLayout Margin="5,0" Spacing="5">
                                             <Label
                                                 FontAttributes="Bold"
                                                 FontSize="15"
@@ -235,39 +239,23 @@
                                                 Text="{Binding title}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
-                                        </Grid>
-                                        <Frame
+                                            <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand">
+                                                <Label
+                                                    FontSize="12"
+                                                    Text="{Binding TimeAgoDisplay}"
+                                                    TextColor="Gray" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                        <Label
                                             Grid.Column="1"
-                                            Margin="0,5,5,5"
-                                            Padding="0"
-                                            BorderColor="Transparent"
-                                            CornerRadius="20"
-                                            HorizontalOptions="FillAndExpand"
-                                            IsClippedToBounds="True"
-                                            VerticalOptions="FillAndExpand"
-                                            WidthRequest="100">
-                                            <Image
-                                                Aspect="Fill"
-                                                HeightRequest="70"
-                                                HorizontalOptions="FillAndExpand"
-                                                Source="{Binding ImageTitleUri}"
-                                                VerticalOptions="FillAndExpand"
-                                                WidthRequest="100" />
-                                        </Frame>
+                                            FontFamily="AwesomeSolid"
+                                            FontSize="30"
+                                            HorizontalOptions="Center"
+                                            ScaleY="1.2"
+                                            Text="&#xF0142;"
+                                            TextColor="Gray"
+                                            VerticalOptions="Center" />
                                     </Grid>
-                                    <Label
-                                        FontFamily="AwesomeSolid"
-                                        FontSize="15"
-                                        Text="&#xF059F;">
-                                        <Label.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding CanOpenInApp}"
-                                                TargetType="Label"
-                                                Value="true">
-                                                <Setter Property="Text" Value="&#xF09FE;" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>

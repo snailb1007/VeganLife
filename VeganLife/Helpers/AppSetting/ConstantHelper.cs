@@ -29,6 +29,11 @@ namespace VeganLife.Helpers.AppSetting
             public static bool IsDarkMode { get; set; }
         }
 
+        public static class AppSetting
+        {
+            public static bool IsVietnameseLang { get; set;}
+        }
+
         public static class Validator
         {
             public const string WeightBMIRegexPattern = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";

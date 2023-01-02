@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using VeganLife.Helpers;
 
 namespace VeganLife.Models
 {
@@ -37,7 +38,11 @@ namespace VeganLife.Models
         public string pubDate { get; set; }
         public string description { get; set; }
         public Source source { get; set; }
+
+        // custom
         public string ImageTitleUri { get; set; }
+        public DateTime LocalTimePosted => DateTimeHelper.GetDateTime(pubDate);
+        public string TimeAgoDisplay => DateTimeHelper.CalcuteTimeAgo(LocalTimePosted);
     }
 
     public class Rss

@@ -19,6 +19,7 @@ public partial class App : Application
 
     private void SetupLanguage()
     {
+        ConstantHelper.AppSetting.IsVietnameseLang = true;
         var culture = new CultureInfo(ConstantHelper.Language_Vietnam);
         CultureInfo.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = culture;
