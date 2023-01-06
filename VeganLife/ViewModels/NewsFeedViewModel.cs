@@ -2,11 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
-using System.Collections.ObjectModel;
 using System.Text;
 using System.Xml;
 using VeganLife.Data.RssFeedsData;
-using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models;
 using VeganLife.Resources.Translations;
@@ -51,29 +49,36 @@ namespace VeganLife.ViewModels
                 return;
             IsLoading = true;
             var itemSelected = obj as Discovery;
-            if (itemSelected != null)
+            if (itemSelected == null || DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == itemSelected)
             {
-                if (itemSelected.Title.Equals(AppResources.veganFood_feedPage))
-                {
-                    Feeds = _allVeganFoodFeeds;
-                }
-                else if (itemSelected.Title.Equals(AppResources.healthy_feedPage))
-                {
-                    Feeds = _allVeganHealthyFeeds;
-                }
-                else if (itemSelected.Title.Equals(AppResources.religion_feedPage))
-                {
-                    Feeds = _allReligionFeeds;
-                }
-                else if (itemSelected.Title.Equals(AppResources.liveStrong_feedPage))
-                {
-                    Feeds = _allLiveStrongFeeds;
-                }
-
-                DiscoveryMenu.ForEach(i => i.IsSelected = false);
-                itemSelected.IsSelected = true;
+                IsLoading = false;
+                return;
             }
 
+            if (itemSelected.Title.Equals(AppResources.veganFood_feedPage))
+            {
+                Feeds.Clear();
+                _allVeganFoodFeeds.ForEach(i => Feeds.Add(i));
+            }
+            else if (itemSelected.Title.Equals(AppResources.healthy_feedPage))
+            {
+                Feeds = _allVeganHealthyFeeds;
+            }
+            else if (itemSelected.Title.Equals(AppResources.religion_feedPage))
+            {
+                Feeds = _allReligionFeeds;
+            }
+            else if (itemSelected.Title.Equals(AppResources.liveStrong_feedPage))
+            {
+                Feeds = _allLiveStrongFeeds;
+            }
+
+            foreach (var item in DiscoveryMenu)
+            {
+                item.IsSelected = false;
+            }
+
+            itemSelected.IsSelected = true;
             IsLoading = false;
         }
 
@@ -169,7 +174,7 @@ namespace VeganLife.ViewModels
                 HotItem itemHotFeeds = new HotItem();
                 string imgLinkHotItem = string.Empty;
 
-                switch(uri)
+                switch (uri)
                 {
                     case ConstantHelper.RssFeedNews.Google_News_VeganFoods:
                         Feeds.AddRange(_allVeganFoodFeeds);
@@ -212,10 +217,10 @@ namespace VeganLife.ViewModels
         {
             DiscoveryMenu = new List<Discovery>()
             {
-                new Discovery(){ ImgSource =  "https://i.imgur.com/anDoRUb.jpg", Title= AppResources.veganFood_feedPage, IsSelected = true},
-                new Discovery(){ ImgSource =  "https://i.imgur.com/tH9PSUe.jpg", Title= AppResources.healthy_feedPage, IsSelected = false},
-                new Discovery(){ ImgSource =  "https://i.imgur.com/dlDuKhf.jpgg", Title= AppResources.religion_feedPage, IsSelected = false},
-                new Discovery(){ ImgSource =  "https://i.imgur.com/sySiZVa.jpg", Title= AppResources.liveStrong_feedPage, IsSelected = false}
+                new Discovery(){ ImgSource = "https://i.imgur.com/anDoRUb.jpg", Title= AppResources.veganFood_feedPage, IsSelected = true},
+                new Discovery(){ ImgSource = "https://i.imgur.com/tH9PSUe.jpg", Title= AppResources.healthy_feedPage, IsSelected = false},
+                new Discovery(){ ImgSource = "https://i.imgur.com/dlDuKhf.jpgg", Title= AppResources.religion_feedPage, IsSelected = false},
+                new Discovery(){ ImgSource = "https://i.imgur.com/sySiZVa.jpg", Title= AppResources.liveStrong_feedPage, IsSelected = false}
             };
         }
 
@@ -267,7 +272,7 @@ namespace VeganLife.ViewModels
 
             //List<Task> tasks = new List<Task>();
             // actual loading
-            foreach(var item in uri)
+            foreach (var item in uri)
             {
                 await LoadGoogleNews(item);
             }
@@ -305,11 +310,11 @@ namespace VeganLife.ViewModels
         public HotItem(Item item, string topic)
         {
             title = item.title;
-            link= item.link;
-            guid= item.guid;
-            pubDate= item.pubDate;
-            description= item.description;
-            source= item.source;
+            link = item.link;
+            guid = item.guid;
+            pubDate = item.pubDate;
+            description = item.description;
+            source = item.source;
             ImageTitleUri = item.ImageTitleUri;
             Topic = topic;
         }
