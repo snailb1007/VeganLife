@@ -13,6 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
+            <converter:ReverseConverter x:Key="ReverseConverter" />
             <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="Transparent" />
                 <Setter Property="Padding" Value="0" />
@@ -22,6 +23,49 @@
     </ContentPage.Resources>
     <ScrollView BackgroundColor="{AppThemeBinding Light=#f8f8f8, Dark=Black}">
         <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+            <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodel:Discovery">
+                        <VerticalStackLayout Spacing="5">
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                CornerRadius="50"
+                                HorizontalOptions="Center"
+                                Opacity="{Binding Opacity}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid BackgroundColor="Transparent">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        Source="{Binding ImgSource}"
+                                        WidthRequest="90" />
+                                    <Label
+                                        Padding="2,0"
+                                        BackgroundColor="Gray"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        TextColor="White"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                            <Label
+                                FontFamily="AwesomeSolid"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsSelected}"
+                                Text="&#xF043E;"
+                                TextColor="Red" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
             <StackLayout Orientation="Horizontal">
                 <Line
                     Margin="0,0,5,0"
@@ -56,6 +100,9 @@
                             BorderColor="Transparent"
                             CornerRadius="20"
                             WidthRequest="250">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
                             <Grid
                                 BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
                                                                   Light=#ffffff}"
@@ -71,7 +118,11 @@
                                             Aspect="AspectFill"
                                             HeightRequest="150"
                                             Source="{Binding ImageTitleUri}"
-                                            WidthRequest="250" />
+                                            WidthRequest="250">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
                                         <Frame
                                             Margin="5,5,0,0"
                                             Padding="5,4"
@@ -164,109 +215,78 @@
                 IsVisible="{Binding IsLoading}"
                 WidthRequest="50"
                 Color="Black" />
-            <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodel:Discovery">
-                        <VerticalStackLayout Spacing="5">
-                            <Frame
-                                Padding="0"
-                                BackgroundColor="Transparent"
-                                CornerRadius="50"
-                                HorizontalOptions="Center">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
-                                <Frame.Triggers>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding IsSelected}" Value="false">
-                                        <Setter Property="Opacity" Value="0.5"/>
-                                    </DataTrigger>
-                                </Frame.Triggers>
-                                <Grid BackgroundColor="Transparent">
-                                    <Image
-                                        Aspect="AspectFill"
-                                        Source="{Binding ImgSource}"
-                                        WidthRequest="90" />
-                                    <Label
-                                        Padding="2,0"
-                                        BackgroundColor="Gray"
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center"
-                                        Text="{Binding Title}"
-                                        TextColor="White"
-                                        VerticalOptions="Center" />
-                                </Grid>
-                            </Frame>
-                            <Label
-                                FontFamily="AwesomeSolid"
-                                FontSize="18"
-                                HorizontalOptions="Center"
-                                IsVisible="{Binding IsSelected}"
-                                Text="&#xF043E;"
-                                TextColor="Red" />
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
 
-            <RefreshView Margin="0,0,10,0" Command="{Binding RefreshFoodsCommand}">
-                <CollectionView
-                    IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}"
-                    ItemsSource="{Binding Feeds}"
-                    RemainingItemsThreshold="2"
-                    RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemCommand}">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Item">
-                            <Frame Padding="2" BackgroundColor="{AppThemeBinding Dark=#2b2d2e, Light=#ffffff}">
-                                <StackLayout>
-                                    <Grid
-                                        BackgroundColor="Transparent"
-                                        ColumnDefinitions="9*,*"
-                                        ColumnSpacing="10"
-                                        VerticalOptions="CenterAndExpand">
-                                        <VerticalStackLayout Margin="5,0" Spacing="5">
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontSize="15"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                MaxLines="2"
-                                                Text="{Binding title}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-                                            <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand">
+            <Grid>
+                <RefreshView Margin="0,0,10,0" Command="{Binding RefreshFoodsCommand}">
+                    <CollectionView
+                        IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}"
+                        ItemsSource="{Binding Feeds}"
+                        Opacity="1"
+                        RemainingItemsThreshold="2"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemCommand}"
+                        SelectionMode="Single">
+                        <CollectionView.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsLoading}"
+                                TargetType="CollectionView"
+                                Value="true">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </DataTrigger>
+                        </CollectionView.Triggers>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Item">
+                                <Frame Padding="2" BackgroundColor="{AppThemeBinding Dark=#2b2d2e, Light=#ffffff}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout>
+                                        <Grid
+                                            BackgroundColor="Transparent"
+                                            ColumnDefinitions="9*,*"
+                                            ColumnSpacing="10"
+                                            VerticalOptions="CenterAndExpand">
+                                            <VerticalStackLayout Margin="5,0" Spacing="5">
                                                 <Label
-                                                    FontSize="12"
-                                                    Text="{Binding TimeAgoDisplay}"
-                                                    TextColor="Gray" />
-                                            </HorizontalStackLayout>
-                                        </VerticalStackLayout>
-                                        <Label
-                                            Grid.Column="1"
-                                            FontFamily="AwesomeSolid"
-                                            FontSize="30"
-                                            HorizontalOptions="Center"
-                                            ScaleY="1.2"
-                                            Text="&#xF0142;"
-                                            TextColor="Gray"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
-            <ActivityIndicator
-                IsRunning="{Binding IsLoading}"
-                IsVisible="{Binding IsLoading}"
-                WidthRequest="50"
-                Color="Black" />
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    MaxLines="2"
+                                                    Text="{Binding title}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                                <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand">
+                                                    <Label
+                                                        FontSize="12"
+                                                        Text="{Binding TimeAgoDisplay}"
+                                                        TextColor="Gray" />
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
+                                            <Label
+                                                Grid.Column="1"
+                                                FontFamily="AwesomeSolid"
+                                                FontSize="30"
+                                                HorizontalOptions="Center"
+                                                ScaleY="1.2"
+                                                Text="&#xF0142;"
+                                                TextColor="Gray"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                <ActivityIndicator
+                    IsRunning="{Binding IsLoading}"
+                    IsVisible="{Binding IsLoading}"
+                    WidthRequest="50"
+                    Color="Black" />
+            </Grid>
             <!--<Label
                 FontFamily="AwesomeSolid"
                 FontSize="18"

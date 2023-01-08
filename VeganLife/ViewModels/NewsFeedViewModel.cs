@@ -57,8 +57,7 @@ namespace VeganLife.ViewModels
 
             if (itemSelected.Title.Equals(AppResources.veganFood_feedPage))
             {
-                Feeds.Clear();
-                _allVeganFoodFeeds.ForEach(i => Feeds.Add(i));
+                Feeds = _allVeganFoodFeeds;
             }
             else if (itemSelected.Title.Equals(AppResources.healthy_feedPage))
             {
@@ -90,6 +89,31 @@ namespace VeganLife.ViewModels
             _isLoadingMoreItem = true;
 
             _isLoadingMoreItem = false;
+        }
+
+        [RelayCommand]
+        async Task SelectFeedItem(object obj)
+        {
+            if (IsLoading)
+                return;
+            IsLoading = true;
+            var item = obj as Item;
+            try
+            {
+                if (item == null)
+                    return;
+                Uri uri = new Uri(item.link);
+                await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                // An unexpected error occured. No browser may be installed on the device.
+                throw;
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         public NewsFeedViewModel()
@@ -301,7 +325,9 @@ namespace VeganLife.ViewModels
     {
         public string ImgSource { get; set; }
         public string Title { get; set; }
-        public bool IsSelected { get; set; } = false;
+        [ObservableProperty]
+        bool _isSelected;
+        public string Opacity => IsSelected ? "1" : "0.5";
     }
 
     public class HotItem : Item
