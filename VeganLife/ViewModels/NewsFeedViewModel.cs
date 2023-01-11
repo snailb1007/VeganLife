@@ -14,7 +14,6 @@ namespace VeganLife.ViewModels
     public partial class NewsFeedViewModel : ObservableObject
     {
         DataLoader _databaseFood;
-        // byte _currentNumberOfItem = 0;
 
         private Dictionary<string, List<Item>> _data = new Dictionary<string, List<Item>>();
 

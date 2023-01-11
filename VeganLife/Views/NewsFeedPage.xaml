@@ -7,7 +7,6 @@
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="newsFeedPageRoot"
-    Title="NewsFeedPage"
     x:DataType="viewmodel:NewsFeedViewModel"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
