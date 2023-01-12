@@ -6,5 +6,18 @@
     xmlns:contentVM="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     x:DataType="contentVM:RationPlanViewModel">
-    <lvc:PieChart Series="{Binding Series}" />
+    <Grid
+        Margin="10,10,10,0"
+        ColumnDefinitions="*"
+        RowDefinitions="2*,*">
+        <lvc:PieChart
+            Title="{Binding Title}"
+            Grid.Column="1"
+            HorizontalOptions="CenterAndExpand"
+            LegendPosition="Bottom"
+            LegendTextSize="25"
+            Series="{Binding Series}"
+            VerticalOptions="Start" />
+    </Grid>
+
 </ContentPage>
