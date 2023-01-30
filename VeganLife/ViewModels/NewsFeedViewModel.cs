@@ -175,7 +175,6 @@ namespace VeganLife.ViewModels
         {
         }
 
-        // TaskCompletionSource<bool> _taskLoadingFeeds;
         void DisplayFeeds(bool isLoadMore, string uri)
         {
             if (isLoadMore)
@@ -194,8 +193,6 @@ namespace VeganLife.ViewModels
                 }
 
                 HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
-                HotItem itemHotFeeds = new HotItem();
-                string imgLinkHotItem = string.Empty;
 
                 switch (uri)
                 {
