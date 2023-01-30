@@ -7,17 +7,26 @@
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     x:DataType="contentVM:RationPlanViewModel">
     <Grid
-        Margin="10,10,10,0"
+        BackgroundColor="#fef3e2"
         ColumnDefinitions="*"
         RowDefinitions="2*,*">
         <lvc:PieChart
             Title="{Binding Title}"
             Grid.Column="1"
+            Margin="10"
             HorizontalOptions="CenterAndExpand"
             LegendPosition="Bottom"
             LegendTextSize="25"
+            PropertyChanged="PieChart_PropertyChanged"
             Series="{Binding Series}"
             VerticalOptions="Start" />
+        <Label
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="Center"
+            Text="2000 calories"
+            TextColor="Gray"
+            VerticalOptions="Center" />
     </Grid>
 
 </ContentPage>
