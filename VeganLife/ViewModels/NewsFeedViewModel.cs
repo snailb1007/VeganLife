@@ -221,6 +221,8 @@ namespace VeganLife.ViewModels
             string imgLinkHotItem = string.Empty;
             foreach (var item in data)
             {
+                if (item.source.url == "https://vtc.vn")
+                    continue;
                 imgLinkHotItem = LoadUrlPreview(htmlWeb, item?.link);
                 if (!string.IsNullOrEmpty(imgLinkHotItem))
                 {
