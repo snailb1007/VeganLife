@@ -1,5 +1,8 @@
-﻿using VeganLife.ViewModels;
+﻿using SkiaSharp.Views.Maui.Controls.Hosting;
+using VeganLife.ViewModels;
+using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views;
+using VeganLife.Views.ContentViews;
 
 namespace VeganLife;
 
@@ -8,7 +11,8 @@ public static class MauiProgram
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
-		builder
+        builder
+            .UseSkiaSharp(true)
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
@@ -28,6 +32,9 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<NewsFeedPage>();
 		builder.Services.AddSingleton<NewsFeedViewModel>();
+
+        builder.Services.AddSingleton<RationPlanPage>();
+        builder.Services.AddSingleton<RationPlanViewModel>();
 
         AllowMultiLineTruncationOnAndroid();
 

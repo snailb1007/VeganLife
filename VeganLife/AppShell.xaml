@@ -3,10 +3,10 @@
     x:Class="VeganLife.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:contentView="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:local="clr-namespace:VeganLife"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
-    Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
                                                   Light=White}">
@@ -18,11 +18,12 @@
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="Home" />
         </Tab>
-        <Tab Title="Tìm kiếm">
+        <Tab Title="Dinh dưỡng">
             <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF070F;" />
+                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF03C2;" />
             </Tab.Icon>
-            <ShellContent ContentTemplate="{DataTemplate view:SearchPage}" Route="Search" />
+            <ShellContent Title="Khẩu phần" ContentTemplate="{DataTemplate contentView:RationPlanPage}" />
+            <ShellContent Title="Vitamins" ContentTemplate="{DataTemplate contentView:VitaminAndMineralPage}" />
         </Tab>
         <Tab Title="News">
             <Tab.Icon>

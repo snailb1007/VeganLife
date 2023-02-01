@@ -7,7 +7,6 @@
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="newsFeedPageRoot"
-    Title="NewsFeedPage"
     x:DataType="viewmodel:NewsFeedViewModel"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
@@ -44,6 +43,11 @@
                                                 Light=Gray}"
                     VerticalOptions="End" />
             </StackLayout>
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                WidthRequest="50"
+                Color="Black" />
             <CollectionView ItemsSource="{Binding HotFeeds}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
@@ -208,12 +212,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <ActivityIndicator
-                IsRunning="{Binding IsLoading}"
-                IsVisible="{Binding IsLoading}"
-                WidthRequest="50"
-                Color="Black" />
 
             <Grid>
                 <CollectionView
