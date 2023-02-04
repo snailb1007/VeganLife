@@ -6,12 +6,12 @@ namespace VeganLife.Data.FireBaseData
 {
     public class FirebaseRealtimeData
     {
-        const string _linkOfFirebaseClient = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
+        const string firebase_client_link = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
         public FirebaseClient FirebaseDatabase { get; private set; }
 
         public FirebaseRealtimeData()
         {
-            FirebaseDatabase = new FirebaseClient(_linkOfFirebaseClient);
+            FirebaseDatabase = new FirebaseClient(firebase_client_link);
         }
 
         public async Task<string> GetBackgroundImage(string goal)
