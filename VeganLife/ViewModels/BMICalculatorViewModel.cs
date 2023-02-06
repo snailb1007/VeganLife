@@ -55,6 +55,7 @@ namespace VeganLife.ViewModels
             if (obj == null)
                 return;
             var view = (BMICalculatorPage)obj;
+            if (view == null) return;
             var entryWeight = view.FindByName("entryWeight") as Entry;
 
             if (entryWeight != null && entryWeight.IsFocused)
