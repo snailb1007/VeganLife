@@ -3,10 +3,122 @@
     x:Class="VeganLife.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="LoginPage">
-    <VerticalStackLayout Spacing="10">
-        <Entry Placeholder="email" />
-        <Entry Placeholder="pass" />
-        <Button Text="" />
-    </VerticalStackLayout>
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="loginPage"
+    Title="Login Page"
+    x:DataType="viewmodel:LoginViewModel"
+    BackgroundColor="#e3e5ee">
+    <Grid ColumnDefinitions="*,8*,*">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference loginPage}" />
+        </Grid.GestureRecognizers>
+        <Label
+            Grid.ColumnSpan="3"
+            Padding="5"
+            FontFamily="AwesomeSolid"
+            FontSize="20"
+            HorizontalOptions="End"
+            Text="&#xF0156;"
+            TextColor="CadetBlue">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CloseCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+        <VerticalStackLayout Grid.Column="1" Spacing="20">
+            <Label
+                Margin="0,50"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Mừng bạn quay trở lại!" />
+            <Frame
+                x:Name="frameEmail"
+                Padding="5"
+                BorderColor="Transparent"
+                CornerRadius="10">
+                <Entry
+                    x:Name="entryEmail"
+                    Keyboard="Email"
+                    Placeholder="Email" />
+            </Frame>
+            <Frame
+                Padding="5"
+                BorderColor="Transparent"
+                CornerRadius="10">
+                <Entry
+                    x:Name="entryPassword"
+                    IsPassword="True"
+                    Placeholder="Password" />
+            </Frame>
+            <Label
+                HorizontalOptions="End"
+                Text="Quên mật khẩu"
+                TextColor="Gray"
+                TextDecorations="Underline" />
+            <Button HeightRequest="{Binding Source={x:Reference frameEmail}, Path=HeightRequest}" Text="Đăng nhập" />
+            <Grid Margin="0,20,0,0" ColumnDefinitions="*,*,*">
+                <Line
+                    Margin="5"
+                    BackgroundColor="Gray"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="End" />
+                <Label
+                    Grid.Column="1"
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    Text="Tiếp tục với"
+                    TextColor="Gray" />
+                <Line
+                    Grid.Column="2"
+                    Margin="5"
+                    BackgroundColor="Gray"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="End" />
+            </Grid>
+            <Grid
+                Margin="0,20,0,0"
+                ColumnDefinitions="*,*,*"
+                ColumnSpacing="10">
+                <Frame
+                    Padding="25,10"
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
+                    CornerRadius="8"
+                    HorizontalOptions="CenterAndExpand">
+                    <Image Source="google" WidthRequest="30" />
+                </Frame>
+                <Frame
+                    Grid.Column="1"
+                    Padding="25,10"
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
+                    CornerRadius="8"
+                    HorizontalOptions="Center">
+                    <Image Source="microsoft" WidthRequest="30" />
+                </Frame>
+                <Frame
+                    Grid.Column="2"
+                    Padding="25,10"
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
+                    CornerRadius="8"
+                    HorizontalOptions="Center">
+                    <Image Source="facebook2019" WidthRequest="30" />
+                </Frame>
+            </Grid>
+            <HorizontalStackLayout
+                Margin="0,50,0,0"
+                HorizontalOptions="CenterAndExpand"
+                Spacing="5">
+                <Label Text="Bạn chưa có tài khoản?" />
+                <Label Text="Đăng ký ngay" TextColor="DeepSkyBlue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

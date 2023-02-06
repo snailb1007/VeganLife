@@ -36,6 +36,12 @@ public static class MauiProgram
         builder.Services.AddSingleton<RationPlanPage>();
         builder.Services.AddSingleton<RationPlanViewModel>();
 
+        builder.Services.AddSingleton<LoginPage>();
+        builder.Services.AddSingleton<LoginViewModel>();
+
+        builder.Services.AddSingleton<RegistrationPage>();
+        builder.Services.AddSingleton<RegistrationViewModel>();
+
         AllowMultiLineTruncationOnAndroid();
 
         return builder.Build();

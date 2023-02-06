@@ -2,6 +2,7 @@
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
+using VeganLife.Views;
 
 namespace VeganLife;
 
@@ -14,7 +15,7 @@ public partial class App : Application
         SetupTheme();
         SetupLanguage();
 
-        MainPage = new AppShell();
+        MainPage = new NavigationPage(new LoginPage(new ViewModels.LoginViewModel()));
     }
 
     private void SetupLanguage()
