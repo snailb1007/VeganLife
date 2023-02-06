@@ -1,14 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView.Painting;
-using SkiaSharp;
 using LiveChartsCore.SkiaSharpView.VisualElements;
-using Microsoft.Maui.Graphics;
+using SkiaSharp;
 
 namespace VeganLife.ViewModels.ContentViewModels;
 
-public partial class RationPlanViewModel : ObservableObject
+public partial class RationPlanViewModel : BaseViewModel
 {
     public ISeries[] Series { get; private set; } =
         {
