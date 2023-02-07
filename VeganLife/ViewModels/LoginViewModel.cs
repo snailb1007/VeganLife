@@ -1,12 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
-using VeganLife.Services;
-using VeganLife.Views;
-
-namespace VeganLife.ViewModels
+﻿namespace VeganLife.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject
+    public partial class LoginViewModel : BaseViewModel
     {
         [RelayCommand]
         void UnFocus(object obj)

@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using VeganLife.Services;
-
-namespace VeganLife.ViewModels
+﻿namespace VeganLife.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
         protected readonly INavigationService navigationService;
+
+        [ObservableProperty]
+        bool _isLoading;
         public BaseViewModel()
         {
         }
