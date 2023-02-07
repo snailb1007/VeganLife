@@ -1,14 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Globalization;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using VeganLife.Helpers.AppSetting;
-using VeganLife.Services;
-using VeganLife.Views;
 
 namespace VeganLife.ViewModels
 {
-    public partial class BMICalculatorViewModel : ObservableObject
+    public partial class BMICalculatorViewModel : BaseViewModel
     {
         private float _weight;
         private short _age;

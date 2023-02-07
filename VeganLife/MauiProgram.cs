@@ -1,7 +1,5 @@
 ﻿using SkiaSharp.Views.Maui.Controls.Hosting;
-using VeganLife.ViewModels;
 using VeganLife.ViewModels.ContentViewModels;
-using VeganLife.Views;
 using VeganLife.Views.ContentViews;
 
 namespace VeganLife;
@@ -14,12 +12,16 @@ public static class MauiProgram
         builder
             .UseSkiaSharp(true)
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				fonts.AddFont("materialdesignicons-webfont.ttf", "AwesomeSolid");
-			});
+				//fonts.AddFont("materialdesignicons-webfont.ttf", "AwesomeSolid");
+                fonts.AddFont("FontAwesome6FreeBrands.otf", "FontAwesomeBrands");
+                fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
+                fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
+            });
 
 		builder.Services.AddSingleton<SettingPage>();
 		builder.Services.AddSingleton<SettingViewModel>();
@@ -41,6 +43,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<RegistrationPage>();
         builder.Services.AddSingleton<RegistrationViewModel>();
+
+        builder.Services.AddSingleton<WebViewPage>();
+        builder.Services.AddSingleton<WebViewViewModel>();
 
         AllowMultiLineTruncationOnAndroid();
 

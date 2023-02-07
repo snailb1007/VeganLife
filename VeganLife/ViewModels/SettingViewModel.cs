@@ -1,13 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using VeganLife.Data.FireBaseData;
-using VeganLife.Helpers;
+﻿using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
-using VeganLife.Views;
 
 namespace VeganLife.ViewModels
 {
-    public partial class SettingViewModel : ObservableObject
+    public partial class SettingViewModel : BaseViewModel
     {
         const string _basicPickerOption = "Cơ bản";
         const string _universePickerOption = "Vũ trụ";
@@ -31,12 +27,12 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        void SwitchTheme(Switch parameter)
+        void SwitchTheme(Microsoft.Maui.Controls.Switch parameter)
         {
             if (parameter == null)
                 return;
             IsDarkMode = parameter.IsToggled;
-            var goalTheme = _isDarkMode ? AppTheme.Dark : AppTheme.Light;
+            var goalTheme = IsDarkMode ? AppTheme.Dark : AppTheme.Light;
             AppThemeHelper.SetTheme(goalTheme);
 
             UserSettingsHelper.Set(UserSettingKey.ThemeMode, ConstantHelper.Theme_Mode_Fixed);

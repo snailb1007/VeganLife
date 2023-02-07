@@ -1,5 +1,3 @@
-using VeganLife.ViewModels;
-
 namespace VeganLife.Views;
 
 public partial class SettingPage : ContentPage
@@ -14,7 +12,7 @@ public partial class SettingPage : ContentPage
 
     private void Switch_Toggled(object sender, ToggledEventArgs e)
 	{
-		var x = sender as Switch;
+		var x = sender as Microsoft.Maui.Controls.Switch;
 		_viewModel.SwitchThemeCommand.Execute(x);
     }
 }

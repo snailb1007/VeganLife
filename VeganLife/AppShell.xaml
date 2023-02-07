@@ -7,35 +7,22 @@
     xmlns:local="clr-namespace:VeganLife"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
-    Shell.NavBarIsVisible="False"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
                                                   Light=White}">
 
-    <TabBar>
-        <Tab Title="{x:Static translate:AppResources.app_common_homeTab}">
-            <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF02DC;" />
-            </Tab.Icon>
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="Home" />
-        </Tab>
-        <Tab Title="Dinh dưỡng">
-            <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF03C2;" />
-            </Tab.Icon>
-            <ShellContent Title="Khẩu phần" ContentTemplate="{DataTemplate contentView:RationPlanPage}" />
-            <ShellContent Title="Vitamins" ContentTemplate="{DataTemplate contentView:VitaminAndMineralPage}" />
-        </Tab>
-        <Tab Title="News">
-            <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF0395;" />
-            </Tab.Icon>
-            <ShellContent ContentTemplate="{DataTemplate view:NewsFeedPage}" Route="News" />
-        </Tab>
-        <Tab Title="Cài đặt">
-            <Tab.Icon>
-                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xF0493;" />
-            </Tab.Icon>
-            <ShellContent ContentTemplate="{DataTemplate view:SettingPage}" Route="Setting" />
-        </Tab>
-    </TabBar>
+    <ShellContent
+        Title="WebView"
+        ContentTemplate="{DataTemplate view:WebViewPage}"
+        Route="WebViewPage"
+        Shell.NavBarIsVisible="true" />
+    <ShellContent
+        Title="Trang chủ"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="HomePage"
+        Shell.NavBarIsVisible="true" />
+    <ShellContent
+        Title="Cài đặt"
+        ContentTemplate="{DataTemplate view:SettingPage}"
+        Route="SettingPage"
+        Shell.NavBarIsVisible="true" />
 </Shell>

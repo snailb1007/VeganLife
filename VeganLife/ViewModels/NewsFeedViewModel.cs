@@ -1,17 +1,14 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System.Text;
 using System.Xml;
 using VeganLife.Data.RssFeedsData;
 using VeganLife.Helpers.AppSetting;
-using VeganLife.Models;
 using VeganLife.Resources.Translations;
 
 namespace VeganLife.ViewModels
 {
-    public partial class NewsFeedViewModel : ObservableObject
+    public partial class NewsFeedViewModel : BaseViewModel
     {
         DataLoader _databaseFood;
 
