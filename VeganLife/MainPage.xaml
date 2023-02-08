@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage
+<ContentPage
     x:Class="VeganLife.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -8,15 +8,4 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
     Title="{x:Static translate:AppResources.app_common_homeTab}"
-    x:DataType="viewmodel:MainViewModel">
-    <NavigationPage Title="Dinh dưỡng">
-        <x:Arguments>
-            <views:RegistrationPage Title="Dinh dưỡng" />
-        </x:Arguments>
-    </NavigationPage>
-    <NavigationPage Title="Trạm đọc">
-        <x:Arguments>
-            <views:NewsFeedPage Title="Trạm đọc" />
-        </x:Arguments>
-    </NavigationPage>
-</TabbedPage>
+    x:DataType="viewmodel:MainViewModel" />

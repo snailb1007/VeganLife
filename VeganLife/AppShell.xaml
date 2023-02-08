@@ -3,26 +3,63 @@
     x:Class="VeganLife.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:contentView="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:local="clr-namespace:VeganLife"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
                                                   Light=White}">
 
+    <Shell.FlyoutHeader>
+        <controls:FlyoutHeader />
+    </Shell.FlyoutHeader>
+    <FlyoutItem
+        Title="Trang chủ"
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="home"
+        Route="home">
+        <ShellContent
+            Title="Món chay"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="main"
+            Shell.NavBarIsVisible="true" />
+        <Tab Title="Dinh dưỡng">
+            <ShellContent
+                Title="Khẩu phần"
+                ContentTemplate="{DataTemplate contentViews:RationPlanPage}"
+                Route="ration_plan"
+                Shell.NavBarIsVisible="true" />
+            <ShellContent
+                Title="Vitamins"
+                ContentTemplate="{DataTemplate contentViews:VitaminAndMineralPage}"
+                Route="vitamins_mineral"
+                Shell.NavBarIsVisible="true" />
+        </Tab>
+        <ShellContent
+            Title="Trạm đọc"
+            ContentTemplate="{DataTemplate view:NewsFeedPage}"
+            Route="news_feed"
+            Shell.NavBarIsVisible="true" />
+        <Tab Title="Công cụ">
+            <ShellContent
+                Title="BMI"
+                ContentTemplate="{DataTemplate view:BMICalculatorPage}"
+                Route="bmi_calculator"
+                Shell.NavBarIsVisible="true" />
+        </Tab>
+    </FlyoutItem>
+
     <ShellContent
         Title="WebView"
         ContentTemplate="{DataTemplate view:WebViewPage}"
-        Route="WebViewPage"
-        Shell.NavBarIsVisible="true" />
-    <ShellContent
-        Title="Trang chủ"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="HomePage"
+        Icon="web_view.svg"
+        Route="web_view"
         Shell.NavBarIsVisible="true" />
     <ShellContent
         Title="Cài đặt"
         ContentTemplate="{DataTemplate view:SettingPage}"
-        Route="SettingPage"
+        Icon="setting.svg"
+        Route="setting"
         Shell.NavBarIsVisible="true" />
 </Shell>

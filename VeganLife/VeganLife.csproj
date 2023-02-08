@@ -58,7 +58,10 @@
 	  <None Remove="Resources\Images\google.svg" />
 	  <None Remove="Resources\Images\loading_circle.gif" />
 	  <None Remove="Resources\Images\microsoft.svg" />
+	  <None Remove="Resources\Images\nutrition_plan.svg" />
+	  <None Remove="Resources\Images\setting.svg" />
 	  <None Remove="Resources\Images\trending_fire.png" />
+	  <None Remove="Resources\Images\web_view.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -102,6 +105,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ContentViews\VitaminAndMineralPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\FlyoutHeader.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">

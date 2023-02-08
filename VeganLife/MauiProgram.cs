@@ -1,6 +1,7 @@
 ﻿using SkiaSharp.Views.Maui.Controls.Hosting;
 using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
+using VeganLife.Views.Controls;
 
 namespace VeganLife;
 
@@ -46,6 +47,8 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<WebViewPage>();
         builder.Services.AddSingleton<WebViewViewModel>();
+
+        builder.Services.AddSingleton<FlyoutHeader>();
 
         AllowMultiLineTruncationOnAndroid();
 
