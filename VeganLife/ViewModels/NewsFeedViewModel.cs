@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using Android.Hardware.Usb;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System.Text;
 using System.Xml;
@@ -19,16 +20,29 @@ namespace VeganLife.ViewModels
         private List<Item> _allReligionFeeds;
         private List<Item> _allLiveStrongFeeds;
 
-        [ObservableProperty]
-        bool _isLoading;
+        bool _isFoodFeed = true;
+        bool _isHealthyFeed;
+        bool _isLiveStrongFeed;
+
+        byte _currentNumberItem;
 
         [ObservableProperty]
-        List<HotItem> _hotFeeds;
-        [ObservableProperty]
-        List<Item> _feeds;
+        bool _isDisplayHotFeed;
 
         [ObservableProperty]
-        List<Discovery> _discoveryMenu;
+        ObservableCollection<HotItem> _hotFeeds;
+
+        [ObservableProperty]
+        ObservableCollection<Item> _feeds;
+
+        [ObservableProperty]
+        ObservableCollection<Discovery> _discoveryMenu;
+
+        [RelayCommand]
+        void ChangeDisplayStatusHotFeed()
+        {
+            IsDisplayHotFeed = !IsDisplayHotFeed;
+        }
 
         [RelayCommand]
         void RefreshFoods()
@@ -41,6 +55,8 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         void SelectDiscoveryMenu(object obj)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             if (IsLoading)
                 return;
             IsLoading = true;
@@ -51,21 +67,31 @@ namespace VeganLife.ViewModels
                 return;
             }
 
+            _currentNumberItem = 20;
+            Feeds.Clear();
             if (itemSelected.Title.Equals(AppResources.veganFood_feedPage))
             {
-                Feeds = _allVeganFoodFeeds;
+                SetFlagDiscoverySelected(isFood: true);
+                foreach (var item in _allVeganFoodFeeds.Take(_currentNumberItem))
+                    Feeds.Add(item);
             }
             else if (itemSelected.Title.Equals(AppResources.healthy_feedPage))
             {
-                Feeds = _allVeganHealthyFeeds;
+                SetFlagDiscoverySelected(isHealthy: true);
+                foreach (var item in _allVeganHealthyFeeds.Take(_currentNumberItem))
+                    Feeds.Add(item);
             }
             else if (itemSelected.Title.Equals(AppResources.religion_feedPage))
             {
-                Feeds = _allReligionFeeds;
+                SetFlagDiscoverySelected();
+                foreach (var item in _allReligionFeeds.Take(_currentNumberItem))
+                    Feeds.Add(item);
             }
             else if (itemSelected.Title.Equals(AppResources.liveStrong_feedPage))
             {
-                Feeds = _allLiveStrongFeeds;
+                SetFlagDiscoverySelected(liveStrong: true);
+                foreach (var item in _allLiveStrongFeeds.Take(_currentNumberItem))
+                    Feeds.Add(item);
             }
 
             foreach (var item in DiscoveryMenu)
@@ -75,16 +101,36 @@ namespace VeganLife.ViewModels
 
             itemSelected.IsSelected = true;
             IsLoading = false;
+            watch.Stop();
+            Console.WriteLine("thien==> " + watch.ElapsedMilliseconds);
         }
 
-        bool _isLoadingMoreItem = false;
+        TaskCompletionSource<bool> _taskLoadingMessage;
         [RelayCommand]
-        void LoadMoreItem()
+        async void LoadMoreItem()
         {
-            if (_isLoadingMoreItem) return;
-            _isLoadingMoreItem = true;
+            if (_taskLoadingMessage != null && !_taskLoadingMessage.Task.IsCompleted)
+                await _taskLoadingMessage.Task;
+            _taskLoadingMessage = new TaskCompletionSource<bool>();
+            List<Item> listTemp;
+            if (_isFoodFeed)
+                listTemp = _allVeganFoodFeeds;
+            else if (_isHealthyFeed)
+                listTemp = _allVeganHealthyFeeds;
+            else
+                listTemp = _isLiveStrongFeed ? _allLiveStrongFeeds : _allReligionFeeds;
+            bool isLoadedAllData = Feeds?.Count > 0 && Feeds?.Count == listTemp?.Count;
+            if (!isLoadedAllData)
+            {
+                for (int i = 0; i < 10 && (i + _currentNumberItem) < listTemp?.Count; i++)
+                {
+                    Feeds.Add(listTemp[i + _currentNumberItem]);
+                }
 
-            _isLoadingMoreItem = false;
+                _currentNumberItem += 10;
+            }
+
+            _taskLoadingMessage.TrySetResult(true);
         }
 
         [RelayCommand]
@@ -154,6 +200,7 @@ namespace VeganLife.ViewModels
         private void Initialize()
         {
             IsLoading = true;
+            IsDisplayHotFeed = true;
             if (Feeds != null && Feeds.Any())
                 Feeds.Clear();
             if (DiscoveryMenu != null && DiscoveryMenu.Any())
@@ -168,10 +215,6 @@ namespace VeganLife.ViewModels
             InitMenu();
         }
 
-        partial void OnDiscoveryMenuChanged(List<Discovery> value)
-        {
-        }
-
         void DisplayFeeds(bool isLoadMore, string uri)
         {
             if (isLoadMore)
@@ -182,11 +225,11 @@ namespace VeganLife.ViewModels
             {
                 if (Feeds == null)
                 {
-                    Feeds = new List<Item>();
+                    Feeds = new ObservableCollection<Item>();
                 }
                 if (HotFeeds == null)
                 {
-                    HotFeeds = new List<HotItem>();
+                    HotFeeds = new ObservableCollection<HotItem>();
                 }
 
                 HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
@@ -194,7 +237,7 @@ namespace VeganLife.ViewModels
                 switch (uri)
                 {
                     case ConstantHelper.RssFeedNews.Google_News_VeganFoods:
-                        Feeds.AddRange(_allVeganFoodFeeds);
+                        _allVeganFoodFeeds.ForEach(i => Feeds.Add(i));
                         SetHotFeeds(_allVeganFoodFeeds, htmlWeb, AppResources.veganFood_feedPage);
                         break;
                     case ConstantHelper.RssFeedNews.Google_News_VeganHealthy:
@@ -234,7 +277,7 @@ namespace VeganLife.ViewModels
 
         private void InitMenu()
         {
-            DiscoveryMenu = new List<Discovery>()
+            DiscoveryMenu = new ObservableCollection<Discovery>()
             {
                 new Discovery(){ ImgSource = "https://i.imgur.com/anDoRUb.jpg", Title= AppResources.veganFood_feedPage, IsSelected = true},
                 new Discovery(){ ImgSource = "https://i.imgur.com/tH9PSUe.jpg", Title= AppResources.healthy_feedPage, IsSelected = false},
@@ -260,10 +303,17 @@ namespace VeganLife.ViewModels
             }
             catch (Exception e)
             {
-                // Console.WriteLine(e.Message); ;
+                Console.WriteLine(e.StackTrace);
             }
 
             return result;
+        }
+
+        void SetFlagDiscoverySelected(bool isFood = false, bool isHealthy = false, bool liveStrong = false)
+        {
+            _isFoodFeed = isFood;
+            _isHealthyFeed = isHealthy;
+            _isLiveStrongFeed= liveStrong;
         }
     }
 

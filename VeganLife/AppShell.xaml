@@ -19,12 +19,13 @@
         FlyoutDisplayOptions="AsSingleItem"
         Icon="home"
         Route="home">
-        <ShellContent
-            Title="Món chay"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="main"
-            Shell.NavBarIsVisible="true" />
-        <Tab Title="Dinh dưỡng">
+        <Tab Title="Món chay" Icon="vegan_food">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="main"
+                Shell.NavBarIsVisible="true" />
+        </Tab>
+        <Tab Title="Dinh dưỡng" Icon="nutrition">
             <ShellContent
                 Title="Khẩu phần"
                 ContentTemplate="{DataTemplate contentViews:RationPlanPage}"
@@ -36,12 +37,14 @@
                 Route="vitamins_mineral"
                 Shell.NavBarIsVisible="true" />
         </Tab>
-        <ShellContent
-            Title="Trạm đọc"
-            ContentTemplate="{DataTemplate view:NewsFeedPage}"
-            Route="news_feed"
-            Shell.NavBarIsVisible="true" />
-        <Tab Title="Công cụ">
+        <Tab Title="Trạm đọc" Icon="compass">
+            <ShellContent
+                Title="Trạm đọc"
+                ContentTemplate="{DataTemplate view:NewsFeedPage}"
+                Route="news_feed"
+                Shell.NavBarIsVisible="true" />
+        </Tab>
+        <Tab Title="Công cụ" Icon="calculator">
             <ShellContent
                 Title="BMI"
                 ContentTemplate="{DataTemplate view:BMICalculatorPage}"

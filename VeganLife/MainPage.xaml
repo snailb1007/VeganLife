@@ -7,5 +7,7 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
-    Title="{x:Static translate:AppResources.app_common_homeTab}"
-    x:DataType="viewmodel:MainViewModel" />
+    Title="Món chay"
+    x:DataType="viewmodel:MainViewModel">
+    <Label Text="Thien" />
+</ContentPage>
