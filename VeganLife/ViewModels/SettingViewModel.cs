@@ -51,25 +51,5 @@ namespace VeganLife.ViewModels
             var currentDeviceTheme = App.Current.UserAppTheme;
             IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }
-
-        partial void OnIndexPickerOptionChanged(int value)
-        {
-            //if (value == 1)
-            //{
-            //    _ = SetupThemeIMG();
-            //}
-        }
-
-        private async Task SetupThemeIMG()
-        {
-            //if (ConstantHelper.FirebaseData.FirebaseRealtimeData == null)
-            //{
-            //    ConstantHelper.FirebaseData.FirebaseRealtimeData = new FirebaseRealtimeData();
-            //}
-
-            //var backgrounds = await ConstantHelper.FirebaseData.FirebaseRealtimeData.GetBackgroundImage("dark_2k");
-            //ConstantHelper.ThemeInfo.ImgBackground = backgrounds;
-            //App.Current.MainPage = new AppShell();
-        }
     }
 }

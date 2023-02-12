@@ -1,15 +1,25 @@
-﻿using VeganLife.Views;
-
-namespace VeganLife;
+﻿namespace VeganLife;
 
 public partial class AppShell : Shell
 {
-	public AppShell()
+    public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
+
+    public AppShell()
 	{
 		InitializeComponent();
+        RegisterRoutes();
 
-		Routing.RegisterRoute(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
-		Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-		Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
-	}
+    }
+
+    void RegisterRoutes()
+    {
+        Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
+        Routes.Add(nameof(LoginPage), typeof(LoginPage));
+        Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));
+
+        foreach (var item in Routes)
+        {
+            Routing.RegisterRoute(item.Key, item.Value);
+        }
+    }
 }

@@ -8,7 +8,7 @@
         public WebViewViewModel()
         {
             // TODO: Update the default URL
-            SourceWeb = "https://github.com/sponsors/mrlacey";
+            SourceWeb = "https://veganhealthies.wordpress.com/";
             IsLoading = true;
         }
 

@@ -8,16 +8,17 @@
     xmlns:local="clr-namespace:VeganLife"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
+    FlyoutHeaderBehavior="CollapseOnScroll"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
                                                   Light=White}">
-
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
     </Shell.FlyoutHeader>
     <FlyoutItem
         Title="Trang chủ"
         FlyoutDisplayOptions="AsSingleItem"
-        Icon="home"
+        Icon="{AppThemeBinding Dark=home_light,
+                               Light=home}"
         Route="home">
         <Tab Title="Món chay" Icon="vegan_food">
             <ShellContent
@@ -56,13 +57,15 @@
     <ShellContent
         Title="WebView"
         ContentTemplate="{DataTemplate view:WebViewPage}"
-        Icon="web_view.svg"
+        Icon="{AppThemeBinding Dark=web_view_light,
+                               Light=web_view}"
         Route="web_view"
         Shell.NavBarIsVisible="true" />
     <ShellContent
         Title="Cài đặt"
         ContentTemplate="{DataTemplate view:SettingPage}"
-        Icon="setting.svg"
+        Icon="{AppThemeBinding Dark=setting_light,
+                               Light=setting}"
         Route="setting"
         Shell.NavBarIsVisible="true" />
 </Shell>
