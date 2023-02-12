@@ -18,42 +18,48 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				//fonts.AddFont("materialdesignicons-webfont.ttf", "AwesomeSolid");
                 fonts.AddFont("FontAwesome6FreeBrands.otf", "FontAwesomeBrands");
                 fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                 fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
             });
-
-		builder.Services.AddSingleton<SettingPage>();
-		builder.Services.AddSingleton<SettingViewModel>();
-
-		builder.Services.AddSingleton<BMICalculatorPage>();
-		builder.Services.AddSingleton<BMICalculatorViewModel>();
-
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<MainViewModel>();
-
-		builder.Services.AddSingleton<NewsFeedPage>();
-		builder.Services.AddSingleton<NewsFeedViewModel>();
-
-        builder.Services.AddSingleton<RationPlanPage>();
-        builder.Services.AddSingleton<RationPlanViewModel>();
-
-        builder.Services.AddSingleton<LoginPage>();
-        builder.Services.AddSingleton<LoginViewModel>();
-
-        builder.Services.AddSingleton<RegistrationPage>();
-        builder.Services.AddSingleton<RegistrationViewModel>();
-
-        builder.Services.AddSingleton<WebViewPage>();
-        builder.Services.AddSingleton<WebViewViewModel>();
-
-        builder.Services.AddSingleton<FlyoutHeader>();
-
+        RegisterServices(builder.Services);
         AllowMultiLineTruncationOnAndroid();
 
         return builder.Build();
 	}
+
+    static void RegisterServices(IServiceCollection services)
+    {
+        services.AddSingleton<SettingPage>();
+        services.AddSingleton<SettingViewModel>();
+
+        services.AddSingleton<BMICalculatorPage>();
+        services.AddSingleton<BMICalculatorViewModel>();
+
+        services.AddSingleton<MainPage>();
+        services.AddSingleton<MainViewModel>();
+
+        services.AddSingleton<NewsFeedPage>();
+        services.AddSingleton<NewsFeedViewModel>();
+
+        services.AddSingleton<RationPlanPage>();
+        services.AddSingleton<RationPlanViewModel>();
+
+        services.AddSingleton<LoginPage>();
+        services.AddSingleton<LoginViewModel>();
+
+        services.AddSingleton<RegistrationPage>();
+        services.AddSingleton<RegistrationViewModel>();
+
+        services.AddSingleton<WebViewPage>();
+        services.AddSingleton<WebViewViewModel>();
+
+        services.AddSingleton<FlyoutHeader>();
+        services.AddSingleton<FlyouttHeaderViewModel>();
+
+        services.AddSingleton<VitaminAndMineralPage>();
+        services.AddSingleton<VitaminAndMineralViewModel>();
+    }
 
     static void AllowMultiLineTruncationOnAndroid()
     {

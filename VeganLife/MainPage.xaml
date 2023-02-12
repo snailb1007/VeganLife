@@ -3,11 +3,23 @@
     x:Class="VeganLife.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
-    Title="Món chay"
-    x:DataType="viewmodel:MainViewModel">
+    Title="Món chay">
+    <!--  x:DataType="viewmodel:MainViewModel"  -->
+    <Shell.SearchHandler>
+        <control:VitaminSearchHandler Placeholder="Nhập để tìm chức năng">
+            <control:VitaminSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0">
+                        <Label Text="{Binding Key}" />
+                    </Grid>
+                </DataTemplate>
+            </control:VitaminSearchHandler.ItemTemplate>
+        </control:VitaminSearchHandler>
+    </Shell.SearchHandler>
     <Label Text="Thien" />
 </ContentPage>

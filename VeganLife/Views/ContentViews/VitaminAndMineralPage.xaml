@@ -3,11 +3,55 @@
     x:Class="VeganLife.Views.ContentViews.VitaminAndMineralPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="VitaminAndMineralPage">
-    <VerticalStackLayout>
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    x:DataType="viewmodel:VitaminAndMineralViewModel">
+    <VerticalStackLayout Margin="10" BackgroundColor="Aqua">
         <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+            FontAttributes="Bold"
+            FontSize="18"
+            HorizontalOptions="Start"
+            Text="Danh sách" />
+        <CollectionView x:Name="vitaminsCollection" ItemsSource="{Binding Vitamins}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:VitaminModel">
+                    <Frame
+                        Padding="5"
+                        BackgroundColor="#fef3e2"
+                        BorderColor="Transparent"
+                        CornerRadius="10">
+                        <Grid ColumnDefinitions="*,3*,0.5*" ColumnSpacing="5">
+                            <Frame
+                                Margin="2"
+                                Padding="0"
+                                CornerRadius="10">
+                                <Image Aspect="AspectFill" Source="{Binding Image}" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label FontSize="12" Text="{Binding Id}" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding Name}" />
+                                <Label
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Text="{Binding Summary}" />
+                            </VerticalStackLayout>
+                            <Label
+                                Grid.Column="2"
+                                FontFamily="FontAwesomeSolid"
+                                HorizontalOptions="Center"
+                                Text="&#xf061;"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
