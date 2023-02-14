@@ -23,64 +23,25 @@
             Orientation="Horizontal">
             <Label
                 Margin="0,0,10,0"
-                FontFamily="AwesomeSolid"
+                FontFamily="FontAwesomeSolid"
                 FontSize="20"
                 HorizontalOptions="Start"
                 Text="{AppThemeBinding Dark=&#xf186;,
                                        Light=&#xf185;}"
                 TextColor="{AppThemeBinding Dark=White,
                                             Light=Orange}"
-                VerticalOptions="Start" />
-            <VerticalStackLayout Spacing="5">
-                <Label Text="{AppThemeBinding Dark=Tối, Light=Sáng}" VerticalOptions="Start" />
-                <Frame
-                    Padding="0"
-                    BackgroundColor="Transparent"
-                    BorderColor="Gray"
-                    CornerRadius="10"
-                    IsClippedToBounds="True">
-                    <HorizontalStackLayout>
-                        <Picker
-                            x:Name="pickerTheme"
-                            Title="Style"
-                            HorizontalTextAlignment="Center"
-                            ItemsSource="{Binding ThemeSkins}"
-                            SelectedIndex="{Binding IndexPickerOption}"
-                            VerticalOptions="Start"
-                            VerticalTextAlignment="Center"
-                            WidthRequest="60" />
-                        <Label
-                            Margin="1,0,2,0"
-                            FontFamily="AwesomeSolid"
-                            Text="&#xf0d7;"
-                            VerticalOptions="Center">
-                            <Label.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference pickerTheme}, Path=IsLoaded}"
-                                    TargetType="Label"
-                                    Value="True">
-                                    <Setter Property="Text" Value="&#xf0d8;" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference pickerTheme}, Path=IsLoaded}"
-                                    TargetType="Label"
-                                    Value="False">
-                                    <Setter Property="Text" Value="&#xf0d7;" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                    </HorizontalStackLayout>
-                </Frame>
-            </VerticalStackLayout>
+                VerticalOptions="Center" />
+            <Label Text="{AppThemeBinding Dark=Tối, Light=Sáng}" VerticalOptions="Center" />
             <Frame
                 Padding="1"
-                BackgroundColor="{AppThemeBinding Dark=Gray,
-                                                  Light=White}"
+                BackgroundColor="Transparent"
                 BorderColor="Transparent"
                 HasShadow="False"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="StartAndExpand">
                 <Switch
+                    BackgroundColor="{AppThemeBinding Dark=Gray,
+                                                      Light=White}"
                     HorizontalOptions="Center"
                     IsToggled="{Binding IsDarkMode}"
                     OnColor="{AppThemeBinding Dark=White,
@@ -90,22 +51,6 @@
                     VerticalOptions="Center" />
             </Frame>
         </StackLayout>
-
-        <Label
-            Margin="0,10,0,0"
-            Text="Bộ công cụ"
-            TextColor="Gray" />
-        <Label Text="Tính BMI">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GoToolsCommand}" CommandParameter="bmi" />
-            </Label.GestureRecognizers>
-        </Label>
-        <Label Text="Tính BMR">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GoToolsCommand}" CommandParameter="bmr" />
-            </Label.GestureRecognizers>
-        </Label>
-
         <Label
             Margin="0,10,0,0"
             HorizontalOptions="Start"

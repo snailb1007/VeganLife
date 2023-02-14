@@ -238,7 +238,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Grid>
+        <Grid ColumnDefinitions="*" RowDefinitions="*">
             <ScrollView>
                 <CollectionView
                     IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}"
