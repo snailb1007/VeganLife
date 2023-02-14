@@ -1,5 +1,4 @@
-﻿using Android.Hardware.Usb;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System.Text;
 using System.Xml;
@@ -12,13 +11,7 @@ namespace VeganLife.ViewModels
     public partial class NewsFeedViewModel : BaseViewModel
     {
         DataLoader _databaseFood;
-
-        private Dictionary<string, List<Item>> _data = new Dictionary<string, List<Item>>();
-
-        private List<Item> _allVeganFoodFeeds;
-        private List<Item> _allVeganHealthyFeeds;
-        private List<Item> _allReligionFeeds;
-        private List<Item> _allLiveStrongFeeds;
+        Dictionary<string, List<Item>> _data = new Dictionary<string, List<Item>>();
 
         bool _isFoodFeed = true;
         bool _isHealthyFeed;
@@ -55,8 +48,6 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         void SelectDiscoveryMenu(object obj)
         {
-            var watch = new Stopwatch();
-            watch.Start();
             if (IsLoading)
                 return;
             IsLoading = true;
@@ -68,29 +59,34 @@ namespace VeganLife.ViewModels
             }
 
             _currentNumberItem = 20;
-            Feeds.Clear();
+            if (Feeds != null)
+            {
+                Feeds.Clear();
+                Feeds = new ObservableCollection<Item>();
+            }
+
             if (itemSelected.Title.Equals(AppResources.veganFood_feedPage))
             {
                 SetFlagDiscoverySelected(isFood: true);
-                foreach (var item in _allVeganFoodFeeds.Take(_currentNumberItem))
+                foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganFoods).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
             else if (itemSelected.Title.Equals(AppResources.healthy_feedPage))
             {
                 SetFlagDiscoverySelected(isHealthy: true);
-                foreach (var item in _allVeganHealthyFeeds.Take(_currentNumberItem))
+                foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
             else if (itemSelected.Title.Equals(AppResources.religion_feedPage))
             {
                 SetFlagDiscoverySelected();
-                foreach (var item in _allReligionFeeds.Take(_currentNumberItem))
+                foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_Religion).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
             else if (itemSelected.Title.Equals(AppResources.liveStrong_feedPage))
             {
                 SetFlagDiscoverySelected(liveStrong: true);
-                foreach (var item in _allLiveStrongFeeds.Take(_currentNumberItem))
+                foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_LiveStrong).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
 
@@ -101,8 +97,6 @@ namespace VeganLife.ViewModels
 
             itemSelected.IsSelected = true;
             IsLoading = false;
-            watch.Stop();
-            Console.WriteLine("thien==> " + watch.ElapsedMilliseconds);
         }
 
         TaskCompletionSource<bool> _taskLoadingMessage;
@@ -112,13 +106,14 @@ namespace VeganLife.ViewModels
             if (_taskLoadingMessage != null && !_taskLoadingMessage.Task.IsCompleted)
                 await _taskLoadingMessage.Task;
             _taskLoadingMessage = new TaskCompletionSource<bool>();
-            List<Item> listTemp;
+            IList<Item> listTemp;
             if (_isFoodFeed)
-                listTemp = _allVeganFoodFeeds;
+                listTemp = _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
             else if (_isHealthyFeed)
-                listTemp = _allVeganHealthyFeeds;
+                listTemp = _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy);
             else
-                listTemp = _isLiveStrongFeed ? _allLiveStrongFeeds : _allReligionFeeds;
+                listTemp = _isLiveStrongFeed ? _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_LiveStrong)
+                    : _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_Religion);
             bool isLoadedAllData = Feeds?.Count > 0 && Feeds?.Count == listTemp?.Count;
             if (!isLoadedAllData)
             {
@@ -173,23 +168,6 @@ namespace VeganLife.ViewModels
             {
                 if (!string.IsNullOrEmpty(item) && _data.ContainsKey(item))
                 {
-                    if (item.Equals(ConstantHelper.RssFeedNews.Google_News_VeganFoods))
-                    {
-                        _allVeganFoodFeeds = _data.GetValueOrDefault(item);
-                    }
-                    else if (item.Equals(ConstantHelper.RssFeedNews.Google_News_VeganHealthy))
-                    {
-                        _allVeganHealthyFeeds = _data.GetValueOrDefault(item);
-                    }
-                    else if (item.Equals(ConstantHelper.RssFeedNews.Google_News_Religion))
-                    {
-                        _allReligionFeeds = _data.GetValueOrDefault(item);
-                    }
-                    else if (item.Equals(ConstantHelper.RssFeedNews.Google_News_LiveStrong))
-                    {
-                        _allLiveStrongFeeds = _data.GetValueOrDefault(item);
-                    }
-
                     DisplayFeeds(false, item);
                 }
             }
@@ -227,6 +205,7 @@ namespace VeganLife.ViewModels
                 {
                     Feeds = new ObservableCollection<Item>();
                 }
+
                 if (HotFeeds == null)
                 {
                     HotFeeds = new ObservableCollection<HotItem>();
@@ -237,19 +216,20 @@ namespace VeganLife.ViewModels
                 switch (uri)
                 {
                     case ConstantHelper.RssFeedNews.Google_News_VeganFoods:
-                        _allVeganFoodFeeds.ForEach(i => Feeds.Add(i));
-                        SetHotFeeds(_allVeganFoodFeeds, htmlWeb, AppResources.veganFood_feedPage);
+                        var foods = _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
+                        foods.ForEach(i => Feeds.Add(i));
+                        SetHotFeeds(foods, htmlWeb, AppResources.veganFood_feedPage);
                         break;
                     case ConstantHelper.RssFeedNews.Google_News_VeganHealthy:
-                        SetHotFeeds(_allVeganHealthyFeeds, htmlWeb, AppResources.healthy_feedPage);
+                        SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy), htmlWeb, AppResources.healthy_feedPage);
                         break;
 
                     case ConstantHelper.RssFeedNews.Google_News_Religion:
-                        SetHotFeeds(_allReligionFeeds, htmlWeb, AppResources.religion_feedPage);
+                        SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_Religion), htmlWeb, AppResources.religion_feedPage);
                         break;
 
                     case ConstantHelper.RssFeedNews.Google_News_LiveStrong:
-                        SetHotFeeds(_allLiveStrongFeeds, htmlWeb, AppResources.liveStrong_feedPage);
+                        SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_LiveStrong), htmlWeb, AppResources.liveStrong_feedPage);
                         break;
                 }
             }
@@ -287,18 +267,31 @@ namespace VeganLife.ViewModels
         }
 
         string nodeImgHead = "//meta[@property='og:image']";
+        string nodeWeb = "//a";
         string LoadUrlPreview(HtmlWeb htmlWeb, string url)
         {
             HtmlDocument htmlDoc = new HtmlDocument();
             string result = htmlDoc.ParsedText ?? string.Empty;
             try
             {
-                htmlDoc = htmlWeb.Load(url);
+                htmlDoc = htmlWeb.Load(url.Remove(url.IndexOf("?")));
+                //get web
+                var webNode = htmlDoc.DocumentNode.SelectSingleNode(nodeWeb);
+                if (webNode != null)
+                {
+                    result = webNode?.Attributes["href"]?.Value ?? string.Empty;
+                }
                 // get image title
+                if (string.IsNullOrEmpty(result))
+                    return result;
+                htmlDoc = htmlWeb.Load(result);
                 var titleImageNode = htmlDoc.DocumentNode.SelectSingleNode(nodeImgHead);
                 if (titleImageNode != null)
                 {
-                    result = titleImageNode?.Attributes["content"]?.Value ?? string.Empty;
+                    result = titleImageNode?.Attributes["Content"]?.Value ?? string.Empty;
+#if DEBUG
+                    Console.WriteLine(result);
+#endif
                 }
             }
             catch (Exception e)
