@@ -8,18 +8,13 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
-    Title="Món chay">
-    <!--  x:DataType="viewmodel:MainViewModel"  -->
+    Title="Món chay"
+    x:DataType="viewmodel:MainViewModel">
     <Shell.SearchHandler>
-        <control:VitaminSearchHandler Placeholder="Nhập để tìm chức năng">
-            <control:VitaminSearchHandler.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="0">
-                        <Label Text="{Binding Key}" />
-                    </Grid>
-                </DataTemplate>
-            </control:VitaminSearchHandler.ItemTemplate>
-        </control:VitaminSearchHandler>
+        <control:FuntionAppSearchHandler
+            ItemTemplate="{StaticResource AppFunctionTemplate}"
+            Placeholder="Nhập để tìm chức năng"
+            ShowsResults="True" />
     </Shell.SearchHandler>
     <Label Text="Thien" />
 </ContentPage>
