@@ -1,6 +1,6 @@
 ﻿namespace VeganLife.Views.Controls
 {
-    public class VitaminSearchHandler : SearchHandler
+    public class FuntionAppSearchHandler : SearchHandler
     {
 
         public Type SelectedItemNavigationTarget { get; set; }
@@ -31,5 +31,10 @@
             // The following route works because route names are unique in this application.
             //await Shell.Current.GoToAsync($"{GetNavigationTarget()}?name={((Animal)item).Name}");
         }
+
+        //string GetNavigationTarget()
+        //{
+        //    return (Shell.Current as AppShell).Routes.FirstOrDefault(route => route.Value.Equals(SelectedItemNavigationTarget)).Key;
+        //}
     }
 }
