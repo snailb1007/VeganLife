@@ -14,9 +14,7 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         async void Init()
         {
-            //Vitamins = new IEnumerable<VitaminModel>();
-            var data = await new FirebaseRealtimeData().GetVitamins();
-            Vitamins = data;
+            Vitamins = await FirebaseRealtimeData.GetVitamins();
         }
     }
 }

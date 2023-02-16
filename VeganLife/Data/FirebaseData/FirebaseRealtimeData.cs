@@ -1,44 +1,33 @@
 ﻿using Firebase.Database;
-using Newtonsoft.Json.Linq;
+using VeganLife.Models.FoodModel;
 
 namespace VeganLife.Data.FireBaseData
 {
-    public class FirebaseRealtimeData
+    public static class FirebaseRealtimeData
     {
         const string firebase_client_link = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
-        private FirebaseClient _firebaseDatabase;
+        private static FirebaseClient _firebaseDatabase = new FirebaseClient(firebase_client_link);
 
-        public FirebaseRealtimeData()
-        {
-            _firebaseDatabase = new FirebaseClient(firebase_client_link);
-        }
-
-        public async Task<string> GetBackgroundImage(string goal)
-        {
-            var data = await _firebaseDatabase.Child($"Backgrounds/Themes/{goal}").OnceAsync<string>();
-            return data.Select(item => item.Object.ToString()).FirstOrDefault();
-        }
-
-        public async Task<List<FoodModel>> GetFoods()
+        public async static Task<IEnumerable<FoodPreviewModel>> GetFoods()
         {
             try
             {
-                var data = await _firebaseDatabase.Child("Foods/SummaryFoods").OnceAsync<JArray>();
-                return data.Select(item => new FoodModel
+                var data = await _firebaseDatabase.Child("Foods/list").OnceAsync<FoodPreviewModel>().ConfigureAwait(false);
+                return data.Select(item => new FoodPreviewModel
                 {
-                    Name = string.Empty,
-                    Content = string.Empty,
-                    Image = string.Empty
-                }).ToList();
+                    Id = item.Key,
+                    Name = item.Object.Name,
+                    Image = item.Object.Image
+                });
             }
             catch (FirebaseException e)
             {
-                Console.WriteLine(e.Message);
-                return new List<FoodModel>();
+                Console.WriteLine(e.StackTrace);
+                return Enumerable.Empty<FoodPreviewModel>();
             }
         }
 
-        public async Task<IEnumerable<VitaminModel>> GetVitamins()
+        public async static Task<IEnumerable<VitaminModel>> GetVitamins()
         {
             try
             {
