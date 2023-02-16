@@ -10,6 +10,7 @@ namespace VeganLife.ViewModels
 {
     public partial class NewsFeedViewModel : BaseViewModel
     {
+        string text = "";
         DataLoader _databaseFood;
         Dictionary<string, List<Item>> _data = new Dictionary<string, List<Item>>();
 
