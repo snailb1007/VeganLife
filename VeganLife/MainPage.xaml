@@ -16,16 +16,43 @@
             Placeholder="Nhập để tìm chức năng"
             ShowsResults="True" />
     </Shell.SearchHandler>
-    <CollectionView ItemsSource="{Binding Foods}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="model:FoodPreviewModel">
-                <Frame Padding="0">
-                    <Grid ColumnDefinitions="*,4*">
-                        <Image Source="{Binding Image}" />
-                        <Label Text="{Binding Name}" />
-                    </Grid>
-                </Frame>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <StackLayout>
+        <StackLayout Margin="10" Orientation="Horizontal">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="StartAndExpand"
+                Text="Loại"
+                VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="End"
+                Text="tất cả &gt;"
+                VerticalOptions="Center" />
+        </StackLayout>
+        <Label
+            Margin="10"
+            FontAttributes="Bold"
+            FontSize="18"
+            HorizontalOptions="StartAndExpand"
+            Text="Danh sách"
+            VerticalOptions="Center" />
+        <CollectionView Margin="10" ItemsSource="{Binding Foods}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:FoodPreviewModel">
+                    <Frame Padding="0" BorderColor="Transparent">
+                        <Grid ColumnDefinitions="2.5*, *" ColumnSpacing="10" Padding="0,0,0,5">
+                            <Frame
+                                Grid.Column="1"
+                                Margin="2"
+                                Padding="0"
+                                BorderColor="Transparent">
+                                <Image Source="{Binding Image}" />
+                            </Frame>
+                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>
