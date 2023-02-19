@@ -1,8 +1,6 @@
-﻿using System.Globalization;
-using VeganLife.Helpers;
+﻿using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
-using VeganLife.Views;
 
 namespace VeganLife;
 

@@ -1,4 +1,5 @@
 ﻿using Firebase.Database;
+using Firebase.Database.Query;
 using VeganLife.Models.FoodModel;
 
 namespace VeganLife.Data.FireBaseData
@@ -24,6 +25,20 @@ namespace VeganLife.Data.FireBaseData
             {
                 Console.WriteLine(e.StackTrace);
                 return Enumerable.Empty<FoodPreviewModel>();
+            }
+        }
+
+        public static async Task<FoodDetailModel> GetFoodDetail(string id)
+        {
+            try
+            {
+                var data = await _firebaseDatabase.Child("Foods/detail").Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return new FoodDetailModel();
             }
         }
 

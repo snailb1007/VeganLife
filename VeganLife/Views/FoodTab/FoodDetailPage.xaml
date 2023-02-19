@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VeganLife.Views.FoodTab.FoodDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    Title="Chi tiết món ăn"
+    x:DataType="viewmodel:FoodDetailViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:LineBreakConverter x:Key="LineBreakConverter" />
+            <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
+            <Style TargetType="Line">
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="BackgroundColor" Value="#f0f0f0" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+            <Style x:Key="lbDetailMenu" TargetType="Label">
+                <Setter Property="Opacity" Value="0.5" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="2*,3*">
+        <Image Aspect="AspectFill" Source="{Binding FoodPreview.Image}" />
+        <Grid Grid.RowSpan="2" Margin="15,0">
+            <ScrollView>
+                <VerticalStackLayout Margin="0,100,0,0" BackgroundColor="Transparent">
+                    <Frame
+                        Padding="0"
+                        BorderColor="Transparent"
+                        CornerRadius="20"
+                        HasShadow="True">
+                        <Frame.Background>
+                            <LinearGradientBrush StartPoint="0.8,0.9" EndPoint="0.8,1">
+                                <GradientStop Offset="0.1" Color="White" />
+                                <GradientStop Offset="1" Color="Transparent" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                        <Grid
+                            Margin="10,10,0,10"
+                            ColumnDefinitions="4*,*"
+                            RowDefinitions="*"
+                            VerticalOptions="FillAndExpand">
+                            <VerticalStackLayout
+                                x:Name="nameTitle"
+                                Margin="10,0,0,0"
+                                Spacing="8">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Text="{Binding FoodPreview.Name}" />
+                                <Label Text="Sống thuần chay" />
+                            </VerticalStackLayout>
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="FontAwesomeRegular"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                Text="&#xf02e;"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Margin="0,20"
+                        Padding="0"
+                        BorderColor="#f0f0f0"
+                        CornerRadius="10"
+                        HasShadow="True">
+                        <VerticalStackLayout>
+                            <Label Style="{StaticResource lbDetailMenu}" Text="Nguyên liệu" />
+                            <Line />
+                            <Label
+                                Margin="15,10,10,10"
+                                FontSize="15"
+                                Text="{Binding FoodDetail.Ingredient, Converter={StaticResource LineBreakConverter}}" />
+
+                            <Label Style="{StaticResource lbDetailMenu}" Text="Cách làm" />
+                            <Line />
+                            <Label
+                                Margin="15,10,10,10"
+                                FontSize="15"
+                                Text="{Binding FoodDetail.Making, Converter={StaticResource LineBreakConverter}}" />
+
+                            <Label
+                                IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}"
+                                Style="{StaticResource lbDetailMenu}"
+                                Text="Nước sốt" />
+                            <Line IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}" />
+                            <Label
+                                x:Name="detailSauce"
+                                Margin="15,10,10,10"
+                                FontSize="15"
+                                IsVisible="{Binding FoodDetail.Sauce, Converter={x:StaticResource NullToFalseConverter}}"
+                                Text="{Binding FoodDetail.Sauce, Converter={StaticResource LineBreakConverter}}" />
+
+                            <Label
+                                IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}"
+                                Style="{StaticResource lbDetailMenu}"
+                                Text="Trang trí" />
+                            <Line IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}" />
+                            <Label
+                                x:Name="detailDecorate"
+                                Margin="15,10,10,10"
+                                FontSize="15"
+                                IsVisible="{Binding FoodDetail.Decorate, Converter={x:StaticResource NullToFalseConverter}}"
+                                Text="{Binding FoodDetail.Decorate, Converter={StaticResource LineBreakConverter}}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

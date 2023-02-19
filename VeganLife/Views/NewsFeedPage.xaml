@@ -91,11 +91,13 @@
                                         BackgroundColor="#3380ef"
                                         BorderColor="Transparent"
                                         HorizontalOptions="Start"
+                                        IsClippedToBounds="True"
                                         VerticalOptions="Start">
                                         <Label
                                             Margin="1"
                                             FontAttributes="Bold"
                                             FontSize="10"
+                                            HorizontalOptions="Center"
                                             Text="{Binding Topic}"
                                             TextColor="White"
                                             VerticalOptions="Center" />

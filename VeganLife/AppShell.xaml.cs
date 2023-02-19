@@ -1,4 +1,6 @@
-﻿namespace VeganLife;
+﻿using VeganLife.Views.FoodTab;
+
+namespace VeganLife;
 
 public partial class AppShell : Shell
 {
@@ -16,6 +18,7 @@ public partial class AppShell : Shell
         Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
         Routes.Add(nameof(LoginPage), typeof(LoginPage));
         Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));
+        Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
 
         foreach (var item in Routes)
         {
