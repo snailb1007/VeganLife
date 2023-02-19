@@ -8,6 +8,7 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
+    x:Name="mainPageRoot"
     Title="Món chay"
     x:DataType="viewmodel:MainViewModel">
     <Shell.SearchHandler>
@@ -36,11 +37,20 @@
             HorizontalOptions="StartAndExpand"
             Text="Danh sách"
             VerticalOptions="Center" />
-        <CollectionView Margin="10" ItemsSource="{Binding Foods}">
+        <CollectionView
+            Margin="10"
+            ItemsSource="{Binding Foods}"
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:FoodPreviewModel">
                     <Frame Padding="0" BorderColor="Transparent">
-                        <Grid ColumnDefinitions="2.5*, *" ColumnSpacing="10" Padding="0,0,0,5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.GoFoodDetailCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Grid
+                            Padding="0,0,0,5"
+                            ColumnDefinitions="2.5*, *"
+                            ColumnSpacing="10">
                             <Frame
                                 Grid.Column="1"
                                 Margin="2"
