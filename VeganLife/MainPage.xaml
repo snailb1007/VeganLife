@@ -8,6 +8,7 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
+    x:Name="mainPageRoot"
     Title="Món chay"
     x:DataType="viewmodel:MainViewModel">
     <Shell.SearchHandler>
@@ -16,16 +17,52 @@
             Placeholder="Nhập để tìm chức năng"
             ShowsResults="True" />
     </Shell.SearchHandler>
-    <CollectionView ItemsSource="{Binding Foods}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="model:FoodPreviewModel">
-                <Frame Padding="0">
-                    <Grid ColumnDefinitions="*,4*">
-                        <Image Source="{Binding Image}" />
-                        <Label Text="{Binding Name}" />
-                    </Grid>
-                </Frame>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <StackLayout>
+        <StackLayout Margin="10" Orientation="Horizontal">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="StartAndExpand"
+                Text="Loại"
+                VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="End"
+                Text="tất cả &gt;"
+                VerticalOptions="Center" />
+        </StackLayout>
+        <Label
+            Margin="10"
+            FontAttributes="Bold"
+            FontSize="18"
+            HorizontalOptions="StartAndExpand"
+            Text="Danh sách"
+            VerticalOptions="Center" />
+        <CollectionView
+            Margin="10"
+            ItemsSource="{Binding Foods}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:FoodPreviewModel">
+                    <Frame Padding="0" BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.GoFoodDetailCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Grid
+                            Padding="0,0,0,5"
+                            ColumnDefinitions="2.5*, *"
+                            ColumnSpacing="10">
+                            <Frame
+                                Grid.Column="1"
+                                Margin="2"
+                                Padding="0"
+                                BorderColor="Transparent">
+                                <Image Source="{Binding Image}" />
+                            </Frame>
+                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

@@ -2,6 +2,7 @@
 using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.Controls;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife;
 
@@ -59,6 +60,9 @@ public static class MauiProgram
 
         services.AddSingleton<VitaminAndMineralPage>();
         services.AddSingleton<VitaminAndMineralViewModel>();
+
+        services.AddSingleton<FoodDetailPage>();
+        services.AddSingleton<FoodDetailViewModel>();
     }
 
     static void AllowMultiLineTruncationOnAndroid()

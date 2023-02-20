@@ -1,16 +1,16 @@
 ﻿namespace VeganLife.Helpers.Converter
 {
-    public class NullToFalseConverter : IValueConverter
+    class LineBreakConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            if (value != null)
             {
-                case string stringValue:
-                    return !string.IsNullOrEmpty(stringValue.Trim());
-                default:
-                    return value != null;
+                value = (value as string).Replace("\\r\\n", Environment.NewLine + "· ");
+                value = (value as string).Replace("\r\n", Environment.NewLine + "· ");
             }
+
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
