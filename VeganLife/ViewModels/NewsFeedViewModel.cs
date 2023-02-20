@@ -10,7 +10,7 @@ namespace VeganLife.ViewModels
 {
     public partial class NewsFeedViewModel : BaseViewModel
     {
-        string text = "";
+        //string text = "";
         DataLoader _databaseFood;
         Dictionary<string, List<Item>> _data = new Dictionary<string, List<Item>>();
 
@@ -165,6 +165,8 @@ namespace VeganLife.ViewModels
         {
             if (sender == null)
                 return;
+            var watch = new Stopwatch();
+            watch.Start();
             foreach (var item in (string[])sender)
             {
                 if (!string.IsNullOrEmpty(item) && _data.ContainsKey(item))
@@ -172,7 +174,8 @@ namespace VeganLife.ViewModels
                     DisplayFeeds(false, item);
                 }
             }
-
+            watch.Stop();
+            Console.WriteLine($"thien==>watch: {watch.ElapsedMilliseconds}");
             IsLoading = false;
         }
 
@@ -187,9 +190,9 @@ namespace VeganLife.ViewModels
             _data = _databaseFood.LoadData(new string[]
             {
                 ConstantHelper.RssFeedNews.Google_News_VeganFoods,
-                ConstantHelper.RssFeedNews.Google_News_VeganHealthy,
-                ConstantHelper.RssFeedNews.Google_News_Religion,
-                ConstantHelper.RssFeedNews.Google_News_LiveStrong
+                //ConstantHelper.RssFeedNews.Google_News_VeganHealthy,
+                //ConstantHelper.RssFeedNews.Google_News_Religion,
+                //ConstantHelper.RssFeedNews.Google_News_LiveStrong
             });
             InitMenu();
         }
@@ -219,7 +222,7 @@ namespace VeganLife.ViewModels
                     case ConstantHelper.RssFeedNews.Google_News_VeganFoods:
                         var foods = _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
                         foods.ForEach(i => Feeds.Add(i));
-                        SetHotFeeds(foods, htmlWeb, AppResources.veganFood_feedPage);
+                        //SetHotFeeds(foods, htmlWeb, AppResources.veganFood_feedPage);
                         break;
                     case ConstantHelper.RssFeedNews.Google_News_VeganHealthy:
                         SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy), htmlWeb, AppResources.healthy_feedPage);
@@ -271,6 +274,7 @@ namespace VeganLife.ViewModels
         string nodeWeb = "//a";
         string LoadUrlPreview(HtmlWeb htmlWeb, string url)
         {
+
             HtmlDocument htmlDoc = new HtmlDocument();
             string result = htmlDoc.ParsedText ?? string.Empty;
             try
@@ -321,6 +325,7 @@ namespace VeganLife.ViewModels
         public Dictionary<string, List<Item>> LoadData(string[] uri)
         {
             EnsureLoad(uri);
+
             return _data;
         }
 
