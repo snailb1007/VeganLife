@@ -24,7 +24,7 @@ namespace VeganLife.ViewModels
         bool _isDisplayHotFeed;
 
         [ObservableProperty]
-        ObservableCollection<HotItem> _hotFeeds;
+        ObservableCollection<HotItemModel> _hotFeeds;
 
         [ObservableProperty]
         ObservableCollection<Item> _feeds;
@@ -212,7 +212,7 @@ namespace VeganLife.ViewModels
 
                 if (HotFeeds == null)
                 {
-                    HotFeeds = new ObservableCollection<HotItem>();
+                    HotFeeds = new ObservableCollection<HotItemModel>();
                 }
 
                 HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
@@ -241,7 +241,7 @@ namespace VeganLife.ViewModels
 
         void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
         {
-            HotItem itemHotFeeds = new HotItem();
+            HotItemModel itemHotFeeds = new HotItemModel();
             string imgLinkHotItem = string.Empty;
             foreach (var item in data)
             {
@@ -251,7 +251,7 @@ namespace VeganLife.ViewModels
                 if (!string.IsNullOrEmpty(imgLinkHotItem))
                 {
                     item.ImageTitleUri = imgLinkHotItem;
-                    itemHotFeeds = new HotItem(item, topic);
+                    itemHotFeeds = new HotItemModel(item, topic);
                     break;
                 }
             }
@@ -338,14 +338,12 @@ namespace VeganLife.ViewModels
                 _isLoaded = true;
             }
 
-            //List<Task> tasks = new List<Task>();
             // actual loading
             foreach (var item in uri)
             {
                 await LoadGoogleNews(item);
             }
 
-            //await Task.WhenAll(tasks);
             DataLoaded?.Invoke(uri, EventArgs.Empty);
         }
 
@@ -365,30 +363,9 @@ namespace VeganLife.ViewModels
         }
     }
 
-    public partial class Discovery : ObservableObject
+    public partial class Discovery : MenuModel
     {
-        public string ImgSource { get; set; }
-        public string Title { get; set; }
         [ObservableProperty]
         bool _isSelected;
-        public string Opacity => IsSelected ? "1" : "0.5";
-    }
-
-    public class HotItem : Item
-    {
-        public HotItem() { }
-        public HotItem(Item item, string topic)
-        {
-            title = item.title;
-            link = item.link;
-            guid = item.guid;
-            pubDate = item.pubDate;
-            description = item.description;
-            source = item.source;
-            ImageTitleUri = item.ImageTitleUri;
-            Topic = topic;
-        }
-
-        public string Topic { get; set; }
     }
 }

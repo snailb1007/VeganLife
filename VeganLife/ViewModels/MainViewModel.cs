@@ -9,6 +9,14 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         IEnumerable<FoodPreviewModel> _foods;
 
+        public IList<MenuModel> Categorys = new List<MenuModel>()
+        {
+            new MenuModel() { ImgSource = "", Title = "Bữa sáng" },
+            new MenuModel() { ImgSource = "", Title = "Đồ uống" },
+            new MenuModel() { ImgSource = "", Title = "Bữa tối" },
+            new MenuModel() { ImgSource = "", Title = "Món tráng miệng" },
+        };
+
         public MainViewModel()
         {
             Init();
