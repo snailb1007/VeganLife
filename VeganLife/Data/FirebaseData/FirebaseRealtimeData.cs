@@ -28,7 +28,7 @@ namespace VeganLife.Data.FireBaseData
             }
         }
 
-        public static async Task<FoodDetailModel> GetFoodDetail(string id)
+        public async static Task<FoodDetailModel> GetFoodDetail(string id)
         {
             try
             {
@@ -39,6 +39,23 @@ namespace VeganLife.Data.FireBaseData
             {
                 Console.WriteLine(e.StackTrace);
                 return new FoodDetailModel();
+            }
+        }
+
+        public async static Task<IEnumerable<MenuModel>> GetFoodMenu()
+        {
+            try
+            {
+                var data = await _firebaseDatabase.Child("App/img/menu_food").OnceAsync<MenuModel>().ConfigureAwait(false);
+                return data.Select(item => new MenuModel
+                {
+                    ImgSource = item.Object.ImgSource
+                });
+            }
+            catch (FirebaseException e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return Enumerable.Empty<MenuModel>();
             }
         }
 

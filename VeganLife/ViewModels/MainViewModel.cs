@@ -11,10 +11,10 @@ namespace VeganLife.ViewModels
 
         public IList<MenuModel> Categorys = new List<MenuModel>()
         {
-            new MenuModel() { ImgSource = "", Title = "Bữa sáng" },
-            new MenuModel() { ImgSource = "", Title = "Đồ uống" },
-            new MenuModel() { ImgSource = "", Title = "Bữa tối" },
-            new MenuModel() { ImgSource = "", Title = "Món tráng miệng" },
+            new MenuModel() { Title = "Bữa sáng" },
+            new MenuModel() { Title = "Đồ uống" },
+            new MenuModel() { Title = "Bữa tối" },
+            new MenuModel() { Title = "Món tráng miệng" },
         };
 
         public MainViewModel()
@@ -25,6 +25,7 @@ namespace VeganLife.ViewModels
         async void Init()
         {
             Foods = await FirebaseRealtimeData.GetFoods();
+            var menu = await FirebaseRealtimeData.GetFoodMenu();
         }
 
         [RelayCommand]

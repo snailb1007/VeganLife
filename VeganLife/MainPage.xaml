@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
-    xmlns:model="clr-namespace:VeganLife.Models.FoodModel"
+    xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
@@ -30,6 +31,11 @@
                 Text="tất cả &gt;"
                 VerticalOptions="Center" />
         </StackLayout>
+        <CollectionView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:MenuModel" />
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Label
             Margin="10"
             FontAttributes="Bold"
@@ -42,7 +48,7 @@
             ItemsSource="{Binding Foods}"
             SelectionMode="Single">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:FoodPreviewModel">
+                <DataTemplate x:DataType="modelFood:FoodPreviewModel">
                     <Frame Padding="0" BorderColor="Transparent">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.GoFoodDetailCommand}" CommandParameter="{Binding .}" />
