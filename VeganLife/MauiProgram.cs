@@ -31,38 +31,41 @@ public static class MauiProgram
 
     static void RegisterServices(IServiceCollection services)
     {
-        services.AddSingleton<SettingPage>();
-        services.AddSingleton<SettingViewModel>();
+        // service
+        services.AddSingleton<INavigationService, NavigationService>();
+        // page
+        services.AddTransient<SettingPage>();
+        services.AddTransient<SettingViewModel>();
 
-        services.AddSingleton<BMICalculatorPage>();
-        services.AddSingleton<BMICalculatorViewModel>();
+        services.AddTransient<BMICalculatorPage>();
+        services.AddTransient<BMICalculatorViewModel>();
 
-        services.AddSingleton<MainPage>();
-        services.AddSingleton<MainViewModel>();
+        services.AddTransient<MainPage>();
+        services.AddTransient<MainViewModel>();
 
-        services.AddSingleton<NewsFeedPage>();
-        services.AddSingleton<NewsFeedViewModel>();
+        services.AddTransient<NewsFeedPage>();
+        services.AddTransient<NewsFeedViewModel>();
 
-        services.AddSingleton<RationPlanPage>();
-        services.AddSingleton<RationPlanViewModel>();
+        services.AddTransient<RationPlanPage>();
+        services.AddTransient<RationPlanViewModel>();
 
-        services.AddSingleton<LoginPage>();
-        services.AddSingleton<LoginViewModel>();
+        services.AddTransient<LoginPage>();
+        services.AddTransient<LoginViewModel>();
 
-        services.AddSingleton<RegistrationPage>();
-        services.AddSingleton<RegistrationViewModel>();
+        services.AddTransient<RegistrationPage>();
+        services.AddTransient<RegistrationViewModel>();
 
-        services.AddSingleton<WebViewPage>();
-        services.AddSingleton<WebViewViewModel>();
+        services.AddTransient<WebViewPage>();
+        services.AddTransient<WebViewViewModel>();
 
-        services.AddSingleton<FlyoutHeader>();
-        services.AddSingleton<FlyouttHeaderViewModel>();
+        services.AddTransient<FlyoutHeader>();
+        services.AddTransient<FlyouttHeaderViewModel>();
 
-        services.AddSingleton<VitaminAndMineralPage>();
-        services.AddSingleton<VitaminAndMineralViewModel>();
+        services.AddTransient<VitaminAndMineralPage>();
+        services.AddTransient<VitaminAndMineralViewModel>();
 
-        services.AddSingleton<FoodDetailPage>();
-        services.AddSingleton<FoodDetailViewModel>();
+        services.AddTransient<FoodDetailPage>();
+        services.AddTransient<FoodDetailViewModel>();
     }
 
     static void AllowMultiLineTruncationOnAndroid()
