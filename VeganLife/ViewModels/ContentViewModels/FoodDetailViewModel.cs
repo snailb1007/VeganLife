@@ -1,5 +1,4 @@
-﻿using VeganLife.Data.FireBaseData;
-using VeganLife.Models.FoodModel;
+﻿using VeganLife.Models.FoodModel;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -10,13 +9,13 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         [ObservableProperty]
         FoodDetailModel _foodDetail;
-        public FoodDetailViewModel() { }
+        public FoodDetailViewModel(IDataService dataService) : base(dataService) { }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             if (query == null) { return; }
             FoodPreview = query["SelectedFood"] as FoodPreviewModel;
-            FoodDetail = await FirebaseRealtimeData.GetFoodDetail(FoodPreview.Id ?? string.Empty);
+            FoodDetail = await data_service.GetFoodDetail(FoodPreview.Id ?? string.Empty);
         }
     }
 }

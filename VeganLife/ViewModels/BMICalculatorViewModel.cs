@@ -82,7 +82,7 @@ namespace VeganLife.ViewModels
 
         }
 
-        public BMICalculatorViewModel()
+        public BMICalculatorViewModel(IDataService dataService) : base(dataService)
         {
             Init();
         }

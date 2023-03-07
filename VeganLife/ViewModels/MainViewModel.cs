@@ -1,5 +1,4 @@
-﻿using VeganLife.Data.FireBaseData;
-using VeganLife.Models.FoodModel;
+﻿using VeganLife.Models.FoodModel;
 using VeganLife.Views.FoodTab;
 
 namespace VeganLife.ViewModels
@@ -17,15 +16,15 @@ namespace VeganLife.ViewModels
             new MenuModel() { Title = "Món tráng miệng" },
         };
 
-        public MainViewModel()
+        public MainViewModel(IDataService dataService) : base(dataService)
         {
             Init();
         }
 
         async void Init()
         {
-            Foods = await FirebaseRealtimeData.GetFoods();
-            var menu = await FirebaseRealtimeData.GetFoodMenu();
+            Foods = await data_service.GetFoods();
+            var menu = await data_service.GetFoodMenu();
         }
 
         [RelayCommand]
