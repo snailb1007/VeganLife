@@ -1,6 +1,4 @@
-﻿using VeganLife.Data.FireBaseData;
-
-namespace VeganLife.Helpers.AppSetting
+﻿namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
     {

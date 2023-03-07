@@ -43,7 +43,7 @@
             Application.Current.MainPage = new AppShell();
         }
 
-        public LoginViewModel(INavigationService navigationService)
+        public LoginViewModel(INavigationService navigationService, IDataService dataService) : base(dataService)
         {
             _navigationService = navigationService;
         }

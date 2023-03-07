@@ -6,14 +6,14 @@ namespace VeganLife;
 
 public partial class App : Application
 {
-    public App(INavigationService service)
+    public App(INavigationService service, IDataService dataService)
     {
         InitializeComponent();
 
         SetupTheme();
         SetupLanguage();
 
-        MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service)));
+        MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
     }
 
     private void SetupLanguage()

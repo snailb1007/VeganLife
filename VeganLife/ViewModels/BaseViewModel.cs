@@ -7,8 +7,11 @@
 
         [ObservableProperty]
         bool _isLoading;
-        public BaseViewModel()
+
+        protected IDataService data_service;
+        public BaseViewModel(IDataService dataService)
         {
+            data_service = dataService;
         }
 
         public virtual Task OnNavigatingTo(object parameter)

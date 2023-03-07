@@ -33,6 +33,7 @@ public static class MauiProgram
     {
         // service
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IDataService, DataService>();
         // page
         services.AddTransient<SettingPage>();
         services.AddTransient<SettingViewModel>();
