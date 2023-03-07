@@ -1,6 +1,5 @@
 ﻿using SQLite;
 using VeganLife.Models.FoodModel;
-using static Android.Icu.Text.CaseMap;
 
 namespace VeganLife.Services.LocalDataServices
 {
