@@ -16,11 +16,6 @@
             public const string Google_News_LiveStrong = "https://news.google.com/rss/search?q=t%E1%BA%ADp%20luy%E1%BB%87n%20s%E1%BB%91ng%20kh%E1%BB%8Fe&hl=vi&gl=VN&ceid=VN%3Avi";
         }
 
-        //public static class FirebaseData
-        //{
-        //    public static FirebaseRealtimeData FirebaseRealtimeData;
-        //}
-
         public static class ThemeInfo
         {
             public static string ImgBackground { get; set; }
