@@ -1,18 +1,20 @@
 ﻿using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
+using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife;
 
 public partial class App : Application
 {
-    public App(INavigationService service, IDataService dataService)
+    public static ISQLite SQLite_Service;
+    public App(INavigationService service, IDataService dataService, ISQLite sqlite)
     {
         InitializeComponent();
 
         SetupTheme();
         SetupLanguage();
-
+        SQLite_Service = sqlite;
         MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
     }
 
