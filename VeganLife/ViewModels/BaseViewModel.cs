@@ -1,8 +1,17 @@
-﻿namespace VeganLife.ViewModels
+﻿using VeganLife.Services.LocalDataServices;
+
+namespace VeganLife.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
-        protected readonly INavigationService navigationService;
+        IServiceProvider Current =>
+#if ANDROID
+            MauiApplication.Current.Services;
+#elif IOS
+            MauiUIApplicationDelegate.Current.Services;
+#else
+    null;
+#endif
 
         [ObservableProperty]
         bool _isLoading;

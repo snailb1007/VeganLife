@@ -10,7 +10,19 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
         RegisterRoutes();
+    }
 
+    protected override bool OnBackButtonPressed()
+    {
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            bool result = await this.DisplayAlert("Alert!", "Do you really want to exit?", "Yes", "No");
+            if (result)
+            {
+                Process.GetCurrentProcess().CloseMainWindow(); // Or anything else
+            }
+        });
+        return true;
     }
 
     void RegisterRoutes()
