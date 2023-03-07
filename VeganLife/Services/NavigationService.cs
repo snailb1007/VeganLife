@@ -1,4 +1,6 @@
-﻿namespace VeganLife.Services
+﻿using VeganLife.Views.FoodTab;
+
+namespace VeganLife.Services
 {
     public class NavigationService : INavigationService
     {
@@ -39,6 +41,7 @@
         }
 
         public Task NavigateToRegisPage() => NavigataToPage<RegistrationPage>();
+        public Task NavigateToFoodDetail(object foodPreview) => NavigataToPage<FoodDetailPage>(foodPreview);
 
 
         private async Task NavigataToPage<T>(object paramater = null) where T : Page

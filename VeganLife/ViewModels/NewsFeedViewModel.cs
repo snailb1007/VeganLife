@@ -154,7 +154,7 @@ namespace VeganLife.ViewModels
             }
         }
 
-        public NewsFeedViewModel(IDataService dataService) : base(dataService)
+        public NewsFeedViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             _databaseFood = new DataLoader();
             _databaseFood.DataLoaded += _database_DataLoaded;

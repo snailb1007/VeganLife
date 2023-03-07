@@ -2,7 +2,8 @@
 {
     public partial class FlyouttHeaderViewModel : BaseViewModel
     {
-        public FlyouttHeaderViewModel(IDataService dataService) : base(dataService)
+        public FlyouttHeaderViewModel(INavigationService navigationService, IDataService dataService)
+            : base(navigationService, dataService)
         {
         }
     }
