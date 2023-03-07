@@ -39,7 +39,7 @@ namespace VeganLife.ViewModels
             UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
         }
 
-        public SettingViewModel()
+        public SettingViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             Init();
         }

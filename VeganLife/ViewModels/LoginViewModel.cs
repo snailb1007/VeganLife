@@ -2,6 +2,8 @@
 {
     public partial class LoginViewModel : BaseViewModel
     {
+        readonly INavigationService _navigationService;
+
         [RelayCommand]
         void UnFocus(object obj)
         {
@@ -32,7 +34,7 @@
         [RelayCommand]
         async Task Register()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new RegistrationPage());
+            await _navigationService.NavigateToRegisPage();
         }
 
         [RelayCommand]
@@ -41,9 +43,10 @@
             Application.Current.MainPage = new AppShell();
         }
 
-        public LoginViewModel()
+        public LoginViewModel(INavigationService navigationService, IDataService dataService)
+            : base(navigationService, dataService)
         {
-
+            _navigationService = navigationService;
         }
     }
 }

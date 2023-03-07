@@ -10,7 +10,7 @@ namespace VeganLife.ViewModels
 {
     public partial class NewsFeedViewModel : BaseViewModel
     {
-        string text = "";
+        //string text = "";
         DataLoader _databaseFood;
         Dictionary<string, List<Item>> _data = new Dictionary<string, List<Item>>();
 
@@ -24,7 +24,7 @@ namespace VeganLife.ViewModels
         bool _isDisplayHotFeed;
 
         [ObservableProperty]
-        ObservableCollection<HotItem> _hotFeeds;
+        ObservableCollection<HotItemModel> _hotFeeds;
 
         [ObservableProperty]
         ObservableCollection<Item> _feeds;
@@ -154,7 +154,7 @@ namespace VeganLife.ViewModels
             }
         }
 
-        public NewsFeedViewModel()
+        public NewsFeedViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             _databaseFood = new DataLoader();
             _databaseFood.DataLoaded += _database_DataLoaded;
@@ -165,6 +165,8 @@ namespace VeganLife.ViewModels
         {
             if (sender == null)
                 return;
+            var watch = new Stopwatch();
+            watch.Start();
             foreach (var item in (string[])sender)
             {
                 if (!string.IsNullOrEmpty(item) && _data.ContainsKey(item))
@@ -172,7 +174,8 @@ namespace VeganLife.ViewModels
                     DisplayFeeds(false, item);
                 }
             }
-
+            watch.Stop();
+            Console.WriteLine($"thien==>watch: {watch.ElapsedMilliseconds}");
             IsLoading = false;
         }
 
@@ -187,9 +190,9 @@ namespace VeganLife.ViewModels
             _data = _databaseFood.LoadData(new string[]
             {
                 ConstantHelper.RssFeedNews.Google_News_VeganFoods,
-                ConstantHelper.RssFeedNews.Google_News_VeganHealthy,
-                ConstantHelper.RssFeedNews.Google_News_Religion,
-                ConstantHelper.RssFeedNews.Google_News_LiveStrong
+                //ConstantHelper.RssFeedNews.Google_News_VeganHealthy,
+                //ConstantHelper.RssFeedNews.Google_News_Religion,
+                //ConstantHelper.RssFeedNews.Google_News_LiveStrong
             });
             InitMenu();
         }
@@ -209,7 +212,7 @@ namespace VeganLife.ViewModels
 
                 if (HotFeeds == null)
                 {
-                    HotFeeds = new ObservableCollection<HotItem>();
+                    HotFeeds = new ObservableCollection<HotItemModel>();
                 }
 
                 HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
@@ -219,7 +222,7 @@ namespace VeganLife.ViewModels
                     case ConstantHelper.RssFeedNews.Google_News_VeganFoods:
                         var foods = _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
                         foods.ForEach(i => Feeds.Add(i));
-                        SetHotFeeds(foods, htmlWeb, AppResources.veganFood_feedPage);
+                        //SetHotFeeds(foods, htmlWeb, AppResources.veganFood_feedPage);
                         break;
                     case ConstantHelper.RssFeedNews.Google_News_VeganHealthy:
                         SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy), htmlWeb, AppResources.healthy_feedPage);
@@ -238,7 +241,7 @@ namespace VeganLife.ViewModels
 
         void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
         {
-            HotItem itemHotFeeds = new HotItem();
+            HotItemModel itemHotFeeds = new HotItemModel();
             string imgLinkHotItem = string.Empty;
             foreach (var item in data)
             {
@@ -248,7 +251,7 @@ namespace VeganLife.ViewModels
                 if (!string.IsNullOrEmpty(imgLinkHotItem))
                 {
                     item.ImageTitleUri = imgLinkHotItem;
-                    itemHotFeeds = new HotItem(item, topic);
+                    itemHotFeeds = new HotItemModel(item, topic);
                     break;
                 }
             }
@@ -271,6 +274,7 @@ namespace VeganLife.ViewModels
         string nodeWeb = "//a";
         string LoadUrlPreview(HtmlWeb htmlWeb, string url)
         {
+
             HtmlDocument htmlDoc = new HtmlDocument();
             string result = htmlDoc.ParsedText ?? string.Empty;
             try
@@ -321,6 +325,7 @@ namespace VeganLife.ViewModels
         public Dictionary<string, List<Item>> LoadData(string[] uri)
         {
             EnsureLoad(uri);
+
             return _data;
         }
 
@@ -333,14 +338,12 @@ namespace VeganLife.ViewModels
                 _isLoaded = true;
             }
 
-            //List<Task> tasks = new List<Task>();
             // actual loading
             foreach (var item in uri)
             {
                 await LoadGoogleNews(item);
             }
 
-            //await Task.WhenAll(tasks);
             DataLoaded?.Invoke(uri, EventArgs.Empty);
         }
 
@@ -360,30 +363,9 @@ namespace VeganLife.ViewModels
         }
     }
 
-    public partial class Discovery : ObservableObject
+    public partial class Discovery : MenuModel
     {
-        public string ImgSource { get; set; }
-        public string Title { get; set; }
         [ObservableProperty]
         bool _isSelected;
-        public string Opacity => IsSelected ? "1" : "0.5";
-    }
-
-    public class HotItem : Item
-    {
-        public HotItem() { }
-        public HotItem(Item item, string topic)
-        {
-            title = item.title;
-            link = item.link;
-            guid = item.guid;
-            pubDate = item.pubDate;
-            description = item.description;
-            source = item.source;
-            ImageTitleUri = item.ImageTitleUri;
-            Topic = topic;
-        }
-
-        public string Topic { get; set; }
     }
 }

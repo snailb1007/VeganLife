@@ -1,22 +1,26 @@
-﻿using VeganLife.Data.FireBaseData;
-using VeganLife.Models.FoodModel;
+﻿using VeganLife.Models.FoodModel;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
-    public partial class FoodDetailViewModel : BaseViewModel, IQueryAttributable
+    public partial class FoodDetailViewModel : BaseViewModel
     {
         [ObservableProperty]
         FoodPreviewModel _foodPreview;
 
         [ObservableProperty]
         FoodDetailModel _foodDetail;
-        public FoodDetailViewModel() { }
+        public FoodDetailViewModel(INavigationService navigationService, IDataService dataService)
+            : base(navigationService, dataService) { }
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        public override async Task<Task> OnNavigatingTo(object parameter)
         {
-            if (query == null) { return; }
-            FoodPreview = query["SelectedFood"] as FoodPreviewModel;
-            FoodDetail = await FirebaseRealtimeData.GetFoodDetail(FoodPreview.Id ?? string.Empty);
+            if (parameter is not null)
+            {
+                FoodPreview = parameter as FoodPreviewModel;
+                FoodDetail = await data_service.GetFoodDetail(FoodPreview?.Id ?? string.Empty);
+            }
+
+            return base.OnNavigatingTo(parameter);
         }
     }
 }

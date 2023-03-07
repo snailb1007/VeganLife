@@ -1,6 +1,4 @@
-﻿using VeganLife.Data.FireBaseData;
-
-namespace VeganLife.Helpers.AppSetting
+﻿namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
     {
@@ -17,11 +15,6 @@ namespace VeganLife.Helpers.AppSetting
             public const string Google_News_Religion = "https://news.google.com/rss/search?q=%C4%91%E1%BA%A1o%20ph%E1%BA%ADt&hl=vi&gl=VN&ceid=VN%3Avi";
             public const string Google_News_LiveStrong = "https://news.google.com/rss/search?q=t%E1%BA%ADp%20luy%E1%BB%87n%20s%E1%BB%91ng%20kh%E1%BB%8Fe&hl=vi&gl=VN&ceid=VN%3Avi";
         }
-
-        //public static class FirebaseData
-        //{
-        //    public static FirebaseRealtimeData FirebaseRealtimeData;
-        //}
 
         public static class ThemeInfo
         {
