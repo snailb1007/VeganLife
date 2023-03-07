@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace VeganLife.Helpers
+﻿namespace VeganLife.Helpers
 {
     public enum UserSettingKey
     {

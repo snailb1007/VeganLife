@@ -5,7 +5,8 @@
         [ObservableProperty]
         string _sourceWeb;
 
-        public WebViewViewModel()
+        public WebViewViewModel(INavigationService navigationService, IDataService dataService)
+            : base(navigationService, dataService)
         {
             // TODO: Update the default URL
             SourceWeb = "https://veganhealthies.wordpress.com/";

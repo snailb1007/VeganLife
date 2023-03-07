@@ -54,7 +54,7 @@
                 <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodel:HotItem">
+                <DataTemplate x:DataType="model:HotItemModel">
                     <Frame
                         Margin="0,0,0,5"
                         Padding="0"
@@ -208,8 +208,7 @@
                             Padding="0"
                             BackgroundColor="Transparent"
                             CornerRadius="50"
-                            HorizontalOptions="Center"
-                            Opacity="{Binding Opacity}">
+                            HorizontalOptions="Center">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
                             </Frame.GestureRecognizers>

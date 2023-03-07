@@ -49,7 +49,7 @@ public partial class RationPlanViewModel : BaseViewModel
             Paint = new SolidColorPaint(SKColors.DarkSlateGray)
         };
 
-    public RationPlanViewModel()
+    public RationPlanViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
     {
         Init();
     }
