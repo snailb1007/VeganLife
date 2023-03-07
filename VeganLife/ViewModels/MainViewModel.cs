@@ -16,7 +16,8 @@ namespace VeganLife.ViewModels
             new MenuModel() { Title = "Món tráng miệng" },
         };
 
-        public MainViewModel(IDataService dataService) : base(dataService)
+        public MainViewModel(INavigationService navigationService, IDataService dataService)
+            : base(navigationService, dataService)
         {
             Init();
         }
@@ -30,7 +31,8 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         async void GoFoodDetail(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(FoodDetailPage), new Dictionary<string, object> { { "SelectedFood", obj } });
+            //await Shell.Current.GoToAsync(nameof(FoodDetailPage), new Dictionary<string, object> { { "SelectedFood", obj } });
+            await navigation_service.NavigateToFoodDetail(obj);
         }
     }
 }

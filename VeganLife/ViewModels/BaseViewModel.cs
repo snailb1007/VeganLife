@@ -3,14 +3,15 @@
     public partial class BaseViewModel : ObservableObject
     {
         protected readonly INavigationService navigationService;
-        //protected
 
         [ObservableProperty]
         bool _isLoading;
 
         protected IDataService data_service;
-        public BaseViewModel(IDataService dataService)
+        protected INavigationService navigation_service;
+        public BaseViewModel(INavigationService navigationService, IDataService dataService)
         {
+            navigation_service = navigationService;
             data_service = dataService;
         }
 

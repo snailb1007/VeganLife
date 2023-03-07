@@ -5,7 +5,7 @@
         [ObservableProperty]
         IEnumerable<VitaminModel> _vitamins;
 
-        public VitaminAndMineralViewModel(IDataService dataService) : base(dataService)
+        public VitaminAndMineralViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             Init();
         }
