@@ -1,4 +1,5 @@
 ﻿using SkiaSharp.Views.Maui.Controls.Hosting;
+using VeganLife.Services.LocalDataServices;
 using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.Controls;
@@ -34,6 +35,7 @@ public static class MauiProgram
         // service
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IDataService, DataService>();
+        services.AddSingleton<ISQLite, SQLiteService>();
         // page
         services.AddTransient<SettingPage>();
         services.AddTransient<SettingViewModel>();

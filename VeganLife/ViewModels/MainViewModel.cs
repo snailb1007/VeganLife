@@ -1,10 +1,11 @@
 ﻿using VeganLife.Models.FoodModel;
-using VeganLife.Views.FoodTab;
+using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
+        IDataStoreService<FoodPreviewModel> _dataStoreService;
         [ObservableProperty]
         IEnumerable<FoodPreviewModel> _foods;
 
@@ -19,13 +20,28 @@ namespace VeganLife.ViewModels
         public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
+            //_dataStoreService = new FoodPreviewDataStoreService(App.SQLite_Service);
             Init();
         }
 
         async void Init()
         {
             Foods = await data_service.GetFoods();
-            var menu = await data_service.GetFoodMenu();
+            if (Foods == null || !Foods.Any())
+            {
+                await _dataStoreService.GetItemsAsync();
+            }
+            else
+            {
+                //if (_dataStoreService != null)
+                //{
+                //    foreach (var item in Foods)
+                //    {
+                //        _dataStoreService.AddOrUpdateItemAsync(item);
+                //    }
+                //}
+            }
+            //var menu = await data_service.GetFoodMenu();
         }
 
         [RelayCommand]
