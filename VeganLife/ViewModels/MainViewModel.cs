@@ -5,7 +5,7 @@ namespace VeganLife.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        IDataStoreService<FoodPreviewModel> _dataStoreService;
+        FoodPreviewDataStoreService _dataStoreService;
         [ObservableProperty]
         IEnumerable<FoodPreviewModel> _foods;
 
@@ -17,29 +17,30 @@ namespace VeganLife.ViewModels
             new MenuModel() { Title = "Món tráng miệng" },
         };
 
-        public MainViewModel(INavigationService navigationService, IDataService dataService)
+        public MainViewModel(INavigationService navigationService, IDataService dataService, FoodPreviewDataStoreService dataStoreService)
             : base(navigationService, dataService)
         {
-            //_dataStoreService = new FoodPreviewDataStoreService(App.SQLite_Service);
+            _dataStoreService = dataStoreService;
             Init();
         }
 
         async void Init()
         {
-            Foods = await data_service.GetFoods();
+            //if (AccessType == NetworkAccess.Internet)
+            //    Foods = await data_service.GetFoods();
             if (Foods == null || !Foods.Any())
             {
-                await _dataStoreService.GetItemsAsync();
+                Foods = await _dataStoreService.GetItemsAsync();
             }
             else
             {
-                //if (_dataStoreService != null)
-                //{
-                //    foreach (var item in Foods)
-                //    {
-                //        _dataStoreService.AddOrUpdateItemAsync(item);
-                //    }
-                //}
+                if (_dataStoreService != null)
+                {
+                    foreach (var item in Foods)
+                    {
+                        await _dataStoreService.AddOrUpdateItemAsync(item);
+                    }
+                }
             }
             //var menu = await data_service.GetFoodMenu();
         }

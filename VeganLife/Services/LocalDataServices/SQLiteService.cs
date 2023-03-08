@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Services.LocalDataServices
 {
@@ -6,9 +7,7 @@ namespace VeganLife.Services.LocalDataServices
     {
         public SQLiteAsyncConnection GetAsyncConnection()
         {
-            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var path = Path.Combine(documentsPath, "SQLiteVeganLife.db3");
-            return new SQLiteAsyncConnection(path);
+            return new SQLiteAsyncConnection(ConstantHelper.DatabasePath, ConstantHelper.SQLiteFlags);
         }
     }
 }

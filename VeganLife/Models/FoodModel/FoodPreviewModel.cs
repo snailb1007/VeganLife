@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using SQLite;
 
 namespace VeganLife.Models.FoodModel
 {
     public class FoodPreviewModel
     {
         [JsonIgnore]
+        [PrimaryKey]
         public string Id { get; set; }
 
         [JsonProperty("name")]

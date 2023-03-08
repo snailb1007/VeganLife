@@ -1,4 +1,6 @@
 ﻿using SQLite;
+using VeganLife.Helpers;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.FoodModel;
 
 namespace VeganLife.Services.LocalDataServices
@@ -7,16 +9,23 @@ namespace VeganLife.Services.LocalDataServices
     {
         SQLiteAsyncConnection _connection;
 
-        public FoodPreviewDataStoreService(ISQLite db)
+        public FoodPreviewDataStoreService()
         {
-            _connection  = db.GetAsyncConnection();
-            _connection.CreateTableAsync<FoodPreviewModel>();
+        }
+
+        async Task Init()
+        {
+            if (_connection is not null)
+                return;
+            _connection = new SQLiteAsyncConnection(ConstantHelper.DatabasePath, ConstantHelper.SQLiteFlags);
+            await _connection?.CreateTableAsync<FoodPreviewModel>();
         }
 
         public async Task<bool> AddOrUpdateItemAsync(FoodPreviewModel item)
         {
             try
             {
+                await Init();
                 await _connection.InsertAsync(item);
                 return await Task.FromResult(true);
             }
@@ -38,6 +47,9 @@ namespace VeganLife.Services.LocalDataServices
         }
 
         public async Task<IEnumerable<FoodPreviewModel>> GetItemsAsync(bool forceRefresh = false)
-            => await _connection.Table<FoodPreviewModel>().ToListAsync();
+        {
+            await Init();
+            return await _connection.Table<FoodPreviewModel>().ToListAsync();
+        }
     }
 }
