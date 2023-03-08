@@ -8,6 +8,16 @@
         public const string Theme_Mode_Auto = "auto";
         public const string Theme_Mode_Fixed = "fixed";
 
+        public const string DatabaseFileName = "SQLiteVeganLife.db3";
+        public const SQLite.SQLiteOpenFlags SQLiteFlags =
+            // open database in read/write mdoe
+            SQLite.SQLiteOpenFlags.ReadWrite |
+            // create database if doesnt exist
+            SQLite.SQLiteOpenFlags.Create |
+            // multi-thread database access
+            SQLite.SQLiteOpenFlags.SharedCache;
+        public static string DatabasePath => Path.Combine(FileSystem.AppDataDirectory, DatabaseFileName);
+
         public static class RssFeedNews
         {
             public const string Google_News_VeganFoods = "https://news.google.com/rss/search?q=m%C3%B3n%20chay&hl=vi&gl=VN&ceid=VN%3Avi";

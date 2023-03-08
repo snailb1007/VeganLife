@@ -8,6 +8,7 @@ namespace VeganLife.Services
     {
         const string firebase_client_link = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(firebase_client_link);
+
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
             try

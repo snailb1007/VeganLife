@@ -4,20 +4,14 @@ namespace VeganLife.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
-        IServiceProvider Current =>
-#if ANDROID
-            MauiApplication.Current.Services;
-#elif IOS
-            MauiUIApplicationDelegate.Current.Services;
-#else
-    null;
-#endif
-
         [ObservableProperty]
         bool _isLoading;
 
         protected IDataService data_service;
         protected INavigationService navigation_service;
+
+        protected NetworkAccess AccessType => Connectivity.Current.NetworkAccess;
+
         public BaseViewModel(INavigationService navigationService, IDataService dataService)
         {
             navigation_service = navigationService;
