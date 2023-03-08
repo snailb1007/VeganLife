@@ -35,8 +35,8 @@ public static class MauiProgram
         // service
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IDataService, DataService>();
-        services.AddSingleton<ISQLite, SQLiteService>();
-        services.AddSingleton<FoodPreviewDataStoreService>();
+        //services.AddSingleton<ISQLite, SQLiteService>();
+        //services.AddSingleton<FoodPreviewDataStoreService>();
         // page
         services.AddTransient<SettingPage>();
         services.AddTransient<SettingViewModel>();

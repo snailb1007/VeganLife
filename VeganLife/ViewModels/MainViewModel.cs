@@ -17,17 +17,17 @@ namespace VeganLife.ViewModels
             new MenuModel() { Title = "Món tráng miệng" },
         };
 
-        public MainViewModel(INavigationService navigationService, IDataService dataService, FoodPreviewDataStoreService dataStoreService)
+        public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
-            _dataStoreService = dataStoreService;
+            _dataStoreService = new FoodPreviewDataStoreService();
             Init();
         }
 
         async void Init()
         {
-            //if (AccessType == NetworkAccess.Internet)
-            //    Foods = await data_service.GetFoods();
+            if (AccessType == NetworkAccess.Internet)
+                Foods = await data_service.GetFoods();
             if (Foods == null || !Foods.Any())
             {
                 Foods = await _dataStoreService.GetItemsAsync();

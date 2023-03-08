@@ -7,14 +7,13 @@ namespace VeganLife;
 
 public partial class App : Application
 {
-    public static ISQLite SQLite_Service;
-    public App(INavigationService service, IDataService dataService, ISQLite sqlite)
+    //public static ISQLite SQLite_Service;
+    public App(INavigationService service, IDataService dataService)
     {
         InitializeComponent();
 
         SetupTheme();
         SetupLanguage();
-        SQLite_Service = sqlite;
         MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
     }
 

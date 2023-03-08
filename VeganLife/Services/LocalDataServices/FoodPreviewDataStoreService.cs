@@ -49,7 +49,15 @@ namespace VeganLife.Services.LocalDataServices
         public async Task<IEnumerable<FoodPreviewModel>> GetItemsAsync(bool forceRefresh = false)
         {
             await Init();
-            return await _connection.Table<FoodPreviewModel>().ToListAsync();
+            try
+            {
+                return await _connection.Table<FoodPreviewModel>().ToListAsync();
+            }
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync(e.Message);
+                return Enumerable.Empty<FoodPreviewModel>();
+            }
         }
     }
 }

@@ -16,7 +16,7 @@
             SQLite.SQLiteOpenFlags.Create |
             // multi-thread database access
             SQLite.SQLiteOpenFlags.SharedCache;
-        public static string DatabasePath => Path.Combine(FileSystem.AppDataDirectory, DatabaseFileName);
+        public static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFileName);
 
         public static class RssFeedNews
         {
