@@ -1,4 +1,6 @@
-﻿using VeganLife.Models.FoodModel;
+﻿using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.Models.FoodModel;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
@@ -20,7 +22,9 @@ namespace VeganLife.ViewModels
         public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
-            _dataStoreService = new FoodPreviewDataStoreService();
+            var database = ServicesHelper.GetService<ISQLite>();
+            if (database != null)
+                _dataStoreService = new FoodPreviewDataStoreService(database);
             Init();
         }
 

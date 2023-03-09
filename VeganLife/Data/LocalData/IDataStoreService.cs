@@ -1,4 +1,4 @@
-﻿namespace VeganLife.Services.LocalDataServices
+﻿namespace VeganLife.Data.LocalData
 {
     public interface IDataStoreService<T>
     {

@@ -55,8 +55,7 @@ namespace VeganLife.ViewModels
 
             if (entryWeight != null && entryWeight.IsFocused)
             {
-                var deviceService = new DeviceService();
-                deviceService.HideKeyboard();
+                device_service.HideKeyboard();
                 entryWeight.Unfocus();
                 return;
             }
@@ -64,8 +63,7 @@ namespace VeganLife.ViewModels
             var entryAge = view.FindByName("entryAge") as Entry;
             if (entryAge != null && entryAge.IsFocused)
             {
-                var deviceService = new DeviceService();
-                deviceService.HideKeyboard();
+                device_service.HideKeyboard();
                 entryAge.Unfocus();
             }
         }

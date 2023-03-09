@@ -2,7 +2,7 @@
 
 namespace VeganLife.Services
 {
-    public class DeviceService
+    public class DeviceService : IDeviceService
     {
         public void HideKeyboard()
         {
