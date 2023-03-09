@@ -1,4 +1,5 @@
-﻿using VeganLife.Services.LocalDataServices;
+﻿using VeganLife.Helpers;
+using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
@@ -9,6 +10,7 @@ namespace VeganLife.ViewModels
 
         protected IDataService data_service;
         protected INavigationService navigation_service;
+        protected IDeviceService device_service => ServicesHelper.GetService<IDeviceService>();
 
         protected NetworkAccess AccessType => Connectivity.Current.NetworkAccess;
 

@@ -1,27 +1,26 @@
 ﻿using SQLite;
-using VeganLife.Helpers;
-using VeganLife.Helpers.AppSetting;
-using VeganLife.Models.FoodModel;
+using VeganLife.Data.LocalData;
+using VeganLife.Services.LocalDataServices;
 
-namespace VeganLife.Services.LocalDataServices
+namespace VeganLife.Data
 {
-    public class FoodPreviewDataStoreService : IDataStoreService<FoodPreviewModel>
+    public class BaseDataStore<T> : IDataStoreService<T> where T : new()
     {
         SQLiteAsyncConnection _connection;
+        ISQLite _localDatabase;
 
-        public FoodPreviewDataStoreService()
+        public BaseDataStore(ISQLite database)
         {
+            _localDatabase = database;
         }
-
         async Task Init()
         {
             if (_connection is not null)
                 return;
-            _connection = new SQLiteAsyncConnection(ConstantHelper.DatabasePath, ConstantHelper.SQLiteFlags);
-            await _connection?.CreateTableAsync<FoodPreviewModel>();
+            _connection = _localDatabase.GetAsyncConnection();
+            await _connection?.CreateTableAsync<T>();
         }
-
-        public async Task<bool> AddOrUpdateItemAsync(FoodPreviewModel item)
+        public async Task<bool> AddOrUpdateItemAsync(T item)
         {
             try
             {
@@ -41,22 +40,22 @@ namespace VeganLife.Services.LocalDataServices
             throw new NotImplementedException();
         }
 
-        public Task<FoodPreviewModel> GetItemAsync(string id)
+        public Task<T> GetItemAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<FoodPreviewModel>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
         {
             await Init();
             try
             {
-                return await _connection.Table<FoodPreviewModel>().ToListAsync();
+                return await _connection.Table<T>().ToListAsync();
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync(e.Message);
-                return Enumerable.Empty<FoodPreviewModel>();
+                await Console.Out.WriteLineAsync("Cant retrive local data, " + e.Message);
+                return Enumerable.Empty<T>();
             }
         }
     }

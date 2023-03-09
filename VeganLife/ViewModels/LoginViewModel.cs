@@ -16,8 +16,7 @@
 
             if (entryEmail != null && entryEmail.IsFocused)
             {
-                var deviceService = new DeviceService();
-                deviceService.HideKeyboard();
+                device_service.HideKeyboard();
                 entryEmail.Unfocus();
                 return;
             }
@@ -25,8 +24,7 @@
             var entryPassword = view.FindByName("entryPassword") as Entry;
             if (entryPassword != null && entryPassword.IsFocused)
             {
-                var deviceService = new DeviceService();
-                deviceService.HideKeyboard();
+                device_service.HideKeyboard();
                 entryPassword.Unfocus();
             }
         }
@@ -34,7 +32,7 @@
         [RelayCommand]
         async Task Register()
         {
-            await _navigationService.NavigateToRegisPage();
+            await navigation_service.NavigateToRegisPage();
         }
 
         [RelayCommand]
@@ -46,7 +44,6 @@
         public LoginViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
-            _navigationService = navigationService;
         }
     }
 }
