@@ -20,12 +20,15 @@ namespace VeganLife.Data
             _connection = _localDatabase.GetAsyncConnection();
             await _connection?.CreateTableAsync<T>();
         }
-        public async Task<bool> AddOrUpdateItemAsync(T item)
+        public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
             try
             {
                 await Init();
-                await _connection.InsertAsync(item);
+                if (isUpdate)
+                    await _connection.UpdateAsync(item);
+                else
+                    await _connection.InsertAsync(item);
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -35,9 +38,19 @@ namespace VeganLife.Data
             }
         }
 
-        public Task<bool> DeleteItem(string id)
+        public async Task<bool> DeleteItem(T item)
         {
-            throw new NotImplementedException();
+            await Init();
+            try
+            {
+                await _connection.DeleteAsync(item);
+                return await Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync(e.Message);
+                return await Task.FromResult(false);
+            }
         }
 
         public Task<T> GetItemAsync(string id)

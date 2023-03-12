@@ -55,6 +55,14 @@
     </FlyoutItem>
 
     <ShellContent
+        Title="Lưu trữ"
+        ContentTemplate="{DataTemplate view:ArchivesPage}"
+        Icon="{AppThemeBinding Dark=Archives_light,
+                               Light=archives}"
+        Route="archives"
+        Shell.NavBarIsVisible="true" />
+
+    <ShellContent
         Title="WebView"
         ContentTemplate="{DataTemplate view:WebViewPage}"
         Icon="{AppThemeBinding Dark=web_view_light,

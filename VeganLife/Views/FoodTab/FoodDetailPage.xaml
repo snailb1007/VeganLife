@@ -57,13 +57,24 @@
                                     Text="{Binding FoodPreview.Name}" />
                                 <Label Text="Sống thuần chay" />
                             </VerticalStackLayout>
-                            <Label
+                            <Button
                                 Grid.Column="1"
+                                BackgroundColor="Transparent"
                                 FontFamily="FontAwesomeRegular"
-                                FontSize="18"
+                                FontSize="20"
                                 HorizontalOptions="Center"
                                 Text="&#xf02e;"
-                                VerticalOptions="Center" />
+                                TextColor="Black"
+                                VerticalOptions="Center">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding FoodPreview.IsBookmarked}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </Grid>
                     </Frame>
                     <Frame

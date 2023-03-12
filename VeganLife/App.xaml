@@ -3,18 +3,104 @@
     x:Class="VeganLife.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:VeganLife">
+    xmlns:local="clr-namespace:VeganLife"
+    xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="itemFoodStyle" TargetType="Border">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
 
             <DataTemplate x:Key="AppFunctionTemplate">
                 <Grid Padding="5">
                     <Label Text="{Binding Key}" />
                 </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="FoodPreviewTemplate" x:DataType="modelFood:FoodPreviewModel">
+                <Border
+                    Padding="0"
+                    BackgroundColor="{AppThemeBinding Light=White,
+                                                      Dark=Gray}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 10"
+                    Style="{StaticResource itemFoodStyle}">
+                    <Grid
+                        Margin="0"
+                        Padding="0"
+                        ColumnDefinitions="Auto, 3*, *"
+                        ColumnSpacing="10">
+                        <Border
+                            Margin="5"
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Start"
+                            StrokeShape="RoundRectangle 10"
+                            VerticalOptions="Center">
+                            <Image
+                                Aspect="AspectFill"
+                                BackgroundColor="Transparent"
+                                HeightRequest="70"
+                                HorizontalOptions="End"
+                                Source="{Binding Image}"
+                                WidthRequest="70" />
+                        </Border>
+                        <Label
+                            Grid.Column="1"
+                            Margin="0"
+                            FontAttributes="Bold"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="{Binding Name}"
+                            VerticalOptions="Center" />
+                        <Border
+                            Grid.Column="2"
+                            Margin="0,0,5,0"
+                            Padding="0,5"
+                            BackgroundColor="#f8f8f8"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 15"
+                            VerticalOptions="Center">
+                            <Border.Triggers>
+                                <DataTrigger Binding="{Binding IsBookmarked}" TargetType="Border">
+                                    <Setter Property="Stroke" Value="Gray" />
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Save"
+                                TextColor="SkyBlue"
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsBookmarked}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="Text" Value="Saved" />
+                                        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+                    </Grid>
+                </Border>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -11,13 +11,16 @@
     xmlns:views="clr-namespace:VeganLife.Views"
     x:Name="mainPageRoot"
     Title="Món chay"
-    x:DataType="viewmodel:MainViewModel">
+    x:DataType="viewmodel:MainViewModel"
+    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                      Dark=Black}">
     <Shell.SearchHandler>
         <control:FuntionAppSearchHandler
             ItemTemplate="{StaticResource AppFunctionTemplate}"
             Placeholder="Nhập để tìm chức năng"
             ShowsResults="True" />
     </Shell.SearchHandler>
+    <ContentPage.Resources />
     <StackLayout>
         <StackLayout Margin="10" Orientation="Horizontal">
             <Label
@@ -44,29 +47,81 @@
             Text="Danh sách"
             VerticalOptions="Center" />
         <CollectionView
-            Margin="10"
+            x:Name="foodCollection"
+            Margin="20,10"
             ItemsSource="{Binding Foods}"
+            SelectionChangedCommand="{Binding GoFoodDetailCommand}"
+            SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
             SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="modelFood:FoodPreviewModel">
-                    <Frame Padding="0" BorderColor="Transparent">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.GoFoodDetailCommand}" CommandParameter="{Binding .}" />
-                        </Frame.GestureRecognizers>
+                    <Border
+                        Padding="0"
+                        BackgroundColor="{AppThemeBinding Light=White,
+                                                          Dark=Gray}"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 10"
+                        Style="{StaticResource itemFoodStyle}">
                         <Grid
-                            Padding="0,0,0,5"
-                            ColumnDefinitions="2.5*, *"
+                            Margin="0"
+                            Padding="0"
+                            ColumnDefinitions="Auto, 3*, *"
                             ColumnSpacing="10">
-                            <Frame
-                                Grid.Column="1"
-                                Margin="2"
+                            <Border
+                                Margin="5"
                                 Padding="0"
-                                BorderColor="Transparent">
-                                <Image Source="{Binding Image}" />
-                            </Frame>
-                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                                StrokeThickness="0"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="Start"
+                                StrokeShape="RoundRectangle 10"
+                                VerticalOptions="Center">
+                                <Image
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="70"
+                                    HorizontalOptions="End"
+                                    Source="{Binding Image}"
+                                    WidthRequest="70" />
+                            </Border>
+                            <Label
+                                Grid.Column="1"
+                                Margin="0"
+                                FontAttributes="Bold"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                Text="{Binding Name}"
+                                VerticalOptions="Center" />
+                            <Button
+                                Grid.Column="2"
+                                Margin="0,0,5,0"
+                                Padding="0,5"
+                                BackgroundColor="#f8f8f8"
+                                Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.BookmarkClickedCommand}"
+                                CommandParameter="{Binding .}"
+                                CornerRadius="20"
+                                Text="Save"
+                                BorderWidth="0"
+                                BorderColor="Transparent"
+                                TextColor="SkyBlue"
+                                VerticalOptions="Center">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsBookmarked}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="Text" Value="Saved" />
+                                        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
+                                        <Setter Property="BorderColor" Value="Gray" />
+                                        <Setter Property="BorderWidth" Value="1"/>
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </Grid>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
