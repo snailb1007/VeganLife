@@ -22,11 +22,7 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
-		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion> -->
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion> -->
-		<!-- <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion> -->
-		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion> -->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -55,10 +51,8 @@
 	  <None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 	  <None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
 	  <None Remove="Resources\Images\archives.svg" />
-	  <None Remove="Resources\Images\archives_light.svg" />
 	  <None Remove="Resources\Images\facebook2019.svg" />
 	  <None Remove="Resources\Images\google.svg" />
-	  <None Remove="Resources\Images\loading_circle.gif" />
 	  <None Remove="Resources\Images\microsoft.svg" />
 	  <None Remove="Resources\Images\nutrition_plan.svg" />
 	  <None Remove="Resources\Images\setting.svg" />
@@ -95,9 +89,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\NutritionPage.xaml.cs">
+	  <!--<Compile Update="Views\NutritionPage.xaml.cs">
 	    <DependentUpon>NutritionPage.xaml</DependentUpon>
-	  </Compile>
+	  </Compile>-->
 	</ItemGroup>
 
 	<ItemGroup>

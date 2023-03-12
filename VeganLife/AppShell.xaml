@@ -54,13 +54,17 @@
         </Tab>
     </FlyoutItem>
 
-    <ShellContent
+    <FlyoutItem
         Title="Lưu trữ"
-        ContentTemplate="{DataTemplate view:ArchivesPage}"
-        Icon="{AppThemeBinding Dark=Archives_light,
-                               Light=archives}"
-        Route="archives"
-        Shell.NavBarIsVisible="true" />
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="{AppThemeBinding Dark=bookmarked_light,
+                               Light=bookmarked}">
+        <ShellContent
+            Title="Món ăn"
+            ContentTemplate="{DataTemplate view:ArchivesPage}"
+            Route="archives"
+            Shell.NavBarIsVisible="true" />
+    </FlyoutItem>
 
     <ShellContent
         Title="WebView"

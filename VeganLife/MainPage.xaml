@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -14,15 +15,41 @@
     x:DataType="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}">
+
     <Shell.SearchHandler>
         <control:FuntionAppSearchHandler
-            ItemTemplate="{StaticResource AppFunctionTemplate}"
-            Placeholder="Nhập để tìm chức năng"
-            ShowsResults="True" />
+            x:Name="shellSeachBox"
+            FoodPreviews="{Binding Foods}"
+            IsSettingPage="False"
+            ItemTemplate="{StaticResource FoodPreviewTemplate}"
+            Placeholder="Nhập để tìm món ăn"
+            ShowsResults="True">
+            <control:FuntionAppSearchHandler.ClearIcon>
+                <FontImageSource
+                    FontFamily="FontAwesomeRegular"
+                    Glyph="&#xf057;"
+                    Size="10"
+                    Color="{AppThemeBinding Dark=White,
+                                            Light=Black}" />
+            </control:FuntionAppSearchHandler.ClearIcon>
+        </control:FuntionAppSearchHandler>
     </Shell.SearchHandler>
-    <ContentPage.Resources />
-    <StackLayout>
-        <StackLayout Margin="10" Orientation="Horizontal">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ReverseConverter x:Key="ReverseConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Opacity="1">
+        <StackLayout.Triggers>
+            <DataTrigger
+                Binding="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
+                TargetType="StackLayout"
+                Value="True">
+                <Setter Property="Opacity" Value="0.5" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+        </StackLayout.Triggers>
+        <!--<StackLayout Margin="10" Orientation="Horizontal">
             <Label
                 FontAttributes="Bold"
                 FontSize="18"
@@ -38,7 +65,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:MenuModel" />
             </CollectionView.ItemTemplate>
-        </CollectionView>
+        </CollectionView>-->
         <Label
             Margin="10"
             FontAttributes="Bold"
@@ -73,10 +100,10 @@
                             <Border
                                 Margin="5"
                                 Padding="0"
-                                StrokeThickness="0"
                                 BackgroundColor="Transparent"
                                 HorizontalOptions="Start"
                                 StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
                                 VerticalOptions="Center">
                                 <Image
                                     Aspect="AspectFill"
@@ -99,12 +126,12 @@
                                 Margin="0,0,5,0"
                                 Padding="0,5"
                                 BackgroundColor="#f8f8f8"
+                                BorderColor="Transparent"
+                                BorderWidth="0"
                                 Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.BookmarkClickedCommand}"
                                 CommandParameter="{Binding .}"
                                 CornerRadius="20"
                                 Text="Save"
-                                BorderWidth="0"
-                                BorderColor="Transparent"
                                 TextColor="SkyBlue"
                                 VerticalOptions="Center">
                                 <Button.Triggers>
@@ -115,7 +142,7 @@
                                         <Setter Property="Text" Value="Saved" />
                                         <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
                                         <Setter Property="BorderColor" Value="Gray" />
-                                        <Setter Property="BorderWidth" Value="1"/>
+                                        <Setter Property="BorderWidth" Value="1" />
                                         <Setter Property="BackgroundColor" Value="Transparent" />
                                     </DataTrigger>
                                 </Button.Triggers>

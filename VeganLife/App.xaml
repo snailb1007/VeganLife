@@ -33,75 +33,24 @@
             </DataTemplate>
 
             <DataTemplate x:Key="FoodPreviewTemplate" x:DataType="modelFood:FoodPreviewModel">
-                <Border
-                    Padding="0"
-                    BackgroundColor="{AppThemeBinding Light=White,
-                                                      Dark=Gray}"
-                    Stroke="Transparent"
-                    StrokeShape="RoundRectangle 10"
-                    Style="{StaticResource itemFoodStyle}">
-                    <Grid
-                        Margin="0"
-                        Padding="0"
-                        ColumnDefinitions="Auto, 3*, *"
-                        ColumnSpacing="10">
-                        <Border
-                            Margin="5"
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            HorizontalOptions="Start"
-                            StrokeShape="RoundRectangle 10"
-                            VerticalOptions="Center">
-                            <Image
-                                Aspect="AspectFill"
-                                BackgroundColor="Transparent"
-                                HeightRequest="70"
-                                HorizontalOptions="End"
-                                Source="{Binding Image}"
-                                WidthRequest="70" />
-                        </Border>
-                        <Label
-                            Grid.Column="1"
-                            Margin="0"
-                            FontAttributes="Bold"
-                            LineBreakMode="TailTruncation"
-                            MaxLines="1"
-                            Text="{Binding Name}"
-                            VerticalOptions="Center" />
-                        <Border
-                            Grid.Column="2"
-                            Margin="0,0,5,0"
-                            Padding="0,5"
-                            BackgroundColor="#f8f8f8"
-                            Stroke="Transparent"
-                            StrokeShape="RoundRectangle 15"
-                            VerticalOptions="Center">
-                            <Border.Triggers>
-                                <DataTrigger Binding="{Binding IsBookmarked}" TargetType="Border">
-                                    <Setter Property="Stroke" Value="Gray" />
-                                    <Setter Property="BackgroundColor" Value="Transparent" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Label
-                                FontAttributes="Bold"
-                                HorizontalOptions="Center"
-                                Text="Save"
-                                TextColor="SkyBlue"
-                                VerticalOptions="Center">
-                                <Label.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsBookmarked}"
-                                        TargetType="Label"
-                                        Value="True">
-                                        <Setter Property="Text" Value="Saved" />
-                                        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                        </Border>
-                    </Grid>
-                </Border>
+                <Grid Padding="5" ColumnDefinitions="*,4*">
+                    <Border
+                        BackgroundColor="Transparent"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        StrokeShape="RoundRectangle 25"
+                        StrokeThickness="0"
+                        VerticalOptions="Center"
+                        WidthRequest="50">
+                        <Image Aspect="AspectFill" Source="{Binding Image}" />
+                    </Border>
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" />
+                </Grid>
             </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
