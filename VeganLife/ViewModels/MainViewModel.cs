@@ -8,8 +8,10 @@ namespace VeganLife.ViewModels
     public partial class MainViewModel : BaseViewModel
     {
         FoodPreviewDataStoreService _dataStoreService;
+        IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
+
         [ObservableProperty]
-        IEnumerable<FoodPreviewModel> _foods;
+        ObservableCollection<FoodPreviewModel> _foods;
 
         public IList<MenuModel> Categorys = new List<MenuModel>()
         {
@@ -30,30 +32,71 @@ namespace VeganLife.ViewModels
 
         async void Init()
         {
+            Foods = new ObservableCollection<FoodPreviewModel>();
             if (AccessType == NetworkAccess.Internet)
-                Foods = await data_service.GetFoods();
-            if (Foods == null || !Foods.Any())
+                _onlineFoodPreviewData = await data_service.GetFoods();
+            var localData = await _dataStoreService.GetItemsAsync();
+            if (localData?.Any() ?? false)
             {
-                Foods = await _dataStoreService.GetItemsAsync();
+                if (_onlineFoodPreviewData?.Any() ?? false)
+                {
+                    // compare local vs online => update
+                    for (int i = 0; i < _onlineFoodPreviewData.Count(); i++)
+                    {
+                        var thisOnlineItem = _onlineFoodPreviewData.ElementAt(i);
+                        bool thisItemAlreadyExisted = false;
+                        foreach (var item in localData)
+                        {
+                            if (thisOnlineItem?.Id.Equals(item.Id) ?? false)
+                            {
+                                thisItemAlreadyExisted = true;
+                                thisOnlineItem.IsBookmarked = item.IsBookmarked;
+                                await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                            }
+                        }
+                        // add new item from server to local
+                        if (!thisItemAlreadyExisted)
+                        {
+                            await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
+                        }
+                    }
+
+                    (await _dataStoreService.GetItemsAsync()).ToList().ForEach(i => Foods.Add(i));
+                }
+                else
+                {
+                    localData.ToList().ForEach(i => Foods.Add(i));
+                }
             }
             else
             {
-                if (_dataStoreService != null)
+                if (_onlineFoodPreviewData?.Any() ?? false)
                 {
-                    foreach (var item in Foods)
+                    _onlineFoodPreviewData.ToList().ForEach(async i =>
                     {
-                        await _dataStoreService.AddOrUpdateItemAsync(item);
-                    }
+                        Foods.Add(i);
+                        await _dataStoreService.AddOrUpdateItemAsync(i);
+                    });
                 }
             }
             //var menu = await data_service.GetFoodMenu();
         }
 
         [RelayCommand]
-        async void GoFoodDetail(object obj)
+        async Task GoFoodDetail(object obj)
         {
-            //await Shell.Current.GoToAsync(nameof(FoodDetailPage), new Dictionary<string, object> { { "SelectedFood", obj } });
             await navigation_service.NavigateToFoodDetail(obj);
+        }
+
+        [RelayCommand]
+        async Task BookmarkClicked(object obj)
+        {
+            if (obj == null)
+                return;
+            var food = obj as FoodPreviewModel;
+            food.IsBookmarked = !food.IsBookmarked;
+            if (!await _dataStoreService.AddOrUpdateItemAsync(food, true))
+                await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
         }
     }
 }

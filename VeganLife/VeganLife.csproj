@@ -54,6 +54,8 @@
 	  <None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 	  <None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 	  <None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
+	  <None Remove="Resources\Images\archives.svg" />
+	  <None Remove="Resources\Images\archives_light.svg" />
 	  <None Remove="Resources\Images\facebook2019.svg" />
 	  <None Remove="Resources\Images\google.svg" />
 	  <None Remove="Resources\Images\loading_circle.gif" />
@@ -65,19 +67,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Messages\" />
 	  <Folder Include="Views\ContentViews\" />
 	  <Folder Include="Views\Templates\" />
 	  <Folder Include="Views\Popups\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	  <PackageReference Include="Firebase.Auth" Version="1.0.0" />
 	  <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 	  <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 	  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
 	  <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.700" />
+	  <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
 	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.4" />
@@ -103,6 +107,9 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+	  <MauiXaml Update="Views\ArchivesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\BMICalculatorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

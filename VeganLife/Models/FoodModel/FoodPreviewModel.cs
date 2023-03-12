@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
+using PropertyChanged;
 using SQLite;
 
 namespace VeganLife.Models.FoodModel
 {
-    public class FoodPreviewModel
+    public partial class FoodPreviewModel
     {
-        [JsonIgnore]
-        [PrimaryKey]
+        [JsonIgnore, PrimaryKey]
         public string Id { get; set; }
 
         [JsonProperty("name")]
@@ -14,5 +14,11 @@ namespace VeganLife.Models.FoodModel
 
         [JsonProperty("image")]
         public string Image { get; set; }
+    }
+
+    [AddINotifyPropertyChangedInterface]
+    public partial class FoodPreviewModel
+    {
+        public bool IsBookmarked { get; set; }
     }
 }

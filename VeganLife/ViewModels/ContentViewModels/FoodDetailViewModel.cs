@@ -36,5 +36,13 @@ namespace VeganLife.ViewModels.ContentViewModels
 
             return base.OnNavigatingTo(parameter);
         }
+
+
+        [RelayCommand]
+        void OnBookmarkClicked()
+        {
+            if (FoodPreview == null) return;
+            FoodPreview.IsBookmarked = !FoodPreview.IsBookmarked;
+        }
     }
 }

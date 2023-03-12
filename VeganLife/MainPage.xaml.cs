@@ -1,6 +1,4 @@
-﻿using VeganLife.Services.LocalDataServices;
-
-namespace VeganLife;
+﻿namespace VeganLife;
 
 public partial class MainPage : ContentPage
 {
