@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace VeganLife.Helpers.Converter
+﻿namespace VeganLife.Helpers.Converter
 {
     public class ReverseConverter : IValueConverter
     {

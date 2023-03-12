@@ -1,4 +1,5 @@
-﻿using VeganLife.Views.FoodTab;
+﻿using VeganLife.Helpers;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife.Services
 {
@@ -54,6 +55,7 @@ namespace VeganLife.Services
                 //passing param
                 if (toViewModel is not null)
                     await toViewModel.OnNavigatingTo(paramater);
+                ServicesHelper.GetService<IDeviceService>().HideKeyboard();
                 // navigate
                 await navigation.PushAsync(toPage);
                 // subscribe
