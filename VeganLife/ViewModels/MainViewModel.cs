@@ -51,6 +51,7 @@ namespace VeganLife.ViewModels
                             {
                                 thisItemAlreadyExisted = true;
                                 thisOnlineItem.IsBookmarked = item.IsBookmarked;
+                                thisOnlineItem.IsRead = item.IsRead;
                                 await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                             }
                         }
@@ -97,6 +98,12 @@ namespace VeganLife.ViewModels
             food.IsBookmarked = !food.IsBookmarked;
             if (!await _dataStoreService.AddOrUpdateItemAsync(food, true))
                 await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+        }
+
+        public override Task OnNavigatedFrom(bool isForwardNavigation)
+        {
+            Console.WriteLine("==>OnNavigatedFrom");
+            return base.OnNavigatedFrom(isForwardNavigation);
         }
     }
 }

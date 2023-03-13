@@ -61,8 +61,8 @@
                                Light=bookmarked}">
         <ShellContent
             Title="Món ăn"
-            ContentTemplate="{DataTemplate view:ArchivesPage}"
-            Route="archives"
+            ContentTemplate="{DataTemplate view:BookmarkPage}"
+            Route="bookmark"
             Shell.NavBarIsVisible="true" />
     </FlyoutItem>
 

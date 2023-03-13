@@ -6,7 +6,8 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     Title="Chi tiết món ăn"
-    x:DataType="viewmodel:FoodDetailViewModel">
+    x:DataType="viewmodel:FoodDetailViewModel"
+    NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:LineBreakConverter x:Key="LineBreakConverter" />

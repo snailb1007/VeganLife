@@ -159,8 +159,8 @@ namespace VeganLife.ViewModels
 
         private bool CheckEnableButtonCalculate()
         {
-            return string.IsNullOrEmpty(_weightErrMess) && string.IsNullOrEmpty(_ageErrMess)
-            && !string.IsNullOrEmpty(_weightValue) && !string.IsNullOrEmpty(_ageValue);
+            return string.IsNullOrEmpty(WeightErrMess) && string.IsNullOrEmpty(AgeErrMess)
+            && !string.IsNullOrEmpty(WeightValue) && !string.IsNullOrEmpty(AgeValue);
         }
     }
 }

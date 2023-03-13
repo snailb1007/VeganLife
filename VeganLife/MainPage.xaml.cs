@@ -7,5 +7,11 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        Console.WriteLine("==>OnBackButtonPressed");
+        return base.OnBackButtonPressed();
+    }
 }
 

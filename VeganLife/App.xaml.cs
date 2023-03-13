@@ -1,13 +1,11 @@
 ﻿using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
-using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife;
 
 public partial class App : Application
 {
-    //public static ISQLite SQLite_Service;
     public App(INavigationService service, IDataService dataService)
     {
         InitializeComponent();
