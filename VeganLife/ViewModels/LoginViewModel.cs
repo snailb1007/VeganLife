@@ -2,8 +2,6 @@
 {
     public partial class LoginViewModel : BaseViewModel
     {
-        readonly INavigationService _navigationService;
-
         [RelayCommand]
         void UnFocus(object obj)
         {

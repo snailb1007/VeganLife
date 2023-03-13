@@ -1,5 +1,3 @@
-using VeganLife.ViewModels;
-
 namespace VeganLife.Views;
 
 public partial class LoginPage : ContentPage

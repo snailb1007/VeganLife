@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VeganLife.Helpers;
+﻿using VeganLife.Helpers;
 using VeganLife.Models.FoodModel;
 
 namespace VeganLife.Views.Controls

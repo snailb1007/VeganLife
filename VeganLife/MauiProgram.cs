@@ -70,6 +70,9 @@ public static class MauiProgram
 
         services.AddTransient<FoodDetailPage>();
         services.AddTransient<FoodDetailViewModel>();
+
+        services.AddTransient<BookmarkPage>();
+        services.AddTransient<BookmarkViewModel>();
     }
 
     static void AllowMultiLineTruncationOnAndroid()

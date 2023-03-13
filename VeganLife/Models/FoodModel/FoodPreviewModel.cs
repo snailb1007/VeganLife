@@ -20,5 +20,6 @@ namespace VeganLife.Models.FoodModel
     public partial class FoodPreviewModel
     {
         public bool IsBookmarked { get; set; }
+        public bool IsRead { get; set; }
     }
 }

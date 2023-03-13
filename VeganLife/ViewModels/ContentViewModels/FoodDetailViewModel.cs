@@ -26,6 +26,8 @@ namespace VeganLife.ViewModels.ContentViewModels
             if (parameter is not null)
             {
                 FoodPreview = parameter as FoodPreviewModel;
+                FoodPreview.IsRead = true;
+
                 if (AccessType == NetworkAccess.Internet)
                     FoodDetail = await data_service.GetFoodDetail(FoodPreview?.Id ?? string.Empty);
                 if (FoodDetail == null)

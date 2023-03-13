@@ -1,5 +1,4 @@
 ﻿using VeganLife.Helpers;
-using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
