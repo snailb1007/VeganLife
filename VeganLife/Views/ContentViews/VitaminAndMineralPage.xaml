@@ -7,7 +7,23 @@
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:DataType="viewmodel:VitaminAndMineralViewModel">
-    <VerticalStackLayout Margin="10" BackgroundColor="Aqua">
+    <Shell.SearchHandler>
+        <control:FuntionAppSearchHandler
+            x:Name="shellSeachBox"
+            ItemTemplate="{StaticResource FoodPreviewTemplate}"
+            Placeholder="Nhập để tìm vitamin"
+            ShowsResults="True">
+            <control:FuntionAppSearchHandler.ClearIcon>
+                <FontImageSource
+                    FontFamily="FontAwesomeRegular"
+                    Glyph="&#xf057;"
+                    Size="8"
+                    Color="{AppThemeBinding Dark=White,
+                                            Light=Black}" />
+            </control:FuntionAppSearchHandler.ClearIcon>
+        </control:FuntionAppSearchHandler>
+    </Shell.SearchHandler>
+    <VerticalStackLayout Margin="10">
         <Label
             FontAttributes="Bold"
             FontSize="18"

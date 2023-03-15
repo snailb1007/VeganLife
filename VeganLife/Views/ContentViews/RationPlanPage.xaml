@@ -7,9 +7,6 @@
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     x:DataType="contentVM:RationPlanViewModel">
-    <Shell.SearchHandler>
-        <SearchHandler Placeholder="Nhập để tìm chức năng" />
-    </Shell.SearchHandler>
     <Grid
         BackgroundColor="#fef3e2"
         ColumnDefinitions="*"
