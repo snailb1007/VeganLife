@@ -26,17 +26,17 @@
                 Route="main"
                 Shell.NavBarIsVisible="true" />
         </Tab>
-        <Tab Title="Dinh dưỡng" Icon="nutrition">
+        <Tab Title="Khẩu phần" Icon="nutrition">
             <ShellContent
                 Title="Khẩu phần"
                 ContentTemplate="{DataTemplate contentViews:RationPlanPage}"
-                Route="ration_plan"
-                Shell.NavBarIsVisible="true" />
+                Route="ration_plan" />
+        </Tab>
+        <Tab Title="Vitamins">
             <ShellContent
                 Title="Vitamins"
                 ContentTemplate="{DataTemplate contentViews:VitaminAndMineralPage}"
-                Route="vitamins_mineral"
-                Shell.NavBarIsVisible="true" />
+                Route="vitamins_mineral" />
         </Tab>
         <Tab Title="Trạm đọc" Icon="compass">
             <ShellContent
