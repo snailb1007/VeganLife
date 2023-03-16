@@ -1,5 +1,7 @@
-﻿using VeganLife.Data.LocalData;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
 using VeganLife.Services.LocalDataServices;
 
@@ -98,6 +100,7 @@ namespace VeganLife.ViewModels
             food.IsBookmarked = !food.IsBookmarked;
             if (!await _dataStoreService.AddOrUpdateItemAsync(food, true))
                 await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+            WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(food));
         }
 
         public override Task OnNavigatedFrom(bool isForwardNavigation)
