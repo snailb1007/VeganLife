@@ -1,16 +1,18 @@
-﻿using VeganLife.Data.LocalData;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
-    public partial class BookmarkViewModel : BaseViewModel
+    public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
         FoodPreviewDataStoreService _dataStoreService;
 
         [ObservableProperty]
-        IList<FoodPreviewModel> _foods;
+        ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
         FoodPreviewModel _foodSelected;
         public BookmarkViewModel(INavigationService navigationService, IDataService dataService)
@@ -20,11 +22,20 @@ namespace VeganLife.ViewModels
             if (database != null)
                 _dataStoreService = new FoodPreviewDataStoreService(database);
             Init();
+            WeakReferenceMessenger.Default.Register<BookmarkFoodChangedMessage>(this);
         }
 
         async void Init()
         {
-            Foods = (await _dataStoreService.GetItemsAsync()).Where(i => i.IsBookmarked).ToList();
+            Foods = new ObservableCollection<FoodPreviewModel>();
+            await LoadDataAsync();
+        }
+
+        async Task LoadDataAsync()
+        {
+            (await _dataStoreService.GetItemsAsync())
+                .Where(i => i.IsBookmarked)
+                .ToList().ForEach(i => Foods.Add(i));
         }
 
         [RelayCommand]
@@ -46,5 +57,35 @@ namespace VeganLife.ViewModels
             Console.WriteLine("==>OnNavigatedTo");
             return base.OnNavigatedTo();
         }
+
+        public void Receive(BookmarkFoodChangedMessage message)
+        {
+            if (message == null)
+                return;
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (message.Value.IsBookmarked)
+                {
+                    Foods.Add(message.Value);
+                }
+                else
+                {
+                    Foods.ToList().ForEach(i =>
+                    {
+                        if (i.Id.Equals(message.Value.Id))
+                            Foods.Remove(i);
+                    });
+                }
+            });
+        }
+
+        //partial void OnFoodsChanged(ObservableCollection<FoodPreviewModel> value)
+        //{
+        //    Foods.ToList().ForEach(i =>
+        //    {
+        //        if (!i.IsBookmarked)
+        //            Foods.Remove(i);
+        //    });
+        //}
     }
 }
