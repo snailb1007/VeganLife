@@ -48,118 +48,149 @@
                 <Setter Property="IsEnabled" Value="False" />
             </DataTrigger>
         </StackLayout.Triggers>-->
-        <!--<StackLayout Margin="10" Orientation="Horizontal">
+        <Grid RowDefinitions="Auto,*">
+            <StackLayout Margin="10" Orientation="Horizontal">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Danh mục"
+                    VerticalOptions="Center" />
+                <Label
+                    HorizontalOptions="End"
+                    Text="tất cả &gt;"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <CarouselView
+                Grid.Row="1"
+                Margin="0,10,0,10"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding Category}"
+                PeekAreaInsets="120"
+                PositionChanged="CarouselView_PositionChanged">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Horizontal" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuModel">
+                        <VerticalStackLayout>
+                            <Border
+                                x:Name="img"
+                                HeightRequest="100"
+                                StrokeShape="RoundRectangle 50"
+                                WidthRequest="100">
+                                <Image
+                                    x:Name="imgMenu"
+                                    Aspect="AspectFill"
+                                    HeightRequest="100"
+                                    Source="{Binding ImgSource}"
+                                    WidthRequest="100" />
+                            </Border>
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{Binding Title}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
             <Label
+                Margin="10"
                 FontAttributes="Bold"
                 FontSize="18"
                 HorizontalOptions="StartAndExpand"
-                Text="Loại"
+                Text="Danh sách"
+                TextColor="Gray"
                 VerticalOptions="Center" />
-            <Label
-                HorizontalOptions="End"
-                Text="tất cả &gt;"
-                VerticalOptions="Center" />
-        </StackLayout>
-        <CollectionView>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:MenuModel" />
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
-        <Label
-            Margin="10"
-            FontAttributes="Bold"
-            FontSize="18"
-            HorizontalOptions="StartAndExpand"
-            Text="Danh sách"
-            VerticalOptions="Center" />
-        <CollectionView
-            x:Name="foodCollection"
-            Grid.Row="1"
-            Margin="20,10"
-            ItemsSource="{Binding Foods}"
-            SelectionChangedCommand="{Binding GoFoodDetailCommand}"
-            SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
-            SelectionMode="Single">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="modelFood:FoodPreviewModel">
-                    <Border
-                        Padding="0"
-                        BackgroundColor="{AppThemeBinding Light=White,
-                                                          Dark=Gray}"
-                        Stroke="Transparent"
-                        StrokeShape="RoundRectangle 10"
-                        Style="{StaticResource itemFoodStyle}">
-                        <Grid
-                            Margin="0"
+            <CollectionView
+                x:Name="foodCollection"
+                Grid.Row="1"
+                Margin="20,10"
+                ItemsSource="{Binding Foods}"
+                SelectionChangedCommand="{Binding GoFoodDetailCommand}"
+                SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
+                SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="modelFood:FoodPreviewModel">
+                        <Border
                             Padding="0"
-                            ColumnDefinitions="Auto, 3*, *"
-                            ColumnSpacing="10">
-                            <Border
-                                Margin="5"
-                                Padding="0"
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="Start"
-                                StrokeShape="RoundRectangle 10"
-                                StrokeThickness="0"
-                                VerticalOptions="Center">
-                                <Image
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Transparent"
-                                    HeightRequest="70"
-                                    HorizontalOptions="End"
-                                    Source="{Binding Image}"
-                                    WidthRequest="70" />
-                            </Border>
-                            <Label
-                                Grid.Column="1"
+                            BackgroundColor="{AppThemeBinding Light=White,
+                                                              Dark=Gray}"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 10"
+                            Style="{StaticResource itemFoodStyle}">
+                            <Grid
                                 Margin="0"
-                                FontAttributes="Bold"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="1"
-                                Text="{Binding Name}"
-                                VerticalOptions="Center" />
-                            <Button
-                                Grid.Column="2"
-                                Margin="0,0,5,0"
-                                Padding="0,5"
-                                BackgroundColor="#f8f8f8"
-                                BorderColor="Transparent"
-                                BorderWidth="0"
-                                Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.BookmarkClickedCommand}"
-                                CommandParameter="{Binding .}"
-                                CornerRadius="20"
-                                Text="Save"
-                                TextColor="SkyBlue"
-                                VerticalOptions="Center">
-                                <Button.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsBookmarked}"
-                                        TargetType="Button"
-                                        Value="true">
-                                        <Setter Property="Text" Value="Saved" />
-                                        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
-                                        <Setter Property="BorderColor" Value="Gray" />
-                                        <Setter Property="BorderWidth" Value="1" />
-                                        <Setter Property="BackgroundColor" Value="Transparent" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Grid
+                                Padding="0"
+                                ColumnDefinitions="Auto, 3*, *"
+                                ColumnSpacing="10">
+                                <Border
+                                    Margin="5"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="Start"
+                                    StrokeShape="RoundRectangle 10"
+                                    StrokeThickness="0"
+                                    VerticalOptions="Center">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="70"
+                                        HorizontalOptions="End"
+                                        Source="{Binding Image}"
+                                        WidthRequest="70" />
+                                </Border>
+                                <Label
+                                    Grid.Column="1"
+                                    Margin="0"
+                                    FontAttributes="Bold"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Text="{Binding Name}"
+                                    VerticalOptions="Center" />
+                                <Button
+                                    Grid.Column="2"
+                                    Margin="0,0,5,0"
+                                    Padding="0,5"
+                                    BackgroundColor="#f8f8f8"
+                                    BorderColor="Transparent"
+                                    BorderWidth="0"
+                                    Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.BookmarkClickedCommand}"
+                                    CommandParameter="{Binding .}"
+                                    CornerRadius="20"
+                                    Text="Save"
+                                    TextColor="SkyBlue"
+                                    VerticalOptions="Center">
+                                    <Button.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsBookmarked}"
+                                            TargetType="Button"
+                                            Value="true">
+                                            <Setter Property="Text" Value="Saved" />
+                                            <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
+                                            <Setter Property="BorderColor" Value="Gray" />
+                                            <Setter Property="BorderWidth" Value="1" />
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <!--<Grid
             Grid.RowSpan="2"
             BackgroundColor="Gray"
             IsVisible="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
-            Opacity="0.2">
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-            </Grid.GestureRecognizers>
-        </Grid>
+            Opacity="0.2" />-->
     </Grid>
 </ContentPage>

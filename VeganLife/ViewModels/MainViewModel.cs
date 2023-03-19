@@ -14,14 +14,15 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         ObservableCollection<FoodPreviewModel> _foods;
-
-        public IList<MenuModel> Categorys = new List<MenuModel>()
-        {
-            new MenuModel() { Title = "Bữa sáng" },
-            new MenuModel() { Title = "Đồ uống" },
-            new MenuModel() { Title = "Bữa tối" },
-            new MenuModel() { Title = "Món tráng miệng" },
-        };
+        [ObservableProperty]
+        IList<MenuModel> _category;
+        //    = new List<MenuModel>()
+        //{
+        //    new MenuModel() { Title = "Bữa sáng" },
+        //    new MenuModel() { Title = "Đồ uống" },
+        //    new MenuModel() { Title = "Bữa tối" },
+        //    new MenuModel() { Title = "Món tráng miệng" },
+        //};
 
         public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
@@ -82,7 +83,29 @@ namespace VeganLife.ViewModels
                     });
                 }
             }
-            //var menu = await data_service.GetFoodMenu();
+
+            var menu = await data_service.GetFoodMenu();
+            Category = new List<MenuModel>();
+            foreach(var i in menu)
+            {
+                switch (i.Title)
+                {
+                    case "breakfast":
+                        i.Title = "Bữa sáng";
+                        break;
+                    case "dessert":
+                        i.Title = "Tráng miệng";
+                        break;
+                    case "dinner":
+                        i.Title = "Bữa tối";
+                        break;
+                    case "drink":
+                        i.Title = "Đồ uống";
+                        break;
+                }
+
+                Category.Add(i);
+            }
         }
 
         [RelayCommand]
