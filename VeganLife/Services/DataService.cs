@@ -30,7 +30,8 @@ namespace VeganLife.Services
                 var data = await firebaseDatabase.Child("App/img/menu_food").OnceAsync<MenuModel>().ConfigureAwait(false);
                 return data.Select(item => new MenuModel
                 {
-                    ImgSource = item.Object.ImgSource
+                    ImgSource = item.Object.ImgSource,
+                    Title = item.Key
                 });
             }
             catch (FirebaseException e)
