@@ -27,7 +27,7 @@ public partial class MainPage : ContentPage
             if (img == null)
                 return;
             Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(img);
-            Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.CubicInOut));
+            Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceIn));
         }
 
         _processing = false;
