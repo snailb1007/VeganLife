@@ -8,12 +8,6 @@ public partial class MainPage : ContentPage
 		BindingContext = vm;
     }
 
-    protected override bool OnBackButtonPressed()
-    {
-        Console.WriteLine("==>OnBackButtonPressed");
-        return base.OnBackButtonPressed();
-    }
-
     bool _processing;
     private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
     {
@@ -27,7 +21,7 @@ public partial class MainPage : ContentPage
             if (img == null)
                 return;
             Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(img);
-            Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceIn));
+            Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceOut));
         }
 
         _processing = false;

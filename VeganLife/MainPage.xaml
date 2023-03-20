@@ -38,7 +38,7 @@
             <converter:ReverseConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="Auto, *">
+    <Grid RowDefinitions="*, Auto, *">
         <!--<StackLayout.Triggers>
             <DataTrigger
                 Binding="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
@@ -48,7 +48,38 @@
                 <Setter Property="IsEnabled" Value="False" />
             </DataTrigger>
         </StackLayout.Triggers>-->
-        <Grid RowDefinitions="Auto,*">
+        <Grid Margin="10" RowDefinitions="Auto,*">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Dành cho bạn" />
+            <CarouselView
+                Grid.Row="1"
+                Margin="20,10"
+                HorizontalOptions="CenterAndExpand"
+                ItemsSource="{Binding Category}"
+                VerticalOptions="FillAndExpand">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuModel">
+                        <Grid ColumnDefinitions="20,*,20" RowDefinitions="0.5*,*,*">
+                            <Border
+                                Grid.Row="1"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="3"
+                                StrokeShape="RoundRectangle 10" />
+                            <Image
+                                x:Name="imgMenu"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Aspect="AspectFill"
+                                Source="{Binding ImgSource}" />
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
             <StackLayout Margin="10" Orientation="Horizontal">
                 <Label
                     FontAttributes="Bold"
@@ -96,7 +127,7 @@
             </CarouselView>
         </Grid>
 
-        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+        <Grid Grid.Row="2" RowDefinitions="Auto,*">
             <Label
                 Margin="10"
                 FontAttributes="Bold"
@@ -146,14 +177,26 @@
                                         Source="{Binding Image}"
                                         WidthRequest="70" />
                                 </Border>
-                                <Label
+                                <VerticalStackLayout
                                     Grid.Column="1"
-                                    Margin="0"
-                                    FontAttributes="Bold"
-                                    LineBreakMode="TailTruncation"
-                                    MaxLines="1"
-                                    Text="{Binding Name}"
-                                    VerticalOptions="Center" />
+                                    Spacing="10"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        Margin="0"
+                                        FontAttributes="Bold"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center" />
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label
+                                            FontFamily="FontAwesomeRegular"
+                                            Text="&#xf017;"
+                                            VerticalOptions="Center" />
+                                        <Label Text="{Binding Time}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+
                                 <Button
                                     Grid.Column="2"
                                     Margin="0,0,5,0"

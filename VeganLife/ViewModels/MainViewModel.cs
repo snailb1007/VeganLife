@@ -16,13 +16,6 @@ namespace VeganLife.ViewModels
         ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
         IList<MenuModel> _category;
-        //    = new List<MenuModel>()
-        //{
-        //    new MenuModel() { Title = "Bữa sáng" },
-        //    new MenuModel() { Title = "Đồ uống" },
-        //    new MenuModel() { Title = "Bữa tối" },
-        //    new MenuModel() { Title = "Món tráng miệng" },
-        //};
 
         public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
