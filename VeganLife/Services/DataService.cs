@@ -50,7 +50,8 @@ namespace VeganLife.Services
                 {
                     Id = item.Key,
                     Name = item.Object.Name,
-                    Image = item.Object.Image
+                    Image = item.Object.Image,
+                    Time = item.Object.Time
                 });
             }
             catch (FirebaseException e)
