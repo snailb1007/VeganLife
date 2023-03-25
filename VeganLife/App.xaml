@@ -32,7 +32,7 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="FoodPreviewTemplate" x:DataType="modelFood:FoodPreviewModel">
+            <DataTemplate x:Key="FoodPreviewSearchTemplate" x:DataType="modelFood:FoodPreviewModel">
                 <Grid Padding="5" ColumnDefinitions="*,4*">
                     <Border
                         BackgroundColor="Transparent"
@@ -49,6 +49,85 @@
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="FoodPreviewCollection" x:DataType="modelFood:FoodPreviewModel">
+                <Border
+                    Padding="0"
+                    BackgroundColor="{AppThemeBinding Light=White,
+                                                      Dark=Gray}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 10"
+                    Style="{StaticResource itemFoodStyle}">
+                    <Grid
+                        Margin="0"
+                        Padding="0"
+                        ColumnDefinitions="Auto, 3*, *"
+                        ColumnSpacing="10">
+                        <Border
+                            Margin="5"
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Start"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0"
+                            VerticalOptions="Center">
+                            <Image
+                                Aspect="AspectFill"
+                                BackgroundColor="Transparent"
+                                HeightRequest="70"
+                                HorizontalOptions="End"
+                                Source="{Binding Image}"
+                                WidthRequest="70" />
+                        </Border>
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="10"
+                            VerticalOptions="Center">
+                            <Label
+                                Margin="0"
+                                FontAttributes="Bold"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                Text="{Binding Name}"
+                                VerticalOptions="Center" />
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontFamily="FontAwesomeRegular"
+                                    Text="&#xf017;"
+                                    VerticalOptions="Center" />
+                                <Label Text="{Binding Time}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <Button
+                            Grid.Column="2"
+                            Margin="0,0,5,0"
+                            Padding="0,5"
+                            BackgroundColor="#f8f8f8"
+                            BorderColor="Transparent"
+                            BorderWidth="0"
+                            Command="{Binding BookmarkClickedCommand}"
+                            CommandParameter="{Binding .}"
+                            CornerRadius="20"
+                            Text="Save"
+                            TextColor="SkyBlue"
+                            VerticalOptions="Center">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsBookmarked}"
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="Text" Value="Saved" />
+                                    <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
+                                    <Setter Property="BorderColor" Value="Gray" />
+                                    <Setter Property="BorderWidth" Value="1" />
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+                </Border>
             </DataTemplate>
 
         </ResourceDictionary>

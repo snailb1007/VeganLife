@@ -73,6 +73,9 @@ public static class MauiProgram
 
         services.AddTransient<BookmarkPage>();
         services.AddTransient<BookmarkViewModel>();
+
+        services.AddTransient<FoodsByCategoryPage>();
+        services.AddTransient<FoodsByCategoryViewModel>();
     }
 
     static void AllowMultiLineTruncationOnAndroid()

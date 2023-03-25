@@ -23,12 +23,12 @@ namespace VeganLife.Services
             }
         }
 
-        public async Task<IEnumerable<MenuModel>> GetFoodMenu()
+        public async Task<IEnumerable<FoodMenuCategoryModel>> GetFoodMenu()
         {
             try
             {
                 var data = await firebaseDatabase.Child("App/img/menu_food").OnceAsync<MenuModel>().ConfigureAwait(false);
-                return data.Select(item => new MenuModel
+                return data.Select(item => new FoodMenuCategoryModel
                 {
                     ImgSource = item.Object.ImgSource,
                     Title = item.Key
@@ -37,7 +37,7 @@ namespace VeganLife.Services
             catch (FirebaseException e)
             {
                 Console.WriteLine(e.StackTrace);
-                return Enumerable.Empty<MenuModel>();
+                return Enumerable.Empty<FoodMenuCategoryModel>();
             }
         }
 
@@ -51,7 +51,8 @@ namespace VeganLife.Services
                     Id = item.Key,
                     Name = item.Object.Name,
                     Image = item.Object.Image,
-                    Time = item.Object.Time
+                    Time = item.Object.Time,
+                    Category = item.Object.Category
                 });
             }
             catch (FirebaseException e)

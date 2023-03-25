@@ -1,29 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
-using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
-    public partial class MainViewModel : BaseViewModel
+    public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
         FoodPreviewDataStoreService _dataStoreService;
         IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
+        IList<FoodPreviewModel> _allFoods = new List<FoodPreviewModel>();
 
         [ObservableProperty]
         ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
-        IList<MenuModel> _category;
+        IEnumerable<FoodMenuCategoryModel> _category;
+        [ObservableProperty]
+        FoodPreviewModel _currentFoodSelected;
 
         public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
-            var database = ServicesHelper.GetService<ISQLite>();
-            if (database != null)
-                _dataStoreService = new FoodPreviewDataStoreService(database);
+            _dataStoreService = new FoodPreviewDataStoreService(local_database);
             Init();
+            WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
         }
 
         async void Init()
@@ -58,7 +58,7 @@ namespace VeganLife.ViewModels
                         }
                     }
 
-                    (await _dataStoreService.GetItemsAsync()).ToList().ForEach(i => Foods.Add(i));
+                    (await _dataStoreService.GetItemsAsync()).ToList().ForEach(i => _allFoods.Add(i));
                 }
                 else
                 {
@@ -71,58 +71,78 @@ namespace VeganLife.ViewModels
                 {
                     _onlineFoodPreviewData.ToList().ForEach(async i =>
                     {
-                        Foods.Add(i);
+                        _allFoods.Add(i);
                         await _dataStoreService.AddOrUpdateItemAsync(i);
                     });
                 }
             }
 
-            var menu = await data_service.GetFoodMenu();
-            Category = new List<MenuModel>();
-            foreach(var i in menu)
-            {
-                switch (i.Title)
-                {
-                    case "breakfast":
-                        i.Title = "Bữa sáng";
-                        break;
-                    case "dessert":
-                        i.Title = "Tráng miệng";
-                        break;
-                    case "dinner":
-                        i.Title = "Bữa tối";
-                        break;
-                    case "drink":
-                        i.Title = "Đồ uống";
-                        break;
-                }
+            foreach (var i in _allFoods)
+                Foods.Add(i);
+            await SetupMenu();
+        }
 
-                Category.Add(i);
-            }
+        async Task SetupMenu()
+        {
+            Category = await data_service.GetFoodMenu();
         }
 
         [RelayCommand]
         async Task GoFoodDetail(object obj)
         {
             await navigation_service.NavigateToFoodDetail(obj);
+            CurrentFoodSelected = null;
         }
 
+
         [RelayCommand]
-        async Task BookmarkClicked(object obj)
+        async Task CategoryClicked(object obj)
         {
-            if (obj == null)
-                return;
-            var food = obj as FoodPreviewModel;
-            food.IsBookmarked = !food.IsBookmarked;
-            if (!await _dataStoreService.AddOrUpdateItemAsync(food, true))
-                await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
-            WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(food));
+            var itemMenu = obj as FoodMenuCategoryModel;
+            if (itemMenu == null) return;
+            var foodByCategory = _allFoods.Where(i => i.Category.Contains(itemMenu.Title));
+            await Console.Out.WriteLineAsync("==>CategoryClicked" + foodByCategory.Count());
+            var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
+            consignment.Add(itemMenu.Category, foodByCategory);
+            await navigation_service.NavigateToCategoryPage(consignment);
         }
 
         public override Task OnNavigatedFrom(bool isForwardNavigation)
         {
-            Console.WriteLine("==>OnNavigatedFrom");
             return base.OnNavigatedFrom(isForwardNavigation);
+        }
+
+        public async void Receive(BookmarkFoodModelMessage message)
+        {
+            if (message == null)
+                return;
+            message.Value.IsBookmarked = !message.Value.IsBookmarked;
+            if (!await _dataStoreService.AddOrUpdateItemAsync(message.Value, true))
+                await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+            WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(message.Value));
+        }
+    }
+
+    public class FoodMenuCategoryModel : MenuModel
+    {
+        public string Category
+        {
+            get
+            {
+                switch (Title)
+                {
+                    case "breakfast":
+                        return "Bữa sáng";
+                    case "dessert":
+                        return "Tráng miệng";
+                    case "dinner":
+                        return "Bữa tối";
+                    case "drink":
+                        return "Đồ uống";
+                    default:
+                        return string.Empty;
+                }
+            }
         }
     }
 }
