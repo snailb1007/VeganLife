@@ -6,7 +6,7 @@ namespace VeganLife.Services
     {
         Task<IEnumerable<FoodPreviewModel>> GetFoods();
         Task<FoodDetailModel> GetFoodDetail(string id);
-        Task<IEnumerable<MenuModel>> GetFoodMenu();
+        Task<IEnumerable<FoodMenuCategoryModel>> GetFoodMenu();
         Task<IEnumerable<VitaminModel>> GetVitamins();
     }
 }

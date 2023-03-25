@@ -20,7 +20,7 @@
         <control:FuntionAppSearchHandler
             x:Name="shellSeachBox"
             FoodPreviews="{Binding Foods}"
-            ItemTemplate="{StaticResource FoodPreviewTemplate}"
+            ItemTemplate="{StaticResource FoodPreviewSearchTemplate}"
             Placeholder="Nhập để tìm món ăn"
             ShowsResults="True">
             <control:FuntionAppSearchHandler.ClearIcon>
@@ -38,7 +38,7 @@
             <converter:ReverseConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*, Auto, *">
+    <Grid RowDefinitions="Auto, Auto, *">
         <!--<StackLayout.Triggers>
             <DataTrigger
                 Binding="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
@@ -48,7 +48,7 @@
                 <Setter Property="IsEnabled" Value="False" />
             </DataTrigger>
         </StackLayout.Triggers>-->
-        <Grid Margin="10" RowDefinitions="Auto,*">
+        <!--<Grid Margin="10" RowDefinitions="Auto,*">
             <Label
                 FontAttributes="Bold"
                 FontSize="18"
@@ -77,7 +77,7 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-        </Grid>
+        </Grid>-->
 
         <Grid Grid.Row="1" RowDefinitions="Auto,*">
             <StackLayout Margin="10" Orientation="Horizontal">
@@ -103,8 +103,11 @@
                     <LinearItemsLayout ItemSpacing="0" Orientation="Horizontal" />
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
-                    <DataTemplate x:DataType="model:MenuModel">
+                    <DataTemplate x:DataType="viewmodel:FoodMenuCategoryModel">
                         <VerticalStackLayout>
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.CategoryClickedCommand, Source={x:Reference mainPageRoot}}" CommandParameter="{Binding .}" />
+                            </VerticalStackLayout.GestureRecognizers>
                             <Border
                                 x:Name="img"
                                 HeightRequest="100"
@@ -120,7 +123,7 @@
                             <Label
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
-                                Text="{Binding Title}" />
+                                Text="{Binding Category}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
@@ -140,93 +143,15 @@
                 x:Name="foodCollection"
                 Grid.Row="1"
                 Margin="20,10"
+                ItemTemplate="{StaticResource FoodPreviewCollection}"
                 ItemsSource="{Binding Foods}"
+                SelectedItem="{Binding CurrentFoodSelected}"
                 SelectionChangedCommand="{Binding GoFoodDetailCommand}"
                 SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
                 SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="modelFood:FoodPreviewModel">
-                        <Border
-                            Padding="0"
-                            BackgroundColor="{AppThemeBinding Light=White,
-                                                              Dark=Gray}"
-                            Stroke="Transparent"
-                            StrokeShape="RoundRectangle 10"
-                            Style="{StaticResource itemFoodStyle}">
-                            <Grid
-                                Margin="0"
-                                Padding="0"
-                                ColumnDefinitions="Auto, 3*, *"
-                                ColumnSpacing="10">
-                                <Border
-                                    Margin="5"
-                                    Padding="0"
-                                    BackgroundColor="Transparent"
-                                    HorizontalOptions="Start"
-                                    StrokeShape="RoundRectangle 10"
-                                    StrokeThickness="0"
-                                    VerticalOptions="Center">
-                                    <Image
-                                        Aspect="AspectFill"
-                                        BackgroundColor="Transparent"
-                                        HeightRequest="70"
-                                        HorizontalOptions="End"
-                                        Source="{Binding Image}"
-                                        WidthRequest="70" />
-                                </Border>
-                                <VerticalStackLayout
-                                    Grid.Column="1"
-                                    Spacing="10"
-                                    VerticalOptions="Center">
-                                    <Label
-                                        Margin="0"
-                                        FontAttributes="Bold"
-                                        LineBreakMode="TailTruncation"
-                                        MaxLines="1"
-                                        Text="{Binding Name}"
-                                        VerticalOptions="Center" />
-                                    <HorizontalStackLayout Spacing="5">
-                                        <Label
-                                            FontFamily="FontAwesomeRegular"
-                                            Text="&#xf017;"
-                                            VerticalOptions="Center" />
-                                        <Label Text="{Binding Time}" />
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
-
-                                <Button
-                                    Grid.Column="2"
-                                    Margin="0,0,5,0"
-                                    Padding="0,5"
-                                    BackgroundColor="#f8f8f8"
-                                    BorderColor="Transparent"
-                                    BorderWidth="0"
-                                    Command="{Binding Source={x:Reference mainPageRoot}, Path=BindingContext.BookmarkClickedCommand}"
-                                    CommandParameter="{Binding .}"
-                                    CornerRadius="20"
-                                    Text="Save"
-                                    TextColor="SkyBlue"
-                                    VerticalOptions="Center">
-                                    <Button.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsBookmarked}"
-                                            TargetType="Button"
-                                            Value="true">
-                                            <Setter Property="Text" Value="Saved" />
-                                            <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
-                                            <Setter Property="BorderColor" Value="Gray" />
-                                            <Setter Property="BorderWidth" Value="1" />
-                                            <Setter Property="BackgroundColor" Value="Transparent" />
-                                        </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
 

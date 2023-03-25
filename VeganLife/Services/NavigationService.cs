@@ -43,6 +43,7 @@ namespace VeganLife.Services
 
         public Task NavigateToRegisPage() => NavigataToPage<RegistrationPage>();
         public Task NavigateToFoodDetail(object foodPreview) => NavigataToPage<FoodDetailPage>(foodPreview);
+        public Task NavigateToCategoryPage(object foods) => NavigataToPage<FoodsByCategoryPage>(foods);
 
 
         private async Task NavigataToPage<T>(object paramater = null) where T : Page

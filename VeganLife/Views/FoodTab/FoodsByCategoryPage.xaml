@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VeganLife.Views.FoodTab.FoodsByCategoryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    Title="{Binding TitlePage}"
+    x:DataType="viewModel:FoodsByCategoryViewModel">
+    <VerticalStackLayout>
+        <CollectionView
+            Grid.Row="1"
+            Margin="20,10"
+            ItemTemplate="{StaticResource FoodPreviewCollection}"
+            ItemsSource="{Binding Foods}"
+            SelectedItem="{Binding CurrentSelectedItem}"
+            SelectionChangedCommand="{Binding GoFoodDetailCommand}"
+            SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

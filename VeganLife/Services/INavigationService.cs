@@ -8,5 +8,6 @@
         BaseViewModel GetPageViewModedl(Page page);
         Task NavigateToRegisPage();
         Task NavigateToFoodDetail(object foodPreview);
+        Task NavigateToCategoryPage(object foods);
     }
 }
