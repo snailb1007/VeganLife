@@ -10,9 +10,6 @@
     Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
     x:DataType="viewmodel:BMICalculatorViewModel"
     BackgroundImageSource="{Binding BackgroundIMG}">
-    <Shell.SearchHandler>
-        <SearchHandler Placeholder="Nhập để tìm chức năng" />
-    </Shell.SearchHandler>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
