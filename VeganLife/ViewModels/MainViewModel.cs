@@ -29,7 +29,7 @@ namespace VeganLife.ViewModels
         async void Init()
         {
             Foods = new ObservableCollection<FoodPreviewModel>();
-            if (AccessType == NetworkAccess.Internet)
+            if (IsNetworkConnected)
                 _onlineFoodPreviewData = await data_service.GetFoods();
             var localData = await _dataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
