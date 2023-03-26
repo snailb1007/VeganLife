@@ -5,9 +5,6 @@ namespace VeganLife.ViewModels
 {
     public partial class SettingViewModel : BaseViewModel
     {
-        const string _basicPickerOption = "Cơ bản";
-        const string _universePickerOption = "Vũ trụ";
-
         [ObservableProperty]
         bool _isDarkMode;
 
@@ -16,9 +13,6 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         int _indexPickerOption;
-
-        [ObservableProperty]
-        List<string> _themeSkins = new List<string>() { _basicPickerOption, _universePickerOption };
 
         [RelayCommand]
         async Task GoTools()

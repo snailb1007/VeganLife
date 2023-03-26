@@ -13,7 +13,7 @@ namespace VeganLife.ViewModels
         protected IDeviceService device_service => ServicesHelper.GetService<IDeviceService>();
         protected ISQLite local_database => ServicesHelper.GetService<ISQLite>();
 
-        protected NetworkAccess AccessType => Connectivity.Current.NetworkAccess;
+        protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 
         public BaseViewModel(INavigationService navigationService, IDataService dataService)
         {
