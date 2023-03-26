@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using PropertyChanged;
 using SQLite;
-using static Android.Icu.Text.CaseMap;
 using VeganLife.Messages;
 
 namespace VeganLife.Models.FoodModel
@@ -32,17 +31,9 @@ namespace VeganLife.Models.FoodModel
         public bool IsBookmarked { get; set; }
         public bool IsRead { get; set; }
         public byte PrepTime
-        {
-            get
-            {
-                if (timeArr != null && byte.TryParse(timeArr[0], out var i))
-                    return i;
-                else
-                    return 0;
-            }
-        }
+            => (timeArr != null && byte.TryParse(timeArr[0], out var i)) ? i : (byte)0;
         public byte CookTime
-            => (byte)((timeArr != null && byte.TryParse(timeArr[1], out var i)) ? i : 0);
+            => (timeArr != null && byte.TryParse(timeArr[1], out var i)) ? i : (byte)0;
         [RelayCommand]
         void BookmarkClicked()
         {

@@ -25,10 +25,27 @@ namespace VeganLife.Views.Controls
             ClearPlaceholderCommand = new Command(() => Query = string.Empty);
         }
 
+        System.Timers.Timer _typingTimer;
+        bool _isSearching;
         protected override void OnQueryChanged(string oldValue, string newValue)
         {
             base.OnQueryChanged(oldValue, newValue);
+            _isSearching = true;
+            _typingTimer?.Dispose();
+            _typingTimer = new System.Timers.Timer(500);
+            _typingTimer.Elapsed += (s, arg) =>
+            {
+                if (_isSearching)
+                {
+                    MainThread.BeginInvokeOnMainThread(() => DoSearch(newValue));
+                    _isSearching = false;
+                }
+            };
+            _typingTimer.Start();
+        }
 
+        void DoSearch(string newValue)
+        {
             if (string.IsNullOrWhiteSpace(newValue))
             {
                 ItemsSource = null;
