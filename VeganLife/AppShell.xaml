@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
+<simpleShell:SimpleShell
     x:Class="VeganLife.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:local="clr-namespace:VeganLife"
+    xmlns:simpleShell="clr-namespace:SimpleToolkit.SimpleShell;assembly=SimpleToolkit.SimpleShell"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
@@ -80,4 +81,4 @@
                                Light=setting}"
         Route="setting"
         Shell.NavBarIsVisible="true" />
-</Shell>
+</simpleShell:SimpleShell>

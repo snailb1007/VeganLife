@@ -9,5 +9,6 @@
         Task NavigateToRegisPage();
         Task NavigateToFoodDetail(object foodPreview);
         Task NavigateToCategoryPage(object foods);
+        int GetStackCount();
     }
 }
