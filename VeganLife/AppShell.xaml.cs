@@ -1,8 +1,11 @@
-﻿using VeganLife.Views.FoodTab;
+﻿using VeganLife.Helpers;
+using VeganLife.Views;
+using VeganLife.Views.ContentViews;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife;
 
-public partial class AppShell : Shell
+public partial class AppShell : SimpleToolkit.SimpleShell.SimpleShell
 {
     public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
 
@@ -14,15 +17,28 @@ public partial class AppShell : Shell
 
     protected override bool OnBackButtonPressed()
     {
-        MainThread.BeginInvokeOnMainThread(async () =>
+        if (isRootPage(CurrentPage))
         {
-            bool result = await this.DisplayAlert("Alert!", "Do you really want to exit?", "Yes", "No");
-            if (result)
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                Process.GetCurrentProcess().CloseMainWindow(); // Or anything else
-            }
-        });
-        return true;
+                bool result = await this.DisplayAlert("Alert!", "Do you really want to exit?", "Yes", "No");
+                if (result)
+                {
+                    Process.GetCurrentProcess().CloseMainWindow(); // Or anything else
+                }
+            });
+            return true;
+
+        }
+        else if(ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
+        {
+            Shell.Current.Navigation.PopToRootAsync();
+            return true;
+        }
+        else
+        {
+            return base.OnBackButtonPressed();
+        }
     }
 
     void RegisterRoutes()
@@ -36,5 +52,10 @@ public partial class AppShell : Shell
         {
             Routing.RegisterRoute(item.Key, item.Value);
         }
+    }
+
+    static bool isRootPage(VisualElement page)
+    {
+        return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
     }
 }

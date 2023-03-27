@@ -25,6 +25,8 @@ namespace VeganLife.Services
             }
         }
 
+        public int GetStackCount() => navigation?.NavigationStack?.Count ?? 0;
+
         public NavigationService(IServiceProvider services) => _services = services;
         public BaseViewModel GetPageViewModedl(Page page) => page?.BindingContext as BaseViewModel;
 
@@ -36,7 +38,7 @@ namespace VeganLife.Services
 
         public async Task<Page> PopAsync()
         {
-            if (navigation.NavigationStack.Count > 1)
+            if (GetStackCount() > 1)
                 return await navigation.PopAsync();
             throw new InvalidOperationException("No pages to navigate back to!");
         }
