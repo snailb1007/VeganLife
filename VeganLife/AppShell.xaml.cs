@@ -1,5 +1,4 @@
 ﻿using VeganLife.Helpers;
-using VeganLife.Views;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.FoodTab;
 

@@ -1,4 +1,6 @@
-﻿using SkiaSharp.Views.Maui.Controls.Hosting;
+﻿using Microsoft.Maui.Handlers;
+using SimpleToolkit.Core;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using VeganLife.Services.LocalDataServices;
 using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
@@ -16,6 +18,7 @@ public static class MauiProgram
             .UseSkiaSharp(true)
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseSimpleToolkit()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,7 +29,14 @@ public static class MauiProgram
             });
         RegisterServices(builder.Services);
         AllowMultiLineTruncationOnAndroid();
-
+        EntryHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, entry) =>
+        {
+#if ANDROID
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#elif IOS
+			handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#endif
+        });
         return builder.Build();
 	}
 
