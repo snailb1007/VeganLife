@@ -10,11 +10,11 @@ namespace VeganLife.Services
                 Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus);
         }
 
-        public bool IsAndroid() => DeviceInfo.Current.Platform == DevicePlatform.Android;
+        // public bool IsAndroid => DeviceInfo.Current.Platform == DevicePlatform.Android;
 
-        public bool IsVirtual = DeviceInfo.Current.DeviceType switch { DeviceType.Physical => false, DeviceType.Virtual => true, _ => false };
+        // public bool IsVirtual = DeviceInfo.Current.DeviceType switch { DeviceType.Physical => false, DeviceType.Virtual => true, _ => false };
 
-        public double WidthScreen => Application.Current?.MainPage?.Width ?? default;
-        public double HeightScreen => Application.Current?.MainPage?.Height ?? default;
+        // public double WidthScreen => Application.Current?.MainPage?.Width ?? default;
+        // public double HeightScreen => Application.Current?.MainPage?.Height ?? default;
     }
 }

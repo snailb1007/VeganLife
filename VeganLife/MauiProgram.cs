@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Handlers;
 using SimpleToolkit.Core;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using VeganLife.Handlers;
 using VeganLife.Services.LocalDataServices;
 using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
@@ -29,6 +30,10 @@ public static class MauiProgram
             });
         RegisterServices(builder.Services);
         AllowMultiLineTruncationOnAndroid();
+        builder.ConfigureMauiHandlers((h) =>
+        {
+            h.AddHandler(typeof(Shell), typeof(ShellHandler));
+        });
         EntryHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, entry) =>
         {
 #if ANDROID

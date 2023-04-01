@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simpleShell:SimpleShell
+<Shell
     x:Class="VeganLife.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -10,6 +10,8 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
+    FlyoutIcon="hamburger"
+    Shell.NavBarIsVisible="False"
     Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
                                                   Light=White}">
     <Shell.FlyoutHeader>
@@ -81,4 +83,4 @@
                                Light=setting}"
         Route="setting"
         Shell.NavBarIsVisible="true" />
-</simpleShell:SimpleShell>
+</Shell>

@@ -93,6 +93,9 @@
 	  <Compile Update="Views\BookmarkPage.xaml.cs">
 	    <DependentUpon>BookmarkPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Controls\NavBarControl.xaml.cs">
+	    <DependentUpon>NavBarControl.xaml</DependentUpon>
+	  </Compile>
 	  <!--<Compile Update="Views\NutritionPage.xaml.cs">
 	    <DependentUpon>NutritionPage.xaml</DependentUpon>
 	  </Compile>-->
@@ -118,6 +121,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\FlyoutHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\NavBarControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\FoodTab\FoodDetailPage.xaml">

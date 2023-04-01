@@ -3,10 +3,11 @@
     x:Class="VeganLife.Views.FoodTab.FoodsByCategoryPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:viewModel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
-    Title="{Binding TitlePage}"
     x:DataType="viewModel:FoodsByCategoryViewModel">
     <VerticalStackLayout>
+        <control:NavBarControl Title="{Binding TitlePage}" />
         <CollectionView
             Grid.Row="1"
             Margin="20,10"
