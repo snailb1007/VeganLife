@@ -43,6 +43,7 @@ namespace VeganLife.Services
             throw new InvalidOperationException("No pages to navigate back to!");
         }
 
+        public async Task PopToRootAsync() => await navigation.PopToRootAsync();
         public Task NavigateToRegisPage() => NavigataToPage<RegistrationPage>();
         public Task NavigateToFoodDetail(object foodPreview) => NavigataToPage<FoodDetailPage>(foodPreview);
         public Task NavigateToCategoryPage(object foods) => NavigataToPage<FoodsByCategoryPage>(foods);

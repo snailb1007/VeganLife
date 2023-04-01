@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="VeganLife.Views.Controls.NavBarControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="rootNavBarControl">
+    <Grid
+        ColumnDefinitions="*, 8*, *">
+        <ImageButton
+            BackgroundColor="Transparent"
+            Clicked="Back_Clicked"
+            HorizontalOptions="Center"
+            Source="back"
+            VerticalOptions="Center" HeightRequest="50"/>
+        <Label
+            Grid.Column="1"
+            VerticalOptions="Center"
+            FontAttributes="Bold"
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            Text="{Binding Title, Source={x:Reference rootNavBarControl}}" />
+    </Grid>
+</ContentView>

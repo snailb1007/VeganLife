@@ -4,7 +4,7 @@ using VeganLife.Views.FoodTab;
 
 namespace VeganLife;
 
-public partial class AppShell : SimpleToolkit.SimpleShell.SimpleShell
+public partial class AppShell : Shell
 {
     public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
 
@@ -31,7 +31,7 @@ public partial class AppShell : SimpleToolkit.SimpleShell.SimpleShell
         }
         else if(ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
         {
-            Shell.Current.Navigation.PopToRootAsync();
+            Shell.Current.Navigation.PopAsync();
             return true;
         }
         else
