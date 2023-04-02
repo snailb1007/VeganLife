@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:viewModel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
-    x:DataType="viewModel:FoodsByCategoryViewModel">
+    x:DataType="viewModel:FoodsByCategoryViewModel"
+    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                      Dark=Black}">
     <VerticalStackLayout>
         <control:NavBarControl Title="{Binding TitlePage}" />
         <CollectionView

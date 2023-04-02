@@ -7,6 +7,8 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:DataType="viewmodel:FoodDetailViewModel"
+    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                      Dark=Black}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -26,8 +28,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto, *">
-        <control:NavBarControl Title="Chi tiết món ăn" />
-        <Grid RowDefinitions="2*,3*" Grid.Row="1">
+        <control:NavBarControl Title="Chi tiết món ăn" BackgroundColor="Transparent" />
+        <Grid Grid.Row="1" RowDefinitions="2*,3*">
             <Image Aspect="AspectFill" Source="{Binding FoodPreview.Image}" />
             <Grid Grid.RowSpan="2" Margin="15,0">
                 <ScrollView>

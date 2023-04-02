@@ -6,7 +6,8 @@
     xmlns:contentVM="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
-    x:DataType="contentVM:RationPlanViewModel">
+    x:DataType="contentVM:RationPlanViewModel"
+    Shell.NavBarIsVisible="True">
     <Grid
         BackgroundColor="#fef3e2"
         ColumnDefinitions="*"

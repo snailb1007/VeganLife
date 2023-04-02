@@ -5,8 +5,6 @@ namespace VeganLife.Views.Controls
 {
     public class FuntionAppSearchHandler : SearchHandler
     {
-        public bool IsSettingPage { private get; set; }
-
         public static BindableProperty FoodPreviewsProperty = BindableProperty.Create(
             propertyName: "FoodPreviews",
             declaringType: typeof(MainPage),
@@ -52,18 +50,11 @@ namespace VeganLife.Views.Controls
             }
             else
             {
-                if (IsSettingPage)
-                {
-                    ItemsSource = (Shell.Current as AppShell).Routes
-                        .Where(item => item.Key.ToLower().Contains(newValue.ToLower()));
-                }
-                else
-                {
-                    if (FoodPreviews?.Any() ?? false)
-                        ItemsSource = FoodPreviews
-                            .Where(f => f.Name.ToLower().Contains(newValue.ToLower()))
-                            .ToList<FoodPreviewModel>();
-                }
+
+                if (FoodPreviews?.Any() ?? false)
+                    ItemsSource = FoodPreviews
+                        .Where(f => f.Name.ToLower().Contains(newValue.ToLower()))
+                        .ToList<FoodPreviewModel>();
 
             }
 
@@ -77,22 +68,8 @@ namespace VeganLife.Views.Controls
             if (this.IsFocused)
                 this.Unfocus();
             // Let the animation complete
-            await Task.Delay(500);
-            if (IsSettingPage)
-            {
-                ShellNavigationState state = (App.Current.MainPage as Shell).CurrentState;
-            }
-            else
-            {
-                await ServicesHelper.GetService<INavigationService>().NavigateToFoodDetail(item);
-            }
-            // The following route works because route names are unique in this application.
-            //await Shell.Current.GoToAsync($"{GetNavigationTarget()}?name={((Animal)item).Name}");
+            await Task.Delay(1);
+            await ServicesHelper.GetService<INavigationService>().NavigateToFoodDetail(item);
         }
-
-        //string GetNavigationTarget()
-        //{
-        //    return (Shell.Current as AppShell).Routes.FirstOrDefault(route => route.Value.Equals(SelectedItemNavigationTarget)).Key;
-        //}
     }
 }

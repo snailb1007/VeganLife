@@ -6,22 +6,17 @@
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
-    x:DataType="viewmodel:VitaminAndMineralViewModel">
+    x:DataType="viewmodel:VitaminAndMineralViewModel"
+    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                      Dark=Black}"
+    Shell.NavBarIsVisible="True">
     <Shell.SearchHandler>
-        <control:FuntionAppSearchHandler
+        <control:VitaminSearchHandler
             x:Name="shellSeachBox"
-            ItemTemplate="{StaticResource FoodPreviewTemplate}"
-            Placeholder="Nhập để tìm vitamin"
-            ShowsResults="True">
-            <control:FuntionAppSearchHandler.ClearIcon>
-                <FontImageSource
-                    FontFamily="FontAwesomeRegular"
-                    Glyph="&#xf057;"
-                    Size="8"
-                    Color="{AppThemeBinding Dark=White,
-                                            Light=Black}" />
-            </control:FuntionAppSearchHandler.ClearIcon>
-        </control:FuntionAppSearchHandler>
+            ItemTemplate="{StaticResource VitaminSearchTemplate}"
+            Placeholder="Nhập để tìm"
+            ShowsResults="True"
+            Vitamins="{Binding Vitamins, Mode=OneWay}" />
     </Shell.SearchHandler>
     <VerticalStackLayout Margin="10">
         <Label
@@ -37,7 +32,7 @@
                 <DataTemplate x:DataType="model:VitaminModel">
                     <Frame
                         Padding="5"
-                        BackgroundColor="#fef3e2"
+                        BackgroundColor="White"
                         BorderColor="Transparent"
                         CornerRadius="10">
                         <Grid ColumnDefinitions="*,3*,0.5*" ColumnSpacing="5">
@@ -58,12 +53,6 @@
                                     MaxLines="1"
                                     Text="{Binding Summary}" />
                             </VerticalStackLayout>
-                            <Label
-                                Grid.Column="2"
-                                FontFamily="FontAwesomeSolid"
-                                HorizontalOptions="Center"
-                                Text="&#xf061;"
-                                VerticalOptions="Center" />
                         </Grid>
                     </Frame>
                 </DataTemplate>
