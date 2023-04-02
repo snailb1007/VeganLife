@@ -22,8 +22,8 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Margin="10" Spacing="10">
-        <StackLayout Orientation="Horizontal">
+    <Grid RowDefinitions="Auto,*">
+        <!--<StackLayout Orientation="Horizontal">
             <Line
                 Margin="0,0,5,0"
                 BackgroundColor="{AppThemeBinding Dark=White,
@@ -180,66 +180,69 @@
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ChangeDisplayStatusHotFeedCommand}" />
             </Label.GestureRecognizers>
-        </Label>
+        </Label>-->
 
-        <StackLayout Orientation="Horizontal">
-            <Line
-                Margin="0,0,5,0"
-                BackgroundColor="{AppThemeBinding Dark=White,
-                                                  Light=Black}"
-                HeightRequest="{Binding Source={x:Reference lbHottestTitle}, Path=FontSize}"
-                VerticalOptions="Center"
-                WidthRequest="5" />
-            <Label
-                Margin="0,5,0,0"
-                FontAttributes="Bold"
-                FontSize="18"
-                Text="Khám phá"
-                VerticalOptions="Center" />
-        </StackLayout>
-        <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodel:Discovery">
-                    <VerticalStackLayout Spacing="5">
-                        <Frame
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            CornerRadius="50"
-                            HorizontalOptions="Center">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
-                            </Frame.GestureRecognizers>
-                            <Grid BackgroundColor="Transparent">
-                                <Image
-                                    Aspect="AspectFill"
-                                    Source="{Binding ImgSource}"
-                                    WidthRequest="90" />
-                                <Label
-                                    Padding="2,0"
-                                    BackgroundColor="Gray"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="{Binding Title}"
-                                    TextColor="White"
-                                    VerticalOptions="Center" />
-                            </Grid>
-                        </Frame>
-                        <Label
-                            FontFamily="FontAwesomeSolid"
-                            FontSize="12"
-                            HorizontalOptions="Center"
-                            IsVisible="{Binding IsSelected}"
-                            Text="&#xf192;"
-                            TextColor="Black" />
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <VerticalStackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Line
+                    Margin="0,0,5,0"
+                    BackgroundColor="{AppThemeBinding Dark=White,
+                                                      Light=Black}"
+                    HeightRequest="{Binding Source={x:Reference lbHottestTitle}, Path=FontSize}"
+                    VerticalOptions="Center"
+                    WidthRequest="5" />
+                <Label
+                    Margin="0,5,0,0"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="Khám phá"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodel:Discovery">
+                        <VerticalStackLayout Spacing="5">
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                CornerRadius="50"
+                                HorizontalOptions="Center">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid BackgroundColor="Transparent">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        Source="{Binding ImgSource}"
+                                        WidthRequest="90" />
+                                    <Label
+                                        Padding="2,0"
+                                        BackgroundColor="Gray"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        TextColor="White"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                            <Label
+                                FontFamily="FontAwesomeSolid"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsSelected}"
+                                Text="&#xf192;"
+                                TextColor="Black" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
 
-        <Grid ColumnDefinitions="*" RowDefinitions="*">
+
+        <Grid Grid.Row="1" RowDefinitions="*">
             <ScrollView>
                 <CollectionView
                     IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}"
@@ -311,5 +314,5 @@
                 HorizontalOptions="Center"
                 Text="&#xf2f9;"
                 TextColor="Gray" />-->
-    </StackLayout>
+    </Grid>
 </ContentPage>
