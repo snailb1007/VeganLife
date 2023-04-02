@@ -3,21 +3,27 @@
     x:Class="VeganLife.Views.Controls.NavBarControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="rootNavBarControl">
+    x:Name="rootNavBarControl"
+    BackgroundColor="Transparent">
     <Grid
-        ColumnDefinitions="*, 8*, *">
+        Margin="16,0"
+        BackgroundColor="Transparent"
+        ColumnDefinitions="*, 8*, *"
+        HeightRequest="56">
         <ImageButton
-            BackgroundColor="Transparent"
+            Aspect="AspectFill"
             Clicked="Back_Clicked"
+            HeightRequest="30"
             HorizontalOptions="Center"
             Source="back"
-            VerticalOptions="Center" HeightRequest="50"/>
+            VerticalOptions="Center"
+            WidthRequest="30" />
         <Label
             Grid.Column="1"
-            VerticalOptions="Center"
             FontAttributes="Bold"
             FontSize="Medium"
             HorizontalOptions="Center"
-            Text="{Binding Title, Source={x:Reference rootNavBarControl}}" />
+            Text="{Binding Title, Source={x:Reference rootNavBarControl}}"
+            VerticalOptions="Center" />
     </Grid>
 </ContentView>

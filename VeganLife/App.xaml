@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:VeganLife"
+    xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel">
     <Application.Resources>
         <ResourceDictionary>
@@ -46,6 +47,16 @@
                     </Border>
                     <Label
                         Grid.Column="1"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="VitaminSearchTemplate" x:DataType="model:VitaminModel">
+                <Grid Padding="0,5" RowDefinitions="*">
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </Grid>

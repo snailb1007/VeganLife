@@ -29,13 +29,13 @@
                 Route="main"
                 Shell.NavBarIsVisible="true" />
         </Tab>
-        <Tab Title="Khẩu phần" Icon="nutrition">
+        <Tab Title="Khẩu phần" Icon="plan">
             <ShellContent
                 Title="Khẩu phần"
                 ContentTemplate="{DataTemplate contentViews:RationPlanPage}"
                 Route="ration_plan" />
         </Tab>
-        <Tab Title="Vitamins">
+        <Tab Title="Vitamins" Icon="vitamin">
             <ShellContent
                 Title="Vitamins"
                 ContentTemplate="{DataTemplate contentViews:VitaminAndMineralPage}"
@@ -50,7 +50,6 @@
         </Tab>
         <Tab Title="Công cụ" Icon="calculator">
             <ShellContent
-                Title="BMI"
                 ContentTemplate="{DataTemplate view:BMICalculatorPage}"
                 Route="bmi_calculator"
                 Shell.NavBarIsVisible="true" />
