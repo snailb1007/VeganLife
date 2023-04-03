@@ -198,7 +198,25 @@
                     Text="Khám phá"
                     VerticalOptions="Center" />
             </StackLayout>
-            <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="None">
+            <CollectionView
+                ItemsSource="{Binding DiscoveryMenu}"
+                SelectedItem="{Binding MenuSelected}"
+                SelectionChangedCommand="{Binding SelectDiscoveryMenuCommand}"
+                SelectionMode="Single">
+                <CollectionView.Header>
+                    <BoxView
+                        Background="Transparent"
+                        BackgroundColor="Transparent"
+                        WidthRequest="10"
+                        Color="Transparent" />
+                </CollectionView.Header>
+                <CollectionView.Footer>
+                    <BoxView
+                        Background="Transparent"
+                        BackgroundColor="Transparent"
+                        WidthRequest="10"
+                        Color="Transparent" />
+                </CollectionView.Footer>
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
                 </CollectionView.ItemsLayout>
@@ -210,9 +228,6 @@
                                 BackgroundColor="Transparent"
                                 CornerRadius="50"
                                 HorizontalOptions="Center">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectDiscoveryMenuCommand}" CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
                                 <Grid BackgroundColor="Transparent">
                                     <Image
                                         Aspect="AspectFill"
