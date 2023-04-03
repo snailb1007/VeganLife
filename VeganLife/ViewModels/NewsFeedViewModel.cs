@@ -45,14 +45,15 @@ namespace VeganLife.ViewModels
             Initialize();
         }
 
+        [ObservableProperty]
+        Discovery _menuSelected;
         [RelayCommand]
-        void SelectDiscoveryMenu(object obj)
+        void SelectDiscoveryMenu()
         {
             if (IsLoading)
                 return;
             IsLoading = true;
-            var itemSelected = obj as Discovery;
-            if (itemSelected == null || DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == itemSelected)
+            if (MenuSelected == null || DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == MenuSelected)
             {
                 IsLoading = false;
                 return;
@@ -65,25 +66,25 @@ namespace VeganLife.ViewModels
                 Feeds = new ObservableCollection<Item>();
             }
 
-            if (itemSelected.Title.Equals(AppResources.veganFood_feedPage))
+            if (MenuSelected.Title.Equals(AppResources.veganFood_feedPage))
             {
                 SetFlagDiscoverySelected(isFood: true);
                 foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganFoods).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
-            else if (itemSelected.Title.Equals(AppResources.healthy_feedPage))
+            else if (MenuSelected.Title.Equals(AppResources.healthy_feedPage))
             {
                 SetFlagDiscoverySelected(isHealthy: true);
                 foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
-            else if (itemSelected.Title.Equals(AppResources.religion_feedPage))
+            else if (MenuSelected.Title.Equals(AppResources.religion_feedPage))
             {
                 SetFlagDiscoverySelected();
                 foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_Religion).Take(_currentNumberItem))
                     Feeds.Add(item);
             }
-            else if (itemSelected.Title.Equals(AppResources.liveStrong_feedPage))
+            else if (MenuSelected.Title.Equals(AppResources.liveStrong_feedPage))
             {
                 SetFlagDiscoverySelected(liveStrong: true);
                 foreach (var item in _data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_LiveStrong).Take(_currentNumberItem))
@@ -95,7 +96,7 @@ namespace VeganLife.ViewModels
                 item.IsSelected = false;
             }
 
-            itemSelected.IsSelected = true;
+            MenuSelected.IsSelected = true;
             IsLoading = false;
         }
 
@@ -145,6 +146,7 @@ namespace VeganLife.ViewModels
             catch (Exception ex)
             {
                 // An unexpected error occured. No browser may be installed on the device.
+                await Console.Out.WriteLineAsync("No browser may be installed on the device\n" + ex.Message);
                 throw;
             }
             finally
@@ -164,8 +166,6 @@ namespace VeganLife.ViewModels
         {
             if (sender == null)
                 return;
-            var watch = new Stopwatch();
-            watch.Start();
             foreach (var item in (string[])sender)
             {
                 if (!string.IsNullOrEmpty(item) && _data.ContainsKey(item))
@@ -173,8 +173,6 @@ namespace VeganLife.ViewModels
                     DisplayFeeds(false, item);
                 }
             }
-            watch.Stop();
-            Console.WriteLine($"thien==>watch: {watch.ElapsedMilliseconds}");
             IsLoading = false;
         }
 
@@ -209,10 +207,10 @@ namespace VeganLife.ViewModels
                     Feeds = new ObservableCollection<Item>();
                 }
 
-                if (HotFeeds == null)
-                {
-                    HotFeeds = new ObservableCollection<HotItemModel>();
-                }
+                //if (HotFeeds == null)
+                //{
+                //    HotFeeds = new ObservableCollection<HotItemModel>();
+                //}
 
                 HtmlWeb htmlWeb = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.UTF8 };
 
@@ -224,39 +222,39 @@ namespace VeganLife.ViewModels
                         //SetHotFeeds(foods, htmlWeb, AppResources.veganFood_feedPage);
                         break;
                     case ConstantHelper.RssFeedNews.Google_News_VeganHealthy:
-                        SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy), htmlWeb, AppResources.healthy_feedPage);
+                        //SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_VeganHealthy), htmlWeb, AppResources.healthy_feedPage);
                         break;
 
                     case ConstantHelper.RssFeedNews.Google_News_Religion:
-                        SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_Religion), htmlWeb, AppResources.religion_feedPage);
+                        //SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_Religion), htmlWeb, AppResources.religion_feedPage);
                         break;
 
                     case ConstantHelper.RssFeedNews.Google_News_LiveStrong:
-                        SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_LiveStrong), htmlWeb, AppResources.liveStrong_feedPage);
+                        //SetHotFeeds(_data.GetValueOrDefault(ConstantHelper.RssFeedNews.Google_News_LiveStrong), htmlWeb, AppResources.liveStrong_feedPage);
                         break;
                 }
             }
         }
 
-        void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
-        {
-            HotItemModel itemHotFeeds = new HotItemModel();
-            string imgLinkHotItem = string.Empty;
-            foreach (var item in data)
-            {
-                if (item.source.url == "https://vtc.vn")
-                    continue;
-                imgLinkHotItem = LoadUrlPreview(htmlWeb, item?.link);
-                if (!string.IsNullOrEmpty(imgLinkHotItem))
-                {
-                    item.ImageTitleUri = imgLinkHotItem;
-                    itemHotFeeds = new HotItemModel(item, topic);
-                    break;
-                }
-            }
+        //void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
+        //{
+        //    HotItemModel itemHotFeeds = new HotItemModel();
+        //    string imgLinkHotItem = string.Empty;
+        //    foreach (var item in data)
+        //    {
+        //        if (item.source.url == "https://vtc.vn")
+        //            continue;
+        //        imgLinkHotItem = LoadUrlPreview(htmlWeb, item?.link);
+        //        if (!string.IsNullOrEmpty(imgLinkHotItem))
+        //        {
+        //            item.ImageTitleUri = imgLinkHotItem;
+        //            itemHotFeeds = new HotItemModel(item, topic);
+        //            break;
+        //        }
+        //    }
 
-            HotFeeds.Add(itemHotFeeds);
-        }
+        //    HotFeeds.Add(itemHotFeeds);
+        //}
 
         private void InitMenu()
         {
@@ -269,42 +267,42 @@ namespace VeganLife.ViewModels
             };
         }
 
-        string nodeImgHead = "//meta[@property='og:image']";
-        string nodeWeb = "//a";
-        string LoadUrlPreview(HtmlWeb htmlWeb, string url)
-        {
+//        string nodeImgHead = "//meta[@property='og:image']";
+//        string nodeWeb = "//a";
+//        string LoadUrlPreview(HtmlWeb htmlWeb, string url)
+//        {
 
-            HtmlDocument htmlDoc = new HtmlDocument();
-            string result = htmlDoc.ParsedText ?? string.Empty;
-            try
-            {
-                htmlDoc = htmlWeb.Load(url.Remove(url.IndexOf("?")));
-                //get web
-                var webNode = htmlDoc.DocumentNode.SelectSingleNode(nodeWeb);
-                if (webNode != null)
-                {
-                    result = webNode?.Attributes["href"]?.Value ?? string.Empty;
-                }
-                // get image title
-                if (string.IsNullOrEmpty(result))
-                    return result;
-                htmlDoc = htmlWeb.Load(result);
-                var titleImageNode = htmlDoc.DocumentNode.SelectSingleNode(nodeImgHead);
-                if (titleImageNode != null)
-                {
-                    result = titleImageNode?.Attributes["Content"]?.Value ?? string.Empty;
-#if DEBUG
-                    Console.WriteLine(result);
-#endif
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-            }
+//            HtmlDocument htmlDoc = new HtmlDocument();
+//            string result = htmlDoc.ParsedText ?? string.Empty;
+//            try
+//            {
+//                htmlDoc = htmlWeb.Load(url.Remove(url.IndexOf("?")));
+//                //get web
+//                var webNode = htmlDoc.DocumentNode.SelectSingleNode(nodeWeb);
+//                if (webNode != null)
+//                {
+//                    result = webNode?.Attributes["href"]?.Value ?? string.Empty;
+//                }
+//                // get image title
+//                if (string.IsNullOrEmpty(result))
+//                    return result;
+//                htmlDoc = htmlWeb.Load(result);
+//                var titleImageNode = htmlDoc.DocumentNode.SelectSingleNode(nodeImgHead);
+//                if (titleImageNode != null)
+//                {
+//                    result = titleImageNode?.Attributes["Content"]?.Value ?? string.Empty;
+//#if DEBUG
+//                    Console.WriteLine(result);
+//#endif
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                Console.WriteLine(e.StackTrace);
+//            }
 
-            return result;
-        }
+//            return result;
+//        }
 
         void SetFlagDiscoverySelected(bool isFood = false, bool isHealthy = false, bool liveStrong = false)
         {
