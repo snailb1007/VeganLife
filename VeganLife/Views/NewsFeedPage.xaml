@@ -225,8 +225,8 @@
                             <Border
                                 Padding="0"
                                 BackgroundColor="Transparent"
-                                StrokeShape="RoundRectangle 50"
-                                HorizontalOptions="Center">
+                                HorizontalOptions="Center"
+                                StrokeShape="RoundRectangle 50">
                                 <Grid BackgroundColor="Transparent">
                                     <Image
                                         Aspect="AspectFill"
@@ -259,28 +259,35 @@
         <Grid Grid.Row="1" RowDefinitions="*">
             <ScrollView Margin="0,10,0,0">
                 <CollectionView
+                    x:Name="collectionFeeds"
                     Margin="10,0"
-                    IsVisible="{Binding Feeds, Converter={StaticResource NullToFalseConverter}}"
-                    ItemsSource="{Binding Feeds}"
+                    ItemsSource="{Binding Feeds, Mode=OneWay}"
+                    ItemsUpdatingScrollMode="KeepLastItemInView"
                     Opacity="1"
+                    RemainingItemsThreshold="2"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemCommand}"
+                    SelectionChanged="CollectionView_SelectionChanged"
                     SelectionMode="Single">
-                    <CollectionView.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsLoading}"
-                            TargetType="CollectionView"
-                            Value="true">
-                            <Setter Property="Opacity" Value="0.5" />
-                        </DataTrigger>
-                    </CollectionView.Triggers>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
+                    <CollectionView.Header>
+                        <Grid BackgroundColor="Transparent" HeightRequest="10" />
+                    </CollectionView.Header>
+                    <CollectionView.Footer>
+                        <Grid BackgroundColor="Transparent" HeightRequest="10" />
+                    </CollectionView.Footer>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Item">
-                            <Frame Padding="2" BackgroundColor="{AppThemeBinding Dark=#2b2d2e, Light=#ffffff}">
-                                <Frame.GestureRecognizers>
+                            <Border
+                                Padding="2"
+                                BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
+                                                                  Light=#ffffff}"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0">
+                                <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
+                                </Border.GestureRecognizers>
                                 <StackLayout>
                                     <Grid
                                         BackgroundColor="Transparent"
@@ -315,7 +322,7 @@
                                             VerticalOptions="Center" />
                                     </Grid>
                                 </StackLayout>
-                            </Frame>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
