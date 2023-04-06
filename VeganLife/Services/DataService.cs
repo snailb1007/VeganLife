@@ -1,5 +1,8 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
+using Newtonsoft.Json;
+using System.Xml;
+using VeganLife.Data.RssFeedsData;
 using VeganLife.Models.FoodModel;
 
 namespace VeganLife.Services
@@ -81,6 +84,21 @@ namespace VeganLife.Services
                 Console.WriteLine(e.StackTrace);
                 return Enumerable.Empty<VitaminModel>();
             }
+        }
+
+        public async Task<List<Item>> LoadGoogleNews(string uri)
+        {
+            var rss = new RssFeedsHttpRequest();
+            var data = await rss.GetRssData(uri);
+            if (string.IsNullOrEmpty(data))
+                return new List<Item>();
+            var doc = new XmlDocument();
+            doc.LoadXml(data);
+            var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
+            if (string.IsNullOrEmpty(json))
+                return new List<Item>();
+            var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
+            return baseData.rss.channel.item;
         }
     }
 }
