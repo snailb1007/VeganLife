@@ -5,10 +5,10 @@ namespace VeganLife.ViewModels
 {
     public partial class NewsFeedViewModel : BaseViewModel
     {
-        List<Item> _dataFood = new List<Item>();
-        List<Item> _dataHealthy = new List<Item>();
-        List<Item> _dataReligion = new List<Item>();
-        List<Item> _dataLiveStrong = new List<Item>();
+        IEnumerable<Item> _dataFood = new List<Item>();
+        IEnumerable<Item> _dataHealthy = new List<Item>();
+        IEnumerable<Item> _dataReligion = new List<Item>();
+        IEnumerable<Item> _dataLiveStrong = new List<Item>();
 
         bool _isFoodFeed = true;
         bool _isHealthyFeed;
@@ -56,39 +56,47 @@ namespace VeganLife.ViewModels
             }
 
             _currentNumberItem = 20;
-            if (Feeds != null)
-            {
-                Feeds.Clear();
-            }
-
+            Feeds?.Clear();
             if (currentItem.Title.Equals(AppResources.veganFood_feedPage))
             {
                 SetFlagDiscoverySelected(isFood: true);
                 if (!_dataFood?.Any() ?? true)
                     _dataFood = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
-                DisplayFeeds(_dataFood);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    foreach (var item in _dataFood.Take(_currentNumberItem))
+                    {
+                        Feeds.Add(item);
+                    }
+                }
+                );
             }
             else if (currentItem.Title.Equals(AppResources.healthy_feedPage))
             {
                 SetFlagDiscoverySelected(isHealthy: true);
                 if (!_dataHealthy?.Any() ?? true)
                     _dataHealthy = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganHealthy);
-                await Task.Delay(1);
-                DisplayFeeds(_dataHealthy);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    foreach (var item in _dataHealthy.Take(_currentNumberItem))
+                    {
+                        Feeds.Add(item);
+                    }
+                });
             }
             else if (currentItem.Title.Equals(AppResources.religion_feedPage))
             {
                 SetFlagDiscoverySelected();
                 if (!_dataReligion?.Any() ?? true)
                     _dataReligion = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_Religion);
-                DisplayFeeds(_dataReligion);
+                MainThread.BeginInvokeOnMainThread(() => Feeds = new ObservableCollection<Item>(_dataReligion));
             }
             else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
             {
                 SetFlagDiscoverySelected(liveStrong: true);
                 if (!_dataLiveStrong?.Any() ?? true)
                     _dataLiveStrong = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_LiveStrong);
-                DisplayFeeds(_dataLiveStrong);
+                MainThread.BeginInvokeOnMainThread(() => Feeds = new ObservableCollection<Item>(_dataLiveStrong));
             }
 
             foreach (var item in DiscoveryMenu)
@@ -107,19 +115,19 @@ namespace VeganLife.ViewModels
             if (_taskLoadingMessage != null && !_taskLoadingMessage.Task.IsCompleted)
                 await _taskLoadingMessage.Task;
             _taskLoadingMessage = new TaskCompletionSource<bool>();
-            IList<Item> listTemp;
+            IEnumerable<Item> listTemp;
             if (_isFoodFeed)
                 listTemp = _dataFood;
             else if (_isHealthyFeed)
                 listTemp = _dataHealthy;
             else
                 listTemp = _isLiveStrongFeed ? _dataLiveStrong : _dataReligion;
-            bool isLoadedAllData = Feeds?.Count > 0 && Feeds?.Count == listTemp?.Count;
+            bool isLoadedAllData = Feeds?.Count > 0 && Feeds?.Count == listTemp?.Count();
             if (!isLoadedAllData)
             {
-                for (int i = 0; i < 10 && (i + _currentNumberItem) < listTemp?.Count; i++)
+                for (int i = 0; i < 10 && (i + _currentNumberItem) < listTemp?.Count(); i++)
                 {
-                    Feeds.Add(listTemp[i + _currentNumberItem]);
+                    Feeds.Add(listTemp.ElementAt(i + _currentNumberItem));
                 }
 
                 _currentNumberItem += 10;
@@ -168,21 +176,8 @@ namespace VeganLife.ViewModels
                 DiscoveryMenu.Clear();
             _dataFood = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
             InitMenu();
-            DisplayFeeds(_dataFood.Take(_currentNumberItem).ToList());
+            Feeds = new ObservableCollection<Item>(_dataFood.Take(_currentNumberItem));
             IsLoading = false;
-        }
-
-        void DisplayFeeds(List<Item> items)
-        {
-            if (Feeds == null)
-            {
-                Feeds = new ObservableCollection<Item>();
-            }
-
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                items.ForEach(i => Feeds.Add(i));
-            });
         }
 
         //void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)

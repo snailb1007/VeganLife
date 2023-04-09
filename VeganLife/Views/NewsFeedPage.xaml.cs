@@ -9,11 +9,20 @@ public partial class NewsFeedPage : ContentPage
         InitializeComponent();
 	}
 
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (sender == null)
             return;
-        collectionFeeds.ScrollTo(0, 0);
         _viewModel.SelectDiscoveryMenuCommand.Execute(e.CurrentSelection);
+        collectionFeeds.ScrollTo(0, 0);
+    }
+
+    private void collectionFeeds_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName.Equals("ItemSource"))
+        {
+            collectionFeeds.ItemsSource = null;
+            collectionFeeds.ItemsSource = _viewModel.Feeds;
+        }
     }
 }

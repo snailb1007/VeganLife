@@ -86,17 +86,17 @@ namespace VeganLife.Services
             }
         }
 
-        public async Task<List<Item>> LoadGoogleNews(string uri)
+        public async Task<IEnumerable<Item>> LoadGoogleNews(string uri)
         {
             var rss = new RssFeedsHttpRequest();
             var data = await rss.GetRssData(uri);
             if (string.IsNullOrEmpty(data))
-                return new List<Item>();
+                return Enumerable.Empty<Item>();
             var doc = new XmlDocument();
             doc.LoadXml(data);
             var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
             if (string.IsNullOrEmpty(json))
-                return new List<Item>();
+                return Enumerable.Empty<Item>();
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             return baseData.rss.channel.item;
         }

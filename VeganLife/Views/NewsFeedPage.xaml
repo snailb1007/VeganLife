@@ -198,7 +198,10 @@
                     Text="Khám phá"
                     VerticalOptions="Center" />
             </StackLayout>
-            <CollectionView ItemsSource="{Binding DiscoveryMenu}" SelectionMode="Single">
+            <CollectionView
+                ItemsSource="{Binding DiscoveryMenu}"
+                SelectionChanged="DiscoverMenu_SelectionChanged"
+                SelectionMode="Single">
                 <CollectionView.Header>
                     <BoxView
                         Background="Transparent"
@@ -261,12 +264,11 @@
                 <CollectionView
                     x:Name="collectionFeeds"
                     Margin="10,0"
-                    ItemsSource="{Binding Feeds, Mode=OneWay}"
-                    ItemsUpdatingScrollMode="KeepLastItemInView"
+                    ItemsSource="{Binding Feeds}"
                     Opacity="1"
+                    PropertyChanged="collectionFeeds_PropertyChanged"
                     RemainingItemsThreshold="2"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemCommand}"
-                    SelectionChanged="CollectionView_SelectionChanged"
                     SelectionMode="Single">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
@@ -280,7 +282,6 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Item">
                             <Border
-                                Padding="2"
                                 BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
                                                                   Light=#ffffff}"
                                 StrokeShape="RoundRectangle 10"
@@ -288,40 +289,39 @@
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
                                 </Border.GestureRecognizers>
-                                <StackLayout>
-                                    <Grid
-                                        BackgroundColor="Transparent"
-                                        ColumnDefinitions="9*,*"
-                                        ColumnSpacing="10"
-                                        VerticalOptions="CenterAndExpand">
-                                        <VerticalStackLayout Margin="5,0" Spacing="5">
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontSize="15"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                MaxLines="2"
-                                                Text="{Binding title}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-                                            <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand">
-                                                <Label
-                                                    FontSize="12"
-                                                    Text="{Binding TimeAgoDisplay}"
-                                                    TextColor="Gray" />
-                                            </HorizontalStackLayout>
-                                        </VerticalStackLayout>
+                                <Grid
+                                    BackgroundColor="Transparent"
+                                    ColumnDefinitions="9*,*"
+                                    MinimumHeightRequest="10"
+                                    RowDefinitions="*"
+                                    VerticalOptions="CenterAndExpand">
+                                    <VerticalStackLayout Margin="5" Spacing="5">
                                         <Label
-                                            Grid.Column="1"
-                                            FontFamily="FontAwesomeSolid"
-                                            FontSize="30"
-                                            HorizontalOptions="Center"
-                                            ScaleY="1"
-                                            Text="&#xf105;"
-                                            TextColor="Gray"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </StackLayout>
+                                            FontAttributes="Bold"
+                                            FontSize="15"
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding title}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                        <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand">
+                                            <Label
+                                                FontSize="12"
+                                                Text="{Binding TimeAgoDisplay}"
+                                                TextColor="Gray" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                    <Label
+                                        Grid.Column="1"
+                                        FontFamily="FontAwesomeSolid"
+                                        FontSize="30"
+                                        HorizontalOptions="Center"
+                                        ScaleY="1"
+                                        Text="&#xf105;"
+                                        TextColor="Gray"
+                                        VerticalOptions="Center" />
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
