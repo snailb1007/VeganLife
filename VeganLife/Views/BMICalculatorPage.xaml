@@ -159,7 +159,7 @@
                             <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
                                 <Label
                                     FontSize="25"
-                                    Text="{Binding Source={x:Reference sliderHeight}, Path=Value, StringFormat='{0:F1}'}"
+                                    Text="{Binding Height}"
                                     VerticalOptions="Center" />
                                 <Label Text="cm" VerticalOptions="Center" />
                             </HorizontalStackLayout>
@@ -170,7 +170,8 @@
                                     HorizontalOptions="FillAndExpand"
                                     Maximum="250"
                                     Minimum="50"
-                                    VerticalOptions="FillAndExpand" />
+                                    VerticalOptions="FillAndExpand"
+                                    Value="{Binding Height}" />
                             </Grid>
                         </VerticalStackLayout>
                     </Frame>
@@ -224,6 +225,7 @@
                     <Label IsVisible="{Binding GeneralError, Converter={StaticResource NullToFalseConverter}}" Text="{Binding GeneralError}" />
                     <Button
                         Margin="20,0"
+                        Command="{Binding CalculateBMICommand}"
                         FontAttributes="Bold"
                         FontSize="20"
                         IsEnabled="{Binding IsEnableSubmit}"
