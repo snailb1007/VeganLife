@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.ViewModels
@@ -7,6 +8,9 @@ namespace VeganLife.ViewModels
     {
         private float _weight;
         private short _age;
+
+        [ObservableProperty]
+        float _height;
 
         [ObservableProperty]
         bool _isDisplayedSexDetail;
@@ -34,6 +38,9 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         string _generalError;
+
+        [ObservableProperty]
+        float _bmiResult;
 
         [RelayCommand]
         void HelpSexDetail(string parameter)
@@ -77,7 +84,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         void CalculateBMI()
         {
-
+            BmiResult = CalculateHelper.CalculateBMI(_weight, Height / 100f);
         }
 
         public BMICalculatorViewModel(INavigationService navigationService, IDataService dataService)
@@ -155,6 +162,11 @@ namespace VeganLife.ViewModels
             }
 
             IsEnableSubmit = CheckEnableButtonCalculate();
+        }
+
+        partial void OnHeightChanged(float value)
+        {
+            Height = (float)Math.Round(Height, 2);
         }
 
         private bool CheckEnableButtonCalculate()
