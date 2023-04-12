@@ -264,7 +264,7 @@
                 <CollectionView
                     x:Name="collectionFeeds"
                     Margin="10,0"
-                    ItemsSource="{Binding Feeds}"
+                    ItemsSource="{Binding Feeds, Mode=OneWay}"
                     Opacity="1"
                     PropertyChanged="collectionFeeds_PropertyChanged"
                     RemainingItemsThreshold="2"
@@ -302,13 +302,13 @@
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="WordWrap"
                                             MaxLines="2"
-                                            Text="{Binding title}"
+                                            Text="{Binding title, Mode=OneTime}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                         <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand">
                                             <Label
                                                 FontSize="12"
-                                                Text="{Binding TimeAgoDisplay}"
+                                                Text="{Binding TimeAgoDisplay, Mode=OneTime}"
                                                 TextColor="Gray" />
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
