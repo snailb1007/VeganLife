@@ -197,10 +197,12 @@
                                     TextColor="Red" />
                             </VerticalStackLayout>
                         </Frame>
-                        <Frame
+                        <Border
                             Grid.Column="1"
+                            Padding="10"
                             BackgroundColor="Transparent"
-                            BorderColor="Gray">
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0">
                             <VerticalStackLayout>
                                 <Label
                                     FontSize="22"
@@ -212,6 +214,52 @@
                                     Keyboard="Numeric"
                                     Placeholder="20"
                                     Text="{Binding AgeValue}" />
+                                <Grid
+                                    Padding="0,5"
+                                    ColumnDefinitions="*,*"
+                                    ColumnSpacing="5">
+                                    <Border
+                                        HorizontalOptions="Center"
+                                        StrokeShape="RoundRectangle 15"
+                                        StrokeThickness="0"
+                                        WidthRequest="30">
+                                        <Border.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Opacity="0.2"
+                                                Radius="15"
+                                                Offset="10,10" />
+                                        </Border.Shadow>
+                                        <Label
+                                            Margin="5"
+                                            FontFamily="FontAwesomeSolid"
+                                            FontSize="18"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"
+                                            Text="&#x2b;" />
+                                    </Border>
+                                    <Border
+                                        Grid.Column="1"
+                                        HorizontalOptions="Center"
+                                        StrokeShape="RoundRectangle 15"
+                                        StrokeThickness="0"
+                                        WidthRequest="30">
+                                        <Border.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Opacity="0.2"
+                                                Radius="15"
+                                                Offset="10,10" />
+                                        </Border.Shadow>
+                                        <Label
+                                            Margin="5"
+                                            FontFamily="FontAwesomeSolid"
+                                            FontSize="18"
+                                            HorizontalOptions="Center"
+                                            Text="&#xf068;"
+                                            VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
                                 <Label
                                     FontSize="12"
                                     HorizontalOptions="Start"
@@ -220,7 +268,7 @@
                                     Text="{Binding AgeErrMess}"
                                     TextColor="Red" />
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                     </Grid>
                     <Label IsVisible="{Binding GeneralError, Converter={StaticResource NullToFalseConverter}}" Text="{Binding GeneralError}" />
                     <Button

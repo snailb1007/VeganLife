@@ -144,7 +144,7 @@
                 Grid.Row="1"
                 Margin="20,10"
                 ItemTemplate="{StaticResource FoodPreviewCollection}"
-                ItemsSource="{Binding Foods}"
+                ItemsSource="{Binding Foods, Mode=OneWay}"
                 SelectedItem="{Binding CurrentFoodSelected}"
                 SelectionChangedCommand="{Binding GoFoodDetailCommand}"
                 SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"

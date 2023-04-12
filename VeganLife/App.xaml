@@ -88,7 +88,7 @@
                                 BackgroundColor="Transparent"
                                 HeightRequest="70"
                                 HorizontalOptions="End"
-                                Source="{Binding Image}"
+                                Source="{Binding Image, Mode=OneTime}"
                                 WidthRequest="70" />
                         </Border>
                         <VerticalStackLayout
@@ -100,14 +100,14 @@
                                 FontAttributes="Bold"
                                 LineBreakMode="TailTruncation"
                                 MaxLines="1"
-                                Text="{Binding Name}"
+                                Text="{Binding Name, Mode=OneTime}"
                                 VerticalOptions="Center" />
                             <HorizontalStackLayout Spacing="5">
                                 <Label
                                     FontFamily="FontAwesomeRegular"
                                     Text="&#xf017;"
                                     VerticalOptions="Center" />
-                                <Label Text="{Binding Time}" />
+                                <Label Text="{Binding Time, Mode=OneTime}" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
 
