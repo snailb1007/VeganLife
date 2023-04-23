@@ -13,6 +13,7 @@
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <x:String x:Key="iconArrowRight">&#xf105;</x:String>
             <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
             <converter:ReverseConverter x:Key="ReverseConverter" />
             <Style TargetType="Frame">
@@ -259,14 +260,12 @@
         </VerticalStackLayout>
 
 
-        <Grid Grid.Row="1" RowDefinitions="*">
-            <ScrollView Margin="0,10,0,0">
+        <ScrollView Grid.Row="1" Margin="0,10,0,0">
+            <Grid RowDefinitions="*">
                 <CollectionView
                     x:Name="collectionFeeds"
                     Margin="10,0"
                     ItemsSource="{Binding Feeds, Mode=OneWay}"
-                    Opacity="1"
-                    PropertyChanged="collectionFeeds_PropertyChanged"
                     RemainingItemsThreshold="2"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemCommand}"
                     SelectionMode="Single">
@@ -318,7 +317,7 @@
                                         FontSize="30"
                                         HorizontalOptions="Center"
                                         ScaleY="1"
-                                        Text="&#xf105;"
+                                        Text="{StaticResource iconArrowRight}"
                                         TextColor="Gray"
                                         VerticalOptions="Center" />
                                 </Grid>
@@ -326,8 +325,8 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </ScrollView>
-        </Grid>
+            </Grid>
+        </ScrollView>
         <ActivityIndicator
             Grid.Row="1"
             HorizontalOptions="Center"

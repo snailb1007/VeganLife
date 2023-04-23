@@ -176,6 +176,7 @@ namespace VeganLife.ViewModels
                 DiscoveryMenu.Clear();
             _dataFood = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
             InitMenu();
+            _currentNumberItem = 20;
             Feeds = new ObservableCollection<Item>(_dataFood.Take(_currentNumberItem));
             IsLoading = false;
         }
