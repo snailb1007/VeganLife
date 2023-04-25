@@ -91,6 +91,9 @@ public static class MauiProgram
 
         services.AddTransient<FoodsByCategoryPage>();
         services.AddTransient<FoodsByCategoryViewModel>();
+
+        services.AddTransient<DetailVitaminAndMineralPage>();
+        services.AddTransient<DetailVitaminAndMineralViewModel>();
     }
 
     static void AllowMultiLineTruncationOnAndroid()
