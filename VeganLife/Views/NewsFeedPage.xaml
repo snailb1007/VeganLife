@@ -301,7 +301,7 @@
                                         FontAttributes="Bold"
                                         FontSize="15"
                                         HorizontalTextAlignment="Start"
-                                        LineBreakMode="WordWrap"
+                                        LineBreakMode="TailTruncation"
                                         MaxLines="2"
                                         Text="{Binding title, Mode=OneTime}"
                                         VerticalOptions="Center"

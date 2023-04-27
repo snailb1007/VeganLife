@@ -28,7 +28,7 @@
                 <Label
                     FontFamily="FontAwesomeSolid"
                     FontSize="15"
-                    Text="&#xf05a;"
+                    Text="{StaticResource IconInfo}"
                     TextColor="CadetBlue">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding HelpSexDetailCommand}" />
@@ -40,30 +40,37 @@
                 ColumnDefinitions="9*,Auto"
                 ColumnSpacing="2"
                 HorizontalOptions="FillAndExpand"
-                IsVisible="{Binding IsDisplayedSexDetail}">
-                <Frame
+                IsVisible="{Binding IsDisplayedSexDetail}"
+                PropertyChanged="Grid_PropertyChanged"
+                RowDefinitions="*"
+                VerticalOptions="FillAndExpand">
+                <Border
+                    x:Name="borderHelpSex"
                     Padding="10"
                     BackgroundColor="Transparent"
-                    BorderColor="Gray"
-                    HorizontalOptions="Center">
+                    HorizontalOptions="CenterAndExpand"
+                    StrokeShape="RoundRectangle 5"
+                    VerticalOptions="FillAndExpand">
                     <Label
+                        x:Name="lbHelpSex"
                         FontSize="12"
-                        HorizontalOptions="Center"
+                        HeightRequest="50"
+                        HorizontalOptions="CenterAndExpand"
                         HorizontalTextAlignment="Center"
-                        Text="{x:Static translate:AppResources.sexDetail_content_bmiCalculatePage}" />
-                </Frame>
+                        Text="{x:Static translate:AppResources.sexDetail_content_bmiCalculatePage}"
+                        VerticalOptions="CenterAndExpand" />
+                </Border>
                 <Label
                     Grid.Column="1"
                     Padding="2"
                     FontFamily="FontAwesomeSolid"
                     HorizontalOptions="StartAndExpand"
-                    Text="&#xf057;">
+                    Text="{StaticResource IconClose}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding HelpSexDetailCommand}" CommandParameter="closeSexDetail" />
                     </Label.GestureRecognizers>
                 </Label>
             </Grid>
-
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                 <Frame
                     Padding="5"
@@ -176,7 +183,7 @@
                         </VerticalStackLayout>
                     </Frame>
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                        <Frame BackgroundColor="Transparent" BorderColor="Gray">
+                        <Border Padding="10" BackgroundColor="Transparent" StrokeShape="RoundRectangle 10">
                             <VerticalStackLayout>
                                 <Label
                                     FontSize="22"
@@ -196,13 +203,13 @@
                                     Text="{Binding WeightErrMess}"
                                     TextColor="Red" />
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                         <Border
                             Grid.Column="1"
                             Padding="10"
                             BackgroundColor="Transparent"
                             StrokeShape="RoundRectangle 10"
-                            StrokeThickness="0">
+                            StrokeThickness="1">
                             <VerticalStackLayout>
                                 <Label
                                     FontSize="22"

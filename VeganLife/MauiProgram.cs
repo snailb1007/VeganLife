@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Handlers;
+﻿using Maui.FixesAndWorkarounds;
+using Microsoft.Maui.Handlers;
 using SimpleToolkit.Core;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using VeganLife.Handlers;
@@ -20,6 +21,7 @@ public static class MauiProgram
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseSimpleToolkit()
+            .ConfigureKeyboardAutoScroll()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
