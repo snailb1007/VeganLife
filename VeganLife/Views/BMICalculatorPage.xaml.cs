@@ -1,5 +1,3 @@
-using VeganLife.ViewModels;
-
 namespace VeganLife.Views;
 
 public partial class BMICalculatorPage : ContentPage
@@ -9,4 +7,12 @@ public partial class BMICalculatorPage : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
 	}
+
+    private void Grid_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+		if (e.PropertyName.Equals("IsVisible"))
+		{
+            Console.WriteLine("==> " + lbHelpSex.Height);
+		}
+    }
 }
