@@ -39,7 +39,27 @@
             <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="Auto, Auto, *">
+    <Grid IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}" RowDefinitions="Auto, Auto, *">
+        <Grid.Triggers>
+            <DataTrigger
+                Binding="{Binding GoFoodDetailCommand.IsRunning}"
+                TargetType="Grid"
+                Value="true">
+                <Setter Property="Opacity" Value="0.7" />
+            </DataTrigger>
+            <DataTrigger
+                Binding="{Binding LoadDataCommand.IsRunning}"
+                TargetType="Grid"
+                Value="true">
+                <Setter Property="Opacity" Value="0.7" />
+            </DataTrigger>
+            <!--<DataTrigger
+                Binding="{Binding IsSearchFocused}"
+                TargetType="Grid"
+                Value="true">
+                <Setter Property="Opacity" Value="0.7" />
+            </DataTrigger>-->
+        </Grid.Triggers>
         <!--<StackLayout.Triggers>
             <DataTrigger
                 Binding="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
@@ -159,10 +179,24 @@
             </CollectionView>
         </Grid>
 
-        <!--<Grid
-            Grid.RowSpan="2"
-            BackgroundColor="Gray"
-            IsVisible="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
-            Opacity="0.2" />-->
+        <ActivityIndicator
+            Grid.RowSpan="3"
+            IsRunning="False"
+            VerticalOptions="Center">
+            <ActivityIndicator.Triggers>
+                <DataTrigger
+                    Binding="{Binding GoFoodDetailCommand.IsRunning}"
+                    TargetType="ActivityIndicator"
+                    Value="true">
+                    <Setter Property="IsRunning" Value="True" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding LoadDataCommand.IsRunning}"
+                    TargetType="ActivityIndicator"
+                    Value="true">
+                    <Setter Property="IsRunning" Value="True" />
+                </DataTrigger>
+            </ActivityIndicator.Triggers>
+        </ActivityIndicator>
     </Grid>
 </ContentPage>
