@@ -7,6 +7,7 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    x:Name="root"
     x:DataType="viewmodel:FoodDetailViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}"
@@ -39,15 +40,19 @@
             Grid.Row="1"
             RowDefinitions="2*,3*"
             ZIndex="0">
-            <Image Aspect="AspectFill" Source="{Binding FoodPreview.Image}" />
+            <Image
+                Aspect="AspectFill"
+                PropertyChanged="Image_PropertyChanged"
+                Source="{Binding FoodPreview.Image}" />
             <Grid Grid.RowSpan="2" Margin="15,0">
                 <ScrollView>
-                    <VerticalStackLayout Margin="0,100,0,0" BackgroundColor="Transparent">
+                    <VerticalStackLayout Margin="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" BackgroundColor="Transparent">
                         <Frame
                             Padding="0"
                             BorderColor="Transparent"
                             CornerRadius="20"
-                            HasShadow="True">
+                            HasShadow="True"
+                            PropertyChanged="Frame_PropertyChanged">
                             <Frame.Background>
                                 <LinearGradientBrush StartPoint="0.8,0.9" EndPoint="0.8,1">
                                     <GradientStop Offset="0.1" Color="White" />
@@ -65,6 +70,7 @@
                                     Spacing="8">
                                     <Label
                                         FontAttributes="Bold"
+                                        FontFamily="PlayfairDisplaySemiBold"
                                         FontSize="18"
                                         LineBreakMode="TailTruncation"
                                         MaxLines="1"

@@ -1,11 +1,22 @@
-﻿namespace VeganLife;
+﻿using CommunityToolkit.Maui.Behaviors;
+
+namespace VeganLife;
 
 public partial class MainPage : ContentPage
 {
+    readonly MainViewModel _viewModel;
 	public MainPage(MainViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;
+        _viewModel = vm;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (!_viewModel.IsLoadDataOnAppearingDone)
+            _viewModel.LoadDataCommand.Execute(null);
     }
 
     bool _processing;

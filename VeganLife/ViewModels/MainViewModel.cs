@@ -12,23 +12,36 @@ namespace VeganLife.ViewModels
         IList<FoodPreviewModel> _allFoods = new List<FoodPreviewModel>();
 
         [ObservableProperty]
+        bool _isSearchFocused;
+        [ObservableProperty]
         ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
         IEnumerable<FoodMenuCategoryModel> _category;
         [ObservableProperty]
         FoodPreviewModel _currentFoodSelected;
 
+        public bool IsLoadDataOnAppearingDone { get; private set; }
+
+        public IAsyncRelayCommand GoFoodDetailCommand { get; }
+        public IAsyncRelayCommand LoadDataCommand { get; }
+
         public MainViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
-            _dataStoreService = new FoodPreviewDataStoreService(local_database);
+            GoFoodDetailCommand = new AsyncRelayCommand<object>(GoFoodDetail);
+            LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
             Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
         }
 
-        async void Init()
+        void Init()
         {
             Foods = new ObservableCollection<FoodPreviewModel>();
+            _dataStoreService = new FoodPreviewDataStoreService(local_database);
+        }
+
+        async Task LoadDataAsync()
+        {
             if (IsNetworkConnected)
                 _onlineFoodPreviewData = await data_service.GetFoods();
             var localData = await _dataStoreService.GetItemsAsync();
@@ -80,6 +93,7 @@ namespace VeganLife.ViewModels
             foreach (var i in _allFoods)
                 Foods.Add(i);
             await SetupMenu();
+            IsLoadDataOnAppearingDone = true;
         }
 
         async Task SetupMenu()
@@ -87,9 +101,10 @@ namespace VeganLife.ViewModels
             Category = await data_service.GetFoodMenu();
         }
 
-        [RelayCommand]
         async Task GoFoodDetail(object obj)
         {
+            if (GoFoodDetailCommand.IsRunning)
+                return;
             await navigation_service.NavigateToFoodDetail(obj);
             CurrentFoodSelected = null;
         }
