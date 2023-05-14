@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:DataType="viewmodel:FoodDetailViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
@@ -13,7 +14,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:LineBreakConverter x:Key="LineBreakConverter" />
-            <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
+            <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
             <Style TargetType="Line">
                 <Setter Property="HeightRequest" Value="1" />
                 <Setter Property="BackgroundColor" Value="#f0f0f0" />
@@ -27,9 +28,17 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="Auto, *">
-        <control:NavBarControl Title="Chi tiết món ăn" BackgroundColor="Transparent" />
-        <Grid Grid.Row="1" RowDefinitions="2*,3*">
+    <Grid RowDefinitions="*">
+        <control:NavBarControl
+            BackgroundColor="Transparent"
+            IsBookmarked="{Binding FoodPreview.IsBookmarked}"
+            IsShowBookmarkTool="True"
+            VerticalOptions="Start"
+            ZIndex="1" />
+        <Grid
+            Grid.Row="1"
+            RowDefinitions="2*,3*"
+            ZIndex="0">
             <Image Aspect="AspectFill" Source="{Binding FoodPreview.Image}" />
             <Grid Grid.RowSpan="2" Margin="15,0">
                 <ScrollView>
@@ -62,7 +71,7 @@
                                         Text="{Binding FoodPreview.Name}" />
                                     <Label Text="Sống thuần chay" />
                                 </VerticalStackLayout>
-                                <Button
+                                <!--<Button
                                     Grid.Column="1"
                                     BackgroundColor="Transparent"
                                     FontFamily="FontAwesomeRegular"
@@ -79,7 +88,7 @@
                                             <Setter Property="FontFamily" Value="FontAwesomeSolid" />
                                         </DataTrigger>
                                     </Button.Triggers>
-                                </Button>
+                                </Button>-->
                             </Grid>
                         </Frame>
                         <Frame
