@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="newsFeedPageRoot"
     x:DataType="viewmodel:NewsFeedViewModel"
@@ -14,8 +15,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:String x:Key="iconArrowRight">&#xf105;</x:String>
-            <converter:NullToFalseConverter x:Key="NullToFalseConverter" />
-            <converter:ReverseConverter x:Key="ReverseConverter" />
+            <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
             <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="Transparent" />
                 <Setter Property="Padding" Value="0" />
@@ -189,7 +190,7 @@
                     Margin="0,0,5,0"
                     BackgroundColor="{AppThemeBinding Dark=White,
                                                       Light=Black}"
-                    HeightRequest="{Binding Source={x:Reference lbHottestTitle}, Path=FontSize}"
+                    HeightRequest="{Binding Source={x:Reference lbDiscoverTitle}, Path=FontSize}"
                     VerticalOptions="Center"
                     WidthRequest="5" />
                 <Label
