@@ -52,8 +52,8 @@ public partial class FoodDetailPage : ContentPage, INotifyPropertyChanged
                 _frameTitleHeight = frame.Height;
                 if (_imgHeight > 0)
                 {
-                    //var centerFrame = _frameTitleHeight / 2;
                     MarginTopContent = new Thickness(0, (int)(_imgHeight - _frameTitleHeight), 0, 0);
+                    (frame as IView).InvalidateMeasure();
                 }
             }
         }

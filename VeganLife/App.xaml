@@ -12,8 +12,12 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
             <x:String x:Key="IconInfo">&#xf05a;</x:String>
             <x:String x:Key="IconClose">&#xf057;</x:String>
+            <x:String x:Key="IconAngleDown">&#xf107;</x:String>
+            <x:String x:Key="IconAngleUp">&#xf106;</x:String>
+
             <Style x:Key="itemFoodStyle" TargetType="Border">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
