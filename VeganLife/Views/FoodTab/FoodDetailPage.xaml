@@ -17,7 +17,7 @@
             <converter:LineBreakConverter x:Key="LineBreakConverter" />
             <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
             <Style TargetType="Line">
-                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="HeightRequest" Value="1.5" />
                 <Setter Property="BackgroundColor" Value="#f0f0f0" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             </Style>
@@ -97,52 +97,101 @@
                                 </Button>-->
                             </Grid>
                         </Frame>
-                        <Frame
+                        <Border
                             Margin="0,20"
                             Padding="0"
-                            BorderColor="#f0f0f0"
-                            CornerRadius="10"
-                            HasShadow="True">
+                            Stroke="#f0f0f0"
+                            StrokeThickness="2">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
                             <VerticalStackLayout>
-                                <Label Style="{StaticResource lbDetailMenu}" Text="Nguyên liệu" />
-                                <Line />
-                                <Label
-                                    Margin="15,10,10,10"
-                                    FontSize="15"
-                                    Text="{Binding FoodDetail.Ingredient, Converter={StaticResource LineBreakConverter}}" />
-
-                                <Label Style="{StaticResource lbDetailMenu}" Text="Cách làm" />
-                                <Line />
-                                <Label
-                                    Margin="15,10,10,10"
-                                    FontSize="15"
-                                    Text="{Binding FoodDetail.Making, Converter={StaticResource LineBreakConverter}}" />
-
-                                <Label
-                                    IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}"
-                                    Style="{StaticResource lbDetailMenu}"
-                                    Text="Nước sốt" />
-                                <Line IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}" />
-                                <Label
-                                    x:Name="detailSauce"
-                                    Margin="15,10,10,10"
-                                    FontSize="15"
-                                    IsVisible="{Binding FoodDetail.Sauce, Converter={x:StaticResource NullToFalseConverter}}"
-                                    Text="{Binding FoodDetail.Sauce, Converter={StaticResource LineBreakConverter}}" />
-
-                                <Label
-                                    IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}"
-                                    Style="{StaticResource lbDetailMenu}"
-                                    Text="Trang trí" />
-                                <Line IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}" />
-                                <Label
-                                    x:Name="detailDecorate"
-                                    Margin="15,10,10,10"
-                                    FontSize="15"
-                                    IsVisible="{Binding FoodDetail.Decorate, Converter={x:StaticResource NullToFalseConverter}}"
-                                    Text="{Binding FoodDetail.Decorate, Converter={StaticResource LineBreakConverter}}" />
+                                <toolkit:Expander IsExpanded="{Binding IsIngredientExpaned}">
+                                    <toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Grid>
+                                                <Label
+                                                    HorizontalOptions="StartAndExpand"
+                                                    Style="{StaticResource lbDetailMenu}"
+                                                    Text="Nguyên liệu" />
+                                                <Button
+                                                    Margin="0,0,15,0"
+                                                    Padding="0"
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding ExpandClickedCommand}"
+                                                    CommandParameter="1"
+                                                    FontFamily="FontAwesomeSolid"
+                                                    FontSize="20"
+                                                    HorizontalOptions="End"
+                                                    Text="{StaticResource IconAngleDown}"
+                                                    TextColor="Gray"
+                                                    VerticalOptions="Center">
+                                                    <Button.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding IsIngredientExpaned}"
+                                                            TargetType="Button"
+                                                            Value="False">
+                                                            <Setter Property="Text" Value="{StaticResource IconAngleUp}" />
+                                                        </DataTrigger>
+                                                    </Button.Triggers>
+                                                </Button>
+                                            </Grid>
+                                            <Line />
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander.Header>
+                                    <Label
+                                        Margin="15,10,10,10"
+                                        FontSize="15"
+                                        Text="{Binding FoodDetail.Ingredient, Converter={StaticResource LineBreakConverter}}" />
+                                </toolkit:Expander>
+                                <toolkit:Expander IsExpanded="{Binding IsMakingExpaned}">
+                                    <toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Label Style="{StaticResource lbDetailMenu}" Text="Cách làm" />
+                                            <Line />
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander.Header>
+                                    <Label
+                                        Margin="15,10,10,10"
+                                        FontSize="15"
+                                        Text="{Binding FoodDetail.Making, Converter={StaticResource LineBreakConverter}}" />
+                                </toolkit:Expander>
+                                <toolkit:Expander IsExpanded="{Binding IsSauceExpaned}">
+                                    <toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Label
+                                                IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}"
+                                                Style="{StaticResource lbDetailMenu}"
+                                                Text="Nước sốt" />
+                                            <Line IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}" />
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander.Header>
+                                    <Label
+                                        x:Name="detailSauce"
+                                        Margin="15,10,10,10"
+                                        FontSize="15"
+                                        IsVisible="{Binding FoodDetail.Sauce, Converter={x:StaticResource NullToFalseConverter}}"
+                                        Text="{Binding FoodDetail.Sauce, Converter={StaticResource LineBreakConverter}}" />
+                                </toolkit:Expander>
+                                <toolkit:Expander IsExpanded="{Binding IsDecorateExpaned}">
+                                    <toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Label
+                                                IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}"
+                                                Style="{StaticResource lbDetailMenu}"
+                                                Text="Trang trí" />
+                                            <Line IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}" />
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander.Header>
+                                    <Label
+                                        x:Name="detailDecorate"
+                                        Margin="15,10,10,10"
+                                        FontSize="15"
+                                        IsVisible="{Binding FoodDetail.Decorate, Converter={x:StaticResource NullToFalseConverter}}"
+                                        Text="{Binding FoodDetail.Decorate, Converter={StaticResource LineBreakConverter}}" />
+                                </toolkit:Expander>
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                     </VerticalStackLayout>
                 </ScrollView>
             </Grid>
