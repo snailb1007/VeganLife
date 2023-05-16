@@ -61,7 +61,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\ContentViews\" />
 	  <Folder Include="Views\Templates\" />
 	  <Folder Include="Views\Popups\" />
 	</ItemGroup>
@@ -113,6 +112,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\BMICalculatorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ContentViews\ElementFoodDetailCW.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ContentViews\RationPlanPage.xaml">
