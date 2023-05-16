@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="root"
@@ -106,44 +107,7 @@
                                 <RoundRectangle CornerRadius="10" />
                             </Border.StrokeShape>
                             <VerticalStackLayout>
-                                <toolkit:Expander IsExpanded="{Binding IsIngredientExpaned}">
-                                    <toolkit:Expander.Header>
-                                        <VerticalStackLayout>
-                                            <Grid>
-                                                <Label
-                                                    HorizontalOptions="StartAndExpand"
-                                                    Style="{StaticResource lbDetailMenu}"
-                                                    Text="Nguyên liệu" />
-                                                <Button
-                                                    Margin="0,0,15,0"
-                                                    Padding="0"
-                                                    BackgroundColor="Transparent"
-                                                    Command="{Binding ExpandClickedCommand}"
-                                                    CommandParameter="1"
-                                                    FontFamily="FontAwesomeSolid"
-                                                    FontSize="20"
-                                                    HorizontalOptions="End"
-                                                    Text="{StaticResource IconAngleDown}"
-                                                    TextColor="Gray"
-                                                    VerticalOptions="Center">
-                                                    <Button.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding IsIngredientExpaned}"
-                                                            TargetType="Button"
-                                                            Value="False">
-                                                            <Setter Property="Text" Value="{StaticResource IconAngleUp}" />
-                                                        </DataTrigger>
-                                                    </Button.Triggers>
-                                                </Button>
-                                            </Grid>
-                                            <Line />
-                                        </VerticalStackLayout>
-                                    </toolkit:Expander.Header>
-                                    <Label
-                                        Margin="15,10,10,10"
-                                        FontSize="15"
-                                        Text="{Binding FoodDetail.Ingredient, Converter={StaticResource LineBreakConverter}}" />
-                                </toolkit:Expander>
+                                <cw:ElementFoodDetailCW Title="Nguyên liệu" BindingContext="{Binding FoodDetail}" />
                                 <toolkit:Expander IsExpanded="{Binding IsMakingExpaned}">
                                     <toolkit:Expander.Header>
                                         <VerticalStackLayout>
