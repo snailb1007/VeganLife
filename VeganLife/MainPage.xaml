@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BasePage
     x:Class="VeganLife.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:model="clr-namespace:VeganLife.Models"
@@ -14,6 +15,7 @@
     x:Name="mainPageRoot"
     Title="Món chay"
     x:DataType="viewmodel:MainViewModel"
+    x:TypeArguments="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}">
 
@@ -199,4 +201,4 @@
             </ActivityIndicator.Triggers>
         </ActivityIndicator>
     </Grid>
-</ContentPage>
+</base:BasePage>

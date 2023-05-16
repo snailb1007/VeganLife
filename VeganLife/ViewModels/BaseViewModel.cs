@@ -3,7 +3,7 @@ using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
-    public partial class BaseViewModel : ObservableObject
+    public abstract partial class BaseViewModel : ObservableObject
     {
         [ObservableProperty]
         bool _isLoading;

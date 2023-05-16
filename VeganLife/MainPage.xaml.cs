@@ -1,14 +1,14 @@
-﻿using CommunityToolkit.Maui.Behaviors;
+﻿using VeganLife.Views.Base;
 
 namespace VeganLife;
 
-public partial class MainPage : ContentPage
+public partial class MainPage : BasePage<MainViewModel>
 {
     readonly MainViewModel _viewModel;
-	public MainPage(MainViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
+
+    public MainPage(MainViewModel vm) : base(vm)
+    {
+        InitializeComponent();
         _viewModel = vm;
     }
 

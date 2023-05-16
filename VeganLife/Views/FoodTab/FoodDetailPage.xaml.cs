@@ -4,7 +4,7 @@ namespace VeganLife.Views.FoodTab;
 
 public partial class FoodDetailPage : ContentPage, INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler CustomPropertyChanged;
     Thickness _marginTopContent;
     public Thickness MarginTopContent
     {
@@ -24,7 +24,7 @@ public partial class FoodDetailPage : ContentPage, INotifyPropertyChanged
 
     protected void OnPropertyChanged([CallerMemberName] string name = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        CustomPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
     double _imgHeight;
