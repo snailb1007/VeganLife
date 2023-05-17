@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VeganLife.Views.RegistrationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Đăng ký">
+    <VerticalStackLayout>
+        <Label
+            Margin="0,50,0,0"
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="Center"
+            Text="Tạo tài khoản"
+            VerticalOptions="Center" />
+        <Entry Margin="10,0" Placeholder="Email" />
+        <Entry Margin="10,0" Placeholder="Mật khẩu" />
+        <Entry Margin="10,0" Placeholder="Nhập lại mật khẩu" />
+        <Button Margin="10,20,10,0" Text="Đăng ký" />
+    </VerticalStackLayout>
+</ContentPage>
