@@ -51,8 +51,9 @@
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler BasePagePropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
+            base.OnPropertyChanged(propertyName);
             var changed = BasePagePropertyChanged;
             if (changed == null)
                 return;

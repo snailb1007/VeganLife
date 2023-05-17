@@ -2,11 +2,12 @@ namespace VeganLife.Views;
 
 public partial class NewsFeedPage : ContentPage
 {
-    NewsFeedViewModel _viewModel;
+    readonly NewsFeedViewModel _viewModel;
 	public NewsFeedPage(NewsFeedViewModel vm)
 	{
         BindingContext = vm;
         InitializeComponent();
+        _viewModel = vm;
 	}
 
     private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)

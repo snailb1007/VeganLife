@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
-using PropertyChanged;
 using SQLite;
 using VeganLife.Messages;
 
@@ -23,13 +22,14 @@ namespace VeganLife.Models.FoodModel
         public string Category { get; set; }
     }
 
-    [AddINotifyPropertyChangedInterface]
-    public partial class FoodPreviewModel
+    public partial class FoodPreviewModel : ObservableObject
     {
         string[] timeArr => Time?.Split('-');
 
-        public bool IsBookmarked { get; set; }
-        public bool IsRead { get; set; }
+        [ObservableProperty]
+        bool _isBookmarked;
+        [ObservableProperty]
+        bool _isRead;
         public byte PrepTime
             => (timeArr != null && byte.TryParse(timeArr[0], out var i)) ? i : (byte)0;
         public byte CookTime
