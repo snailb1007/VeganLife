@@ -9,7 +9,7 @@
         public new TViewModel BindingContext => (TViewModel)base.BindingContext;
     }
 
-    public abstract class BasePage : ContentPage
+    public abstract class BasePage : ContentPage, INotifyPropertyChanged
     {
         protected BasePage(object viewModel = null)
         {
@@ -35,5 +35,30 @@
             Debug.WriteLine($"=> OnDisappearing: {Title}");
 #endif
         }
+
+        protected bool SetProperty<T>(ref T backingStore, T value,
+            [CallerMemberName] string propertyName = "",
+            Action onChanged = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return false;
+
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler BasePagePropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = BasePagePropertyChanged;
+            if (changed == null)
+                return;
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }

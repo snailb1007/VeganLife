@@ -47,9 +47,9 @@
                 </VerticalStackLayout>
             </toolkit:Expander.Header>
             <Label
+                x:Name="lbContent"
                 Margin="15,10,10,10"
-                FontSize="15"
-                Text="{Binding ContentExpand}" />
+                FontSize="15" />
         </toolkit:Expander>
     </VerticalStackLayout>
 </ContentView>
