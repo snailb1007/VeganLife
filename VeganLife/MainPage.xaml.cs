@@ -1,24 +1,41 @@
-﻿namespace VeganLife;
+﻿using VeganLife.Views.Base;
 
-public partial class MainPage : ContentPage
+namespace VeganLife;
+
+public partial class MainPage : BasePage<MainViewModel>
 {
-	int count = 0;
+    readonly MainViewModel _viewModel;
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    public MainPage(MainViewModel vm) : base(vm)
+    {
+        InitializeComponent();
+        _viewModel = vm;
+    }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (!_viewModel.IsLoadDataOnAppearingDone)
+            _viewModel.LoadDataCommand.Execute(null);
+    }
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+    bool _processing;
+    private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
+    {
+        if (_processing)
+            return;
+        _processing = true;
+        var menu = sender as CarouselView;
+        foreach(var i in menu?.VisibleViews)
+        {
+            var img = i.FindByName<Image>("imgMenu");
+            if (img == null)
+                return;
+            Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(img);
+            Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceOut));
+        }
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+        _processing = false;
+    }
 }
 

@@ -1,14 +1,153 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:VeganLife"
-             x:Class="VeganLife.App">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="VeganLife.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:VeganLife"
+    xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <x:String x:Key="IconInfo">&#xf05a;</x:String>
+            <x:String x:Key="IconClose">&#xf057;</x:String>
+            <x:String x:Key="IconAngleDown">&#xf107;</x:String>
+            <x:String x:Key="IconAngleUp">&#xf106;</x:String>
+
+            <Style x:Key="itemFoodStyle" TargetType="Border">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <DataTemplate x:Key="AppFunctionTemplate">
+                <Grid Padding="5">
+                    <Label Text="{Binding Key}" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="FoodPreviewSearchTemplate" x:DataType="modelFood:FoodPreviewModel">
+                <Grid Padding="5" ColumnDefinitions="*,4*">
+                    <Border
+                        BackgroundColor="Transparent"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        StrokeShape="RoundRectangle 25"
+                        StrokeThickness="0"
+                        VerticalOptions="Center"
+                        WidthRequest="50">
+                        <Image Aspect="AspectFill" Source="{Binding Image}" />
+                    </Border>
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="VitaminSearchTemplate" x:DataType="model:VitaminModel">
+                <Grid Padding="0,5" RowDefinitions="*">
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="FoodPreviewCollection" x:DataType="modelFood:FoodPreviewModel">
+                <Border
+                    Padding="0"
+                    BackgroundColor="{AppThemeBinding Light=White,
+                                                      Dark=Gray}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 10"
+                    Style="{StaticResource itemFoodStyle}">
+                    <Grid
+                        Margin="0"
+                        Padding="0"
+                        ColumnDefinitions="Auto, 3*, *"
+                        ColumnSpacing="10">
+                        <Border
+                            Margin="5"
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Start"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0"
+                            VerticalOptions="Center">
+                            <Image
+                                Aspect="AspectFill"
+                                BackgroundColor="Transparent"
+                                HeightRequest="70"
+                                HorizontalOptions="End"
+                                Source="{Binding Image, Mode=OneTime}"
+                                WidthRequest="70" />
+                        </Border>
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="10"
+                            VerticalOptions="Center">
+                            <Label
+                                Margin="0"
+                                FontAttributes="Bold"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="2"
+                                Style="{StaticResource TitleFood}"
+                                Text="{Binding Name, Mode=OneTime}"
+                                VerticalOptions="Center" />
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontFamily="FontAwesomeRegular"
+                                    Text="&#xf017;"
+                                    VerticalOptions="Center" />
+                                <Label Text="{Binding Time, Mode=OneTime}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <Button
+                            Grid.Column="2"
+                            Margin="0,0,5,0"
+                            Padding="0,5"
+                            BackgroundColor="#f8f8f8"
+                            BorderColor="Transparent"
+                            BorderWidth="0"
+                            Command="{Binding BookmarkClickedCommand}"
+                            CommandParameter="{Binding .}"
+                            CornerRadius="20"
+                            Text="Save"
+                            TextColor="SkyBlue"
+                            VerticalOptions="Center">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsBookmarked}"
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="Text" Value="Saved" />
+                                    <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Gray}" />
+                                    <Setter Property="BorderColor" Value="Gray" />
+                                    <Setter Property="BorderWidth" Value="1" />
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

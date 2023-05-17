@@ -1,41 +1,204 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VeganLife.MainPage">
+<base:BasePage
+    x:Class="VeganLife.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    xmlns:views="clr-namespace:VeganLife.Views"
+    x:Name="mainPageRoot"
+    Title="Món chay"
+    x:DataType="viewmodel:MainViewModel"
+    x:TypeArguments="viewmodel:MainViewModel"
+    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                      Dark=Black}">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
+    <Shell.SearchHandler>
+        <control:FuntionAppSearchHandler
+            x:Name="shellSeachBox"
+            FoodPreviews="{Binding Foods}"
+            ItemTemplate="{StaticResource FoodPreviewSearchTemplate}"
+            Placeholder="Nhập để tìm món ăn"
+            ShowsResults="True">
+            <control:FuntionAppSearchHandler.ClearIcon>
+                <FontImageSource
+                    FontFamily="FontAwesomeRegular"
+                    Glyph="&#xf057;"
+                    Size="8"
+                    Color="{AppThemeBinding Dark=White,
+                                            Light=Black}" />
+            </control:FuntionAppSearchHandler.ClearIcon>
+        </control:FuntionAppSearchHandler>
+    </Shell.SearchHandler>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}" RowDefinitions="Auto, Auto, *">
+        <Grid.Triggers>
+            <DataTrigger
+                Binding="{Binding GoFoodDetailCommand.IsRunning}"
+                TargetType="Grid"
+                Value="true">
+                <Setter Property="Opacity" Value="0.7" />
+            </DataTrigger>
+            <DataTrigger
+                Binding="{Binding LoadDataCommand.IsRunning}"
+                TargetType="Grid"
+                Value="true">
+                <Setter Property="Opacity" Value="0.7" />
+            </DataTrigger>
+            <!--<DataTrigger
+                Binding="{Binding IsSearchFocused}"
+                TargetType="Grid"
+                Value="true">
+                <Setter Property="Opacity" Value="0.7" />
+            </DataTrigger>-->
+        </Grid.Triggers>
+        <!--<StackLayout.Triggers>
+            <DataTrigger
+                Binding="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
+                TargetType="StackLayout"
+                Value="True">
+                <Setter Property="Opacity" Value="0.5" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+        </StackLayout.Triggers>-->
+        <!--<Grid Margin="10" RowDefinitions="Auto,*">
             <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontAttributes="Bold"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                Text="Dành cho bạn" />
+            <CarouselView
+                Grid.Row="1"
+                Margin="20,10"
+                HorizontalOptions="CenterAndExpand"
+                ItemsSource="{Binding Category}"
+                VerticalOptions="FillAndExpand">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuModel">
+                        <Grid ColumnDefinitions="20,*,20" RowDefinitions="0.5*,*,*">
+                            <Border
+                                Grid.Row="1"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="3"
+                                StrokeShape="RoundRectangle 10" />
+                            <Image
+                                x:Name="imgMenu"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Aspect="AspectFill"
+                                Source="{Binding ImgSource}" />
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>-->
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*"
+            RowDefinitions="Auto,*">
+            <StackLayout Margin="10" Orientation="Horizontal">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Danh mục"
+                    VerticalOptions="Center" />
+                <Label
+                    HorizontalOptions="End"
+                    Text="tất cả &gt;"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <CarouselView
+                Grid.Row="1"
+                Margin="0,10,0,10"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Category}"
+                PeekAreaInsets="100"
+                PositionChanged="CarouselView_PositionChanged">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Horizontal" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodel:FoodMenuCategoryModel">
+                        <VerticalStackLayout Margin="20,0,0,0">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.CategoryClickedCommand, Source={x:Reference mainPageRoot}}" CommandParameter="{Binding .}" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Border
+                                x:Name="img"
+                                HeightRequest="80"
+                                StrokeShape="RoundRectangle 50"
+                                WidthRequest="80">
+                                <Image
+                                    x:Name="imgMenu"
+                                    Aspect="AspectFill"
+                                    HeightRequest="100"
+                                    Source="{Binding ImgSource}"
+                                    WidthRequest="100" />
+                            </Border>
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{Binding Category}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <Grid Grid.Row="2" RowDefinitions="Auto,*">
+            <Label
+                Margin="10"
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="StartAndExpand"
+                Text="Danh sách"
+                TextColor="Gray"
+                VerticalOptions="Center" />
+            <CollectionView
+                x:Name="foodCollection"
+                Grid.Row="1"
+                Margin="20,10"
+                ItemTemplate="{StaticResource FoodPreviewCollection}"
+                ItemsSource="{Binding Foods, Mode=OneWay}"
+                SelectedItem="{Binding CurrentFoodSelected}"
+                SelectionChangedCommand="{Binding GoFoodDetailCommand}"
+                SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
+                SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </Grid>
 
-</ContentPage>
+        <ActivityIndicator
+            Grid.RowSpan="3"
+            IsRunning="False"
+            VerticalOptions="Center">
+            <ActivityIndicator.Triggers>
+                <DataTrigger
+                    Binding="{Binding GoFoodDetailCommand.IsRunning}"
+                    TargetType="ActivityIndicator"
+                    Value="true">
+                    <Setter Property="IsRunning" Value="True" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding LoadDataCommand.IsRunning}"
+                    TargetType="ActivityIndicator"
+                    Value="true">
+                    <Setter Property="IsRunning" Value="True" />
+                </DataTrigger>
+            </ActivityIndicator.Triggers>
+        </ActivityIndicator>
+    </Grid>
+</base:BasePage>
