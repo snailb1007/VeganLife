@@ -31,20 +31,6 @@ public partial class ElementFoodDetailCW : ContentView, INotifyPropertyChanged
 		InitializeComponent();
 	}
 
-    FoodDetailModel _foodDetail;
-    protected override void OnBindingContextChanged()
-    {
-        base.OnBindingContextChanged();
-        if (BindingContext != null )
-        {
-            _foodDetail = BindingContext as FoodDetailModel;
-            if (_foodDetail != null )
-            {
-                lbContent.Text = _foodDetail.Ingredient;
-            }
-        }
-    }
-
     private void Button_Clicked(object sender, EventArgs e)
     {
         _isExpanded = !_isExpanded;

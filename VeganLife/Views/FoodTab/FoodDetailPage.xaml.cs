@@ -1,31 +1,21 @@
 using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.Views.Base;
 
 namespace VeganLife.Views.FoodTab;
 
-public partial class FoodDetailPage : ContentPage, INotifyPropertyChanged
+public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
 {
-    public event PropertyChangedEventHandler CustomPropertyChanged;
-    Thickness _marginTopContent;
-    public Thickness MarginTopContent
+    double _marginTopContent;
+    public double MarginTopContent
     {
         get => _marginTopContent;
-        set
-        {
-            _marginTopContent = value;
-            OnPropertyChanged(nameof(MarginTopContent));
-        }
+        set => SetProperty(ref _marginTopContent, value);
     }
 
-	public FoodDetailPage(FoodDetailViewModel vm)
+	public FoodDetailPage(FoodDetailViewModel vm) : base(vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
 	}
-
-    protected void OnPropertyChanged([CallerMemberName] string name = null)
-    {
-        CustomPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
 
     double _imgHeight;
     private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -52,7 +42,7 @@ public partial class FoodDetailPage : ContentPage, INotifyPropertyChanged
                 _frameTitleHeight = frame.Height;
                 if (_imgHeight > 0)
                 {
-                    MarginTopContent = new Thickness(0, (int)(_imgHeight - _frameTitleHeight), 0, 0);
+                    MarginTopContent = _imgHeight - _frameTitleHeight;
                     (frame as IView).InvalidateMeasure();
                 }
             }
