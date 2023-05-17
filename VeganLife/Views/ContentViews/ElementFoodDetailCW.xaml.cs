@@ -15,17 +15,6 @@ public partial class ElementFoodDetailCW : ContentView, INotifyPropertyChanged
         set => SetValue(TitleProperty, value);
     }
 
-    public static BindableProperty ContentExpandProperty = BindableProperty.Create(
-            propertyName: "ContentExpand",
-            declaringType: typeof(ElementFoodDetailCW),
-            defaultValue: string.Empty,
-            returnType: typeof(string));
-    public string ContentExpand
-    {
-        get => (string)GetValue(ContentExpandProperty);
-        set => SetValue(ContentExpandProperty, value);
-    }
-
     bool _isExpanded = true;
     //public bool IsExpanded
     //{
@@ -51,7 +40,7 @@ public partial class ElementFoodDetailCW : ContentView, INotifyPropertyChanged
             _foodDetail = BindingContext as FoodDetailModel;
             if (_foodDetail != null )
             {
-
+                lbContent.Text = _foodDetail.Ingredient;
             }
         }
     }
