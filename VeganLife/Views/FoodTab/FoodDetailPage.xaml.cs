@@ -48,4 +48,13 @@ public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
             }
         }
     }
+
+    private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName.Equals("Height"))
+        {
+            var stack = sender as VerticalStackLayout;
+            (stack as IView).InvalidateMeasure();
+        }
+    }
 }

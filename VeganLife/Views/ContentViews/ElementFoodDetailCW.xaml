@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView
+<baseCW:BaseContentView
     x:Class="VeganLife.Views.ContentViews.ElementFoodDetailCW"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:baseCW="clr-namespace:VeganLife.Views.ContentViews.Base"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="rootElementFoodDetailCW">
     <ContentView.Resources>
         <ResourceDictionary>
+            <converter:LineBreakConverter x:Key="LineBreakConverter" />
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+
             <Style x:Key="lbDetailMenu" TargetType="Label">
                 <Setter Property="Opacity" Value="0.5" />
                 <Setter Property="Margin" Value="10" />
@@ -21,8 +26,11 @@
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
-    <VerticalStackLayout x:DataType="cw:ElementFoodDetailCW" BindingContext="{Binding BindingContext, Source={x:Reference rootElementFoodDetailCW}}">
-        <toolkit:Expander x:Name="expander" IsExpanded="true">
+    <VerticalStackLayout
+        x:DataType="cw:ElementFoodDetailCW"
+        BindingContext="{Binding Source={x:Reference rootElementFoodDetailCW}}"
+        IsVisible="{Binding ContentExpand, Converter={StaticResource IsStringNotNullOrEmptyConverter}}">
+        <toolkit:Expander x:Name="expander" IsExpanded="{Binding IsExpanded}">
             <toolkit:Expander.Header>
                 <VerticalStackLayout>
                     <Grid>
@@ -31,7 +39,6 @@
                             Style="{StaticResource lbDetailMenu}"
                             Text="{Binding Title}" />
                         <Button
-                            x:Name="btnExpanedStatus"
                             Margin="0,0,15,0"
                             Padding="0"
                             BackgroundColor="Transparent"
@@ -41,15 +48,24 @@
                             HorizontalOptions="End"
                             Text="{StaticResource IconAngleDown}"
                             TextColor="Gray"
-                            VerticalOptions="Center" />
+                            VerticalOptions="Center">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                    TargetType="Button"
+                                    Value="false">
+                                    <Setter Property="Text" Value="{StaticResource IconAngleUp}" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
                     </Grid>
                     <Line />
                 </VerticalStackLayout>
             </toolkit:Expander.Header>
             <Label
-                x:Name="lbContent"
                 Margin="15,10,10,10"
-                FontSize="15" />
+                FontSize="15"
+                Text="{Binding ContentExpand, Converter={StaticResource LineBreakConverter}}" />
         </toolkit:Expander>
     </VerticalStackLayout>
-</ContentView>
+</baseCW:BaseContentView>
