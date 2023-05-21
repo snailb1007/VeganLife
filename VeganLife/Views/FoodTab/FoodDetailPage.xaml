@@ -5,9 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
-    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="root"
     x:DataType="viewmodel:FoodDetailViewModel"
@@ -17,8 +15,6 @@
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converter:LineBreakConverter x:Key="LineBreakConverter" />
-            <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
             <Style TargetType="Line">
                 <Setter Property="HeightRequest" Value="1.5" />
                 <Setter Property="BackgroundColor" Value="#f0f0f0" />
@@ -109,54 +105,11 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10" />
                             </Border.StrokeShape>
-                            <VerticalStackLayout>
-                                <cw:ElementFoodDetailCW Title="Nguyên liệu" BindingContext="{Binding FoodDetail}" />
-                                <toolkit:Expander IsExpanded="{Binding IsMakingExpaned}">
-                                    <toolkit:Expander.Header>
-                                        <VerticalStackLayout>
-                                            <Label Style="{StaticResource lbDetailMenu}" Text="Cách làm" />
-                                            <Line />
-                                        </VerticalStackLayout>
-                                    </toolkit:Expander.Header>
-                                    <Label
-                                        Margin="15,10,10,10"
-                                        FontSize="15"
-                                        Text="{Binding FoodDetail.Making, Converter={StaticResource LineBreakConverter}}" />
-                                </toolkit:Expander>
-                                <toolkit:Expander IsExpanded="{Binding IsSauceExpaned}">
-                                    <toolkit:Expander.Header>
-                                        <VerticalStackLayout>
-                                            <Label
-                                                IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}"
-                                                Style="{StaticResource lbDetailMenu}"
-                                                Text="Nước sốt" />
-                                            <Line IsVisible="{Binding Source={x:Reference detailSauce}, Path=IsVisible}" />
-                                        </VerticalStackLayout>
-                                    </toolkit:Expander.Header>
-                                    <Label
-                                        x:Name="detailSauce"
-                                        Margin="15,10,10,10"
-                                        FontSize="15"
-                                        IsVisible="{Binding FoodDetail.Sauce, Converter={x:StaticResource NullToFalseConverter}}"
-                                        Text="{Binding FoodDetail.Sauce, Converter={StaticResource LineBreakConverter}}" />
-                                </toolkit:Expander>
-                                <toolkit:Expander IsExpanded="{Binding IsDecorateExpaned}">
-                                    <toolkit:Expander.Header>
-                                        <VerticalStackLayout>
-                                            <Label
-                                                IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}"
-                                                Style="{StaticResource lbDetailMenu}"
-                                                Text="Trang trí" />
-                                            <Line IsVisible="{Binding Source={x:Reference detailDecorate}, Path=IsVisible}" />
-                                        </VerticalStackLayout>
-                                    </toolkit:Expander.Header>
-                                    <Label
-                                        x:Name="detailDecorate"
-                                        Margin="15,10,10,10"
-                                        FontSize="15"
-                                        IsVisible="{Binding FoodDetail.Decorate, Converter={x:StaticResource NullToFalseConverter}}"
-                                        Text="{Binding FoodDetail.Decorate, Converter={StaticResource LineBreakConverter}}" />
-                                </toolkit:Expander>
+                            <VerticalStackLayout PropertyChanged="VerticalStackLayout_PropertyChanged" VerticalOptions="Start">
+                                <cw:ElementFoodDetailCW Title="Nguyên liệu" ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}" />
+                                <cw:ElementFoodDetailCW Title="Cách làm" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
+                                <cw:ElementFoodDetailCW Title="Nước sốt" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
+                                <cw:ElementFoodDetailCW Title="Trang trí" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>
@@ -164,5 +117,4 @@
             </Grid>
         </Grid>
     </Grid>
-
 </base:BasePage>

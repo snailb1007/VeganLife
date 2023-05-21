@@ -7,18 +7,6 @@ namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class FoodDetailViewModel : BaseViewModel
     {
-        [ObservableProperty]
-        bool _isDecorateExpaned;
-
-        [ObservableProperty]
-        bool _isIngredientExpaned = true;
-
-        [ObservableProperty]
-        bool _isMakingExpaned;
-
-        [ObservableProperty]
-        bool _isSauceExpaned;
-
         FoodDetailDataStoreService _foodDetailDataStoreService;
         [ObservableProperty]
         FoodPreviewModel _foodPreview;
@@ -57,23 +45,6 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
             if (FoodPreview == null) return;
             FoodPreview.IsBookmarked = !FoodPreview.IsBookmarked;
-        }
-
-        [RelayCommand]
-        void ExpandClicked(string param)
-        {
-            switch(param)
-            {
-                case "1":
-                    IsIngredientExpaned = !IsIngredientExpaned;
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-            };
         }
     }
 }
