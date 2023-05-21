@@ -6,6 +6,7 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="root"
     x:DataType="viewmodel:FoodDetailViewModel"
@@ -15,6 +16,7 @@
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <x:String x:Key="iconBookmark">&#xf02e;</x:String>
             <Style TargetType="Line">
                 <Setter Property="HeightRequest" Value="1.5" />
                 <Setter Property="BackgroundColor" Value="#f0f0f0" />
@@ -31,8 +33,6 @@
     <Grid RowDefinitions="*">
         <control:NavBarControl
             BackgroundColor="Transparent"
-            IsBookmarked="{Binding FoodPreview.IsBookmarked}"
-            IsShowBookmarkTool="True"
             VerticalOptions="Start"
             ZIndex="1" />
         <Grid
@@ -53,12 +53,6 @@
                             CornerRadius="20"
                             HasShadow="True"
                             PropertyChanged="Frame_PropertyChanged">
-                            <Frame.Background>
-                                <LinearGradientBrush StartPoint="0.8,0.9" EndPoint="0.8,1">
-                                    <GradientStop Offset="0.1" Color="White" />
-                                    <GradientStop Offset="1" Color="Transparent" />
-                                </LinearGradientBrush>
-                            </Frame.Background>
                             <Grid
                                 Margin="10,10,0,10"
                                 ColumnDefinitions="4*,*"
@@ -77,13 +71,14 @@
                                         Text="{Binding FoodPreview.Name}" />
                                     <Label Text="Sống thuần chay" />
                                 </VerticalStackLayout>
-                                <!--<Button
+                                <Button
                                     Grid.Column="1"
                                     BackgroundColor="Transparent"
+                                    Command="{Binding BookmarkClickedCommand}"
                                     FontFamily="FontAwesomeRegular"
                                     FontSize="20"
                                     HorizontalOptions="Center"
-                                    Text="&#xf02e;"
+                                    Text="{StaticResource iconBookmark}"
                                     TextColor="Black"
                                     VerticalOptions="Center">
                                     <Button.Triggers>
@@ -94,7 +89,7 @@
                                             <Setter Property="FontFamily" Value="FontAwesomeSolid" />
                                         </DataTrigger>
                                     </Button.Triggers>
-                                </Button>-->
+                                </Button>
                             </Grid>
                         </Frame>
                         <Border
@@ -105,11 +100,15 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10" />
                             </Border.StrokeShape>
-                            <VerticalStackLayout PropertyChanged="VerticalStackLayout_PropertyChanged" VerticalOptions="Start">
-                                <cw:ElementFoodDetailCW Title="Nguyên liệu" ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}" />
-                                <cw:ElementFoodDetailCW Title="Cách làm" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
-                                <cw:ElementFoodDetailCW Title="Nước sốt" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
-                                <cw:ElementFoodDetailCW Title="Trang trí" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
+                            <VerticalStackLayout
+                                Padding="0"
+                                PropertyChanged="VerticalStackLayout_PropertyChanged"
+                                Spacing="10"
+                                VerticalOptions="Start">
+                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.ingredient_foodDetailPage}" ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}" />
+                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.making_foodDetailPage}" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
+                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.sauce_foodDetailPage}" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
+                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.decorate_foodDetailPage}" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>

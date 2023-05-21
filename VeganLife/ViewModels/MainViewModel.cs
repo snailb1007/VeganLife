@@ -7,7 +7,7 @@ namespace VeganLife.ViewModels
 {
     public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
-        FoodPreviewDataStoreService _dataStoreService;
+        public static FoodPreviewDataStoreService DataStoreService;
         IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
         IList<FoodPreviewModel> _allFoods = new List<FoodPreviewModel>();
 
@@ -37,14 +37,14 @@ namespace VeganLife.ViewModels
         void Init()
         {
             Foods = new ObservableCollection<FoodPreviewModel>();
-            _dataStoreService = new FoodPreviewDataStoreService(local_database);
+            DataStoreService = new FoodPreviewDataStoreService(local_database);
         }
 
         async Task LoadDataAsync()
         {
             if (IsNetworkConnected)
                 _onlineFoodPreviewData = await data_service.GetFoods();
-            var localData = await _dataStoreService.GetItemsAsync();
+            var localData = await DataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
             {
                 if (_onlineFoodPreviewData?.Any() ?? false)
@@ -61,17 +61,17 @@ namespace VeganLife.ViewModels
                                 thisItemAlreadyExisted = true;
                                 thisOnlineItem.IsBookmarked = item.IsBookmarked;
                                 thisOnlineItem.IsRead = item.IsRead;
-                                await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                                await DataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                             }
                         }
                         // add new item from server to local
                         if (!thisItemAlreadyExisted)
                         {
-                            await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
+                            await DataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
                         }
                     }
 
-                    (await _dataStoreService.GetItemsAsync()).ToList().ForEach(i => _allFoods.Add(i));
+                    (await DataStoreService.GetItemsAsync()).ToList().ForEach(i => _allFoods.Add(i));
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace VeganLife.ViewModels
                     _onlineFoodPreviewData.ToList().ForEach(async i =>
                     {
                         _allFoods.Add(i);
-                        await _dataStoreService.AddOrUpdateItemAsync(i);
+                        await DataStoreService.AddOrUpdateItemAsync(i);
                     });
                 }
             }
@@ -127,13 +127,10 @@ namespace VeganLife.ViewModels
             return base.OnNavigatedFrom(isForwardNavigation);
         }
 
-        public async void Receive(BookmarkFoodModelMessage message)
+        public void Receive(BookmarkFoodModelMessage message)
         {
             if (message == null)
                 return;
-            message.Value.IsBookmarked = !message.Value.IsBookmarked;
-            if (!await _dataStoreService.AddOrUpdateItemAsync(message.Value, true))
-                await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
             WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(message.Value));
         }
     }

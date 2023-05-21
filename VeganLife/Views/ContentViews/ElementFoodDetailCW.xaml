@@ -15,7 +15,7 @@
 
             <Style x:Key="lbDetailMenu" TargetType="Label">
                 <Setter Property="Opacity" Value="0.5" />
-                <Setter Property="Margin" Value="10" />
+                <Setter Property="Margin" Value="0,10,10,10" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="16" />
             </Style>
@@ -26,46 +26,53 @@
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
-    <VerticalStackLayout
+    <toolkit:Expander
+        x:Name="expander"
         x:DataType="cw:ElementFoodDetailCW"
         BindingContext="{Binding Source={x:Reference rootElementFoodDetailCW}}"
+        IsExpanded="{Binding IsExpanded}"
         IsVisible="{Binding ContentExpand, Converter={StaticResource IsStringNotNullOrEmptyConverter}}">
-        <toolkit:Expander x:Name="expander" IsExpanded="{Binding IsExpanded}">
-            <toolkit:Expander.Header>
-                <VerticalStackLayout>
-                    <Grid>
+        <toolkit:Expander.Header>
+            <VerticalStackLayout>
+                <Grid Margin="10,0,0,0">
+                    <HorizontalStackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                        <Image
+                            x:Name="imgTitle"
+                            Margin="0"
+                            HeightRequest="30"
+                            WidthRequest="30" />
                         <Label
                             HorizontalOptions="StartAndExpand"
                             Style="{StaticResource lbDetailMenu}"
                             Text="{Binding Title}" />
-                        <Button
-                            Margin="0,0,15,0"
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            Clicked="Button_Clicked"
-                            FontFamily="FontAwesomeSolid"
-                            FontSize="20"
-                            HorizontalOptions="End"
-                            Text="{StaticResource IconAngleDown}"
-                            TextColor="Gray"
-                            VerticalOptions="Center">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
-                                    TargetType="Button"
-                                    Value="false">
-                                    <Setter Property="Text" Value="{StaticResource IconAngleUp}" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                    </Grid>
-                    <Line />
-                </VerticalStackLayout>
-            </toolkit:Expander.Header>
-            <Label
-                Margin="15,10,10,10"
-                FontSize="15"
-                Text="{Binding ContentExpand, Converter={StaticResource LineBreakConverter}}" />
-        </toolkit:Expander>
-    </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                    <Button
+                        Margin="0,0,15,0"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        Clicked="Button_Clicked"
+                        FontFamily="FontAwesomeSolid"
+                        FontSize="20"
+                        HorizontalOptions="End"
+                        Text="{StaticResource IconAngleDown}"
+                        TextColor="Gray"
+                        VerticalOptions="Center">
+                        <Button.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                TargetType="Button"
+                                Value="false">
+                                <Setter Property="Text" Value="{StaticResource IconAngleUp}" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+                <Line />
+            </VerticalStackLayout>
+        </toolkit:Expander.Header>
+        <Label
+            Margin="15,0,10,0"
+            FontSize="15"
+            Text="{Binding ContentExpand, Converter={StaticResource LineBreakConverter}}" />
+    </toolkit:Expander>
 </baseCW:BaseContentView>

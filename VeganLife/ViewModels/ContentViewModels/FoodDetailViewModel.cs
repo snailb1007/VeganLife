@@ -44,7 +44,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         void OnBookmarkClicked()
         {
             if (FoodPreview == null) return;
-            FoodPreview.IsBookmarked = !FoodPreview.IsBookmarked;
+            FoodPreview.BookmarkClickedCommand.Execute(null);
         }
     }
 }

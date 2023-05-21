@@ -17,15 +17,13 @@
         BackgroundColor="Transparent"
         ColumnDefinitions="*, 8*, *"
         HeightRequest="56">
-        <Border
+        <Frame
+            CornerRadius="10"
+            HasShadow="True"
             HeightRequest="40"
             HorizontalOptions="Center"
-            StrokeThickness="0"
             VerticalOptions="Center"
             WidthRequest="40">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
             <ImageButton
                 Margin="0"
                 Padding="0"
@@ -37,7 +35,7 @@
                 Source="back"
                 VerticalOptions="Center"
                 WidthRequest="30" />
-        </Border>
+        </Frame>
         <Label
             Grid.Column="1"
             FontAttributes="Bold"
@@ -46,34 +44,5 @@
             IsVisible="{Binding Title, Source={x:Reference rootNavBarControl}, Converter={StaticResource NullToFalseConverter}}"
             Text="{Binding Title, Source={x:Reference rootNavBarControl}}"
             VerticalOptions="Center" />
-        <Border
-            Grid.Column="2"
-            HeightRequest="40"
-            IsVisible="{Binding IsShowBookmarkTool, Source={x:Reference rootNavBarControl}}"
-            StrokeThickness="0"
-            WidthRequest="40">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
-            <Button
-                Grid.Column="1"
-                Padding="0"
-                BackgroundColor="Transparent"
-                FontFamily="FontAwesomeRegular"
-                FontSize="20"
-                HorizontalOptions="Center"
-                Text="&#xf02e;"
-                TextColor="Black"
-                VerticalOptions="Center">
-                <Button.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsBookmarked, Source={x:Reference rootNavBarControl}}"
-                        TargetType="Button"
-                        Value="true">
-                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
-                    </DataTrigger>
-                </Button.Triggers>
-            </Button>
-        </Border>
     </Grid>
 </ContentView>
