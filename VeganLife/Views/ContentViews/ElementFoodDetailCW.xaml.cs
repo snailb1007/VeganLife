@@ -1,4 +1,4 @@
-using VeganLife.Views.ContentViews.Base;
+﻿using VeganLife.Views.ContentViews.Base;
 
 namespace VeganLife.Views.ContentViews;
 
@@ -37,6 +37,32 @@ public partial class ElementFoodDetailCW : BaseContentView
 	{
 		InitializeComponent();
 	}
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName.Equals("Title"))
+        {
+            string img = string.Empty;
+            switch(Title)
+            {
+                case "Nguyên liệu":
+                    img = "ingredients_food_detail";
+                    break;
+                case "Cách làm":
+                    img = "cooking_food_detail";
+                    break;
+                case "Nước sốt":
+                    img = "sauce_food_detail";
+                    break;
+                case "Trang trí":
+                    img = "decorate_food_detail";
+                    break;
+            }
+
+            imgTitle.Source = img;
+        }
+    }
 
     private void Button_Clicked(object sender, EventArgs e)
     {

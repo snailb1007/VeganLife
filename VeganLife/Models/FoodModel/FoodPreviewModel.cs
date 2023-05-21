@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using SQLite;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Messages;
 
 namespace VeganLife.Models.FoodModel
@@ -35,8 +37,11 @@ namespace VeganLife.Models.FoodModel
         public byte CookTime
             => (timeArr != null && byte.TryParse(timeArr[1], out var i)) ? i : (byte)0;
         [RelayCommand]
-        void BookmarkClicked()
+        async Task BookmarkClicked()
         {
+            IsBookmarked = !IsBookmarked;
+            if (!await MainViewModel.DataStoreService.AddOrUpdateItemAsync(this, true))
+                await ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
             WeakReferenceMessenger.Default.Send(new BookmarkFoodModelMessage(this));
         }
     }

@@ -42,8 +42,7 @@ public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
                 _frameTitleHeight = frame.Height;
                 if (_imgHeight > 0)
                 {
-                    MarginTopContent = _imgHeight - _frameTitleHeight;
-                    (frame as IView).InvalidateMeasure();
+                    MarginTopContent = _imgHeight - _frameTitleHeight / 2f;
                 }
             }
         }

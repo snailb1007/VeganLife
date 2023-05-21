@@ -2,6 +2,7 @@
 using Microsoft.Maui.Handlers;
 using SimpleToolkit.Core;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using VeganLife.Data.LocalData;
 using VeganLife.Handlers;
 using VeganLife.Services.LocalDataServices;
 using VeganLife.ViewModels.ContentViewModels;
