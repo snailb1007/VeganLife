@@ -1,15 +1,15 @@
 using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.Views.Base;
 
 namespace VeganLife.Views.ContentViews;
 
-public partial class VitaminAndMineralPage : ContentPage
+public partial class VitaminAndMineralPage : BasePage<VitaminAndMineralViewModel>
 {
-    VitaminAndMineralViewModel _viewModel;
+    // readonly VitaminAndMineralViewModel _viewModel;
 
-    public VitaminAndMineralPage(VitaminAndMineralViewModel vm)
+    public VitaminAndMineralPage(VitaminAndMineralViewModel vm) : base(vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
-        _viewModel = vm;
+        // _viewModel = vm;
 	}
 }

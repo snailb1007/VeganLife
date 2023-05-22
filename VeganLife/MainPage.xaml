@@ -169,6 +169,7 @@
                 x:Name="foodCollection"
                 Grid.Row="1"
                 Margin="20,10"
+                ItemSizingStrategy="MeasureFirstItem"
                 ItemTemplate="{StaticResource FoodPreviewCollection}"
                 ItemsSource="{Binding Foods, Mode=OneWay}"
                 SelectedItem="{Binding CurrentFoodSelected}"

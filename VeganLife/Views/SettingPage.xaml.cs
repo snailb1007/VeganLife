@@ -1,14 +1,16 @@
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views;
 
-public partial class SettingPage : ContentPage
+public partial class SettingPage : BasePage<SettingViewModel>
 {
-	public SettingPage(SettingViewModel vm)
+	public SettingPage(SettingViewModel vm) : base(vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
+		_viewModel = vm;
 	}
 
-	private SettingViewModel _viewModel => BindingContext as SettingViewModel;
+	readonly SettingViewModel _viewModel;
 
     private void Switch_Toggled(object sender, ToggledEventArgs e)
 	{

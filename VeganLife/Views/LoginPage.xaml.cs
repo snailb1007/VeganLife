@@ -1,10 +1,11 @@
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views;
 
-public partial class LoginPage : ContentPage
+public partial class LoginPage : BasePage<LoginViewModel>
 {
-	public LoginPage(LoginViewModel vm)
+	public LoginPage(LoginViewModel vm) : base(vm)
 	{
-        BindingContext = vm;
         InitializeComponent();
 	}
 }
