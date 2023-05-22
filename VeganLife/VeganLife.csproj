@@ -63,7 +63,6 @@
 	<ItemGroup>
 	  <Folder Include="Models\Base\" />
 	  <Folder Include="Views\Templates\" />
-	  <Folder Include="Views\Popups\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -144,7 +143,7 @@
 	  <MauiXaml Update="Views\NewsFeedPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\NutritionPage.xaml">
+	  <MauiXaml Update="Views\Popups\ProfilePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegistrationPage.xaml">

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BasePage
     x:Class="VeganLife.Views.BookmarkPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    x:DataType="viewmodel:BookmarkViewModel">
+    x:DataType="viewmodel:BookmarkViewModel"
+    x:TypeArguments="viewmodel:BookmarkViewModel">
     <VerticalStackLayout Spacing="20">
         <Label Text="Món ăn" />
         <CollectionView
@@ -63,4 +65,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
-</ContentPage>
+</base:BasePage>

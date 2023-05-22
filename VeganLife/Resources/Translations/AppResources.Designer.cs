@@ -187,11 +187,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decorate.
+        /// </summary>
+        internal static string decorate_foodDetailPage {
+            get {
+                return ResourceManager.GetString("decorate_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Healthy.
         /// </summary>
         internal static string healthy_feedPage {
             get {
                 return ResourceManager.GetString("healthy_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingredients.
+        /// </summary>
+        internal static string ingredient_foodDetailPage {
+            get {
+                return ResourceManager.GetString("ingredient_foodDetailPage", resourceCulture);
             }
         }
         
@@ -223,6 +241,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cooking.
+        /// </summary>
+        internal static string making_foodDetailPage {
+            get {
+                return ResourceManager.GetString("making_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options setting.
         /// </summary>
         internal static string optionTitle_settingTab {
@@ -237,6 +264,15 @@ namespace VeganLife.Resources.Translations {
         internal static string religion_feedPage {
             get {
                 return ResourceManager.GetString("religion_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauce.
+        /// </summary>
+        internal static string sauce_foodDetailPage {
+            get {
+                return ResourceManager.GetString("sauce_foodDetailPage", resourceCulture);
             }
         }
         

@@ -1,13 +1,13 @@
 using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.Views.Base;
 
 namespace VeganLife.Views.ContentViews;
 
-public partial class RationPlanPage : ContentPage
+public partial class RationPlanPage : BasePage<RationPlanViewModel>
 {
-	public RationPlanPage(RationPlanViewModel vm)
+	public RationPlanPage(RationPlanViewModel vm) : base(vm)
 	{
 		InitializeComponent();
-        BindingContext = vm;
     }
 
     private void PieChart_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

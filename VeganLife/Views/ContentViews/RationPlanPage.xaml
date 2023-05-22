@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BasePage
     x:Class="VeganLife.Views.ContentViews.RationPlanPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:contentVM="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     x:DataType="contentVM:RationPlanViewModel"
+    x:TypeArguments="contentVM:RationPlanViewModel"
     Shell.NavBarIsVisible="True">
     <Grid
         BackgroundColor="#fef3e2"
@@ -30,5 +32,4 @@
             TextColor="Gray"
             VerticalOptions="Center" />
     </Grid>
-
-</ContentPage>
+</base:BasePage>

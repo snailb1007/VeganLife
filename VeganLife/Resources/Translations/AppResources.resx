@@ -171,4 +171,16 @@
 	<data name="liveStrong_feedPage" xml:space="preserve">
         <value>Strong</value>
     </data>
+	<data name="ingredient_foodDetailPage" xml:space="preserve">
+		<value>Ingredients</value>
+    </data>
+	<data name="making_foodDetailPage" xml:space="preserve">
+		<value>Cooking</value>
+    </data>
+	<data name="sauce_foodDetailPage" xml:space="preserve">
+		<value>Sauce</value>
+    </data>
+	<data name="decorate_foodDetailPage" xml:space="preserve">
+        <value>Decorate</value>
+    </data>
 </root>

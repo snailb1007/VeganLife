@@ -1,11 +1,12 @@
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views;
 
-public partial class NewsFeedPage : ContentPage
+public partial class NewsFeedPage : BasePage<NewsFeedViewModel>
 {
     readonly NewsFeedViewModel _viewModel;
-	public NewsFeedPage(NewsFeedViewModel vm)
+	public NewsFeedPage(NewsFeedViewModel vm) : base(vm)
 	{
-        BindingContext = vm;
         InitializeComponent();
         _viewModel = vm;
 	}
