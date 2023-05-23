@@ -7,7 +7,8 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     Title="Web View"
-    x:DataType="viewmodel:WebViewViewModel">
+    x:DataType="viewmodel:WebViewViewModel"
+    Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="*,Auto">
         <WebView x:Name="webview" Source="{Binding SourceWeb}">
             <WebView.Behaviors>
