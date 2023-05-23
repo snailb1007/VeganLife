@@ -14,18 +14,14 @@
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference loginPage}" />
         </Grid.GestureRecognizers>
-        <Label
+        <Button
             Grid.ColumnSpan="3"
             Padding="5"
+            Command="{Binding CloseCommand}"
             FontFamily="FontAwesomeSolid"
-            FontSize="20"
+            FontSize="30"
             HorizontalOptions="End"
-            Text="&#xf00d;"
-            TextColor="CadetBlue">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CloseCommand}" />
-            </Label.GestureRecognizers>
-        </Label>
+            Text="&#xf00d;" />
         <VerticalStackLayout Grid.Column="1" Spacing="20">
             <Label
                 Margin="0,50"

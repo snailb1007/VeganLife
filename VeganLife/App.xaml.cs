@@ -12,7 +12,8 @@ public partial class App : Application
 
         SetupTheme();
         SetupLanguage();
-        MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
+        // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
+        MainPage = new AppShell();
     }
 
     private void SetupLanguage()
@@ -47,5 +48,10 @@ public partial class App : Application
                 AppThemeHelper.SetTheme(goalTheme);
             }
         }
+    }
+
+    private void SetupColor()
+    {
+
     }
 }

@@ -3,6 +3,7 @@
     x:Class="VeganLife.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:local="clr-namespace:VeganLife"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel">
@@ -89,11 +90,14 @@
                             StrokeShape="RoundRectangle 10"
                             StrokeThickness="0"
                             VerticalOptions="Center">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 BackgroundColor="Transparent"
+                                DownsampleToViewSize="True"
+                                ErrorPlaceholder="mascot_snail"
                                 HeightRequest="70"
                                 HorizontalOptions="End"
+                                LoadingPlaceholder="mascot_snail"
                                 Source="{Binding Image, Mode=OneTime}"
                                 WidthRequest="70" />
                         </Border>
@@ -117,7 +121,6 @@
                                 <Label Text="{Binding Time, Mode=OneTime}" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
-
                         <Button
                             Grid.Column="2"
                             Margin="0,0,5,0"

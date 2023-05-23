@@ -1,8 +1,7 @@
-﻿using Maui.FixesAndWorkarounds;
+﻿using FFImageLoading.Maui;
+using Maui.FixesAndWorkarounds;
 using Microsoft.Maui.Handlers;
-using SimpleToolkit.Core;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using VeganLife.Data.LocalData;
 using VeganLife.Handlers;
 using VeganLife.Services.LocalDataServices;
 using VeganLife.ViewModels.ContentViewModels;
@@ -21,7 +20,7 @@ public static class MauiProgram
             .UseSkiaSharp(true)
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .UseSimpleToolkit()
+            .UseFFImageLoading()
             .ConfigureKeyboardAutoScroll()
             .ConfigureFonts(fonts =>
 			{
