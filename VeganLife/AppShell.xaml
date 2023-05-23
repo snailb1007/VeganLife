@@ -6,7 +6,6 @@
     xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:local="clr-namespace:VeganLife"
-    xmlns:simpleShell="clr-namespace:SimpleToolkit.SimpleShell;assembly=SimpleToolkit.SimpleShell"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"

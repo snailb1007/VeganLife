@@ -2,7 +2,9 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Color x:Key="Primary">CadetBlue</Color>
+    <Color x:Key="PrimaryLight">#2f918d</Color>
+    <Color x:Key="PrimaryDark">#144d5a</Color>
+
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="Tertiary">White</Color>
     <Color x:Key="White">White</Color>
@@ -15,7 +17,7 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryLight}" />
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
