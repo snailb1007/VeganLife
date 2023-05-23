@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.Controls.FlyoutHeader"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     BackgroundColor="{AppThemeBinding Dark=White,
                                       Light=Gray}">
     <Frame
@@ -15,7 +16,7 @@
         <StackLayout Margin="10" Spacing="10">
             <Grid>
                 <HorizontalStackLayout Spacing="10">
-                    <Frame
+                    <!--<Frame
                         Padding="0"
                         BorderColor="Aqua"
                         CornerRadius="40"
@@ -25,7 +26,14 @@
                             HorizontalOptions="Center"
                             Text="No."
                             VerticalOptions="Center" />
-                    </Frame>
+                    </Frame>-->
+                    <toolkit:AvatarView
+                        BorderColor="Yellow"
+                        BorderWidth="1"
+                        CornerRadius="40"
+                        HeightRequest="80"
+                        ImageSource="profile_girl_strong"
+                        WidthRequest="80" />
                     <Label
                         FontAttributes="Bold"
                         FontSize="18"
