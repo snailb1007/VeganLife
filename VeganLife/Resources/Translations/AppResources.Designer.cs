@@ -277,6 +277,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search anything!.
+        /// </summary>
+        internal static string searchPlace_mainPage {
+            get {
+                return ResourceManager.GetString("searchPlace_mainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         internal static string sexDetail_content_bmiCalculatePage {

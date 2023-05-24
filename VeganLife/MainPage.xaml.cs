@@ -37,5 +37,10 @@ public partial class MainPage : BasePage<MainViewModel>
 
         _processing = false;
     }
+
+    private void shellSeachBox_Focused(object sender, EventArgs e)
+    {
+        Console.WriteLine("==> shellSeachBox_Focused");
+    }
 }
 
