@@ -100,87 +100,90 @@
     </resheader>
 
     <data name="app_common_homeTab" xml:space="preserve">
-        <value>Trang chủ</value>
+    <value>Trang chủ</value>
     </data>
     <data name="app_common_searchTab" xml:space="preserve">
-        <value>Tìm kiếm</value>
+    <value>Tìm kiếm</value>
     </data>
     <data name="app_common_settingTab" xml:space="preserve">
-        <value>Cài đặt</value>
+    <value>Cài đặt</value>
     </data>
     <data name="optionTitle_settingTab" xml:space="preserve">
-        <value>Tùy chọn</value>
+    <value>Tùy chọn</value>
     </data>
     <data name="darkMode_option_settingTab" xml:space="preserve">
-        <value>Tối</value>
+    <value>Tối</value>
     </data>
     <data name="lightMode_option_settingTab" xml:space="preserve">
-        <value>Sáng</value>
+    <value>Sáng</value>
     </data>
     <data name="technicalTitle_settingTab" xml:space="preserve">
-        <value>Thông tin kỹ thuật</value>
+    <value>Thông tin kỹ thuật</value>
     </data>
     <data name="license_technicalTitle_settingTab" xml:space="preserve">
-        <value>Giấy phép</value>
+    <value>Giấy phép</value>
     </data>
     <data name="title_bmiCalculatePage" xml:space="preserve">
-        <value>BMI Calculate</value>
+    <value>BMI Calculate</value>
     </data>
     <data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
-        <value>Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính</value>
+    <value>Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính</value>
     </data>
     <data name="appSet_dateTime_1s_ago" xml:space="preserve">
-        <value>vừa xong</value>
+    <value>vừa xong</value>
     </data>
     <data name="appSet_dateTime_manyS_ago" xml:space="preserve">
-        <value> giây trước</value>
+    <value> giây trước</value>
     </data>
     <data name="appSet_dateTime_1m_ago" xml:space="preserve">
-        <value>phút trước</value>
+    <value>phút trước</value>
     </data>
     <data name="appSet_dateTime_manyM_ago" xml:space="preserve">
-        <value> phút trước</value>
+    <value> phút trước</value>
     </data>
     <data name="appSet_dateTime_1h_ago" xml:space="preserve">
-        <value>giờ trước</value>
+    <value>giờ trước</value>
     </data>
     <data name="appSet_dateTime_manyH_ago" xml:space="preserve">
-        <value> giờ trước</value>
+    <value> giờ trước</value>
     </data>
     <data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
-        <value>hôm qua</value>
+    <value>hôm qua</value>
     </data>
     <data name="appSet_dateTime_days_ago" xml:space="preserve">
-        <value> ngày trước</value>
+    <value> ngày trước</value>
     </data>
     <data name="appSet_dateTime_1Month_ago" xml:space="preserve">
-        <value>tháng trước</value>
+    <value>tháng trước</value>
     </data>
     <data name="appSet_dateTime_months_ago" xml:space="preserve">
-        <value> tháng trước</value>
+    <value> tháng trước</value>
     </data>
     <data name="veganFood_feedPage" xml:space="preserve">
-        <value>Món chay</value>
+    <value>Món chay</value>
     </data>
     <data name="healthy_feedPage" xml:space="preserve">
-        <value>Sức khỏe</value>
+    <value>Sức khỏe</value>
     </data>
     <data name="religion_feedPage" xml:space="preserve">
-        <value>Tín ngưỡng</value>
+    <value>Tín ngưỡng</value>
     </data>
     <data name="liveStrong_feedPage" xml:space="preserve">
-        <value>Sống khỏe</value>
+    <value>Sống khỏe</value>
     </data>
     <data name="ingredient_foodDetailPage" xml:space="preserve">
-        <value>Nguyên liệu</value>
+    <value>Nguyên liệu</value>
     </data>
     <data name="making_foodDetailPage" xml:space="preserve">
-        <value>Cách làm</value>
+    <value>Cách làm</value>
     </data>
     <data name="sauce_foodDetailPage" xml:space="preserve">
-        <value>Nước sốt</value>
+    <value>Nước sốt</value>
     </data>
     <data name="decorate_foodDetailPage" xml:space="preserve">
-        <value>Trang trí</value>
+    <value>Trang trí</value>
     </data>
+    <data name="searchPlace_mainPage" xml:space="preserve">
+    <value>Tìm kiếm gì đó!</value>
+  </data>
 </root>

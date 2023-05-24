@@ -17,31 +17,14 @@
     x:DataType="viewmodel:MainViewModel"
     x:TypeArguments="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
-                                      Dark=Black}">
-
-    <Shell.SearchHandler>
-        <control:FuntionAppSearchHandler
-            x:Name="shellSeachBox"
-            FoodPreviews="{Binding Foods}"
-            ItemTemplate="{StaticResource FoodPreviewSearchTemplate}"
-            Placeholder="Nhập để tìm món ăn"
-            ShowsResults="True">
-            <control:FuntionAppSearchHandler.ClearIcon>
-                <FontImageSource
-                    FontFamily="FontAwesomeRegular"
-                    Glyph="&#xf057;"
-                    Size="8"
-                    Color="{AppThemeBinding Dark=White,
-                                            Light=Black}" />
-            </control:FuntionAppSearchHandler.ClearIcon>
-        </control:FuntionAppSearchHandler>
-    </Shell.SearchHandler>
+                                      Dark=Black}"
+    Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}" RowDefinitions="Auto, Auto, *">
+    <Grid IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}" RowDefinitions="56, 45, Auto, *">
         <Grid.Triggers>
             <DataTrigger
                 Binding="{Binding GoFoodDetailCommand.IsRunning}"
@@ -101,23 +84,38 @@
                 </CarouselView.ItemTemplate>
             </CarouselView>
         </Grid>-->
-
+        <control:NavBarRootPageControl />
         <Grid
             Grid.Row="1"
+            Margin="0"
+            Padding="0"
+            ColumnDefinitions="10,*,10"
+            ColumnSpacing="0">
+            <Border Grid.Column="1" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="*, 45">
+                    <SearchBar HorizontalOptions="CenterAndExpand" Placeholder="{x:Static translate:AppResources.searchPlace_mainPage}" />
+                    <ImageButton
+                        Grid.Column="1"
+                        Margin="0"
+                        Padding="0"
+                        BackgroundColor="{StaticResource PrimaryDark}"
+                        CornerRadius="10"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
+                        Source="filter.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="35" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid
+            Grid.Row="2"
             ColumnDefinitions="*"
-            RowDefinitions="Auto,*">
-            <StackLayout Margin="10" Orientation="Horizontal">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="18"
-                    HorizontalOptions="StartAndExpand"
-                    Text="Danh mục"
-                    VerticalOptions="Center" />
-                <Label
-                    HorizontalOptions="End"
-                    Text="tất cả &gt;"
-                    VerticalOptions="Center" />
-            </StackLayout>
+            RowDefinitions="*">
             <CarouselView
                 Grid.Row="1"
                 Margin="0,10,0,10"
@@ -156,7 +154,7 @@
             </CarouselView>
         </Grid>
 
-        <Grid Grid.Row="2" RowDefinitions="Auto,*">
+        <Grid Grid.Row="3" RowDefinitions="Auto,*">
             <Label
                 Margin="10"
                 FontAttributes="Bold"
@@ -183,6 +181,7 @@
         </Grid>
 
         <ActivityIndicator
+            Grid.Row="1"
             Grid.RowSpan="3"
             IsRunning="False"
             VerticalOptions="Center">

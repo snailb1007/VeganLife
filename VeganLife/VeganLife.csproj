@@ -38,6 +38,7 @@
 		<MauiImage Update="Resources\Images\facebook2019.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\google.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\microsoft.svg" BaseSize="50,50" />
+		<MauiImage Update="Resources\Images\filter.svg" BaseSize="25,25" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -94,9 +95,6 @@
 	  <Compile Update="Views\Controls\NavBarControl.xaml.cs">
 	    <DependentUpon>NavBarControl.xaml</DependentUpon>
 	  </Compile>
-	  <!--<Compile Update="Views\NutritionPage.xaml.cs">
-	    <DependentUpon>NutritionPage.xaml</DependentUpon>
-	  </Compile>-->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -127,6 +125,9 @@
 	  <MauiXaml Update="Views\Controls\NavBarControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\NavBarRootPageControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\DetailVitaminAndMineralPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -155,5 +156,4 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
 </Project>
