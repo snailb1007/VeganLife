@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using VeganLife.Resources.Translations;
+﻿using VeganLife.Resources.Translations;
 
 namespace VeganLife.Helpers
 {

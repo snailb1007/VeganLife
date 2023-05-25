@@ -1,5 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using Android.Widget;
+using CommunityToolkit.Mvvm.Messaging;
+using System.Text.RegularExpressions;
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
 
@@ -10,15 +13,20 @@ namespace VeganLife.ViewModels
         public static FoodPreviewDataStoreService DataStoreService;
         IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
         IList<FoodPreviewModel> _allFoods = new List<FoodPreviewModel>();
+        IEnumerable<FoodPreviewModel> _passFilterFoods;
 
         [ObservableProperty]
         bool _isSearchFocused;
+        [ObservableProperty]
+        bool _isFilterContentExpaned;
         [ObservableProperty]
         ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
         IEnumerable<FoodMenuCategoryModel> _category;
         [ObservableProperty]
         FoodPreviewModel _currentFoodSelected;
+        [ObservableProperty]
+        string _searchText;
 
         public bool IsLoadDataOnAppearingDone { get; private set; }
 
@@ -96,6 +104,11 @@ namespace VeganLife.ViewModels
             IsLoadDataOnAppearingDone = true;
         }
 
+        public override Task OnNavigatedFrom(bool isForwardNavigation)
+        {
+            return base.OnNavigatedFrom(isForwardNavigation);
+        }
+
         async Task SetupMenu()
         {
             Category = await data_service.GetFoodMenu();
@@ -116,15 +129,28 @@ namespace VeganLife.ViewModels
             var itemMenu = obj as FoodMenuCategoryModel;
             if (itemMenu == null) return;
             var foodByCategory = _allFoods.Where(i => i.Category.Contains(itemMenu.Title));
-            await Console.Out.WriteLineAsync("==>CategoryClicked" + foodByCategory.Count());
             var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
             consignment.Add(itemMenu.Category, foodByCategory);
             await navigation_service.NavigateToCategoryPage(consignment);
         }
 
-        public override Task OnNavigatedFrom(bool isForwardNavigation)
+        [RelayCommand]
+        void FilterClicked()
         {
-            return base.OnNavigatedFrom(isForwardNavigation);
+            IsFilterContentExpaned = !IsFilterContentExpaned;
+        }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            {
+                Foods.Clear();
+                foreach (var i in _allFoods)
+                    Foods.Add(i);
+                return;
+            }
+
+            _passFilterFoods = FilterKeySearch(Foods, value);
         }
 
         public void Receive(BookmarkFoodModelMessage message)
@@ -132,6 +158,25 @@ namespace VeganLife.ViewModels
             if (message == null)
                 return;
             WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(message.Value));
+        }
+
+        IEnumerable<FoodPreviewModel> FilterKeySearch(ObservableCollection<FoodPreviewModel> foods, string key)
+        {
+            string[] words = Regex.Replace(key, @"\s+", " ").Split(' ');
+            foreach (var item in Foods)
+            {
+                var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
+                byte count = 0;
+                foreach (var word in words)
+                {
+                    if (normalName.Contains(word))
+                        count++;
+                }
+
+                item.CountCorrectWordOnSearch = count;
+            }
+
+            return foods.Where(w => w.CountCorrectWordOnSearch == words.Length).OrderByDescending(i => i.CountCorrectWordOnSearch);
         }
     }
 

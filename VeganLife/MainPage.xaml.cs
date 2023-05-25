@@ -38,9 +38,9 @@ public partial class MainPage : BasePage<MainViewModel>
         _processing = false;
     }
 
-    private void shellSeachBox_Focused(object sender, EventArgs e)
+    private void gridTransparent_TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        Console.WriteLine("==> shellSeachBox_Focused");
+        searchBar.Unfocus();
     }
 }
 

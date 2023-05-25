@@ -12,7 +12,6 @@
         <ResourceDictionary>
             <converter:LineBreakConverter x:Key="LineBreakConverter" />
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
-
             <Style x:Key="lbDetailMenu" TargetType="Label">
                 <Setter Property="Opacity" Value="0.5" />
                 <Setter Property="Margin" Value="0,10,10,10" />

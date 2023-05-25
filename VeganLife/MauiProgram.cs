@@ -8,6 +8,10 @@ using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.Controls;
 using VeganLife.Views.FoodTab;
+#if ANDROID
+using Android.Widget;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#endif
 
 namespace VeganLife;
 
@@ -37,14 +41,8 @@ public static class MauiProgram
         {
             h.AddHandler(typeof(Shell), typeof(ShellHandler));
         });
-        EntryHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, entry) =>
-        {
-#if ANDROID
-            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-#elif IOS
-			handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#endif
-        });
+        CustomEntry();
+        CustomSearchBar();
         return builder.Build();
 	}
 
@@ -117,5 +115,32 @@ public static class MauiProgram
         Label.ControlsLabelMapper.AppendToMapping(
             nameof(Label.MaxLines), UpdateMaxLines);
 #endif
+    }
+
+    static void CustomEntry()
+    {
+        EntryHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, entry) =>
+        {
+#if ANDROID
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#elif IOS
+			handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#endif
+        });
+    }
+
+    static void CustomSearchBar()
+    {
+        SearchBarHandler.Mapper.AppendToMapping("CustomizationSearchBar", (handler, view) =>
+        {
+#if ANDROID
+            LinearLayout linearLayout = handler.PlatformView.GetChildAt(0) as LinearLayout;
+            linearLayout = linearLayout.GetChildAt(2) as LinearLayout;
+            linearLayout = linearLayout.GetChildAt(1) as LinearLayout;
+            linearLayout.Background = null;
+            // remove underline
+            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#endif
+        });
     }
 }
