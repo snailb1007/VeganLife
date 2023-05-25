@@ -2,8 +2,12 @@
 <ContentView
     x:Class="VeganLife.Views.Controls.NavBarRootPageControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Grid ColumnDefinitions="45, *, 45" ColumnSpacing="0">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <Grid
+        ColumnDefinitions="45, *, 45"
+        ColumnSpacing="0"
+        RowDefinitions="45">
         <Border
             HeightRequest="40"
             HorizontalOptions="Center"
@@ -22,7 +26,15 @@
                 HorizontalOptions="Center"
                 Source="hamburger.svg"
                 VerticalOptions="Center"
-                WidthRequest="30" />
+                WidthRequest="30">
+                <ImageButton.Behaviors>
+                    <toolkit:AnimationBehavior>
+                        <toolkit:AnimationBehavior.AnimationType>
+                            <toolkit:FadeAnimation Opacity="0.5" />
+                        </toolkit:AnimationBehavior.AnimationType>
+                    </toolkit:AnimationBehavior>
+                </ImageButton.Behaviors>
+            </ImageButton>
         </Border>
     </Grid>
 </ContentView>

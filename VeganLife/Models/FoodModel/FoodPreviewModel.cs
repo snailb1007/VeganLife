@@ -26,6 +26,8 @@ namespace VeganLife.Models.FoodModel
 
     public partial class FoodPreviewModel : ObservableObject
     {
+        [ObservableProperty]
+        byte _countCorrectWordOnSearch;
         string[] timeArr => Time?.Split('-');
 
         [ObservableProperty]
