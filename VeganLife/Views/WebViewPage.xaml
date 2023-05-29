@@ -9,8 +9,18 @@
     Title="Web View"
     x:DataType="viewmodel:WebViewViewModel"
     Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid RowDefinitions="*,Auto">
-        <WebView x:Name="webview" Source="{Binding SourceWeb}">
+        <WebView x:Name="webview" Source="{Binding SourceWeb, Mode=OneWay}">
             <WebView.Behaviors>
                 <toolkit:EventToCommandBehavior Command="{Binding WebViewNavigatedCommand}" EventName="Navigated">
                     <toolkit:EventToCommandBehavior.EventArgsConverter>
@@ -28,20 +38,20 @@
             Grid.Row="1"
             HorizontalOptions="Center"
             Spacing="12">
-            <Button
+            <ImageButton
                 Command="{Binding NavigateBackCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoBack}"
-                Text="Back" />
-            <Button
+                Source="back_light" />
+            <ImageButton
                 Command="{Binding NavigateForwardCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoForward}"
-                Text="Forward" />
-            <Button
+                Source="forward_light" />
+            <ImageButton
                 Command="{Binding RefreshPageCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
-                Text="Refresh" />
+                Source="refresh" />
             <Button Command="{Binding OpenInBrowserCommand}" Text="Open in browser" />
         </HorizontalStackLayout>
     </Grid>
