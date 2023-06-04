@@ -3,7 +3,6 @@
     public enum UserSettingKey
     {
         SelectedTheme,
-        ThemeMode,
         ImgBackground
     }
 

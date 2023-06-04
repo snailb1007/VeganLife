@@ -3,9 +3,13 @@
     x:Class="VeganLife.Views.Controls.FlyoutHeader"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    BackgroundColor="{AppThemeBinding Dark=White,
-                                      Light={StaticResource PrimaryLight}}">
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentView.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+        </LinearGradientBrush>
+    </ContentView.Background>
     <Frame
         Margin="10"
         Padding="0"

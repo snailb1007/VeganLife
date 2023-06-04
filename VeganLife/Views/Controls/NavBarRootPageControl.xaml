@@ -3,12 +3,15 @@
     x:Class="VeganLife.Views.Controls.NavBarRootPageControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="navBarRootContent">
     <Grid
         ColumnDefinitions="45, *, 45"
         ColumnSpacing="0"
         RowDefinitions="45">
         <Border
+            BackgroundColor="{AppThemeBinding Dark=Black,
+                                              Light=White}"
             HeightRequest="40"
             HorizontalOptions="Center"
             Stroke="{StaticResource PrimaryLight}"
@@ -24,6 +27,7 @@
                 Clicked="ImageButton_Clicked"
                 HeightRequest="30"
                 HorizontalOptions="Center"
+                IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}"
                 Source="hamburger.svg"
                 VerticalOptions="Center"
                 WidthRequest="30">
@@ -36,5 +40,23 @@
                 </ImageButton.Behaviors>
             </ImageButton>
         </Border>
+        <Grid Grid.Column="1">
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Spacing="10"
+                VerticalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Hi, ..."
+                    VerticalOptions="Center" />
+                <Image
+                    HorizontalOptions="End"
+                    IsAnimationPlaying="True"
+                    PropertyChanged="Image_PropertyChanged"
+                    Source="hand.svg"
+                    WidthRequest="30" />
+            </HorizontalStackLayout>
+        </Grid>
     </Grid>
 </ContentView>

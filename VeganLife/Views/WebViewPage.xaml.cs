@@ -7,4 +7,9 @@ public partial class WebViewPage : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
 	}
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+		AppShell.ShowFlyout();
+    }
 }

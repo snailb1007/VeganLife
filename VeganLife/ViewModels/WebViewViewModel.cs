@@ -1,4 +1,6 @@
-﻿namespace VeganLife.ViewModels
+﻿using VeganLife.Resources.Translations;
+
+namespace VeganLife.ViewModels
 {
     public partial class WebViewViewModel : BaseViewModel
     {
@@ -20,7 +22,7 @@
             if (e.Result != WebNavigationResult.Success)
             {
                 // TODO: handle failed navigation in an appropriate way
-                await Shell.Current.DisplayAlert("Navigation failed", e.Result.ToString(), "OK");
+                await Shell.Current.DisplayAlert(AppResources.navigationFailed_alert_common, e.Result.ToString(), AppResources.ok_common);
             }
         }
 
@@ -52,6 +54,12 @@
         private async void OpenInBrowser()
         {
             await Launcher.OpenAsync(SourceWeb);
+        }
+
+        [RelayCommand]
+        void ShowMainMenu()
+        {
+            AppShell.ShowFlyout();
         }
     }
 }

@@ -196,6 +196,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter search term.
+        /// </summary>
+        internal static string enterSearchTerm_Placeholder_shell {
+            get {
+                return ResourceManager.GetString("enterSearchTerm_Placeholder_shell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explore.
+        /// </summary>
+        internal static string explore_common {
+            get {
+                return ResourceManager.GetString("explore_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Healthy.
         /// </summary>
         internal static string healthy_feedPage {
@@ -246,6 +264,34 @@ namespace VeganLife.Resources.Translations {
         internal static string making_foodDetailPage {
             get {
                 return ResourceManager.GetString("making_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Điều hướng thất bại!.
+        /// </summary>
+        internal static string navigationFailed_alert_common {
+            get {
+                return ResourceManager.GetString("navigationFailed_alert_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No information on vitamins &amp; minerals.
+        ///List is empty!.
+        /// </summary>
+        internal static string noVitamin_vitaminPage {
+            get {
+                return ResourceManager.GetString("noVitamin_vitaminPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string ok_common {
+            get {
+                return ResourceManager.GetString("ok_common", resourceCulture);
             }
         }
         
