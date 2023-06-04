@@ -113,12 +113,30 @@
 	<data name="app_common_homeTab" xml:space="preserve">
     <value>Trang chủ</value>
     </data>
+	<data name="app_common_exploreTab" xml:space="preserve">
+    <value>Trạm đọc</value>
+  </data>
+	<data name="app_common_toolsTab" xml:space="preserve">
+    <value>Công cụ</value>
+  </data>
 	<data name="app_common_searchTab" xml:space="preserve">
     <value>Tìm kiếm</value>
     </data>
 	<data name="app_common_settingTab" xml:space="preserve">
     <value>Cài đặt</value>
-    </data>
+  </data>
+	<data name="app_common_webViewTab" xml:space="preserve">
+    <value>WebView</value>
+  </data>
+	<data name="app_common_bookmarkTab" xml:space="preserve">
+    <value>Lưu trữ</value>
+  </data>
+	<data name="app_common_vitaminsTab" xml:space="preserve">
+    <value>Vitamins</value>
+  </data>
+	<data name="app_common_porytionTab" xml:space="preserve">
+    <value>Khẩu phần</value>
+  </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
     <value>Tùy chọn</value>
     </data>
@@ -201,4 +219,8 @@
     <value>không có thông tin về Vitamin &amp; chất khoáng.
 Danh sách trống!</value>
     </data>
+	<data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
+    <value>Không có thông tin về các món ăn {0}.
+Danh sách trống!</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
+	<!--
     Microsoft ResX Schema
 
     Version 2.0
@@ -59,168 +59,187 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
 	<!--common-->
-  <data name="explore_common" xml:space="preserve">
+	<data name="explore_common" xml:space="preserve">
     <value>Explore</value>
   </data>
-  <data name="navigationFailed_alert_common" xml:space="preserve">
+	<data name="navigationFailed_alert_common" xml:space="preserve">
     <value>Điều hướng thất bại!</value>
   </data>
-  <data name="ok_common" xml:space="preserve">
+	<data name="ok_common" xml:space="preserve">
     <value>OK</value>
   </data>
 	<!--shell-->
-  <data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
+	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Enter search term</value>
   </data>
 
-  <data name="app_common_homeTab" xml:space="preserve">
+	<data name="app_common_homeTab" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="app_common_searchTab" xml:space="preserve">
+	<data name="app_common_searchTab" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="app_common_settingTab" xml:space="preserve">
+	<data name="app_common_settingTab" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="optionTitle_settingTab" xml:space="preserve">
+	<data name="app_common_webViewTab" xml:space="preserve">
+    <value>WebView</value>
+  </data>
+	<data name="app_common_bookmarkTab" xml:space="preserve">
+    <value>Bookmark</value>
+  </data>
+	<data name="app_common_vitaminsTab" xml:space="preserve">
+    <value>Vitamins</value>
+  </data>
+	<data name="app_common_portionTab" xml:space="preserve">
+    <value>Portion</value>
+  </data>
+	<data name="app_common_toolsTab" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+	<data name="optionTitle_settingTab" xml:space="preserve">
     <value>Options setting</value>
   </data>
-  <data name="darkMode_option_settingTab" xml:space="preserve">
+	<data name="darkMode_option_settingTab" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="lightMode_option_settingTab" xml:space="preserve">
+	<data name="lightMode_option_settingTab" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="technicalTitle_settingTab" xml:space="preserve">
+	<data name="technicalTitle_settingTab" xml:space="preserve">
     <value>Technical info</value>
   </data>
-  <data name="license_technicalTitle_settingTab" xml:space="preserve">
+	<data name="license_technicalTitle_settingTab" xml:space="preserve">
     <value>Licenses</value>
   </data>
-  <data name="title_bmiCalculatePage" xml:space="preserve">
+	<data name="title_bmiCalculatePage" xml:space="preserve">
     <value>BMI Calculate</value>
   </data>
-  <data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
+	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
     <value>N/A</value>
   </data>
-  <data name="appSet_dateTime_1s_ago" xml:space="preserve">
+	<data name="appSet_dateTime_1s_ago" xml:space="preserve">
     <value>one second ago</value>
   </data>
-  <data name="appSet_dateTime_manyS_ago" xml:space="preserve">
+	<data name="appSet_dateTime_manyS_ago" xml:space="preserve">
     <value> seconds ago</value>
   </data>
-  <data name="appSet_dateTime_1m_ago" xml:space="preserve">
+	<data name="appSet_dateTime_1m_ago" xml:space="preserve">
     <value>a minute ago</value>
   </data>
-  <data name="appSet_dateTime_manyM_ago" xml:space="preserve">
+	<data name="appSet_dateTime_manyM_ago" xml:space="preserve">
     <value> minutes ago</value>
   </data>
-  <data name="appSet_dateTime_1h_ago" xml:space="preserve">
+	<data name="appSet_dateTime_1h_ago" xml:space="preserve">
     <value>an hour ago</value>
   </data>
-  <data name="appSet_dateTime_manyH_ago" xml:space="preserve">
+	<data name="appSet_dateTime_manyH_ago" xml:space="preserve">
     <value> hours ago</value>
   </data>
-  <data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
+	<data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
     <value>yesterday</value>
   </data>
-  <data name="appSet_dateTime_days_ago" xml:space="preserve">
+	<data name="appSet_dateTime_days_ago" xml:space="preserve">
     <value> days ago</value>
   </data>
-  <data name="appSet_dateTime_1Month_ago" xml:space="preserve">
+	<data name="appSet_dateTime_1Month_ago" xml:space="preserve">
     <value>one month ago</value>
   </data>
-  <data name="appSet_dateTime_months_ago" xml:space="preserve">
+	<data name="appSet_dateTime_months_ago" xml:space="preserve">
     <value> months ago</value>
   </data>
-  <data name="veganFood_feedPage" xml:space="preserve">
+	<data name="veganFood_feedPage" xml:space="preserve">
     <value>Vegan food</value>
   </data>
-  <data name="healthy_feedPage" xml:space="preserve">
+	<data name="healthy_feedPage" xml:space="preserve">
     <value>Healthy</value>
   </data>
-  <data name="religion_feedPage" xml:space="preserve">
+	<data name="religion_feedPage" xml:space="preserve">
     <value>Religion</value>
   </data>
-  <data name="liveStrong_feedPage" xml:space="preserve">
+	<data name="liveStrong_feedPage" xml:space="preserve">
     <value>Strong</value>
   </data>
-  <data name="ingredient_foodDetailPage" xml:space="preserve">
+	<data name="ingredient_foodDetailPage" xml:space="preserve">
     <value>Ingredients</value>
   </data>
-  <data name="making_foodDetailPage" xml:space="preserve">
+	<data name="making_foodDetailPage" xml:space="preserve">
     <value>Cooking</value>
   </data>
-  <data name="sauce_foodDetailPage" xml:space="preserve">
+	<data name="sauce_foodDetailPage" xml:space="preserve">
     <value>Sauce</value>
   </data>
-  <data name="decorate_foodDetailPage" xml:space="preserve">
+	<data name="decorate_foodDetailPage" xml:space="preserve">
     <value>Decorate</value>
   </data>
-  <data name="searchPlace_mainPage" xml:space="preserve">
+	<data name="searchPlace_mainPage" xml:space="preserve">
     <value>Search anything!</value>
   </data>
-  <data name="noVitamin_vitaminPage" xml:space="preserve">
+	<data name="noVitamin_vitaminPage" xml:space="preserve">
     <value>No information on vitamins &amp; minerals.
+List is empty!</value>
+  </data>
+	<data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
+    <value>No information about {0} dishes.
 List is empty!</value>
   </data>
 </root>

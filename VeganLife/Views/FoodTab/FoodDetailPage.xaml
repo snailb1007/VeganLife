@@ -30,90 +30,88 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*">
+    <Grid
+        Grid.Row="1"
+        RowDefinitions="2*,3*"
+        ZIndex="0">
         <control:NavBarControl
             BackgroundColor="Transparent"
             VerticalOptions="Start"
             ZIndex="1" />
-        <Grid
-            Grid.Row="1"
-            RowDefinitions="2*,3*"
-            ZIndex="0">
+        <Grid>
             <Image
+                x:Name="imgPreview"
                 Aspect="AspectFill"
+                HorizontalOptions="Center"
                 PropertyChanged="Image_PropertyChanged"
-                Source="{Binding FoodPreview.Image}" />
-            <Grid Grid.RowSpan="2" Margin="15,0">
-                <ScrollView>
-                    <VerticalStackLayout BackgroundColor="Transparent">
-                        <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
-                        <Frame
-                            Padding="0"
-                            BorderColor="Transparent"
-                            CornerRadius="20"
-                            HasShadow="True"
-                            PropertyChanged="Frame_PropertyChanged">
-                            <Grid
-                                Margin="10,10,0,10"
-                                ColumnDefinitions="4*,*"
-                                RowDefinitions="*"
-                                VerticalOptions="FillAndExpand">
-                                <VerticalStackLayout
-                                    x:Name="nameTitle"
-                                    Margin="10,0,0,0"
-                                    Spacing="8">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontFamily="PlayfairDisplaySemiBold"
-                                        FontSize="18"
-                                        LineBreakMode="TailTruncation"
-                                        MaxLines="1"
-                                        Text="{Binding FoodPreview.Name}" />
-                                    <Label Text="Sống thuần chay" />
-                                </VerticalStackLayout>
-                                <Button
-                                    Grid.Column="1"
-                                    BackgroundColor="Transparent"
-                                    Command="{Binding BookmarkClickedCommand}"
-                                    FontFamily="FontAwesomeRegular"
-                                    FontSize="20"
-                                    HorizontalOptions="Center"
-                                    Text="{StaticResource iconBookmark}"
-                                    TextColor="Black"
-                                    VerticalOptions="Center">
-                                    <Button.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding FoodPreview.IsBookmarked}"
-                                            TargetType="Button"
-                                            Value="true">
-                                            <Setter Property="FontFamily" Value="FontAwesomeSolid" />
-                                        </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
-                            </Grid>
-                        </Frame>
-                        <Border
-                            Margin="0,20"
-                            Padding="0"
-                            Stroke="#f0f0f0"
-                            StrokeThickness="2">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
-                            </Border.StrokeShape>
-                            <VerticalStackLayout
-                                Padding="0"
-                                PropertyChanged="VerticalStackLayout_PropertyChanged"
-                                Spacing="10"
-                                VerticalOptions="Start">
-                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.ingredient_foodDetailPage}" ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}" />
-                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.making_foodDetailPage}" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
-                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.sauce_foodDetailPage}" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
-                                <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.decorate_foodDetailPage}" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
+                Source="{Binding FoodPreview.Image}"
+                VerticalOptions="Start" />
+        </Grid>
+        <Grid Grid.RowSpan="2" Margin="15,0">
+            <ScrollView>
+                <VerticalStackLayout Margin="5,0" BackgroundColor="Transparent">
+                    <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
+                    <Frame
+                        Padding="0"
+                        BorderColor="Transparent"
+                        CornerRadius="20"
+                        HasShadow="True">
+                        <Grid
+                            Margin="10,10,0,10"
+                            ColumnDefinitions="4*,*"
+                            PropertyChanged="Frame_PropertyChanged"
+                            RowDefinitions="*"
+                            VerticalOptions="FillAndExpand">
+                            <VerticalStackLayout Margin="10,0,0,0" Spacing="8">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="PlayfairDisplaySemiBold"
+                                    FontSize="18"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Text="{Binding FoodPreview.Name, Mode=OneWay}" />
                             </VerticalStackLayout>
-                        </Border>
-                    </VerticalStackLayout>
-                </ScrollView>
-            </Grid>
+                            <Button
+                                Grid.Column="1"
+                                BackgroundColor="Transparent"
+                                Command="{Binding BookmarkClickedCommand}"
+                                FontFamily="FontAwesomeRegular"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{StaticResource iconBookmark}"
+                                TextColor="Black"
+                                VerticalOptions="Center">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding FoodPreview.IsBookmarked}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </Grid>
+                    </Frame>
+                    <Border
+                        Margin="0,20"
+                        Padding="0"
+                        Stroke="#f0f0f0"
+                        StrokeThickness="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout
+                            Padding="0"
+                            Spacing="10"
+                            VerticalOptions="Start">
+                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.ingredient_foodDetailPage}" ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}" />
+                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.making_foodDetailPage}" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
+                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.sauce_foodDetailPage}" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
+                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.decorate_foodDetailPage}" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </base:BasePage>

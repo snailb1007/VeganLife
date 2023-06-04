@@ -61,11 +61,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bookmark.
+        /// </summary>
+        internal static string app_common_bookmarkTab {
+            get {
+                return ResourceManager.GetString("app_common_bookmarkTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string app_common_homeTab {
             get {
                 return ResourceManager.GetString("app_common_homeTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portion.
+        /// </summary>
+        internal static string app_common_portionTab {
+            get {
+                return ResourceManager.GetString("app_common_portionTab", resourceCulture);
             }
         }
         
@@ -84,6 +102,33 @@ namespace VeganLife.Resources.Translations {
         internal static string app_common_settingTab {
             get {
                 return ResourceManager.GetString("app_common_settingTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools.
+        /// </summary>
+        internal static string app_common_toolsTab {
+            get {
+                return ResourceManager.GetString("app_common_toolsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vitamins.
+        /// </summary>
+        internal static string app_common_vitaminsTab {
+            get {
+                return ResourceManager.GetString("app_common_vitaminsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebView.
+        /// </summary>
+        internal static string app_common_webViewTab {
+            get {
+                return ResourceManager.GetString("app_common_webViewTab", resourceCulture);
             }
         }
         
@@ -273,6 +318,16 @@ namespace VeganLife.Resources.Translations {
         internal static string navigationFailed_alert_common {
             get {
                 return ResourceManager.GetString("navigationFailed_alert_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No information about {0} dishes.
+        ///List is empty!.
+        /// </summary>
+        internal static string noFoods_foodByCategoryDetailPage {
+            get {
+                return ResourceManager.GetString("noFoods_foodByCategoryDetailPage", resourceCulture);
             }
         }
         

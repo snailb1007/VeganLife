@@ -36,12 +36,13 @@ public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
 
         if (e.PropertyName.Equals("Height"))
         {
-            var frame = sender as Frame;
+            var frame = sender as Grid;
             if (frame?.Height > 0)
             {
                 _frameTitleHeight = frame.Height;
                 if (_imgHeight > 0)
                 {
+                    Console.WriteLine("==> Frame_PropertyChanged " + imgPreview.HeightRequest);
                     MarginTopContent = _imgHeight - _frameTitleHeight / 2f;
                 }
             }

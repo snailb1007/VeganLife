@@ -43,7 +43,7 @@
                         <Label
                             HorizontalOptions="StartAndExpand"
                             Style="{StaticResource lbDetailMenu}"
-                            Text="{Binding Title}" />
+                            Text="{Binding Title, Mode=OneWay}" />
                     </HorizontalStackLayout>
                     <Button
                         Margin="0,0,15,0"

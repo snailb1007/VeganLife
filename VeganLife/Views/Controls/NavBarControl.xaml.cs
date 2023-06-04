@@ -24,4 +24,7 @@ public partial class NavBarControl : ContentView
     {
         await ServicesHelper.GetService<INavigationService>().PopAsync();
     }
+
+    private void hamburger_Clicked(object sender, EventArgs e)
+        => AppShell.ShowFlyout();
 }

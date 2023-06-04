@@ -17,68 +17,64 @@
         <controls:FlyoutHeader />
     </Shell.FlyoutHeader>
     <FlyoutItem
-        Title="Trang chủ"
+        Title="{x:Static translate:AppResources.app_common_homeTab}"
         FlyoutDisplayOptions="AsSingleItem"
         Icon="{AppThemeBinding Dark=home_light,
                                Light=home}"
         Route="home">
-        <Tab Title="Món chay" Icon="vegan_food">
+        <Tab Title="{x:Static translate:AppResources.veganFood_feedPage}" Icon="vegan_food">
             <ShellContent
                 ContentTemplate="{DataTemplate local:MainPage}"
                 Route="main"
-                Shell.NavBarIsVisible="true" />
+                Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="Khẩu phần" Icon="plan">
+        <Tab Title="{x:Static translate:AppResources.app_common_portionTab}" Icon="plan">
             <ShellContent
-                Title="Khẩu phần"
                 ContentTemplate="{DataTemplate contentViews:RationPlanPage}"
-                Route="ration_plan" />
+                Route="ration_plan"
+                Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="Vitamins" Icon="vitamin">
+        <Tab Title="{x:Static translate:AppResources.app_common_vitaminsTab}" Icon="vitamin">
             <ShellContent
-                Title="Vitamins"
                 ContentTemplate="{DataTemplate contentViews:VitaminAndMineralPage}"
-                Route="vitamins_mineral" />
+                Route="vitamins_mineral"
+                Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="Trạm đọc" Icon="compass">
+        <Tab Title="{x:Static translate:AppResources.explore_common}" Icon="compass">
             <ShellContent
-                Title="Trạm đọc"
                 ContentTemplate="{DataTemplate view:NewsFeedPage}"
                 Route="news_feed"
-                Shell.NavBarIsVisible="true" />
+                Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="Công cụ" Icon="calculator">
+        <Tab Title="{x:Static translate:AppResources.app_common_toolsTab}" Icon="calculator">
             <ShellContent
                 ContentTemplate="{DataTemplate view:BMICalculatorPage}"
                 Route="bmi_calculator"
-                Shell.NavBarIsVisible="true" />
+                Shell.NavBarIsVisible="True" />
         </Tab>
     </FlyoutItem>
-
     <FlyoutItem
-        Title="Lưu trữ"
+        Title="{x:Static translate:AppResources.app_common_bookmarkTab}"
         FlyoutDisplayOptions="AsSingleItem"
         Icon="{AppThemeBinding Dark=bookmarked_light,
                                Light=bookmarked}">
         <ShellContent
-            Title="Món ăn"
             ContentTemplate="{DataTemplate view:BookmarkPage}"
             Route="bookmark"
-            Shell.NavBarIsVisible="true" />
+            Shell.NavBarIsVisible="True" />
     </FlyoutItem>
-
     <ShellContent
-        Title="WebView"
+        Title="{x:Static translate:AppResources.app_common_webViewTab}"
         ContentTemplate="{DataTemplate view:WebViewPage}"
         Icon="{AppThemeBinding Dark=web_view_light,
                                Light=web_view}"
         Route="web_view"
-        Shell.NavBarIsVisible="true" />
+        Shell.NavBarIsVisible="False" />
     <ShellContent
-        Title="Cài đặt"
+        Title="{x:Static translate:AppResources.app_common_settingTab}"
         ContentTemplate="{DataTemplate view:SettingPage}"
         Icon="{AppThemeBinding Dark=setting_light,
                                Light=setting}"
         Route="setting"
-        Shell.NavBarIsVisible="true" />
+        Shell.NavBarIsVisible="True" />
 </Shell>
