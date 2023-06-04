@@ -13,7 +13,6 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views"
     x:Name="mainPageRoot"
-    Title="Món chay"
     x:DataType="viewmodel:MainViewModel"
     x:TypeArguments="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
@@ -24,7 +23,10 @@
             <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}" RowDefinitions="56, Auto, *">
+    <Grid
+        IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
+        RowDefinitions="56, Auto, *"
+        RowSpacing="0">
         <Grid.Triggers>
             <DataTrigger
                 Binding="{Binding GoFoodDetailCommand.IsRunning}"
@@ -45,46 +47,7 @@
                 <Setter Property="Opacity" Value="0.7" />
             </DataTrigger>-->
         </Grid.Triggers>
-        <!--<StackLayout.Triggers>
-            <DataTrigger
-                Binding="{Binding Source={x:Reference shellSeachBox}, Path=IsFocused}"
-                TargetType="StackLayout"
-                Value="True">
-                <Setter Property="Opacity" Value="0.5" />
-                <Setter Property="IsEnabled" Value="False" />
-            </DataTrigger>
-        </StackLayout.Triggers>-->
-        <!--<Grid Margin="10" RowDefinitions="Auto,*">
-            <Label
-                FontAttributes="Bold"
-                FontSize="18"
-                Text="Dành cho bạn" />
-            <CarouselView
-                Grid.Row="1"
-                Margin="20,10"
-                HorizontalOptions="CenterAndExpand"
-                ItemsSource="{Binding Category}"
-                VerticalOptions="FillAndExpand">
-                <CarouselView.ItemTemplate>
-                    <DataTemplate x:DataType="model:MenuModel">
-                        <Grid ColumnDefinitions="20,*,20" RowDefinitions="0.5*,*,*">
-                            <Border
-                                Grid.Row="1"
-                                Grid.RowSpan="3"
-                                Grid.ColumnSpan="3"
-                                StrokeShape="RoundRectangle 10" />
-                            <Image
-                                x:Name="imgMenu"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Aspect="AspectFill"
-                                Source="{Binding ImgSource}" />
-                        </Grid>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-        </Grid>-->
-        <control:NavBarRootPageControl Margin="5" />
+        <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="True" />
         <!--  transparent view  -->
         <Grid BackgroundColor="Transparent" IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay}">
             <Grid.GestureRecognizers>
@@ -105,6 +68,7 @@
                         <Grid ColumnDefinitions="*, 45">
                             <SearchBar
                                 x:Name="searchBar"
+                                BackgroundColor="White"
                                 HorizontalOptions="CenterAndExpand"
                                 Placeholder="{x:Static translate:AppResources.searchPlace_mainPage}"
                                 Text="{Binding SearchText, Mode=TwoWay}" />
@@ -188,7 +152,7 @@
                 FontAttributes="Bold"
                 FontSize="18"
                 HorizontalOptions="StartAndExpand"
-                Text="Danh sách"
+                Text="{x:Static translate:AppResources.explore_common}"
                 TextColor="Gray"
                 VerticalOptions="Center" />
             <CollectionView

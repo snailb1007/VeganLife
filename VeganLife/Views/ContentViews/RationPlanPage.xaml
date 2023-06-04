@@ -9,13 +9,15 @@
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     x:DataType="contentVM:RationPlanViewModel"
     x:TypeArguments="contentVM:RationPlanViewModel"
-    Shell.NavBarIsVisible="True">
+    Shell.NavBarIsVisible="False">
     <Grid
         BackgroundColor="#fef3e2"
         ColumnDefinitions="*"
-        RowDefinitions="2*,*">
+        RowDefinitions="Auto,2*,*">
+        <control:NavBarRootPageControl Margin="5" />
         <lvc:PieChart
             Title="{Binding Title}"
+            Grid.Row="1"
             Grid.Column="1"
             Margin="10"
             HorizontalOptions="CenterAndExpand"
@@ -25,6 +27,7 @@
             Series="{Binding Series}"
             VerticalOptions="Start" />
         <Label
+            Grid.Row="1"
             FontAttributes="Bold"
             FontSize="20"
             HorizontalOptions="Center"

@@ -9,6 +9,7 @@
     BackgroundColor="Transparent">
     <ContentView.Resources>
         <ResourceDictionary>
+            <x:String x:Key="lbIcon_angleLeft">&#xf104;</x:String>
             <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
@@ -18,23 +19,27 @@
         ColumnDefinitions="*, 8*, *"
         HeightRequest="56">
         <Frame
+            Padding="0"
             CornerRadius="10"
             HasShadow="True"
             HeightRequest="40"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             WidthRequest="40">
-            <ImageButton
+            <Button
                 Margin="0"
                 Padding="0"
-                Aspect="AspectFill"
                 BackgroundColor="Transparent"
                 Clicked="Back_Clicked"
-                HeightRequest="30"
-                HorizontalOptions="Center"
-                Source="back"
-                VerticalOptions="Center"
-                WidthRequest="30" />
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontSize="20"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand"
+                Text="{StaticResource lbIcon_angleLeft}"
+                TextColor="{AppThemeBinding Dark=White,
+                                            Light=Black}"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="40" />
         </Frame>
         <Label
             Grid.Column="1"

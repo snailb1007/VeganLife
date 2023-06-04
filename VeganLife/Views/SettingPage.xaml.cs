@@ -15,6 +15,6 @@ public partial class SettingPage : BasePage<SettingViewModel>
     private void Switch_Toggled(object sender, ToggledEventArgs e)
 	{
 		var x = sender as Microsoft.Maui.Controls.Switch;
-		_viewModel.SwitchThemeCommand.Execute(x);
+        _viewModel.SwitchThemeCommand.Execute(x);
     }
 }

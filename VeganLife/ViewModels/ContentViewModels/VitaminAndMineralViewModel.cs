@@ -8,11 +8,22 @@
         public VitaminAndMineralViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             Init();
+            LoadDataAsync().ConfigureAwait(false);
         }
 
-        async void Init()
+        void Init()
+        {
+        }
+
+        async Task LoadDataAsync()
         {
             Vitamins = await data_service.GetVitamins();
+        }
+
+        [RelayCommand]
+        async Task ItemSelectedAsync()
+        {
+            await Task.Delay(1);
         }
     }
 }

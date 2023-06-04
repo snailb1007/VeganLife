@@ -27,17 +27,10 @@ public partial class App : Application
 
     private void SetupTheme()
     {
-        var themeMode = UserSettingsHelper.Get(UserSettingKey.ThemeMode);
-        if (string.IsNullOrEmpty(themeMode))
+        if (string.IsNullOrEmpty(UserSettingsHelper.Get(UserSettingKey.SelectedTheme)))
         {
-            AppThemeHelper.SetTheme(App.Current.PlatformAppTheme);
-
-            UserSettingsHelper.Set(UserSettingKey.ThemeMode, ConstantHelper.Theme_Mode_Auto);
-            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, AppTheme.Unspecified.ToString());
-        }
-        else if (themeMode == ConstantHelper.Theme_Mode_Auto)
-        {
-            AppThemeHelper.SetTheme(App.Current.PlatformAppTheme);
+            AppThemeHelper.SetTheme(AppTheme.Light);
+            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, AppTheme.Light.ToString());
         }
         else
         {

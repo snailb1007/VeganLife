@@ -29,7 +29,6 @@ namespace VeganLife.ViewModels
             var goalTheme = IsDarkMode ? AppTheme.Dark : AppTheme.Light;
             AppThemeHelper.SetTheme(goalTheme);
 
-            UserSettingsHelper.Set(UserSettingKey.ThemeMode, ConstantHelper.Theme_Mode_Fixed);
             UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
         }
 

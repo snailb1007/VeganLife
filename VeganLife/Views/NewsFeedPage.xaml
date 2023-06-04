@@ -7,6 +7,7 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="newsFeedPageRoot"
     x:DataType="viewmodel:NewsFeedViewModel"
@@ -27,165 +28,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto,*">
-        <!--<StackLayout Orientation="Horizontal">
-            <Line
-                Margin="0,0,5,0"
-                BackgroundColor="{AppThemeBinding Dark=White,
-                                                  Light=Black}"
-                HeightRequest="{Binding Source={x:Reference lbHottestTitle}, Path=FontSize}"
-                WidthRequest="5" />
-            <Label
-                x:Name="lbHottestTitle"
-                FontAttributes="Bold"
-                FontSize="18"
-                HorizontalOptions="StartAndExpand"
-                Text="Nóng nhất" />
-            <Label
-                FontSize="12"
-                HorizontalOptions="End"
-                Text="Nhiều hơn"
-                TextColor="{AppThemeBinding Dark=LightGray,
-                                            Light=Gray}"
-                VerticalOptions="End" />
-        </StackLayout>
-        <ActivityIndicator
-            IsRunning="{Binding IsLoading}"
-            IsVisible="{Binding IsLoading}"
-            WidthRequest="50"
-            Color="Black" />
-        <CollectionView IsVisible="{Binding IsDisplayHotFeed}" ItemsSource="{Binding HotFeeds}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:HotItemModel">
-                    <Frame
-                        Margin="0,0,0,5"
-                        Padding="0"
-                        BackgroundColor="Transparent"
-                        BorderColor="Transparent"
-                        CornerRadius="20"
-                        WidthRequest="250">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
-                        </Frame.GestureRecognizers>
-                        <Grid
-                            BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
-                                                              Light=#ffffff}"
-                            RowDefinitions="150,*"
-                            RowSpacing="8">
-                            <Frame
-                                Margin="5,3,5,0"
-                                Padding="0"
-                                BorderColor="Transparent"
-                                CornerRadius="25">
-                                <Grid>
-                                    <Image
-                                        Aspect="AspectFill"
-                                        HeightRequest="150"
-                                        Source="{Binding ImageTitleUri}"
-                                        WidthRequest="250">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference newsFeedPageRoot}, Path=BindingContext.SelectFeedItemCommand}" CommandParameter="{Binding .}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                    <Frame
-                                        Margin="5,5,0,0"
-                                        Padding="5,4"
-                                        BackgroundColor="#3380ef"
-                                        BorderColor="Transparent"
-                                        HorizontalOptions="Start"
-                                        IsClippedToBounds="True"
-                                        VerticalOptions="Start">
-                                        <Label
-                                            Margin="1"
-                                            FontAttributes="Bold"
-                                            FontSize="10"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Topic}"
-                                            TextColor="White"
-                                            VerticalOptions="Center" />
-                                    </Frame>
-                                </Grid>
-                            </Frame>
-                            <VerticalStackLayout
-                                Grid.Row="1"
-                                Margin="10,0,10,5"
-                                Spacing="5">
-                                <Label
-                                    FontSize="14"
-                                    MaxLines="2"
-                                    Text="{Binding title}" />
-                                <StackLayout Orientation="Horizontal" Spacing="2">
-                                    <Image Source="trending_fire" WidthRequest="20" />
-                                    <Label
-                                        FontSize="10"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="Trending"
-                                        TextColor="Gray"
-                                        VerticalOptions="End" />
-                                    <Label
-                                        FontFamily="FontAwesomeSolid"
-                                        HorizontalOptions="End"
-                                        Text="&#xf017;"
-                                        TextColor="Gray"
-                                        VerticalOptions="End" />
-                                    <Label
-                                        Margin="5,0,0,0"
-                                        FontSize="10"
-                                        HorizontalOptions="End"
-                                        Text="{Binding TimeAgoDisplay}"
-                                        TextColor="Gray"
-                                        VerticalOptions="End" />
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="10"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{Binding source.text}"
-                                        VerticalOptions="Center" />
-                                    <Frame Padding="0" HorizontalOptions="End">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            Text="···"
-                                            TextColor="Gray"
-                                            VerticalOptions="Start" />
-                                    </Frame>
-                                </StackLayout>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <Label
-            FontAttributes="Bold"
-            FontSize="20"
-            HorizontalOptions="Center"
-            IsVisible="{Binding IsDisplayHotFeed, Converter={StaticResource ReverseConverter}}"
-            Text="· · · ·" />
-        <Label
-            FontFamily="FontAwesomeSolid"
-            HorizontalOptions="Center"
-            ScaleX="1.5"
-            Text="&#xf103;">
-            <Label.Triggers>
-                <DataTrigger
-                    Binding="{Binding IsDisplayHotFeed}"
-                    TargetType="Label"
-                    Value="true">
-                    <Setter Property="Text" Value="&#xf102;" />
-                </DataTrigger>
-            </Label.Triggers>
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ChangeDisplayStatusHotFeedCommand}" />
-            </Label.GestureRecognizers>
-        </Label>-->
-
         <VerticalStackLayout Spacing="10">
             <StackLayout Margin="10,0,0,0" Orientation="Horizontal">
                 <Line
@@ -200,7 +42,7 @@
                     Margin="0,5,0,0"
                     FontAttributes="Bold"
                     FontSize="18"
-                    Text="Khám phá"
+                    Text="{x:Static translate:AppResources.explore_common}"
                     VerticalOptions="Center" />
             </StackLayout>
             <CollectionView

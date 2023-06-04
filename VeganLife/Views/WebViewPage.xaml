@@ -3,14 +3,24 @@
     x:Class="VeganLife.Views.WebViewPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:converters="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Web View"
     x:DataType="viewmodel:WebViewViewModel"
     Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <x:String x:Key="lbIcon_anglesRight">&#xf101;</x:String>
+            <x:String x:Key="lbIcon_angleLeft">&#xf104;</x:String>
+            <x:String x:Key="lbIcon_angleRight">&#xf105;</x:String>
+            <x:String x:Key="lbIcon_rotateRight">&#xf2f9;</x:String>
+            <Style TargetType="Line">
+                <Setter Property="WidthRequest" Value="1.1" />
+                <Setter Property="Opacity" Value="0.5" />
+                <Setter Property="Margin" Value="5,5" />
+                <Setter Property="BackgroundColor" Value="Gray" />
+            </Style>
             <Style TargetType="ImageButton">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="CornerRadius" Value="8" />
@@ -29,29 +39,39 @@
                 </toolkit:EventToCommandBehavior>
             </WebView.Behaviors>
         </WebView>
+        <Button
+            Padding="8,20"
+            Clicked="Button_Clicked"
+            FontFamily="{StaticResource FontAwesomeSolid}"
+            HorizontalOptions="Start"
+            Text="{StaticResource lbIcon_anglesRight}"
+            VerticalOptions="Center" />
         <ActivityIndicator
             HorizontalOptions="Center"
-            IsRunning="{Binding IsLoading}"
-            IsVisible="{Binding IsLoading}"
+            IsRunning="{Binding IsLoading, Mode=OneWay}"
+            IsVisible="{Binding IsLoading, Mode=OneWay}"
             VerticalOptions="Center" />
         <HorizontalStackLayout
             Grid.Row="1"
             HorizontalOptions="Center"
-            Spacing="12">
-            <ImageButton
+            Spacing="20">
+            <Button
                 Command="{Binding NavigateBackCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
+                FontFamily="{StaticResource FontAwesomeSolid}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoBack}"
-                Source="back_light" />
-            <ImageButton
+                Text="{StaticResource lbIcon_angleLeft}" />
+            <Button
                 Command="{Binding NavigateForwardCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
+                FontFamily="{StaticResource FontAwesomeSolid}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoForward}"
-                Source="forward_light" />
-            <ImageButton
+                Text="{StaticResource lbIcon_angleRight}" />
+            <Button
                 Command="{Binding RefreshPageCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
-                Source="refresh" />
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                Text="{StaticResource lbIcon_rotateRight}" />
             <Button Command="{Binding OpenInBrowserCommand}" Text="Open in browser" />
         </HorizontalStackLayout>
     </Grid>

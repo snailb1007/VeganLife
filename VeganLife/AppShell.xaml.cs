@@ -40,6 +40,14 @@ public partial class AppShell : Shell
         }
     }
 
+    public static void ShowFlyout()
+    {
+        // https://github.com/dotnet/maui/issues/8226
+        Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
+        Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+        Shell.Current.FlyoutIsPresented = true;
+    }
+
     void RegisterRoutes()
     {
         Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
