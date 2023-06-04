@@ -140,9 +140,10 @@ namespace VeganLife.ViewModels
             IsFilterContentExpaned = !IsFilterContentExpaned;
         }
 
-        partial void OnSearchTextChanged(string value)
+        [RelayCommand]
+        void EnsureSearch()
         {
-            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrEmpty(SearchText) || string.IsNullOrWhiteSpace(SearchText))
             {
                 Foods.Clear();
                 foreach (var i in _allFoods)
@@ -150,7 +151,12 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            _passFilterFoods = FilterKeySearch(Foods, value);
+            _passFilterFoods = FilterKeySearch(_allFoods.ToList(), SearchText);
+            Foods.Clear();
+            foreach (var i in _passFilterFoods)
+            {
+                Foods.Add(i);
+            }
         }
 
         public void Receive(BookmarkFoodModelMessage message)
@@ -160,10 +166,10 @@ namespace VeganLife.ViewModels
             WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(message.Value));
         }
 
-        IEnumerable<FoodPreviewModel> FilterKeySearch(ObservableCollection<FoodPreviewModel> foods, string key)
+        IEnumerable<FoodPreviewModel> FilterKeySearch(List<FoodPreviewModel> foods, string key)
         {
             string[] words = Regex.Replace(key, @"\s+", " ").Split(' ');
-            foreach (var item in Foods)
+            foreach (var item in foods)
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
                 byte count = 0;

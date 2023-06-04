@@ -14,74 +14,69 @@
     x:TypeArguments="viewmodel:VitaminAndMineralViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}"
-    Shell.NavBarIsVisible="True">
+    Shell.NavBarIsVisible="False">
     <base:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
         </ResourceDictionary>
     </base:BasePage.Resources>
-    <Shell.SearchHandler>
-        <control:VitaminSearchHandler
-            x:Name="shellSeachBox"
-            ItemTemplate="{StaticResource VitaminSearchTemplate}"
-            Placeholder="{x:Static translate:AppResources.enterSearchTerm_Placeholder_shell}"
-            ShowsResults="True"
-            Vitamins="{Binding Vitamins, Mode=OneWay}" />
-    </Shell.SearchHandler>
-    <VerticalStackLayout Margin="10">
-        <Label
-            FontAttributes="Bold"
-            FontSize="18"
-            HorizontalOptions="Start"
-            IsVisible="{Binding Vitamins, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
-            Text="{x:Static translate:AppResources.explore_common}" />
-        <Grid RowDefinitions="*">
-            <CollectionView
-                x:Name="vitaminsCollection"
-                EmptyView="{x:Static translate:AppResources.noVitamin_vitaminPage}"
-                ItemSizingStrategy="MeasureFirstItem"
-                ItemsSource="{Binding Vitamins, Mode=OneWay}"
-                SelectionChanged="vitaminsCollection_SelectionChanged"
-                SelectionMode="Single"
-                VerticalOptions="CenterAndExpand">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:VitaminModel">
-                        <Frame
-                            Padding="5"
-                            BackgroundColor="White"
-                            BorderColor="Transparent"
-                            CornerRadius="10">
-                            <Grid ColumnDefinitions="*,3*,0.5*" ColumnSpacing="5">
-                                <Frame
-                                    Margin="2"
-                                    Padding="0"
-                                    CornerRadius="10">
-                                    <ffimageloading:CachedImage
-                                        Aspect="AspectFill"
-                                        DownsampleToViewSize="True"
-                                        ErrorPlaceholder="mascot_snail.jpg"
-                                        LoadingPlaceholder="mascot_snail.jpg"
-                                        Source="{Binding Image}" />
-                                </Frame>
-                                <VerticalStackLayout Grid.Column="1">
-                                    <Label FontSize="12" Text="{Binding Id}" />
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="16"
-                                        Text="{Binding Name}" />
-                                    <Label
-                                        LineBreakMode="TailTruncation"
-                                        MaxLines="1"
-                                        Text="{Binding Summary}" />
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,*">
+        <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
+        <VerticalStackLayout Grid.Row="1" Margin="10">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="Start"
+                IsVisible="{Binding Vitamins, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
+                Text="{x:Static translate:AppResources.explore_common}" />
+            <Grid RowDefinitions="*">
+                <CollectionView
+                    x:Name="vitaminsCollection"
+                    EmptyView="{x:Static translate:AppResources.noVitamin_vitaminPage}"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemsSource="{Binding Vitamins, Mode=OneWay}"
+                    SelectionChanged="vitaminsCollection_SelectionChanged"
+                    SelectionMode="Single"
+                    VerticalOptions="CenterAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:VitaminModel">
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="White"
+                                BorderColor="Transparent"
+                                CornerRadius="10">
+                                <Grid ColumnDefinitions="*,3*,0.5*" ColumnSpacing="5">
+                                    <Frame
+                                        Margin="2"
+                                        Padding="0"
+                                        CornerRadius="10">
+                                        <ffimageloading:CachedImage
+                                            Aspect="AspectFill"
+                                            DownsampleToViewSize="True"
+                                            ErrorPlaceholder="mascot_snail.jpg"
+                                            LoadingPlaceholder="mascot_snail.jpg"
+                                            Source="{Binding Image}" />
+                                    </Frame>
+                                    <VerticalStackLayout Grid.Column="1">
+                                        <Label FontSize="12" Text="{Binding Id}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            Text="{Binding Name}" />
+                                        <Label
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding Summary}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </VerticalStackLayout>
+    </Grid>
 </base:BasePage>

@@ -17,6 +17,7 @@
             <x:String x:Key="FontAwesomeRegular">FontAwesomeRegular</x:String>
             <x:String x:Key="FontAwesomeSolid">FontAwesomeSolid</x:String>
             <x:String x:Key="FontAwesomeBrands">FontAwesomeBrands</x:String>
+            <x:String x:Key="PlayfairDisplaySemiBold">PlayfairDisplaySemiBold</x:String>
             <x:String x:Key="IconInfo">&#xf05a;</x:String>
             <x:String x:Key="IconClose">&#xf057;</x:String>
             <x:String x:Key="IconAngleDown">&#xf107;</x:String>
