@@ -3,7 +3,9 @@
     public partial class LicenseViewModel : BaseViewModel
     {
         [ObservableProperty]
-        IList<string> _licenses;
+        IList<LicenseModel> _licenses;
+        [ObservableProperty]
+        LicenseModel _selectedItem;
         public LicenseViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
@@ -12,20 +14,39 @@
 
         void Init()
         {
-            Licenses = new List<string>()
+            Licenses = new List<LicenseModel>()
             {
-                "CommunityToolkit.Maui",
-                "CommunityToolkit.Mvvm",
-                "FirebaseDatabase.net",
-                "FFImageLoadingCompat.Maui",
-                "LiveChartsCore.SkiaSharpView.Maui",
-                "PureWeen.Maui.FixesAndWorkarounds",
-                "sqlite-net-pcl",
-                "SQLitePCLRaw.bundle_green",
-                "SQLitePCLRaw.core",
-                "SQLitePCLRaw.provider.dynamic_cdecl",
-                "SQLitePCLRaw.provider.e_sqlite3"
+                new LicenseModel("CommunityToolkit.Maui", ""),
+                new LicenseModel("CommunityToolkit.Mvvm", ""),
+                new LicenseModel("FirebaseDatabase.net", ""),
+                new LicenseModel("FFImageLoadingCompat.Maui", ""),
+                new LicenseModel("LiveChartsCore.SkiaSharpView.Maui", ""),
+                new LicenseModel("PureWeen.Maui.FixesAndWorkarounds", ""),
+                new LicenseModel("sqlite-net-pcl", ""),
+                new LicenseModel("SQLitePCLRaw.bundle_green", ""),
+                new LicenseModel("SQLitePCLRaw.core", ""),
+                new LicenseModel("SQLitePCLRaw.provider.dynamic_cdecl", ""),
+                new LicenseModel("SQLitePCLRaw.provider.e_sqlite3", "")
             };
+        }
+
+        [RelayCommand]
+        async Task OpenLicenseDetail()
+        {
+            await Task.Delay(1);
+            SelectedItem = null;
+        }
+    }
+
+    public class LicenseModel
+    {
+        public string Name { get; private set; }
+        public string LicenseLink { get; private set; }
+
+        public LicenseModel(string name, string licenseLink)
+        {
+            Name = name;
+            LicenseLink = licenseLink;
         }
     }
 }
