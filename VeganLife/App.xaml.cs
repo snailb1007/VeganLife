@@ -14,6 +14,7 @@ public partial class App : Application
         SetupLanguage();
         // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
         MainPage = new WelcomePage(new WelcomeViewModel(service, dataService));
+        //MainPage = new AppShell();
     }
 
     private void SetupLanguage()

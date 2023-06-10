@@ -4,27 +4,48 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:WelcomeViewModel"
     x:TypeArguments="viewmodel:WelcomeViewModel">
-    <VerticalStackLayout>
+    <Grid RowDefinitions="8*,2*">
         <CarouselView
+            BackgroundColor="Orange"
             HorizontalOptions="FillAndExpand"
             IndicatorView="indicatorView"
             ItemsSource="{Binding ListImage, Mode=OneWay}"
-            VerticalOptions="CenterAndExpand">
+            VerticalOptions="End">
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodel:WelcomeImage">
-                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                        <Image Aspect="AspectFit" Source="{Binding Image, Mode=OneWay}" />
+                    <Grid
+                        HorizontalOptions="FillAndExpand"
+                        RowDefinitions="*"
+                        VerticalOptions="Start">
+                        <ffimageloading:CachedImage
+                            Aspect="AspectFill"
+                            DownsampleToViewSize="True"
+                            Source="{Binding Image, Mode=OneWay}"
+                            VerticalOptions="End" />
                     </Grid>
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
         <IndicatorView
             x:Name="indicatorView"
+            Grid.Row="1"
+            BackgroundColor="Transparent"
             HorizontalOptions="Center"
-            IndicatorColor="LightGray"
-            SelectedIndicatorColor="DarkGray" />
-    </VerticalStackLayout>
+            IndicatorColor="Transparent"
+            SelectedIndicatorColor="Transparent">
+            <IndicatorView.IndicatorTemplate>
+                <DataTemplate>
+                    <Label
+                        BackgroundColor="Transparent"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="20"
+                        Text="&#xf068;" />
+                </DataTemplate>
+            </IndicatorView.IndicatorTemplate>
+        </IndicatorView>
+    </Grid>
 </base:BasePage>
