@@ -1,5 +1,6 @@
 ﻿using VeganLife.Helpers;
 using VeganLife.Models.FoodModel;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife.Views.Controls
 {
@@ -69,7 +70,7 @@ namespace VeganLife.Views.Controls
                 this.Unfocus();
             // Let the animation complete
             await Task.Delay(1);
-            await ServicesHelper.GetService<INavigationService>().NavigateToFoodDetail(item);
+            await ServicesHelper.GetService<INavigationService>().NavigataToPage<FoodDetailPage>(item);
         }
     }
 }

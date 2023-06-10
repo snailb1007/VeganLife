@@ -4,6 +4,7 @@ using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
 using VeganLife.Services.LocalDataServices;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife.ViewModels
 {
@@ -42,19 +43,17 @@ namespace VeganLife.ViewModels
         async Task GoFoodDetail(object obj)
         {
             await _dataStoreService.AddOrUpdateItemAsync(FoodSelected, true);
-            await navigation_service.NavigateToFoodDetail(obj);
+            await navigation_service.NavigataToPage<FoodDetailPage>(obj);
         }
 
         public override Task OnNavigatedFrom(bool isForwardNavigation)
         {
-            Console.WriteLine("==>OnNavigatedFrom");
             FoodSelected = null;
             return base.OnNavigatedFrom(isForwardNavigation);
         }
 
         public override Task OnNavigatedTo()
         {
-            Console.WriteLine("==>OnNavigatedTo");
             return base.OnNavigatedTo();
         }
 

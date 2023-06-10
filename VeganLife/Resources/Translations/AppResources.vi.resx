@@ -223,4 +223,22 @@ Danh sách trống!</value>
     <value>Không có thông tin về các món ăn {0}.
 Danh sách trống!</value>
   </data>
+	<data name="options_settingPage" xml:space="preserve">
+    <value>Tùy chọn</value>
+    </data>
+	<data name="dark_settingPage" xml:space="preserve">
+    <value>Tối</value>
+    </data>
+	<data name="light_settingPage" xml:space="preserve">
+    <value>Sáng</value>
+    </data>
+	<data name="technicalInfo_settingPage" xml:space="preserve">
+    <value>Thông tin kỹ thuật</value>
+    </data>
+	<data name="appVersion_settingPage" xml:space="preserve">
+    <value>Phiên bản</value>
+    </data>
+	<data name="license_settingPage" xml:space="preserve">
+    <value>Giấy phép</value>
+    </data>
 </root>
