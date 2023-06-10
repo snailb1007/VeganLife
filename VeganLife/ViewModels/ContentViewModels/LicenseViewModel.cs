@@ -16,24 +16,24 @@
         {
             Licenses = new List<LicenseModel>()
             {
-                new LicenseModel("CommunityToolkit.Maui", ""),
-                new LicenseModel("CommunityToolkit.Mvvm", ""),
-                new LicenseModel("FirebaseDatabase.net", ""),
-                new LicenseModel("FFImageLoadingCompat.Maui", ""),
-                new LicenseModel("LiveChartsCore.SkiaSharpView.Maui", ""),
-                new LicenseModel("PureWeen.Maui.FixesAndWorkarounds", ""),
-                new LicenseModel("sqlite-net-pcl", ""),
-                new LicenseModel("SQLitePCLRaw.bundle_green", ""),
-                new LicenseModel("SQLitePCLRaw.core", ""),
-                new LicenseModel("SQLitePCLRaw.provider.dynamic_cdecl", ""),
-                new LicenseModel("SQLitePCLRaw.provider.e_sqlite3", "")
+                new LicenseModel("CommunityToolkit.Maui", "https://raw.githubusercontent.com/CommunityToolkit/Maui/main/LICENSE"),
+                new LicenseModel("CommunityToolkit.Mvvm", "https://raw.githubusercontent.com/CommunityToolkit/dotnet/main/License.md"),
+                new LicenseModel("FirebaseDatabase.net", "https://raw.githubusercontent.com/step-up-labs/firebase-database-dotnet/master/LICENSE"),
+                new LicenseModel("FFImageLoadingCompat.Maui", "https://raw.githubusercontent.com/Redth/FFImageLoading.Compat/main/LICENSE.md"),
+                new LicenseModel("LiveChartsCore.SkiaSharpView.Maui", "https://raw.githubusercontent.com/beto-rodriguez/LiveCharts2/master/LICENSE"),
+                new LicenseModel("PureWeen.Maui.FixesAndWorkarounds", "https://raw.githubusercontent.com/PureWeen/ShanedlerSamples/main/LICENSE"),
+                new LicenseModel("sqlite-net-pcl", "https://raw.githubusercontent.com/praeclarum/sqlite-net/master/LICENSE.txt"),
+                new LicenseModel("SQLitePCLRaw.bundle_green", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
+                new LicenseModel("SQLitePCLRaw.core", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
+                new LicenseModel("SQLitePCLRaw.provider.dynamic_cdecl", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
+                new LicenseModel("SQLitePCLRaw.provider.e_sqlite3", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT")
             };
         }
 
         [RelayCommand]
         async Task OpenLicenseDetail()
         {
-            await Task.Delay(1);
+            await Browser.Default.OpenAsync(SelectedItem.LicenseLink, BrowserLaunchMode.SystemPreferred);
             SelectedItem = null;
         }
     }
