@@ -1,6 +1,7 @@
 ﻿using VeganLife.Helpers;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.FoodTab;
+using VeganLife.Views.SettingTab;
 
 namespace VeganLife;
 
@@ -42,7 +43,7 @@ public partial class AppShell : Shell
 
     public static void ShowFlyout()
     {
-        // https://github.com/dotnet/maui/issues/8226
+        // TODO https://github.com/dotnet/maui/issues/8226
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
         Shell.Current.FlyoutIsPresented = true;
@@ -50,11 +51,16 @@ public partial class AppShell : Shell
 
     void RegisterRoutes()
     {
+        Routes.Add(nameof(MainPage), typeof(MainPage));
+        Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
+        Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
+        Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
         Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
-        Routes.Add(nameof(LoginPage), typeof(LoginPage));
-        Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));
+        // Routes.Add(nameof(LoginPage), typeof(LoginPage));
+        // Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));
+        Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
         Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
-
+        Routes.Add(nameof(LicensePage), typeof(LicensePage));
         foreach (var item in Routes)
         {
             Routing.RegisterRoute(item.Key, item.Value);
