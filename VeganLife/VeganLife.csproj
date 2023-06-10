@@ -70,10 +70,10 @@
 	  <PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 	  <PackageReference Include="FFImageLoadingCompat.Maui" Version="0.1.1" />
-	  <PackageReference Include="Firebase.Auth" Version="1.0.0" />
+	  <!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 	  <!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 	  <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
-	  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+	  <!--<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />-->
 	  <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.700" />
 	  <PackageReference Include="PureWeen.Maui.FixesAndWorkarounds" Version="1.4.6" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
@@ -153,6 +153,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SettingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SettingTab\LicensePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\WebViewPage.xaml">

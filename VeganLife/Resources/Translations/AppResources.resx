@@ -242,4 +242,22 @@ List is empty!</value>
     <value>No information about {0} dishes.
 List is empty!</value>
   </data>
+	<data name="options_settingPage" xml:space="preserve">
+    <value>Options</value>
+    </data>
+	<data name="dark_settingPage" xml:space="preserve">
+    <value>Dark</value>
+    </data>
+	<data name="light_settingPage" xml:space="preserve">
+    <value>Light</value>
+    </data>
+	<data name="technicalInfo_settingPage" xml:space="preserve">
+    <value>Technical Info</value>
+    </data>
+	<data name="appVersion_settingPage" xml:space="preserve">
+    <value>App version</value>
+    </data>
+	<data name="license_settingPage" xml:space="preserve">
+    <value>License</value>
+    </data>
 </root>
