@@ -25,7 +25,7 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="20"
-                    Text="Giới tính sinh học" />
+                    Text="{x:Static translate:AppResources.sex_bmiPage}" />
                 <Label
                     FontFamily="FontAwesomeSolid"
                     FontSize="15"
@@ -83,7 +83,7 @@
                     </Frame.GestureRecognizers>
                     <Frame.Triggers>
                         <DataTrigger
-                            Binding="{Binding IsMale}"
+                            Binding="{Binding IsMale, Mode=OneWay}"
                             TargetType="Frame"
                             Value="False">
                             <Setter Property="BackgroundColor" Value="CadetBlue" />
@@ -105,7 +105,7 @@
                     </Frame.GestureRecognizers>
                     <Frame.Triggers>
                         <DataTrigger
-                            Binding="{Binding IsMale}"
+                            Binding="{Binding IsMale, Mode=OneWay}"
                             TargetType="Frame"
                             Value="True">
                             <Setter Property="BackgroundColor" Value="CadetBlue" />
@@ -122,14 +122,14 @@
             <Label
                 FontAttributes="Bold"
                 HorizontalOptions="CenterAndExpand"
-                Text="Nữ giới"
+                Text="{x:Static translate:AppResources.female_bmiPage}"
                 TextColor="Gray">
                 <Label.Triggers>
                     <DataTrigger
-                        Binding="{Binding IsMale}"
+                        Binding="{Binding IsMale, Mode=OneWay}"
                         TargetType="Label"
                         Value="True">
-                        <Setter Property="Text" Value="Nam giới" />
+                        <Setter Property="Text" Value="{x:Static translate:AppResources.male_bmiPage}" />
                     </DataTrigger>
                 </Label.Triggers>
             </Label>
@@ -141,7 +141,7 @@
                 TextColor="HotPink">
                 <Label.Triggers>
                     <DataTrigger
-                        Binding="{Binding IsMale}"
+                        Binding="{Binding IsMale, Mode=OneWay}"
                         TargetType="Label"
                         Value="True">
                         <Setter Property="Text" Value="&#xf183;" />
@@ -163,7 +163,7 @@
                                 FontAttributes="Bold"
                                 FontSize="22"
                                 HorizontalOptions="Center"
-                                Text="Chiều cao" />
+                                Text="{x:Static translate:AppResources.height_bmiPage}" />
                             <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
                                 <Label
                                     FontSize="25"
@@ -192,7 +192,7 @@
                                 <Label
                                     FontSize="22"
                                     HorizontalOptions="Center"
-                                    Text="Cân nặng" />
+                                    Text="{x:Static translate:AppResources.weight_bmiPage}" />
                                 <Entry
                                     x:Name="entryWeight"
                                     HorizontalOptions="Center"

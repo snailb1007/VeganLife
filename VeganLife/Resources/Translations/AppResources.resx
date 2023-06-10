@@ -260,4 +260,22 @@ List is empty!</value>
 	<data name="license_settingPage" xml:space="preserve">
     <value>License</value>
     </data>
+	<data name="sex_bmiPage" xml:space="preserve">
+    <value>Sex</value>
+    </data>
+	<data name="male_bmiPage" xml:space="preserve">
+    <value>Male</value>
+    </data>
+	<data name="female_bmiPage" xml:space="preserve">
+    <value>Female</value>
+    </data>
+	<data name="height_bmiPage" xml:space="preserve">
+    <value>Hegiht</value>
+    </data>
+	<data name="weight_bmiPage" xml:space="preserve">
+    <value>Weight</value>
+    </data>
+	<data name="age_bmiPage" xml:space="preserve">
+    <value>Age</value>
+    </data>
 </root>
