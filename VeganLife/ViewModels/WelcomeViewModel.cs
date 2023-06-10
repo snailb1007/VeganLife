@@ -29,8 +29,9 @@ namespace VeganLife.ViewModels
         {
             ListImage = new List<WelcomeImage>
             {
-                new WelcomeImage("welcome1.jpg"),
-                new WelcomeImage("welcome2.jpg"),
+                new WelcomeImage("slide_image1.jpg"),
+                new WelcomeImage("slide_image2.jpg"),
+                new WelcomeImage("slide_image3.jpg")
             };
         }
     }
