@@ -30,7 +30,7 @@
         [RelayCommand]
         async Task Register()
         {
-            await navigation_service.NavigateToRegisPage();
+            await navigation_service.NavigataToPage<RegistrationPage>();
         }
 
         [RelayCommand]
