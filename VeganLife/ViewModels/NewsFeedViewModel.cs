@@ -16,23 +16,11 @@ namespace VeganLife.ViewModels
 
         byte _currentNumberItem;
 
-        //[ObservableProperty]
-        //bool _isDisplayHotFeed;
-
-        //[ObservableProperty]
-        //ObservableCollection<HotItemModel> _hotFeeds;
-
         [ObservableProperty]
         ObservableCollection<Item> _feeds;
 
         [ObservableProperty]
         ObservableCollection<Discovery> _discoveryMenu;
-
-        //[RelayCommand]
-        //void ChangeDisplayStatusHotFeed()
-        //{
-        //    IsDisplayHotFeed = !IsDisplayHotFeed;
-        //}
 
         [RelayCommand]
         void RefreshFoods()

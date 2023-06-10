@@ -1,4 +1,5 @@
 ﻿using VeganLife.Models.FoodModel;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -31,7 +32,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         [RelayCommand]
         async Task GoFoodDetail()
         {
-            await navigation_service.NavigateToFoodDetail(CurrentSelectedItem);
+            await navigation_service.NavigataToPage<FoodDetailPage>(CurrentSelectedItem);
             CurrentSelectedItem = null;
         }
     }
