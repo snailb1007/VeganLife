@@ -9,17 +9,14 @@
     x:TypeArguments="viewmodel:WelcomeViewModel">
     <VerticalStackLayout>
         <CarouselView
-            BackgroundColor="Yellow"
-            HeightRequest="300"
             HorizontalOptions="FillAndExpand"
             IndicatorView="indicatorView"
             ItemsSource="{Binding ListImage, Mode=OneWay}"
             VerticalOptions="CenterAndExpand">
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodel:WelcomeImage">
-                    <Grid HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <Image Aspect="AspectFit" Source="{Binding Image, Mode=OneWay}" />
-                        <Button BackgroundColor="Red" />
                     </Grid>
                 </DataTemplate>
             </CarouselView.ItemTemplate>
