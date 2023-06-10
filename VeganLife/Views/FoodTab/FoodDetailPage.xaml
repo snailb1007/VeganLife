@@ -6,6 +6,7 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="root"
@@ -39,15 +40,19 @@
             VerticalOptions="Start"
             ZIndex="1" />
         <Grid>
-            <Image
+            <ffimageloading:CachedImage
                 x:Name="imgPreview"
                 Aspect="AspectFill"
-                HorizontalOptions="Center"
+                DownsampleToViewSize="True"
+                HorizontalOptions="FillAndExpand"
                 PropertyChanged="Image_PropertyChanged"
-                Source="{Binding FoodPreview.Image}"
+                Source="{Binding FoodPreview.Image, Mode=OneWay}"
                 VerticalOptions="Start" />
         </Grid>
-        <Grid Grid.RowSpan="2" Margin="15,0">
+        <Grid
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Margin="15,0">
             <ScrollView>
                 <VerticalStackLayout Margin="5,0" BackgroundColor="Transparent">
                     <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
