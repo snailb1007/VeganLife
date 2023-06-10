@@ -1,5 +1,4 @@
 ﻿using VeganLife.Helpers;
-using VeganLife.Views.FoodTab;
 
 namespace VeganLife.Services
 {
@@ -44,12 +43,8 @@ namespace VeganLife.Services
         }
 
         public async Task PopToRootAsync() => await navigation.PopToRootAsync();
-        public Task NavigateToRegisPage() => NavigataToPage<RegistrationPage>();
-        public Task NavigateToFoodDetail(object foodPreview) => NavigataToPage<FoodDetailPage>(foodPreview);
-        public Task NavigateToCategoryPage(object foods) => NavigataToPage<FoodsByCategoryPage>(foods);
 
-
-        private async Task NavigataToPage<T>(object paramater = null) where T : Page
+        public async Task NavigataToPage<T>(object paramater = null) where T : Page
         {
             var toPage = ResolvePage<T>();
             if (toPage is not null)

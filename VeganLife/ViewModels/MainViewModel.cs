@@ -1,10 +1,10 @@
-﻿using Android.Widget;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using System.Text.RegularExpressions;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
+using VeganLife.Views.FoodTab;
 
 namespace VeganLife.ViewModels
 {
@@ -118,7 +118,7 @@ namespace VeganLife.ViewModels
         {
             if (GoFoodDetailCommand.IsRunning)
                 return;
-            await navigation_service.NavigateToFoodDetail(obj);
+            await navigation_service.NavigataToPage<FoodDetailPage>(obj);
             CurrentFoodSelected = null;
         }
 
@@ -131,7 +131,7 @@ namespace VeganLife.ViewModels
             var foodByCategory = _allFoods.Where(i => i.Category.Contains(itemMenu.Title));
             var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
             consignment.Add(itemMenu.Category, foodByCategory);
-            await navigation_service.NavigateToCategoryPage(consignment);
+            await navigation_service.NavigataToPage<FoodsByCategoryPage>(consignment);
         }
 
         [RelayCommand]

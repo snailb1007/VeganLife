@@ -1,5 +1,6 @@
 ﻿using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Views.SettingTab;
 
 namespace VeganLife.ViewModels
 {
@@ -14,24 +15,6 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         int _indexPickerOption;
 
-        [RelayCommand]
-        async Task GoTools()
-        {
-            await Shell.Current.GoToAsync(nameof(BMICalculatorPage));
-        }
-
-        [RelayCommand]
-        void SwitchTheme(Microsoft.Maui.Controls.Switch parameter)
-        {
-            if (parameter == null)
-                return;
-            IsDarkMode = parameter.IsToggled;
-            var goalTheme = IsDarkMode ? AppTheme.Dark : AppTheme.Light;
-            AppThemeHelper.SetTheme(goalTheme);
-
-            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
-        }
-
         public SettingViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             Init();
@@ -43,6 +26,23 @@ namespace VeganLife.ViewModels
             ImgBackground = ConstantHelper.ThemeInfo.ImgBackground;
             var currentDeviceTheme = App.Current.UserAppTheme;
             IsDarkMode = currentDeviceTheme == AppTheme.Dark;
+        }
+
+        [RelayCommand]
+        void SwitchTheme(Microsoft.Maui.Controls.Switch parameter)
+        {
+            if (parameter == null)
+                return;
+            IsDarkMode = parameter.IsToggled;
+            var goalTheme = IsDarkMode ? AppTheme.Dark : AppTheme.Light;
+            AppThemeHelper.SetTheme(goalTheme);
+            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
+        }
+
+        [RelayCommand]
+        async Task OpenLicensePage()
+        {
+            await navigation_service.NavigataToPage<LicensePage>();
         }
     }
 }
