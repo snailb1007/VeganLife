@@ -19,12 +19,12 @@ namespace VeganLife.ViewModels
     {
         [ObservableProperty]
         IList<WelcomeImage> _listImage;
-        
+
         public WelcomeViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
             Init();
         }
-      
+
         void Init()
         {
             ListImage = new List<WelcomeImage>

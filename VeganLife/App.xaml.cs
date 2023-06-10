@@ -13,7 +13,7 @@ public partial class App : Application
         SetupTheme();
         SetupLanguage();
         // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
-        MainPage = new WelcomePage(null);
+        MainPage = new WelcomePage(new WelcomeViewModel(service, dataService));
     }
 
     private void SetupLanguage()
