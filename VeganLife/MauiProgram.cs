@@ -8,6 +8,7 @@ using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.Controls;
 using VeganLife.Views.FoodTab;
+using VeganLife.Views.SettingTab;
 #if ANDROID
 using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -56,45 +57,34 @@ public static class MauiProgram
         // page
         services.AddTransient<SettingPage>();
         services.AddTransient<SettingViewModel>();
-
         services.AddTransient<BMICalculatorPage>();
         services.AddTransient<BMICalculatorViewModel>();
-
         services.AddTransient<MainPage>();
         services.AddTransient<MainViewModel>();
-
         services.AddTransient<NewsFeedPage>();
         services.AddTransient<NewsFeedViewModel>();
-
         services.AddTransient<RationPlanPage>();
         services.AddTransient<RationPlanViewModel>();
-
         services.AddTransient<LoginPage>();
         services.AddTransient<LoginViewModel>();
-
         services.AddTransient<RegistrationPage>();
         services.AddTransient<RegistrationViewModel>();
-
         services.AddTransient<WebViewPage>();
         services.AddTransient<WebViewViewModel>();
-
         services.AddTransient<FlyoutHeader>();
         services.AddTransient<FlyouttHeaderViewModel>();
-
         services.AddTransient<VitaminAndMineralPage>();
         services.AddTransient<VitaminAndMineralViewModel>();
-
         services.AddTransient<FoodDetailPage>();
         services.AddTransient<FoodDetailViewModel>();
-
         services.AddTransient<BookmarkPage>();
         services.AddTransient<BookmarkViewModel>();
-
         services.AddTransient<FoodsByCategoryPage>();
         services.AddTransient<FoodsByCategoryViewModel>();
-
         services.AddTransient<DetailVitaminAndMineralPage>();
         services.AddTransient<DetailVitaminAndMineralViewModel>();
+        services.AddTransient<LicensePage>();
+        services.AddTransient<LicenseViewModel>();
     }
 
     static void AllowMultiLineTruncationOnAndroid()

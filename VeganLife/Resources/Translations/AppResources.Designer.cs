@@ -223,6 +223,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App version.
+        /// </summary>
+        internal static string appVersion_settingPage {
+            get {
+                return ResourceManager.GetString("appVersion_settingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        internal static string dark_settingPage {
+            get {
+                return ResourceManager.GetString("dark_settingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         internal static string darkMode_option_settingTab {
@@ -277,11 +295,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        internal static string license_settingPage {
+            get {
+                return ResourceManager.GetString("license_settingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licenses.
         /// </summary>
         internal static string license_technicalTitle_settingTab {
             get {
                 return ResourceManager.GetString("license_technicalTitle_settingTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        internal static string light_settingPage {
+            get {
+                return ResourceManager.GetString("light_settingPage", resourceCulture);
             }
         }
         
@@ -351,6 +387,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string options_settingPage {
+            get {
+                return ResourceManager.GetString("options_settingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options setting.
         /// </summary>
         internal static string optionTitle_settingTab {
@@ -392,6 +437,15 @@ namespace VeganLife.Resources.Translations {
         internal static string sexDetail_content_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("sexDetail_content_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical Info.
+        /// </summary>
+        internal static string technicalInfo_settingPage {
+            get {
+                return ResourceManager.GetString("technicalInfo_settingPage", resourceCulture);
             }
         }
         

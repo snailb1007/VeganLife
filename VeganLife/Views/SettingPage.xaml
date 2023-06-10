@@ -10,13 +10,13 @@
     Title="{x:Static translate:AppResources.app_common_settingTab}"
     x:DataType="viewmodel:SettingViewModel"
     x:TypeArguments="viewmodel:SettingViewModel">
-    <ContentPage.BackgroundImageSource>
+    <!--<ContentPage.BackgroundImageSource>
         <UriImageSource Uri="{Binding Source={x:Reference settingRoot}, Path=BindingContext.ImgBackground}" />
-    </ContentPage.BackgroundImageSource>
+    </ContentPage.BackgroundImageSource>-->
     <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
         <Label
             Margin="0,10,0,0"
-            Text="Tùy chọn"
+            Text="{x:Static translate:AppResources.options_settingPage}"
             TextColor="Gray" />
         <StackLayout
             Margin="0"
@@ -33,7 +33,7 @@
                 TextColor="{AppThemeBinding Dark=White,
                                             Light=Orange}"
                 VerticalOptions="Center" />
-            <Label Text="{AppThemeBinding Dark=Tối, Light=Sáng}" VerticalOptions="Center" />
+            <Label Text="{AppThemeBinding Dark={x:Static translate:AppResources.dark_settingPage}, Light={x:Static translate:AppResources.light_settingPage}}" VerticalOptions="Center" />
             <Frame
                 Padding="1"
                 BackgroundColor="Transparent"
@@ -56,13 +56,13 @@
         <Label
             Margin="0,10,0,0"
             HorizontalOptions="Start"
-            Text="Thông tin kỹ thuật"
+            Text="{x:Static translate:AppResources.technicalInfo_settingPage}"
             TextColor="Gray"
             VerticalOptions="Start" />
         <Label
             HorizontalOptions="Start"
-            Text="Phiên bản"
+            Text="{x:Static translate:AppResources.appVersion_settingPage}"
             VerticalOptions="Start" />
-        <Label HorizontalOptions="Start" Text="Giấy phép" />
+        <Label HorizontalOptions="Start" Text="{x:Static translate:AppResources.license_settingPage}" />
     </VerticalStackLayout>
 </base:BasePage>
