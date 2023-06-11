@@ -10,18 +10,26 @@ namespace VeganLife.Services
     public class DataService : IDataService
     {
         const string firebase_client_link = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
+        const string food_detail_address = "Foods/detail";
+        const string menu_food_address = "App/img/menu_food";
+        const string food_list_address = "Foods/list";
+        const string vitamin_list_address = "Vitamins/list";
+        const string openAI_address = "App/openAI";
+
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(firebase_client_link);
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
             try
             {
-                var data = await firebaseDatabase.Child("Foods/detail").Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
+                var data = await firebaseDatabase.Child(food_detail_address).Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
                 return data;
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return new FoodDetailModel();
             }
         }
@@ -30,7 +38,7 @@ namespace VeganLife.Services
         {
             try
             {
-                var data = await firebaseDatabase.Child("App/img/menu_food").OnceAsync<MenuModel>().ConfigureAwait(false);
+                var data = await firebaseDatabase.Child(menu_food_address).OnceAsync<MenuModel>().ConfigureAwait(false);
                 return data.Select(item => new FoodMenuCategoryModel
                 {
                     ImgSource = item.Object.ImgSource,
@@ -39,7 +47,9 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return Enumerable.Empty<FoodMenuCategoryModel>();
             }
         }
@@ -48,7 +58,7 @@ namespace VeganLife.Services
         {
             try
             {
-                var data = await firebaseDatabase.Child("Foods/list").OnceAsync<FoodPreviewModel>().ConfigureAwait(false);
+                var data = await firebaseDatabase.Child(food_list_address).OnceAsync<FoodPreviewModel>().ConfigureAwait(false);
                 return data.Select(item => new FoodPreviewModel
                 {
                     Id = item.Key,
@@ -60,7 +70,9 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return Enumerable.Empty<FoodPreviewModel>();
             }
         }
@@ -69,7 +81,7 @@ namespace VeganLife.Services
         {
             try
             {
-                var dataTask = await firebaseDatabase.Child("Vitamins/list").OnceAsync<VitaminModel>().ConfigureAwait(false);
+                var dataTask = await firebaseDatabase.Child(vitamin_list_address).OnceAsync<VitaminModel>().ConfigureAwait(false);
                 return dataTask.Select(i => new VitaminModel
                 {
                     Id = i.Key,
@@ -81,7 +93,9 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return Enumerable.Empty<VitaminModel>();
             }
         }
@@ -99,6 +113,22 @@ namespace VeganLife.Services
                 return Enumerable.Empty<Item>();
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             return baseData.rss.channel.item;
+        }
+
+        public async Task<string> GetOpenAIKey()
+        {
+            try
+            {
+                var data = await firebaseDatabase.Child(openAI_address).OnceSingleAsync<string>().ConfigureAwait(false);
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+#if DEBUG
+                Console.WriteLine(e.StackTrace);
+#endif
+                return string.Empty;
+            }
         }
     }
 }
