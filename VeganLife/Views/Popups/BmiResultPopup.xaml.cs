@@ -31,7 +31,6 @@ public partial class BmiResultPopup : Popup
         //string openAIMess = string.Empty;
         try
         {
-            lbMess.Text = "A developer will quite often seek a response from their user, the Popup view allows developers to return a result that can be awaited for and acted on.\r\n\r\nWe can enhance our original XAML example to show how this can be accomplished:";
             //string query = string.Format(AppResources.queryBMI_bmiPopup, sex, _bmiResult.Age, _bmiResult.BMIResult);
             //_ = MainThread.InvokeOnMainThreadAsync(async() =>
             //{

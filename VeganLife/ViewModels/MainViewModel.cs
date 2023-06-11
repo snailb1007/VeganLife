@@ -5,6 +5,7 @@ using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
 using VeganLife.Views.FoodTab;
+using static VeganLife.Helpers.AppSetting.ConstantHelper;
 
 namespace VeganLife.ViewModels
 {
@@ -51,7 +52,10 @@ namespace VeganLife.ViewModels
         async Task LoadDataAsync()
         {
             if (IsNetworkConnected)
+            {
                 _onlineFoodPreviewData = await data_service.GetFoods();
+            }
+
             var localData = await DataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
             {

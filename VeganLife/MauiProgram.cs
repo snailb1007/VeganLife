@@ -11,7 +11,6 @@ using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
 using ChatGptNet;
 using static VeganLife.Helpers.AppSetting.ConstantHelper;
-using ChatGptNet.Models;
 #if ANDROID
 using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -55,7 +54,7 @@ public static class MauiProgram
         // service
         services.AddChatGpt(options =>
         {
-            options.UseOpenAI(apiKey: APIConstants.OpenAIToken);
+            options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
             options.DefaultModel = "gpt-3.5-turbo";
             options.MessageLimit = 15; // Default: 15
             options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
