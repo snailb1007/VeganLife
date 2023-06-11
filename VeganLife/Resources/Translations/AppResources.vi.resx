@@ -259,4 +259,10 @@ Danh sách trống!</value>
 	<data name="age_bmiPage" xml:space="preserve">
     <value>Độ tuổi</value>
     </data>
+	<data name="calculate_bmiPage" xml:space="preserve">
+    <value>Tính</value>
+    </data>
+	<data name="queryBMI_bmiPopup" xml:space="preserve">
+    <value>Tôi giới tính {0}, {1} tuổi, chỉ số bmi {2}. Cho tôi lời khuyên</value>
+    </data>
 </root>

@@ -23,12 +23,12 @@ namespace VeganLife.Data.RssFeedsData
             }
         }
 
-        public async Task<HttpResponseMessage> GetAsync(Func<HttpRequestMessage> requestGenerator)
+        async Task<HttpResponseMessage> GetAsync(Func<HttpRequestMessage> requestGenerator)
         {
             return await RequestAsync(() => requestGenerator());
         }
 
-        public async Task<HttpResponseMessage> RequestAsync(Func<HttpRequestMessage> func)
+        async Task<HttpResponseMessage> RequestAsync(Func<HttpRequestMessage> func)
         {
             var response = await ProcessRequestAsync(func);
 
@@ -40,7 +40,7 @@ namespace VeganLife.Data.RssFeedsData
             return response;
         }
 
-        private async Task<HttpResponseMessage> ProcessRequestAsync(Func<HttpRequestMessage> func)
+        async Task<HttpResponseMessage> ProcessRequestAsync(Func<HttpRequestMessage> func)
         {
             var client = new HttpClient();
             var response = await client.SendAsync(func()).ConfigureAwait(false);

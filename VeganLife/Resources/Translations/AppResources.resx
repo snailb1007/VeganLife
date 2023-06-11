@@ -278,4 +278,10 @@ List is empty!</value>
 	<data name="age_bmiPage" xml:space="preserve">
     <value>Age</value>
     </data>
+	<data name="calculate_bmiPage" xml:space="preserve">
+    <value>Calculate</value>
+    </data>
+	<data name="queryBMI_bmiPopup" xml:space="preserve">
+    <value>I'm {0}, {1} years old, bmi index is {2}. Give me advice</value>
+    </data>
 </root>

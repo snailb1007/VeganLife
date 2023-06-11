@@ -9,6 +9,9 @@ using VeganLife.Views.ContentViews;
 using VeganLife.Views.Controls;
 using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
+using ChatGptNet;
+using static VeganLife.Helpers.AppSetting.ConstantHelper;
+using ChatGptNet.Models;
 #if ANDROID
 using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -50,6 +53,13 @@ public static class MauiProgram
     static void RegisterServices(IServiceCollection services)
     {
         // service
+        services.AddChatGpt(options =>
+        {
+            options.UseOpenAI(apiKey: APIConstants.OpenAIToken);
+            options.DefaultModel = "gpt-3.5-turbo";
+            options.MessageLimit = 15; // Default: 15
+            options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
+        });
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IDataService, DataService>();
         services.AddSingleton<ISQLite, SQLiteService>();
@@ -65,10 +75,10 @@ public static class MauiProgram
         services.AddTransient<NewsFeedViewModel>();
         services.AddTransient<RationPlanPage>();
         services.AddTransient<RationPlanViewModel>();
-        services.AddTransient<LoginPage>();
-        services.AddTransient<LoginViewModel>();
-        services.AddTransient<RegistrationPage>();
-        services.AddTransient<RegistrationViewModel>();
+        // services.AddTransient<LoginPage>();
+        // services.AddTransient<LoginViewModel>();
+        // services.AddTransient<RegistrationPage>();
+        // services.AddTransient<RegistrationViewModel>();
         services.AddTransient<WebViewPage>();
         services.AddTransient<WebViewViewModel>();
         services.AddTransient<FlyoutHeader>();

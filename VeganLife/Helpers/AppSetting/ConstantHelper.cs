@@ -37,11 +37,11 @@
             public static bool IsVietnameseLang { get; set;}
         }
 
-        public static class Validator
+        public static class APIConstants
         {
-            public const string WeightBMIRegexPattern = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
-            public const string AgeBMIRegexPattern = @"^\d+$";
+            public const string OpenAIUrl = "https://api.openai.com/";
+            public const string OpenAIToken = "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";
+            public const string OpenAIEndpoint_Completions = "v1/completions";
         }
-
     }
 }
