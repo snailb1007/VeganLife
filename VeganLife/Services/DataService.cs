@@ -14,7 +14,6 @@ namespace VeganLife.Services
         const string menu_food_address = "App/img/menu_food";
         const string food_list_address = "Foods/list";
         const string vitamin_list_address = "Vitamins/list";
-        const string openAI_address = "App/openAI";
 
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(firebase_client_link);
 
@@ -113,22 +112,6 @@ namespace VeganLife.Services
                 return Enumerable.Empty<Item>();
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             return baseData.rss.channel.item;
-        }
-
-        public async Task<string> GetOpenAIKey()
-        {
-            try
-            {
-                var data = await firebaseDatabase.Child(openAI_address).OnceSingleAsync<string>().ConfigureAwait(false);
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
-                return string.Empty;
-            }
         }
     }
 }
