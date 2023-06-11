@@ -14,6 +14,22 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
+            <Style x:Key="btnPlusMinus" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=Black, Light=White}" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark=White, Light=Black}" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView>
@@ -42,7 +58,6 @@
                 ColumnSpacing="2"
                 HorizontalOptions="FillAndExpand"
                 IsVisible="{Binding IsDisplayedSexDetail}"
-                PropertyChanged="Grid_PropertyChanged"
                 RowDefinitions="*"
                 VerticalOptions="FillAndExpand">
                 <Border
@@ -195,17 +210,48 @@
                                     Text="{x:Static translate:AppResources.weight_bmiPage}" />
                                 <Entry
                                     x:Name="entryWeight"
+                                    FontSize="20"
                                     HorizontalOptions="Center"
                                     Keyboard="Numeric"
                                     Placeholder="50kg"
-                                    Text="{Binding WeightValue}" />
-                                <Label
-                                    FontSize="12"
-                                    HorizontalOptions="Start"
-                                    IsVisible="{Binding WeightErrMess, Converter={StaticResource NullToFalseConverter}}"
-                                    MaxLines="2"
-                                    Text="{Binding WeightErrMess}"
-                                    TextColor="Red" />
+                                    Text="{Binding WeightValue}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            Flags="ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="6"
+                                            MinimumLength="1"
+                                            RegexPattern="{Binding WeightBMIRegexPattern, Mode=OneWay}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                                <Grid
+                                    Padding="0,5"
+                                    ColumnDefinitions="*,*"
+                                    ColumnSpacing="5">
+                                    <Button Style="{StaticResource btnPlusMinus}" Text="&#x2b;">
+                                        <Button.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Opacity="0.2"
+                                                Radius="15"
+                                                Offset="10,10" />
+                                        </Button.Shadow>
+                                    </Button>
+                                    <Button
+                                        Grid.Column="1"
+                                        Style="{StaticResource btnPlusMinus}"
+                                        Text="&#xf068;">
+                                        <Button.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Opacity="0.2"
+                                                Radius="15"
+                                                Offset="10,10" />
+                                        </Button.Shadow>
+                                    </Button>
+                                </Grid>
+
                             </VerticalStackLayout>
                         </Border>
                         <Border
@@ -218,66 +264,50 @@
                                 <Label
                                     FontSize="22"
                                     HorizontalOptions="Center"
-                                    Text="Độ tuổi" />
+                                    Text="{x:Static translate:AppResources.age_bmiPage}" />
                                 <Entry
                                     x:Name="entryAge"
+                                    FontSize="20"
                                     HorizontalOptions="Center"
                                     Keyboard="Numeric"
                                     Placeholder="20"
-                                    Text="{Binding AgeValue}" />
+                                    Text="{Binding AgeValue}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            Flags="ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="3"
+                                            MinimumLength="1"
+                                            RegexPattern="{Binding AgeBMIRegexPattern, Mode=OneWay}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                                 <Grid
                                     Padding="0,5"
                                     ColumnDefinitions="*,*"
                                     ColumnSpacing="5">
-                                    <Border
-                                        HorizontalOptions="Center"
-                                        StrokeShape="RoundRectangle 15"
-                                        StrokeThickness="0"
-                                        WidthRequest="30">
-                                        <Border.Shadow>
+                                    <Button Style="{StaticResource btnPlusMinus}" Text="&#x2b;">
+                                        <Button.Shadow>
                                             <Shadow
                                                 Brush="Black"
                                                 Opacity="0.2"
                                                 Radius="15"
                                                 Offset="10,10" />
-                                        </Border.Shadow>
-                                        <Label
-                                            Margin="5"
-                                            FontFamily="FontAwesomeSolid"
-                                            FontSize="18"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            Text="&#x2b;" />
-                                    </Border>
-                                    <Border
+                                        </Button.Shadow>
+                                    </Button>
+                                    <Button
                                         Grid.Column="1"
-                                        HorizontalOptions="Center"
-                                        StrokeShape="RoundRectangle 15"
-                                        StrokeThickness="0"
-                                        WidthRequest="30">
-                                        <Border.Shadow>
+                                        Style="{StaticResource btnPlusMinus}"
+                                        Text="&#xf068;">
+                                        <Button.Shadow>
                                             <Shadow
                                                 Brush="Black"
                                                 Opacity="0.2"
                                                 Radius="15"
                                                 Offset="10,10" />
-                                        </Border.Shadow>
-                                        <Label
-                                            Margin="5"
-                                            FontFamily="FontAwesomeSolid"
-                                            FontSize="18"
-                                            HorizontalOptions="Center"
-                                            Text="&#xf068;"
-                                            VerticalOptions="Center" />
-                                    </Border>
+                                        </Button.Shadow>
+                                    </Button>
                                 </Grid>
-                                <Label
-                                    FontSize="12"
-                                    HorizontalOptions="Start"
-                                    IsVisible="{Binding AgeErrMess, Converter={StaticResource NullToFalseConverter}}"
-                                    MaxLines="2"
-                                    Text="{Binding AgeErrMess}"
-                                    TextColor="Red" />
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
@@ -287,8 +317,8 @@
                         Command="{Binding CalculateBMICommand}"
                         FontAttributes="Bold"
                         FontSize="20"
-                        IsEnabled="{Binding IsEnableSubmit}"
-                        Text="Tính BMI" />
+                        IsEnabled="{Binding IsEnableSubmit, Mode=OneWay}"
+                        Text="{x:Static translate:AppResources.calculate_bmiPage}" />
                 </VerticalStackLayout>
             </Grid>
         </VerticalStackLayout>

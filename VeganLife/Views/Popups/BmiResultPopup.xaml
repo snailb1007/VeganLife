@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="VeganLife.Views.Popups.BmiResultPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="popupBmi"
+    CanBeDismissedByTappingOutsideOfPopup="True"
+    HorizontalOptions="Center"
+    Color="Transparent">
+    <Border Grid.Column="1">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="4" />
+        </Border.StrokeShape>
+        <Grid
+            x:Name="rootGrid"
+            Padding="20"
+            CompressedLayout.IsHeadless="True"
+            RowDefinitions="Auto, Auto">
+            <Label
+                x:Name="lbBmi"
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="25"
+                HorizontalOptions="Center"
+                VerticalOptions="StartAndExpand" />
+            <Label
+                x:Name="lbMess"
+                Grid.Row="1"
+                Grid.Column="1"
+                FontSize="15"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                LineBreakMode="WordWrap"
+                MaxLines="5"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="{Binding Source={x:Reference gridMess}, Path=Width}" />
+        </Grid>
+    </Border>
+</toolkit:Popup>

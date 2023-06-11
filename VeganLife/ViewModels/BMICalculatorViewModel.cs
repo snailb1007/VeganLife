@@ -1,11 +1,17 @@
-﻿using System.Text.RegularExpressions;
+﻿using ChatGptNet;
+using ChatGptNet.Exceptions;
+using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
-using VeganLife.Helpers.AppSetting;
+using VeganLife.Resources.Translations;
+using VeganLife.Views.Popups;
 
 namespace VeganLife.ViewModels
 {
     public partial class BMICalculatorViewModel : BaseViewModel
     {
+        public string WeightBMIRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
+        public string AgeBMIRegexPattern { get; } = @"^\d+$";
+
         private float _weight;
         private short _age;
 
@@ -81,12 +87,6 @@ namespace VeganLife.ViewModels
             IsMale = !IsMale;
         }
 
-        [RelayCommand]
-        void CalculateBMI()
-        {
-            BmiResult = CalculateHelper.CalculateBMI(_weight, Height / 100f);
-        }
-
         public BMICalculatorViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
@@ -95,6 +95,21 @@ namespace VeganLife.ViewModels
 
         private void Init()
         { }
+
+        [RelayCommand]
+        async Task CalculateBMI()
+        {
+            BmiResult = CalculateHelper.CalculateBMI(_weight, Height / 100f);
+            if (Shell.Current.CurrentPage is BMICalculatorPage page)
+            {
+                await page.ShowPopupAsync(new BmiResultPopup(new BMIResultModel()
+                {
+                    BMIResult = BmiResult,
+                    Sex = IsMale ? AppResources.male_bmiPage : AppResources.female_bmiPage,
+
+                }));
+            }
+        }
 
         partial void OnWeightValueChanged(string value)
         {
@@ -105,26 +120,18 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            Regex pattern = new (ConstantHelper.Validator.WeightBMIRegexPattern);
-            if (pattern.IsMatch(value))
+            _weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+            if (_weight < 2)
             {
-                _weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
-                if (_weight < 2)
-                {
-                    WeightErrMess = "Qúa thấp, dường như bạn nhập sai";
-                }
-                else if (_weight > 635)
-                {
-                    WeightErrMess = "Qúa lớn, dường như bạn nhập sai";
-                }
-                else
-                {
-                    WeightErrMess = null;
-                }
+                WeightErrMess = "Qúa thấp, dường như bạn nhập sai";
+            }
+            else if (_weight > 635)
+            {
+                WeightErrMess = "Qúa lớn, dường như bạn nhập sai";
             }
             else
             {
-                WeightErrMess = "Sai định dạng";
+                WeightErrMess = null;
             }
 
             IsEnableSubmit = CheckEnableButtonCalculate();
@@ -139,26 +146,18 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            Regex pattern = new(ConstantHelper.Validator.AgeBMIRegexPattern);
-            if (pattern.IsMatch(value))
+            _age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+            if (_age <= 1)
             {
-                _age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
-                if (_age <= 1)
-                {
-                    AgeErrMess = "Quá nhỏ, nhập lại";
-                }
-                else if (_age >= 140)
-                {
-                    AgeErrMess = "Quá lớn, dường như bạn nhập sai";
-                }
-                else
-                {
-                    AgeErrMess = null;
-                }
+                AgeErrMess = "Quá nhỏ, nhập lại";
+            }
+            else if (_age >= 140)
+            {
+                AgeErrMess = "Quá lớn, dường như bạn nhập sai";
             }
             else
             {
-                AgeErrMess = "Sai định dạng";
+                AgeErrMess = null;
             }
 
             IsEnableSubmit = CheckEnableButtonCalculate();
