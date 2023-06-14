@@ -6,6 +6,8 @@ public partial class WelcomePage : BasePage<WelcomeViewModel>
 {
     public WelcomePage(WelcomeViewModel vm) : base(vm)
 	{
-		InitializeComponent();
-	}
+        if (carouselView != null)
+            carouselView.Position = 1;
+        InitializeComponent();
+    }
 }
