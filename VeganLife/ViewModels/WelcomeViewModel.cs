@@ -19,6 +19,8 @@ namespace VeganLife.ViewModels
     {
         [ObservableProperty]
         IList<WelcomeImage> _listImage;
+        [ObservableProperty]
+        private int _currentItem;
 
         public WelcomeViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
@@ -33,6 +35,35 @@ namespace VeganLife.ViewModels
                 new WelcomeImage("slide_image2.jpg"),
                 new WelcomeImage("slide_image3.jpg")
             };
+            CurrentItem = 1;
+        }
+
+        [RelayCommand]
+        void HandleButtonPrevious()
+        {
+            if (CurrentItem <= 0)
+            {
+                CurrentItem = 0;
+                return;
+            }
+            else
+            {
+                CurrentItem--;
+            }
+        }
+
+        [RelayCommand]
+        void HandleButtonNext()
+        {
+            if (CurrentItem > 3)
+            {
+                CurrentItem = 3;
+                return;
+            }
+            else
+            {
+                CurrentItem++;
+            }
         }
     }
 }
