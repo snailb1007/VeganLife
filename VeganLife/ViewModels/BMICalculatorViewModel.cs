@@ -100,7 +100,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         async Task CalculateBMI()
         {
-            BmiResult = CalculateHelper.CalculateBMI(_weight, Height / 100f);
+            BmiResult = BMICalculateHelper.Calculate(_weight, Height / 100f);
             await MopupService.Instance.PushAsync(new BmiResultPopup(new BMIResultModel()
             {
                 BMIResult = BmiResult,

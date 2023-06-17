@@ -34,7 +34,7 @@
 
         public static class AppSetting
         {
-            public static bool IsVietnameseLang { get; set;}
+            public static bool IsVietnameseLang { get; set; }
         }
 
         public static class APIConstants
@@ -42,6 +42,12 @@
             public const string OpenAIUrl = "https://api.openai.com/";
             public const string OpenAIToken = "M-A-8-2-c-w-u-9-a-5-8-8-E-L-u-g-R-S-n-1-T-3-B-l-b-k-F-J-I-K-8-q-F-n-i-N-R-9-B-K-Q-y-t-9-T-S-i-f";
             public const string OpenAIEndpoint_Completions = "v1/completions";
+        }
+
+        public static class BmiData
+        {
+            public const string Male = "Male";
+            public const string Female = "Female";
         }
     }
 }
