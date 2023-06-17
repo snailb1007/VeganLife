@@ -1,6 +1,7 @@
 ﻿using ChatGptNet;
 using ChatGptNet.Exceptions;
 using CommunityToolkit.Maui.Views;
+using Mopups.Services;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.Popups;
@@ -100,15 +101,12 @@ namespace VeganLife.ViewModels
         async Task CalculateBMI()
         {
             BmiResult = CalculateHelper.CalculateBMI(_weight, Height / 100f);
-            if (Shell.Current.CurrentPage is BMICalculatorPage page)
+            await MopupService.Instance.PushAsync(new BmiResultPopup(new BMIResultModel()
             {
-                await page.ShowPopupAsync(new BmiResultPopup(new BMIResultModel()
-                {
-                    BMIResult = BmiResult,
-                    Sex = IsMale ? AppResources.male_bmiPage : AppResources.female_bmiPage,
-
-                }));
-            }
+                BMIResult = BmiResult,
+                Sex = IsMale ? AppResources.male_bmiPage : AppResources.female_bmiPage,
+                Age = AgeValue
+            }));
         }
 
         partial void OnWeightValueChanged(string value)

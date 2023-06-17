@@ -1,4 +1,6 @@
-﻿using VeganLife.Helpers;
+﻿using Mopups.Pages;
+using Mopups.Services;
+using VeganLife.Helpers;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
@@ -69,6 +71,8 @@ public partial class AppShell : Shell
 
     static bool isRootPage(VisualElement page)
     {
+        if (MopupService.Instance.PopupStack.Count() > 0)
+            return false;
         return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
     }
 }
