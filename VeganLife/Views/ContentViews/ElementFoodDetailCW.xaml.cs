@@ -34,9 +34,9 @@ public partial class ElementFoodDetailCW : BaseContentView
     }
 
     public ElementFoodDetailCW()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
@@ -44,7 +44,7 @@ public partial class ElementFoodDetailCW : BaseContentView
         if (propertyName.Equals("Title"))
         {
             string img = string.Empty;
-            switch(Title)
+            switch (Title)
             {
                 case "Nguyên liệu":
                     img = "ingredients_food_detail";

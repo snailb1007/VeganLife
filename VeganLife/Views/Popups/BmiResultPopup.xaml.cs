@@ -1,9 +1,5 @@
-using ChatGptNet;
-using ChatGptNet.Exceptions;
 using Mopups.Pages;
 using Mopups.Services;
-using VeganLife.Helpers;
-using VeganLife.Resources.Translations;
 
 namespace VeganLife.Views.Popups;
 

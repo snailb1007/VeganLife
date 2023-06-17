@@ -5,7 +5,6 @@ using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
 using VeganLife.Views.FoodTab;
-using static VeganLife.Helpers.AppSetting.ConstantHelper;
 
 namespace VeganLife.ViewModels
 {

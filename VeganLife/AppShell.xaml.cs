@@ -1,5 +1,4 @@
-﻿using Mopups.Pages;
-using Mopups.Services;
+﻿using Mopups.Services;
 using VeganLife.Helpers;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.FoodTab;
@@ -12,8 +11,8 @@ public partial class AppShell : Shell
     public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
 
     public AppShell()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         RegisterRoutes();
     }
 
@@ -32,7 +31,7 @@ public partial class AppShell : Shell
             return true;
 
         }
-        else if(ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
+        else if (ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
         {
             Shell.Current.Navigation.PopAsync();
             return true;

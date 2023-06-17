@@ -6,7 +6,7 @@ namespace VeganLife.Helpers
     {
         public static float Calculate(float mass, float height)
         {
-            return mass / (height*height);
+            return mass / (height * height);
         }
 
         // Orange: Underweight (Mild thinness)
@@ -15,7 +15,7 @@ namespace VeganLife.Helpers
         // Red: Obese
         public static Color GetWeightStatusCategory(short age, string sex, float bmiData)
         {
-            switch(age)
+            switch (age)
             {
                 case < 5:
                     return GetWSKLessThen5Age(bmiData);

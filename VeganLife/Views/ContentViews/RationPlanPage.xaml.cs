@@ -5,9 +5,9 @@ namespace VeganLife.Views.ContentViews;
 
 public partial class RationPlanPage : BasePage<RationPlanViewModel>
 {
-	public RationPlanPage(RationPlanViewModel vm) : base(vm)
-	{
-		InitializeComponent();
+    public RationPlanPage(RationPlanViewModel vm) : base(vm)
+    {
+        InitializeComponent();
     }
 
     private void PieChart_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
