@@ -531,6 +531,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your BMI.
+        /// </summary>
+        internal static string title_bmiPopup {
+            get {
+                return ResourceManager.GetString("title_bmiPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vegan food.
         /// </summary>
         internal static string veganFood_feedPage {

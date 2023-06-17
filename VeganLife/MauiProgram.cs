@@ -1,5 +1,4 @@
 ﻿using FFImageLoading.Maui;
-using Maui.FixesAndWorkarounds;
 using Microsoft.Maui.Handlers;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using VeganLife.Handlers;
@@ -11,6 +10,7 @@ using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
 using ChatGptNet;
 using static VeganLife.Helpers.AppSetting.ConstantHelper;
+using Mopups.Hosting;
 #if ANDROID
 using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -26,9 +26,6 @@ public static class MauiProgram
         builder
             .UseSkiaSharp(true)
 			.UseMauiApp<App>()
-            .UseMauiCommunityToolkit()
-            .UseFFImageLoading()
-            .ConfigureKeyboardAutoScroll()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -38,14 +35,15 @@ public static class MauiProgram
                 fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                 fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
             });
+        builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit();
         RegisterServices(builder.Services);
-        AllowMultiLineTruncationOnAndroid();
         builder.ConfigureMauiHandlers((h) =>
         {
             h.AddHandler(typeof(Shell), typeof(ShellHandler));
         });
         CustomEntry();
         CustomSearchBar();
+        AllowMultiLineTruncationOnAndroid();
         return builder.Build();
 	}
 
@@ -54,7 +52,8 @@ public static class MauiProgram
         // service
         services.AddChatGpt(options =>
         {
-            options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
+            //options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
+            options.UseOpenAI(apiKey: "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");
             options.DefaultModel = "gpt-3.5-turbo";
             options.MessageLimit = 15; // Default: 15
             options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour

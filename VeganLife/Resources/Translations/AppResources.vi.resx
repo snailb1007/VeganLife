@@ -265,4 +265,7 @@ Danh sách trống!</value>
 	<data name="queryBMI_bmiPopup" xml:space="preserve">
     <value>Tôi giới tính {0}, {1} tuổi, chỉ số bmi {2}. Cho tôi lời khuyên</value>
     </data>
+	<data name="title_bmiPopup" xml:space="preserve">
+    <value>BMI của bạn</value>
+    </data>
 </root>

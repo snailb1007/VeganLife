@@ -284,4 +284,7 @@ List is empty!</value>
 	<data name="queryBMI_bmiPopup" xml:space="preserve">
     <value>I'm {0}, {1} years old, bmi index is {2}. Give me advice</value>
     </data>
+	<data name="title_bmiPopup" xml:space="preserve">
+    <value>Your BMI</value>
+    </data>
 </root>
