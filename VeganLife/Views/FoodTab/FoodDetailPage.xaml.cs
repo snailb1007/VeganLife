@@ -12,22 +12,22 @@ public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
         set => SetProperty(ref _marginTopContent, value);
     }
 
-	public FoodDetailPage(FoodDetailViewModel vm) : base(vm)
-	{
-		InitializeComponent();
-	}
+    public FoodDetailPage(FoodDetailViewModel vm) : base(vm)
+    {
+        InitializeComponent();
+    }
 
     double _imgHeight;
     private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-		if (e.PropertyName.Equals("Height"))
-		{
-			var img = sender as Image;
-			if (img?.Height > 0)
-			{
-				_imgHeight = img.Height;
+        if (e.PropertyName.Equals("Height"))
+        {
+            var img = sender as Image;
+            if (img?.Height > 0)
+            {
+                _imgHeight = img.Height;
             }
-		}
+        }
     }
 
     double _frameTitleHeight;

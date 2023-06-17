@@ -1,7 +1,4 @@
-﻿using ChatGptNet;
-using ChatGptNet.Exceptions;
-using CommunityToolkit.Maui.Views;
-using Mopups.Services;
+﻿using Mopups.Services;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.Popups;

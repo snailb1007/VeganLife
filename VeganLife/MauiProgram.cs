@@ -9,7 +9,6 @@ using VeganLife.Views.Controls;
 using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
 using ChatGptNet;
-using static VeganLife.Helpers.AppSetting.ConstantHelper;
 using Mopups.Hosting;
 #if ANDROID
 using Android.Widget;
@@ -20,17 +19,17 @@ namespace VeganLife;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
         builder
             .UseSkiaSharp(true)
-			.UseMauiApp<App>()
+            .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
                 fonts.AddFont("FontAwesome6FreeBrands.otf", "FontAwesomeBrands");
                 fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                 fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
@@ -45,7 +44,7 @@ public static class MauiProgram
         CustomSearchBar();
         AllowMultiLineTruncationOnAndroid();
         return builder.Build();
-	}
+    }
 
     static void RegisterServices(IServiceCollection services)
     {

@@ -16,9 +16,9 @@ public partial class NavBarControl : ContentView
     }
 
     public NavBarControl()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     async void Back_Clicked(object sender, EventArgs e)
     {

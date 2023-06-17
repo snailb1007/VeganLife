@@ -56,7 +56,8 @@ namespace VeganLife.Helpers
             {
                 return ts.Days + AppResources.appSet_dateTime_days_ago;
             }
-            else if (delta < 12 * MONTH)            {
+            else if (delta < 12 * MONTH)
+            {
                 int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
                 return months <= 1 ? AppResources.appSet_dateTime_1Month_ago : months + AppResources.appSet_dateTime_months_ago;
             }
