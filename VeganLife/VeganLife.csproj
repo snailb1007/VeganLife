@@ -92,6 +92,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="MvvmCross.CodeAnalysis" Version="8.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>

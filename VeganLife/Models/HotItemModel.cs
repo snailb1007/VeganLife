@@ -2,7 +2,10 @@
 {
     public class HotItemModel : Item
     {
-        public HotItemModel() { }
+        public HotItemModel()
+        {
+        }
+
         public HotItemModel(Item item, string topic)
         {
             title = item.title;
