@@ -12,13 +12,13 @@ public partial class AppShell : Shell
 
     public AppShell()
     {
-        InitializeComponent();
-        RegisterRoutes();
+        this.InitializeComponent();
+        this.RegisterRoutes();
     }
 
     protected override bool OnBackButtonPressed()
     {
-        if (isRootPage(CurrentPage))
+        if (IsRootPage(this.CurrentPage))
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
@@ -50,28 +50,32 @@ public partial class AppShell : Shell
         Shell.Current.FlyoutIsPresented = true;
     }
 
-    void RegisterRoutes()
+    private void RegisterRoutes()
     {
-        Routes.Add(nameof(MainPage), typeof(MainPage));
-        Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
-        Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
-        Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
-        Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
+        this.Routes.Add(nameof(MainPage), typeof(MainPage));
+        this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
+        this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
+        this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
+        this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
+        this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
+        this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
+        this.Routes.Add(nameof(LicensePage), typeof(LicensePage));
+
         // Routes.Add(nameof(LoginPage), typeof(LoginPage));
         // Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));
-        Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
-        Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
-        Routes.Add(nameof(LicensePage), typeof(LicensePage));
-        foreach (var item in Routes)
+        foreach (var item in this.Routes)
         {
             Routing.RegisterRoute(item.Key, item.Value);
         }
     }
 
-    static bool isRootPage(VisualElement page)
+    private static bool IsRootPage(VisualElement page)
     {
         if (MopupService.Instance.PopupStack.Count() > 0)
+        {
             return false;
+        }
+
         return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
     }
 }

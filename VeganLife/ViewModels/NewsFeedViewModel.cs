@@ -49,7 +49,7 @@ namespace VeganLife.ViewModels
             {
                 SetFlagDiscoverySelected(isFood: true);
                 if (!_dataFood?.Any() ?? true)
-                    _dataFood = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
+                    _dataFood = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     foreach (var item in _dataFood.Take(_currentNumberItem))
@@ -63,7 +63,7 @@ namespace VeganLife.ViewModels
             {
                 SetFlagDiscoverySelected(isHealthy: true);
                 if (!_dataHealthy?.Any() ?? true)
-                    _dataHealthy = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganHealthy);
+                    _dataHealthy = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     foreach (var item in _dataHealthy.Take(_currentNumberItem))
@@ -76,14 +76,14 @@ namespace VeganLife.ViewModels
             {
                 SetFlagDiscoverySelected();
                 if (!_dataReligion?.Any() ?? true)
-                    _dataReligion = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_Religion);
+                    _dataReligion = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsReligion);
                 MainThread.BeginInvokeOnMainThread(() => Feeds = new ObservableCollection<Item>(_dataReligion));
             }
             else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
             {
                 SetFlagDiscoverySelected(liveStrong: true);
                 if (!_dataLiveStrong?.Any() ?? true)
-                    _dataLiveStrong = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_LiveStrong);
+                    _dataLiveStrong = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
                 MainThread.BeginInvokeOnMainThread(() => Feeds = new ObservableCollection<Item>(_dataLiveStrong));
             }
 
@@ -162,7 +162,7 @@ namespace VeganLife.ViewModels
                 Feeds.Clear();
             if (DiscoveryMenu != null && DiscoveryMenu.Any())
                 DiscoveryMenu.Clear();
-            _dataFood = await data_service.LoadGoogleNews(ConstantHelper.RssFeedNews.Google_News_VeganFoods);
+            _dataFood = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
             InitMenu();
             _currentNumberItem = 20;
             Feeds = new ObservableCollection<Item>(_dataFood.Take(_currentNumberItem));

@@ -1,24 +1,26 @@
-﻿using VeganLife.Helpers;
-using VeganLife.Services.LocalDataServices;
-
-namespace VeganLife.ViewModels
+﻿namespace VeganLife.ViewModels
 {
+    using VeganLife.Helpers;
+    using VeganLife.Services.LocalDataServices;
+
     public abstract partial class BaseViewModel : ObservableObject
     {
         [ObservableProperty]
         bool _isLoading;
 
-        protected IDataService data_service;
-        protected INavigationService navigation_service;
-        protected IDeviceService device_service => ServicesHelper.GetService<IDeviceService>();
-        protected ISQLite local_database => ServicesHelper.GetService<ISQLite>();
+        protected IDataService dataService;
+        protected INavigationService navigationService;
+
+        protected IDeviceService deviceService => ServicesHelper.GetService<IDeviceService>();
+
+        protected ISQLite localDatabase => ServicesHelper.GetService<ISQLite>();
 
         protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 
         public BaseViewModel(INavigationService navigationService, IDataService dataService)
         {
-            navigation_service = navigationService;
-            data_service = dataService;
+            this.navigationService = navigationService;
+            this.dataService = dataService;
         }
 
         public virtual Task OnNavigatingTo(object parameter)
