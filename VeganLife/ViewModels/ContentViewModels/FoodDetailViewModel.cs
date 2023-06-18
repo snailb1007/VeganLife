@@ -29,7 +29,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                 FoodPreview.IsRead = true;
 
                 if (IsNetworkConnected)
-                    FoodDetail = await data_service.GetFoodDetail(FoodPreview?.Id ?? string.Empty);
+                    FoodDetail = await dataService.GetFoodDetail(FoodPreview?.Id ?? string.Empty);
                 if (FoodDetail == null)
                     FoodDetail = (await _foodDetailDataStoreService.GetItemsAsync()).FirstOrDefault();
                 else

@@ -1,50 +1,54 @@
-﻿using VeganLife.Helpers;
-using VeganLife.Helpers.AppSetting;
-using VeganLife.Resources.Translations;
+﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife;
-
-public partial class App : Application
+namespace VeganLife
 {
-    public App(INavigationService service, IDataService dataService)
-    {
-        InitializeComponent();
+    using VeganLife.Helpers;
+    using VeganLife.Helpers.AppSetting;
+    using VeganLife.Resources.Translations;
 
-        SetupTheme();
-        SetupLanguage();
-        // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
-        MainPage = new AppShell();
-    }
-
-    private void SetupLanguage()
+    public partial class App : Application
     {
-        ConstantHelper.AppSetting.IsVietnameseLang = true;
-        var culture = new CultureInfo(ConstantHelper.Language_Vietnam);
-        CultureInfo.CurrentCulture = culture;
-        Thread.CurrentThread.CurrentUICulture = culture;
-        AppResources.Culture = culture;
-    }
-
-    private void SetupTheme()
-    {
-        if (string.IsNullOrEmpty(UserSettingsHelper.Get(UserSettingKey.SelectedTheme)))
+        public App(INavigationService service, IDataService dataService)
         {
-            AppThemeHelper.SetTheme(AppTheme.Light);
-            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, AppTheme.Light.ToString());
+            this.InitializeComponent();
+            this.SetupTheme();
+            this.SetupLanguage();
+
+            // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
+            this.MainPage = new AppShell();
         }
-        else
+
+        private void SetupLanguage()
         {
-            var currentThemeUser = UserSettingsHelper.Get(UserSettingKey.SelectedTheme);
-            if (currentThemeUser != null)
+            ConstantHelper.AppSetting.IsVietnameseLang = true;
+            var culture = new CultureInfo(ConstantHelper.LanguageVietnam);
+            CultureInfo.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+            AppResources.Culture = culture;
+        }
+
+        private void SetupTheme()
+        {
+            if (string.IsNullOrEmpty(UserSettingsHelper.Get(UserSettingKey.SelectedTheme)))
             {
-                var goalTheme = currentThemeUser == AppTheme.Dark.ToString() ? AppTheme.Dark : AppTheme.Light;
-                AppThemeHelper.SetTheme(goalTheme);
+                AppThemeHelper.SetTheme(AppTheme.Light);
+                UserSettingsHelper.Set(UserSettingKey.SelectedTheme, AppTheme.Light.ToString());
+            }
+            else
+            {
+                var currentThemeUser = UserSettingsHelper.Get(UserSettingKey.SelectedTheme);
+                if (currentThemeUser != null)
+                {
+                    var goalTheme = currentThemeUser == AppTheme.Dark.ToString() ? AppTheme.Dark : AppTheme.Light;
+                    AppThemeHelper.SetTheme(goalTheme);
+                }
             }
         }
-    }
 
-    private void SetupColor()
-    {
-
+        private void SetupColor()
+        {
+        }
     }
 }

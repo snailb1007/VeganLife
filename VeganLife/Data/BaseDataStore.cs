@@ -4,31 +4,37 @@ using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.Data
 {
-    public class BaseDataStore<T> : IDataStoreService<T> where T : new()
+    public class BaseDataStore<T> : IDataStoreService<T>
+        where T : new()
     {
-        SQLiteAsyncConnection _connection;
-        ISQLite _localDatabase;
+        SQLiteAsyncConnection connection;
+        readonly ISQLite localDatabase;
 
         public BaseDataStore(ISQLite database)
         {
-            _localDatabase = database;
+            this.localDatabase = database;
         }
-        async Task Init()
+
+        private async Task Init()
         {
-            if (_connection is not null)
+            if (this.connection is not null)
+            {
                 return;
-            _connection = _localDatabase.GetAsyncConnection();
-            await _connection?.CreateTableAsync<T>();
+            }
+
+            this.connection = this.localDatabase.GetAsyncConnection();
+            await this.connection?.CreateTableAsync<T>();
         }
+
         public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
             try
             {
                 await Init();
                 if (isUpdate)
-                    await _connection.UpdateAsync(item);
+                    await this.connection.UpdateAsync(item);
                 else
-                    await _connection.InsertAsync(item);
+                    await this.connection.InsertAsync(item);
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -40,10 +46,10 @@ namespace VeganLife.Data
 
         public async Task<bool> DeleteItem(T item)
         {
-            await Init();
+            await this.Init();
             try
             {
-                await _connection.DeleteAsync(item);
+                await this.connection.DeleteAsync(item);
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -60,10 +66,10 @@ namespace VeganLife.Data
 
         public async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
         {
-            await Init();
+            await this.Init();
             try
             {
-                return await _connection.Table<T>().ToListAsync();
+                return await this.connection.Table<T>().ToListAsync();
             }
             catch (Exception e)
             {
