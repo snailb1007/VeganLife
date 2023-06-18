@@ -1,13 +1,18 @@
-﻿using Mopups.Services;
-using VeganLife.Helpers;
-using VeganLife.Resources.Translations;
-using VeganLife.Views.Popups;
+﻿// <copyright file="BMICalculatorViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels
 {
+    using VeganLife.Helpers;
+    using VeganLife.Helpers.AppSetting;
+    using VeganLife.Resources.Translations;
+    using VeganLife.Views.Popups;
+
     public partial class BMICalculatorViewModel : BaseViewModel
     {
         public string WeightBMIRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
+
         public string AgeBMIRegexPattern { get; } = @"^\d+$";
 
         private float _weight;
@@ -88,22 +93,23 @@ namespace VeganLife.ViewModels
         public BMICalculatorViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
-            Init();
+            this.Init();
         }
 
         private void Init()
-        { }
+        {
+        }
 
         [RelayCommand]
-        async Task CalculateBMI()
+        private async Task CalculateBMI()
         {
-            BmiResult = BMICalculateHelper.Calculate(_weight, Height / 100f);
-            await MopupService.Instance.PushAsync(new BmiResultPopup(new BMIResultModel()
+            this.BmiResult = BMICalculateHelper.Calculate(this._weight, this.Height / 100f);
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(new BMIResultModel()
             {
-                BMIResult = BmiResult,
-                Sex = IsMale ? AppResources.male_bmiPage : AppResources.female_bmiPage,
-                Age = AgeValue
-            }));
+                BMIResult = this.BmiResult,
+                Sex = this.IsMale ? ConstantHelper.BmiData.Male : ConstantHelper.BmiData.Female,
+                Age = this.AgeValue,
+            });
         }
 
         partial void OnWeightValueChanged(string value)
