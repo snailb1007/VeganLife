@@ -28,16 +28,16 @@ namespace VeganLife.ViewModels.ContentViewModels
                 MaxOuterRadius = 0.9,
                 Name = "Bữa sáng",
             },
-            new PieSeries <short>
+            new PieSeries<short>
             {
-                Values = new List <short> { 25 },
+                Values = new List<short> { 25 },
                 Fill = new SolidColorPaint(SKColor.Parse("#fec45a")),
                 MaxOuterRadius = 0.8,
                 Name = "Bữa tối",
             },
-            new PieSeries <short>
+            new PieSeries<short>
             {
-                Values = new List <short> { 5 },
+                Values = new List<short> { 5 },
                 Fill = new SolidColorPaint(SKColor.Parse("#d0d0d2")),
                 MaxOuterRadius = 0.7,
                 Name = "Bữa phụ",

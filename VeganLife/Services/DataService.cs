@@ -13,13 +13,12 @@ namespace VeganLife.Services
 
     public class DataService : IDataService
     {
+        protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
         private const string FirebaseClientLink = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
         private const string FoodDetailAddress = "Foods/detail";
         private const string MenuFoodAddress = "App/img/menu_food";
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins/list";
-
-        protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
