@@ -1,4 +1,5 @@
-﻿using VeganLife.Helpers;
+﻿using Mopups.Services;
+using VeganLife.Helpers;
 using VeganLife.Views.ContentViews;
 using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
@@ -10,8 +11,8 @@ public partial class AppShell : Shell
     public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
 
     public AppShell()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         RegisterRoutes();
     }
 
@@ -30,7 +31,7 @@ public partial class AppShell : Shell
             return true;
 
         }
-        else if(ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
+        else if (ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
         {
             Shell.Current.Navigation.PopAsync();
             return true;
@@ -69,6 +70,8 @@ public partial class AppShell : Shell
 
     static bool isRootPage(VisualElement page)
     {
+        if (MopupService.Instance.PopupStack.Count() > 0)
+            return false;
         return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
     }
 }

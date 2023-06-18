@@ -26,7 +26,7 @@ public partial class MainPage : BasePage<MainViewModel>
             return;
         _processing = true;
         var menu = sender as CarouselView;
-        foreach(var i in menu?.VisibleViews)
+        foreach (var i in menu?.VisibleViews)
         {
             var img = i.FindByName<Image>("imgMenu");
             if (img == null)

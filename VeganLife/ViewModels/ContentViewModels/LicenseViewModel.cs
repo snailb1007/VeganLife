@@ -33,6 +33,8 @@
         [RelayCommand]
         async Task OpenLicenseDetail()
         {
+            if (SelectedItem == null)
+                return;
             await Browser.Default.OpenAsync(SelectedItem.LicenseLink, BrowserLaunchMode.SystemPreferred);
             SelectedItem = null;
         }

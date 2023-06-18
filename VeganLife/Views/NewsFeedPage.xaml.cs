@@ -5,11 +5,11 @@ namespace VeganLife.Views;
 public partial class NewsFeedPage : BasePage<NewsFeedViewModel>
 {
     readonly NewsFeedViewModel _viewModel;
-	public NewsFeedPage(NewsFeedViewModel vm) : base(vm)
-	{
+    public NewsFeedPage(NewsFeedViewModel vm) : base(vm)
+    {
         InitializeComponent();
         _viewModel = vm;
-	}
+    }
 
     private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

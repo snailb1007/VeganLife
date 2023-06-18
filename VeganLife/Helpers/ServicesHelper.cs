@@ -2,8 +2,6 @@
 {
     public static class ServicesHelper
     {
-        public static IServiceProvider CurrentServices => MauiApplication.Current.Services;
-
-        public static T GetService<T>() => CurrentServices.GetService<T>();
+        public static T GetService<T>() => MauiApplication.Current.Services.GetService<T>();
     }
 }

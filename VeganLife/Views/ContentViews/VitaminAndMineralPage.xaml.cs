@@ -8,8 +8,8 @@ public partial class VitaminAndMineralPage : BasePage<VitaminAndMineralViewModel
     readonly VitaminAndMineralViewModel _viewModel;
 
     public VitaminAndMineralPage(VitaminAndMineralViewModel vm) : base(vm)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = vm;
     }
 
