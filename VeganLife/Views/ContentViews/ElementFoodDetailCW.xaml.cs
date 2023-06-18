@@ -1,71 +1,79 @@
-﻿using VeganLife.Views.ContentViews.Base;
+﻿// <copyright file="ElementFoodDetailCW.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.ContentViews;
-
-public partial class ElementFoodDetailCW : BaseContentView
+namespace VeganLife.Views.ContentViews
 {
-    public static BindableProperty TitleProperty = BindableProperty.Create(
-            propertyName: "Title",
-            declaringType: typeof(ElementFoodDetailCW),
-            defaultValue: null,
-            returnType: typeof(string));
-    public string Title
-    {
-        get => (string)GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
+    using VeganLife.Views.ContentViews.Base;
 
-    public static BindableProperty ContentExpandProperty = BindableProperty.Create(
-            propertyName: "ContentExpand",
-            declaringType: typeof(ElementFoodDetailCW),
-            defaultValue: null,
-            returnType: typeof(string));
-    public string ContentExpand
+    public partial class ElementFoodDetailCW : BaseContentView
     {
-        get => (string)GetValue(ContentExpandProperty);
-        set => SetValue(ContentExpandProperty, value);
-    }
+        public static BindableProperty TitleProperty = BindableProperty.Create(
+                propertyName: "Title",
+                declaringType: typeof(ElementFoodDetailCW),
+                defaultValue: null,
+                returnType: typeof(string));
 
-    bool _isExpanded = true;
-    public bool IsExpanded
-    {
-        get => _isExpanded;
-        set => SetProperty(ref _isExpanded, value);
-    }
-
-    public ElementFoodDetailCW()
-    {
-        InitializeComponent();
-    }
-
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        base.OnPropertyChanged(propertyName);
-        if (propertyName.Equals("Title"))
+        public string Title
         {
-            string img = string.Empty;
-            switch (Title)
-            {
-                case "Nguyên liệu":
-                    img = "ingredients_food_detail";
-                    break;
-                case "Cách làm":
-                    img = "cooking_food_detail";
-                    break;
-                case "Nước sốt":
-                    img = "sauce_food_detail";
-                    break;
-                case "Trang trí":
-                    img = "decorate_food_detail";
-                    break;
-            }
-
-            imgTitle.Source = img;
+            get => (string)this.GetValue(TitleProperty);
+            set => this.SetValue(TitleProperty, value);
         }
-    }
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        IsExpanded = !IsExpanded;
+        public static BindableProperty ContentExpandProperty = BindableProperty.Create(
+                propertyName: "ContentExpand",
+                declaringType: typeof(ElementFoodDetailCW),
+                defaultValue: null,
+                returnType: typeof(string));
+
+        public string ContentExpand
+        {
+            get => (string)this.GetValue(ContentExpandProperty);
+            set => this.SetValue(ContentExpandProperty, value);
+        }
+
+        private bool isExpanded = true;
+
+        public bool IsExpanded
+        {
+            get => this.isExpanded;
+            set => this.SetProperty(ref this.isExpanded, value);
+        }
+
+        public ElementFoodDetailCW()
+        {
+            this.InitializeComponent();
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName.Equals("Title"))
+            {
+                string img = string.Empty;
+                switch (this.Title)
+                {
+                    case "Nguyên liệu":
+                        img = "ingredients_food_detail";
+                        break;
+                    case "Cách làm":
+                        img = "cooking_food_detail";
+                        break;
+                    case "Nước sốt":
+                        img = "sauce_food_detail";
+                        break;
+                    case "Trang trí":
+                        img = "decorate_food_detail";
+                        break;
+                }
+
+                this.imgTitle.Source = img;
+            }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            this.IsExpanded = !this.IsExpanded;
+        }
     }
 }

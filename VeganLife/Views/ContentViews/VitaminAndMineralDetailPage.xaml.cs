@@ -1,11 +1,16 @@
-using VeganLife.Views.Base;
+// <copyright file="VitaminAndMineralDetailPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.ContentViews;
-
-public partial class VitaminAndMineralDetailPage : BasePage
+namespace VeganLife.Views.ContentViews
 {
-    public VitaminAndMineralDetailPage()
+    using VeganLife.Views.Base;
+
+    public partial class VitaminAndMineralDetailPage : BasePage
     {
-        InitializeComponent();
+        public VitaminAndMineralDetailPage()
+        {
+            this.InitializeComponent();
+        }
     }
 }
