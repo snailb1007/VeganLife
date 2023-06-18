@@ -1,10 +1,10 @@
-﻿// using Firebase.Auth;
-// using Firebase.Auth.Providers;
-
-namespace VeganLife.Data.FirebaseData
-{
-    public class FirebaseRegistration
-    {
+﻿// <copyright file="FirebaseRegistration.cs" company="VeganLife">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+// namespace VeganLife.Data.FirebaseData
+// {
+//    public class FirebaseRegistration
+//    {
         // const string web_api_key = "***REMOVED***";
         // const string authorized_domain = "vegan-life-d1c9b.firebaseapp.com";
 
@@ -51,6 +51,5 @@ namespace VeganLife.Data.FirebaseData
         //        return null;
         //    }
         // }
-
-    }
-}
+// }
+// }

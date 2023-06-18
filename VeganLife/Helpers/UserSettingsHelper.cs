@@ -1,14 +1,18 @@
-﻿namespace VeganLife.Helpers
+﻿// <copyright file="UserSettingsHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Helpers
 {
     public enum UserSettingKey
     {
         SelectedTheme,
-        ImgBackground
+        ImgBackground,
     }
 
     public static partial class UserSettingsHelper
     {
-        static readonly Dictionary<string, string> _cache = new Dictionary<string, string>();
+        static readonly Dictionary<string, string> cache = new Dictionary<string, string>();
 
         public static string Get(UserSettingKey key)
         {
@@ -22,16 +26,18 @@
 
         public static bool Remove(string key)
         {
-            _cache.Remove(key);
+            cache.Remove(key);
             return SecureStorage.Remove(key);
         }
 
         private static string Get(string key)
         {
             // ContainsKey need to be check or it will lead to KeyNotFoundException
-            var value = _cache.ContainsKey(key) ? _cache[key] : null;
+            var value = cache.ContainsKey(key) ? cache[key] : null;
             if (value != null)
+            {
                 return value;
+            }
 
             try
             {
@@ -46,7 +52,7 @@
                 Debug.WriteLine(ex.Message);
             }
 
-            _cache[key] = value;
+            cache[key] = value;
             return value;
         }
 
@@ -58,7 +64,7 @@
             }
             else
             {
-                _cache[key] = value;
+                cache[key] = value;
                 try
                 {
                     var task = Task.Run(async () => { await SecureStorage.SetAsync(key, value); });

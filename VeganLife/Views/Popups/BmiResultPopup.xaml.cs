@@ -5,12 +5,12 @@ namespace VeganLife.Views.Popups;
 
 public partial class BmiResultPopup : PopupPage
 {
-    BMIResultModel _bmiResult;
+    private readonly BMIResultModel bmiResult;
 
     public BmiResultPopup(BMIResultModel data)
     {
         InitializeComponent();
-        _bmiResult = data;
+        this.bmiResult = data;
     }
 
     protected async override void OnAppearing()
@@ -21,8 +21,9 @@ public partial class BmiResultPopup : PopupPage
 
     async Task SetupDataAsync()
     {
-        lbBmi.Text = _bmiResult.BMIResult.ToString();
-        lbMess.Text = "The AddChatGpt method has also an overload that accepts an IServiceProvider as argument. It can be used, for example, if we're in a Web API and we need to support scenarios in which every user has a different API Key that can be retrieved accessing a database via Dependency Injection:";
+        await Task.Delay(1);
+        this.lbBmi.Text = this.bmiResult.BMIResult.ToString();
+        this.lbMess.Text = "The AddChatGpt method has also an overload that accepts an IServiceProvider as argument. It can be used, for example, if we're in a Web API and we need to support scenarios in which every user has a different API Key that can be retrieved accessing a database via Dependency Injection:";
         //string sex = _bmiResult.Sex;
         //string openAIMess = string.Empty;
         //try

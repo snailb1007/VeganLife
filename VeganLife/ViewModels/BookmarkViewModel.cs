@@ -43,7 +43,7 @@ namespace VeganLife.ViewModels
         async Task GoFoodDetail(object obj)
         {
             await _dataStoreService.AddOrUpdateItemAsync(FoodSelected, true);
-            await navigation_service.NavigataToPage<FoodDetailPage>(obj);
+            await navigationService.NavigataToPage<FoodDetailPage>(obj);
         }
 
         public override Task OnNavigatedFrom(bool isForwardNavigation)
