@@ -1,4 +1,8 @@
-﻿namespace VeganLife.Views.Base
+﻿// <copyright file="BasePage.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Views.Base
 {
     public abstract class BasePage<TViewModel> : BasePage
         where TViewModel : BaseViewModel
@@ -38,9 +42,7 @@
 #endif
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {

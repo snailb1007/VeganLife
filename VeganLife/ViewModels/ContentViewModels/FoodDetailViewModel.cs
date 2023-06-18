@@ -1,10 +1,14 @@
-﻿using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
-using VeganLife.Models.FoodModel;
-using VeganLife.Services.LocalDataServices;
+﻿// <copyright file="FoodDetailViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
+    using VeganLife.Data.LocalData;
+    using VeganLife.Helpers;
+    using VeganLife.Models.FoodModel;
+    using VeganLife.Services.LocalDataServices;
+
     public partial class FoodDetailViewModel : BaseViewModel
     {
         FoodDetailDataStoreService _foodDetailDataStoreService;
@@ -13,6 +17,7 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         [ObservableProperty]
         FoodDetailModel _foodDetail;
+
         public FoodDetailViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
@@ -38,7 +43,6 @@ namespace VeganLife.ViewModels.ContentViewModels
 
             return base.OnNavigatingTo(parameter);
         }
-
 
         [RelayCommand]
         void OnBookmarkClicked()
