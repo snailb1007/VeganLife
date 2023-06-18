@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Mopups:PopupPage
+    x:Class="VeganLife.Views.Popups.BmiResultPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    BackgroundColor="#80808080"
+    BackgroundInputTransparent="False">
+    <Mopups:PopupPage.Animation>
+        <Animations:MoveAnimation PositionIn="Center" PositionOut="Center" />
+    </Mopups:PopupPage.Animation>
+    <Grid
+        BackgroundColor="Transparent"
+        ColumnDefinitions="*,8*,*"
+        RowDefinitions="*,2*,*">
+        <Border Grid.Row="1" Grid.Column="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20" />
+            </Border.StrokeShape>
+            <Grid RowDefinitions="7*,*">
+                <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand">
+                    <Label
+                        Margin="0,20,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.title_bmiPopup}" />
+                    <Label
+                        x:Name="lbBmi"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                    <ScrollView>
+                        <Label
+                            x:Name="lbMess"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10,0"
+                            FontSize="15"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap"
+                            LineHeight="1.2" />
+                    </ScrollView>
+                </VerticalStackLayout>
+                <Grid
+                    Grid.Row="1"
+                    BackgroundColor="Orange"
+                    HorizontalOptions="Fill">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Grid.GestureRecognizers>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Close"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Mopups:PopupPage>

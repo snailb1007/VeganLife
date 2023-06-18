@@ -14,9 +14,9 @@ public partial class NavBarRootPageControl : ContentView
     }
 
     public NavBarRootPageControl()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     private void ImageButton_Clicked(object sender, EventArgs e)
         => AppShell.ShowFlyout();

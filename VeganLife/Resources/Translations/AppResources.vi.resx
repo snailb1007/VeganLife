@@ -241,4 +241,31 @@ Danh sách trống!</value>
 	<data name="license_settingPage" xml:space="preserve">
     <value>Giấy phép</value>
     </data>
+	<data name="sex_bmiPage" xml:space="preserve">
+    <value>Giới tính sinh học</value>
+    </data>
+	<data name="male_bmiPage" xml:space="preserve">
+    <value>Nam giới</value>
+    </data>
+	<data name="female_bmiPage" xml:space="preserve">
+    <value>Nữ giới</value>
+    </data>
+	<data name="height_bmiPage" xml:space="preserve">
+    <value>Chiều cao</value>
+    </data>
+	<data name="weight_bmiPage" xml:space="preserve">
+    <value>Cân nặng</value>
+    </data>
+	<data name="age_bmiPage" xml:space="preserve">
+    <value>Độ tuổi</value>
+    </data>
+	<data name="calculate_bmiPage" xml:space="preserve">
+    <value>Tính</value>
+    </data>
+	<data name="queryBMI_bmiPopup" xml:space="preserve">
+    <value>Tôi giới tính {0}, {1} tuổi, chỉ số bmi {2}. Cho tôi lời khuyên</value>
+    </data>
+	<data name="title_bmiPopup" xml:space="preserve">
+    <value>BMI của bạn</value>
+    </data>
 </root>

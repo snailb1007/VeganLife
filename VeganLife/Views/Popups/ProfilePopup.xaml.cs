@@ -4,8 +4,8 @@ namespace VeganLife.Views.Popups;
 
 public partial class ProfilePopup : Popup
 {
-	public ProfilePopup()
-	{
-		InitializeComponent();
-	}
+    public ProfilePopup()
+    {
+        InitializeComponent();
+    }
 }

@@ -4,8 +4,8 @@ namespace VeganLife.Views.ContentViews;
 
 public partial class VitaminAndMineralDetailPage : BasePage
 {
-	public VitaminAndMineralDetailPage()
-	{
-		InitializeComponent();
-	}
+    public VitaminAndMineralDetailPage()
+    {
+        InitializeComponent();
+    }
 }

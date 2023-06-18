@@ -1,5 +1,4 @@
 ﻿using FFImageLoading.Maui;
-using Maui.FixesAndWorkarounds;
 using Microsoft.Maui.Handlers;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using VeganLife.Handlers;
@@ -9,6 +8,8 @@ using VeganLife.Views.ContentViews;
 using VeganLife.Views.Controls;
 using VeganLife.Views.FoodTab;
 using VeganLife.Views.SettingTab;
+using ChatGptNet;
+using Mopups.Hosting;
 #if ANDROID
 using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -18,38 +19,44 @@ namespace VeganLife;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
         builder
             .UseSkiaSharp(true)
-			.UseMauiApp<App>()
-            .UseMauiCommunityToolkit()
-            .UseFFImageLoading()
-            .ConfigureKeyboardAutoScroll()
+            .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
                 fonts.AddFont("FontAwesome6FreeBrands.otf", "FontAwesomeBrands");
                 fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                 fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
             });
+        builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit();
         RegisterServices(builder.Services);
-        AllowMultiLineTruncationOnAndroid();
         builder.ConfigureMauiHandlers((h) =>
         {
             h.AddHandler(typeof(Shell), typeof(ShellHandler));
         });
         CustomEntry();
         CustomSearchBar();
+        AllowMultiLineTruncationOnAndroid();
         return builder.Build();
-	}
+    }
 
     static void RegisterServices(IServiceCollection services)
     {
         // service
+        services.AddChatGpt(options =>
+        {
+            //options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
+            options.UseOpenAI(apiKey: "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");
+            options.DefaultModel = "gpt-3.5-turbo";
+            options.MessageLimit = 15; // Default: 15
+            options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
+        });
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IDataService, DataService>();
         services.AddSingleton<ISQLite, SQLiteService>();
@@ -65,10 +72,10 @@ public static class MauiProgram
         services.AddTransient<NewsFeedViewModel>();
         services.AddTransient<RationPlanPage>();
         services.AddTransient<RationPlanViewModel>();
-        services.AddTransient<LoginPage>();
-        services.AddTransient<LoginViewModel>();
-        services.AddTransient<RegistrationPage>();
-        services.AddTransient<RegistrationViewModel>();
+        // services.AddTransient<LoginPage>();
+        // services.AddTransient<LoginViewModel>();
+        // services.AddTransient<RegistrationPage>();
+        // services.AddTransient<RegistrationViewModel>();
         services.AddTransient<WebViewPage>();
         services.AddTransient<WebViewViewModel>();
         services.AddTransient<FlyoutHeader>();
