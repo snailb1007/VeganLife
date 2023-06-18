@@ -1,20 +1,23 @@
-using VeganLife.Views.Base;
+// <copyright file="SettingPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views;
-
-public partial class SettingPage : BasePage<SettingViewModel>
+namespace VeganLife.Views
 {
-    public SettingPage(SettingViewModel vm) : base(vm)
-    {
-        InitializeComponent();
-        _viewModel = vm;
-    }
+    using VeganLife.Views.Base;
 
-    readonly SettingViewModel _viewModel;
-
-    private void Switch_Toggled(object sender, ToggledEventArgs e)
+    public partial class SettingPage : BasePage<SettingViewModel>
     {
-        var x = sender as Microsoft.Maui.Controls.Switch;
-        _viewModel.SwitchThemeCommand.Execute(x);
+        public SettingPage(SettingViewModel vm)
+            : base(vm)
+        {
+            this.InitializeComponent();
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            var x = sender as Microsoft.Maui.Controls.Switch;
+            (this.BindingContext as SettingViewModel).SwitchThemeCommand.Execute(x);
+        }
     }
 }

@@ -1,140 +1,178 @@
-﻿using VeganLife.Helpers.AppSetting;
-using VeganLife.Resources.Translations;
+﻿// <copyright file="NewsFeedViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels
 {
+    using VeganLife.Helpers.AppSetting;
+    using VeganLife.Resources.Translations;
+
     public partial class NewsFeedViewModel : BaseViewModel
     {
-        IEnumerable<Item> _dataFood = new List<Item>();
-        IEnumerable<Item> _dataHealthy = new List<Item>();
-        IEnumerable<Item> _dataReligion = new List<Item>();
-        IEnumerable<Item> _dataLiveStrong = new List<Item>();
+        private IEnumerable<Item> dataFood = new List<Item>();
+        private IEnumerable<Item> dataHealthy = new List<Item>();
+        private IEnumerable<Item> dataReligion = new List<Item>();
+        private IEnumerable<Item> dataLiveStrong = new List<Item>();
 
-        bool _isFoodFeed = true;
-        bool _isHealthyFeed;
-        bool _isLiveStrongFeed;
+        private bool isFoodFeed = true;
+        private bool isHealthyFeed;
+        private bool isLiveStrongFeed;
 
-        byte _currentNumberItem;
-
-        [ObservableProperty]
-        ObservableCollection<Item> _feeds;
+        private byte currentNumberItem;
 
         [ObservableProperty]
-        ObservableCollection<Discovery> _discoveryMenu;
+        private ObservableCollection<Item> feeds;
+
+        [ObservableProperty]
+        private ObservableCollection<Discovery> discoveryMenu;
 
         [RelayCommand]
-        void RefreshFoods()
+        private void RefreshFoods()
         {
-            if (IsLoading)
+            if (this.IsLoading)
+            {
                 return;
-            Initialize();
+            }
+
+            this.Initialize();
         }
 
         [RelayCommand]
-        async Task SelectDiscoveryMenu(object obj)
+        private async Task SelectDiscoveryMenu(object obj)
         {
-            if (IsLoading)
-                return;
-            IsLoading = true;
-            var currentItem = (Discovery)obj;
-            if (currentItem == null || DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == currentItem)
+            if (this.IsLoading)
             {
-                IsLoading = false;
                 return;
             }
 
-            _currentNumberItem = 20;
-            Feeds?.Clear();
+            this.IsLoading = true;
+            var currentItem = (Discovery)obj;
+            if (currentItem == null || this.DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == currentItem)
+            {
+                this.IsLoading = false;
+                return;
+            }
+
+            this.currentNumberItem = 20;
+            this.Feeds?.Clear();
             if (currentItem.Title.Equals(AppResources.veganFood_feedPage))
             {
-                SetFlagDiscoverySelected(isFood: true);
-                if (!_dataFood?.Any() ?? true)
-                    _dataFood = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+                this.SetFlagDiscoverySelected(isFood: true);
+                if (!this.dataFood?.Any() ?? true)
+                {
+                    this.dataFood = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+                }
+
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    foreach (var item in _dataFood.Take(_currentNumberItem))
+                    foreach (var item in this.dataFood.Take(this.currentNumberItem))
                     {
-                        Feeds.Add(item);
+                        this.Feeds.Add(item);
                     }
-                }
-                );
+                });
             }
             else if (currentItem.Title.Equals(AppResources.healthy_feedPage))
             {
-                SetFlagDiscoverySelected(isHealthy: true);
-                if (!_dataHealthy?.Any() ?? true)
-                    _dataHealthy = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
+                this.SetFlagDiscoverySelected(isHealthy: true);
+                if (!this.dataHealthy?.Any() ?? true)
+                {
+                    this.dataHealthy = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
+                }
+
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    foreach (var item in _dataHealthy.Take(_currentNumberItem))
+                    foreach (var item in this.dataHealthy.Take(this.currentNumberItem))
                     {
-                        Feeds.Add(item);
+                        this.Feeds.Add(item);
                     }
                 });
             }
             else if (currentItem.Title.Equals(AppResources.religion_feedPage))
             {
-                SetFlagDiscoverySelected();
-                if (!_dataReligion?.Any() ?? true)
-                    _dataReligion = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsReligion);
-                MainThread.BeginInvokeOnMainThread(() => Feeds = new ObservableCollection<Item>(_dataReligion));
+                this.SetFlagDiscoverySelected();
+                if (!this.dataReligion?.Any() ?? true)
+                    {
+                    this.dataReligion = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsReligion);
+                }
+
+                MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataReligion));
             }
             else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
             {
-                SetFlagDiscoverySelected(liveStrong: true);
-                if (!_dataLiveStrong?.Any() ?? true)
-                    _dataLiveStrong = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
-                MainThread.BeginInvokeOnMainThread(() => Feeds = new ObservableCollection<Item>(_dataLiveStrong));
+                this.SetFlagDiscoverySelected(liveStrong: true);
+                if (!this.dataLiveStrong?.Any() ?? true)
+                    {
+                    this.dataLiveStrong = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
+                }
+
+                MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataLiveStrong));
             }
 
-            foreach (var item in DiscoveryMenu)
+            foreach (var item in this.DiscoveryMenu)
             {
                 item.IsSelected = false;
             }
 
             currentItem.IsSelected = true;
-            IsLoading = false;
+            this.IsLoading = false;
         }
 
-        TaskCompletionSource<bool> _taskLoadingMessage;
-        [RelayCommand]
-        async void LoadMoreItem()
-        {
-            if (_taskLoadingMessage != null && !_taskLoadingMessage.Task.IsCompleted)
-                await _taskLoadingMessage.Task;
-            _taskLoadingMessage = new TaskCompletionSource<bool>();
-            IEnumerable<Item> listTemp;
-            if (_isFoodFeed)
-                listTemp = _dataFood;
-            else if (_isHealthyFeed)
-                listTemp = _dataHealthy;
-            else
-                listTemp = _isLiveStrongFeed ? _dataLiveStrong : _dataReligion;
-            bool isLoadedAllData = Feeds?.Count > 0 && Feeds?.Count == listTemp?.Count();
-            if (!isLoadedAllData)
-            {
-                for (int i = 0; i < 10 && (i + _currentNumberItem) < listTemp?.Count(); i++)
-                {
-                    Feeds.Add(listTemp.ElementAt(i + _currentNumberItem));
-                }
+        private TaskCompletionSource<bool> taskLoadingMessage;
 
-                _currentNumberItem += 10;
+        [RelayCommand]
+        private async void LoadMoreItem()
+        {
+            if (this.taskLoadingMessage != null && !this.taskLoadingMessage.Task.IsCompleted)
+            {
+                await this.taskLoadingMessage.Task;
             }
 
-            _taskLoadingMessage.TrySetResult(true);
+            this.taskLoadingMessage = new TaskCompletionSource<bool>();
+            IEnumerable<Item> listTemp;
+            if (this.isFoodFeed)
+            {
+                listTemp = this.dataFood;
+            }
+            else if (this.isHealthyFeed)
+            {
+                listTemp = this.dataHealthy;
+            }
+            else
+            {
+                listTemp = this.isLiveStrongFeed ? this.dataLiveStrong : this.dataReligion;
+            }
+
+            bool isLoadedAllData = this.Feeds?.Count > 0 && this.Feeds?.Count == listTemp?.Count();
+            if (!isLoadedAllData)
+            {
+                for (int i = 0; i < 10 && (i + this.currentNumberItem) < listTemp?.Count(); i++)
+                {
+                    this.Feeds.Add(listTemp.ElementAt(i + this.currentNumberItem));
+                }
+
+                this.currentNumberItem += 10;
+            }
+
+            this.taskLoadingMessage.TrySetResult(true);
         }
 
         [RelayCommand]
-        async Task SelectFeedItem(object obj)
+        private async Task SelectFeedItem(object obj)
         {
-            if (IsLoading)
+            if (this.IsLoading)
+            {
                 return;
-            IsLoading = true;
+            }
+
+            this.IsLoading = true;
             var item = obj as Item;
             try
             {
                 if (item == null)
+                {
                     return;
+                }
+
                 Uri uri = new Uri(item.link);
                 await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
             }
@@ -146,31 +184,37 @@ namespace VeganLife.ViewModels
             }
             finally
             {
-                IsLoading = false;
+                this.IsLoading = false;
             }
         }
 
         public NewsFeedViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
         {
-            Initialize();
+            this.Initialize();
         }
 
         private async void Initialize()
         {
-            IsLoading = true;
-            if (Feeds != null && Feeds.Any())
-                Feeds.Clear();
-            if (DiscoveryMenu != null && DiscoveryMenu.Any())
-                DiscoveryMenu.Clear();
-            _dataFood = await dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
-            InitMenu();
-            _currentNumberItem = 20;
-            Feeds = new ObservableCollection<Item>(_dataFood.Take(_currentNumberItem));
-            IsLoading = false;
+            this.IsLoading = true;
+            if (this.Feeds != null && this.Feeds.Any())
+            {
+                this.Feeds.Clear();
+            }
+
+            if (this.DiscoveryMenu != null && this.DiscoveryMenu.Any())
+            {
+                this.DiscoveryMenu.Clear();
+            }
+
+            this.dataFood = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+            this.InitMenu();
+            this.currentNumberItem = 20;
+            this.Feeds = new ObservableCollection<Item>(this.dataFood.Take(this.currentNumberItem));
+            this.IsLoading = false;
         }
 
-        //void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
-        //{
+        // void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
+        // {
         //    HotItemModel itemHotFeeds = new HotItemModel();
         //    string imgLinkHotItem = string.Empty;
         //    foreach (var item in data)
@@ -186,26 +230,25 @@ namespace VeganLife.ViewModels
         //        }
         //    }
 
-        //    HotFeeds.Add(itemHotFeeds);
-        //}
-
+        // HotFeeds.Add(itemHotFeeds);
+        // }
         private void InitMenu()
         {
-            DiscoveryMenu = new ObservableCollection<Discovery>()
+            this.DiscoveryMenu = new ObservableCollection<Discovery>()
             {
-                new Discovery(){ ImgSource = "https://i.imgur.com/anDoRUb.jpg", Title= AppResources.veganFood_feedPage, IsSelected = true},
-                new Discovery(){ ImgSource = "https://i.imgur.com/tH9PSUe.jpg", Title= AppResources.healthy_feedPage, IsSelected = false},
-                new Discovery(){ ImgSource = "https://i.imgur.com/dlDuKhf.jpgg", Title= AppResources.religion_feedPage, IsSelected = false},
-                new Discovery(){ ImgSource = "https://i.imgur.com/sySiZVa.jpg", Title= AppResources.liveStrong_feedPage, IsSelected = false}
+                new Discovery() { ImgSource = "https://i.imgur.com/anDoRUb.jpg", Title= AppResources.veganFood_feedPage, IsSelected = true},
+                new Discovery() { ImgSource = "https://i.imgur.com/tH9PSUe.jpg", Title= AppResources.healthy_feedPage, IsSelected = false},
+                new Discovery() { ImgSource = "https://i.imgur.com/dlDuKhf.jpgg", Title= AppResources.religion_feedPage, IsSelected = false},
+                new Discovery() { ImgSource = "https://i.imgur.com/sySiZVa.jpg", Title= AppResources.liveStrong_feedPage, IsSelected = false},
             };
         }
 
-        //        string nodeImgHead = "//meta[@property='og:image']";
+        // string nodeImgHead = "//meta[@property='og:image']";
         //        string nodeWeb = "//a";
         //        string LoadUrlPreview(HtmlWeb htmlWeb, string url)
         //        {
 
-        //            HtmlDocument htmlDoc = new HtmlDocument();
+        // HtmlDocument htmlDoc = new HtmlDocument();
         //            string result = htmlDoc.ParsedText ?? string.Empty;
         //            try
         //            {
@@ -224,9 +267,9 @@ namespace VeganLife.ViewModels
         //                if (titleImageNode != null)
         //                {
         //                    result = titleImageNode?.Attributes["Content"]?.Value ?? string.Empty;
-        //#if DEBUG
+        // #if DEBUG
         //                    Console.WriteLine(result);
-        //#endif
+        // #endif
         //                }
         //            }
         //            catch (Exception e)
@@ -234,20 +277,19 @@ namespace VeganLife.ViewModels
         //                Console.WriteLine(e.StackTrace);
         //            }
 
-        //            return result;
+        // return result;
         //        }
-
-        void SetFlagDiscoverySelected(bool isFood = false, bool isHealthy = false, bool liveStrong = false)
+        private void SetFlagDiscoverySelected(bool isFood = false, bool isHealthy = false, bool liveStrong = false)
         {
-            _isFoodFeed = isFood;
-            _isHealthyFeed = isHealthy;
-            _isLiveStrongFeed = liveStrong;
+            this.isFoodFeed = isFood;
+            this.isHealthyFeed = isHealthy;
+            this.isLiveStrongFeed = liveStrong;
         }
     }
 
     public partial class Discovery : MenuModel
     {
         [ObservableProperty]
-        bool _isSelected;
+        private bool isSelected;
     }
 }

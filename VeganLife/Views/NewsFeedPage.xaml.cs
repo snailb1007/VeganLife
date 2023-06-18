@@ -1,21 +1,24 @@
-using VeganLife.Views.Base;
-
-namespace VeganLife.Views;
-
-public partial class NewsFeedPage : BasePage<NewsFeedViewModel>
+namespace VeganLife.Views
 {
-    readonly NewsFeedViewModel _viewModel;
-    public NewsFeedPage(NewsFeedViewModel vm) : base(vm)
-    {
-        InitializeComponent();
-        _viewModel = vm;
-    }
+    using VeganLife.Views.Base;
 
-    private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    public partial class NewsFeedPage : BasePage<NewsFeedViewModel>
     {
-        if (sender == null)
-            return;
-        _viewModel.SelectDiscoveryMenuCommand.Execute(e.CurrentSelection);
-        collectionFeeds.ScrollTo(0, 0);
+        public NewsFeedPage(NewsFeedViewModel vm)
+            : base(vm)
+        {
+            this.InitializeComponent();
+        }
+
+        private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender == null)
+            {
+                return;
+            }
+
+            (this.BindingContext as NewsFeedViewModel).SelectDiscoveryMenuCommand.Execute(e.CurrentSelection);
+            this.collectionFeeds.ScrollTo(0, 0);
+        }
     }
 }

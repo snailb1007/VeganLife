@@ -1,12 +1,17 @@
-using VeganLife.ViewModels.ContentViewModels;
+// <copyright file="DetailVitaminAndMineralPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views;
-
-public partial class DetailVitaminAndMineralPage : ContentPage
+namespace VeganLife.Views
 {
-    public DetailVitaminAndMineralPage(DetailVitaminAndMineralViewModel vm)
+    using VeganLife.ViewModels.ContentViewModels;
+
+    public partial class DetailVitaminAndMineralPage : ContentPage
     {
-        BindingContext = vm;
-        InitializeComponent();
+        public DetailVitaminAndMineralPage(DetailVitaminAndMineralViewModel vm)
+        {
+            this.BindingContext = vm;
+            this.InitializeComponent();
+        }
     }
 }
