@@ -6,7 +6,7 @@ public partial class LicensePage : ContentPage
 {
     public LicensePage(LicenseViewModel vm)
     {
-        InitializeComponent();
-        BindingContext = vm;
+        this.InitializeComponent();
+        this.BindingContext = vm;
     }
 }

@@ -14,7 +14,7 @@
 
             if (entryEmail != null && entryEmail.IsFocused)
             {
-                device_service.HideKeyboard();
+                deviceService.HideKeyboard();
                 entryEmail.Unfocus();
                 return;
             }
@@ -22,7 +22,7 @@
             var entryPassword = view.FindByName("entryPassword") as Entry;
             if (entryPassword != null && entryPassword.IsFocused)
             {
-                device_service.HideKeyboard();
+                deviceService.HideKeyboard();
                 entryPassword.Unfocus();
             }
         }
@@ -30,7 +30,7 @@
         [RelayCommand]
         async Task Register()
         {
-            await navigation_service.NavigataToPage<RegistrationPage>();
+            await navigationService.NavigataToPage<RegistrationPage>();
         }
 
         [RelayCommand]

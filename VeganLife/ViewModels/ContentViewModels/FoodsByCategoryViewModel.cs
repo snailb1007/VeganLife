@@ -32,7 +32,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         [RelayCommand]
         async Task GoFoodDetail()
         {
-            await navigation_service.NavigataToPage<FoodDetailPage>(CurrentSelectedItem);
+            await navigationService.NavigataToPage<FoodDetailPage>(CurrentSelectedItem);
             CurrentSelectedItem = null;
         }
     }

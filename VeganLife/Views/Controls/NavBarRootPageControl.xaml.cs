@@ -1,44 +1,50 @@
-namespace VeganLife.Views.Controls;
+// <copyright file="NavBarRootPageControl.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class NavBarRootPageControl : ContentView
+namespace VeganLife.Views.Controls
 {
-    public static BindableProperty IsVisibleGreetingContentProperty = BindableProperty.Create(
-            propertyName: "IsVisibleGreetingContent",
-            declaringType: typeof(NavBarRootPageControl),
-            defaultValue: false,
-            returnType: typeof(bool));
-    public bool IsVisibleGreetingContent
+    public partial class NavBarRootPageControl : ContentView
     {
-        get => (bool)GetValue(IsVisibleGreetingContentProperty);
-        set => SetValue(IsVisibleGreetingContentProperty, value);
-    }
+        public static BindableProperty IsVisibleGreetingContentProperty = BindableProperty.Create(
+                propertyName: "IsVisibleGreetingContent",
+                declaringType: typeof(NavBarRootPageControl),
+                defaultValue: false,
+                returnType: typeof(bool));
 
-    public NavBarRootPageControl()
-    {
-        InitializeComponent();
-    }
-
-    private void ImageButton_Clicked(object sender, EventArgs e)
-        => AppShell.ShowFlyout();
-
-    private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName.Equals("Width"))
+        public bool IsVisibleGreetingContent
         {
-            var img = sender as Image;
-            if (img?.Width > 0)
+            get => (bool)this.GetValue(IsVisibleGreetingContentProperty);
+            set => this.SetValue(IsVisibleGreetingContentProperty, value);
+        }
+
+        public NavBarRootPageControl()
+        {
+            this.InitializeComponent();
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+            => AppShell.ShowFlyout();
+
+        private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Width"))
             {
-                Task.Run(async () =>
+                var img = sender as Image;
+                if (img?.Width > 0)
                 {
-                    byte count = 0;
-                    while (count < 3)
+                    Task.Run(async () =>
                     {
-                        await img.RelRotateTo(20, 250, Easing.BounceOut);
-                        await img.RelRotateTo(-40, 500, Easing.BounceOut);
-                        await img.RelRotateTo(20, 250, Easing.BounceOut);
-                        count++;
-                    }
-                });
+                        byte count = 0;
+                        while (count < 3)
+                        {
+                            await img.RelRotateTo(20, 250, Easing.BounceOut);
+                            await img.RelRotateTo(-40, 500, Easing.BounceOut);
+                            await img.RelRotateTo(20, 250, Easing.BounceOut);
+                            count++;
+                        }
+                    });
+                }
             }
         }
     }

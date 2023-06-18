@@ -1,8 +1,12 @@
-﻿using Newtonsoft.Json;
-using VeganLife.Helpers;
+﻿// <copyright file="GoogleNewsModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Models
 {
+    using Newtonsoft.Json;
+    using VeganLife.Helpers;
+
     public class GoogleNewsModel
     {
         public Rss rss { get; set; }
@@ -11,13 +15,21 @@ namespace VeganLife.Models
     public class Channel
     {
         public string generator { get; set; }
+
         public string title { get; set; }
+
         public string link { get; set; }
+
         public string language { get; set; }
+
         public string webMaster { get; set; }
+
         public string copyright { get; set; }
+
         public string lastBuildDate { get; set; }
+
         public string description { get; set; }
+
         public List<Item> item { get; set; }
     }
 
@@ -33,15 +45,22 @@ namespace VeganLife.Models
     public class Item
     {
         public string title { get; set; }
+
         public string link { get; set; }
+
         public Guid guid { get; set; }
+
         public string pubDate { get; set; }
+
         public string description { get; set; }
+
         public Source source { get; set; }
 
         // custom
         public string ImageTitleUri { get; set; }
+
         public DateTime LocalTimePosted => DateTimeHelper.GetDateTime(pubDate);
+
         public string TimeAgoDisplay => DateTimeHelper.CalcuteTimeAgo(LocalTimePosted);
     }
 
@@ -52,6 +71,7 @@ namespace VeganLife.Models
 
         [JsonProperty("@xmlns:media")]
         public string xmlnsmedia { get; set; }
+
         public Channel channel { get; set; }
     }
 

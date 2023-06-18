@@ -1,13 +1,10 @@
-﻿using VeganLife.Helpers.AppSetting;
-
-namespace VeganLife.Helpers
+﻿namespace VeganLife.Helpers
 {
+    using VeganLife.Helpers.AppSetting;
+
     public static class BMICalculateHelper
     {
-        public static float Calculate(float mass, float height)
-        {
-            return mass / (height * height);
-        }
+        public static float Calculate(float mass, float height) => mass / (height * height);
 
         // Orange: Underweight (Mild thinness)
         // Green: Normal range
@@ -26,8 +23,7 @@ namespace VeganLife.Helpers
             }
         }
 
-        #region kid
-        static Color GetWSKLessThen5Age(float bmi)
+        private static Color GetWSKLessThen5Age(float bmi)
         {
             switch (bmi)
             {
@@ -41,7 +37,7 @@ namespace VeganLife.Helpers
             }
         }
 
-        static Color GetWSKLessThen20Age(string sex, float bmi)
+        private static Color GetWSKLessThen20Age(string sex, float bmi)
         {
             if (sex.Equals(ConstantHelper.BmiData.Male))
             {
@@ -70,9 +66,8 @@ namespace VeganLife.Helpers
                 }
             }
         }
-        #endregion
 
-        static Color GetWSKForAdults(float bmi)
+        private static Color GetWSKForAdults(float bmi)
         {
             switch (bmi)
             {
