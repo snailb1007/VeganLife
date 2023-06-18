@@ -1,14 +1,18 @@
-﻿using SQLite;
-using VeganLife.Data.LocalData;
-using VeganLife.Services.LocalDataServices;
+﻿// <copyright file="BaseDataStore.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Data
 {
+    using SQLite;
+    using VeganLife.Data.LocalData;
+    using VeganLife.Services.LocalDataServices;
+
     public class BaseDataStore<T> : IDataStoreService<T>
         where T : new()
     {
-        SQLiteAsyncConnection connection;
-        readonly ISQLite localDatabase;
+        private SQLiteAsyncConnection connection;
+        private readonly ISQLite localDatabase;
 
         public BaseDataStore(ISQLite database)
         {
@@ -30,11 +34,16 @@ namespace VeganLife.Data
         {
             try
             {
-                await Init();
+                await this.Init();
                 if (isUpdate)
+                {
                     await this.connection.UpdateAsync(item);
+                }
                 else
+                {
                     await this.connection.InsertAsync(item);
+                }
+
                 return await Task.FromResult(true);
             }
             catch (Exception e)

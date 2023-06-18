@@ -1,13 +1,13 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
-using VeganLife.Messages;
-using VeganLife.Models.FoodModel;
-using VeganLife.Services.LocalDataServices;
-using VeganLife.Views.FoodTab;
-
-namespace VeganLife.ViewModels
+﻿namespace VeganLife.ViewModels
 {
+    using CommunityToolkit.Mvvm.Messaging;
+    using VeganLife.Data.LocalData;
+    using VeganLife.Helpers;
+    using VeganLife.Messages;
+    using VeganLife.Models.FoodModel;
+    using VeganLife.Services.LocalDataServices;
+    using VeganLife.Views.FoodTab;
+
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
         FoodPreviewDataStoreService _dataStoreService;
@@ -16,6 +16,7 @@ namespace VeganLife.ViewModels
         ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
         FoodPreviewModel _foodSelected;
+
         public BookmarkViewModel(INavigationService navigationService, IDataService dataService)
             : base(navigationService, dataService)
         {
