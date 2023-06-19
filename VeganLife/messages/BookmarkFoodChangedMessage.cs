@@ -1,11 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using VeganLife.Models.FoodModel;
-
-namespace VeganLife.Messages
+﻿namespace VeganLife.Messages
 {
+    using CommunityToolkit.Mvvm.Messaging.Messages;
+    using VeganLife.Models.FoodModel;
+
     public class BookmarkFoodChangedMessage : ValueChangedMessage<FoodPreviewModel>
     {
-        public BookmarkFoodChangedMessage(FoodPreviewModel value) : base(value)
+        public BookmarkFoodChangedMessage(FoodPreviewModel value)
+            : base(value)
         {
         }
     }

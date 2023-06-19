@@ -4,7 +4,7 @@
 
 namespace VeganLife
 {
-    using ChatGptNet;
+    // using ChatGptNet;
     using FFImageLoading.Maui;
     using Microsoft.Maui.Handlers;
     using Mopups.Hosting;
@@ -15,10 +15,12 @@ namespace VeganLife
     using VeganLife.Views.ContentViews;
     using VeganLife.Views.Controls;
     using VeganLife.Views.FoodTab;
+    using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
 #if ANDROID
     using Android.Widget;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+    using VeganLife.ViewModels.PopupViewModels;
 #endif
 
     public static class MauiProgram
@@ -53,18 +55,19 @@ namespace VeganLife
         private static void RegisterServices(IServiceCollection services)
         {
             // service
-            services.AddChatGpt(options =>
-            {
-                // options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
-                options.UseOpenAI(apiKey: "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");
-                options.DefaultModel = "gpt-3.5-turbo";
-                options.MessageLimit = 15; // Default: 15
-                options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
-            });
+            // services.AddChatGpt(options =>
+            // {
+            //    options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
+            //    options.UseOpenAI(apiKey: "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");
+            //    options.DefaultModel = "gpt-3.5-turbo";
+            //    options.MessageLimit = 15; // Default: 15
+            //    options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
+            // });
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IDataService, DataService>();
             services.AddSingleton<ISQLite, SQLiteService>();
             services.AddSingleton<IDeviceService, DeviceService>();
+            services.AddSingleton<IPopupNaviService, PopupNaviService>();
 
             // page
             services.AddTransient<SettingPage>();
@@ -93,6 +96,8 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage>();
             services.AddTransient<LicenseViewModel>();
+            services.AddTransient<BmiResultPopup>();
+            services.AddTransient<BmiResultPopupViewmodel>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();

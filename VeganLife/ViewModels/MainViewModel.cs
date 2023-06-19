@@ -12,6 +12,9 @@ namespace VeganLife.ViewModels
     using VeganLife.Models.FoodModel;
     using VeganLife.Views.FoodTab;
 
+    /// <summary>
+    /// vm for MainPage.
+    /// </summary>
     public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
         public static FoodPreviewDataStoreService DataStoreService;
@@ -38,8 +41,11 @@ namespace VeganLife.ViewModels
 
         public IAsyncRelayCommand LoadDataCommand { get; }
 
-        public MainViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
+        public MainViewModel()
+            : base()
         {
             this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
             this.LoadDataCommand = new AsyncRelayCommand(this.LoadDataAsync);
@@ -117,12 +123,7 @@ namespace VeganLife.ViewModels
             this.IsLoadDataOnAppearingDone = true;
         }
 
-        public override Task OnNavigatedFrom(bool isForwardNavigation)
-        {
-            return base.OnNavigatedFrom(isForwardNavigation);
-        }
-
-        async Task SetupMenu()
+        private async Task SetupMenu()
         {
             this.Category = await this.dataService.GetFoodMenu();
         }
@@ -181,6 +182,7 @@ namespace VeganLife.ViewModels
             }
         }
 
+        /// <inheritdoc/>
         public void Receive(BookmarkFoodModelMessage message)
         {
             if (message == null)
@@ -210,29 +212,6 @@ namespace VeganLife.ViewModels
             }
 
             return this.Foods.Where(w => w.CountCorrectWordOnSearch == words.Length).OrderByDescending(i => i.CountCorrectWordOnSearch);
-        }
-    }
-
-    public class FoodMenuCategoryModel : MenuModel
-    {
-        public string Category
-        {
-            get
-            {
-                switch (this.Title)
-                {
-                    case "breakfast":
-                        return "Bữa sáng";
-                    case "dessert":
-                        return "Tráng miệng";
-                    case "dinner":
-                        return "Bữa tối";
-                    case "drink":
-                        return "Đồ uống";
-                    default:
-                        return string.Empty;
-                }
-            }
         }
     }
 }

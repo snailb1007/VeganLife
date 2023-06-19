@@ -6,6 +6,8 @@
     xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
+    x:DataType="vm:BmiResultPopupViewmodel"
     BackgroundColor="#80808080"
     BackgroundInputTransparent="False">
     <Mopups:PopupPage.Animation>
@@ -28,15 +30,14 @@
                         HorizontalOptions="Center"
                         Text="{x:Static translate:AppResources.title_bmiPopup}" />
                     <Label
-                        x:Name="lbBmi"
                         Grid.Column="1"
                         FontAttributes="Bold"
                         FontSize="25"
                         HorizontalOptions="Center"
+                        Text="{Binding BmiResultText, Mode=OneWay}"
                         VerticalOptions="Center" />
                     <ScrollView>
                         <Label
-                            x:Name="lbMess"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="10,0"
@@ -48,7 +49,7 @@
                 </VerticalStackLayout>
                 <Grid
                     Grid.Row="1"
-                    BackgroundColor="Orange"
+                    BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}"
                     HorizontalOptions="Fill">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
@@ -58,6 +59,7 @@
                         FontSize="18"
                         HorizontalOptions="Center"
                         Text="Close"
+                        TextColor="White"
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>

@@ -1,60 +1,64 @@
-using VeganLife.ViewModels.ContentViewModels;
-using VeganLife.Views.Base;
-
-namespace VeganLife.Views.FoodTab;
-
-public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
+namespace VeganLife.Views.FoodTab
 {
-    double _marginTopContent;
-    public double MarginTopContent
-    {
-        get => _marginTopContent;
-        set => SetProperty(ref _marginTopContent, value);
-    }
+    using VeganLife.ViewModels.ContentViewModels;
+    using VeganLife.Views.Base;
 
-    public FoodDetailPage(FoodDetailViewModel vm) : base(vm)
+    public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
     {
-        InitializeComponent();
-    }
+        double _marginTopContent;
 
-    double _imgHeight;
-    private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName.Equals("Height"))
+        public double MarginTopContent
         {
-            var img = sender as Image;
-            if (img?.Height > 0)
-            {
-                _imgHeight = img.Height;
-            }
+            get => _marginTopContent;
+            set => SetProperty(ref _marginTopContent, value);
         }
-    }
 
-    double _frameTitleHeight;
-    private void Frame_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-
-        if (e.PropertyName.Equals("Height"))
+        public FoodDetailPage(FoodDetailViewModel vm) : base(vm)
         {
-            var frame = sender as Grid;
-            if (frame?.Height > 0)
+            InitializeComponent();
+        }
+
+        double _imgHeight;
+
+        private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Height"))
             {
-                _frameTitleHeight = frame.Height;
-                if (_imgHeight > 0)
+                var img = sender as Image;
+                if (img?.Height > 0)
                 {
-                    Console.WriteLine("==> Frame_PropertyChanged " + imgPreview.HeightRequest);
-                    MarginTopContent = _imgHeight - _frameTitleHeight / 2f;
+                    _imgHeight = img.Height;
                 }
             }
         }
-    }
 
-    private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName.Equals("Height"))
+        double _frameTitleHeight;
+
+        private void Frame_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var stack = sender as VerticalStackLayout;
-            (stack as IView).InvalidateMeasure();
+
+            if (e.PropertyName.Equals("Height"))
+            {
+                var frame = sender as Grid;
+                if (frame?.Height > 0)
+                {
+                    _frameTitleHeight = frame.Height;
+                    if (_imgHeight > 0)
+                    {
+                        Console.WriteLine("==> Frame_PropertyChanged " + imgPreview.HeightRequest);
+                        MarginTopContent = _imgHeight - _frameTitleHeight / 2f;
+                    }
+                }
+            }
+        }
+
+        private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Height"))
+            {
+                var stack = sender as VerticalStackLayout;
+                (stack as IView).InvalidateMeasure();
+            }
         }
     }
 }

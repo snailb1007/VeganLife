@@ -1,4 +1,8 @@
-﻿namespace VeganLife
+﻿// <copyright file="AppShell.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife
 {
     using Mopups.Services;
     using VeganLife.Helpers;

@@ -9,8 +9,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private IEnumerable<VitaminModel> vitamins;
 
-        public VitaminAndMineralViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        public VitaminAndMineralViewModel()
+            : base()
         {
             this.Init();
             this.LoadDataAsync().ConfigureAwait(false);

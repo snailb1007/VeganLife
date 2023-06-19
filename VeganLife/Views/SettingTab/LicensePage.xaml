@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:models="clr-namespace:VeganLife.Models"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:DataType="vm:LicenseViewModel"
@@ -19,7 +20,7 @@
                 SelectionChangedCommand="{Binding OpenLicenseDetailCommand}"
                 SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:LicenseModel">
+                    <DataTemplate x:DataType="models:LicenseModel">
                         <VerticalStackLayout Spacing="2">
                             <Label
                                 Padding="5,10"
