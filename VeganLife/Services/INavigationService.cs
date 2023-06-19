@@ -1,4 +1,8 @@
-﻿namespace VeganLife.Services
+﻿// <copyright file="INavigationService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Services
 {
     public interface INavigationService
     {

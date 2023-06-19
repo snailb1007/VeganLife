@@ -1,15 +1,33 @@
-﻿namespace VeganLife.Helpers
+﻿// <copyright file="BMICalculateHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Helpers
 {
     using VeganLife.Helpers.AppSetting;
 
     public static class BMICalculateHelper
     {
+        /// <summary>
+        /// get bmi.
+        /// </summary>
+        /// <param name="mass">mass to Calculate.</param>
+        /// <param name="height">height to Calculate.</param>
+        /// <returns>Bmi value.</returns>
         public static float Calculate(float mass, float height) => mass / (height * height);
 
         // Orange: Underweight (Mild thinness)
         // Green: Normal range
         // Yellow: Overweight (Pre-obese)
         // Red: Obese
+
+        /// <summary>
+        /// Get bmi status.
+        /// </summary>
+        /// <param name="age">age to analysis.</param>
+        /// <param name="sex">sex to analysis.</param>
+        /// <param name="bmiData">bmiData to analysis.</param>
+        /// <returns>Color for UI.</returns>
         public static Color GetWeightStatusCategory(short age, string sex, float bmiData)
         {
             switch (age)

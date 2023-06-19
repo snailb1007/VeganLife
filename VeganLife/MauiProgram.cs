@@ -23,8 +23,14 @@ namespace VeganLife
     using VeganLife.ViewModels.PopupViewModels;
 #endif
 
+    /// <summary>
+    /// auto-generated.
+    /// </summary>
     public static class MauiProgram
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MauiProgram"/> class.
+        /// </summary>
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();

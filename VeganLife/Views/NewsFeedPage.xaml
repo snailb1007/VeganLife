@@ -6,6 +6,7 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:ggNewsModel="clr-namespace:VeganLife.Models.GoogleNewsModels"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:models="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -133,7 +134,7 @@
                     <Grid BackgroundColor="Transparent" HeightRequest="10" />
                 </CollectionView.Footer>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Item">
+                    <DataTemplate x:DataType="ggNewsModel:Item">
                         <Border
                             BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
                                                               Light=#ffffff}"

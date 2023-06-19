@@ -1,9 +1,14 @@
-namespace VeganLife.Views.Controls;
+// <copyright file="FlyoutHeader.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class FlyoutHeader : ContentView
+namespace VeganLife.Views.Controls
 {
-    public FlyoutHeader()
+    public partial class FlyoutHeader : ContentView
     {
-        InitializeComponent();
+        public FlyoutHeader()
+        {
+            this.InitializeComponent();
+        }
     }
 }

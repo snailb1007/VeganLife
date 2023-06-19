@@ -26,6 +26,7 @@ namespace VeganLife.Views.Base
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -34,6 +35,7 @@ namespace VeganLife.Views.Base
 #endif
         }
 
+        /// <inheritdoc/>
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -57,6 +59,7 @@ namespace VeganLife.Views.Base
 
         public event PropertyChangedEventHandler BasePagePropertyChanged;
 
+        /// <inheritdoc/>
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             base.OnPropertyChanged(propertyName);
