@@ -1,13 +1,19 @@
-﻿using Microsoft.Maui.Platform;
+﻿// <copyright file="DeviceService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Services
 {
+    using Microsoft.Maui.Platform;
+
     public partial class DeviceService : IDeviceService
     {
         public void HideKeyboard()
         {
             if (Platform.CurrentActivity.CurrentFocus != null)
+            {
                 Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus);
+            }
         }
 
         // public bool IsAndroid => DeviceInfo.Current.Platform == DevicePlatform.Android;

@@ -8,28 +8,25 @@ namespace VeganLife.Data
     using VeganLife.Data.LocalData;
     using VeganLife.Services.LocalDataServices;
 
+    /// <summary>
+    /// Local storage using sqlite.
+    /// </summary>
     public class BaseDataStore<T> : IDataStoreService<T>
         where T : new()
     {
         private SQLiteAsyncConnection connection;
         private readonly ISQLite localDatabase;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseDataStore{T}"/> class.
+        /// </summary>
+        /// <param name="database">ISQLite.</param>
         public BaseDataStore(ISQLite database)
         {
             this.localDatabase = database;
         }
 
-        private async Task Init()
-        {
-            if (this.connection is not null)
-            {
-                return;
-            }
-
-            this.connection = this.localDatabase.GetAsyncConnection();
-            await this.connection?.CreateTableAsync<T>();
-        }
-
+        /// <inheritdoc/>
         public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
             try
@@ -53,6 +50,7 @@ namespace VeganLife.Data
             }
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DeleteItem(T item)
         {
             await this.Init();
@@ -68,11 +66,13 @@ namespace VeganLife.Data
             }
         }
 
+        /// <inheritdoc/>
         public Task<T> GetItemAsync(string id)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
         {
             await this.Init();
@@ -85,6 +85,17 @@ namespace VeganLife.Data
                 await Console.Out.WriteLineAsync("Cant retrive local data, " + e.Message);
                 return Enumerable.Empty<T>();
             }
+        }
+
+        private async Task Init()
+        {
+            if (this.connection is not null)
+            {
+                return;
+            }
+
+            this.connection = this.localDatabase.GetAsyncConnection();
+            await this.connection?.CreateTableAsync<T>();
         }
     }
 }

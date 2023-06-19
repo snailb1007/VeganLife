@@ -1,11 +1,16 @@
-using CommunityToolkit.Maui.Views;
+// <copyright file="ProfilePopup.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.Popups;
-
-public partial class ProfilePopup : Popup
+namespace VeganLife.Views.Popups
 {
-    public ProfilePopup()
+    using CommunityToolkit.Maui.Views;
+
+    public partial class ProfilePopup : Popup
     {
-        InitializeComponent();
+        public ProfilePopup()
+        {
+            this.InitializeComponent();
+        }
     }
 }

@@ -10,6 +10,11 @@ namespace VeganLife.Models
 
         public string LicenseLink { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LicenseModel"/> class.
+        /// </summary>
+        /// <param name="name">name of nuget pack.</param>
+        /// <param name="licenseLink"> link's license of nuget.</param>
         public LicenseModel(string name, string licenseLink)
         {
             this.Name = name;
