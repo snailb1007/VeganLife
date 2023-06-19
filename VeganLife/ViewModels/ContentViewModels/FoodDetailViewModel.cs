@@ -9,46 +9,66 @@ namespace VeganLife.ViewModels.ContentViewModels
     using VeganLife.Models.FoodModel;
     using VeganLife.Services.LocalDataServices;
 
+    /// <summary>
+    /// vm for FoodDetailPage.
+    /// </summary>
     public partial class FoodDetailViewModel : BaseViewModel
     {
-        FoodDetailDataStoreService _foodDetailDataStoreService;
+        private FoodDetailDataStoreService foodDetailDataStoreService;
         [ObservableProperty]
-        FoodPreviewModel _foodPreview;
+        private FoodPreviewModel foodPreview;
 
         [ObservableProperty]
-        FoodDetailModel _foodDetail;
+        private FoodDetailModel foodDetail;
 
-        public FoodDetailViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FoodDetailViewModel"/> class.
+        /// </summary>
+        public FoodDetailViewModel()
+            : base()
         {
             var database = ServicesHelper.GetService<ISQLite>();
             if (database != null)
-                _foodDetailDataStoreService = new FoodDetailDataStoreService(database);
+            {
+                this.foodDetailDataStoreService = new FoodDetailDataStoreService(database);
+            }
         }
 
+        /// <inheritdoc/>
         public override async Task<Task> OnNavigatingTo(object parameter)
         {
             if (parameter is not null)
             {
-                FoodPreview = parameter as FoodPreviewModel;
-                FoodPreview.IsRead = true;
+                this.FoodPreview = parameter as FoodPreviewModel;
+                this.FoodPreview.IsRead = true;
 
-                if (IsNetworkConnected)
-                    FoodDetail = await dataService.GetFoodDetail(FoodPreview?.Id ?? string.Empty);
-                if (FoodDetail == null)
-                    FoodDetail = (await _foodDetailDataStoreService.GetItemsAsync()).FirstOrDefault();
+                if (this.IsNetworkConnected)
+                {
+                    this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
+                }
+
+                if (this.FoodDetail == null)
+                {
+                    this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync()).FirstOrDefault();
+                }
                 else
-                    await _foodDetailDataStoreService.AddOrUpdateItemAsync(FoodDetail);
+                {
+                    await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                }
             }
 
             return base.OnNavigatingTo(parameter);
         }
 
         [RelayCommand]
-        void OnBookmarkClicked()
+        private void OnBookmarkClicked()
         {
-            if (FoodPreview == null) return;
-            FoodPreview.BookmarkClickedCommand.Execute(null);
+            if (this.FoodPreview == null)
+            {
+                return;
+            }
+
+            this.FoodPreview.BookmarkClickedCommand.Execute(null);
         }
     }
 }

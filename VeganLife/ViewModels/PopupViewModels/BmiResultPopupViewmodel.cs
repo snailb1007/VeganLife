@@ -14,11 +14,12 @@ namespace VeganLife.ViewModels.PopupViewModels
         [ObservableProperty]
         private Color bmiStatusColor;
 
-        public BmiResultPopupViewmodel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        public BmiResultPopupViewmodel()
+            : base()
         {
         }
 
+        /// <inheritdoc/>
         public override Task OnNavigatingTo(object parameter)
         {
             if (parameter != null)

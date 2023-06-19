@@ -7,17 +7,19 @@ namespace VeganLife.ViewModels
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
 
+    /// <summary>
+    /// vm for NewsFeedPage.
+    /// </summary>
     public partial class NewsFeedViewModel : BaseViewModel
     {
+        private TaskCompletionSource<bool> taskLoadingMessage;
         private IEnumerable<Item> dataFood = new List<Item>();
         private IEnumerable<Item> dataHealthy = new List<Item>();
         private IEnumerable<Item> dataReligion = new List<Item>();
         private IEnumerable<Item> dataLiveStrong = new List<Item>();
-
         private bool isFoodFeed = true;
         private bool isHealthyFeed;
         private bool isLiveStrongFeed;
-
         private byte currentNumberItem;
 
         [ObservableProperty]
@@ -117,8 +119,6 @@ namespace VeganLife.ViewModels
             this.IsLoading = false;
         }
 
-        private TaskCompletionSource<bool> taskLoadingMessage;
-
         [RelayCommand]
         private async void LoadMoreItem()
         {
@@ -188,7 +188,11 @@ namespace VeganLife.ViewModels
             }
         }
 
-        public NewsFeedViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
+        /// </summary>
+        public NewsFeedViewModel()
+            : base()
         {
             this.Initialize();
         }
@@ -236,10 +240,10 @@ namespace VeganLife.ViewModels
         {
             this.DiscoveryMenu = new ObservableCollection<Discovery>()
             {
-                new Discovery() { ImgSource = "https://i.imgur.com/anDoRUb.jpg", Title= AppResources.veganFood_feedPage, IsSelected = true},
-                new Discovery() { ImgSource = "https://i.imgur.com/tH9PSUe.jpg", Title= AppResources.healthy_feedPage, IsSelected = false},
-                new Discovery() { ImgSource = "https://i.imgur.com/dlDuKhf.jpgg", Title= AppResources.religion_feedPage, IsSelected = false},
-                new Discovery() { ImgSource = "https://i.imgur.com/sySiZVa.jpg", Title= AppResources.liveStrong_feedPage, IsSelected = false},
+                new Discovery() { ImgSource = "https://i.imgur.com/anDoRUb.jpg", Title = AppResources.veganFood_feedPage, IsSelected = true },
+                new Discovery() { ImgSource = "https://i.imgur.com/tH9PSUe.jpg", Title = AppResources.healthy_feedPage, IsSelected = false },
+                new Discovery() { ImgSource = "https://i.imgur.com/dlDuKhf.jpgg", Title = AppResources.religion_feedPage, IsSelected = false },
+                new Discovery() { ImgSource = "https://i.imgur.com/sySiZVa.jpg", Title = AppResources.liveStrong_feedPage, IsSelected = false },
             };
         }
 
@@ -285,11 +289,5 @@ namespace VeganLife.ViewModels
             this.isHealthyFeed = isHealthy;
             this.isLiveStrongFeed = liveStrong;
         }
-    }
-
-    public partial class Discovery : MenuModel
-    {
-        [ObservableProperty]
-        private bool isSelected;
     }
 }

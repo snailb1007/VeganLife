@@ -1,6 +1,6 @@
-﻿namespace VeganLife.ViewModels
-{
-    public partial class RegistrationViewModel
-    {
-    }
-}
+﻿// namespace VeganLife.ViewModels
+// {
+//    public partial class RegistrationViewModel
+//    {
+//    }
+// }
