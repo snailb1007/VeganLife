@@ -1,39 +1,45 @@
-﻿using VeganLife.Models.FoodModel;
-using VeganLife.Views.FoodTab;
+﻿// <copyright file="FoodsByCategoryViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
+    using VeganLife.Models.FoodModel;
+    using VeganLife.Views.FoodTab;
+
     public partial class FoodsByCategoryViewModel : BaseViewModel
     {
         [ObservableProperty]
-        string _titlePage;
+        private string titlePage;
         [ObservableProperty]
-        FoodPreviewModel _currentSelectedItem;
+        private FoodPreviewModel currentSelectedItem;
 
         [ObservableProperty]
-        IEnumerable<FoodPreviewModel> _foods;
-        public FoodsByCategoryViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        private IEnumerable<FoodPreviewModel> foods;
+
+        public FoodsByCategoryViewModel()
+            : base()
         {
         }
 
+        /// <inheritdoc/>
         public override Task OnNavigatingTo(object parameter)
         {
             var data = parameter as Dictionary<string, IEnumerable<FoodPreviewModel>>;
             if (data != null)
             {
-                TitlePage = data.FirstOrDefault().Key;
-                Foods = data.FirstOrDefault().Value;
+                this.TitlePage = data.FirstOrDefault().Key;
+                this.Foods = data.FirstOrDefault().Value;
             }
 
             return base.OnNavigatingTo(parameter);
         }
 
         [RelayCommand]
-        async Task GoFoodDetail()
+        private async Task GoFoodDetail()
         {
-            await navigationService.NavigataToPage<FoodDetailPage>(CurrentSelectedItem);
-            CurrentSelectedItem = null;
+            await this.navigationService.NavigataToPage<FoodDetailPage>(this.CurrentSelectedItem);
+            this.CurrentSelectedItem = null;
         }
     }
 }

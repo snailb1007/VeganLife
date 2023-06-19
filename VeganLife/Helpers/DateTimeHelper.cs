@@ -1,13 +1,20 @@
-﻿using VeganLife.Resources.Translations;
+﻿// <copyright file="DateTimeHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Helpers
 {
+    using VeganLife.Resources.Translations;
+
     public static class DateTimeHelper
     {
         public static DateTime GetDateTime(string dateString)
         {
             if (string.IsNullOrEmpty(dateString))
+            {
                 return DateTime.MinValue;
+            }
+
             string parseFormat = "ddd, dd MMM yyyy HH:mm:ss 'GMT'K";
             return DateTime.ParseExact(dateString, parseFormat, CultureInfo.InvariantCulture);
         }
@@ -62,7 +69,9 @@ namespace VeganLife.Helpers
                 return months <= 1 ? AppResources.appSet_dateTime_1Month_ago : months + AppResources.appSet_dateTime_months_ago;
             }
             else
+            {
                 return string.Empty;
+            }
         }
     }
 }

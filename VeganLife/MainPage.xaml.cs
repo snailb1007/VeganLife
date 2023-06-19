@@ -1,46 +1,60 @@
-﻿using VeganLife.Views.Base;
+﻿// <copyright file="MainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife;
-
-public partial class MainPage : BasePage<MainViewModel>
+namespace VeganLife
 {
-    readonly MainViewModel _viewModel;
+    using VeganLife.Views.Base;
 
-    public MainPage(MainViewModel vm) : base(vm)
+    public partial class MainPage : BasePage<MainViewModel>
     {
-        InitializeComponent();
-        _viewModel = vm;
-    }
+        private readonly MainViewModel viewModel;
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        if (!_viewModel.IsLoadDataOnAppearingDone)
-            _viewModel.LoadDataCommand.Execute(null);
-    }
-
-    bool _processing;
-    private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
-    {
-        if (_processing)
-            return;
-        _processing = true;
-        var menu = sender as CarouselView;
-        foreach (var i in menu?.VisibleViews)
+        public MainPage(MainViewModel vm)
+            : base(vm)
         {
-            var img = i.FindByName<Image>("imgMenu");
-            if (img == null)
-                return;
-            Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(img);
-            Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceOut));
+            this.InitializeComponent();
+            this.viewModel = vm;
         }
 
-        _processing = false;
-    }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (!this.viewModel.IsLoadDataOnAppearingDone)
+            {
+                this.viewModel.LoadDataCommand.Execute(null);
+            }
+        }
 
-    private void gridTransparent_TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-        searchBar.Unfocus();
+        private bool processing;
+
+        private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
+        {
+            if (this.processing)
+            {
+                return;
+            }
+
+            this.processing = true;
+            var menu = sender as CarouselView;
+            foreach (var i in menu?.VisibleViews)
+            {
+                var img = i.FindByName<Image>("imgMenu");
+                if (img == null)
+                {
+                    return;
+                }
+
+                Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(img);
+                Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceOut));
+            }
+
+            this.processing = false;
+        }
+
+        private void gridTransparent_TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        {
+            this.searchBar.Unfocus();
+        }
     }
 }
-

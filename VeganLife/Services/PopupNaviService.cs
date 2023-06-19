@@ -1,22 +1,23 @@
-﻿// <copyright file="NavigationService.cs" company="PlaceholderCompany">
+﻿// <copyright file="PopupNaviService.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace VeganLife.Services
 {
+    using Mopups.Interfaces;
+    using Mopups.Pages;
+    using Mopups.Services;
     using VeganLife.Helpers;
 
-    public class NavigationService : INavigationService
+    public class PopupNaviService : IPopupNaviService
     {
         private readonly IServiceProvider services;
 
-        private Page MainPage => Application.Current?.MainPage;
-
-        protected INavigation Navigation
+        private IPopupNavigation Navigation
         {
             get
             {
-                var navigation = this.MainPage?.Navigation;
+                var navigation = MopupService.Instance;
                 if (navigation is not null)
                 {
                     return navigation;
@@ -34,43 +35,48 @@ namespace VeganLife.Services
             }
         }
 
-        public int GetStackCount() => this.Navigation?.NavigationStack?.Count ?? 0;
+        public int GetPopupStackCount() => this.Navigation?.PopupStack?.Count ?? 0;
 
-        public NavigationService(IServiceProvider services) => this.services = services;
+        public BaseViewModel GetPopupViewModel(PopupPage popup) => popup?.BindingContext as BaseViewModel;
 
-        public BaseViewModel GetPageViewModedl(Page page) => page?.BindingContext as BaseViewModel;
-
-        public async Task<bool> DisplayAlert(string title, string message, string ok, string cancel)
-            => await this.MainPage.DisplayAlert(title, message, ok, cancel);
-
-        public async Task DisplayAlert(string title, string message, string ok)
-            => await this.MainPage.DisplayAlert(title, message, ok);
-
-        public async Task<Page> PopAsync()
+        public PopupNaviService(IServiceProvider serviceProvider)
         {
-            if (this.GetStackCount() > 1)
+            this.services = serviceProvider;
+        }
+
+        public async Task PopAllAsync(bool animate = true)
+        {
+            if (this.GetPopupStackCount() > 0)
             {
-                return await this.Navigation.PopAsync();
+                await this.Navigation.PopAllAsync(animate);
             }
 
             throw new InvalidOperationException("No pages to navigate back to!");
         }
 
-        public async Task PopToRootAsync() => await this.Navigation.PopToRootAsync();
+        public async Task PopAsync(bool animate = true)
+        {
+            if (this.GetPopupStackCount() > 0)
+            {
+                await this.Navigation.PopAsync(animate);
+            }
 
-        public async Task NavigataToPage<T>(object paramater = null)
-            where T : Page
+            throw new InvalidOperationException("No pages to navigate back to!");
+        }
+
+        public async Task PushAsync<T>(object param = null, bool animate = true)
+            where T : PopupPage
         {
             var toPage = this.ResolvePage<T>();
             if (toPage is not null)
             {
                 toPage.NavigatedTo += this.Page_NavigatedTo;
-                var toViewModel = this.GetPageViewModedl(toPage);
+                var toViewModel = this.GetPopupViewModel(toPage);
 
                 // passing param
                 if (toViewModel is not null)
                 {
-                    await toViewModel.OnNavigatingTo(paramater);
+                    await toViewModel.OnNavigatingTo(param);
                 }
 
                 ServicesHelper.GetService<IDeviceService>().HideKeyboard();
@@ -88,11 +94,11 @@ namespace VeganLife.Services
         }
 
         private async void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
-            => await this.CallNavigatedTo(sender as Page);
+            => await this.CallNavigatedTo(sender as PopupPage);
 
-        private Task CallNavigatedTo(Page p)
+        private Task CallNavigatedTo(PopupPage p)
         {
-            var fromViewModel = this.GetPageViewModedl(p);
+            var fromViewModel = this.GetPopupViewModel(p);
             if (fromViewModel is not null)
             {
                 return fromViewModel.OnNavigatedTo();
@@ -105,10 +111,10 @@ namespace VeganLife.Services
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
-            bool isForwardNavigation = this.Navigation.NavigationStack.Count > 1
-                && this.Navigation.NavigationStack[^2] == sender;
+            bool isForwardNavigation = this.GetPopupStackCount() > 1
+                && this.Navigation.PopupStack[^2] == sender;
 
-            if (sender is Page thisPage)
+            if (sender is PopupPage thisPage)
             {
                 if (!isForwardNavigation)
                 {
@@ -120,9 +126,9 @@ namespace VeganLife.Services
             }
         }
 
-        private Task CallNavigatedFrom(Page p, bool isForward)
+        private Task CallNavigatedFrom(PopupPage p, bool isForward)
         {
-            var fromViewModel = this.GetPageViewModedl(p);
+            var fromViewModel = this.GetPopupViewModel(p);
 
             if (fromViewModel is not null)
             {
@@ -133,7 +139,9 @@ namespace VeganLife.Services
         }
 
         private T ResolvePage<T>()
-            where T : Page
-            => this.services.GetService<T>();
+            where T : PopupPage
+        {
+            return this.services.GetService<T>();
+        }
     }
 }

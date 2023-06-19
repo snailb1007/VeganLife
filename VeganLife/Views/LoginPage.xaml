@@ -7,9 +7,11 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="loginPage"
     Title="Đăng nhập"
-    x:DataType="viewmodel:LoginViewModel"
-    x:TypeArguments="viewmodel:LoginViewModel"
     BackgroundColor="#e3e5ee">
+    <!--
+        x:DataType="viewmodel:LoginViewModel"
+        x:TypeArguments="viewmodel:LoginViewModel"
+    -->
     <Grid ColumnDefinitions="*,8*,*">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference loginPage}" />

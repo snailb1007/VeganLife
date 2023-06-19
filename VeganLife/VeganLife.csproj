@@ -48,6 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Models\Base\**" />
+	  <Compile Remove="Models\Base\**" />
+	  <EmbeddedResource Remove="Models\Base\**" />
+	  <MauiCss Remove="Models\Base\**" />
+	  <MauiXaml Remove="Models\Base\**" />
+	  <None Remove="Models\Base\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
@@ -62,7 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\Base\" />
 		<Folder Include="Views\Templates\" />
 	</ItemGroup>
 
@@ -72,7 +80,7 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="FFImageLoadingCompat.Maui" Version="0.1.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
-		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.700" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.801" />
 		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.5" />
@@ -88,6 +96,11 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.5-beta1.23270.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="MvvmCross.CodeAnalysis" Version="8.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -121,9 +134,6 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\RationPlanPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\VitaminAndMineralDetailPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\VitaminAndMineralPage.xaml">
