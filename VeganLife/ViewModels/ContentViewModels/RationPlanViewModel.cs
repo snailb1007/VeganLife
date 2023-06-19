@@ -53,8 +53,8 @@ namespace VeganLife.ViewModels.ContentViewModels
                 Paint = new SolidColorPaint(SKColors.DarkSlateGray),
             };
 
-        public RationPlanViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        public RationPlanViewModel()
+            : base()
         {
             this.Init();
         }

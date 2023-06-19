@@ -6,12 +6,22 @@ namespace VeganLife.Models
 {
     using Newtonsoft.Json;
 
-    public partial class MenuModel : ObservableObject
+    /// <summary>
+    /// Menu category in top.
+    /// </summary>
+    public partial class MenuModel
     {
         [JsonProperty("image_landscape")]
         public string ImgSource { get; set; }
 
         [JsonIgnore]
         public string Title { get; set; }
+    }
+
+    /// <summary>
+    /// Partial to property changed.
+    /// </summary>
+    public partial class MenuModel : ObservableObject
+    {
     }
 }

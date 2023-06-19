@@ -8,9 +8,15 @@ namespace VeganLife
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
 
+    /// <summary>
+    /// auto-generated.
+    /// </summary>
     public partial class App : Application
     {
-        public App(INavigationService service, IDataService dataService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="App"/> class.
+        /// </summary>
+        public App()
         {
             this.InitializeComponent();
             this.SetupTheme();

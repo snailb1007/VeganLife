@@ -48,6 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Models\Base\**" />
+	  <Compile Remove="Models\Base\**" />
+	  <EmbeddedResource Remove="Models\Base\**" />
+	  <MauiCss Remove="Models\Base\**" />
+	  <MauiXaml Remove="Models\Base\**" />
+	  <None Remove="Models\Base\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
@@ -62,7 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\Base\" />
 		<Folder Include="Views\Templates\" />
 	</ItemGroup>
 
@@ -126,9 +134,6 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\RationPlanPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\VitaminAndMineralDetailPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\VitaminAndMineralPage.xaml">

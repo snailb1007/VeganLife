@@ -1,20 +1,25 @@
-﻿namespace VeganLife.ViewModels.ContentViewModels
+﻿// <copyright file="LicenseViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class LicenseViewModel : BaseViewModel
     {
         [ObservableProperty]
-        IList<LicenseModel> _licenses;
+        private IList<LicenseModel> licenses;
         [ObservableProperty]
-        LicenseModel _selectedItem;
-        public LicenseViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        private LicenseModel selectedItem;
+
+        public LicenseViewModel()
+            : base()
         {
-            Init();
+            this.Init();
         }
 
-        void Init()
+        private void Init()
         {
-            Licenses = new List<LicenseModel>()
+            this.Licenses = new List<LicenseModel>()
             {
                 new LicenseModel("CommunityToolkit.Maui", "https://raw.githubusercontent.com/CommunityToolkit/Maui/main/LICENSE"),
                 new LicenseModel("CommunityToolkit.Mvvm", "https://raw.githubusercontent.com/CommunityToolkit/dotnet/main/License.md"),
@@ -26,29 +31,20 @@
                 new LicenseModel("SQLitePCLRaw.bundle_green", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
                 new LicenseModel("SQLitePCLRaw.core", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
                 new LicenseModel("SQLitePCLRaw.provider.dynamic_cdecl", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
-                new LicenseModel("SQLitePCLRaw.provider.e_sqlite3", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT")
+                new LicenseModel("SQLitePCLRaw.provider.e_sqlite3", "https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT"),
             };
         }
 
         [RelayCommand]
-        async Task OpenLicenseDetail()
+        private async Task OpenLicenseDetail()
         {
-            if (SelectedItem == null)
+            if (this.SelectedItem == null)
+            {
                 return;
-            await Browser.Default.OpenAsync(SelectedItem.LicenseLink, BrowserLaunchMode.SystemPreferred);
-            SelectedItem = null;
-        }
-    }
+            }
 
-    public class LicenseModel
-    {
-        public string Name { get; private set; }
-        public string LicenseLink { get; private set; }
-
-        public LicenseModel(string name, string licenseLink)
-        {
-            Name = name;
-            LicenseLink = licenseLink;
+            await Browser.Default.OpenAsync(this.SelectedItem.LicenseLink, BrowserLaunchMode.SystemPreferred);
+            this.SelectedItem = null;
         }
     }
 }

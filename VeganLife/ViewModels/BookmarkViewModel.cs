@@ -10,82 +10,86 @@
 
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
-        FoodPreviewDataStoreService _dataStoreService;
+        readonly FoodPreviewDataStoreService dataStoreService;
 
         [ObservableProperty]
-        ObservableCollection<FoodPreviewModel> _foods;
+        private ObservableCollection<FoodPreviewModel> foods;
         [ObservableProperty]
-        FoodPreviewModel _foodSelected;
+        private FoodPreviewModel foodSelected;
 
-        public BookmarkViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        public BookmarkViewModel()
+            : base()
         {
             var database = ServicesHelper.GetService<ISQLite>();
             if (database != null)
-                _dataStoreService = new FoodPreviewDataStoreService(database);
-            Init();
+            {
+                this.dataStoreService = new FoodPreviewDataStoreService(database);
+            }
+
+            this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodChangedMessage>(this);
         }
 
-        async void Init()
+        private async void Init()
         {
-            Foods = new ObservableCollection<FoodPreviewModel>();
-            await LoadDataAsync();
+            this.Foods = new ObservableCollection<FoodPreviewModel>();
+            await this.LoadDataAsync();
         }
 
-        async Task LoadDataAsync()
+        private async Task LoadDataAsync()
         {
-            (await _dataStoreService.GetItemsAsync())
+            (await this.dataStoreService.GetItemsAsync())
                 .Where(i => i.IsBookmarked)
-                .ToList().ForEach(i => Foods.Add(i));
+                .ToList().ForEach(i => this.Foods.Add(i));
         }
 
         [RelayCommand]
-        async Task GoFoodDetail(object obj)
+        private async Task GoFoodDetail(object obj)
         {
-            await _dataStoreService.AddOrUpdateItemAsync(FoodSelected, true);
-            await navigationService.NavigataToPage<FoodDetailPage>(obj);
+            await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
+            await this.navigationService.NavigataToPage<FoodDetailPage>(obj);
         }
 
+        /// <inheritdoc/>
         public override Task OnNavigatedFrom(bool isForwardNavigation)
         {
-            FoodSelected = null;
+            this.FoodSelected = null;
             return base.OnNavigatedFrom(isForwardNavigation);
-        }
-
-        public override Task OnNavigatedTo()
-        {
-            return base.OnNavigatedTo();
         }
 
         public void Receive(BookmarkFoodChangedMessage message)
         {
             if (message == null)
+            {
                 return;
+            }
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 if (message.Value.IsBookmarked)
                 {
-                    Foods.Add(message.Value);
+                    this.Foods.Add(message.Value);
                 }
                 else
                 {
-                    Foods.ToList().ForEach(i =>
+                    this.Foods.ToList().ForEach(i =>
                     {
                         if (i.Id.Equals(message.Value.Id))
-                            Foods.Remove(i);
+                        {
+                            this.Foods.Remove(i);
+                        }
                     });
                 }
             });
         }
 
-        //partial void OnFoodsChanged(ObservableCollection<FoodPreviewModel> value)
-        //{
+        // partial void OnFoodsChanged(ObservableCollection<FoodPreviewModel> value)
+        // {
         //    Foods.ToList().ForEach(i =>
         //    {
         //        if (!i.IsBookmarked)
         //            Foods.Remove(i);
         //    });
-        //}
+        // }
     }
 }
