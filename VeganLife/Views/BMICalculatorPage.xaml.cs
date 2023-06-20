@@ -1,10 +1,15 @@
-namespace VeganLife.Views;
+// <copyright file="BMICalculatorPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class BMICalculatorPage : ContentPage
+namespace VeganLife.Views
 {
-    public BMICalculatorPage(BMICalculatorViewModel vm)
+    public partial class BMICalculatorPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = vm;
+        public BMICalculatorPage(BMICalculatorViewModel vm)
+        {
+            this.InitializeComponent();
+            this.BindingContext = vm;
+        }
     }
 }

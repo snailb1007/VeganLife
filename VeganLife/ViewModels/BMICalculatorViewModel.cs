@@ -59,7 +59,7 @@ namespace VeganLife.ViewModels
             }
             else
             {
-                IsDisplayedSexDetail = !IsDisplayedSexDetail;
+                this.IsDisplayedSexDetail = !this.IsDisplayedSexDetail;
             }
         }
 
@@ -126,57 +126,57 @@ namespace VeganLife.ViewModels
         {
             if (string.IsNullOrEmpty(value))
             {
-                WeightErrMess = null;
-                IsEnableSubmit = false;
+                this.WeightErrMess = null;
+                this.IsEnableSubmit = false;
                 return;
             }
 
-            weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+            this.weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
             if (weight < 2)
             {
-                WeightErrMess = "Qúa thấp, dường như bạn nhập sai";
+                this.WeightErrMess = "Qúa thấp, dường như bạn nhập sai";
             }
             else if (weight > 635)
             {
-                WeightErrMess = "Qúa lớn, dường như bạn nhập sai";
+                this.WeightErrMess = "Qúa lớn, dường như bạn nhập sai";
             }
             else
             {
-                WeightErrMess = null;
+                this.WeightErrMess = null;
             }
 
-            IsEnableSubmit = CheckEnableButtonCalculate();
+            this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
         partial void OnAgeValueChanged(string value)
         {
             if (string.IsNullOrEmpty(value))
             {
-                AgeErrMess = null;
-                IsEnableSubmit = false;
+                this.AgeErrMess = null;
+                this.IsEnableSubmit = false;
                 return;
             }
 
-            age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+            this.age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
             if (age <= 1)
             {
-                AgeErrMess = "Quá nhỏ, nhập lại";
+                this.AgeErrMess = "Quá nhỏ, nhập lại";
             }
             else if (age >= 140)
             {
-                AgeErrMess = "Quá lớn, dường như bạn nhập sai";
+                this.AgeErrMess = "Quá lớn, dường như bạn nhập sai";
             }
             else
             {
-                AgeErrMess = null;
+                this.AgeErrMess = null;
             }
 
-            IsEnableSubmit = CheckEnableButtonCalculate();
+            this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
         partial void OnHeightChanged(float value)
         {
-            Height = (float)Math.Round(Height, 2);
+            this.Height = (float)Math.Round(Height, 2);
         }
 
         private bool CheckEnableButtonCalculate()

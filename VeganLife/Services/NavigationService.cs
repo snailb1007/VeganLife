@@ -6,13 +6,12 @@ namespace VeganLife.Services
 {
     using VeganLife.Helpers;
 
+    /// <summary>
+    /// Service to handle navigation for shell app.
+    /// </summary>
     public class NavigationService : INavigationService
     {
-        private readonly IServiceProvider services;
-
-        private Page MainPage => Application.Current?.MainPage;
-
-        protected INavigation Navigation
+        private INavigation Navigation
         {
             get
             {
@@ -34,18 +33,34 @@ namespace VeganLife.Services
             }
         }
 
+        private readonly IServiceProvider services;
+
+        private Page MainPage => Application.Current?.MainPage;
+
+        /// <summary>
+        /// Get vm from page.
+        /// </summary>
+        /// <returns>Total currently stack of navigation.</returns>
         public int GetStackCount() => this.Navigation?.NavigationStack?.Count ?? 0;
 
-        public NavigationService(IServiceProvider services) => this.services = services;
+        // public NavigationService(IServiceProvider services) => this.services = services;
 
+        /// <summary>
+        /// Get vm from page.
+        /// </summary>
+        /// <param name="page">Page to get BindingContext.</param>
+        /// <returns>BaseViewModel.</returns>
         public BaseViewModel GetPageViewModedl(Page page) => page?.BindingContext as BaseViewModel;
 
+        /// <inheritdoc/>
         public async Task<bool> DisplayAlert(string title, string message, string ok, string cancel)
             => await this.MainPage.DisplayAlert(title, message, ok, cancel);
 
+        /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, string ok)
             => await this.MainPage.DisplayAlert(title, message, ok);
 
+        /// <inheritdoc/>
         public async Task<Page> PopAsync()
         {
             if (this.GetStackCount() > 1)
@@ -56,8 +71,10 @@ namespace VeganLife.Services
             throw new InvalidOperationException("No pages to navigate back to!");
         }
 
+        /// <inheritdoc/>
         public async Task PopToRootAsync() => await this.Navigation.PopToRootAsync();
 
+        /// <inheritdoc/>
         public async Task NavigataToPage<T>(object paramater = null)
             where T : Page
         {

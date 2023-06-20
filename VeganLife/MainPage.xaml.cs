@@ -6,6 +6,9 @@ namespace VeganLife
 {
     using VeganLife.Views.Base;
 
+    /// <summary>
+    /// auto-generated.
+    /// </summary>
     public partial class MainPage : BasePage<MainViewModel>
     {
         private readonly MainViewModel viewModel;

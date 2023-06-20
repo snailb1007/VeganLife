@@ -1,12 +1,17 @@
-using VeganLife.ViewModels.ContentViewModels;
+// <copyright file="LicensePage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.SettingTab;
-
-public partial class LicensePage : ContentPage
+namespace VeganLife.Views.SettingTab
 {
-    public LicensePage(LicenseViewModel vm)
+    using VeganLife.ViewModels.ContentViewModels;
+
+    public partial class LicensePage : ContentPage
     {
-        this.InitializeComponent();
-        this.BindingContext = vm;
+        public LicensePage(LicenseViewModel vm)
+        {
+            this.InitializeComponent();
+            this.BindingContext = vm;
+        }
     }
 }

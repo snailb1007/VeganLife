@@ -1,4 +1,8 @@
-﻿namespace VeganLife.ViewModels
+﻿// <copyright file="BookmarkViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.ViewModels
 {
     using CommunityToolkit.Mvvm.Messaging;
     using VeganLife.Data.LocalData;
@@ -28,26 +32,6 @@
 
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodChangedMessage>(this);
-        }
-
-        private async void Init()
-        {
-            this.Foods = new ObservableCollection<FoodPreviewModel>();
-            await this.LoadDataAsync();
-        }
-
-        private async Task LoadDataAsync()
-        {
-            (await this.dataStoreService.GetItemsAsync())
-                .Where(i => i.IsBookmarked)
-                .ToList().ForEach(i => this.Foods.Add(i));
-        }
-
-        [RelayCommand]
-        private async Task GoFoodDetail(object obj)
-        {
-            await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
-            await this.navigationService.NavigataToPage<FoodDetailPage>(obj);
         }
 
         /// <inheritdoc/>
@@ -81,6 +65,26 @@
                     });
                 }
             });
+        }
+
+        private async void Init()
+        {
+            this.Foods = new ObservableCollection<FoodPreviewModel>();
+            await this.LoadDataAsync();
+        }
+
+        private async Task LoadDataAsync()
+        {
+            (await this.dataStoreService.GetItemsAsync())
+                .Where(i => i.IsBookmarked)
+                .ToList().ForEach(i => this.Foods.Add(i));
+        }
+
+        [RelayCommand]
+        private async Task GoFoodDetail(object obj)
+        {
+            await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
+            await this.navigationService.NavigataToPage<FoodDetailPage>(obj);
         }
 
         // partial void OnFoodsChanged(ObservableCollection<FoodPreviewModel> value)

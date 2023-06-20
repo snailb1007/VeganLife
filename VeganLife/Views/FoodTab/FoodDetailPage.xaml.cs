@@ -1,3 +1,7 @@
+// <copyright file="FoodDetailPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace VeganLife.Views.FoodTab
 {
     using VeganLife.ViewModels.ContentViewModels;
@@ -5,20 +9,21 @@ namespace VeganLife.Views.FoodTab
 
     public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
     {
-        double _marginTopContent;
+        private double marginTopContent;
+        private double imgHeight;
+        private double frameTitleHeight;
 
         public double MarginTopContent
         {
-            get => _marginTopContent;
-            set => SetProperty(ref _marginTopContent, value);
+            get => this.marginTopContent;
+            set => this.SetProperty(ref this.marginTopContent, value);
         }
 
-        public FoodDetailPage(FoodDetailViewModel vm) : base(vm)
+        public FoodDetailPage(FoodDetailViewModel vm)
+            : base(vm)
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
-
-        double _imgHeight;
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -27,12 +32,10 @@ namespace VeganLife.Views.FoodTab
                 var img = sender as Image;
                 if (img?.Height > 0)
                 {
-                    _imgHeight = img.Height;
+                    this.imgHeight = img.Height;
                 }
             }
         }
-
-        double _frameTitleHeight;
 
         private void Frame_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -42,11 +45,10 @@ namespace VeganLife.Views.FoodTab
                 var frame = sender as Grid;
                 if (frame?.Height > 0)
                 {
-                    _frameTitleHeight = frame.Height;
-                    if (_imgHeight > 0)
+                    this.frameTitleHeight = frame.Height;
+                    if (this.imgHeight > 0)
                     {
-                        Console.WriteLine("==> Frame_PropertyChanged " + imgPreview.HeightRequest);
-                        MarginTopContent = _imgHeight - _frameTitleHeight / 2f;
+                        this.MarginTopContent = this.imgHeight - (this.frameTitleHeight / 2f);
                     }
                 }
             }
