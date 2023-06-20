@@ -10,16 +10,31 @@ namespace VeganLife
     using VeganLife.Views.FoodTab;
     using VeganLife.Views.SettingTab;
 
+    /// <summary>
+    /// auto-generated.
+    /// </summary>
     public partial class AppShell : Shell
     {
         public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppShell"/> class.
+        /// </summary>
         public AppShell()
         {
             this.InitializeComponent();
             this.RegisterRoutes();
         }
 
+        public static void ShowFlyout()
+        {
+            // TODO https://github.com/dotnet/maui/issues/8226
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+            Shell.Current.FlyoutIsPresented = true;
+        }
+
+        /// <inheritdoc/>
         protected override bool OnBackButtonPressed()
         {
             if (IsRootPage(this.CurrentPage))
@@ -33,7 +48,6 @@ namespace VeganLife
                     }
                 });
                 return true;
-
             }
             else if (ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
             {
@@ -46,12 +60,14 @@ namespace VeganLife
             }
         }
 
-        public static void ShowFlyout()
+        private static bool IsRootPage(VisualElement page)
         {
-            // TODO https://github.com/dotnet/maui/issues/8226
-            Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
-            Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
-            Shell.Current.FlyoutIsPresented = true;
+            if (MopupService.Instance.PopupStack.Count() > 0)
+            {
+                return false;
+            }
+
+            return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
         }
 
         private void RegisterRoutes()
@@ -71,16 +87,6 @@ namespace VeganLife
             {
                 Routing.RegisterRoute(item.Key, item.Value);
             }
-        }
-
-        private static bool IsRootPage(VisualElement page)
-        {
-            if (MopupService.Instance.PopupStack.Count() > 0)
-            {
-                return false;
-            }
-
-            return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
         }
     }
 }

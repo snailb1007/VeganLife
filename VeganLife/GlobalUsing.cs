@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+#pragma warning disable SA1200 // Using directives should be placed correctly
 global using System.Collections.ObjectModel;
 global using System.ComponentModel;
 global using System.Diagnostics;
@@ -16,3 +17,4 @@ global using VeganLife.Models;
 global using VeganLife.Services;
 global using VeganLife.ViewModels;
 global using VeganLife.Views;
+#pragma warning restore SA1200 // Using directives should be placed correctly

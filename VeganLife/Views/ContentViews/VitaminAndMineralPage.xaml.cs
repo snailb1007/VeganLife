@@ -7,19 +7,21 @@ namespace VeganLife.Views.ContentViews
     using VeganLife.ViewModels.ContentViewModels;
     using VeganLife.Views.Base;
 
+    /// <summary>
+    /// Service to handle navigation for shell app.
+    /// </summary>
     public partial class VitaminAndMineralPage : BasePage<VitaminAndMineralViewModel>
     {
-        // private readonly VitaminAndMineralViewModel viewModel;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VitaminAndMineralPage"/> class.
+        /// </summary>
         public VitaminAndMineralPage(VitaminAndMineralViewModel vm)
             : base(vm)
         {
             this.InitializeComponent();
-
-            // this.viewModel = vm;
         }
 
-        private void vitaminsCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void VitaminsCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
     }

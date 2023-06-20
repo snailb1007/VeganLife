@@ -1,4 +1,8 @@
-﻿namespace VeganLife.Models.FoodModel
+﻿// <copyright file="FoodPreviewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Models.FoodModel
 {
     using CommunityToolkit.Mvvm.Messaging;
     using Newtonsoft.Json;
@@ -29,7 +33,7 @@
         [ObservableProperty]
         private byte countCorrectWordOnSearch;
 
-        private string[] timeArr => this.Time?.Split('-');
+        private string[] TimeArr => this.Time?.Split('-');
 
         [ObservableProperty]
         private bool isBookmarked;
@@ -38,10 +42,10 @@
         private bool isRead;
 
         public byte PrepTime
-            => (this.timeArr != null && byte.TryParse(this.timeArr[0], out var i)) ? i : (byte)0;
+            => (this.TimeArr != null && byte.TryParse(this.TimeArr[0], out var i)) ? i : (byte)0;
 
         public byte CookTime
-            => (this.timeArr != null && byte.TryParse(this.timeArr[1], out var i)) ? i : (byte)0;
+            => (this.TimeArr != null && byte.TryParse(this.TimeArr[1], out var i)) ? i : (byte)0;
 
         [RelayCommand]
         private async Task BookmarkClicked()

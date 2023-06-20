@@ -5,6 +5,7 @@
 namespace VeganLife.Services
 {
     using VeganLife.Models.FoodModel;
+    using VeganLife.Models.GoogleNewsModels;
 
     public interface IDataService
     {

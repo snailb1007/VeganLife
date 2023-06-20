@@ -10,6 +10,7 @@ namespace VeganLife.Services
     using Newtonsoft.Json;
     using VeganLife.Data.RssFeedsData;
     using VeganLife.Models.FoodModel;
+    using VeganLife.Models.GoogleNewsModels;
 
     public class DataService : IDataService
     {

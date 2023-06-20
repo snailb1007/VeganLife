@@ -5,6 +5,7 @@
 namespace VeganLife.ViewModels
 {
     using VeganLife.Helpers.AppSetting;
+    using VeganLife.Models.GoogleNewsModels;
     using VeganLife.Resources.Translations;
 
     /// <summary>
