@@ -268,4 +268,10 @@ Danh sách trống!</value>
 	<data name="title_bmiPopup" xml:space="preserve">
     <value>BMI của bạn</value>
     </data>
+	<data name="incognito_flyoutHeader" xml:space="preserve">
+    <value>Ẩn danh</value>
+    </data>
+	<data name="description_flyoutHeader" xml:space="preserve">
+    <value>Bạn đang hoạt động ẩn danh, điền các thông tin để có trải nghiệm tốt hơn</value>
+    </data>
 </root>

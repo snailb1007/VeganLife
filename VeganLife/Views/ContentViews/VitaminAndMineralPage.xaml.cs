@@ -15,6 +15,7 @@ namespace VeganLife.Views.ContentViews
         /// <summary>
         /// Initializes a new instance of the <see cref="VitaminAndMineralPage"/> class.
         /// </summary>
+        /// <param name="vm">vm to processing logic.</param>
         public VitaminAndMineralPage(VitaminAndMineralViewModel vm)
             : base(vm)
         {

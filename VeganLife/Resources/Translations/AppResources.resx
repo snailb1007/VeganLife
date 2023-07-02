@@ -287,4 +287,10 @@ List is empty!</value>
 	<data name="title_bmiPopup" xml:space="preserve">
     <value>Your BMI</value>
     </data>
+	<data name="incognito_flyoutHeader" xml:space="preserve">
+    <value>Incognito</value>
+    </data>
+	<data name="description_flyoutHeader" xml:space="preserve">
+    <value>You are operating anonymously, fill in the information for a better experience</value>
+    </data>
 </root>
