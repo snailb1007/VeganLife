@@ -277,6 +277,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are operating anonymously, fill in the information for a better experience.
+        /// </summary>
+        internal static string description_flyoutHeader {
+            get {
+                return ResourceManager.GetString("description_flyoutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter search term.
         /// </summary>
         internal static string enterSearchTerm_Placeholder_shell {
@@ -318,6 +327,15 @@ namespace VeganLife.Resources.Translations {
         internal static string height_bmiPage {
             get {
                 return ResourceManager.GetString("height_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incognito.
+        /// </summary>
+        internal static string incognito_flyoutHeader {
+            get {
+                return ResourceManager.GetString("incognito_flyoutHeader", resourceCulture);
             }
         }
         
