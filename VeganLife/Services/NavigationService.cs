@@ -43,7 +43,13 @@ namespace VeganLife.Services
         /// <returns>Total currently stack of navigation.</returns>
         public int GetStackCount() => this.Navigation?.NavigationStack?.Count ?? 0;
 
-        // public NavigationService(IServiceProvider services) => this.services = services;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NavigationService"/> class.
+        /// </summary>
+        public NavigationService(IServiceProvider services)
+        {
+            this.services = services;
+        }
 
         /// <summary>
         /// Get vm from page.
@@ -75,7 +81,7 @@ namespace VeganLife.Services
         public async Task PopToRootAsync() => await this.Navigation.PopToRootAsync();
 
         /// <inheritdoc/>
-        public async Task NavigataToPage<T>(object paramater = null)
+        public async Task NavigateToPage<T>(object paramater = null)
             where T : Page
         {
             var toPage = this.ResolvePage<T>();

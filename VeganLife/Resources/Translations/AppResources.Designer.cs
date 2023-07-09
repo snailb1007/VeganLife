@@ -241,6 +241,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Breakfast.
+        /// </summary>
+        internal static string breakfast_rationPlantPage {
+            get {
+                return ResourceManager.GetString("breakfast_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculate.
         /// </summary>
         internal static string calculate_bmiPage {
@@ -282,6 +291,15 @@ namespace VeganLife.Resources.Translations {
         internal static string description_flyoutHeader {
             get {
                 return ResourceManager.GetString("description_flyoutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinner.
+        /// </summary>
+        internal static string dinner_rationPlantPage {
+            get {
+                return ResourceManager.GetString("dinner_rationPlantPage", resourceCulture);
             }
         }
         
@@ -390,6 +408,15 @@ namespace VeganLife.Resources.Translations {
         internal static string liveStrong_feedPage {
             get {
                 return ResourceManager.GetString("liveStrong_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lunch.
+        /// </summary>
+        internal static string lunch_rationPlantPage {
+            get {
+                return ResourceManager.GetString("lunch_rationPlantPage", resourceCulture);
             }
         }
         
@@ -518,6 +545,15 @@ namespace VeganLife.Resources.Translations {
         internal static string sexDetail_content_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("sexDetail_content_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side meal.
+        /// </summary>
+        internal static string sideMeal_rationPlantPage {
+            get {
+                return ResourceManager.GetString("sideMeal_rationPlantPage", resourceCulture);
             }
         }
         

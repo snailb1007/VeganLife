@@ -7,7 +7,6 @@ namespace VeganLife
     using FFImageLoading.Maui;
     using Microsoft.Maui.Handlers;
     using Mopups.Hosting;
-    using SkiaSharp.Views.Maui.Controls.Hosting;
     using VeganLife.Handlers;
     using VeganLife.Services.LocalDataServices;
     using VeganLife.ViewModels.ContentViewModels;
@@ -21,6 +20,7 @@ namespace VeganLife
 #endif
 #if ANDROID
     using Android.Widget;
+    using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
 #endif
@@ -37,7 +37,6 @@ namespace VeganLife
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseSkiaSharp(true)
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
@@ -48,7 +47,7 @@ namespace VeganLife
                     fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                     fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
                 });
-            builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit();
+            builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit().UseMicrocharts();
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
             {
@@ -110,6 +109,8 @@ namespace VeganLife
             services.AddTransient<BmiResultPopupViewmodel>();
             services.AddTransient<ProfilePopup>();
             services.AddTransient<ProfilePopupViewModel>();
+            services.AddTransient<ProfilePage>();
+            services.AddTransient<ProfileViewModel>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();

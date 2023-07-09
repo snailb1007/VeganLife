@@ -4,55 +4,53 @@
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
-    using LiveChartsCore;
-    using LiveChartsCore.SkiaSharpView;
-    using LiveChartsCore.SkiaSharpView.Painting;
-    using LiveChartsCore.SkiaSharpView.VisualElements;
+    using Microcharts;
     using SkiaSharp;
+    using VeganLife.Resources.Translations;
 
+    /// <summary>
+    /// vm for RationPlanPage.
+    /// </summary>
     public partial class RationPlanViewModel : BaseViewModel
     {
-        public ISeries[] Series { get; private set; } =
+        [ObservableProperty]
+        private DonutChart plantChart;
+
+        private ChartEntry[] CreateChartData()
         {
-            new PieSeries<short>
+            return new ChartEntry[]
             {
-                Values = new List<short> { 40 },
-                Fill = new SolidColorPaint(SKColor.Parse("#f9806f")),
-                MaxOuterRadius = 1.0,
-                Name = "Bữa trưa",
-            },
-            new PieSeries<short>
-            {
-                Values = new List<short> { 30 },
-                Fill = new SolidColorPaint(SKColor.Parse("#27c7e0")),
-                MaxOuterRadius = 0.9,
-                Name = "Bữa sáng",
-            },
-            new PieSeries<short>
-            {
-                Values = new List<short> { 25 },
-                Fill = new SolidColorPaint(SKColor.Parse("#fec45a")),
-                MaxOuterRadius = 0.8,
-                Name = "Bữa tối",
-            },
-            new PieSeries<short>
-            {
-                Values = new List<short> { 5 },
-                Fill = new SolidColorPaint(SKColor.Parse("#d0d0d2")),
-                MaxOuterRadius = 0.7,
-                Name = "Bữa phụ",
-            },
-        };
-
-        public LabelVisual Title { get; private set; } =
-            new LabelVisual
-            {
-                Text = "Phân bổ năng lượng các bữa ăn trong ngày",
-                TextSize = 50,
-                Padding = new LiveChartsCore.Drawing.Padding(1),
-                Paint = new SolidColorPaint(SKColors.DarkSlateGray),
+                new(40)
+                {
+                    Label = AppResources.lunch_rationPlantPage,
+                    ValueLabel = "40%",
+                    Color = SKColor.Parse("#f9806f"),
+                    ValueLabelColor = SKColor.Parse("#f9806f"),
+                },
+                new(30)
+                {
+                    Label = AppResources.breakfast_rationPlantPage,
+                    ValueLabel = "30",
+                    Color = SKColor.Parse("#27c7e0"),
+                },
+                new(25)
+                {
+                    Label = AppResources.dinner_rationPlantPage,
+                    ValueLabel = "25",
+                    Color = SKColor.Parse("#fec45a"),
+                },
+                new(5)
+                {
+                    Label = AppResources.sideMeal_rationPlantPage,
+                    ValueLabel = "5",
+                    Color = SKColor.Parse("#d0d0d2"),
+                },
             };
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RationPlanViewModel"/> class.
+        /// </summary>
         public RationPlanViewModel()
             : base()
         {
@@ -61,19 +59,12 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         private void Init()
         {
-            foreach (var item in this.Series)
+            this.PlantChart = new DonutChart
             {
-                var serie = item as PieSeries<short>;
-
-                // shape
-                serie.InnerRadius = 200;
-
-                // label
-                serie.DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle;
-                serie.DataLabelsPaint = new SolidColorPaint(SKColors.Black);
-                serie.DataLabelsSize = 40;
-                serie.DataLabelsFormatter = p => p.PrimaryValue.ToString() + "%";
-            }
+                Entries = this.CreateChartData(),
+                LabelTextSize = 35,
+                HoleRadius = 0.25f,
+            };
         }
     }
 }

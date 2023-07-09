@@ -27,7 +27,11 @@
                         CornerRadius="40"
                         HeightRequest="80"
                         ImageSource="profile_girl_strong"
-                        WidthRequest="80" />
+                        WidthRequest="80">
+                        <toolkit:AvatarView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AvatarView_Tapped" />
+                        </toolkit:AvatarView.GestureRecognizers>
+                    </toolkit:AvatarView>
                     <Label
                         FontAttributes="Bold"
                         FontSize="18"
