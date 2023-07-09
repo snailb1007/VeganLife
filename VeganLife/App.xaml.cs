@@ -24,7 +24,14 @@ namespace VeganLife
             this.SetupLanguage();
 
             // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
-            this.MainPage = new AppShell();
+            if (UserSettingsHelper.IsFirstTime)
+            {
+                this.MainPage = new NavigationPage(ServicesHelper.GetService<TutorialPage>());
+            }
+            else
+            {
+                this.MainPage = new AppShell();
+            }
         }
 
         protected override Window CreateWindow(IActivationState activationState)
@@ -57,10 +64,6 @@ namespace VeganLife
                     AppThemeHelper.SetTheme(goalTheme);
                 }
             }
-        }
-
-        private void SetupColor()
-        {
         }
     }
 }
