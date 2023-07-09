@@ -18,5 +18,11 @@ namespace VeganLife.Views.Controls
         {
             await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
         }
+
+        private async void AvatarView_Tapped(object sender, TappedEventArgs e)
+        {
+            Shell.Current.FlyoutIsPresented = false;
+            await ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>();
+        }
     }
 }
