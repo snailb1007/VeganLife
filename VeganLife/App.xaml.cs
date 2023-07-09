@@ -4,6 +4,7 @@
 
 namespace VeganLife
 {
+    using Microsoft.Maui;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
@@ -24,6 +25,11 @@ namespace VeganLife
 
             // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
             this.MainPage = new AppShell();
+        }
+
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            return base.CreateWindow(activationState);
         }
 
         private void SetupLanguage()

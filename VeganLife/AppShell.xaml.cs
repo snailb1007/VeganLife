@@ -5,6 +5,7 @@
 namespace VeganLife
 {
     using Mopups.Services;
+    using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Views.ContentViews;
     using VeganLife.Views.FoodTab;

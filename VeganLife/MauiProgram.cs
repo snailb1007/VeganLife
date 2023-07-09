@@ -23,6 +23,7 @@ namespace VeganLife
     using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
+    using VeganLife.Data.LocalData;
 #endif
 
     /// <summary>
@@ -77,6 +78,7 @@ namespace VeganLife
             services.AddSingleton<ISQLite, SQLiteService>();
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
+            services.AddSingleton<UserInfoDataStoreServie>();
 
             // page
             services.AddTransient<SettingPage>();
