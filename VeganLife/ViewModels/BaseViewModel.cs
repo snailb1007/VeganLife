@@ -55,5 +55,8 @@ namespace VeganLife.ViewModels
         /// <returns>>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual Task OnNavigatedTo()
             => Task.CompletedTask;
+
+        public virtual Task ViewAppearingVM() => Task.CompletedTask;
+        public virtual Task ViewDisappearingVM() => Task.CompletedTask;
     }
 }

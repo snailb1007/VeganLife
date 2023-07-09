@@ -14,13 +14,6 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <x:string x:Key="FontSizeMini">1</x:string>
-            <x:string x:Key="FontSizeS">12</x:string>
-            <x:string x:Key="FontSizeM">14</x:string>
-            <x:string x:Key="FontSizeL">16</x:string>
-            <x:string x:Key="FontSizeXL">20</x:string>
-            <x:string x:Key="FontSizeXXL">25</x:string>
-            <x:string x:Key="FontSizeXXXL">30</x:string>
             <x:String x:Key="FontAwesomeRegular">FontAwesomeRegular</x:String>
             <x:String x:Key="FontAwesomeSolid">FontAwesomeSolid</x:String>
             <x:String x:Key="FontAwesomeBrands">FontAwesomeBrands</x:String>
