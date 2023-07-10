@@ -286,4 +286,8 @@ Danh sách trống!</value>
 	<data name="sideMeal_rationPlantPage" xml:space="preserve">
     <value>Bữa ăn phụ</value>
     </data>
+	<data name="app_slogan" xml:space="preserve">
+    <value>Sống chay lành,
+nếm cả khoảnh khắc</value>
+    </data>
 </root>
