@@ -23,7 +23,6 @@ namespace VeganLife
             this.SetupTheme();
             this.SetupLanguage();
 
-            // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
             if (UserSettingsHelper.IsFirstTime)
             {
                 this.MainPage = new NavigationPage(ServicesHelper.GetService<TutorialPage>());

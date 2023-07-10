@@ -6,11 +6,20 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:TutorialViewModel"
-    x:TypeArguments="viewmodel:TutorialViewModel">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    x:TypeArguments="viewmodel:TutorialViewModel"
+    NavigationPage.HasNavigationBar="False">
+    <Grid Margin="0,0,0,20" ColumnDefinitions="*,8*,*">
+        <Image
+            Grid.ColumnSpan="3"
+            Aspect="AspectFit"
+            Source="tutorial1.jpg"
+            VerticalOptions="Start" />
+        <Button
+            Grid.Column="1"
+            Command="{Binding SkipCommand}"
+            FontAttributes="Bold"
+            FontSize="Medium"
+            Text="Skip"
+            VerticalOptions="End" />
+    </Grid>
 </base:BasePage>

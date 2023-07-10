@@ -142,6 +142,16 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live a healthy life,
+        ///taste the whole moment.
+        /// </summary>
+        internal static string app_slogan {
+            get {
+                return ResourceManager.GetString("app_slogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to an hour ago.
         /// </summary>
         internal static string appSet_dateTime_1h_ago {
