@@ -4,6 +4,7 @@
 
 namespace VeganLife.ViewModels
 {
+    using System.Threading.Tasks;
     using VeganLife.Resources.Translations;
 
     /// <summary>
@@ -26,7 +27,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        private async void WebViewNavigated(WebNavigatedEventArgs e)
+        private async Task WebViewNavigated(WebNavigatedEventArgs e)
         {
             this.IsLoading = false;
             if (e.Result != WebNavigationResult.Success)

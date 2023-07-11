@@ -107,14 +107,17 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage>();
             services.AddTransient<LicenseViewModel>();
-            services.AddTransient<BmiResultPopup>();
-            services.AddTransient<BmiResultPopupViewmodel>();
-            services.AddTransient<ProfilePopup>();
-            services.AddTransient<ProfilePopupViewModel>();
             services.AddTransient<ProfilePage>();
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<TutorialPage>();
             services.AddTransient<TutorialViewModel>();
+            // Popup
+            services.AddTransient<BmiResultPopup>();
+            services.AddTransient<BmiResultPopupViewmodel>();
+            services.AddTransient<ProfilePopup>();
+            services.AddTransient<ProfilePopupViewModel>();
+            services.AddTransient<AboutAppPopup>();
+            services.AddTransient<AboutAppPopupViewModel>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();
