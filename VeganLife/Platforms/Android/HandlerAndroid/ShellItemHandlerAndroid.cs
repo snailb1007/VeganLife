@@ -6,6 +6,7 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
 {
     using Microsoft.Maui.Controls.Platform.Compatibility;
     using VeganLife.Helpers;
+    using VeganLife.Helpers.AppSetting;
 
     public class ShellItemHandlerAndroid : ShellItemRenderer
     {
@@ -25,6 +26,17 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
             }
 
             navi.PopToRootAsync();
+        }
+
+        protected override bool OnItemSelected(global::Android.Views.IMenuItem item)
+        {
+            if (Shell.Current.IsBusy
+                || (ServicesHelper.GetCurrentViewModel()?.IsLoading ?? false))
+            {
+                return false;
+            }
+
+            return base.OnItemSelected(item);
         }
     }
 }

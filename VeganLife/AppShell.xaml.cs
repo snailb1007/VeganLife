@@ -5,7 +5,6 @@
 namespace VeganLife
 {
     using Mopups.Services;
-    using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Views.ContentViews;
     using VeganLife.Views.FoodTab;
@@ -59,6 +58,19 @@ namespace VeganLife
             {
                 return base.OnBackButtonPressed();
             }
+        }
+
+        protected override void OnNavigating(ShellNavigatingEventArgs args)
+        {
+            if (args.Source != ShellNavigationSource.Unknown)
+                this.IsBusy = true;
+            base.OnNavigating(args);
+        }
+
+        protected override void OnNavigated(ShellNavigatedEventArgs args)
+        {
+            base.OnNavigated(args);
+            this.IsBusy = false;
         }
 
         private static bool IsRootPage(VisualElement page)
