@@ -24,6 +24,7 @@ namespace VeganLife
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
+    using Microsoft.Maui.Platform;
 #endif
 
     /// <summary>
@@ -128,7 +129,7 @@ namespace VeganLife
         private static void AllowMultiLineTruncationOnAndroid()
         {
 #if ANDROID
-            static void UpdateMaxLines(Microsoft.Maui.Handlers.LabelHandler handler, ILabel label)
+            static void UpdateMaxLines(LabelHandler handler, ILabel label)
             {
                 var textView = handler.PlatformView;
                 if (label is Label controlsLabel && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End)
@@ -152,7 +153,7 @@ namespace VeganLife
 #if ANDROID
                 handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
 #elif IOS
-			handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
             });
         }
@@ -162,11 +163,9 @@ namespace VeganLife
             SearchBarHandler.Mapper.AppendToMapping("CustomizationSearchBar", (handler, view) =>
             {
 #if ANDROID
-                LinearLayout linearLayout = handler.PlatformView.GetChildAt(0) as LinearLayout;
-                linearLayout = linearLayout.GetChildAt(2) as LinearLayout;
-                linearLayout = linearLayout.GetChildAt(1) as LinearLayout;
-                linearLayout.Background = null;
-
+                var child = handler.PlatformView.GetChildrenOfType<ImageView>();
+                foreach (var item in child)
+                    item.SetColorFilter(Colors.Gray.ToAndroid());
                 // remove underline
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #endif
