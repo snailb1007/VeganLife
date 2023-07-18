@@ -4,6 +4,7 @@
 
 namespace VeganLife
 {
+    using Microsoft.Maui;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
@@ -22,8 +23,19 @@ namespace VeganLife
             this.SetupTheme();
             this.SetupLanguage();
 
-            // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
-            this.MainPage = new AppShell();
+            if (UserSettingsHelper.IsFirstTime)
+            {
+                this.MainPage = new NavigationPage(ServicesHelper.GetService<TutorialPage>());
+            }
+            else
+            {
+                this.MainPage = new AppShell();
+            }
+        }
+
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            return base.CreateWindow(activationState);
         }
 
         private void SetupLanguage()
@@ -51,10 +63,6 @@ namespace VeganLife
                     AppThemeHelper.SetTheme(goalTheme);
                 }
             }
-        }
-
-        private void SetupColor()
-        {
         }
     }
 }

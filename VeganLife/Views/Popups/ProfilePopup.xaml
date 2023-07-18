@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<toolkit:Popup
+<Mopups:PopupPage
     x:Class="VeganLife.Views.Popups.ProfilePopup"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
-</toolkit:Popup>
+    xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    BackgroundColor="#80808080">
+    <Mopups:PopupPage.Content>
+        <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.5*,3*,*">
+            <Frame
+                Grid.Row="1"
+                Grid.Column="1"
+                Padding="0"
+                BackgroundColor="White"
+                CornerRadius="10">
+                <VerticalStackLayout>
+                    <Button
+                        CornerRadius="15"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        HeightRequest="30"
+                        HorizontalOptions="End"
+                        Text="{StaticResource IconClose}"
+                        TextColor="Gray" />
+                    <Label HorizontalOptions="Center" Text="Profile" />
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Mopups:PopupPage.Content>
+</Mopups:PopupPage>

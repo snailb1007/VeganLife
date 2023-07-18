@@ -135,7 +135,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            await this.navigationService.NavigataToPage<FoodDetailPage>(obj);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
             this.CurrentFoodSelected = null;
         }
 
@@ -151,7 +151,7 @@ namespace VeganLife.ViewModels
             var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title));
             var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
             consignment.Add(itemMenu.Category, foodByCategory);
-            await this.navigationService.NavigataToPage<FoodsByCategoryPage>(consignment);
+            await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
         }
 
         [RelayCommand]

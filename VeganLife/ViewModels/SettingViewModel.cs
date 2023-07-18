@@ -56,7 +56,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OpenLicensePage()
         {
-            await this.navigationService.NavigataToPage<LicensePage>();
+            await this.navigationService.NavigateToPage<LicensePage>();
         }
     }
 }

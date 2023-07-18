@@ -268,4 +268,26 @@ Danh sách trống!</value>
 	<data name="title_bmiPopup" xml:space="preserve">
     <value>BMI của bạn</value>
     </data>
+	<data name="incognito_flyoutHeader" xml:space="preserve">
+    <value>Ẩn danh</value>
+    </data>
+	<data name="description_flyoutHeader" xml:space="preserve">
+    <value>Bạn đang hoạt động ẩn danh, điền các thông tin để có trải nghiệm tốt hơn</value>
+    </data>
+	<data name="lunch_rationPlantPage" xml:space="preserve">
+    <value>Bữa trưa</value>
+    </data>
+	<data name="breakfast_rationPlantPage" xml:space="preserve">
+    <value>Bữa sáng</value>
+    </data>
+	<data name="dinner_rationPlantPage" xml:space="preserve">
+    <value>Bữa tối</value>
+    </data>
+	<data name="sideMeal_rationPlantPage" xml:space="preserve">
+    <value>Bữa ăn phụ</value>
+    </data>
+	<data name="app_slogan" xml:space="preserve">
+    <value>Sống chay lành,
+nếm cả khoảnh khắc</value>
+    </data>
 </root>

@@ -4,11 +4,9 @@
 
 namespace VeganLife
 {
-    // using ChatGptNet;
     using FFImageLoading.Maui;
     using Microsoft.Maui.Handlers;
     using Mopups.Hosting;
-    using SkiaSharp.Views.Maui.Controls.Hosting;
     using VeganLife.Handlers;
     using VeganLife.Services.LocalDataServices;
     using VeganLife.ViewModels.ContentViewModels;
@@ -17,10 +15,16 @@ namespace VeganLife
     using VeganLife.Views.FoodTab;
     using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
+#if GPT
+    using ChatGptNet;
+#endif
 #if ANDROID
     using Android.Widget;
+    using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
+    using VeganLife.Data.LocalData;
+    using Microsoft.Maui.Platform;
 #endif
 
     /// <summary>
@@ -35,7 +39,6 @@ namespace VeganLife
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseSkiaSharp(true)
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
@@ -46,7 +49,7 @@ namespace VeganLife
                     fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                     fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
                 });
-            builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit();
+            builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit().UseMicrocharts();
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
             {
@@ -61,19 +64,22 @@ namespace VeganLife
         private static void RegisterServices(IServiceCollection services)
         {
             // service
-            // services.AddChatGpt(options =>
-            // {
-            //    options.UseOpenAI(apiKey: $"sk-{APIConstants.OpenAIToken.Trim(new char[] { '-' })}");
-            //    options.UseOpenAI(apiKey: "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");
-            //    options.DefaultModel = "gpt-3.5-turbo";
-            //    options.MessageLimit = 15; // Default: 15
-            //    options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
-            // });
+#if GPT
+            services.AddChatGpt(options =>
+            {
+                options.UseOpenAI(apiKey: $"sk-");
+                options.UseOpenAI(apiKey: "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");
+                options.DefaultModel = "gpt-3.5-turbo";
+                options.MessageLimit = 15; // Default: 15
+                options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
+            });
+#endif
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IDataService, DataService>();
             services.AddSingleton<ISQLite, SQLiteService>();
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
+            services.AddSingleton<UserInfoDataStoreServie>();
 
             // page
             services.AddTransient<SettingPage>();
@@ -102,8 +108,17 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage>();
             services.AddTransient<LicenseViewModel>();
+            services.AddTransient<ProfilePage>();
+            services.AddTransient<ProfileViewModel>();
+            services.AddTransient<TutorialPage>();
+            services.AddTransient<TutorialViewModel>();
+            // Popup
             services.AddTransient<BmiResultPopup>();
             services.AddTransient<BmiResultPopupViewmodel>();
+            services.AddTransient<ProfilePopup>();
+            services.AddTransient<ProfilePopupViewModel>();
+            services.AddTransient<AboutAppPopup>();
+            services.AddTransient<AboutAppPopupViewModel>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();
@@ -114,7 +129,7 @@ namespace VeganLife
         private static void AllowMultiLineTruncationOnAndroid()
         {
 #if ANDROID
-            static void UpdateMaxLines(Microsoft.Maui.Handlers.LabelHandler handler, ILabel label)
+            static void UpdateMaxLines(LabelHandler handler, ILabel label)
             {
                 var textView = handler.PlatformView;
                 if (label is Label controlsLabel && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End)
@@ -138,7 +153,7 @@ namespace VeganLife
 #if ANDROID
                 handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
 #elif IOS
-			handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
             });
         }
@@ -148,11 +163,9 @@ namespace VeganLife
             SearchBarHandler.Mapper.AppendToMapping("CustomizationSearchBar", (handler, view) =>
             {
 #if ANDROID
-                LinearLayout linearLayout = handler.PlatformView.GetChildAt(0) as LinearLayout;
-                linearLayout = linearLayout.GetChildAt(2) as LinearLayout;
-                linearLayout = linearLayout.GetChildAt(1) as LinearLayout;
-                linearLayout.Background = null;
-
+                var child = handler.PlatformView.GetChildrenOfType<ImageView>();
+                foreach (var item in child)
+                    item.SetColorFilter(Colors.Gray.ToAndroid());
                 // remove underline
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #endif

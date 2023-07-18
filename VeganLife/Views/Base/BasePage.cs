@@ -27,21 +27,23 @@ namespace VeganLife.Views.Base
         }
 
         /// <inheritdoc/>
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 #if DEBUG
             Debug.WriteLine($"=> OnAppearing: {this.Title}");
 #endif
+            await (this.BindingContext as BaseViewModel).ViewAppearingVM();
         }
 
         /// <inheritdoc/>
-        protected override void OnDisappearing()
+        protected override async void OnDisappearing()
         {
             base.OnDisappearing();
 #if DEBUG
             Debug.WriteLine($"=> OnDisappearing: {this.Title}");
 #endif
+            await (this.BindingContext as BaseViewModel).ViewDisappearingVM();
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
