@@ -44,7 +44,7 @@ namespace VeganLife
                     bool result = await this.DisplayAlert("Alert!", "Do you really want to exit?", "Yes", "No");
                     if (result)
                     {
-                        Process.GetCurrentProcess().CloseMainWindow(); // Or anything else
+                        Application.Current.Quit(); // Or anything else
                     }
                 });
                 return true;
@@ -58,6 +58,19 @@ namespace VeganLife
             {
                 return base.OnBackButtonPressed();
             }
+        }
+
+        protected override void OnNavigating(ShellNavigatingEventArgs args)
+        {
+            if (args.Source != ShellNavigationSource.Unknown)
+                this.IsBusy = true;
+            base.OnNavigating(args);
+        }
+
+        protected override void OnNavigated(ShellNavigatedEventArgs args)
+        {
+            base.OnNavigated(args);
+            this.IsBusy = false;
         }
 
         private static bool IsRootPage(VisualElement page)

@@ -3,7 +3,8 @@
     x:Class="VeganLife.Views.Controls.FlyoutHeader"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations">
     <ContentView.Background>
         <LinearGradientBrush EndPoint="0,1">
             <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
@@ -26,20 +27,29 @@
                         CornerRadius="40"
                         HeightRequest="80"
                         ImageSource="profile_girl_strong"
-                        WidthRequest="80" />
+                        WidthRequest="80">
+                        <toolkit:AvatarView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AvatarView_Tapped" />
+                        </toolkit:AvatarView.GestureRecognizers>
+                    </toolkit:AvatarView>
                     <Label
                         FontAttributes="Bold"
                         FontSize="18"
-                        Text="Ẩn danh"
+                        Text="{x:Static translate:AppResources.incognito_flyoutHeader}"
                         VerticalOptions="CenterAndExpand" />
                 </HorizontalStackLayout>
-                <Label
+                <Button
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    Clicked="Button_Clicked"
                     FontFamily="FontAwesomeSolid"
                     FontSize="18"
                     HorizontalOptions="End"
-                    Text="&#xf044;" />
+                    Text="&#xf044;"
+                    TextColor="Black"
+                    VerticalOptions="Start" />
             </Grid>
-            <Label Text="Bạn đang hoạt động ẩn danh, điền các thông tin để có trải nghiệm tốt hơn" />
+            <Label Text="{x:Static translate:AppResources.description_flyoutHeader}" />
         </StackLayout>
     </Frame>
 </ContentView>

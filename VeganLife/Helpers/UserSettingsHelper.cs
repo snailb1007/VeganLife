@@ -7,7 +7,21 @@ namespace VeganLife.Helpers
     public enum UserSettingKey
     {
         SelectedTheme,
-        ImgBackground,
+        IsFirstTime,
+        //IsDisplayedPolicyBox,
+        //IsDisplayedLogsPermissionBox,
+    }
+
+    public static partial class UserSettingsHelper
+    {
+        public static bool IsFirstTime
+        {
+            get
+            {
+                var keyData = UserSettingsHelper.Get(UserSettingKey.IsFirstTime);
+                return string.IsNullOrEmpty(keyData) ? true : Convert.ToBoolean(keyData);
+            }
+        }
     }
 
     public static partial class UserSettingsHelper

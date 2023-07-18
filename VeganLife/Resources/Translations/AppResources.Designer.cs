@@ -142,6 +142,16 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live a healthy life,
+        ///taste the whole moment.
+        /// </summary>
+        internal static string app_slogan {
+            get {
+                return ResourceManager.GetString("app_slogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to an hour ago.
         /// </summary>
         internal static string appSet_dateTime_1h_ago {
@@ -241,6 +251,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Breakfast.
+        /// </summary>
+        internal static string breakfast_rationPlantPage {
+            get {
+                return ResourceManager.GetString("breakfast_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculate.
         /// </summary>
         internal static string calculate_bmiPage {
@@ -273,6 +292,24 @@ namespace VeganLife.Resources.Translations {
         internal static string decorate_foodDetailPage {
             get {
                 return ResourceManager.GetString("decorate_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are operating anonymously, fill in the information for a better experience.
+        /// </summary>
+        internal static string description_flyoutHeader {
+            get {
+                return ResourceManager.GetString("description_flyoutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinner.
+        /// </summary>
+        internal static string dinner_rationPlantPage {
+            get {
+                return ResourceManager.GetString("dinner_rationPlantPage", resourceCulture);
             }
         }
         
@@ -318,6 +355,15 @@ namespace VeganLife.Resources.Translations {
         internal static string height_bmiPage {
             get {
                 return ResourceManager.GetString("height_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incognito.
+        /// </summary>
+        internal static string incognito_flyoutHeader {
+            get {
+                return ResourceManager.GetString("incognito_flyoutHeader", resourceCulture);
             }
         }
         
@@ -372,6 +418,15 @@ namespace VeganLife.Resources.Translations {
         internal static string liveStrong_feedPage {
             get {
                 return ResourceManager.GetString("liveStrong_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lunch.
+        /// </summary>
+        internal static string lunch_rationPlantPage {
+            get {
+                return ResourceManager.GetString("lunch_rationPlantPage", resourceCulture);
             }
         }
         
@@ -500,6 +555,15 @@ namespace VeganLife.Resources.Translations {
         internal static string sexDetail_content_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("sexDetail_content_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side meal.
+        /// </summary>
+        internal static string sideMeal_rationPlantPage {
+            get {
+                return ResourceManager.GetString("sideMeal_rationPlantPage", resourceCulture);
             }
         }
         

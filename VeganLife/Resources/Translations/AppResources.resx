@@ -287,4 +287,26 @@ List is empty!</value>
 	<data name="title_bmiPopup" xml:space="preserve">
     <value>Your BMI</value>
     </data>
+	<data name="incognito_flyoutHeader" xml:space="preserve">
+    <value>Incognito</value>
+    </data>
+	<data name="description_flyoutHeader" xml:space="preserve">
+    <value>You are operating anonymously, fill in the information for a better experience</value>
+    </data>
+	<data name="lunch_rationPlantPage" xml:space="preserve">
+    <value>Lunch</value>
+    </data>
+	<data name="breakfast_rationPlantPage" xml:space="preserve">
+    <value>Breakfast</value>
+    </data>
+	<data name="dinner_rationPlantPage" xml:space="preserve">
+    <value>Dinner</value>
+    </data>
+	<data name="sideMeal_rationPlantPage" xml:space="preserve">
+    <value>Side meal</value>
+    </data>
+	<data name="app_slogan" xml:space="preserve">
+    <value>Live a healthy life,
+taste the whole moment</value>
+    </data>
 </root>

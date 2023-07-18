@@ -25,6 +25,22 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DefineConstants>$(DefineConstants);</DefineConstants>
+		<Optimize>True</Optimize>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<LangVersion>latest</LangVersion>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#a4a7ea" ForegroundScale="0.65" />
@@ -75,12 +91,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ChatGptNet" Version="2.0.16" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="FFImageLoadingCompat.Maui" Version="0.1.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
-		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.801" />
+		<PackageReference Include="Microcharts.Maui" Version="1.0.0" />
 		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.5" />
@@ -91,7 +106,10 @@
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 		<!--<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />-->
 	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+	<ItemGroup Condition=" '$(DefineConstants.Contains(`;GPT`))' == 'true' ">
+		<PackageReference Include="ChatGptNet" Version="2.0.16" />
+	</ItemGroup>
+	<!--<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -101,7 +119,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="MvvmCross.CodeAnalysis" Version="8.0.2" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<Compile Update="Resources\Translations\AppResources.Designer.cs">
@@ -163,11 +181,17 @@
 		<MauiXaml Update="Views\NewsFeedPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Popups\AboutAppPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Popups\BmiResultPopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\ProfilePopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ProfilePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\RegistrationPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -177,6 +201,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\SettingTab\LicensePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\TutorialPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\WebViewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>

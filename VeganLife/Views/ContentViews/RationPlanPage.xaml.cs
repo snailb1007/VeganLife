@@ -7,18 +7,18 @@ namespace VeganLife.Views.ContentViews
     using VeganLife.ViewModels.ContentViewModels;
     using VeganLife.Views.Base;
 
+    /// <summary>
+    /// class for RationPlanPage xaml.
+    /// </summary>
     public partial class RationPlanPage : BasePage<RationPlanViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RationPlanPage"/> class.
+        /// </summary>
         public RationPlanPage(RationPlanViewModel vm)
             : base(vm)
         {
             this.InitializeComponent();
-        }
-
-        private void PieChart_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            // var chart = sender as LiveChartsCore.SkiaSharpView.Maui.PieChart;
-            // Console.WriteLine($"thien==>{chart?.Width} {chart?.Height}");
         }
     }
 }
