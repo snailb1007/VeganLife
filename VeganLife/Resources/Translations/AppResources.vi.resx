@@ -102,6 +102,22 @@
 	<data name="app_name" xml:space="preserve">
     <value>Sống chay lành</value>
   </data>
+	<data name="app_allow" xml:space="preserve">
+    <value>Tôi đồng ý với </value>
+  </data>
+	<data name="app_TermsAndConditions" xml:space="preserve">
+    <value>Điều khoản &amp; Điều kiện.</value>
+  </data>
+	<data name="app_PrivacyPolicy" xml:space="preserve">
+    <value>Chính sách &amp; quyền riêng tư.</value>
+  </data>
+	<data name="app_slogan" xml:space="preserve">
+    <value>Sống chay lành,
+nếm cả khoảnh khắc</value>
+    </data>
+	<data name="app_detail" xml:space="preserve">
+    <value>Sống chay lành là ứng dụng về công thức món chay, đưa các giá trị ăn chay tới gần với bạn.</value>
+  </data>
 	<!--common-->
 	<data name="explore_common" xml:space="preserve">
     <value>Khám phá</value>
@@ -118,6 +134,9 @@
 	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
     <value>Cho phép ứng dụng thu thập lỗi.
 Nhật ký ứng dụng được sử dụng để thu thập và phân tích thông tin cho mục đích cải tiến chất lượng, phát triển sản phẩm và cải tiến dịch vụ.</value>
+  </data>
+	<data name="close_common" xml:space="preserve">
+    <value>CLOSE</value>
   </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
@@ -298,9 +317,5 @@ Danh sách trống!</value>
     </data>
 	<data name="sideMeal_rationPlantPage" xml:space="preserve">
     <value>Bữa ăn phụ</value>
-    </data>
-	<data name="app_slogan" xml:space="preserve">
-    <value>Sống chay lành,
-nếm cả khoảnh khắc</value>
     </data>
 </root>
