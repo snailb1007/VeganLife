@@ -8,20 +8,16 @@ namespace VeganLife.Helpers
     {
         SelectedTheme,
         IsFirstTime,
-        //IsDisplayedPolicyBox,
-        //IsDisplayedLogsPermissionBox,
+        IsAcceptedCollectLogs,
+        // IsDisplayedPolicyBox,
+        // IsDisplayedLogsPermissionBox,
     }
 
     public static partial class UserSettingsHelper
     {
-        public static bool IsFirstTime
-        {
-            get
-            {
-                var keyData = UserSettingsHelper.Get(UserSettingKey.IsFirstTime);
-                return string.IsNullOrEmpty(keyData) ? true : Convert.ToBoolean(keyData);
-            }
-        }
+        public static bool IsFirstTime => string.IsNullOrEmpty(Get(UserSettingKey.IsFirstTime));
+
+        public static bool IsAcceptedCollectLogs => GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
     }
 
     public static partial class UserSettingsHelper
@@ -89,6 +85,12 @@ namespace VeganLife.Helpers
                     Debug.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private static bool GetBoolKey(UserSettingKey key)
+        {
+            var data = Get(key);
+            return string.IsNullOrEmpty(data) ? false : Convert.ToBoolean(data);
         }
     }
 }

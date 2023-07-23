@@ -25,6 +25,8 @@ namespace VeganLife
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
     using Microsoft.Maui.Platform;
+    using Microsoft.AppCenter.Crashes;
+    using Microsoft.AppCenter;
 #endif
 
     /// <summary>
@@ -50,6 +52,7 @@ namespace VeganLife
                     fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
                 });
             builder.ConfigureMopups().UseFFImageLoading().UseMauiCommunityToolkit().UseMicrocharts();
+            AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
             {
@@ -118,7 +121,7 @@ namespace VeganLife
             services.AddTransient<ProfilePopup>();
             services.AddTransient<ProfilePopupViewModel>();
             services.AddTransient<AboutAppPopup>();
-            services.AddTransient<AboutAppPopupViewModel>();
+            // services.AddTransient<AboutAppPopupViewModel>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();

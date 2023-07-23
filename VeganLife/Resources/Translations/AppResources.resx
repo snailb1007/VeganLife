@@ -117,6 +117,10 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<!--app-->
+	<data name="app_name" xml:space="preserve">
+    <value>Leafy Lifestyle</value>
+  </data>
 	<!--common-->
 	<data name="explore_common" xml:space="preserve">
     <value>Explore</value>
@@ -126,6 +130,13 @@
   </data>
 	<data name="ok_common" xml:space="preserve">
     <value>OK</value>
+  </data>
+	<data name="cancel_common" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
+    <value>Allows the application to collect crash.
+Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes.</value>
   </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
