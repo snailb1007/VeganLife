@@ -11,9 +11,6 @@
     Title="{x:Static translate:AppResources.app_common_settingTab}"
     x:DataType="viewmodel:SettingViewModel"
     x:TypeArguments="viewmodel:SettingViewModel">
-    <!--<ContentPage.BackgroundImageSource>
-        <UriImageSource Uri="{Binding Source={x:Reference settingRoot}, Path=BindingContext.ImgBackground}" />
-    </ContentPage.BackgroundImageSource>-->
     <base:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
@@ -24,7 +21,7 @@
             Margin="0,10,0,0"
             Text="{x:Static translate:AppResources.options_settingPage}"
             TextColor="Gray" />
-        <StackLayout
+        <!--<StackLayout
             Margin="0"
             Padding="0"
             HorizontalOptions="Fill"
@@ -58,6 +55,13 @@
                     Toggled="Switch_Toggled"
                     VerticalOptions="Center" />
             </Frame>
+        </StackLayout>-->
+        <StackLayout Orientation="Horizontal">
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Text="{x:Static translate:AppResources.collectLog_settingPage}"
+                VerticalOptions="Center" />
+            <Switch ThumbColor="{StaticResource PrimaryLight}" VerticalOptions="Center" />
         </StackLayout>
         <Label
             Margin="0,10,0,0"
@@ -65,10 +69,14 @@
             Text="{x:Static translate:AppResources.technicalInfo_settingPage}"
             TextColor="Gray"
             VerticalOptions="Start" />
-        <Label
-            HorizontalOptions="Start"
-            Text="{x:Static translate:AppResources.appVersion_settingPage}"
-            VerticalOptions="Start" />
+        <StackLayout Orientation="Horizontal">
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Text="{x:Static translate:AppResources.appVersion_settingPage}"
+                VerticalOptions="Start" />
+            <Label HorizontalOptions="End" Text="{Binding AppVersionDisplay, Mode=OneWay}" />
+        </StackLayout>
+
         <Label
             HorizontalOptions="Start"
             IsEnabled="{Binding OpenLicensePageCommand.IsRunning, Converter={StaticResource ReverseConverter}, Mode=OneWay}"

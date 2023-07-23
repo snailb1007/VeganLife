@@ -335,4 +335,7 @@ List is empty!</value>
 	<data name="sideMeal_rationPlantPage" xml:space="preserve">
     <value>Side meal</value>
     </data>
+	<data name="collectLog_settingPage" xml:space="preserve">
+    <value>Allow collect logs</value>
+    </data>
 </root>

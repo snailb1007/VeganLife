@@ -318,4 +318,7 @@ Danh sách trống!</value>
 	<data name="sideMeal_rationPlantPage" xml:space="preserve">
     <value>Bữa ăn phụ</value>
     </data>
+	<data name="collectLog_settingPage" xml:space="preserve">
+    <value>Thu thập dữ liệu</value>
+    </data>
 </root>
