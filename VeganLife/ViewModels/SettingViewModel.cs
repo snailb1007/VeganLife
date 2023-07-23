@@ -15,12 +15,9 @@ namespace VeganLife.ViewModels
     {
         [ObservableProperty]
         private bool isDarkMode;
-
         [ObservableProperty]
-        private string imgBackground = string.Empty;
+        private string appVersionDisplay;
 
-        [ObservableProperty]
-        private int indexPickerOption;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingViewModel"/> class.
@@ -31,10 +28,14 @@ namespace VeganLife.ViewModels
             this.Init();
         }
 
+        public override Task ViewAppearingVM()
+        {
+            this.AppVersionDisplay = AppInfo.VersionString;
+            return base.ViewAppearingVM();
+        }
+
         private void Init()
         {
-            this.IndexPickerOption = 0;
-            this.ImgBackground = ConstantHelper.ThemeInfo.ImgBackground;
             var currentDeviceTheme = App.Current.UserAppTheme;
             this.IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }

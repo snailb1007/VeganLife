@@ -342,6 +342,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow collect logs.
+        /// </summary>
+        internal static string collectLog_settingPage {
+            get {
+                return ResourceManager.GetString("collectLog_settingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         internal static string dark_settingPage {

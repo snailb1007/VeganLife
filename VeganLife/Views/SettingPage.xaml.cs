@@ -13,11 +13,5 @@ namespace VeganLife.Views
         {
             this.InitializeComponent();
         }
-
-        private void Switch_Toggled(object sender, ToggledEventArgs e)
-        {
-            var x = sender as Microsoft.Maui.Controls.Switch;
-            (this.BindingContext as SettingViewModel).SwitchThemeCommand.Execute(x);
-        }
     }
 }
