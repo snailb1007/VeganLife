@@ -121,6 +121,22 @@
 	<data name="app_name" xml:space="preserve">
     <value>Leafy Lifestyle</value>
   </data>
+	<data name="app_allow" xml:space="preserve">
+    <value>I agree with </value>
+  </data>
+	<data name="app_TermsAndConditions" xml:space="preserve">
+    <value>Terms &amp; Conditions.</value>
+  </data>
+	<data name="app_PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy.</value>
+  </data>
+	<data name="app_slogan" xml:space="preserve">
+    <value>Live a healthy life,
+taste the whole moment</value>
+    </data>
+	<data name="app_detail" xml:space="preserve">
+    <value>Leafy Lifestyle is an application about vegetarian recipes, bringing vegetarian values closer to you.</value>
+  </data>
 	<!--common-->
 	<data name="explore_common" xml:space="preserve">
     <value>Explore</value>
@@ -137,6 +153,9 @@
 	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
     <value>Allows the application to collect crash.
 Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes.</value>
+  </data>
+	<data name="close_common" xml:space="preserve">
+    <value>Close</value>
   </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
@@ -315,9 +334,5 @@ List is empty!</value>
     </data>
 	<data name="sideMeal_rationPlantPage" xml:space="preserve">
     <value>Side meal</value>
-    </data>
-	<data name="app_slogan" xml:space="preserve">
-    <value>Live a healthy life,
-taste the whole moment</value>
     </data>
 </root>

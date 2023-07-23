@@ -80,6 +80,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I agree with .
+        /// </summary>
+        internal static string app_allow {
+            get {
+                return ResourceManager.GetString("app_allow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         internal static string app_common_bookmarkTab {
@@ -152,11 +161,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leafy Lifestyle is an application about vegetarian recipes, bringing vegetarian values closer to you..
+        /// </summary>
+        internal static string app_detail {
+            get {
+                return ResourceManager.GetString("app_detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leafy Lifestyle.
         /// </summary>
         internal static string app_name {
             get {
                 return ResourceManager.GetString("app_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy..
+        /// </summary>
+        internal static string app_PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("app_PrivacyPolicy", resourceCulture);
             }
         }
         
@@ -167,6 +194,15 @@ namespace VeganLife.Resources.Translations {
         internal static string app_slogan {
             get {
                 return ResourceManager.GetString("app_slogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms &amp; Conditions..
+        /// </summary>
+        internal static string app_TermsAndConditions {
+            get {
+                return ResourceManager.GetString("app_TermsAndConditions", resourceCulture);
             }
         }
         
@@ -293,6 +329,15 @@ namespace VeganLife.Resources.Translations {
         internal static string cancel_common {
             get {
                 return ResourceManager.GetString("cancel_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string close_common {
+            get {
+                return ResourceManager.GetString("close_common", resourceCulture);
             }
         }
         
