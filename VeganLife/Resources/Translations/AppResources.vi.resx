@@ -98,6 +98,11 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<!--app-->
+	<data name="app_name" xml:space="preserve">
+    <value>Sống chay lành</value>
+  </data>
+	<!--common-->
 	<data name="explore_common" xml:space="preserve">
     <value>Khám phá</value>
   </data>
@@ -107,6 +112,14 @@
 	<data name="ok_common" xml:space="preserve">
     <value>OK</value>
     </data>
+	<data name="cancel_common" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
+    <value>Cho phép ứng dụng thu thập lỗi.
+Nhật ký ứng dụng được sử dụng để thu thập và phân tích thông tin cho mục đích cải tiến chất lượng, phát triển sản phẩm và cải tiến dịch vụ.</value>
+  </data>
+	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>
     </data>

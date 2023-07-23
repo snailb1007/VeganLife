@@ -70,6 +70,16 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allows the application to collect crash.
+        ///Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes..
+        /// </summary>
+        internal static string Alert_CollectOperationLogsPermission_Message {
+            get {
+                return ResourceManager.GetString("Alert_CollectOperationLogsPermission_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         internal static string app_common_bookmarkTab {
@@ -138,6 +148,15 @@ namespace VeganLife.Resources.Translations {
         internal static string app_common_webViewTab {
             get {
                 return ResourceManager.GetString("app_common_webViewTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leafy Lifestyle.
+        /// </summary>
+        internal static string app_name {
+            get {
+                return ResourceManager.GetString("app_name", resourceCulture);
             }
         }
         
@@ -265,6 +284,15 @@ namespace VeganLife.Resources.Translations {
         internal static string calculate_bmiPage {
             get {
                 return ResourceManager.GetString("calculate_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string cancel_common {
+            get {
+                return ResourceManager.GetString("cancel_common", resourceCulture);
             }
         }
         

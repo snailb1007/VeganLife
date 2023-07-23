@@ -4,6 +4,7 @@
 
 namespace VeganLife
 {
+    using Microsoft.AppCenter.Crashes;
     using Microsoft.Maui;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
@@ -17,12 +18,13 @@ namespace VeganLife
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
         /// </summary>
+
+        public static double MainSize => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
         public App()
         {
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
-
             if (UserSettingsHelper.IsFirstTime)
             {
                 this.MainPage = new NavigationPage(ServicesHelper.GetService<TutorialPage>());
@@ -36,6 +38,12 @@ namespace VeganLife
         protected override Window CreateWindow(IActivationState activationState)
         {
             return base.CreateWindow(activationState);
+        }
+
+        public static void SetupCollectLogPermission()
+        {
+            Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
+            Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
         }
 
         private void SetupLanguage()
@@ -63,6 +71,15 @@ namespace VeganLife
                     AppThemeHelper.SetTheme(goalTheme);
                 }
             }
+
+#if ANDROID
+            AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = Current.UserAppTheme switch
+            {
+                AppTheme.Light => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightNo,
+                AppTheme.Dark => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,
+                _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem
+            };
+#endif
         }
     }
 }
