@@ -42,8 +42,8 @@
                     WidthRequest="30" />
                 <Line
                     BackgroundColor="Gray"
-                    HeightRequest="20"
-                    Opacity="0.5"
+                    HeightRequest="18"
+                    Opacity="0.25"
                     VerticalOptions="Center"
                     WidthRequest="2" />
                 <ImageButton

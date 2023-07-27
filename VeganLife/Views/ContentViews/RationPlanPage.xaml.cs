@@ -1,18 +1,24 @@
-using VeganLife.ViewModels.ContentViewModels;
-using VeganLife.Views.Base;
+// <copyright file="RationPlanPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.ContentViews;
-
-public partial class RationPlanPage : BasePage<RationPlanViewModel>
+namespace VeganLife.Views.ContentViews
 {
-	public RationPlanPage(RationPlanViewModel vm) : base(vm)
-	{
-		InitializeComponent();
-    }
+    using VeganLife.ViewModels.ContentViewModels;
+    using VeganLife.Views.Base;
 
-    private void PieChart_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    /// <summary>
+    /// class for RationPlanPage xaml.
+    /// </summary>
+    public partial class RationPlanPage : BasePage<RationPlanViewModel>
     {
-        //var chart = sender as LiveChartsCore.SkiaSharpView.Maui.PieChart;
-        //Console.WriteLine($"thien==>{chart?.Width} {chart?.Height}");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RationPlanPage"/> class.
+        /// </summary>
+        public RationPlanPage(RationPlanViewModel vm)
+            : base(vm)
+        {
+            this.InitializeComponent();
+        }
     }
 }

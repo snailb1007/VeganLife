@@ -1,17 +1,20 @@
-﻿using System.Net;
+﻿// <copyright file="RssFeedsHttpRequest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Data.RssFeedsData
 {
+    using System.Net;
+
     public class RssFeedsHttpRequest
     {
-
         public async Task<string> GetRssData(string uri)
         {
             HttpClient client = new HttpClient();
 
             try
             {
-                var response = await GetAsync(() => new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = new Uri(uri) });
+                var response = await this.GetAsync(() => new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = new Uri(uri) });
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 return body;
@@ -23,18 +26,18 @@ namespace VeganLife.Data.RssFeedsData
             }
         }
 
-        public async Task<HttpResponseMessage> GetAsync(Func<HttpRequestMessage> requestGenerator)
+        async Task<HttpResponseMessage> GetAsync(Func<HttpRequestMessage> requestGenerator)
         {
-            return await RequestAsync(() => requestGenerator());
+            return await this.RequestAsync(() => requestGenerator());
         }
 
-        public async Task<HttpResponseMessage> RequestAsync(Func<HttpRequestMessage> func)
+        private async Task<HttpResponseMessage> RequestAsync(Func<HttpRequestMessage> func)
         {
-            var response = await ProcessRequestAsync(func);
+            var response = await this.ProcessRequestAsync(func);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                response = await ProcessRequestAsync(func);
+                response = await this.ProcessRequestAsync(func);
             }
 
             return response;

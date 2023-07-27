@@ -1,27 +1,38 @@
-﻿using Firebase.Database;
-using Firebase.Database.Query;
-using Newtonsoft.Json;
-using System.Xml;
-using VeganLife.Data.RssFeedsData;
-using VeganLife.Models.FoodModel;
+﻿// <copyright file="DataService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Services
 {
+    using System.Xml;
+    using Firebase.Database;
+    using Firebase.Database.Query;
+    using Newtonsoft.Json;
+    using VeganLife.Data.RssFeedsData;
+    using VeganLife.Models.FoodModel;
+    using VeganLife.Models.GoogleNewsModels;
+
     public class DataService : IDataService
     {
-        const string firebase_client_link = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
-        protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(firebase_client_link);
+        protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
+        private const string FirebaseClientLink = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
+        private const string FoodDetailAddress = "Foods/detail";
+        private const string MenuFoodAddress = "App/img/menu_food";
+        private const string FoodListAddress = "Foods/list";
+        private const string VitaminListAddress = "Vitamins/list";
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
             try
             {
-                var data = await firebaseDatabase.Child("Foods/detail").Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
+                var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
                 return data;
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return new FoodDetailModel();
             }
         }
@@ -30,16 +41,18 @@ namespace VeganLife.Services
         {
             try
             {
-                var data = await firebaseDatabase.Child("App/img/menu_food").OnceAsync<MenuModel>().ConfigureAwait(false);
+                var data = await this.firebaseDatabase.Child(MenuFoodAddress).OnceAsync<MenuModel>().ConfigureAwait(false);
                 return data.Select(item => new FoodMenuCategoryModel
                 {
                     ImgSource = item.Object.ImgSource,
-                    Title = item.Key
+                    Title = item.Key,
                 });
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return Enumerable.Empty<FoodMenuCategoryModel>();
             }
         }
@@ -48,19 +61,21 @@ namespace VeganLife.Services
         {
             try
             {
-                var data = await firebaseDatabase.Child("Foods/list").OnceAsync<FoodPreviewModel>().ConfigureAwait(false);
+                var data = await this.firebaseDatabase.Child(FoodListAddress).OnceAsync<FoodPreviewModel>().ConfigureAwait(false);
                 return data.Select(item => new FoodPreviewModel
                 {
                     Id = item.Key,
                     Name = item.Object.Name,
                     Image = item.Object.Image,
                     Time = item.Object.Time,
-                    Category = item.Object.Category
+                    Category = item.Object.Category,
                 });
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return Enumerable.Empty<FoodPreviewModel>();
             }
         }
@@ -69,7 +84,7 @@ namespace VeganLife.Services
         {
             try
             {
-                var dataTask = await firebaseDatabase.Child("Vitamins/list").OnceAsync<VitaminModel>().ConfigureAwait(false);
+                var dataTask = await this.firebaseDatabase.Child(VitaminListAddress).OnceAsync<VitaminModel>().ConfigureAwait(false);
                 return dataTask.Select(i => new VitaminModel
                 {
                     Id = i.Key,
@@ -81,7 +96,9 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
+#if DEBUG
                 Console.WriteLine(e.StackTrace);
+#endif
                 return Enumerable.Empty<VitaminModel>();
             }
         }
@@ -91,12 +108,18 @@ namespace VeganLife.Services
             var rss = new RssFeedsHttpRequest();
             var data = await rss.GetRssData(uri);
             if (string.IsNullOrEmpty(data))
+            {
                 return Enumerable.Empty<Item>();
+            }
+
             var doc = new XmlDocument();
             doc.LoadXml(data);
             var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
             if (string.IsNullOrEmpty(json))
+            {
                 return Enumerable.Empty<Item>();
+            }
+
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             return baseData.rss.channel.item;
         }

@@ -1,11 +1,12 @@
-using VeganLife.Views.Base;
+// <copyright file="LoginPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+// using VeganLife.Views.Base;
 
-namespace VeganLife.Views;
-
-public partial class LoginPage : BasePage<LoginViewModel>
-{
-	public LoginPage(LoginViewModel vm) : base(vm)
-	{
-        InitializeComponent();
-	}
-}
+// public partial class LoginPage : BasePage<LoginViewModel>
+// {
+//    public LoginPage(LoginViewModel vm) : base(vm)
+//    {
+//        InitializeComponent();
+//    }
+// }

@@ -1,7 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿// <copyright file="VitaminModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Models
 {
+    using Newtonsoft.Json;
+
     public class VitaminModel
     {
         [JsonIgnore]

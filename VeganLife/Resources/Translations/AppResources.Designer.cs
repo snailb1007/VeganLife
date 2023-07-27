@@ -61,6 +61,34 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        internal static string age_bmiPage {
+            get {
+                return ResourceManager.GetString("age_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows the application to collect crash.
+        ///Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes..
+        /// </summary>
+        internal static string Alert_CollectOperationLogsPermission_Message {
+            get {
+                return ResourceManager.GetString("Alert_CollectOperationLogsPermission_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I agree with .
+        /// </summary>
+        internal static string app_allow {
+            get {
+                return ResourceManager.GetString("app_allow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         internal static string app_common_bookmarkTab {
@@ -129,6 +157,52 @@ namespace VeganLife.Resources.Translations {
         internal static string app_common_webViewTab {
             get {
                 return ResourceManager.GetString("app_common_webViewTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leafy Lifestyle is an application about vegetarian recipes, bringing vegetarian values closer to you..
+        /// </summary>
+        internal static string app_detail {
+            get {
+                return ResourceManager.GetString("app_detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leafy Lifestyle.
+        /// </summary>
+        internal static string app_name {
+            get {
+                return ResourceManager.GetString("app_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy..
+        /// </summary>
+        internal static string app_PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("app_PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live a healthy life,
+        ///taste the whole moment.
+        /// </summary>
+        internal static string app_slogan {
+            get {
+                return ResourceManager.GetString("app_slogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms &amp; Conditions..
+        /// </summary>
+        internal static string app_TermsAndConditions {
+            get {
+                return ResourceManager.GetString("app_TermsAndConditions", resourceCulture);
             }
         }
         
@@ -232,6 +306,51 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Breakfast.
+        /// </summary>
+        internal static string breakfast_rationPlantPage {
+            get {
+                return ResourceManager.GetString("breakfast_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculate.
+        /// </summary>
+        internal static string calculate_bmiPage {
+            get {
+                return ResourceManager.GetString("calculate_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string cancel_common {
+            get {
+                return ResourceManager.GetString("cancel_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string close_common {
+            get {
+                return ResourceManager.GetString("close_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow collect logs.
+        /// </summary>
+        internal static string collectLog_settingPage {
+            get {
+                return ResourceManager.GetString("collectLog_settingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         internal static string dark_settingPage {
@@ -259,6 +378,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are operating anonymously, fill in the information for a better experience.
+        /// </summary>
+        internal static string description_flyoutHeader {
+            get {
+                return ResourceManager.GetString("description_flyoutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinner.
+        /// </summary>
+        internal static string dinner_rationPlantPage {
+            get {
+                return ResourceManager.GetString("dinner_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter search term.
         /// </summary>
         internal static string enterSearchTerm_Placeholder_shell {
@@ -277,11 +414,38 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        internal static string female_bmiPage {
+            get {
+                return ResourceManager.GetString("female_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Healthy.
         /// </summary>
         internal static string healthy_feedPage {
             get {
                 return ResourceManager.GetString("healthy_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hegiht.
+        /// </summary>
+        internal static string height_bmiPage {
+            get {
+                return ResourceManager.GetString("height_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incognito.
+        /// </summary>
+        internal static string incognito_flyoutHeader {
+            get {
+                return ResourceManager.GetString("incognito_flyoutHeader", resourceCulture);
             }
         }
         
@@ -340,11 +504,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lunch.
+        /// </summary>
+        internal static string lunch_rationPlantPage {
+            get {
+                return ResourceManager.GetString("lunch_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cooking.
         /// </summary>
         internal static string making_foodDetailPage {
             get {
                 return ResourceManager.GetString("making_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        internal static string male_bmiPage {
+            get {
+                return ResourceManager.GetString("male_bmiPage", resourceCulture);
             }
         }
         
@@ -405,6 +587,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I&apos;m {0}, {1} years old, bmi index is {2}. Give me advice.
+        /// </summary>
+        internal static string queryBMI_bmiPopup {
+            get {
+                return ResourceManager.GetString("queryBMI_bmiPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Religion.
         /// </summary>
         internal static string religion_feedPage {
@@ -432,11 +623,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sex.
+        /// </summary>
+        internal static string sex_bmiPage {
+            get {
+                return ResourceManager.GetString("sex_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         internal static string sexDetail_content_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("sexDetail_content_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side meal.
+        /// </summary>
+        internal static string sideMeal_rationPlantPage {
+            get {
+                return ResourceManager.GetString("sideMeal_rationPlantPage", resourceCulture);
             }
         }
         
@@ -468,11 +677,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your BMI.
+        /// </summary>
+        internal static string title_bmiPopup {
+            get {
+                return ResourceManager.GetString("title_bmiPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vegan food.
         /// </summary>
         internal static string veganFood_feedPage {
             get {
                 return ResourceManager.GetString("veganFood_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight.
+        /// </summary>
+        internal static string weight_bmiPage {
+            get {
+                return ResourceManager.GetString("weight_bmiPage", resourceCulture);
             }
         }
     }

@@ -8,6 +8,7 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
+    xmlns:models="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
@@ -40,12 +41,6 @@
                 Value="true">
                 <Setter Property="Opacity" Value="0.7" />
             </DataTrigger>
-            <!--<DataTrigger
-                Binding="{Binding IsSearchFocused}"
-                TargetType="Grid"
-                Value="true">
-                <Setter Property="Opacity" Value="0.7" />
-            </DataTrigger>-->
         </Grid.Triggers>
         <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="True" />
         <!--  transparent view  -->
@@ -56,53 +51,51 @@
         </Grid>
         <toolkit:Expander Grid.Row="1" IsExpanded="{Binding IsFilterContentExpaned}">
             <toolkit:Expander.Header>
-                <Grid
-                    Margin="0"
-                    Padding="0"
-                    ColumnDefinitions="10,*,10"
-                    ColumnSpacing="0">
-                    <Border Grid.Column="1" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10" />
-                        </Border.StrokeShape>
-                        <Grid ColumnDefinitions="*, 45">
-                            <SearchBar
-                                x:Name="searchBar"
-                                BackgroundColor="White"
-                                HorizontalOptions="CenterAndExpand"
-                                Placeholder="{x:Static translate:AppResources.searchPlace_mainPage}"
-                                Text="{Binding SearchText, Mode=TwoWay}">
-                                <SearchBar.Behaviors>
-                                    <toolkit:UserStoppedTypingBehavior
-                                        Command="{Binding EnsureSearchCommand}"
-                                        MinimumLengthThreshold="1"
-                                        ShouldDismissKeyboardAutomatically="False"
-                                        StoppedTypingTimeThreshold="500" />
-                                </SearchBar.Behaviors>
-                            </SearchBar>
-                            <ImageButton
-                                Grid.Column="1"
-                                Margin="0"
-                                Padding="2.5"
-                                BackgroundColor="{StaticResource PrimaryLight}"
-                                Command="{Binding FilterClickedCommand}"
-                                CornerRadius="10"
-                                HeightRequest="35"
-                                HorizontalOptions="Center"
-                                Source="filter.svg"
-                                VerticalOptions="Center"
-                                WidthRequest="35">
-                                <ImageButton.Behaviors>
-                                    <toolkit:AnimationBehavior>
-                                        <toolkit:AnimationBehavior.AnimationType>
-                                            <toolkit:FadeAnimation Opacity="0.5" />
-                                        </toolkit:AnimationBehavior.AnimationType>
-                                    </toolkit:AnimationBehavior>
-                                </ImageButton.Behaviors>
-                            </ImageButton>
-                        </Grid>
-                    </Border>
-                </Grid>
+                <Border
+                    Grid.Column="1"
+                    Margin="10,0"
+                    BackgroundColor="Transparent"
+                    Stroke="{StaticResource Gray400}"
+                    StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <Grid BackgroundColor="Transparent" ColumnDefinitions="*, 45">
+                        <SearchBar
+                            x:Name="searchBar"
+                            HorizontalOptions="CenterAndExpand"
+                            Placeholder="{x:Static translate:AppResources.searchPlace_mainPage}"
+                            Text="{Binding SearchText, Mode=TwoWay}">
+                            <SearchBar.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding EnsureSearchCommand}"
+                                    MinimumLengthThreshold="1"
+                                    ShouldDismissKeyboardAutomatically="False"
+                                    StoppedTypingTimeThreshold="500" />
+                            </SearchBar.Behaviors>
+                        </SearchBar>
+                        <ImageButton
+                            Grid.Column="1"
+                            Margin="0"
+                            Padding="2.5"
+                            BackgroundColor="{StaticResource PrimaryLight}"
+                            Command="{Binding FilterClickedCommand}"
+                            CornerRadius="10"
+                            HeightRequest="35"
+                            HorizontalOptions="Center"
+                            Source="filter.svg"
+                            VerticalOptions="Center"
+                            WidthRequest="35">
+                            <ImageButton.Behaviors>
+                                <toolkit:AnimationBehavior>
+                                    <toolkit:AnimationBehavior.AnimationType>
+                                        <toolkit:FadeAnimation Opacity="0.5" />
+                                    </toolkit:AnimationBehavior.AnimationType>
+                                </toolkit:AnimationBehavior>
+                            </ImageButton.Behaviors>
+                        </ImageButton>
+                    </Grid>
+                </Border>
             </toolkit:Expander.Header>
             <Grid
                 Grid.Row="2"
@@ -118,7 +111,7 @@
                         <LinearItemsLayout ItemSpacing="0" Orientation="Horizontal" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodel:FoodMenuCategoryModel">
+                        <DataTemplate x:DataType="models:FoodMenuCategoryModel">
                             <VerticalStackLayout Margin="20,0,0,0">
                                 <VerticalStackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.CategoryClickedCommand, Source={x:Reference mainPageRoot}}" CommandParameter="{Binding .}" />

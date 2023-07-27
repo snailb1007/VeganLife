@@ -1,48 +1,63 @@
-﻿using VeganLife.Helpers;
-using VeganLife.Helpers.AppSetting;
-using VeganLife.Views.SettingTab;
+﻿// <copyright file="SettingViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels
 {
+    using VeganLife.Helpers;
+    using VeganLife.Helpers.AppSetting;
+    using VeganLife.Views.SettingTab;
+
+    /// <summary>
+    /// vm for SettingPage.
+    /// </summary>
     public partial class SettingViewModel : BaseViewModel
     {
         [ObservableProperty]
-        bool _isDarkMode;
-
+        private bool isDarkMode;
         [ObservableProperty]
-        string _imgBackground = string.Empty;
+        private string appVersionDisplay;
 
-        [ObservableProperty]
-        int _indexPickerOption;
 
-        public SettingViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingViewModel"/> class.
+        /// </summary>
+        public SettingViewModel()
+            : base()
         {
-            Init();
+            this.Init();
+        }
+
+        public override Task ViewAppearingVM()
+        {
+            this.AppVersionDisplay = AppInfo.VersionString;
+            return base.ViewAppearingVM();
         }
 
         private void Init()
         {
-            IndexPickerOption = 0;
-            ImgBackground = ConstantHelper.ThemeInfo.ImgBackground;
             var currentDeviceTheme = App.Current.UserAppTheme;
-            IsDarkMode = currentDeviceTheme == AppTheme.Dark;
+            this.IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }
 
         [RelayCommand]
-        void SwitchTheme(Microsoft.Maui.Controls.Switch parameter)
+        private void SwitchTheme(Microsoft.Maui.Controls.Switch parameter)
         {
             if (parameter == null)
+            {
                 return;
-            IsDarkMode = parameter.IsToggled;
-            var goalTheme = IsDarkMode ? AppTheme.Dark : AppTheme.Light;
+            }
+
+            this.IsDarkMode = parameter.IsToggled;
+            var goalTheme = this.IsDarkMode ? AppTheme.Dark : AppTheme.Light;
             AppThemeHelper.SetTheme(goalTheme);
             UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
         }
 
         [RelayCommand]
-        async Task OpenLicensePage()
+        private async Task OpenLicensePage()
         {
-            await navigation_service.NavigataToPage<LicensePage>();
+            await this.navigationService.NavigateToPage<LicensePage>();
         }
     }
 }
