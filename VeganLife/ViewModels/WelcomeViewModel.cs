@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Maui.Views;
+using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
+using VeganLife.Views.Popups;
 
 namespace VeganLife.ViewModels
 {
@@ -19,14 +18,33 @@ namespace VeganLife.ViewModels
     {
         [ObservableProperty]
         IList<WelcomeImage> _listImage;
-        [ObservableProperty]
-        private int _currentItem;
 
         public WelcomeViewModel()
             : base()
         {
             Init();
         }
+
+        public override async Task<Task> ViewAppearingVM()
+        {
+            if (UserSettingsHelper.IsFirstTime)
+            {
+                UserSettingsHelper.Set(UserSettingKey.IsFirstTime, false.ToString());
+                await Task.Delay(1);
+                var isCollectAccepted = await this.navigationService.DisplayAlert(
+                    string.Empty,
+                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
+                    ok: AppResources.ok_common,
+                    cancel: AppResources.cancel_common);
+                UserSettingsHelper.Set(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString());
+                App.Current.MainPage.ShowPopup(ServicesHelper.GetService<AboutAppPopup>());
+            }
+
+            App.SetupCollectLogPermission();
+
+            return base.ViewAppearingVM();
+        }
+
 
         void Init()
         {
@@ -39,31 +57,9 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        void HandleButtonPrevious()
+        void Skip()
         {
-            if (CurrentItem <= 0)
-            {
-                CurrentItem = 0;
-                return;
-            }
-            else
-            {
-                CurrentItem--;
-            }
-        }
-
-        [RelayCommand]
-        void HandleButtonNext()
-        {
-            if (CurrentItem > 3)
-            {
-                CurrentItem = 3;
-                return;
-            }
-            else
-            {
-                CurrentItem++;
-            }
+            Application.Current.MainPage = new AppShell();
         }
     }
 }

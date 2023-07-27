@@ -7,7 +7,14 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:WelcomeViewModel"
-    x:TypeArguments="viewmodel:WelcomeViewModel">
+    x:TypeArguments="viewmodel:WelcomeViewModel"
+    NavigationPage.HasNavigationBar="False">
+    <!--<ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+        </LinearGradientBrush>
+    </ContentPage.Background>-->
     <ContentPage.Resources>
         <Style x:Key="IndicatorLabelStyle" TargetType="Label">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -20,7 +27,7 @@
                         </VisualState>
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
-                                <Setter Property="TextColor" Value="Black" />
+                                <Setter Property="TextColor" Value="Green" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -78,25 +85,26 @@
             HorizontalOptions="FillAndExpand">
             <HorizontalStackLayout Spacing="6">
                 <Button
-                    Background="#ebf0ec"
-                    Command="{Binding HandleButtonPreviousCommand}"
-                    CornerRadius="50"
-                    FontFamily="{StaticResource FontAwesomeSolid}"
-                    Text="&#xf060;" />
+                    Background="Green"
+                    Clicked="PreviousButton"
+                    CornerRadius="30"
+                    FontFamily="FontAwesomeSolid"
+                    Text="&#xf060;"
+                    TextColor="Wheat" />
                 <Button
-                    Background="#ebf0ec"
-                    Command="{Binding HandleButtonNextCommand}"
-                    CornerRadius="50"
-                    FontFamily="{StaticResource FontAwesomeSolid}"
-                    Text="&#xf061;" />
+                    Clicked="NextButton"
+                    CornerRadius="30"
+                    FontFamily="FontAwesomeSolid"
+                    Text="&#xf061;"
+                    TextColor="Wheat" />
             </HorizontalStackLayout>
             <Button
                 Grid.Column="1"
-                BackgroundColor="#ebf0ec"
+                Command="{Binding SkipCommand}"
                 FontAttributes="Bold"
                 HorizontalOptions="FillAndExpand"
                 Text="Skip"
-                TextColor="Black" />
+                TextColor="Wheat" />
         </Grid>
     </StackLayout>
 </base:BasePage>
