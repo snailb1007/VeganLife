@@ -45,12 +45,6 @@ namespace VeganLife
             Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
             Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
         }
-        SetupTheme();
-        SetupLanguage();
-        // MainPage = new NavigationPage(new LoginPage(new LoginViewModel(service, dataService)));
-        MainPage = new WelcomePage(new WelcomeViewModel(service, dataService));
-        //MainPage = new AppShell();
-    }
 
         private void SetupLanguage()
         {
