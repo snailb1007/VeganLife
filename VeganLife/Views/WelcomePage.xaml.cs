@@ -1,13 +1,17 @@
-using VeganLife.Views.Base;
-
-namespace VeganLife.Views;
-
-public partial class WelcomePage : BasePage<WelcomeViewModel>
+namespace VeganLife.Views
 {
-    public WelcomePage(WelcomeViewModel vm) : base(vm)
-	{
-        if (carouselView != null)
-            carouselView.Position = 1;
-        InitializeComponent();
+    using VeganLife.Views.Base;
+    public partial class WelcomePage : BasePage<WelcomeViewModel>
+    {
+        public WelcomePage(WelcomeViewModel vm)
+            : base(vm)
+        {
+            this.InitializeComponent();
+        }
+
+        void HandleButtonPrevious()
+        {
+
+        }
     }
 }

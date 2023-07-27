@@ -22,7 +22,8 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private int _currentItem;
 
-        public WelcomeViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
+        public WelcomeViewModel()
+            : base()
         {
             Init();
         }
@@ -35,7 +36,6 @@ namespace VeganLife.ViewModels
                 new WelcomeImage("slide_image2.jpg"),
                 new WelcomeImage("slide_image3.jpg")
             };
-            CurrentItem = 1;
         }
 
         [RelayCommand]
