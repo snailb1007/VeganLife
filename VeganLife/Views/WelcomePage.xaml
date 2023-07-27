@@ -32,7 +32,6 @@
         <Grid RowDefinitions="*" VerticalOptions="CenterAndExpand">
             <CarouselView
                 x:Name="carouselView"
-                CurrentItem="{Binding CurrentItem}"
                 HorizontalOptions="FillAndExpand"
                 IndicatorView="indicatorView"
                 ItemsSource="{Binding ListImage, Mode=OneWay}"
@@ -79,11 +78,13 @@
             HorizontalOptions="FillAndExpand">
             <HorizontalStackLayout Spacing="6">
                 <Button
+                    Background="#ebf0ec"
                     Command="{Binding HandleButtonPreviousCommand}"
                     CornerRadius="50"
                     FontFamily="{StaticResource FontAwesomeSolid}"
                     Text="&#xf060;" />
                 <Button
+                    Background="#ebf0ec"
                     Command="{Binding HandleButtonNextCommand}"
                     CornerRadius="50"
                     FontFamily="{StaticResource FontAwesomeSolid}"

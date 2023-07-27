@@ -115,6 +115,8 @@ namespace VeganLife
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<TutorialPage>();
             services.AddTransient<TutorialViewModel>();
+            services.AddTransient<WelcomePage>();
+            services.AddTransient<WelcomeViewModel>();
             // Popup
             services.AddTransient<BmiResultPopup>();
             services.AddTransient<BmiResultPopupViewmodel>();
