@@ -209,6 +209,5 @@
 		<MauiXaml Update="Views\WebViewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
->>>>>>> develop_1.0
 	</ItemGroup>
 </Project>
