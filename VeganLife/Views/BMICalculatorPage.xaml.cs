@@ -1,18 +1,15 @@
-namespace VeganLife.Views;
+// <copyright file="BMICalculatorPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class BMICalculatorPage : ContentPage
+namespace VeganLife.Views
 {
-	public BMICalculatorPage(BMICalculatorViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
-	}
-
-    private void Grid_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    public partial class BMICalculatorPage : ContentPage
     {
-		if (e.PropertyName.Equals("IsVisible"))
-		{
-            Console.WriteLine("==> " + lbHelpSex.Height);
-		}
+        public BMICalculatorPage(BMICalculatorViewModel vm)
+        {
+            this.InitializeComponent();
+            this.BindingContext = vm;
+        }
     }
 }

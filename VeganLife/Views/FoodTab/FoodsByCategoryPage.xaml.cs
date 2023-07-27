@@ -1,12 +1,17 @@
-using VeganLife.ViewModels.ContentViewModels;
+// <copyright file="FoodsByCategoryPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.FoodTab;
-
-public partial class FoodsByCategoryPage : ContentPage
+namespace VeganLife.Views.FoodTab
 {
-	public FoodsByCategoryPage(FoodsByCategoryViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
-	}
+    using VeganLife.ViewModels.ContentViewModels;
+
+    public partial class FoodsByCategoryPage : ContentPage
+    {
+        public FoodsByCategoryPage(FoodsByCategoryViewModel vm)
+        {
+            this.InitializeComponent();
+            this.BindingContext = vm;
+        }
+    }
 }

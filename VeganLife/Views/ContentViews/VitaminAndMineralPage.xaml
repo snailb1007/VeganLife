@@ -35,7 +35,7 @@
                     EmptyView="{x:Static translate:AppResources.noVitamin_vitaminPage}"
                     ItemSizingStrategy="MeasureFirstItem"
                     ItemsSource="{Binding Vitamins, Mode=OneWay}"
-                    SelectionChanged="vitaminsCollection_SelectionChanged"
+                    SelectionChanged="VitaminsCollection_SelectionChanged"
                     SelectionMode="Single"
                     VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>

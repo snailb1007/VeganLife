@@ -1,8 +1,14 @@
-﻿namespace VeganLife.Views.Base
+﻿// <copyright file="BasePage.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Views.Base
 {
-    public abstract class BasePage<TViewModel> : BasePage where TViewModel : BaseViewModel
+    public abstract class BasePage<TViewModel> : BasePage
+        where TViewModel : BaseViewModel
     {
-        protected BasePage(TViewModel viewModel) : base(viewModel)
+        protected BasePage(TViewModel viewModel)
+            : base(viewModel)
         {
         }
 
@@ -13,53 +19,59 @@
     {
         protected BasePage(object viewModel = null)
         {
-            BindingContext = viewModel;
-            if (string.IsNullOrWhiteSpace(Title))
+            this.BindingContext = viewModel;
+            if (string.IsNullOrWhiteSpace(this.Title))
             {
-                Title = GetType().Name;
+                this.Title = this.GetType().Name;
             }
         }
 
-        protected override void OnAppearing()
+        /// <inheritdoc/>
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 #if DEBUG
-            Debug.WriteLine($"=> OnAppearing: {Title}");
+            Debug.WriteLine($"=> OnAppearing: {this.Title}");
 #endif
+            await (this.BindingContext as BaseViewModel).ViewAppearingVM();
         }
 
-        protected override void OnDisappearing()
+        /// <inheritdoc/>
+        protected override async void OnDisappearing()
         {
             base.OnDisappearing();
 #if DEBUG
-            Debug.WriteLine($"=> OnDisappearing: {Title}");
+            Debug.WriteLine($"=> OnDisappearing: {this.Title}");
 #endif
+            await (this.BindingContext as BaseViewModel).ViewDisappearingVM();
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
+            this.OnPropertyChanged(propertyName);
             return true;
         }
 
-        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler BasePagePropertyChanged;
+
+        /// <inheritdoc/>
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             base.OnPropertyChanged(propertyName);
-            var changed = BasePagePropertyChanged;
+            var changed = this.BasePagePropertyChanged;
             if (changed == null)
+            {
                 return;
+            }
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
     }
 }

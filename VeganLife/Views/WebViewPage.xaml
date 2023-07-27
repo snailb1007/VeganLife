@@ -40,12 +40,15 @@
             </WebView.Behaviors>
         </WebView>
         <Button
-            Padding="8,20"
+            Background="{StaticResource PrimaryLight}"
             Clicked="Button_Clicked"
+            CornerRadius="25"
             FontFamily="{StaticResource FontAwesomeSolid}"
+            HeightRequest="50"
             HorizontalOptions="Start"
             Text="{StaticResource lbIcon_anglesRight}"
-            VerticalOptions="Center" />
+            VerticalOptions="Center"
+            WidthRequest="50" />
         <ActivityIndicator
             HorizontalOptions="Center"
             IsRunning="{Binding IsLoading, Mode=OneWay}"
@@ -60,18 +63,21 @@
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoBack}"
-                Text="{StaticResource lbIcon_angleLeft}" />
+                Text="{StaticResource lbIcon_angleLeft}"
+                TextColor="Black" />
             <Button
                 Command="{Binding NavigateForwardCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoForward}"
-                Text="{StaticResource lbIcon_angleRight}" />
+                Text="{StaticResource lbIcon_angleRight}"
+                TextColor="Black" />
             <Button
                 Command="{Binding RefreshPageCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 FontFamily="{StaticResource FontAwesomeSolid}"
-                Text="{StaticResource lbIcon_rotateRight}" />
+                Text="{StaticResource lbIcon_rotateRight}"
+                TextColor="Black" />
             <Button Command="{Binding OpenInBrowserCommand}" Text="Open in browser" />
         </HorizontalStackLayout>
     </Grid>

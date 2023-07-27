@@ -1,15 +1,20 @@
-namespace VeganLife.Views;
+// <copyright file="WebViewPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class WebViewPage : ContentPage
+namespace VeganLife.Views
 {
-	public WebViewPage(WebViewViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
-	}
-
-    private void Button_Clicked(object sender, EventArgs e)
+    public partial class WebViewPage : ContentPage
     {
-		AppShell.ShowFlyout();
+        public WebViewPage(WebViewViewModel vm)
+        {
+            this.InitializeComponent();
+            this.BindingContext = vm;
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            AppShell.ShowFlyout();
+        }
     }
 }

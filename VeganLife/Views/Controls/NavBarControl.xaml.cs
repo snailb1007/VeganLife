@@ -1,30 +1,36 @@
-using VeganLife.Helpers;
+// <copyright file="NavBarControl.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.Controls;
-
-public partial class NavBarControl : ContentView
+namespace VeganLife.Views.Controls
 {
-    public static BindableProperty TitleProperty = BindableProperty.Create(
-            propertyName: "Title",
-            declaringType: typeof(NavBarControl),
-            defaultValue: null,
-            returnType: typeof(string));
-    public string Title
+    using VeganLife.Helpers;
+
+    public partial class NavBarControl : ContentView
     {
-        get => (string)GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
+        public static BindableProperty TitleProperty = BindableProperty.Create(
+                propertyName: "Title",
+                declaringType: typeof(NavBarControl),
+                defaultValue: null,
+                returnType: typeof(string));
+
+        public string Title
+        {
+            get => (string)this.GetValue(TitleProperty);
+            set => this.SetValue(TitleProperty, value);
+        }
+
+        public NavBarControl()
+        {
+            this.InitializeComponent();
+        }
+
+        private async void Back_Clicked(object sender, EventArgs e)
+        {
+            await ServicesHelper.GetService<INavigationService>().PopAsync();
+        }
+
+        private void hamburger_Clicked(object sender, EventArgs e)
+            => AppShell.ShowFlyout();
     }
-
-    public NavBarControl()
-	{
-		InitializeComponent();
-	}
-
-    async void Back_Clicked(object sender, EventArgs e)
-    {
-        await ServicesHelper.GetService<INavigationService>().PopAsync();
-    }
-
-    private void hamburger_Clicked(object sender, EventArgs e)
-        => AppShell.ShowFlyout();
 }

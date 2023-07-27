@@ -1,9 +1,28 @@
-namespace VeganLife.Views.Controls;
+// <copyright file="FlyoutHeader.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class FlyoutHeader : ContentView
+namespace VeganLife.Views.Controls
 {
-	public FlyoutHeader()
-	{
-		InitializeComponent();
-	}
+    using VeganLife.Helpers;
+    using VeganLife.Views.Popups;
+
+    public partial class FlyoutHeader : ContentView
+    {
+        public FlyoutHeader()
+        {
+            this.InitializeComponent();
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
+        }
+
+        private async void AvatarView_Tapped(object sender, TappedEventArgs e)
+        {
+            Shell.Current.FlyoutIsPresented = false;
+            await ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>();
+        }
+    }
 }

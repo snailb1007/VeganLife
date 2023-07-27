@@ -6,7 +6,9 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:ggNewsModel="clr-namespace:VeganLife.Models.GoogleNewsModels"
     xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:models="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
@@ -73,7 +75,7 @@
                     <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodel:Discovery">
+                    <DataTemplate x:DataType="models:Discovery">
                         <VerticalStackLayout Spacing="5">
                             <VerticalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectDiscoveryMenuCommand, Source={x:Reference newsFeedPageRoot}}" CommandParameter="{Binding .}" />
@@ -132,7 +134,7 @@
                     <Grid BackgroundColor="Transparent" HeightRequest="10" />
                 </CollectionView.Footer>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Item">
+                    <DataTemplate x:DataType="ggNewsModel:Item">
                         <Border
                             BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
                                                               Light=#ffffff}"

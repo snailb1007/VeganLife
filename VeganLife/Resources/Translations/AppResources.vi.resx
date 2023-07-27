@@ -98,6 +98,27 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<!--app-->
+	<data name="app_name" xml:space="preserve">
+    <value>Sống chay lành</value>
+  </data>
+	<data name="app_allow" xml:space="preserve">
+    <value>Tôi đồng ý với </value>
+  </data>
+	<data name="app_TermsAndConditions" xml:space="preserve">
+    <value>Điều khoản &amp; Điều kiện.</value>
+  </data>
+	<data name="app_PrivacyPolicy" xml:space="preserve">
+    <value>Chính sách &amp; quyền riêng tư.</value>
+  </data>
+	<data name="app_slogan" xml:space="preserve">
+    <value>Sống chay lành,
+nếm cả khoảnh khắc</value>
+    </data>
+	<data name="app_detail" xml:space="preserve">
+    <value>Sống chay lành là ứng dụng về công thức món chay, đưa các giá trị ăn chay tới gần với bạn.</value>
+  </data>
+	<!--common-->
 	<data name="explore_common" xml:space="preserve">
     <value>Khám phá</value>
   </data>
@@ -107,6 +128,17 @@
 	<data name="ok_common" xml:space="preserve">
     <value>OK</value>
     </data>
+	<data name="cancel_common" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
+    <value>Cho phép ứng dụng thu thập lỗi.
+Nhật ký ứng dụng được sử dụng để thu thập và phân tích thông tin cho mục đích cải tiến chất lượng, phát triển sản phẩm và cải tiến dịch vụ.</value>
+  </data>
+	<data name="close_common" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
+	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>
     </data>
@@ -240,5 +272,53 @@ Danh sách trống!</value>
     </data>
 	<data name="license_settingPage" xml:space="preserve">
     <value>Giấy phép</value>
+    </data>
+	<data name="sex_bmiPage" xml:space="preserve">
+    <value>Giới tính sinh học</value>
+    </data>
+	<data name="male_bmiPage" xml:space="preserve">
+    <value>Nam giới</value>
+    </data>
+	<data name="female_bmiPage" xml:space="preserve">
+    <value>Nữ giới</value>
+    </data>
+	<data name="height_bmiPage" xml:space="preserve">
+    <value>Chiều cao</value>
+    </data>
+	<data name="weight_bmiPage" xml:space="preserve">
+    <value>Cân nặng</value>
+    </data>
+	<data name="age_bmiPage" xml:space="preserve">
+    <value>Độ tuổi</value>
+    </data>
+	<data name="calculate_bmiPage" xml:space="preserve">
+    <value>Tính</value>
+    </data>
+	<data name="queryBMI_bmiPopup" xml:space="preserve">
+    <value>Tôi giới tính {0}, {1} tuổi, chỉ số bmi {2}. Cho tôi lời khuyên</value>
+    </data>
+	<data name="title_bmiPopup" xml:space="preserve">
+    <value>BMI của bạn</value>
+    </data>
+	<data name="incognito_flyoutHeader" xml:space="preserve">
+    <value>Ẩn danh</value>
+    </data>
+	<data name="description_flyoutHeader" xml:space="preserve">
+    <value>Bạn đang hoạt động ẩn danh, điền các thông tin để có trải nghiệm tốt hơn</value>
+    </data>
+	<data name="lunch_rationPlantPage" xml:space="preserve">
+    <value>Bữa trưa</value>
+    </data>
+	<data name="breakfast_rationPlantPage" xml:space="preserve">
+    <value>Bữa sáng</value>
+    </data>
+	<data name="dinner_rationPlantPage" xml:space="preserve">
+    <value>Bữa tối</value>
+    </data>
+	<data name="sideMeal_rationPlantPage" xml:space="preserve">
+    <value>Bữa ăn phụ</value>
+    </data>
+	<data name="collectLog_settingPage" xml:space="preserve">
+    <value>Thu thập dữ liệu</value>
     </data>
 </root>

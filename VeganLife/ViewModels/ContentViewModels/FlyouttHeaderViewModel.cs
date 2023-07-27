@@ -1,9 +1,13 @@
-﻿namespace VeganLife.ViewModels.ContentViewModels
+﻿// <copyright file="FlyouttHeaderViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class FlyouttHeaderViewModel : BaseViewModel
     {
-        public FlyouttHeaderViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        public FlyouttHeaderViewModel()
+            : base()
         {
         }
     }
