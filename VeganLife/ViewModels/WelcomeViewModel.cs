@@ -5,8 +5,26 @@ using VeganLife.Views.Popups;
 
 namespace VeganLife.ViewModels
 {
-    public partial class TutorialViewModel : BaseViewModel
+    public class WelcomeImage
     {
+        public WelcomeImage(string image)
+        {
+            this.Image = image;
+        }
+        public string Image { get; set; }
+    }
+
+    public partial class WelcomeViewModel : BaseViewModel
+    {
+        [ObservableProperty]
+        IList<WelcomeImage> _listImage;
+
+        public WelcomeViewModel()
+            : base()
+        {
+            Init();
+        }
+
         public override async Task<Task> ViewAppearingVM()
         {
             if (UserSettingsHelper.IsFirstTime)
@@ -25,6 +43,17 @@ namespace VeganLife.ViewModels
             App.SetupCollectLogPermission();
 
             return base.ViewAppearingVM();
+        }
+
+
+        void Init()
+        {
+            ListImage = new List<WelcomeImage>
+            {
+                new WelcomeImage("slide_image1.jpg"),
+                new WelcomeImage("slide_image2.jpg"),
+                new WelcomeImage("slide_image3.jpg")
+            };
         }
 
         [RelayCommand]
