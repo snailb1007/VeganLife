@@ -4,6 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
+    x:DataType="vm:ProfilePopupViewModel"
     BackgroundColor="#80808080">
     <Mopups:PopupPage.Content>
         <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.5*,3*,*">
@@ -17,11 +19,44 @@
                     <Button
                         CornerRadius="15"
                         FontFamily="{StaticResource FontAwesomeSolid}"
-                        HeightRequest="30"
+                        FontSize="Title"
                         HorizontalOptions="End"
                         Text="{StaticResource IconClose}"
-                        TextColor="Gray" />
-                    <Label HorizontalOptions="Center" Text="Profile" />
+                        TextColor="Gray"
+                        VerticalOptions="Start" />
+                    <VerticalStackLayout Margin="20" Spacing="10">
+                        <VerticalStackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="Frame">
+                                    <Setter Property="CornerRadius" Value="4" />
+                                    <Setter Property="HasShadow" Value="True" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Opacity" Value="0.7" />
+                                    <Setter Property="Margin" Value="0,5,0,0" />
+                                </Style>
+                            </ResourceDictionary>
+                        </VerticalStackLayout.Resources>
+                        <Label HorizontalOptions="Center" Text="Profile" />
+                        <Label Margin="0,10,0,0" Text="Name" />
+                        <Frame>
+                            <Entry
+                                Margin="5,0"
+                                Placeholder="Ten cua ban"
+                                Text="{Binding UserName}" />
+                        </Frame>
+                        <Label Text="Age" />
+                        <DatePicker HorizontalOptions="Start" MinimumDate="01/01/1950" />
+                        <Label Text="Chieu cao" />
+                        <Frame>
+                            <Entry Placeholder="Chieu cao" Text="{Binding UserHeight}" />
+                        </Frame>
+                        <Label Text="Can nang" />
+                        <Frame>
+                            <Entry Placeholder="Can nang" Text="{Binding UserWeight}" />
+                        </Frame>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </Frame>
         </Grid>
