@@ -16,6 +16,7 @@ namespace VeganLife.ViewModels
         protected readonly INavigationService navigationService;
         protected readonly IDeviceService deviceService;
         protected readonly ISQLite localDatabase;
+        protected readonly IPopupNaviService popupNaviService;
 
         protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 
@@ -31,6 +32,7 @@ namespace VeganLife.ViewModels
             this.navigationService = ServicesHelper.GetService<INavigationService>();
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
+            this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
         }
 
         /// <summary>

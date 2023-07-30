@@ -20,7 +20,7 @@ namespace VeganLife
             this.viewModel = vm;
         }
 
-        private bool processing;
+        // private bool processing;
 
         //private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
         //{
