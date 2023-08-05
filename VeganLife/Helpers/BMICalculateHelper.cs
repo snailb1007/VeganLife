@@ -14,7 +14,7 @@ namespace VeganLife.Helpers
         /// <param name="mass">mass to Calculate.</param>
         /// <param name="height">height to Calculate.</param>
         /// <returns>Bmi value.</returns>
-        public static float Calculate(float mass, float height) => mass / (height * height);
+        public static double Calculate(float mass, float height) => Math.Round((mass / (height * height)),2);
 
         // Orange: Underweight (Mild thinness)
         // Green: Normal range
