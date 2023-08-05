@@ -18,7 +18,7 @@ namespace VeganLife.ViewModels
         private short age;
 
         [ObservableProperty]
-        private float height;
+        private int height;
 
         [ObservableProperty]
         private bool isDisplayedSexDetail;
@@ -48,7 +48,7 @@ namespace VeganLife.ViewModels
         private string generalError;
 
         [ObservableProperty]
-        private float bmiResult;
+        private double bmiResult;
 
         [RelayCommand]
         private void HelpSexDetail(string parameter)
@@ -116,7 +116,7 @@ namespace VeganLife.ViewModels
             this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
             await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(new BMIResultModel()
             {
-                BMIResult = this.BmiResult,
+                BMIResult = (float)this.BmiResult,
                 Sex = this.IsMale ? ConstantHelper.BmiData.Male : ConstantHelper.BmiData.Female,
                 Age = this.AgeValue,
             });
@@ -134,11 +134,11 @@ namespace VeganLife.ViewModels
             this.weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
             if (weight < 2)
             {
-                this.WeightErrMess = "Qúa thấp, dường như bạn nhập sai";
+                this.WeightErrMess = "Cân nặng quá thấp, dường như bạn nhập sai";
             }
             else if (weight > 635)
             {
-                this.WeightErrMess = "Qúa lớn, dường như bạn nhập sai";
+                this.WeightErrMess = "Cân nặng quá lớn, dường như bạn nhập sai";
             }
             else
             {
@@ -160,11 +160,11 @@ namespace VeganLife.ViewModels
             this.age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
             if (age <= 1)
             {
-                this.AgeErrMess = "Quá nhỏ, nhập lại";
+                this.AgeErrMess = "Độ tuổi quá nhỏ, nhập lại";
             }
             else if (age >= 140)
             {
-                this.AgeErrMess = "Quá lớn, dường như bạn nhập sai";
+                this.AgeErrMess = "Đuổi tuổi quá lớn, dường như bạn nhập sai";
             }
             else
             {
@@ -174,15 +174,73 @@ namespace VeganLife.ViewModels
             this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
-        partial void OnHeightChanged(float value)
+        partial void OnHeightChanged(int value)
         {
-            this.Height = (float)Math.Round(Height, 2);
+            this.Height = (int)Height;
         }
 
         private bool CheckEnableButtonCalculate()
         {
             return string.IsNullOrEmpty(this.WeightErrMess) && string.IsNullOrEmpty(this.AgeErrMess)
             && !string.IsNullOrEmpty(this.WeightValue) && !string.IsNullOrEmpty(this.AgeValue);
+        }
+
+        [RelayCommand]
+        void Increase(object data)
+        {
+            if (data is null)
+                return;
+
+            if (data.ToString() == "weight")
+            {
+                if (WeightValue is null)
+                    WeightValue = "0";
+
+                if (Int32.TryParse(WeightValue, out int weightNumber))
+                {
+                    WeightValue = (++weightNumber).ToString();
+                }
+            }
+
+            if (data.ToString() == "age")
+            {
+                if (AgeValue is null)
+                    AgeValue = "0";
+
+                if (Int32.TryParse(AgeValue, out int ageNumber))
+                {
+                    AgeValue = (++ageNumber).ToString();
+                }
+            }
+        }
+
+        [RelayCommand]
+        void Decrease(object data)
+        {
+            if (data is null)
+                return;
+
+            if (data.ToString() == "weight")
+            {
+                if (WeightValue is null)
+                    WeightValue = "0";
+
+                if (Int32.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
+                {
+                    WeightValue = (--weightNumber).ToString();
+                }
+            }
+
+            if (data.ToString() == "age")
+            {
+                if (AgeValue is null)
+                    AgeValue = "0";
+
+                if (Int32.TryParse(AgeValue, out int ageNumber) && ageNumber >= 1)
+                {
+                    AgeValue = (--ageNumber).ToString();
+                }
+            }
         }
     }
 }
