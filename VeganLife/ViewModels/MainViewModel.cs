@@ -35,11 +35,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string searchText;
 
-        public bool IsLoadDataOnAppearingDone { get; private set; }
+        private bool isLoadDataOnAppearingDone;
 
         public IAsyncRelayCommand GoFoodDetailCommand { get; }
-
-        public IAsyncRelayCommand LoadDataCommand { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -48,7 +46,6 @@ namespace VeganLife.ViewModels
             : base()
         {
             this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
-            this.LoadDataCommand = new AsyncRelayCommand(this.LoadDataAsync);
             this.allFoods = new List<FoodPreviewModel>();
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
@@ -60,6 +57,17 @@ namespace VeganLife.ViewModels
             DataStoreService = new FoodPreviewDataStoreService(this.localDatabase);
         }
 
+        public override Task ViewAppearingVM()
+        {
+            if (!isLoadDataOnAppearingDone)
+            {
+                LoadDataCommand.Execute(null);
+            }
+
+            return base.ViewAppearingVM();
+        }
+
+        [RelayCommand]
         private async Task LoadDataAsync()
         {
             if (this.IsNetworkConnected)
@@ -120,7 +128,7 @@ namespace VeganLife.ViewModels
             }
 
             await this.SetupMenu();
-            this.IsLoadDataOnAppearingDone = true;
+            this.isLoadDataOnAppearingDone = true;
         }
 
         private async Task SetupMenu()
