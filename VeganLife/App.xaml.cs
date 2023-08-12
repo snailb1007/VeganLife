@@ -48,7 +48,7 @@ namespace VeganLife
 
         private void SetupLanguage()
         {
-            ConstantHelper.AppSetting.IsVietnameseLang = true;
+            StaticHelper.AppSetting.IsVietnameseLang = true;
             var culture = new CultureInfo(ConstantHelper.LanguageVietnam);
             CultureInfo.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
