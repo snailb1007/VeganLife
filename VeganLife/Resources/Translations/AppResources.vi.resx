@@ -321,4 +321,17 @@ Danh sách trống!</value>
 	<data name="collectLog_settingPage" xml:space="preserve">
     <value>Thu thập dữ liệu</value>
     </data>
+	<data name="wrongWeight_tooLow_bmiCalculatePage" xml:space="preserve">
+    <value>Cân nặng quá thấp, dường như bạn nhập sai</value>
+    </data>
+	<data name="wrongWeight_tooHigh_bmiCalculatePage" xml:space="preserve">
+    <value>Cân nặng quá lớn, dường như bạn nhập sai</value>
+    </data>
+	<data name="wrongAge_tooLow_bmiCalculatePage" xml:space="preserve">
+    <value>Độ tuổi quá nhỏ, chưa được hỗ trợ
+	Nhập lại</value>
+    </data>
+	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
+    <value>Đuổi tuổi quá lớn, dường như bạn nhập sai</value>
+    </data>
 </root>
