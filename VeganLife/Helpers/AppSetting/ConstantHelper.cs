@@ -34,18 +34,6 @@ namespace VeganLife.Helpers.AppSetting
             public const string GoogleNewsLiveStrong = "https://news.google.com/rss/search?q=t%E1%BA%ADp%20luy%E1%BB%87n%20s%E1%BB%91ng%20kh%E1%BB%8Fe&hl=vi&gl=VN&ceid=VN%3Avi";
         }
 
-        public static class ThemeInfo
-        {
-            public static string ImgBackground { get; set; }
-
-            public static bool IsDarkMode { get; set; }
-        }
-
-        public static class AppSetting
-        {
-            public static bool IsVietnameseLang { get; set; }
-        }
-
         public static class BmiData
         {
             public const string Male = "Male";
