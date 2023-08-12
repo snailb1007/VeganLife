@@ -13,7 +13,7 @@
     BackgroundImageSource="{Binding BackgroundIMG}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
+            <toolkit:IsNotNullConverter x:Key="NullToFalseConverter" />
             <Style x:Key="InvalidEntryStyle" TargetType="Entry">
                 <Setter Property="TextColor" Value="Red" />
             </Style>
@@ -187,7 +187,7 @@
                                         VerticalOptions="Center" />
                                     <Label Text="cm" VerticalOptions="Center" />
                                 </HorizontalStackLayout>
-                                <Grid ColumnDefinitions="*,5*,*" HorizontalOptions="FillAndExpand">
+                                <Grid ColumnDefinitions="*,20*,*" HorizontalOptions="FillAndExpand">
                                     <Slider
                                         x:Name="sliderHeight"
                                         Grid.Column="1"
@@ -213,6 +213,7 @@
                                         x:Name="entryWeight"
                                         FontSize="20"
                                         HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
                                         Keyboard="Numeric"
                                         Placeholder="50kg"
                                         Text="{Binding WeightValue}">
@@ -230,7 +231,12 @@
                                         Padding="0,5"
                                         ColumnDefinitions="*,*"
                                         ColumnSpacing="5">
-                                        <Button Style="{StaticResource btnPlusMinus}" Text="&#x2b;">
+                                        <Button
+                                            Grid.Column="1"
+                                            Command="{Binding IncreaseCommand}"
+                                            CommandParameter="weight"
+                                            Style="{StaticResource btnPlusMinus}"
+                                            Text="&#x2b;">
                                             <Button.Shadow>
                                                 <Shadow
                                                     Brush="Black"
@@ -240,9 +246,20 @@
                                             </Button.Shadow>
                                         </Button>
                                         <Button
-                                            Grid.Column="1"
+                                            Grid.Column="0"
+                                            Command="{Binding DecreaseCommand}"
+                                            CommandParameter="weight"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#xf068;">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding WeightValue}"
+                                                    TargetType="Button"
+                                                    Value="0">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                    <Setter Property="TextColor" Value="Gray" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
                                             <Button.Shadow>
                                                 <Shadow
                                                     Brush="Black"
@@ -270,6 +287,7 @@
                                         x:Name="entryAge"
                                         FontSize="20"
                                         HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
                                         Keyboard="Numeric"
                                         Placeholder="20"
                                         Text="{Binding AgeValue}">
@@ -287,7 +305,12 @@
                                         Padding="0,5"
                                         ColumnDefinitions="*,*"
                                         ColumnSpacing="5">
-                                        <Button Style="{StaticResource btnPlusMinus}" Text="&#x2b;">
+                                        <Button
+                                            Grid.Column="1"
+                                            Command="{Binding IncreaseCommand}"
+                                            CommandParameter="age"
+                                            Style="{StaticResource btnPlusMinus}"
+                                            Text="&#x2b;">
                                             <Button.Shadow>
                                                 <Shadow
                                                     Brush="Black"
@@ -297,9 +320,20 @@
                                             </Button.Shadow>
                                         </Button>
                                         <Button
-                                            Grid.Column="1"
+                                            Grid.Column="0"
+                                            Command="{Binding DecreaseCommand}"
+                                            CommandParameter="age"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#xf068;">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding AgeValue}"
+                                                    TargetType="Button"
+                                                    Value="0">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                    <Setter Property="TextColor" Value="Gray" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
                                             <Button.Shadow>
                                                 <Shadow
                                                     Brush="Black"
@@ -312,7 +346,22 @@
                                 </VerticalStackLayout>
                             </Border>
                         </Grid>
-                        <Label IsVisible="{Binding GeneralError, Converter={StaticResource NullToFalseConverter}}" Text="{Binding GeneralError}" />
+                        <Grid
+                            HorizontalOptions="CenterAndExpand"
+                            RowDefinitions="Auto,Auto"
+                            RowSpacing="6">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding WeightErrMess, Converter={StaticResource NullToFalseConverter}}"
+                                Text="{Binding WeightErrMess}"
+                                TextColor="Red" />
+                            <Label
+                                Grid.Row="1"
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding AgeErrMess, Converter={StaticResource NullToFalseConverter}}"
+                                Text="{Binding AgeErrMess}"
+                                TextColor="Red" />
+                        </Grid>
                         <Button
                             Margin="20,0"
                             Command="{Binding CalculateBMICommand}"

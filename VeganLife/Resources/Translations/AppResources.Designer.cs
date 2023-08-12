@@ -702,5 +702,42 @@ namespace VeganLife.Resources.Translations {
                 return ResourceManager.GetString("weight_bmiPage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chasing age is too old, you seem to have entered it wrong.
+        /// </summary>
+        internal static string wrongAge_tooHigh_bmiCalculatePage {
+            get {
+                return ResourceManager.GetString("wrongAge_tooHigh_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Age is too young, not yet supported
+        ///	Re-enter.
+        /// </summary>
+        internal static string wrongAge_tooLow_bmiCalculatePage {
+            get {
+                return ResourceManager.GetString("wrongAge_tooLow_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight is too big, you seem to have entered it wrong.
+        /// </summary>
+        internal static string wrongWeight_tooHigh_bmiCalculatePage {
+            get {
+                return ResourceManager.GetString("wrongWeight_tooHigh_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight is too low, you seem to have entered it wrong.
+        /// </summary>
+        internal static string wrongWeight_tooLow_bmiCalculatePage {
+            get {
+                return ResourceManager.GetString("wrongWeight_tooLow_bmiCalculatePage", resourceCulture);
+            }
+        }
     }
 }
