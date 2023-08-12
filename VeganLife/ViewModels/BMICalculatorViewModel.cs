@@ -134,11 +134,11 @@ namespace VeganLife.ViewModels
             this.weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
             if (weight < 2)
             {
-                this.WeightErrMess = "Cân nặng quá thấp, dường như bạn nhập sai";
+                this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooLow_bmiCalculatePage;
             }
             else if (weight > 635)
             {
-                this.WeightErrMess = "Cân nặng quá lớn, dường như bạn nhập sai";
+                this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooHigh_bmiCalculatePage;
             }
             else
             {
@@ -160,11 +160,11 @@ namespace VeganLife.ViewModels
             this.age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
             if (age <= 1)
             {
-                this.AgeErrMess = "Độ tuổi quá nhỏ, nhập lại";
+                this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooLow_bmiCalculatePage;
             }
             else if (age >= 140)
             {
-                this.AgeErrMess = "Đuổi tuổi quá lớn, dường như bạn nhập sai";
+                this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooHigh_bmiCalculatePage;
             }
             else
             {

@@ -338,4 +338,17 @@ List is empty!</value>
 	<data name="collectLog_settingPage" xml:space="preserve">
     <value>Allow collect logs</value>
     </data>
+	<data name="wrongWeight_tooLow_bmiCalculatePage" xml:space="preserve">
+    <value>Weight is too low, you seem to have entered it wrong</value>
+    </data>
+	<data name="wrongWeight_tooHigh_bmiCalculatePage" xml:space="preserve">
+    <value>Weight is too big, you seem to have entered it wrong</value>
+    </data>
+	<data name="wrongAge_tooLow_bmiCalculatePage" xml:space="preserve">
+    <value>Age is too young, not yet supported
+	Re-enter</value>
+    </data>
+	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
+    <value>Chasing age is too old, you seem to have entered it wrong</value>
+    </data>
 </root>
