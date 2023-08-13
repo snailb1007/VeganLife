@@ -131,7 +131,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            this.weight = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+            this.weight = float.TryParse(value, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue) ? outValue : 0;
             if (weight < 2)
             {
                 this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooLow_bmiCalculatePage;

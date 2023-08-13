@@ -351,4 +351,13 @@ List is empty!</value>
 	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
     <value>Chasing age is too old, you seem to have entered it wrong</value>
     </data>
+	<data name="emptyName_profilePopupEdit" xml:space="preserve">
+    <value>Name is empty</value>
+    </data>
+	<data name="emptyWeight_profilePopupEdit" xml:space="preserve">
+    <value>Weight is empty!</value>
+    </data>
+	<data name="wrongWeight_profilePopupEdit" xml:space="preserve">
+    <value>You seem to have entered weight wrong!</value>
+    </data>
 </root>

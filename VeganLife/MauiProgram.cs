@@ -121,7 +121,6 @@ namespace VeganLife
             services.AddTransient<ProfilePopup>();
             services.AddTransient<ProfilePopupViewModel>();
             services.AddTransient<AboutAppPopup>();
-            // services.AddTransient<AboutAppPopupViewModel>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();

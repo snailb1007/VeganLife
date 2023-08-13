@@ -332,6 +332,15 @@ Danh sách trống!</value>
 	Nhập lại</value>
     </data>
 	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
-    <value>Đuổi tuổi quá lớn, dường như bạn nhập sai</value>
+    <value>Độ tuổi quá lớn, dường như bạn nhập sai</value>
+    </data>
+	<data name="emptyName_profilePopupEdit" xml:space="preserve">
+    <value>Chưa nhập tên!</value>
+    </data>
+	<data name="emptyWeight_profilePopupEdit" xml:space="preserve">
+    <value>Chưa nhập cân nặng!</value>
+    </data>
+	<data name="wrongWeight_profilePopupEdit" xml:space="preserve">
+    <value>Dường như bạn nhập sai cân nặng!</value>
     </data>
 </root>
