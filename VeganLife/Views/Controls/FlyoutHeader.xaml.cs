@@ -9,6 +9,8 @@ namespace VeganLife.Views.Controls
 
     public partial class FlyoutHeader : ContentView
     {
+        private bool isProcessing;
+
         public FlyoutHeader()
         {
             this.InitializeComponent();
@@ -16,13 +18,27 @@ namespace VeganLife.Views.Controls
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            if (isProcessing)
+            {
+                return;
+            }
+
+            isProcessing = true;
             await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
+            isProcessing = false;
         }
 
         private async void AvatarView_Tapped(object sender, TappedEventArgs e)
         {
+            if (isProcessing)
+            {
+                return;
+            }
+
+            isProcessing = true;
             Shell.Current.FlyoutIsPresented = false;
             await ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>();
+            isProcessing = false;
         }
     }
 }
