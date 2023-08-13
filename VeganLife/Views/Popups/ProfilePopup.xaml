@@ -17,6 +17,7 @@
                 CornerRadius="10">
                 <VerticalStackLayout>
                     <Button
+                        Command="{Binding CloseThisPopupCommand}"
                         CornerRadius="15"
                         FontFamily="{StaticResource FontAwesomeSolid}"
                         FontSize="Title"

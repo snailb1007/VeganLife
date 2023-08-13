@@ -60,8 +60,10 @@ namespace VeganLife.Services
             {
                 await this.Navigation.PopAsync(animate);
             }
-
-            throw new InvalidOperationException("No pages to navigate back to!");
+            else
+            {
+                throw new InvalidOperationException("No pages to navigate back to!");
+            }
         }
 
         public async Task PushAsync<T>(object param = null, bool animate = true)
