@@ -12,6 +12,8 @@ namespace VeganLife.Data.LocalData
 
         Task<T> GetItemAsync(string id);
 
+        Task<T> GetFirstOrDefaultItem();
+
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
     }
 }

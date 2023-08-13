@@ -53,7 +53,7 @@
                             <Entry
                                 Margin="5,0"
                                 Placeholder="Ten cua ban"
-                                Text="{Binding UserName, Mode=OneWayToSource}" />
+                                Text="{Binding UserName}" />
                         </Frame>
                         <Label Text="Age" />
                         <DatePicker
@@ -63,14 +63,14 @@
                         <Label Text="Chieu cao" />
                         <Label
                             HorizontalOptions="Center"
-                            PropertyChanged="Label_PropertyChanged"
-                            Text="{Binding Source={x:Reference sliderHeight}, Path=Value, StringFormat='{0:F0} cm', Mode=OneWay}" />
+                            Text="{Binding UserHeight, Mode=OneWay}" />
                         <Slider
                             x:Name="sliderHeight"
                             HorizontalOptions="FillAndExpand"
                             Maximum="260"
                             Minimum="50"
-                            VerticalOptions="FillAndExpand" />
+                            VerticalOptions="FillAndExpand"
+                            Value="{Binding UserHeight}" />
                         <Label Text="Can nang" />
                         <Frame BorderColor="Gray">
                             <Frame.Triggers>
@@ -84,7 +84,7 @@
                             <Entry
                                 Keyboard="Numeric"
                                 Placeholder="Can nang"
-                                Text="{Binding UserWeight, Mode=OneWayToSource}" />
+                                Text="{Binding UserWeight}" />
                         </Frame>
                         <Label Text="{Binding ErrorMess, Mode=OneWay}" TextColor="Red" />
                         <Button

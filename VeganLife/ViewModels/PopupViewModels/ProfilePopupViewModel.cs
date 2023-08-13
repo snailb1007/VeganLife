@@ -2,6 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+
 namespace VeganLife.ViewModels.PopupViewModels
 {
     /// <summary>
@@ -9,7 +12,6 @@ namespace VeganLife.ViewModels.PopupViewModels
     /// </summary>
     public partial class ProfilePopupViewModel : BaseViewModel
     {
-        const float averageDaysInYear = 365.25f;
         [ObservableProperty]
         private UserInfo userInfo;
 
@@ -24,9 +26,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         private bool isWrongDate;
 
         [ObservableProperty]
-        private string userHeight;
-        [ObservableProperty]
-        private bool isWrongFormatHeight;
+        private short userHeight;
 
         [ObservableProperty]
         private string userWeight;
@@ -40,7 +40,21 @@ namespace VeganLife.ViewModels.PopupViewModels
         /// </summary>
         public ProfilePopupViewModel()
         {
-            UserInfo = new UserInfo();
+        }
+
+        bool hasOldUserData;
+        public async void ViewAppearing()
+        {
+            UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            hasOldUserData = UserInfo != null;
+            if (hasOldUserData)
+            {
+                UserName = UserInfo.Name;
+                SelectedDate = UserInfo.DateOfBirth;
+                UserWeight = UserInfo.Weight.ToString();
+            }
+
+            UserInfo ??= new UserInfo();
         }
 
         [RelayCommand]
@@ -60,6 +74,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             if (string.IsNullOrEmpty(UserName))
             {
                 IsWrongFormatName = true;
+                ErrorMess = Resources.Translations.AppResources.emptyName_profilePopupEdit;
             }
 
             if (string.IsNullOrEmpty(UserWeight))
@@ -83,12 +98,13 @@ namespace VeganLife.ViewModels.PopupViewModels
             if (string.IsNullOrEmpty(ErrorMess))
             {
                 UserInfo.Name = UserName;
-                var totalDaysDifference = DateTime.Today.Subtract(SelectedDate).TotalDays;
-                UserInfo.Age = (byte)(totalDaysDifference / averageDaysInYear);
+                UserInfo.DateOfBirth = SelectedDate;
                 if (float.TryParse(this.UserWeight, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue))
                 {
                     UserInfo.Weight = outValue;
                 }
+
+                await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(UserInfo, hasOldUserData);
             }
         }
 
@@ -105,6 +121,11 @@ namespace VeganLife.ViewModels.PopupViewModels
         partial void OnUserWeightChanged(string value)
         {
             IsWrongFormatWeight = false;
+        }
+
+        partial void OnUserHeightChanged(short value)
+        {
+            UserHeight = (short)UserHeight;
         }
 
         partial void OnIsWrongFormatNameChanged(bool value)
