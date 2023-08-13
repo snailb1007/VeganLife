@@ -20,12 +20,13 @@ namespace VeganLife.Views.Popups
         {
             this.InitializeComponent();
             this.BindingContext = vm;
+            viewModel = vm;
         }
 
-        private void Label_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void OnAppearing()
         {
-            if (viewModel != null && e.PropertyName.Equals("Text"))
-                viewModel.UserHeight = (sender as Label)?.Text ?? string.Empty;
+            base.OnAppearing();
+            viewModel.ViewAppearing();
         }
     }
 }

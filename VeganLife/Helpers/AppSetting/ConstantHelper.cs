@@ -6,6 +6,7 @@ namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
     {
+        public const float AverageDaysInYear = 365.25f;
         public const string LanguageVietnam = "vi";
         public const string LanguageEnglish = "en";
 
