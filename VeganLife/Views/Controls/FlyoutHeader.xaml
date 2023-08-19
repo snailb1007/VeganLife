@@ -33,6 +33,7 @@
                         </toolkit:AvatarView.GestureRecognizers>
                     </toolkit:AvatarView>
                     <Label
+                        x:Name="lbUserName"
                         FontAttributes="Bold"
                         FontSize="18"
                         Text="{x:Static translate:AppResources.incognito_flyoutHeader}"

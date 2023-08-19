@@ -4,6 +4,7 @@
 
 namespace VeganLife.Views.Controls
 {
+    using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Views.Popups;
 
@@ -14,6 +15,19 @@ namespace VeganLife.Views.Controls
         public FlyoutHeader()
         {
             this.InitializeComponent();
+            DisplayUserInfoPreview();
+        }
+
+        private async void DisplayUserInfoPreview()
+        {
+            var userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            if (userData != null)
+            {
+                if (!string.IsNullOrEmpty(userData.Name))
+                {
+                    lbUserName.Text = userData.Name;
+                }
+            }
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
