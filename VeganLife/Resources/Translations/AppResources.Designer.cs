@@ -468,6 +468,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User information saved successfully.
+        /// </summary>
+        internal static string infoAlert_userDataSaved_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("infoAlert_userDataSaved_profilePopupEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ingredients.
         /// </summary>
         internal static string ingredient_foodDetailPage {

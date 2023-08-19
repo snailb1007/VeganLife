@@ -360,4 +360,7 @@ List is empty!</value>
 	<data name="wrongWeight_profilePopupEdit" xml:space="preserve">
     <value>You seem to have entered weight wrong!</value>
     </data>
+	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
+    <value>User information saved successfully</value>
+    </data>
 </root>
