@@ -12,6 +12,7 @@ namespace VeganLife.Views.Popups
     /// </summary>
     public partial class ProfilePopup : PopupPage
     {
+        private ProfilePopupViewModel viewModel;
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePopup"/> class.
         /// </summary>
@@ -19,6 +20,13 @@ namespace VeganLife.Views.Popups
         {
             this.InitializeComponent();
             this.BindingContext = vm;
+            viewModel = vm;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.ViewAppearing();
         }
     }
 }
