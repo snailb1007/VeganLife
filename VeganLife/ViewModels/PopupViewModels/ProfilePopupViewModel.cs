@@ -35,6 +35,8 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         [ObservableProperty]
         private string errorMess;
+        [ObservableProperty]
+        private bool isUserLocalDataUpdating;
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePopupViewModel"/> class.
         /// </summary>
@@ -52,6 +54,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 UserName = UserInfo.Name;
                 SelectedDate = UserInfo.DateOfBirth;
                 UserWeight = UserInfo.Weight.ToString();
+                UserHeight = UserInfo.Height;
             }
 
             UserInfo ??= new UserInfo();
@@ -97,14 +100,23 @@ namespace VeganLife.ViewModels.PopupViewModels
 
             if (string.IsNullOrEmpty(ErrorMess))
             {
+                IsUserLocalDataUpdating = true;
+                if (!hasOldUserData)
+                {
+                    UserInfo.Id = deviceService.GetDeviceId();
+                }
+
                 UserInfo.Name = UserName;
                 UserInfo.DateOfBirth = SelectedDate;
+                UserInfo.Height = UserHeight;
                 if (float.TryParse(this.UserWeight, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue))
                 {
                     UserInfo.Weight = outValue;
                 }
 
                 await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(UserInfo, hasOldUserData);
+                IsUserLocalDataUpdating = false;
+                await navigationService.DisplayAlert(title: string.Empty, Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit, Resources.Translations.AppResources.ok_common);
             }
         }
 

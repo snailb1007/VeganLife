@@ -343,4 +343,7 @@ Danh sách trống!</value>
 	<data name="wrongWeight_profilePopupEdit" xml:space="preserve">
     <value>Dường như bạn nhập sai cân nặng!</value>
     </data>
+	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
+    <value>Thông tin được lưu thành công</value>
+    </data>
 </root>
