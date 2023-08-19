@@ -9,7 +9,7 @@ namespace VeganLife.Helpers.AppSetting
         public static void SetTheme(AppTheme theme)
         {
             App.Current.UserAppTheme = theme;
-            ConstantHelper.ThemeInfo.IsDarkMode = theme == AppTheme.Dark;
+            StaticHelper.ThemeInfo.IsDarkMode = theme == AppTheme.Dark;
         }
     }
 }

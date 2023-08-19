@@ -396,6 +396,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name is empty.
+        /// </summary>
+        internal static string emptyName_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("emptyName_profilePopupEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight is empty!.
+        /// </summary>
+        internal static string emptyWeight_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("emptyWeight_profilePopupEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter search term.
         /// </summary>
         internal static string enterSearchTerm_Placeholder_shell {
@@ -446,6 +464,15 @@ namespace VeganLife.Resources.Translations {
         internal static string incognito_flyoutHeader {
             get {
                 return ResourceManager.GetString("incognito_flyoutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User information saved successfully.
+        /// </summary>
+        internal static string infoAlert_userDataSaved_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("infoAlert_userDataSaved_profilePopupEdit", resourceCulture);
             }
         }
         
@@ -719,6 +746,15 @@ namespace VeganLife.Resources.Translations {
         internal static string wrongAge_tooLow_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("wrongAge_tooLow_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You seem to have entered weight wrong!.
+        /// </summary>
+        internal static string wrongWeight_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("wrongWeight_profilePopupEdit", resourceCulture);
             }
         }
         

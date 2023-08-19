@@ -4,5 +4,7 @@
     {
         void HideKeyboard();
         int GetDeviceDPI();
+
+        string GetDeviceId();
     }
 }

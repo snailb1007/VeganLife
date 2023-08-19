@@ -4,11 +4,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
     x:DataType="vm:ProfilePopupViewModel"
     BackgroundColor="#80808080">
+    <Mopups:PopupPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
+        </ResourceDictionary>
+    </Mopups:PopupPage.Resources>
     <Mopups:PopupPage.Content>
-        <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.5*,3*,*">
+        <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.5*,Auto,*">
             <Frame
                 Grid.Row="1"
                 Grid.Column="1"
@@ -17,6 +23,7 @@
                 CornerRadius="10">
                 <VerticalStackLayout>
                     <Button
+                        Command="{Binding CloseThisPopupCommand}"
                         CornerRadius="15"
                         FontFamily="{StaticResource FontAwesomeSolid}"
                         FontSize="Title"
@@ -40,25 +47,67 @@
                         </VerticalStackLayout.Resources>
                         <Label HorizontalOptions="Center" Text="Profile" />
                         <Label Margin="0,10,0,0" Text="Name" />
-                        <Frame>
+                        <Frame BorderColor="Gray">
+                            <Frame.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsWrongFormatName, Mode=OneWay}"
+                                    TargetType="Frame"
+                                    Value="True">
+                                    <Setter Property="BorderColor" Value="Red" />
+                                </DataTrigger>
+                            </Frame.Triggers>
                             <Entry
                                 Margin="5,0"
                                 Placeholder="Ten cua ban"
                                 Text="{Binding UserName}" />
                         </Frame>
                         <Label Text="Age" />
-                        <DatePicker HorizontalOptions="Start" MinimumDate="01/01/1950" />
+                        <DatePicker
+                            Date="{Binding SelectedDate}"
+                            HorizontalOptions="Start"
+                            MinimumDate="01/01/1950" />
                         <Label Text="Chieu cao" />
-                        <Frame>
-                            <Entry Placeholder="Chieu cao" Text="{Binding UserHeight}" />
-                        </Frame>
+                        <Label HorizontalOptions="Center" Text="{Binding UserHeight, Mode=OneWay}" />
+                        <Slider
+                            x:Name="sliderHeight"
+                            HorizontalOptions="FillAndExpand"
+                            Maximum="260"
+                            Minimum="50"
+                            VerticalOptions="FillAndExpand"
+                            Value="{Binding UserHeight}" />
                         <Label Text="Can nang" />
-                        <Frame>
-                            <Entry Placeholder="Can nang" Text="{Binding UserWeight}" />
+                        <Frame BorderColor="Gray">
+                            <Frame.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsWrongFormatWeight, Mode=OneWay}"
+                                    TargetType="Frame"
+                                    Value="True">
+                                    <Setter Property="BorderColor" Value="Red" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <Entry
+                                Keyboard="Numeric"
+                                Placeholder="Can nang"
+                                Text="{Binding UserWeight}" />
                         </Frame>
+                        <Label Text="{Binding ErrorMess, Mode=OneWay}" TextColor="Red" />
+                        <Button
+                            Margin="20,10,20,0"
+                            Command="{Binding SaveDataCommand}"
+                            IsEnabled="{Binding SaveDataCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
+                            Text="Save" />
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </Frame>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <ActivityIndicator
+                    HeightRequest="48"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsUserLocalDataUpdating, Mode=OneWay}"
+                    IsVisible="{Binding IsUserLocalDataUpdating}"
+                    VerticalOptions="Center"
+                    WidthRequest="48" />
+            </Grid>
         </Grid>
     </Mopups:PopupPage.Content>
 </Mopups:PopupPage>

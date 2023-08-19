@@ -97,5 +97,21 @@ namespace VeganLife.Data
             this.connection = this.localDatabase.GetAsyncConnection();
             await this.connection?.CreateTableAsync<T>();
         }
+
+        public async Task<T> GetFirstOrDefaultItem()
+        {
+            await this.Init();
+            try
+            {
+                return await this.connection.Table<T>().ToListAsync().ContinueWith(t => t.Result.FirstOrDefault());
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                await Console.Out.WriteLineAsync("Cant retrive local data, " + e.Message);
+#endif
+                return Enumerable.Empty<T>().FirstOrDefault();
+            }
+        }
     }
 }
