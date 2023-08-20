@@ -432,6 +432,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feature under development.
+        /// </summary>
+        internal static string featureFunction_common {
+            get {
+                return ResourceManager.GetString("featureFunction_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         internal static string female_bmiPage {
@@ -695,7 +704,7 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BMI Calculate.
+        ///   Looks up a localized string similar to Body mass index.
         /// </summary>
         internal static string title_bmiCalculatePage {
             get {
@@ -709,6 +718,15 @@ namespace VeganLife.Resources.Translations {
         internal static string title_bmiPopup {
             get {
                 return ResourceManager.GetString("title_bmiPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Basal metabolic rate.
+        /// </summary>
+        internal static string title_bmrCalculatePage {
+            get {
+                return ResourceManager.GetString("title_bmrCalculatePage", resourceCulture);
             }
         }
         

@@ -46,12 +46,6 @@
                 Route="news_feed"
                 Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="{x:Static translate:AppResources.app_common_toolsTab}" Icon="calculator">
-            <ShellContent
-                ContentTemplate="{DataTemplate view:BMICalculatorPage}"
-                Route="bmi_calculator"
-                Shell.NavBarIsVisible="True" />
-        </Tab>
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_bookmarkTab}"
@@ -63,18 +57,39 @@
             Route="bookmark"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
-    <ShellContent
+    <FlyoutItem
+        Title="{x:Static translate:AppResources.app_common_toolsTab}"
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="calculator">
+        <Tab>
+            <ShellContent
+                Title="BMI"
+                ContentTemplate="{DataTemplate view:BMICalculatorPage}"
+                Route="bmi_calculator"
+                Shell.NavBarIsVisible="True" />
+            <ShellContent
+                Title="BMR"
+                ContentTemplate="{DataTemplate view:BMRCalculatorPage}"
+                Route="bmr_calculator"
+                Shell.NavBarIsVisible="True" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_webViewTab}"
-        ContentTemplate="{DataTemplate view:WebViewPage}"
-        Icon="{AppThemeBinding Dark=web_view_light,
-                               Light=web_view}"
-        Route="web_view"
-        Shell.NavBarIsVisible="False" />
-    <ShellContent
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="web_view">
+        <ShellContent
+            ContentTemplate="{DataTemplate view:WebViewPage}"
+            Route="web_view"
+            Shell.NavBarIsVisible="False" />
+    </FlyoutItem>
+    <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_settingTab}"
-        ContentTemplate="{DataTemplate view:SettingPage}"
-        Icon="{AppThemeBinding Dark=setting_light,
-                               Light=setting}"
-        Route="setting"
-        Shell.NavBarIsVisible="True" />
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="setting">
+        <ShellContent
+            ContentTemplate="{DataTemplate view:SettingPage}"
+            Route="setting"
+            Shell.NavBarIsVisible="True" />
+    </FlyoutItem>
 </Shell>

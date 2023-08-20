@@ -11,12 +11,12 @@
         <Border
             BackgroundColor="{AppThemeBinding Dark=Black,
                                               Light=White}"
-            HeightRequest="40"
+            HeightRequest="42"
             HorizontalOptions="Center"
             Stroke="{StaticResource PrimaryLight}"
             StrokeThickness="1"
             VerticalOptions="Center"
-            WidthRequest="40">
+            WidthRequest="42">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10" />
             </Border.StrokeShape>
@@ -25,11 +25,11 @@
                 Padding="0"
                 BorderColor="Transparent"
                 Clicked="ImageButton_Clicked"
-                HeightRequest="30"
+                HeightRequest="38"
                 HorizontalOptions="Center"
                 Source="hamburger.svg"
                 VerticalOptions="Center"
-                WidthRequest="30" />
+                WidthRequest="38" />
         </Border>
         <Grid Grid.Column="1" IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}">
             <HorizontalStackLayout

@@ -25,9 +25,17 @@ namespace VeganLife.Views.Controls
             this.InitializeComponent();
         }
 
+        private bool _isProcessing;
         private async void Back_Clicked(object sender, EventArgs e)
         {
+            if (_isProcessing)
+            {
+                return;
+            }
+
+            _isProcessing = true;
             await ServicesHelper.GetService<INavigationService>().PopAsync();
+            _isProcessing = false;
         }
 
         private void hamburger_Clicked(object sender, EventArgs e)

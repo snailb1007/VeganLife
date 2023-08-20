@@ -131,6 +131,9 @@ nếm cả khoảnh khắc</value>
 	<data name="cancel_common" xml:space="preserve">
     <value>Từ chối</value>
   </data>
+	<data name="featureFunction_common" xml:space="preserve">
+    <value>Tính năng đang được phát triển</value>
+  </data>
 	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
     <value>Cho phép ứng dụng thu thập lỗi.
 Nhật ký ứng dụng được sử dụng để thu thập và phân tích thông tin cho mục đích cải tiến chất lượng, phát triển sản phẩm và cải tiến dịch vụ.</value>
@@ -185,7 +188,7 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
     <value>Giấy phép</value>
     </data>
 	<data name="title_bmiCalculatePage" xml:space="preserve">
-    <value>BMI Calculate</value>
+    <value>Chỉ số khối cơ thể</value>
     </data>
 	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
     <value>Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính</value>
@@ -345,5 +348,8 @@ Danh sách trống!</value>
     </data>
 	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
     <value>Thông tin được lưu thành công</value>
+    </data>
+	<data name="title_bmrCalculatePage" xml:space="preserve">
+    <value>Tốc độ chuyển hóa cơ bản</value>
     </data>
 </root>
