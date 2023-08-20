@@ -37,6 +37,7 @@
                 Spacing="10"
                 VerticalOptions="Center">
                 <Label
+                    x:Name="lbHi"
                     FontAttributes="Bold"
                     HorizontalOptions="StartAndExpand"
                     Text="Hi, ..."

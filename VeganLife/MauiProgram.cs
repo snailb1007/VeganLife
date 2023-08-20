@@ -27,6 +27,7 @@ namespace VeganLife
     using Microsoft.Maui.Platform;
     using Microsoft.AppCenter.Crashes;
     using Microsoft.AppCenter;
+    using VeganLife.Services.UserServices;
 #endif
 
     /// <summary>
@@ -83,7 +84,7 @@ namespace VeganLife
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<UserInfoDataStoreServie>();
-
+            services.AddSingleton<IUserDataService, UserDataService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();

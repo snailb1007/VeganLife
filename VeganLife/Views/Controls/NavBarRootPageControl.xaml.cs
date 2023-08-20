@@ -2,6 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+using VeganLife.Services.UserServices;
+
 namespace VeganLife.Views.Controls
 {
     public partial class NavBarRootPageControl : ContentView
@@ -21,6 +24,11 @@ namespace VeganLife.Views.Controls
         public NavBarRootPageControl()
         {
             this.InitializeComponent();
+            Task.Run(async () =>
+            {
+                var userName = await ServicesHelper.GetService<IUserDataService>().GetUserNameAsync() ?? "...";
+                lbHi.Text = $"Hi {userName}";
+            }).Wait();
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
