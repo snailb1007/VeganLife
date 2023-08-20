@@ -42,7 +42,10 @@
                 <Setter Property="Opacity" Value="0.7" />
             </DataTrigger>
         </Grid.Triggers>
-        <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="True" />
+        <control:NavBarRootPageControl
+            Margin="5"
+            IsVisibleGreetingContent="True"
+            VerticalOptions="Center" />
         <!--  transparent view  -->
         <Grid BackgroundColor="Transparent" IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay}">
             <Grid.GestureRecognizers>

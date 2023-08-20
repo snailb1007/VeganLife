@@ -15,7 +15,7 @@ namespace VeganLife.Services
         {
             get
             {
-                var navigation = this.MainPage?.Navigation;
+                var navigation = this.mainPage?.Navigation;
                 if (navigation is not null)
                 {
                     return navigation;
@@ -35,7 +35,8 @@ namespace VeganLife.Services
 
         private readonly IServiceProvider services;
 
-        private Page MainPage => Application.Current?.MainPage;
+        private Page mainPage => Application.Current?.MainPage;
+        private IDispatcher dispatcher => Application.Current.Dispatcher;
 
         /// <summary>
         /// Get vm from page.
@@ -60,11 +61,11 @@ namespace VeganLife.Services
 
         /// <inheritdoc/>
         public async Task<bool> DisplayAlert(string title, string message, string ok, string cancel)
-            => await this.MainPage.DisplayAlert(title, message, ok, cancel);
+            => await this.mainPage.DisplayAlert(title, message, ok, cancel);
 
         /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, string ok)
-            => await this.MainPage.DisplayAlert(title, message, ok);
+            => await this.mainPage.DisplayAlert(title, message, ok);
 
         /// <inheritdoc/>
         public async Task<Page> PopAsync()
@@ -99,7 +100,7 @@ namespace VeganLife.Services
                 ServicesHelper.GetService<IDeviceService>().HideKeyboard();
 
                 // navigate
-                await this.Navigation.PushAsync(toPage);
+                await dispatcher.DispatchAsync(() => this.Navigation.PushAsync(toPage));
 
                 // subscribe
                 toPage.NavigatedFrom += this.Page_NavigatedFrom;

@@ -150,6 +150,9 @@ taste the whole moment</value>
 	<data name="cancel_common" xml:space="preserve">
     <value>Cancel</value>
   </data>
+	<data name="featureFunction_common" xml:space="preserve">
+    <value>Feature under development</value>
+  </data>
 	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
     <value>Allows the application to collect crash.
 Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes.</value>
@@ -202,7 +205,7 @@ Application logs are used to collect and analyze information for quality improve
     <value>Licenses</value>
   </data>
 	<data name="title_bmiCalculatePage" xml:space="preserve">
-    <value>BMI Calculate</value>
+    <value>Body mass index</value>
   </data>
 	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
     <value>N/A</value>
@@ -362,5 +365,8 @@ List is empty!</value>
     </data>
 	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
     <value>User information saved successfully</value>
+    </data>
+	<data name="title_bmrCalculatePage" xml:space="preserve">
+    <value>Basal metabolic rate</value>
     </data>
 </root>

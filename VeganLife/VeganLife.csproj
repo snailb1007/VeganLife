@@ -143,6 +143,9 @@
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+		<MauiXaml Update="Views\BMRCalculatorPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\BookmarkPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
