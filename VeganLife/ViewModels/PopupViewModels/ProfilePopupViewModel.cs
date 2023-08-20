@@ -4,6 +4,7 @@
 
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Services.UserServices;
 
 namespace VeganLife.ViewModels.PopupViewModels
 {
@@ -42,22 +43,16 @@ namespace VeganLife.ViewModels.PopupViewModels
         /// </summary>
         public ProfilePopupViewModel()
         {
+            UserInfo = new UserInfo();
         }
 
-        bool hasOldUserData;
         public async void ViewAppearing()
         {
-            UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
-            hasOldUserData = UserInfo != null;
-            if (hasOldUserData)
-            {
-                UserName = UserInfo.Name;
-                SelectedDate = UserInfo.DateOfBirth;
-                UserWeight = UserInfo.Weight.ToString();
-                UserHeight = UserInfo.Height;
-            }
 
-            UserInfo ??= new UserInfo();
+            UserName = await ServicesHelper.GetService<IUserDataService>().GetUserNameAsync();
+            SelectedDate = ServicesHelper.GetService<IUserDataService>().GetDateOfBirth();
+            UserWeight = ServicesHelper.GetService<IUserDataService>().GetWeight().ToString();
+            UserHeight = ServicesHelper.GetService<IUserDataService>().GetHeight();
         }
 
         [RelayCommand]
@@ -101,11 +96,6 @@ namespace VeganLife.ViewModels.PopupViewModels
             if (string.IsNullOrEmpty(ErrorMess))
             {
                 IsUserLocalDataUpdating = true;
-                if (!hasOldUserData)
-                {
-                    UserInfo.Id = deviceService.GetDeviceId();
-                }
-
                 UserInfo.Name = UserName;
                 UserInfo.DateOfBirth = SelectedDate;
                 UserInfo.Height = UserHeight;
@@ -114,7 +104,12 @@ namespace VeganLife.ViewModels.PopupViewModels
                     UserInfo.Weight = outValue;
                 }
 
-                await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(UserInfo, hasOldUserData);
+                await ServicesHelper.GetService<IUserDataService>().SaveData(this.UserInfo.DateOfBirth,
+                    name: this.UserInfo.Name,
+                    isMale: this.UserInfo.IsMale,
+                    height: this.UserInfo.Height,
+                    weight: this.UserInfo.Weight
+                    );
                 IsUserLocalDataUpdating = false;
                 await navigationService.DisplayAlert(title: string.Empty, Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit, Resources.Translations.AppResources.ok_common);
             }
