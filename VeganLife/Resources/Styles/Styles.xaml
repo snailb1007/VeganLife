@@ -23,7 +23,7 @@
 
     <!--  TODO  https://github.com/dotnet/maui/issues/11662  -->
     <!--<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource White}}" />-->
-    <Style TargetType="Button">
+    <Style x:Key="BtnContaintIsVisibleSpec" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryLight}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource White}}" />
@@ -45,11 +45,6 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-        <Style.Triggers>
-            <Trigger TargetType="Button" Property="FontFamily" Value="FontAwesomeSolid">
-                <Setter Property="Background" Value="Transparent" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <Style TargetType="CheckBox">
