@@ -22,10 +22,11 @@
                 <Setter Property="BackgroundColor" Value="Gray" />
             </Style>
             <Style TargetType="ImageButton">
-                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="CornerRadius" Value="8" />
                 <Setter Property="WidthRequest" Value="30" />
                 <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="Background" Value="{StaticResource PrimaryLight}" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -40,7 +41,6 @@
             </WebView.Behaviors>
         </WebView>
         <Button
-            Background="{StaticResource PrimaryLight}"
             Clicked="Button_Clicked"
             CornerRadius="25"
             FontFamily="{StaticResource FontAwesomeSolid}"
@@ -64,20 +64,20 @@
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoBack}"
                 Text="{StaticResource lbIcon_angleLeft}"
-                TextColor="Black" />
+                TextColor="White" />
             <Button
                 Command="{Binding NavigateForwardCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 IsEnabled="{Binding Source={x:Reference webview}, Path=CanGoForward}"
                 Text="{StaticResource lbIcon_angleRight}"
-                TextColor="Black" />
+                TextColor="White" />
             <Button
                 Command="{Binding RefreshPageCommand}"
                 CommandParameter="{Binding Source={x:Reference webview}}"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 Text="{StaticResource lbIcon_rotateRight}"
-                TextColor="Black" />
+                TextColor="White" />
             <Button Command="{Binding OpenInBrowserCommand}" Text="Open in browser" />
         </HorizontalStackLayout>
     </Grid>

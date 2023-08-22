@@ -23,6 +23,7 @@
                 CornerRadius="10">
                 <VerticalStackLayout>
                     <Button
+                        Background="Transparent"
                         Command="{Binding CloseThisPopupCommand}"
                         CornerRadius="15"
                         FontFamily="{StaticResource FontAwesomeSolid}"
