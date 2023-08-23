@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Maui.Alerts;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Services.UserServices;
@@ -46,13 +47,13 @@ namespace VeganLife.ViewModels.PopupViewModels
             UserInfo = new UserInfo();
         }
 
-        public async void ViewAppearing()
+        public void ViewAppearing()
         {
-
-            UserName = await ServicesHelper.GetService<IUserDataService>().GetUserNameAsync();
-            SelectedDate = ServicesHelper.GetService<IUserDataService>().GetDateOfBirth();
-            UserWeight = ServicesHelper.GetService<IUserDataService>().GetWeight().ToString();
-            UserHeight = ServicesHelper.GetService<IUserDataService>().GetHeight();
+            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService).UserInfo;
+            UserName = UserInfo.Name;
+            SelectedDate = UserInfo.DateOfBirth;
+            UserWeight = UserInfo.Weight.ToString();
+            UserHeight = UserInfo.Height;
         }
 
         [RelayCommand]
@@ -66,6 +67,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             await popupNaviService.PopAsync();
         }
 
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         [RelayCommand]
         private async Task SaveData()
         {
@@ -93,7 +95,9 @@ namespace VeganLife.ViewModels.PopupViewModels
                 }
             }
 
-            if (string.IsNullOrEmpty(ErrorMess))
+            if (string.IsNullOrEmpty(ErrorMess) &&
+                !string.IsNullOrEmpty(UserName) &&
+                (UserInfo.Name != UserName || UserInfo.DateOfBirth != SelectedDate || UserInfo.Height != UserHeight))
             {
                 IsUserLocalDataUpdating = true;
                 UserInfo.Name = UserName;
@@ -111,7 +115,8 @@ namespace VeganLife.ViewModels.PopupViewModels
                     weight: this.UserInfo.Weight
                     );
                 IsUserLocalDataUpdating = false;
-                await navigationService.DisplayAlert(title: string.Empty, Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit, Resources.Translations.AppResources.ok_common);
+                var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
+                await toast.Show(cancellationTokenSource.Token);
             }
         }
 
