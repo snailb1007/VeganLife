@@ -71,7 +71,7 @@ namespace VeganLife
 #if GPT
             services.AddChatGpt(options =>
             {
-                options.UseOpenAI(apiKey: $"sk-");
+                //options.UseOpenAI(apiKey: $"sk-");
                 options.UseOpenAI(apiKey: "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");
                 options.DefaultModel = "gpt-3.5-turbo";
                 options.MessageLimit = 15; // Default: 15
