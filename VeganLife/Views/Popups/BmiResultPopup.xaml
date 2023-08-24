@@ -44,7 +44,8 @@
                             FontSize="15"
                             HorizontalTextAlignment="Center"
                             LineBreakMode="WordWrap"
-                            LineHeight="1.2" />
+                            LineHeight="1.2"
+                            Text="{Binding Message}" />
                     </ScrollView>
                 </VerticalStackLayout>
                 <Grid
