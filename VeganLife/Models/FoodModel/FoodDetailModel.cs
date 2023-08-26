@@ -18,5 +18,7 @@ namespace VeganLife.Models.FoodModel
         public string Making { get; set; }
 
         public string Sauce { get; set; }
+
+        public string Note { get;set; }
     }
 }
