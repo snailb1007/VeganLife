@@ -19,7 +19,7 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
-                <Image Aspect="AspectFit" Source="mascot_snail.jpg" />
+                <Image Aspect="AspectFit" Source="app_icon.jpg" />
             </Border>
             <VerticalStackLayout Grid.Column="1" Spacing="5">
                 <Label
