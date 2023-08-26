@@ -11,5 +11,11 @@ namespace VeganLife.Views
             this.InitializeComponent();
             this.BindingContext = vm;
         }
+
+        protected override void OnHandlerChanged()
+        {
+            base.OnHandlerChanged();
+            (slider.Handler.PlatformView as Android.Widget.SeekBar).ContentDescription = "this is slider";
+        }
     }
 }
