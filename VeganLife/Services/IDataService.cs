@@ -15,6 +15,8 @@ namespace VeganLife.Services
 
         Task<IEnumerable<FoodMenuCategoryModel>> GetFoodMenu();
 
+        Task<FoodNutriFacts> GetFoodNutriFacts(string id);
+
         Task<IEnumerable<VitaminModel>> GetVitamins();
 
         Task<IEnumerable<Item>> LoadGoogleNews(string uri);

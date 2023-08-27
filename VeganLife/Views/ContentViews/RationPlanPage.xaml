@@ -6,7 +6,6 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:contentVM="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
-    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
     x:DataType="contentVM:RationPlanViewModel"
     x:TypeArguments="contentVM:RationPlanViewModel"
