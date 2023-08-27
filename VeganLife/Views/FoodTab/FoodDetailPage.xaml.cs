@@ -62,5 +62,18 @@ namespace VeganLife.Views.FoodTab
                 (stack as IView).InvalidateMeasure();
             }
         }
+
+        private void GoNutriFact_SwipeGesture_Swiped(object sender, SwipedEventArgs e)
+        {
+            tabView.SelectedTab = tabItemNutritionFacts;
+        }
+
+        private void tabItemNutritionFacts_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("IsSelected") && tabItemNutritionFacts.IsSelected)
+            {
+                (this.BindingContext as FoodDetailViewModel).GetNutriFactsCommand.Execute(null);
+            }
+        }
     }
 }
