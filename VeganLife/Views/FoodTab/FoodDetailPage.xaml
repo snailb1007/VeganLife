@@ -43,16 +43,22 @@
         <material:TabView
             x:Name="tabView"
             Grid.Row="1"
+            ColumnSpacing="5"
+            HorizontalOptions="Center"
             UseAnimation="True">
             <material:TabItem x:Name="tabItemDetail">
                 <material:TabItem.HeaderTemplate>
                     <DataTemplate>
-                        <VerticalStackLayout Padding="5,10">
+                        <VerticalStackLayout
+                            Padding="0,10"
+                            HorizontalOptions="Center"
+                            WidthRequest="{Binding WidthOfTabView, Source={x:Reference root}}">
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="17"
                                 HorizontalOptions="Center"
-                                Text="Detail">
+                                Text="Detail"
+                                TextColor="{StaticResource PrimaryDark}">
                                 <Label.Triggers>
                                     <DataTrigger
                                         Binding="{Binding Source={x:Reference tabItemDetail}, Path=IsSelected}"
@@ -63,13 +69,19 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Label
-                                FontFamily="{StaticResource FontAwesomeSolid}"
-                                FontSize="10"
-                                HorizontalOptions="Center"
-                                IsVisible="{Binding Source={x:Reference tabItemDetail}, Path=IsSelected}"
-                                Text="&#xf192;"
-                                TextColor="{StaticResource PrimaryLight}" />
+                            <BoxView
+                                BackgroundColor="{StaticResource PrimaryLight}"
+                                HeightRequest="2"
+                                Color="{StaticResource PrimaryLight}">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference tabItemDetail}, Path=IsSelected}"
+                                        TargetType="BoxView"
+                                        Value="False">
+                                        <Setter Property="Color" Value="Gray" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </material:TabItem.HeaderTemplate>
@@ -161,12 +173,16 @@
             <material:TabItem x:Name="tabItemNutritionFacts" PropertyChanged="tabItemNutritionFacts_PropertyChanged">
                 <material:TabItem.HeaderTemplate>
                     <DataTemplate>
-                        <VerticalStackLayout Padding="5,10">
+                        <VerticalStackLayout
+                            Margin="5,10"
+                            HorizontalOptions="Center"
+                            WidthRequest="{Binding WidthOfTabView, Source={x:Reference root}}">
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="17"
                                 HorizontalOptions="Center"
-                                Text="Nutrition Facts">
+                                Text="Nutrition Facts"
+                                TextColor="{StaticResource PrimaryDark}">
                                 <Label.Triggers>
                                     <DataTrigger
                                         Binding="{Binding Source={x:Reference tabItemNutritionFacts}, Path=IsSelected}"
@@ -177,13 +193,19 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Label
-                                FontFamily="{StaticResource FontAwesomeSolid}"
-                                FontSize="10"
-                                HorizontalOptions="Center"
-                                IsVisible="{Binding Source={x:Reference tabItemNutritionFacts}, Path=IsSelected}"
-                                Text="&#xf192;"
-                                TextColor="{StaticResource PrimaryLight}" />
+                            <BoxView
+                                BackgroundColor="{StaticResource PrimaryLight}"
+                                HeightRequest="2"
+                                Color="{StaticResource PrimaryLight}">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference tabItemNutritionFacts}, Path=IsSelected}"
+                                        TargetType="BoxView"
+                                        Value="False">
+                                        <Setter Property="Color" Value="Gray" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </material:TabItem.HeaderTemplate>

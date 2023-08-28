@@ -19,10 +19,17 @@ namespace VeganLife.Views.FoodTab
             set => this.SetProperty(ref this.marginTopContent, value);
         }
 
+        private double widthOfTabView;
+        public double WidthOfTabView
+        {
+            get => this.widthOfTabView;
+            set => SetProperty(ref this.widthOfTabView, value);
+        }
         public FoodDetailPage(FoodDetailViewModel vm)
             : base(vm)
         {
             this.InitializeComponent();
+            WidthOfTabView = App.MainSize / 2;
         }
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)

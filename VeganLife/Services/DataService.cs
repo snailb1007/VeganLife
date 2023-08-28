@@ -25,9 +25,13 @@ namespace VeganLife.Services
         #region food
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
+
+            if (string.IsNullOrEmpty(id))
+                return new FoodDetailModel();
             try
             {
                 var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
+                data ??= new FoodDetailModel();
                 data.Id = id;
                 return data;
             }
