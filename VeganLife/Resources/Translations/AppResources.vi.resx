@@ -352,4 +352,7 @@ Danh sách trống!</value>
 	<data name="title_bmrCalculatePage" xml:space="preserve">
     <value>Tốc độ chuyển hóa cơ bản</value>
     </data>
+	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
+    <value>Hàm lượng Calories: </value>
+    </data>
 </root>
