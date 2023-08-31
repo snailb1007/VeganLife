@@ -189,7 +189,7 @@
                                 </HorizontalStackLayout>
                                 <Grid ColumnDefinitions="*,20*,*" HorizontalOptions="FillAndExpand">
                                     <Slider
-                                        x:Name="sliderHeight"
+                                        x:Name="slider"
                                         Grid.Column="1"
                                         HorizontalOptions="FillAndExpand"
                                         Maximum="250"
@@ -232,6 +232,7 @@
                                         ColumnDefinitions="*,*"
                                         ColumnSpacing="5">
                                         <Button
+                                            x:Name="increaseWeight"
                                             Grid.Column="1"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="weight"
@@ -246,6 +247,7 @@
                                             </Button.Shadow>
                                         </Button>
                                         <Button
+                                            x:Name="decreaseWeight"
                                             Grid.Column="0"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="weight"
@@ -306,6 +308,7 @@
                                         ColumnDefinitions="*,*"
                                         ColumnSpacing="5">
                                         <Button
+                                            x:Name="increaseAge"
                                             Grid.Column="1"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="age"
@@ -320,6 +323,7 @@
                                             </Button.Shadow>
                                         </Button>
                                         <Button
+                                            x:Name="decreaseAge"
                                             Grid.Column="0"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="age"
