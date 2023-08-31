@@ -89,6 +89,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CardsView.Maui" Version="0.0.4" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="FFImageLoadingCompat.Maui" Version="0.1.1" />
@@ -101,6 +102,7 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.6" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.6" />
+		<PackageReference Include="UraniumUI.Material" Version="2.5.5" />
 		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 		<!--<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />-->

@@ -20,12 +20,19 @@ namespace VeganLife.Services
         private const string MenuFoodAddress = "App/img/menu_food";
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins/list";
+        private const string FoodNutriFacts = "Foods/nutritionFact";
 
+        #region food
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
+
+            if (string.IsNullOrEmpty(id))
+                return new FoodDetailModel();
             try
             {
                 var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
+                data ??= new FoodDetailModel();
+                data.Id = id;
                 return data;
             }
             catch (FirebaseException e)
@@ -79,6 +86,27 @@ namespace VeganLife.Services
                 return Enumerable.Empty<FoodPreviewModel>();
             }
         }
+
+        public async Task<FoodNutriFacts> GetFoodNutriFacts(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return new FoodNutriFacts();
+            try
+            {
+                var data = await this.firebaseDatabase.Child(FoodNutriFacts).Child(id).OnceSingleAsync<FoodNutriFacts>().ConfigureAwait(false);
+                data ??= new FoodNutriFacts();
+                data.Id = id;
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+#if DEBUG
+                Console.WriteLine(e.StackTrace);
+#endif
+                return new FoodNutriFacts();
+            }
+        }
+        #endregion
 
         public async Task<IEnumerable<VitaminModel>> GetVitamins()
         {
