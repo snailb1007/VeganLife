@@ -48,7 +48,7 @@
                     </toolkit:AvatarView>
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                         <Label Text="Nguyen Van Thien" />
-                        <Label Text="Nguoi dung" />
+                        <Label Text="Người dùng" />
                     </VerticalStackLayout>
                     <Grid
                         Grid.Column="2"
@@ -106,7 +106,7 @@
                         <HorizontalStackLayout Spacing="5">
                             <Label
                                 FontSize="Small"
-                                Text="Do hoan thien"
+                                Text="Độ hoàn thiện"
                                 VerticalOptions="Center" />
                             <Border
                                 BackgroundColor="#fcd684"
@@ -114,7 +114,7 @@
                                 StrokeShape="RoundRectangle 20"
                                 StrokeThickness="1">
                                 <HorizontalStackLayout Padding="5" Spacing="5">
-                                    <Label Text="Co ve on roi" TextColor="Black" />
+                                    <Label Text="Có vẻ ổn rồi" TextColor="Black" />
                                     <Label Text="75%" TextColor="Black" />
                                 </HorizontalStackLayout>
                             </Border>
@@ -152,14 +152,14 @@
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     Text="Nam" />
-                                <Label Grid.Column="2" Text="Can nang" />
+                                <Label Grid.Column="2" Text="Cân nặng" />
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     FontAttributes="Bold"
                                     FontSize="16"
-                                    Text="55kg" />
-                                <Label Grid.Column="3" Text="Chieu cao" />
+                                    Text="56kg" />
+                                <Label Grid.Column="3" Text="Chiều cao" />
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="3"
@@ -178,7 +178,7 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="Title"
-                    Text="Thong tin them" />
+                    Text="Thông tin thêm" />
                 <Border
                     Margin="0,10,0,0"
                     BackgroundColor="{StaticResource PrimaryLight}"
@@ -237,7 +237,7 @@
                                 <Label
                                     FontAttributes="Bold"
                                     FontSize="16"
-                                    Text="23" />
+                                    Text="90" />
                             </VerticalStackLayout>
                             <Label
                                 Grid.Column="2"
@@ -256,29 +256,29 @@
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     HorizontalOptions="Center"
-                                    Text="100" />
+                                    Text="52" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
                                 <Label
                                     HorizontalOptions="Center"
                                     Opacity="0.8"
-                                    Text="Món ăn" />
+                                    Text="Vitamins" />
                                 <Label
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     HorizontalOptions="Center"
-                                    Text="100" />
+                                    Text="29" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
                                 <Label
                                     HorizontalOptions="Center"
                                     Opacity="0.8"
-                                    Text="Món ăn" />
+                                    Text="Khám phá" />
                                 <Label
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     HorizontalOptions="Center"
-                                    Text="100" />
+                                    Text="9" />
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>

@@ -4,12 +4,13 @@
 
 namespace VeganLife.Models.FoodModel
 {
+    using Newtonsoft.Json;
     using SQLite;
 
     public class FoodDetailModel
     {
-        [PrimaryKey]
-        public ushort Id { get; set; }
+        [JsonIgnore ,PrimaryKey]
+        public string Id { get; set; }
 
         public string Decorate { get; set; }
 

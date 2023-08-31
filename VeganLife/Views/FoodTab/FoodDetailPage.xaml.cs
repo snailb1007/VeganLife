@@ -19,10 +19,17 @@ namespace VeganLife.Views.FoodTab
             set => this.SetProperty(ref this.marginTopContent, value);
         }
 
+        private double widthOfTabView;
+        public double WidthOfTabView
+        {
+            get => this.widthOfTabView;
+            set => SetProperty(ref this.widthOfTabView, value);
+        }
         public FoodDetailPage(FoodDetailViewModel vm)
             : base(vm)
         {
             this.InitializeComponent();
+            WidthOfTabView = App.MainSize / 2;
         }
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -60,6 +67,19 @@ namespace VeganLife.Views.FoodTab
             {
                 var stack = sender as VerticalStackLayout;
                 (stack as IView).InvalidateMeasure();
+            }
+        }
+
+        private void GoNutriFact_SwipeGesture_Swiped(object sender, SwipedEventArgs e)
+        {
+            tabView.SelectedTab = tabItemNutritionFacts;
+        }
+
+        private void tabItemNutritionFacts_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("IsSelected") && tabItemNutritionFacts.IsSelected)
+            {
+                (this.BindingContext as FoodDetailViewModel).GetNutriFactsCommand.Execute(null);
             }
         }
     }

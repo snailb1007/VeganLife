@@ -7,6 +7,12 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="rootNavBarControl"
     BackgroundColor="Transparent">
+    <ContentView.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+        </LinearGradientBrush>
+    </ContentView.Background>
     <ContentView.Resources>
         <ResourceDictionary>
             <x:String x:Key="lbIcon_angleLeft">&#xf104;</x:String>

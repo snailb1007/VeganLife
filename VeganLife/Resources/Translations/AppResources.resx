@@ -369,4 +369,7 @@ List is empty!</value>
 	<data name="title_bmrCalculatePage" xml:space="preserve">
     <value>Basal metabolic rate</value>
     </data>
+	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
+    <value>Calories content: </value>
+    </data>
 </root>

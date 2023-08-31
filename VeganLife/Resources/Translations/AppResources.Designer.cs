@@ -324,6 +324,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calories content: .
+        /// </summary>
+        internal static string caloriesContent_foodDetailPage {
+            get {
+                return ResourceManager.GetString("caloriesContent_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string cancel_common {
