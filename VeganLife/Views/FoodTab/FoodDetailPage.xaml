@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
@@ -57,7 +58,7 @@
                                 FontAttributes="Bold"
                                 FontSize="17"
                                 HorizontalOptions="Center"
-                                Text="Detail"
+                                Text="Info"
                                 TextColor="{StaticResource PrimaryDark}">
                                 <Label.Triggers>
                                     <DataTrigger
@@ -69,19 +70,22 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <BoxView
-                                BackgroundColor="{StaticResource PrimaryLight}"
-                                HeightRequest="2"
-                                Color="{StaticResource PrimaryLight}">
-                                <BoxView.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference tabItemDetail}, Path=IsSelected}"
-                                        TargetType="BoxView"
-                                        Value="False">
-                                        <Setter Property="Color" Value="Gray" />
-                                    </DataTrigger>
-                                </BoxView.Triggers>
-                            </BoxView>
+                            <Grid ColumnDefinitions="*,2*,*">
+                                <BoxView
+                                    Grid.Column="1"
+                                    BackgroundColor="{StaticResource PrimaryLight}"
+                                    HeightRequest="1.5"
+                                    Color="{StaticResource PrimaryLight}">
+                                    <BoxView.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Source={x:Reference tabItemDetail}, Path=IsSelected}"
+                                            TargetType="BoxView"
+                                            Value="False">
+                                            <Setter Property="Color" Value="Gray" />
+                                        </DataTrigger>
+                                    </BoxView.Triggers>
+                                </BoxView>
+                            </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </material:TabItem.HeaderTemplate>
@@ -174,7 +178,7 @@
                 <material:TabItem.HeaderTemplate>
                     <DataTemplate>
                         <VerticalStackLayout
-                            Margin="5,10"
+                            Margin="0,10"
                             HorizontalOptions="Center"
                             WidthRequest="{Binding WidthOfTabView, Source={x:Reference root}}">
                             <Label
@@ -193,32 +197,43 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <BoxView
-                                BackgroundColor="{StaticResource PrimaryLight}"
-                                HeightRequest="2"
-                                Color="{StaticResource PrimaryLight}">
-                                <BoxView.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference tabItemNutritionFacts}, Path=IsSelected}"
-                                        TargetType="BoxView"
-                                        Value="False">
-                                        <Setter Property="Color" Value="Gray" />
-                                    </DataTrigger>
-                                </BoxView.Triggers>
-                            </BoxView>
+                            <Grid ColumnDefinitions="*,2*,*">
+                                <BoxView
+                                    Grid.Column="1"
+                                    BackgroundColor="{StaticResource PrimaryLight}"
+                                    HeightRequest="1.5"
+                                    Color="{StaticResource PrimaryLight}">
+                                    <BoxView.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Source={x:Reference tabItemNutritionFacts}, Path=IsSelected}"
+                                            TargetType="BoxView"
+                                            Value="False">
+                                            <Setter Property="Color" Value="Gray" />
+                                        </DataTrigger>
+                                    </BoxView.Triggers>
+                                </BoxView>
+
+                            </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </material:TabItem.HeaderTemplate>
                 <material:TabItem.Content>
                     <ScrollView>
-                        <toolkit:Expander IsExpanded="{Binding IsExpanded}">
+                        <toolkit:Expander IsExpanded="true">
                             <toolkit:Expander.Header>
                                 <VerticalStackLayout
                                     x:Name="rootNutriFactContent"
                                     Margin="10,10,10,0"
                                     Spacing="10">
-                                    <Label Text="Hàm lượng Calories" />
-                                    <Label FontSize="Medium" Text="Biểu đồ tỷ lệ calories Protein - Carb - Fat" />
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static translate:AppResources.caloriesContent_foodDetailPage}" />
+                                                <Span Text="{Binding FoodNutriFacts.Calories}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label FontSize="Medium" Text="Biểu đồ tỷ lệ: Protein - Carb - Fat" />
                                     <microcharts:ChartView
                                         x:Name="nutriFactMicroChart"
                                         BackgroundColor="Transparent"
@@ -227,6 +242,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="CenterAndExpand"
                                         WidthRequest="{Binding Source={x:Reference rootNutriFactContent}, Path=Width}" />
+
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="Medium"
@@ -250,7 +266,7 @@
                                 <microcharts:ChartView
                                     BackgroundColor="Transparent"
                                     Chart="{Binding DailyRadialGaugeChart, Mode=OneWay}"
-                                    HeightRequest="400"
+                                    HeightRequest="200"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="{Binding Source={x:Reference rootNutriFactContent}, Path=Width}" />
