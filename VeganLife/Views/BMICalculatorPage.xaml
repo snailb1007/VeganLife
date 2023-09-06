@@ -236,6 +236,7 @@
                                             Grid.Column="1"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="weight"
+                                            SemanticProperties.Description="Button increase Weight"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#x2b;">
                                             <Button.Shadow>
@@ -251,6 +252,7 @@
                                             Grid.Column="0"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="weight"
+                                            SemanticProperties.Description="Button decrease Weight"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#xf068;">
                                             <Button.Triggers>
@@ -312,6 +314,7 @@
                                             Grid.Column="1"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="age"
+                                            SemanticProperties.Description="Button increase Age"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#x2b;">
                                             <Button.Shadow>
@@ -327,6 +330,7 @@
                                             Grid.Column="0"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="age"
+                                            SemanticProperties.Description="Button decrease Age"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#xf068;">
                                             <Button.Triggers>

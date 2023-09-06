@@ -135,6 +135,7 @@
                             Command="{Binding BookmarkClickedCommand}"
                             CommandParameter="{Binding .}"
                             CornerRadius="20"
+                            SemanticProperties.Description="Button save food"
                             Text="Save"
                             TextColor="SkyBlue"
                             VerticalOptions="Center">
