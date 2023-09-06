@@ -27,6 +27,7 @@
                 Clicked="ImageButton_Clicked"
                 HeightRequest="38"
                 HorizontalOptions="Center"
+                SemanticProperties.Description="Button open sidebar"
                 Source="hamburger.svg"
                 VerticalOptions="Center"
                 WidthRequest="38" />
