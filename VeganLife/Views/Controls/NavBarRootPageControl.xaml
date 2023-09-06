@@ -23,6 +23,7 @@
             <ImageButton
                 Margin="0"
                 Padding="0"
+                AutomationProperties.IsInAccessibleTree="False"
                 BorderColor="Transparent"
                 Clicked="ImageButton_Clicked"
                 HeightRequest="38"
