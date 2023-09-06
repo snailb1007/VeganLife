@@ -234,6 +234,7 @@
                                         <Button
                                             x:Name="increaseWeight"
                                             Grid.Column="1"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="weight"
                                             SemanticProperties.Description="Button increase Weight"
@@ -250,6 +251,7 @@
                                         <Button
                                             x:Name="decreaseWeight"
                                             Grid.Column="0"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="weight"
                                             SemanticProperties.Description="Button decrease Weight"
@@ -312,6 +314,7 @@
                                         <Button
                                             x:Name="increaseAge"
                                             Grid.Column="1"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="age"
                                             SemanticProperties.Description="Button increase Age"
@@ -328,6 +331,7 @@
                                         <Button
                                             x:Name="decreaseAge"
                                             Grid.Column="0"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="age"
                                             SemanticProperties.Description="Button decrease Age"
