@@ -81,11 +81,13 @@
                             Grid.Column="1"
                             Margin="0"
                             Padding="2.5"
+                            AutomationProperties.IsInAccessibleTree="False"
                             BackgroundColor="{StaticResource PrimaryLight}"
                             Command="{Binding FilterClickedCommand}"
                             CornerRadius="10"
                             HeightRequest="35"
                             HorizontalOptions="Center"
+                            SemanticProperties.Description="Filter food"
                             Source="filter.svg"
                             VerticalOptions="Center"
                             WidthRequest="35">
@@ -115,7 +117,10 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:FoodMenuCategoryModel">
-                            <VerticalStackLayout Margin="20,0,0,0">
+                            <VerticalStackLayout
+                                Margin="20,0,0,0"
+                                AutomationProperties.IsInAccessibleTree="False"
+                                SemanticProperties.Description="List category food">
                                 <VerticalStackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.CategoryClickedCommand, Source={x:Reference mainPageRoot}}" CommandParameter="{Binding .}" />
                                 </VerticalStackLayout.GestureRecognizers>
@@ -163,13 +168,15 @@
                 x:Name="foodCollection"
                 Grid.Row="1"
                 Margin="20,10"
+                AutomationProperties.IsInAccessibleTree="False"
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemTemplate="{StaticResource FoodPreviewCollection}"
                 ItemsSource="{Binding Foods, Mode=OneWay}"
                 SelectedItem="{Binding CurrentFoodSelected}"
                 SelectionChangedCommand="{Binding GoFoodDetailCommand}"
                 SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
-                SelectionMode="Single">
+                SelectionMode="Single"
+                SemanticProperties.Description="List food in mainpage">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>

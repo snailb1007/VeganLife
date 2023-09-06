@@ -234,8 +234,10 @@
                                         <Button
                                             x:Name="increaseWeight"
                                             Grid.Column="1"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="weight"
+                                            SemanticProperties.Description="Button increase Weight"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#x2b;">
                                             <Button.Shadow>
@@ -249,8 +251,10 @@
                                         <Button
                                             x:Name="decreaseWeight"
                                             Grid.Column="0"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="weight"
+                                            SemanticProperties.Description="Button decrease Weight"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#xf068;">
                                             <Button.Triggers>
@@ -310,8 +314,10 @@
                                         <Button
                                             x:Name="increaseAge"
                                             Grid.Column="1"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding IncreaseCommand}"
                                             CommandParameter="age"
+                                            SemanticProperties.Description="Button increase Age"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#x2b;">
                                             <Button.Shadow>
@@ -325,8 +331,10 @@
                                         <Button
                                             x:Name="decreaseAge"
                                             Grid.Column="0"
+                                            AutomationProperties.IsInAccessibleTree="False"
                                             Command="{Binding DecreaseCommand}"
                                             CommandParameter="age"
+                                            SemanticProperties.Description="Button decrease Age"
                                             Style="{StaticResource btnPlusMinus}"
                                             Text="&#xf068;">
                                             <Button.Triggers>

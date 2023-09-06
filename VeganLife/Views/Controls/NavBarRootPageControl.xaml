@@ -23,10 +23,12 @@
             <ImageButton
                 Margin="0"
                 Padding="0"
+                AutomationProperties.IsInAccessibleTree="False"
                 BorderColor="Transparent"
                 Clicked="ImageButton_Clicked"
                 HeightRequest="38"
                 HorizontalOptions="Center"
+                SemanticProperties.Description="Button open sidebar"
                 Source="hamburger.svg"
                 VerticalOptions="Center"
                 WidthRequest="38" />
