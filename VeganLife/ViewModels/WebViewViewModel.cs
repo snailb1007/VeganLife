@@ -62,7 +62,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        private async void OpenInBrowser()
+        private async Task OpenInBrowser()
         {
             await Launcher.OpenAsync(this.SourceWeb);
         }
