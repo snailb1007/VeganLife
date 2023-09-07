@@ -35,10 +35,16 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationTitle>HealthyChef</ApplicationTitle>
+	  <ApplicationId>com.snailb.healthychef</ApplicationId>
+	  <ApplicationVersion>1</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationTitle>HealthyChef</ApplicationTitle>
+	  <ApplicationId>com.snailb.healthychef</ApplicationId>
+	  <ApplicationVersion>1</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

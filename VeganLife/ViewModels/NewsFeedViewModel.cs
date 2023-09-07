@@ -121,7 +121,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        private async void LoadMoreItem()
+        private async Task LoadMoreItem()
         {
             if (this.taskLoadingMessage != null && !this.taskLoadingMessage.Task.IsCompleted)
             {
