@@ -7,6 +7,7 @@ namespace VeganLife.Services
     using System.Xml;
     using Firebase.Database;
     using Firebase.Database.Query;
+    using HtmlAgilityPack;
     using Newtonsoft.Json;
     using VeganLife.Data.RssFeedsData;
     using VeganLife.Models.FoodModel;
@@ -150,6 +151,52 @@ namespace VeganLife.Services
 
             var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
             return baseData.rss.channel.item;
+        }
+
+        public async Task<List<string>> GetImageLinksAsync(string url)
+        {
+            List<string> imageLinks = new List<string>();
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await httpClient.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string htmlContent = await response.Content.ReadAsStringAsync();
+
+                        HtmlDocument htmlDocument = new HtmlDocument();
+                        htmlDocument.LoadHtml(htmlContent);
+
+                        // Select all image elements with an "src" attribute
+                        HtmlNodeCollection imgNodes = htmlDocument.DocumentNode.SelectNodes("//img[@src]");
+
+                        if (imgNodes != null)
+                        {
+                            foreach (HtmlNode imgNode in imgNodes)
+                            {
+                                string imgSrc = imgNode.GetAttributeValue("src", "");
+                                if (!string.IsNullOrEmpty(imgSrc))
+                                {
+                                    imageLinks.Add(imgSrc);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to fetch content from {url}. Status code: {response.StatusCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
+            }
+
+            return imageLinks;
         }
     }
 }
