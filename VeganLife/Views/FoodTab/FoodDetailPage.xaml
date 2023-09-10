@@ -95,24 +95,28 @@
                             <SwipeGestureRecognizer Direction="Left" Swiped="GoNutriFact_SwipeGesture_Swiped" />
                         </Grid.GestureRecognizers>
                         <cards:CardsView
+                            x:Name="cardsViewFoodImage"
+                            BackgroundColor="Black"
                             IsAutoInteractionRunning="True"
                             IsHorizontalOrientation="True"
                             ItemsSource="{Binding FoodImage, Mode=OneWay}"
-                            VerticalOptions="FillAndExpand">
+                            VerticalOptions="Fill">
                             <cards:CardsView.ItemTemplate>
                                 <DataTemplate>
                                     <ContentView>
                                         <Border
                                             Padding="0"
-                                            HorizontalOptions="CenterAndExpand"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="FillAndExpand"
+                                            StrokeShape="RoundRectangle 5"
                                             VerticalOptions="FillAndExpand">
                                             <ffimageloading:CachedImage
                                                 x:Name="imgPreview"
-                                                Aspect="AspectFill"
+                                                Aspect="AspectFit"
                                                 DownsampleToViewSize="True"
-                                                ErrorPlaceholder="mascot_snail.jpg"
+                                                ErrorPlaceholder="error_snail.jpg"
                                                 HorizontalOptions="FillAndExpand"
-                                                LoadingPlaceholder="mascot_snail.jpg"
+                                                LoadingPlaceholder="relaxing.jpg"
                                                 PropertyChanged="Image_PropertyChanged"
                                                 Source="{Binding ., Mode=OneWay}"
                                                 VerticalOptions="FillAndExpand" />
@@ -121,14 +125,13 @@
                                 </DataTemplate>
                             </cards:CardsView.ItemTemplate>
                         </cards:CardsView>
-
-                        <Grid
-                            Grid.Row="1"
-                            Grid.RowSpan="2"
-                            Margin="15,0">
+                        <Grid Grid.Row="2" Margin="15,0">
                             <ScrollView>
                                 <VerticalStackLayout Margin="5,0" BackgroundColor="Transparent">
-                                    <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
+                                    <!--<Grid
+                                        x:Name="gridOnTop"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False" />-->
                                     <Frame
                                         Padding="0"
                                         BorderColor="Transparent"
@@ -137,7 +140,6 @@
                                         <Grid
                                             Margin="10,10,0,10"
                                             ColumnDefinitions="4*,*"
-                                            PropertyChanged="Frame_PropertyChanged"
                                             RowDefinitions="*"
                                             VerticalOptions="FillAndExpand">
                                             <VerticalStackLayout Margin="10,0,0,0" Spacing="8">
