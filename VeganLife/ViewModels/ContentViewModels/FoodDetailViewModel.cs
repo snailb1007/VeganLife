@@ -9,7 +9,6 @@ namespace VeganLife.ViewModels.ContentViewModels
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Models.FoodModel;
-    using VeganLife.Services.LocalDataServices;
 
     /// <summary>
     /// vm for FoodDetailPage.
@@ -35,17 +34,17 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private bool isExpanded;
 
+        [ObservableProperty]
+        private ObservableCollection<string> foodImage;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FoodDetailViewModel"/> class.
         /// </summary>
         public FoodDetailViewModel()
             : base()
         {
-            var database = ServicesHelper.GetService<ISQLite>();
-            if (database != null)
-            {
-                this.foodDetailDataStoreService = new FoodDetailDataStoreService(database);
-            }
+            this.foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
+            this.FoodImage = new ObservableCollection<string>();
         }
 
         /// <inheritdoc/>
@@ -69,6 +68,9 @@ namespace VeganLife.ViewModels.ContentViewModels
                 {
                     await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
                 }
+
+                this.FoodImage.Add(this.FoodPreview.Image);
+                await this.GetMoreImage().ConfigureAwait(false);
             }
 
             return base.OnNavigatingTo(parameter);
@@ -286,6 +288,21 @@ namespace VeganLife.ViewModels.ContentViewModels
                     MaxValue = 100,
                     LabelTextSize = 35,
                 };
+            }
+        }
+
+        private async Task GetMoreImage()
+        {
+            var imgs = await dataService.GetImageLinksAsync(this.FoodDetail.RootLink);
+            if (imgs?.Any() ?? false)
+            {
+                foreach (var item in imgs)
+                {
+                    if (!string.IsNullOrEmpty(item) && item.Contains(this.FoodDetail.Key))
+                    {
+                        this.FoodImage.Add(item);
+                    }
+                }
             }
         }
     }

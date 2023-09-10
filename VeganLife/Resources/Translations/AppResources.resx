@@ -264,6 +264,9 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="decorate_foodDetailPage" xml:space="preserve">
     <value>Decorate</value>
   </data>
+	<data name="note_foodDetailPage" xml:space="preserve">
+    <value>Note</value>
+    </data>
 	<data name="searchPlace_mainPage" xml:space="preserve">
     <value>Search anything!</value>
   </data>

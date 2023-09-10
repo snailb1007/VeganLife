@@ -94,14 +94,34 @@
                         <Grid.GestureRecognizers>
                             <SwipeGestureRecognizer Direction="Left" Swiped="GoNutriFact_SwipeGesture_Swiped" />
                         </Grid.GestureRecognizers>
-                        <ffimageloading:CachedImage
-                            x:Name="imgPreview"
-                            Aspect="AspectFill"
-                            DownsampleToViewSize="True"
-                            HorizontalOptions="FillAndExpand"
-                            PropertyChanged="Image_PropertyChanged"
-                            Source="{Binding FoodPreview.Image, Mode=OneWay}"
-                            VerticalOptions="Start" />
+                        <cards:CardsView
+                            IsAutoInteractionRunning="True"
+                            IsHorizontalOrientation="True"
+                            ItemsSource="{Binding FoodImage, Mode=OneWay}"
+                            VerticalOptions="FillAndExpand">
+                            <cards:CardsView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Border
+                                            Padding="0"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <ffimageloading:CachedImage
+                                                x:Name="imgPreview"
+                                                Aspect="AspectFill"
+                                                DownsampleToViewSize="True"
+                                                ErrorPlaceholder="mascot_snail.jpg"
+                                                HorizontalOptions="FillAndExpand"
+                                                LoadingPlaceholder="mascot_snail.jpg"
+                                                PropertyChanged="Image_PropertyChanged"
+                                                Source="{Binding ., Mode=OneWay}"
+                                                VerticalOptions="FillAndExpand" />
+                                        </Border>
+                                    </ContentView>
+                                </DataTemplate>
+                            </cards:CardsView.ItemTemplate>
+                        </cards:CardsView>
+
                         <Grid
                             Grid.Row="1"
                             Grid.RowSpan="2"
@@ -166,6 +186,7 @@
                                             <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.making_foodDetailPage}" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
                                             <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.sauce_foodDetailPage}" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
                                             <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.decorate_foodDetailPage}" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
+                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.note_foodDetailPage}" ContentExpand="{Binding FoodDetail.Note, Mode=OneWay}" />
                                         </VerticalStackLayout>
                                     </Border>
                                 </VerticalStackLayout>
