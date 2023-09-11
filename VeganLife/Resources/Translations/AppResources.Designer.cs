@@ -595,6 +595,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        internal static string note_foodDetailPage {
+            get {
+                return ResourceManager.GetString("note_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No information on vitamins &amp; minerals.
         ///List is empty!.
         /// </summary>

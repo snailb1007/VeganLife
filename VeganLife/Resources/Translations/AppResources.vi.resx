@@ -247,6 +247,9 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
 	<data name="decorate_foodDetailPage" xml:space="preserve">
     <value>Trang trí</value>
     </data>
+	<data name="note_foodDetailPage" xml:space="preserve">
+    <value>Ghi chú</value>
+    </data>
 	<data name="searchPlace_mainPage" xml:space="preserve">
     <value>Tìm kiếm gì đó!</value>
     </data>

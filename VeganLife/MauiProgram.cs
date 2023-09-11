@@ -28,6 +28,7 @@ namespace VeganLife
     using Microsoft.AppCenter.Crashes;
     using Microsoft.AppCenter;
     using VeganLife.Services.UserServices;
+    using PanCardView;
 #endif
 
     /// <summary>
@@ -56,6 +57,7 @@ namespace VeganLife
                 .ConfigureMopups()
                 .UseFFImageLoading()
                 .UseMauiCommunityToolkit()
+                .UseCardsView()
                 .UseMicrocharts();
             AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
@@ -88,6 +90,7 @@ namespace VeganLife
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<UserInfoDataStoreServie>();
+            services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             // page
             services.AddTransient<SettingPage>();

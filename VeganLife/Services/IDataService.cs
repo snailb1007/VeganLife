@@ -20,5 +20,6 @@ namespace VeganLife.Services
         Task<IEnumerable<VitaminModel>> GetVitamins();
 
         Task<IEnumerable<Item>> LoadGoogleNews(string uri);
+        Task<List<string>> GetImageLinksAsync(string url);
     }
 }

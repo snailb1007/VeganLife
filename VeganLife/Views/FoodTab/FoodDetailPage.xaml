@@ -94,21 +94,44 @@
                         <Grid.GestureRecognizers>
                             <SwipeGestureRecognizer Direction="Left" Swiped="GoNutriFact_SwipeGesture_Swiped" />
                         </Grid.GestureRecognizers>
-                        <ffimageloading:CachedImage
-                            x:Name="imgPreview"
-                            Aspect="AspectFill"
-                            DownsampleToViewSize="True"
-                            HorizontalOptions="FillAndExpand"
-                            PropertyChanged="Image_PropertyChanged"
-                            Source="{Binding FoodPreview.Image, Mode=OneWay}"
-                            VerticalOptions="Start" />
-                        <Grid
-                            Grid.Row="1"
-                            Grid.RowSpan="2"
-                            Margin="15,0">
+                        <cards:CardsView
+                            x:Name="cardsViewFoodImage"
+                            BackgroundColor="Black"
+                            IsAutoInteractionRunning="True"
+                            IsHorizontalOrientation="True"
+                            ItemsSource="{Binding FoodImage, Mode=OneWay}"
+                            VerticalOptions="Fill">
+                            <cards:CardsView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Border
+                                            Padding="0"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="FillAndExpand"
+                                            StrokeShape="RoundRectangle 5"
+                                            VerticalOptions="FillAndExpand">
+                                            <ffimageloading:CachedImage
+                                                x:Name="imgPreview"
+                                                Aspect="AspectFit"
+                                                DownsampleToViewSize="True"
+                                                ErrorPlaceholder="error_snail.jpg"
+                                                HorizontalOptions="FillAndExpand"
+                                                LoadingPlaceholder="relaxing.jpg"
+                                                PropertyChanged="Image_PropertyChanged"
+                                                Source="{Binding ., Mode=OneWay}"
+                                                VerticalOptions="FillAndExpand" />
+                                        </Border>
+                                    </ContentView>
+                                </DataTemplate>
+                            </cards:CardsView.ItemTemplate>
+                        </cards:CardsView>
+                        <Grid Grid.Row="2" Margin="15,0">
                             <ScrollView>
                                 <VerticalStackLayout Margin="5,0" BackgroundColor="Transparent">
-                                    <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
+                                    <!--<Grid
+                                        x:Name="gridOnTop"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False" />-->
                                     <Frame
                                         Padding="0"
                                         BorderColor="Transparent"
@@ -117,7 +140,6 @@
                                         <Grid
                                             Margin="10,10,0,10"
                                             ColumnDefinitions="4*,*"
-                                            PropertyChanged="Frame_PropertyChanged"
                                             RowDefinitions="*"
                                             VerticalOptions="FillAndExpand">
                                             <VerticalStackLayout Margin="10,0,0,0" Spacing="8">
@@ -166,6 +188,7 @@
                                             <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.making_foodDetailPage}" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
                                             <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.sauce_foodDetailPage}" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
                                             <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.decorate_foodDetailPage}" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
+                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.note_foodDetailPage}" ContentExpand="{Binding FoodDetail.Note, Mode=OneWay}" />
                                         </VerticalStackLayout>
                                     </Border>
                                 </VerticalStackLayout>
