@@ -29,6 +29,8 @@ namespace VeganLife
     using Microsoft.AppCenter;
     using VeganLife.Services.UserServices;
     using PanCardView;
+    using VeganLifeDataCenter.Data;
+    using Microsoft.EntityFrameworkCore;
 #endif
 
     /// <summary>
@@ -59,6 +61,7 @@ namespace VeganLife
                 .UseMauiCommunityToolkit()
                 .UseCardsView()
                 .UseMicrocharts();
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
@@ -70,6 +73,8 @@ namespace VeganLife
             AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
+
+        public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
 
         private static void RegisterServices(IServiceCollection services)
         {
