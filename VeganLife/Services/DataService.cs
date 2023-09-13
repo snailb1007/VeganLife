@@ -52,7 +52,7 @@ namespace VeganLife.Services
                 var data = await this.firebaseDatabase.Child(MenuFoodAddress).OnceAsync<MenuModel>().ConfigureAwait(false);
                 return data.Select(item => new FoodMenuCategoryModel
                 {
-                    ImgSource = item.Object.ImgSource,
+                    ImgSource = item.Object?.ImgSource,
                     Title = item.Key,
                 });
             }
@@ -73,10 +73,10 @@ namespace VeganLife.Services
                 return data.Select(item => new FoodPreviewModel
                 {
                     Id = item.Key,
-                    Name = item.Object.Name,
-                    Image = item.Object.Image,
-                    Time = item.Object.Time,
-                    Category = item.Object.Category,
+                    Name = item.Object?.Name,
+                    Image = item.Object?.Image,
+                    Time = item.Object?.Time,
+                    Category = item.Object?.Category,
                 });
             }
             catch (FirebaseException e)
@@ -117,10 +117,10 @@ namespace VeganLife.Services
                 return dataTask.Select(i => new VitaminModel
                 {
                     Id = i.Key,
-                    Name = i.Object.Name,
-                    Image = i.Object.Image,
-                    Summary = i.Object.Summary,
-                    WebView = i.Object.WebView,
+                    Name = i.Object?.Name,
+                    Image = i.Object?.Image,
+                    Summary = i.Object?.Summary,
+                    WebView = i.Object?.WebView,
                 });
             }
             catch (FirebaseException e)
