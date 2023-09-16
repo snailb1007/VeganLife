@@ -5,6 +5,7 @@
 namespace VeganLife.ViewModels.PopupViewModels
 {
     using VeganLife.Helpers;
+    using static VeganLife.Helpers.AppSetting.StaticHelper;
 #if GPT
     using ChatGptNet;
     using ChatGptNet.Exceptions;
@@ -24,6 +25,11 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public string Message { get; set; }
 
+        [ObservableProperty]
+        private string classifyLabel;
+        [ObservableProperty]
+        private string note;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
         /// </summary>
@@ -33,7 +39,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         /// <inheritdoc/>
-        public override Task OnNavigatingTo(object parameter)
+        public override async Task<Task> OnNavigatingTo(object parameter)
         {
             if (parameter != null)
             {
@@ -41,7 +47,10 @@ namespace VeganLife.ViewModels.PopupViewModels
                 this.BmiResultText = result?.BMIResult.ToString();
                 if (short.TryParse(result.Age, out var age))
                 {
-                    this.BmiStatusColor = BMICalculateHelper.GetWeightStatusCategory(age, result.Sex, result.BMIResult);
+                    var healthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(age, result.Sex, result.BMIResult);
+                    this.BmiStatusColor = healthDiagnosis.StatusColor;
+                    this.ClassifyLabel = healthDiagnosis.Classify;
+                    this.Note = healthDiagnosis.Note;
                 }
 #if GPT
                 string sex = result.Sex;

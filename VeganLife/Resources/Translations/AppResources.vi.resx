@@ -358,4 +358,7 @@ Danh sách trống!</value>
 	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
     <value>Hàm lượng Calories: </value>
     </data>
+	<data name="underweight_toolFlyout" xml:space="preserve">
+    <value>Thiếu cân</value>
+    </data>
 </root>

@@ -5,6 +5,7 @@
 namespace VeganLife.Helpers
 {
     using VeganLife.Helpers.AppSetting;
+    using static VeganLife.Helpers.AppSetting.StaticHelper;
 
     public static class BMICalculateHelper
     {
@@ -28,7 +29,7 @@ namespace VeganLife.Helpers
         /// <param name="sex">sex to analysis.</param>
         /// <param name="bmiData">bmiData to analysis.</param>
         /// <returns>Color for UI.</returns>
-        public static Color GetWeightStatusCategory(short age, string sex, float bmiData)
+        public static HealthDiagnosisModel GetWeightStatusCategory(short age, string sex, float bmiData)
         {
             switch (age)
             {
@@ -41,33 +42,49 @@ namespace VeganLife.Helpers
             }
         }
 
-        private static Color GetWSKLessThen5Age(float bmi)
+        private static HealthDiagnosisModel GetWSKLessThen5Age(float bmi)
         {
+            var result = new HealthDiagnosisModel();
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Note;
             switch (bmi)
             {
                 case < 14:
-                    return Colors.Orange;
+                    result.StatusColor = Colors.Orange;
+                    break;
                 case < 20:
-                    return Colors.Green;
+                    result.StatusColor = Colors.Green;
+                    break;
                 case <= 24:
-                    return Colors.Yellow;
-                default: return Colors.Red;
+                    result.StatusColor = Colors.Yellow;
+                    break;
+                default:
+                    result.StatusColor = Colors.Red;
+                    break;
             }
+
+            return result;
         }
 
-        private static Color GetWSKLessThen20Age(string sex, float bmi)
+        private static HealthDiagnosisModel GetWSKLessThen20Age(string sex, float bmi)
         {
+            var result = new HealthDiagnosisModel();
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Note;
             if (sex.Equals(ConstantHelper.BmiData.Male))
             {
                 switch (bmi)
                 {
                     case < 14:
-                        return Colors.Orange;
+                        result.StatusColor = Colors.Orange;
+                        break;
                     case < 20:
-                        return Colors.Green;
+                        result.StatusColor = Colors.Green;
+                        break;
                     case < 25:
-                        return Colors.Yellow;
-                    default: return Colors.Red;
+                        result.StatusColor = Colors.Yellow;
+                        break;
+                    default:
+                        result.StatusColor = Colors.Red;
+                        break;
                 }
             }
             else
@@ -75,36 +92,56 @@ namespace VeganLife.Helpers
                 switch (bmi)
                 {
                     case < 14:
-                        return Colors.Orange;
+                        result.StatusColor = Colors.Orange;
+                        break;
                     case < 20:
-                        return Colors.Green;
+                        result.StatusColor = Colors.Green;
+                        break;
                     case < 24:
-                        return Colors.Yellow;
-                    default: return Colors.Red;
+                        result.StatusColor = Colors.Yellow;
+                        break;
+                    default:
+                        result.StatusColor = Colors.Red;
+                        break;
                 }
             }
+
+            return result;
         }
 
-        private static Color GetWSKForAdults(float bmi)
+        private static HealthDiagnosisModel GetWSKForAdults(float bmi)
         {
+            var result = new HealthDiagnosisModel();
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Note;
             switch (bmi)
             {
                 case < 16:
-                    return Color.FromArgb("#ffda95"); // Underweight (Severe thinness)
+                    result.StatusColor = Color.FromArgb("#ffda95"); // Underweight (Severe thinness)
+                    break;
                 case < 17:
-                    return Color.FromArgb("#ffc251"); // Underweight (Moderate thinness)
+                    result.StatusColor = Color.FromArgb("#ffc251"); // Underweight (Moderate thinness)
+                    break;
                 case < 18.5f:
-                    return Colors.Orange;
+                    result.StatusColor = Colors.Orange;
+                    break;
                 case < 25:
-                    return Colors.Green;
+                    result.StatusColor = Colors.Green;
+                    break;
                 case < 30:
-                    return Colors.Yellow;
+                    result.StatusColor = Colors.Yellow;
+                    break;
                 case < 35:
-                    return Colors.Red;
+                    result.StatusColor = Colors.Red;
+                    break;
                 case < 40:
-                    return Color.FromArgb("#a50000 "); // Obese (Class II)
-                default: return Color.FromArgb("#690000"); // Obese (Class III)
+                    result.StatusColor = Color.FromArgb("#a50000 "); // Obese (Class II)
+                    break;
+                default:
+                    result.StatusColor = Color.FromArgb("#690000"); // Obese (Class III)
+                    break;
             }
+
+            return result;
         }
     }
 }

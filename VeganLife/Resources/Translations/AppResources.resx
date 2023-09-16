@@ -375,4 +375,7 @@ List is empty!</value>
 	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
     <value>Calories content: </value>
     </data>
+	<data name="underweight_toolFlyout" xml:space="preserve">
+    <value>Underweight</value>
+    </data>
 </root>

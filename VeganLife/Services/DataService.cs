@@ -10,6 +10,7 @@ namespace VeganLife.Services
     using HtmlAgilityPack;
     using Newtonsoft.Json;
     using VeganLife.Data.RssFeedsData;
+    using VeganLife.Models.FirebaseDataModel;
     using VeganLife.Models.FoodModel;
     using VeganLife.Models.GoogleNewsModels;
 
@@ -31,7 +32,7 @@ namespace VeganLife.Services
                 return new FoodDetailModel();
             try
             {
-                var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>().ConfigureAwait(false);
+                var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>();
                 data ??= new FoodDetailModel();
                 data.Id = id;
                 return data;
@@ -197,6 +198,45 @@ namespace VeganLife.Services
             }
 
             return imageLinks;
+        }
+
+        public async Task<string> GetFireBaseValue(string nodePath)
+        {
+            if (string.IsNullOrEmpty(nodePath))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                try
+                {
+                    var data = await this.firebaseDatabase.Child(nodePath).OnceSingleAsync<string>();
+                    return data;
+                }
+                catch (FirebaseException firebaseE)
+                {
+#if DEBUG
+                    await Console.Out.WriteLineAsync(firebaseE.Message);
+#endif
+                    return string.Empty;
+                }
+            }
+        }
+
+        public async Task<BMIModel> GetHealthDiagnosisFirebaseDataModel()
+        {
+            try
+            {
+                var data = await this.firebaseDatabase.Child("/HealthDiagonosis/BMI").OnceSingleAsync<BMIModel>();
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+#if DEBUG
+                Console.WriteLine(e.StackTrace);
+#endif
+                return new BMIModel();
+            }
         }
     }
 }
