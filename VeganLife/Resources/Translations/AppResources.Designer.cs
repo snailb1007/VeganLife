@@ -749,6 +749,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Underweight.
+        /// </summary>
+        internal static string underweight_toolFlyout {
+            get {
+                return ResourceManager.GetString("underweight_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vegan food.
         /// </summary>
         internal static string veganFood_feedPage {
