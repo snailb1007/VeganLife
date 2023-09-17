@@ -22,6 +22,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
             <x:String x:Key="iconBookmark">&#xf02e;</x:String>
             <Style TargetType="Line">
                 <Setter Property="HeightRequest" Value="1.5" />
@@ -127,11 +128,8 @@
                         </cards:CardsView>
                         <Grid Grid.Row="2" Margin="15,0">
                             <ScrollView>
-                                <VerticalStackLayout Margin="5,0" BackgroundColor="Transparent">
-                                    <!--<Grid
-                                        x:Name="gridOnTop"
-                                        BackgroundColor="Transparent"
-                                        IsVisible="False" />-->
+                                <VerticalStackLayout Margin="5" BackgroundColor="Transparent">
+                                    <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
                                     <Frame
                                         Padding="0"
                                         BorderColor="Transparent"
@@ -153,11 +151,13 @@
                                             </VerticalStackLayout>
                                             <Button
                                                 Grid.Column="1"
+                                                AutomationProperties.IsInAccessibleTree="False"
                                                 BackgroundColor="Transparent"
                                                 Command="{Binding BookmarkClickedCommand}"
                                                 FontFamily="FontAwesomeRegular"
                                                 FontSize="20"
                                                 HorizontalOptions="Center"
+                                                SemanticProperties.Description="Button down-arrow food detail"
                                                 Text="{StaticResource iconBookmark}"
                                                 TextColor="Black"
                                                 VerticalOptions="Center">
@@ -235,7 +235,6 @@
                                         </DataTrigger>
                                     </BoxView.Triggers>
                                 </BoxView>
-
                             </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
@@ -265,7 +264,6 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="CenterAndExpand"
                                         WidthRequest="{Binding Source={x:Reference rootNutriFactContent}, Path=Width}" />
-
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="Medium"
