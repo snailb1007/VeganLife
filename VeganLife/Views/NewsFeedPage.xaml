@@ -76,7 +76,10 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Discovery">
-                        <VerticalStackLayout Spacing="5">
+                        <VerticalStackLayout
+                            AutomationProperties.IsInAccessibleTree="False"
+                            SemanticProperties.Description="List discovery news"
+                            Spacing="5">
                             <VerticalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectDiscoveryMenuCommand, Source={x:Reference newsFeedPageRoot}}" CommandParameter="{Binding .}" />
                             </VerticalStackLayout.GestureRecognizers>
