@@ -5,6 +5,7 @@
 namespace VeganLife.Helpers
 {
     using VeganLife.Helpers.AppSetting;
+    using VeganLife.Resources.Translations;
     using static VeganLife.Helpers.AppSetting.StaticHelper;
 
     public static class BMICalculateHelper
@@ -46,6 +47,8 @@ namespace VeganLife.Helpers
         {
             var result = new HealthDiagnosisModel();
             result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Note;
+            result.Classify = AppResources.lessThan5_notFound_toolFlyout;
+            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Documents;
             switch (bmi)
             {
                 case < 14:
@@ -69,8 +72,11 @@ namespace VeganLife.Helpers
         {
             var result = new HealthDiagnosisModel();
             result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Note;
+            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Documents;
+            result.Classify = AppResources.lessThan20_notFound_toolFlyout;
             if (sex.Equals(ConstantHelper.BmiData.Male))
             {
+                result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Boy;
                 switch (bmi)
                 {
                     case < 14:
@@ -89,6 +95,7 @@ namespace VeganLife.Helpers
             }
             else
             {
+                result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Girl;
                 switch (bmi)
                 {
                     case < 14:
@@ -113,6 +120,7 @@ namespace VeganLife.Helpers
         {
             var result = new HealthDiagnosisModel();
             result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Note;
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Documents;
             switch (bmi)
             {
                 case < 16:
