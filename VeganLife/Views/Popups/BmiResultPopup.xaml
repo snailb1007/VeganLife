@@ -53,8 +53,14 @@
                                 HorizontalTextAlignment="Center"
                                 IsVisible="{Binding ClassifyLabel, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
                                 LineBreakMode="TailTruncation"
-                                MaxLines="1"
-                                Text="{Binding ClassifyLabel}" />
+                                MaxLines="2">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static translate:AppResources.titleClassify_toolFlyout}" />
+                                        <Span Text="{Binding ClassifyLabel}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="1"
@@ -68,7 +74,7 @@
                                 HorizontalTextAlignment="Center"
                                 LineBreakMode="TailTruncation"
                                 LineHeight="1.2"
-                                MaxLines="1">
+                                MaxLines="2">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
@@ -80,28 +86,78 @@
                                 </Label.FormattedText>
                             </Label>
                         </VerticalStackLayout>
-                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                        <Grid
+                            Margin="5,10,5,0"
+                            ColumnDefinitions="*,*,*"
+                            ColumnSpacing="5">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                        <Setter Property="BorderColor" Value="SkyBlue" />
+                                        <Setter Property="BorderWidth" Value="0" />
+                                        <Setter Property="WidthRequest" Value="48" />
+                                        <Setter Property="CornerRadius" Value="23" />
+                                        <Setter Property="TextColor" Value="Gray" />
+                                        <Setter Property="FontSize" Value="Medium" />
+                                    </Style>
+                                </ResourceDictionary>
+                            </Grid.Resources>
                             <Button
-                                Background="Transparent"
-                                BackgroundColor="Transparent"
+                                Command="{Binding SelectButtonCommand}"
+                                CommandParameter="0"
                                 FontFamily="{StaticResource FontAwesomeSolid}"
-                                Text="&#xf2f9;"
-                                TextColor="Gray" />
+                                Text="&#xf2f9;">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsReCalculateSelected}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontSize" Value="Large" />
+                                        <Setter Property="BorderWidth" Value="1.2" />
+                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                             <Button
                                 Grid.Column="1"
-                                Background="Transparent"
-                                BackgroundColor="Transparent"
+                                Command="{Binding SelectButtonCommand}"
+                                CommandParameter="1"
                                 FontFamily="{StaticResource FontAwesomeSolid}"
-                                Text="&#xf061;"
-                                TextColor="Gray" />
+                                Text="&#xf061;">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsGoAnalysisPageSelected}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontSize" Value="Large" />
+                                        <Setter Property="BorderWidth" Value="1.2" />
+                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                             <Button
                                 Grid.Column="2"
-                                BorderColor="SkyBlue"
-                                CornerRadius="20"
-                                Text="Save"
-                                TextColor="SkyBlue" />
+                                Command="{Binding SelectButtonCommand}"
+                                CommandParameter="2"
+                                Text="Save">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsSaveSelected}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontSize" Value="18" />
+                                        <Setter Property="BorderWidth" Value="1.2" />
+                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </Grid>
-                        <Label HorizontalOptions="Center" Text="Đi tới trang phân tích" />
+                        <Label
+                            Margin="0,0,0,10"
+                            HorizontalOptions="Center"
+                            Text="Đi tới trang phân tích" />
                     </VerticalStackLayout>
                 </Grid>
                 <Grid
