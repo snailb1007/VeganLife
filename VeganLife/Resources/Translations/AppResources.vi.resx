@@ -358,4 +358,20 @@ Danh sách trống!</value>
 	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
     <value>Hàm lượng Calories: </value>
     </data>
+	<data name="lessThan5_notFound_toolFlyout" xml:space="preserve">
+    <value>Trẻ dưới 5 tuổi, BMI không được sử dụng để đánh giá cân nặng!</value>
+    </data>
+	<data name="lessThan20_notFound_toolFlyout" xml:space="preserve">
+		<value>Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
+Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
+5th - 84th percentile: Bình thường (Normal weight) nếu BMI nằm trong khoảng này.
+85th - 94th percentile: Thừa cân (Overweight) nếu BMI nằm trong khoảng này.
+95th percentile trở lên: Béo phì (Obese) nếu BMI ≥ 95th percentile.</value>
+    </data>
+	<data name="underweight_toolFlyout" xml:space="preserve">
+    <value>Thiếu cân</value>
+    </data>
+	<data name="normal_toolFlyout" xml:space="preserve">
+    <value>Bình thường</value>
+    </data>
 </root>

@@ -7,8 +7,9 @@ namespace VeganLife.ViewModels
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Views.Popups;
+    using VeganLife.Views.ToolFlyout;
 
-    public partial class BMICalculatorViewModel : BaseViewModel
+    public partial class MainToolViewModel : BaseViewModel
     {
         public string WeightBMIRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
@@ -71,7 +72,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            var view = (BMICalculatorPage)obj;
+            var view = (MainTool)obj;
             if (view == null)
             {
                 return;
@@ -100,7 +101,7 @@ namespace VeganLife.ViewModels
             this.IsMale = !this.IsMale;
         }
 
-        public BMICalculatorViewModel()
+        public MainToolViewModel()
             : base()
         {
             this.Init();
