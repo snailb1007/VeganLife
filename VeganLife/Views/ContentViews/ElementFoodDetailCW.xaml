@@ -30,8 +30,7 @@
         x:Name="expander"
         x:DataType="cw:ElementFoodDetailCW"
         BindingContext="{Binding Source={x:Reference rootElementFoodDetailCW}}"
-        IsExpanded="{Binding IsExpanded}"
-        IsVisible="{Binding ContentExpand, Converter={StaticResource IsStringNotNullOrEmptyConverter}}">
+        IsExpanded="{Binding IsExpanded}">
         <toolkit:Expander.Header>
             <StackLayout>
                 <Grid Margin="10,0,0,0">
@@ -70,7 +69,7 @@
                 <Line />
             </StackLayout>
         </toolkit:Expander.Header>
-        <Grid IsVisible="{Binding ContentExpand, Converter={StaticResource IsStringNotNullOrEmptyConverter}}">
+        <Grid>
             <Label
                 Margin="15,0,10,0"
                 FontSize="15"
