@@ -120,32 +120,40 @@ namespace VeganLife.Helpers
         {
             var result = new HealthDiagnosisModel();
             result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Note;
-            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Documents;
+            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Documents;
             switch (bmi)
             {
                 case < 16:
                     result.StatusColor = Color.FromArgb("#ffda95"); // Underweight (Severe thinness)
+                    result.Classify = AppResources.severeThinness_classify_bmi;
                     break;
                 case < 17:
                     result.StatusColor = Color.FromArgb("#ffc251"); // Underweight (Moderate thinness)
+                    result.Classify = AppResources.moderateThinness_classify_bmi;
                     break;
                 case < 18.5f:
                     result.StatusColor = Colors.Orange;
+                    result.Classify = AppResources.Thinness_classify_bmi;
                     break;
                 case < 25:
                     result.StatusColor = Colors.Green;
+                    result.Classify = AppResources.normal_classify_bmi;
                     break;
                 case < 30:
                     result.StatusColor = Colors.Yellow;
+                    result.Classify = AppResources.obese_classify_bmi;
                     break;
                 case < 35:
                     result.StatusColor = Colors.Red;
+                    result.Classify = AppResources.obese1_classify_bmi;
                     break;
                 case < 40:
                     result.StatusColor = Color.FromArgb("#a50000 "); // Obese (Class II)
+                    result.Classify = AppResources.obese2_classify_bmi;
                     break;
                 default:
                     result.StatusColor = Color.FromArgb("#690000"); // Obese (Class III)
+                    result.Classify = AppResources.obese3_classify_bmi;
                     break;
             }
 
