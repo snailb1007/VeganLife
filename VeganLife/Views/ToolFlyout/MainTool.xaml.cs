@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace VeganLife.Views
+namespace VeganLife.Views.ToolFlyout
 {
-    public partial class BMICalculatorPage : ContentPage
+    public partial class MainTool : ContentPage
     {
-        public BMICalculatorPage(BMICalculatorViewModel vm)
+        public MainTool(MainToolViewModel vm)
         {
             this.InitializeComponent();
             this.BindingContext = vm;

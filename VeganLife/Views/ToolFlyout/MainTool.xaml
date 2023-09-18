@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="VeganLife.Views.BMICalculatorPage"
+    x:Class="VeganLife.Views.ToolFlyout.MainTool"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
@@ -8,8 +8,8 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="bmiCalculatorPage"
-    Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
-    x:DataType="viewmodel:BMICalculatorViewModel"
+    Title="{x:Static translate:AppResources.app_common_toolsTab}"
+    x:DataType="viewmodel:MainToolViewModel"
     BackgroundImageSource="{Binding BackgroundIMG}">
     <ContentPage.Resources>
         <ResourceDictionary>

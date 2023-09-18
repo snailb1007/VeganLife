@@ -504,6 +504,28 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
+        ///Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
+        ///5th - 84th percentile: Bình thường (Normal weight) nếu BMI nằm trong khoảng này.
+        ///85th - 94th percentile: Thừa cân (Overweight) nếu BMI nằm trong khoảng này.
+        ///95th percentile trở lên: Béo phì (Obese) nếu BMI ≥ 95th percentile..
+        /// </summary>
+        internal static string lessThan20_notFound_toolFlyout {
+            get {
+                return ResourceManager.GetString("lessThan20_notFound_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found!.
+        /// </summary>
+        internal static string lessThan5_notFound_toolFlyout {
+            get {
+                return ResourceManager.GetString("lessThan5_notFound_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         internal static string license_settingPage {
@@ -591,6 +613,15 @@ namespace VeganLife.Resources.Translations {
         internal static string noFoods_foodByCategoryDetailPage {
             get {
                 return ResourceManager.GetString("noFoods_foodByCategoryDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        internal static string normal_toolFlyout {
+            get {
+                return ResourceManager.GetString("normal_toolFlyout", resourceCulture);
             }
         }
         
@@ -745,6 +776,15 @@ namespace VeganLife.Resources.Translations {
         internal static string title_bmrCalculatePage {
             get {
                 return ResourceManager.GetString("title_bmrCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underweight.
+        /// </summary>
+        internal static string underweight_toolFlyout {
+            get {
+                return ResourceManager.GetString("underweight_toolFlyout", resourceCulture);
             }
         }
         
