@@ -8,7 +8,7 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="bmiCalculatorPage"
-    Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
+    Title="{x:Static translate:AppResources.app_common_toolsTab}"
     x:DataType="viewmodel:MainToolViewModel"
     BackgroundImageSource="{Binding BackgroundIMG}">
     <ContentPage.Resources>

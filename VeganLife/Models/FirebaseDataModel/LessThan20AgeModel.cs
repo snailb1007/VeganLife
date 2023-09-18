@@ -6,5 +6,11 @@ namespace VeganLife.Models.FirebaseDataModel
     {
         [JsonProperty("note")]
         public string Note { get; set; }
+        [JsonProperty("documents")]
+        public string Documents { get; set; }
+        [JsonProperty("chart_link")]
+        public ChartLinkModel ChartLink { get; set; }
     }
+
+
 }

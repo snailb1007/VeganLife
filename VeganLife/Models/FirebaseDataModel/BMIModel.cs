@@ -9,8 +9,8 @@ namespace VeganLife.Models.FirebaseDataModel
         [JsonProperty("lessThan5Age")]
         public LessThan5Age LessThan5Age { get; set; }
         [JsonProperty("lessThan20Age")]
-        public LessThan5Age LessThan20Age { get; set; }
+        public LessThan20AgeModel LessThan20Age { get; set; }
         [JsonProperty("adults")]
-        public LessThan5Age Adult { get; set; }
+        public AdultModel Adult { get; set; }
     }
 }

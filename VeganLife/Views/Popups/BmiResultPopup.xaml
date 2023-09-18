@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:converterCustom="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
@@ -17,6 +18,7 @@
     <Mopups:PopupPage.Resources>
         <ResourceDictionary>
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <converterCustom:OnlyLineBreakConverter x:Key="OnlyLineBreakConverter" />
         </ResourceDictionary>
     </Mopups:PopupPage.Resources>
     <Grid
@@ -46,37 +48,60 @@
                             HorizontalOptions="Center"
                             Text="{Binding BmiResultText, Mode=OneWay}"
                             VerticalOptions="Center" />
-                        <ScrollView>
-                            <VerticalStackLayout Margin="10,0">
-                                <Label
-                                    HorizontalTextAlignment="Center"
-                                    IsVisible="{Binding ClassifyLabel, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
-                                    Text="{Binding ClassifyLabel}" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    FontSize="15"
-                                    HorizontalTextAlignment="Center"
-                                    IsVisible="{Binding Message, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
-                                    LineBreakMode="WordWrap"
-                                    LineHeight="1.2"
-                                    Text="{Binding Message}" />
-                                <Label
-                                    HorizontalTextAlignment="Center"
-                                    LineBreakMode="WordWrap"
-                                    LineHeight="1.2">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span
-                                                FontSize="16"
-                                                Text="*Note: "
-                                                TextColor="Red" />
-                                            <Span FontSize="15" Text="{Binding Note}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </VerticalStackLayout>
-                        </ScrollView>
+                        <VerticalStackLayout Margin="10,0">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding ClassifyLabel, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                Text="{Binding ClassifyLabel}" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="15"
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding Message, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                LineBreakMode="WordWrap"
+                                LineHeight="1.2"
+                                Text="{Binding Message}" />
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="TailTruncation"
+                                LineHeight="1.2"
+                                MaxLines="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            FontSize="16"
+                                            Text="*Note: "
+                                            TextColor="Red" />
+                                        <Span FontSize="15" Text="{Binding Note, Converter={StaticResource OnlyLineBreakConverter}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                            <Button
+                                Background="Transparent"
+                                BackgroundColor="Transparent"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                Text="&#xf2f9;"
+                                TextColor="Gray" />
+                            <Button
+                                Grid.Column="1"
+                                Background="Transparent"
+                                BackgroundColor="Transparent"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                Text="&#xf061;"
+                                TextColor="Gray" />
+                            <Button
+                                Grid.Column="2"
+                                BorderColor="SkyBlue"
+                                CornerRadius="20"
+                                Text="Save"
+                                TextColor="SkyBlue" />
+                        </Grid>
+                        <Label HorizontalOptions="Center" Text="Đi tới trang phân tích" />
                     </VerticalStackLayout>
                 </Grid>
                 <Grid

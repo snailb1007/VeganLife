@@ -39,7 +39,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter != null)
             {
