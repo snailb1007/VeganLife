@@ -50,5 +50,11 @@ namespace VeganLife
         {
             this.searchBar.Unfocus();
         }
+
+        private void RefreshView_Refreshing(object sender, EventArgs e)
+        {
+            viewModel.LoadDataCommand.Execute(null);
+            (sender as RefreshView).IsRefreshing = false;
+        }
     }
 }
