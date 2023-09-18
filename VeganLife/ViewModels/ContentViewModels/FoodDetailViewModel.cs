@@ -298,7 +298,8 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 foreach (var item in imgs)
                 {
-                    if (!string.IsNullOrEmpty(item) && !item.Contains("150") && item.Contains(this.FoodDetail.Key))
+                    if (!string.IsNullOrEmpty(item) && !item.Contains("150")
+                        && item.Contains(this.FoodDetail.Key) && !FoodImage.Contains(item))
                     {
                         this.FoodImage.Add(item);
                     }

@@ -29,6 +29,7 @@ namespace VeganLife
     using Microsoft.AppCenter;
     using VeganLife.Services.UserServices;
     using PanCardView;
+    using VeganLife.Views.ToolFlyout;
 #endif
 
     /// <summary>
@@ -95,8 +96,8 @@ namespace VeganLife
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
-            services.AddTransient<BMICalculatorPage>();
-            services.AddTransient<BMICalculatorViewModel>();
+            services.AddTransient<MainTool>();
+            services.AddTransient<MainToolViewModel>();
             services.AddTransient<MainPage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<NewsFeedPage>();
