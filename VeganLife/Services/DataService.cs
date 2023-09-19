@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: Firebase
+
 namespace VeganLife.Services
 {
     using System.Xml;
@@ -235,7 +237,7 @@ namespace VeganLife.Services
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
-                return new BMIModel();
+                return null;
             }
         }
     }
