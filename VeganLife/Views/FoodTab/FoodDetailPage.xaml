@@ -22,6 +22,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
             <x:String x:Key="iconBookmark">&#xf02e;</x:String>
             <Style TargetType="Line">
                 <Setter Property="HeightRequest" Value="1.5" />
@@ -127,11 +128,8 @@
                         </cards:CardsView>
                         <Grid Grid.Row="2" Margin="15,0">
                             <ScrollView>
-                                <VerticalStackLayout Margin="5,0" BackgroundColor="Transparent">
-                                    <!--<Grid
-                                        x:Name="gridOnTop"
-                                        BackgroundColor="Transparent"
-                                        IsVisible="False" />-->
+                                <VerticalStackLayout Margin="5" BackgroundColor="Transparent">
+                                    <Grid BackgroundColor="Transparent" HeightRequest="{Binding MarginTopContent, Source={x:Reference root}, Mode=OneWay}" />
                                     <Frame
                                         Padding="0"
                                         BorderColor="Transparent"
@@ -153,11 +151,13 @@
                                             </VerticalStackLayout>
                                             <Button
                                                 Grid.Column="1"
+                                                AutomationProperties.IsInAccessibleTree="False"
                                                 BackgroundColor="Transparent"
                                                 Command="{Binding BookmarkClickedCommand}"
                                                 FontFamily="FontAwesomeRegular"
                                                 FontSize="20"
                                                 HorizontalOptions="Center"
+                                                SemanticProperties.Description="Button down-arrow food detail"
                                                 Text="{StaticResource iconBookmark}"
                                                 TextColor="Black"
                                                 VerticalOptions="Center">
@@ -184,11 +184,26 @@
                                             Padding="0"
                                             Spacing="10"
                                             VerticalOptions="Start">
-                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.ingredient_foodDetailPage}" ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}" />
-                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.making_foodDetailPage}" ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}" />
-                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.sauce_foodDetailPage}" ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}" />
-                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.decorate_foodDetailPage}" ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}" />
-                                            <cw:ElementFoodDetailCW Title="{x:Static translate:AppResources.note_foodDetailPage}" ContentExpand="{Binding FoodDetail.Note, Mode=OneWay}" />
+                                            <cw:ElementFoodDetailCW
+                                                Title="{x:Static translate:AppResources.ingredient_foodDetailPage}"
+                                                ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}"
+                                                IsVisible="{Binding FoodDetail.Ingredient, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+                                            <cw:ElementFoodDetailCW
+                                                Title="{x:Static translate:AppResources.making_foodDetailPage}"
+                                                ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}"
+                                                IsVisible="{Binding FoodDetail.Making, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+                                            <cw:ElementFoodDetailCW
+                                                Title="{x:Static translate:AppResources.sauce_foodDetailPage}"
+                                                ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}"
+                                                IsVisible="{Binding FoodDetail.Sauce, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+                                            <cw:ElementFoodDetailCW
+                                                Title="{x:Static translate:AppResources.decorate_foodDetailPage}"
+                                                ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}"
+                                                IsVisible="{Binding FoodDetail.Decorate, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+                                            <cw:ElementFoodDetailCW
+                                                Title="{x:Static translate:AppResources.note_foodDetailPage}"
+                                                ContentExpand="{Binding FoodDetail.Note, Mode=OneWay}"
+                                                IsVisible="{Binding FoodDetail.Note, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
                                         </VerticalStackLayout>
                                     </Border>
                                 </VerticalStackLayout>
@@ -235,7 +250,6 @@
                                         </DataTrigger>
                                     </BoxView.Triggers>
                                 </BoxView>
-
                             </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
@@ -265,7 +279,6 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="CenterAndExpand"
                                         WidthRequest="{Binding Source={x:Reference rootNutriFactContent}, Path=Width}" />
-
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="Medium"

@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <converter:LineBreakConverter x:Key="LineBreakConverter" />
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
             <Style x:Key="lbDetailMenu" TargetType="Label">
                 <Setter Property="Opacity" Value="0.5" />
                 <Setter Property="Margin" Value="0,10,10,10" />
@@ -29,10 +30,9 @@
         x:Name="expander"
         x:DataType="cw:ElementFoodDetailCW"
         BindingContext="{Binding Source={x:Reference rootElementFoodDetailCW}}"
-        IsExpanded="{Binding IsExpanded}"
-        IsVisible="{Binding ContentExpand, Converter={StaticResource IsStringNotNullOrEmptyConverter}}">
+        IsExpanded="{Binding IsExpanded}">
         <toolkit:Expander.Header>
-            <VerticalStackLayout>
+            <StackLayout>
                 <Grid Margin="10,0,0,0">
                     <HorizontalStackLayout HorizontalOptions="StartAndExpand" Spacing="5">
                         <Image
@@ -67,11 +67,13 @@
                     </Button>
                 </Grid>
                 <Line />
-            </VerticalStackLayout>
+            </StackLayout>
         </toolkit:Expander.Header>
-        <Label
-            Margin="15,0,10,0"
-            FontSize="15"
-            Text="{Binding ContentExpand, Converter={StaticResource LineBreakConverter}}" />
+        <Grid>
+            <Label
+                Margin="15,0,10,0"
+                FontSize="15"
+                Text="{Binding ContentExpand, Converter={StaticResource LineBreakConverter}}" />
+        </Grid>
     </toolkit:Expander>
 </baseCW:BaseContentView>
