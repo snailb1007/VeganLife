@@ -53,10 +53,14 @@
                     VerticalOptions="Center"
                     WidthRequest="2" />
                 <ImageButton
+                    Margin="0"
                     Padding="0"
-                    BackgroundColor="Transparent"
+                    AutomationProperties.IsInAccessibleTree="False"
+                    BorderColor="Transparent"
                     Clicked="hamburger_Clicked"
                     HeightRequest="30"
+                    HorizontalOptions="Center"
+                    SemanticProperties.Description="Button open sidebar detail"
                     Source="hamburger.svg"
                     VerticalOptions="Center"
                     WidthRequest="30" />
