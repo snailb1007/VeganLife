@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿// Ignore Spelling: Firebase
+
+using Newtonsoft.Json;
 
 namespace VeganLife.Models.FirebaseDataModel
 {
-    public class LessThan5Age
-    {
-        [JsonProperty("note")]
-        public string Note { get; set; }
-        [JsonProperty("documents")]
-        public string Documents { get; set; }
-    }
+    public record LessThan5Age(
+        [property: JsonProperty("note")] string Note,
+        [property: JsonProperty("documents")] string Documents);
 }
