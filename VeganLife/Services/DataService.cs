@@ -89,14 +89,14 @@ namespace VeganLife.Services
             }
         }
 
-        public async Task<FoodNutriFacts> GetFoodNutriFacts(string id)
+        public async Task<FoodNutrientFacts> GetFoodNutriFacts(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return new FoodNutriFacts();
+                return new FoodNutrientFacts();
             try
             {
-                var data = await this.firebaseDatabase.Child(FoodNutriFacts).Child(id).OnceSingleAsync<FoodNutriFacts>().ConfigureAwait(false);
-                data ??= new FoodNutriFacts();
+                var data = await this.firebaseDatabase.Child(FoodNutriFacts).Child(id).OnceSingleAsync<FoodNutrientFacts>().ConfigureAwait(false);
+                data ??= new FoodNutrientFacts();
                 data.Id = id;
                 return data;
             }
@@ -105,7 +105,7 @@ namespace VeganLife.Services
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
-                return new FoodNutriFacts();
+                return new FoodNutrientFacts();
             }
         }
         #endregion
@@ -223,11 +223,11 @@ namespace VeganLife.Services
             }
         }
 
-        public async Task<BMIModel> GetHealthDiagnosisFirebaseDataModel()
+        public async Task<BmiModel> GetHealthDiagnosisFirebaseDataModel()
         {
             try
             {
-                var data = await this.firebaseDatabase.Child("/HealthDiagonosis/BMI").OnceSingleAsync<BMIModel>();
+                var data = await this.firebaseDatabase.Child("/HealthDiagonosis/BMI").OnceSingleAsync<BmiModel>();
                 return data;
             }
             catch (FirebaseException e)

@@ -82,7 +82,7 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync("Cant retrive local data, " + e.Message);
+                await Console.Out.WriteLineAsync("Cant retrieve local data, " + e.Message);
                 return Enumerable.Empty<T>();
             }
         }
@@ -108,7 +108,7 @@ namespace VeganLife.Data
             catch (Exception e)
             {
 #if DEBUG
-                await Console.Out.WriteLineAsync("Cant retrive local data, " + e.Message);
+                await Console.Out.WriteLineAsync("Cant retrieve local data, " + e.Message);
 #endif
                 return Enumerable.Empty<T>().FirstOrDefault();
             }
