@@ -401,4 +401,13 @@ Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
 	<data name="normal_toolFlyout" xml:space="preserve">
     <value>Bình thường</value>
     </data>
+	<data name="lbSelectBtn_reCalculate_toolFlyout" xml:space="preserve">
+    <value>Làm mới</value>
+    </data>
+	<data name="lbSelectBtn_goNext_toolFlyout" xml:space="preserve">
+    <value>Đi tới trang phân tích</value>
+    </data>
+	<data name="lbSelectBtn_save_toolFlyout" xml:space="preserve">
+    <value>Lưu và đặt làm chỉ số phân tích mặc định</value>
+    </data>
 </root>

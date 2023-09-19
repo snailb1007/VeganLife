@@ -97,10 +97,11 @@
                                         <Setter Property="BackgroundColor" Value="Transparent" />
                                         <Setter Property="BorderColor" Value="SkyBlue" />
                                         <Setter Property="BorderWidth" Value="0" />
-                                        <Setter Property="WidthRequest" Value="48" />
+                                        <Setter Property="MinimumWidthRequest" Value="48" />
                                         <Setter Property="CornerRadius" Value="23" />
                                         <Setter Property="TextColor" Value="Gray" />
                                         <Setter Property="FontSize" Value="Medium" />
+                                        <Setter Property="HorizontalOptions" Value="Center" />
                                     </Style>
                                 </ResourceDictionary>
                             </Grid.Resources>
@@ -157,7 +158,22 @@
                         <Label
                             Margin="0,0,0,10"
                             HorizontalOptions="Center"
-                            Text="Đi tới trang phân tích" />
+                            Text="{x:Static translate:AppResources.lbSelectBtn_goNext_toolFlyout}">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsReCalculateSelected}"
+                                    TargetType="Label"
+                                    Value="True">
+                                    <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_reCalculate_toolFlyout}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsSaveSelected}"
+                                    TargetType="Label"
+                                    Value="True">
+                                    <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_save_toolFlyout}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                     </VerticalStackLayout>
                 </Grid>
                 <Grid
