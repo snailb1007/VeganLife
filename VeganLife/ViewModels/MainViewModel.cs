@@ -20,7 +20,7 @@ namespace VeganLife.ViewModels
         public static FoodPreviewDataStoreService DataStoreService;
         private IEnumerable<FoodPreviewModel> onlineFoodPreviewData;
         private IList<FoodPreviewModel> allFoods;
-        private IEnumerable<FoodPreviewModel> passFilterFoods;
+        private IList<FoodPreviewModel> passFilterFoods;
 
         [ObservableProperty]
         private bool isSearchFocused;
@@ -173,23 +173,14 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void EnsureSearch()
         {
-            if (string.IsNullOrEmpty(this.SearchText) || string.IsNullOrWhiteSpace(this.SearchText))
-            {
-                this.Foods.Clear();
-                foreach (var i in this.allFoods)
-                {
-                    this.Foods.Add(i);
-                }
+            //this.passFilterFoods = this.FilterKeySearch(this.allFoods.ToList(), this.SearchText);
+            //this.Foods.Clear();
+            //foreach (var i in this.FilterKeySearch(this.allFoods.ToList(), this.SearchText))
+            //{
+            //    this.Foods.Add(i);
+            //}
 
-                return;
-            }
-
-            this.passFilterFoods = this.FilterKeySearch(this.allFoods.ToList(), this.SearchText);
-            this.Foods.Clear();
-            foreach (var i in this.passFilterFoods)
-            {
-                this.Foods.Add(i);
-            }
+            Foods = new ObservableCollection<FoodPreviewModel>(this.FilterKeySearch(this.allFoods.ToList(), this.SearchText));
         }
 
         /// <inheritdoc/>
@@ -221,7 +212,16 @@ namespace VeganLife.ViewModels
                 item.CountCorrectWordOnSearch = count;
             }
 
-            return this.Foods.Where(w => w.CountCorrectWordOnSearch == words.Length).OrderByDescending(i => i.CountCorrectWordOnSearch);
+            var x = this.Foods.Where(w => w.CountCorrectWordOnSearch == words.Length).OrderByDescending(i => i.CountCorrectWordOnSearch);
+            return x;
+        }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            {
+                Foods = new ObservableCollection<FoodPreviewModel>(this.allFoods);
+            }
         }
     }
 }
