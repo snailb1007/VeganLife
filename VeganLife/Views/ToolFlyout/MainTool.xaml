@@ -181,8 +181,12 @@
                                     HorizontalOptions="Center"
                                     Text="{x:Static translate:AppResources.height_bmiPage}" />
                                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                                    <Label
+                                    <Entry
                                         FontSize="25"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        MinimumWidthRequest="48"
+                                        Placeholder="170"
                                         Text="{Binding Height}"
                                         VerticalOptions="Center" />
                                     <Label Text="cm" VerticalOptions="Center" />
