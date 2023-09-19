@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿// Ignore Spelling: Firebase
+
+using Newtonsoft.Json;
 
 namespace VeganLife.Models.FirebaseDataModel
 {
-    public class ChartLinkModel
-    {
-        [JsonProperty("boy")]
-        public string Boy { get; set; }
-        [JsonProperty("girl")]
-        public string Girl { get; set; }
-    }
+    public record ChartLinkModel(
+        [property: JsonProperty("boy")] string Boy,
+        [property: JsonProperty("girl")] string Girl);
 }

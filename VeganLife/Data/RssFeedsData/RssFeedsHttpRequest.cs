@@ -10,8 +10,6 @@ namespace VeganLife.Data.RssFeedsData
     {
         public async Task<string> GetRssData(string uri)
         {
-            HttpClient client = new HttpClient();
-
             try
             {
                 var response = await this.GetAsync(() => new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = new Uri(uri) });

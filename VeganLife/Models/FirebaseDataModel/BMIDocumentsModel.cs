@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿// Ignore Spelling: Firebase
+// Ignore Spelling: Bmi
+
+using Newtonsoft.Json;
 
 namespace VeganLife.Models.FirebaseDataModel
 {
-    public class BMIDocumentsModel
-    {
-        [JsonProperty("who")]
-        public string WHO { get; set; }
-        [JsonProperty("wikiVN")]
-        public string WikiVN { get; set; }
-    }
+    public record BmiDocumentsModel
+        ([property: JsonProperty("who")] string WHO, [property: JsonProperty("wikiVN")] string WikiVN);
 }

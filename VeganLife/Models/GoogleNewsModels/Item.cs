@@ -25,6 +25,6 @@ namespace VeganLife.Models.GoogleNewsModels
 
         public DateTime LocalTimePosted => DateTimeHelper.GetDateTime(this.pubDate);
 
-        public string TimeAgoDisplay => DateTimeHelper.CalcuteTimeAgo(this.LocalTimePosted);
+        public string TimeAgoDisplay => DateTimeHelper.CalculateTimeAgo(this.LocalTimePosted);
     }
 }
