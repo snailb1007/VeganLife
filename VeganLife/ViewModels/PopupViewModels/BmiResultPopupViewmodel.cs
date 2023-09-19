@@ -5,7 +5,6 @@
 namespace VeganLife.ViewModels.PopupViewModels
 {
     using VeganLife.Helpers;
-    using static VeganLife.Helpers.AppSetting.StaticHelper;
 #if GPT
     using ChatGptNet;
     using ChatGptNet.Exceptions;
@@ -29,6 +28,12 @@ namespace VeganLife.ViewModels.PopupViewModels
         private string classifyLabel;
         [ObservableProperty]
         private string note;
+        [ObservableProperty]
+        private bool isReCalculateSelected;
+        [ObservableProperty]
+        private bool isGoAnalysisPageSelected = true;
+        [ObservableProperty]
+        private bool isSaveSelected;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
@@ -82,6 +87,29 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
 
             return base.OnNavigatingTo(parameter);
+        }
+
+        [RelayCommand]
+        private void SelectButton(string option)
+        {
+            if (option.Equals("0"))
+            {
+                IsReCalculateSelected = true;
+                IsGoAnalysisPageSelected = false;
+                IsSaveSelected = false;
+            }
+            else if (option.Equals("1"))
+            {
+                IsReCalculateSelected = false;
+                IsGoAnalysisPageSelected = true;
+                IsSaveSelected = false;
+            }
+            else
+            {
+                IsReCalculateSelected = false;
+                IsGoAnalysisPageSelected = false;
+                IsSaveSelected = true;
+            }
         }
     }
 }

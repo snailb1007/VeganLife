@@ -378,6 +378,33 @@ List is empty!</value>
 	<data name="lessThan5_notFound_toolFlyout" xml:space="preserve">
     <value>Not found!</value>
     </data>
+	<data name="titleClassify_toolFlyout" xml:space="preserve">
+    <value>Classify: </value>
+    </data>
+	<data name="severeThinness_classify_bmi" xml:space="preserve">
+    <value>Thiếu cân - Rất gầy</value>
+    </data>
+	<data name="moderateThinness_classify_bmi" xml:space="preserve">
+    <value>Thiếu cân - Gầy</value>
+    </data>
+	<data name="Thinness_classify_bmi" xml:space="preserve">
+    <value>Thiếu cân</value>
+    </data>
+	<data name="normal_classify_bmi" xml:space="preserve">
+    <value>Bình thường</value>
+    </data>
+	<data name="obese_classify_bmi" xml:space="preserve">
+    <value>Thừa cân</value>
+    </data>
+	<data name="obese1_classify_bmi" xml:space="preserve">
+    <value>Thừa cân - Béo phì độ 1</value>
+    </data>
+	<data name="obese2_classify_bmi" xml:space="preserve">
+    <value>Thừa cân - Béo phì độ 2</value>
+    </data>
+	<data name="obese3_classify_bmi" xml:space="preserve">
+    <value>Thừa cân - Béo phì độ 3</value>
+    </data>
 	<data name="lessThan20_notFound_toolFlyout" xml:space="preserve">
 		<value>Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
 Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.

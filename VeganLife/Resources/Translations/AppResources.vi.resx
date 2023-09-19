@@ -358,6 +358,33 @@ Danh sách trống!</value>
 	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
     <value>Hàm lượng Calories: </value>
     </data>
+	<data name="titleClassify_toolFlyout" xml:space="preserve">
+    <value>Phân loại: </value>
+    </data>
+	<data name="severeThinness_classify_bmi" xml:space="preserve">
+    <value>Thiếu cân - Rất gầy</value>
+    </data>
+	<data name="moderateThinness_classify_bmi" xml:space="preserve">
+    <value>Thiếu cân - Gầy</value>
+    </data>
+	<data name="Thinness_classify_bmi" xml:space="preserve">
+    <value>Thiếu cân</value>
+    </data>
+	<data name="normal_classify_bmi" xml:space="preserve">
+    <value>Bình thường</value>
+    </data>
+	<data name="obese_classify_bmi" xml:space="preserve">
+    <value>Thừa cân</value>
+    </data>
+	<data name="obese1_classify_bmi" xml:space="preserve">
+    <value>Thừa cân - Béo phì độ 1</value>
+    </data>
+	<data name="obese2_classify_bmi" xml:space="preserve">
+    <value>Thừa cân - Béo phì độ 2</value>
+    </data>
+	<data name="obese3_classify_bmi" xml:space="preserve">
+    <value>Thừa cân - Béo phì độ 3</value>
+    </data>
 	<data name="lessThan5_notFound_toolFlyout" xml:space="preserve">
     <value>Trẻ dưới 5 tuổi, BMI không được sử dụng để đánh giá cân nặng!</value>
     </data>
