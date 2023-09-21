@@ -3,7 +3,7 @@ using SQLite;
 
 namespace VeganLife.Models.FoodModel
 {
-    public class FoodNutriFacts
+    public class FoodNutrientFacts
     {
         [JsonIgnore, PrimaryKey]
         public string Id { get; set; }

@@ -164,23 +164,28 @@
                 Text="{x:Static translate:AppResources.explore_common}"
                 TextColor="Gray"
                 VerticalOptions="Center" />
-            <CollectionView
-                x:Name="foodCollection"
+            <RefreshView
                 Grid.Row="1"
-                Margin="20,10"
-                AutomationProperties.IsInAccessibleTree="False"
-                ItemSizingStrategy="MeasureFirstItem"
-                ItemTemplate="{StaticResource FoodPreviewCollection}"
-                ItemsSource="{Binding Foods, Mode=OneWay}"
-                SelectedItem="{Binding CurrentFoodSelected}"
-                SelectionChangedCommand="{Binding GoFoodDetailCommand}"
-                SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
-                SelectionMode="Single"
-                SemanticProperties.Description="List food in mainpage">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
+                Refreshing="RefreshView_Refreshing"
+                VerticalOptions="FillAndExpand">
+                <CollectionView
+                    x:Name="foodCollection"
+                    Margin="20,10"
+                    AutomationProperties.IsInAccessibleTree="False"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemTemplate="{StaticResource FoodPreviewCollection}"
+                    ItemsSource="{Binding Foods, Mode=OneWay}"
+                    SelectedItem="{Binding CurrentFoodSelected}"
+                    SelectionChangedCommand="{Binding GoFoodDetailCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
+                    SelectionMode="Single"
+                    SemanticProperties.Description="List food in mainpage">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                </CollectionView>
+
+            </RefreshView>
             <!--  transparent view  -->
             <Grid
                 Grid.RowSpan="2"

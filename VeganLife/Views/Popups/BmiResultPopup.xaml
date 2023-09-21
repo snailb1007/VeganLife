@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:converterCustom="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
     x:DataType="vm:BmiResultPopupViewmodel"
@@ -13,45 +15,157 @@
     <Mopups:PopupPage.Animation>
         <Animations:MoveAnimation PositionIn="Center" PositionOut="Center" />
     </Mopups:PopupPage.Animation>
+    <Mopups:PopupPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <converterCustom:OnlyLineBreakConverter x:Key="OnlyLineBreakConverter" />
+        </ResourceDictionary>
+    </Mopups:PopupPage.Resources>
     <Grid
         BackgroundColor="Transparent"
-        ColumnDefinitions="*,8*,*"
-        RowDefinitions="*,2*,*">
-        <Border Grid.Row="1" Grid.Column="1">
+        ColumnDefinitions="*,8.5*,*"
+        RowDefinitions="*,Auto,*">
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalOptions="FillAndExpand">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20" />
             </Border.StrokeShape>
-            <Grid RowDefinitions="7*,*">
-                <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand">
-                    <Label
-                        Margin="0,20,0,0"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        HorizontalOptions="Center"
-                        Text="{x:Static translate:AppResources.title_bmiPopup}" />
-                    <Label
-                        Grid.Column="1"
-                        FontAttributes="Bold"
-                        FontSize="25"
-                        HorizontalOptions="Center"
-                        Text="{Binding BmiResultText, Mode=OneWay}"
-                        VerticalOptions="Center" />
-                    <ScrollView>
+            <Grid RowDefinitions="Auto,*" VerticalOptions="FillAndExpand">
+                <Grid Grid.Row="0" IsClippedToBounds="True">
+                    <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand">
                         <Label
-                            Grid.Row="1"
+                            Margin="0,20,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static translate:AppResources.title_bmiPopup}" />
+                        <Label
                             Grid.Column="1"
-                            Margin="10,0"
-                            FontSize="15"
-                            HorizontalTextAlignment="Center"
-                            LineBreakMode="WordWrap"
-                            LineHeight="1.2"
-                            Text="{Binding Message}" />
-                    </ScrollView>
-                </VerticalStackLayout>
+                            FontAttributes="Bold"
+                            FontSize="25"
+                            HorizontalOptions="Center"
+                            Text="{Binding BmiResultText, Mode=OneWay}"
+                            VerticalOptions="Center" />
+                        <VerticalStackLayout Margin="10,0">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding ClassifyLabel, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="2">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static translate:AppResources.titleClassify_toolFlyout}" />
+                                        <Span Text="{Binding ClassifyLabel}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="15"
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding Message, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                LineBreakMode="WordWrap"
+                                LineHeight="1.2"
+                                Text="{Binding Message}" />
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="TailTruncation"
+                                LineHeight="1.2"
+                                MaxLines="2">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            FontSize="16"
+                                            Text="*Note: "
+                                            TextColor="Red" />
+                                        <Span FontSize="15" Text="{Binding Note, Converter={StaticResource OnlyLineBreakConverter}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                        <Grid
+                            Margin="5,10,5,0"
+                            ColumnDefinitions="*,*,*"
+                            ColumnSpacing="5">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                        <Setter Property="BorderColor" Value="SkyBlue" />
+                                        <Setter Property="BorderWidth" Value="0" />
+                                        <Setter Property="WidthRequest" Value="48" />
+                                        <Setter Property="CornerRadius" Value="23" />
+                                        <Setter Property="TextColor" Value="Gray" />
+                                        <Setter Property="FontSize" Value="Medium" />
+                                    </Style>
+                                </ResourceDictionary>
+                            </Grid.Resources>
+                            <Button
+                                Command="{Binding SelectButtonCommand}"
+                                CommandParameter="0"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                Text="&#xf2f9;">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsReCalculateSelected}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontSize" Value="Large" />
+                                        <Setter Property="BorderWidth" Value="1.2" />
+                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button
+                                Grid.Column="1"
+                                Command="{Binding SelectButtonCommand}"
+                                CommandParameter="1"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                Text="&#xf061;">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsGoAnalysisPageSelected}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontSize" Value="Large" />
+                                        <Setter Property="BorderWidth" Value="1.2" />
+                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button
+                                Grid.Column="2"
+                                Command="{Binding SelectButtonCommand}"
+                                CommandParameter="2"
+                                Text="Save">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsSaveSelected}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="FontSize" Value="18" />
+                                        <Setter Property="BorderWidth" Value="1.2" />
+                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </Grid>
+                        <Label
+                            Margin="0,0,0,10"
+                            HorizontalOptions="Center"
+                            Text="Đi tới trang phân tích" />
+                    </VerticalStackLayout>
+                </Grid>
                 <Grid
                     Grid.Row="1"
                     BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}"
-                    HorizontalOptions="Fill">
+                    HeightRequest="48"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="FillAndExpand">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                     </Grid.GestureRecognizers>

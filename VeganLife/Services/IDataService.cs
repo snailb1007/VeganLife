@@ -4,6 +4,7 @@
 
 namespace VeganLife.Services
 {
+    using VeganLife.Models.FirebaseDataModel;
     using VeganLife.Models.FoodModel;
     using VeganLife.Models.GoogleNewsModels;
 
@@ -15,11 +16,13 @@ namespace VeganLife.Services
 
         Task<IEnumerable<FoodMenuCategoryModel>> GetFoodMenu();
 
-        Task<FoodNutriFacts> GetFoodNutriFacts(string id);
+        Task<FoodNutrientFacts> GetFoodNutriFacts(string id);
 
         Task<IEnumerable<VitaminModel>> GetVitamins();
 
         Task<IEnumerable<Item>> LoadGoogleNews(string uri);
         Task<List<string>> GetImageLinksAsync(string url);
+        Task<string> GetFireBaseValue(string nodePath);
+        Task<BmiModel> GetHealthDiagnosisFirebaseDataModel();
     }
 }

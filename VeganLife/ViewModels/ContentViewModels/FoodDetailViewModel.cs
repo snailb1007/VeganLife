@@ -23,7 +23,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private FoodDetailModel foodDetail;
 
         [ObservableProperty]
-        private FoodNutriFacts foodNutriFacts;
+        private FoodNutrientFacts foodNutriFacts;
 
         [ObservableProperty]
         private DonutChart nutriDonutChart;
@@ -164,26 +164,26 @@ namespace VeganLife.ViewModels.ContentViewModels
                             ValueLabelColor = SKColors.Black,
                             TextColor = SKColors.Gray,
                         },
-                        //new (FoodNutriFacts.Iron)
+                        //new (FoodNutrientFacts.Iron)
                         //{
-                        //    Label = nameof(FoodNutriFacts.Iron),
-                        //    ValueLabel = FoodNutriFacts.Iron.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.Iron),
+                        //    ValueLabel = FoodNutrientFacts.Iron.ToString() + "%",
                         //    Color = SKColor.Parse("#1a1a18"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.Magnesium)
+                        //new (FoodNutrientFacts.Magnesium)
                         //{
-                        //    Label = nameof(FoodNutriFacts.Magnesium),
-                        //    ValueLabel = FoodNutriFacts.Magnesium.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.Magnesium),
+                        //    ValueLabel = FoodNutrientFacts.Magnesium.ToString() + "%",
                         //    Color = SKColor.Parse("#365977"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.Zinc)
+                        //new (FoodNutrientFacts.Zinc)
                         //{
-                        //    Label = nameof(FoodNutriFacts.Zinc),
-                        //    ValueLabel = FoodNutriFacts.Zinc.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.Zinc),
+                        //    ValueLabel = FoodNutrientFacts.Zinc.ToString() + "%",
                         //    Color = SKColor.Parse("#C6C7B9"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
@@ -196,34 +196,34 @@ namespace VeganLife.ViewModels.ContentViewModels
                             ValueLabelColor = SKColors.Black,
                             TextColor = SKColors.Gray,
                         },
-                        //new (FoodNutriFacts.B3)
+                        //new (FoodNutrientFacts.B3)
                         //{
-                        //    Label = nameof(FoodNutriFacts.B3),
-                        //    ValueLabel = FoodNutriFacts.B3.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.B3),
+                        //    ValueLabel = FoodNutrientFacts.B3.ToString() + "%",
                         //    Color = SKColor.Parse("#FC0E0E"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.B9)
+                        //new (FoodNutrientFacts.B9)
                         //{
-                        //    Label = nameof(FoodNutriFacts.B9),
-                        //    ValueLabel = FoodNutriFacts.B9.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.B9),
+                        //    ValueLabel = FoodNutrientFacts.B9.ToString() + "%",
                         //    Color = SKColor.Parse("#E28A20"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.E)
+                        //new (FoodNutrientFacts.E)
                         //{
-                        //    Label = nameof(FoodNutriFacts.E),
-                        //    ValueLabel = FoodNutriFacts.E.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.E),
+                        //    ValueLabel = FoodNutrientFacts.E.ToString() + "%",
                         //    Color = SKColor.Parse("#CFB84D"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.Calcium)
+                        //new (FoodNutrientFacts.Calcium)
                         //{
-                        //    Label = nameof(FoodNutriFacts.Calcium),
-                        //    ValueLabel = FoodNutriFacts.Calcium.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.Calcium),
+                        //    ValueLabel = FoodNutrientFacts.Calcium.ToString() + "%",
                         //    Color = SKColor.Parse("#7B7D82"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
@@ -236,50 +236,50 @@ namespace VeganLife.ViewModels.ContentViewModels
                             ValueLabelColor = SKColors.Black,
                             TextColor = SKColors.Gray,
                         },
-                        //new (FoodNutriFacts.Kali)
+                        //new (FoodNutrientFacts.Kali)
                         //{
-                        //    Label = nameof(FoodNutriFacts.Kali),
-                        //    ValueLabel = FoodNutriFacts.Kali.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.Kali),
+                        //    ValueLabel = FoodNutrientFacts.Kali.ToString() + "%",
                         //    Color = SKColor.Parse("#84933C"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.Phosphorus)
+                        //new (FoodNutrientFacts.Phosphorus)
                         //{
-                        //    Label = nameof(FoodNutriFacts.Phosphorus),
-                        //    ValueLabel = FoodNutriFacts.Phosphorus.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.Phosphorus),
+                        //    ValueLabel = FoodNutrientFacts.Phosphorus.ToString() + "%",
                         //    Color = SKColor.Parse("#874C40"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.B2)
+                        //new (FoodNutrientFacts.B2)
                         //{
-                        //    Label = nameof(FoodNutriFacts.B2),
-                        //    ValueLabel = FoodNutriFacts.B2.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.B2),
+                        //    ValueLabel = FoodNutrientFacts.B2.ToString() + "%",
                         //    Color = SKColor.Parse("#874C40"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.B6)
+                        //new (FoodNutrientFacts.B6)
                         //{
-                        //    Label = nameof(FoodNutriFacts.B6),
-                        //    ValueLabel = FoodNutriFacts.B6.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.B6),
+                        //    ValueLabel = FoodNutrientFacts.B6.ToString() + "%",
                         //    Color = SKColors.Yellow,
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.B12)
+                        //new (FoodNutrientFacts.B12)
                         //{
-                        //    Label = nameof(FoodNutriFacts.B12),
-                        //    ValueLabel = FoodNutriFacts.B12.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.B12),
+                        //    ValueLabel = FoodNutrientFacts.B12.ToString() + "%",
                         //    Color = SKColor.Parse("#F9C394"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
                         //},
-                        //new (FoodNutriFacts.K)
+                        //new (FoodNutrientFacts.K)
                         //{
-                        //    Label = nameof(FoodNutriFacts.K),
-                        //    ValueLabel = FoodNutriFacts.K.ToString() + "%",
+                        //    Label = nameof(FoodNutrientFacts.K),
+                        //    ValueLabel = FoodNutrientFacts.K.ToString() + "%",
                         //    Color = SKColor.Parse("#718B5A"),
                         //    ValueLabelColor = SKColors.Black,
                         //    TextColor = SKColors.Gray,
@@ -298,7 +298,8 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 foreach (var item in imgs)
                 {
-                    if (!string.IsNullOrEmpty(item) && !item.Contains("150") && item.Contains(this.FoodDetail.Key))
+                    if (!string.IsNullOrEmpty(item) && !item.Contains("150")
+                        && item.Contains(this.FoodDetail.Key) && !FoodImage.Contains(item))
                     {
                         this.FoodImage.Add(item);
                     }

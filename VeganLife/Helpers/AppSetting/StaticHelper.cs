@@ -1,4 +1,6 @@
-﻿namespace VeganLife.Helpers.AppSetting
+﻿using VeganLife.Models.FirebaseDataModel;
+
+namespace VeganLife.Helpers.AppSetting
 {
     public static class StaticHelper
     {
@@ -11,5 +13,10 @@
         {
             public static bool IsVietnameseLang { get; set; }
         }
+        public static class HealthDiagnosisFirebaseDataModel
+        {
+            public static BmiModel BMIModel { get; set; }
+        }
+
     }
 }

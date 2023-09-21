@@ -75,6 +75,8 @@ namespace VeganLife.ViewModels
                 this.onlineFoodPreviewData = await this.dataService.GetFoods();
             }
 
+            allFoods.Clear();
+            Foods.Clear();
             var localData = await DataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
             {
