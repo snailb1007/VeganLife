@@ -207,6 +207,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
+        internal static string app_title_report {
+            get {
+                return ResourceManager.GetString("app_title_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to an hour ago.
         /// </summary>
         internal static string appSet_dateTime_1h_ago {
