@@ -2,14 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views.ToolFlyout
 {
-    public partial class MainTool : ContentPage
+    public partial class MainTool : BasePage<MainToolViewModel>
     {
-        public MainTool(MainToolViewModel vm)
+        public MainTool(MainToolViewModel vm) : base(vm)
         {
             this.InitializeComponent();
-            this.BindingContext = vm;
         }
 
         protected override void OnHandlerChanged()

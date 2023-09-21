@@ -4,7 +4,10 @@
 
 namespace VeganLife.ViewModels.PopupViewModels
 {
+    using CommunityToolkit.Mvvm.Messaging;
+    using Mopups.Services;
     using VeganLife.Helpers;
+    using VeganLife.messages;
 #if GPT
     using ChatGptNet;
     using ChatGptNet.Exceptions;
@@ -94,12 +97,25 @@ namespace VeganLife.ViewModels.PopupViewModels
         {
             if (option.Equals("0"))
             {
+                if (this.IsReCalculateSelected)
+                {
+                    ClosePopupCommand.Execute(null);
+                    return;
+                }
+
                 IsReCalculateSelected = true;
                 IsGoAnalysisPageSelected = false;
                 IsSaveSelected = false;
             }
             else if (option.Equals("1"))
             {
+                if (this.IsGoAnalysisPageSelected)
+                {
+                    ClosePopupCommand.Execute(null);
+                    WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(1));
+                    return;
+                }
+
                 IsReCalculateSelected = false;
                 IsGoAnalysisPageSelected = true;
                 IsSaveSelected = false;
@@ -110,6 +126,17 @@ namespace VeganLife.ViewModels.PopupViewModels
                 IsGoAnalysisPageSelected = false;
                 IsSaveSelected = true;
             }
+        }
+
+        [RelayCommand]
+        private async Task ClosePopup()
+        {
+            if (ClosePopupCommand.IsRunning)
+            {
+                return;
+            }
+
+            await MopupService.Instance.PopAsync();
         }
     }
 }

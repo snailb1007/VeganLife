@@ -50,6 +50,23 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
+        public void SwitchShellContentToolsTab(byte index)
+        {
+            switch(index)
+            {
+                case 0:
+                    this.CurrentItem = mainTool_tool;
+                    break;
+                case 1:
+                    this.CurrentItem = bmiCalculator_tool;
+                    break;
+                case 2:
+                    this.CurrentItem = bmrCalculator_tool;
+                    break;
+
+            }
+        }
+
         /// <inheritdoc/>
         protected override bool OnBackButtonPressed()
         {

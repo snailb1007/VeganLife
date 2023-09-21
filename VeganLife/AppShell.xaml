@@ -64,16 +64,19 @@
         Icon="calculator">
         <Tab>
             <ShellContent
+                x:Name="mainTool_tool"
                 Title="{x:Static translate:AppResources.app_common_toolsTab}"
                 ContentTemplate="{DataTemplate toolFlyout:MainTool}"
                 Route="main_tool"
                 Shell.NavBarIsVisible="True" />
             <ShellContent
+                x:Name="bmiCalculator_tool"
                 Title="BMI"
                 ContentTemplate="{DataTemplate toolFlyout:BMICalculatorPage}"
                 Route="bmr_calculator"
                 Shell.NavBarIsVisible="True" />
             <ShellContent
+                x:Name="bmrCalculator_tool"
                 Title="BMR"
                 ContentTemplate="{DataTemplate toolFlyout:BMRCalculatorPage}"
                 Route="bmr_calculator"
