@@ -4,12 +4,14 @@
 
 namespace VeganLife.ViewModels
 {
+    using CommunityToolkit.Mvvm.Messaging;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
+    using VeganLife.messages;
     using VeganLife.Views.Popups;
     using VeganLife.Views.ToolFlyout;
 
-    public partial class MainToolViewModel : BaseViewModel
+    public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
         public string WeightBMIRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
@@ -105,6 +107,18 @@ namespace VeganLife.ViewModels
             : base()
         {
             this.Init();
+        }
+
+        public override Task ViewAppearingVM()
+        {
+            WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
+            return base.ViewAppearingVM();
+        }
+
+        public override Task ViewDisappearingVM()
+        {
+            WeakReferenceMessenger.Default.Unregister<BmiResultSelectedOptionMessage>(this);
+            return base.ViewDisappearingVM();
         }
 
         private void Init()
@@ -240,6 +254,18 @@ namespace VeganLife.ViewModels
                 if (Int32.TryParse(AgeValue, out int ageNumber) && ageNumber >= 1)
                 {
                     AgeValue = (--ageNumber).ToString();
+                }
+            }
+        }
+
+        public void Receive(BmiResultSelectedOptionMessage message)
+        {
+            if (message is not null)
+            {
+                var param = (message as BmiResultSelectedOptionMessage).Value;
+                if (App.Current.MainPage is AppShell currentShell)
+                {
+                    currentShell.SwitchShellContentToolsTab(param);
                 }
             }
         }

@@ -183,7 +183,7 @@
                     HorizontalOptions="Fill"
                     VerticalOptions="FillAndExpand">
                     <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        <TapGestureRecognizer Command="{Binding ClosePopupCommand}" />
                     </Grid.GestureRecognizers>
                     <Label
                         FontAttributes="Bold"
