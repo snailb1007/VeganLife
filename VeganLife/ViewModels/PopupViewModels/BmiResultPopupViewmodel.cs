@@ -24,6 +24,17 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public string Message { get; set; }
 
+        [ObservableProperty]
+        private string classifyLabel;
+        [ObservableProperty]
+        private string note;
+        [ObservableProperty]
+        private bool isReCalculateSelected;
+        [ObservableProperty]
+        private bool isGoAnalysisPageSelected = true;
+        [ObservableProperty]
+        private bool isSaveSelected;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
         /// </summary>
@@ -41,7 +52,10 @@ namespace VeganLife.ViewModels.PopupViewModels
                 this.BmiResultText = result?.BMIResult.ToString();
                 if (short.TryParse(result.Age, out var age))
                 {
-                    this.BmiStatusColor = BMICalculateHelper.GetWeightStatusCategory(age, result.Sex, result.BMIResult);
+                    var healthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(age, result.Sex, result.BMIResult);
+                    this.BmiStatusColor = healthDiagnosis.StatusColor;
+                    this.ClassifyLabel = healthDiagnosis.Classify;
+                    this.Note = healthDiagnosis.Note;
                 }
 #if GPT
                 string sex = result.Sex;
@@ -73,6 +87,29 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
 
             return base.OnNavigatingTo(parameter);
+        }
+
+        [RelayCommand]
+        private void SelectButton(string option)
+        {
+            if (option.Equals("0"))
+            {
+                IsReCalculateSelected = true;
+                IsGoAnalysisPageSelected = false;
+                IsSaveSelected = false;
+            }
+            else if (option.Equals("1"))
+            {
+                IsReCalculateSelected = false;
+                IsGoAnalysisPageSelected = true;
+                IsSaveSelected = false;
+            }
+            else
+            {
+                IsReCalculateSelected = false;
+                IsGoAnalysisPageSelected = false;
+                IsSaveSelected = true;
+            }
         }
     }
 }

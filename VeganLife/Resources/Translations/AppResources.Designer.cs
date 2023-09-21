@@ -504,6 +504,28 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
+        ///Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
+        ///5th - 84th percentile: Bình thường (Normal weight) nếu BMI nằm trong khoảng này.
+        ///85th - 94th percentile: Thừa cân (Overweight) nếu BMI nằm trong khoảng này.
+        ///95th percentile trở lên: Béo phì (Obese) nếu BMI ≥ 95th percentile..
+        /// </summary>
+        internal static string lessThan20_notFound_toolFlyout {
+            get {
+                return ResourceManager.GetString("lessThan20_notFound_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found!.
+        /// </summary>
+        internal static string lessThan5_notFound_toolFlyout {
+            get {
+                return ResourceManager.GetString("lessThan5_notFound_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         internal static string license_settingPage {
@@ -576,6 +598,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thiếu cân - Gầy.
+        /// </summary>
+        internal static string moderateThinness_classify_bmi {
+            get {
+                return ResourceManager.GetString("moderateThinness_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Điều hướng thất bại!.
         /// </summary>
         internal static string navigationFailed_alert_common {
@@ -595,6 +626,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bình thường.
+        /// </summary>
+        internal static string normal_classify_bmi {
+            get {
+                return ResourceManager.GetString("normal_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        internal static string normal_toolFlyout {
+            get {
+                return ResourceManager.GetString("normal_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note.
         /// </summary>
         internal static string note_foodDetailPage {
@@ -610,6 +659,42 @@ namespace VeganLife.Resources.Translations {
         internal static string noVitamin_vitaminPage {
             get {
                 return ResourceManager.GetString("noVitamin_vitaminPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thừa cân.
+        /// </summary>
+        internal static string obese_classify_bmi {
+            get {
+                return ResourceManager.GetString("obese_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thừa cân - Béo phì độ 1.
+        /// </summary>
+        internal static string obese1_classify_bmi {
+            get {
+                return ResourceManager.GetString("obese1_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thừa cân - Béo phì độ 2.
+        /// </summary>
+        internal static string obese2_classify_bmi {
+            get {
+                return ResourceManager.GetString("obese2_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thừa cân - Béo phì độ 3.
+        /// </summary>
+        internal static string obese3_classify_bmi {
+            get {
+                return ResourceManager.GetString("obese3_classify_bmi", resourceCulture);
             }
         }
         
@@ -677,6 +762,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thiếu cân - Rất gầy.
+        /// </summary>
+        internal static string severeThinness_classify_bmi {
+            get {
+                return ResourceManager.GetString("severeThinness_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sex.
         /// </summary>
         internal static string sex_bmiPage {
@@ -722,6 +816,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thiếu cân.
+        /// </summary>
+        internal static string Thinness_classify_bmi {
+            get {
+                return ResourceManager.GetString("Thinness_classify_bmi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Body mass index.
         /// </summary>
         internal static string title_bmiCalculatePage {
@@ -745,6 +848,24 @@ namespace VeganLife.Resources.Translations {
         internal static string title_bmrCalculatePage {
             get {
                 return ResourceManager.GetString("title_bmrCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classify: .
+        /// </summary>
+        internal static string titleClassify_toolFlyout {
+            get {
+                return ResourceManager.GetString("titleClassify_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underweight.
+        /// </summary>
+        internal static string underweight_toolFlyout {
+            get {
+                return ResourceManager.GetString("underweight_toolFlyout", resourceCulture);
             }
         }
         

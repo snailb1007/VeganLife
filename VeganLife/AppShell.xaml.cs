@@ -9,6 +9,8 @@ namespace VeganLife
     using VeganLife.Views.ContentViews;
     using VeganLife.Views.FoodTab;
     using VeganLife.Views.SettingTab;
+    using VeganLife.Views.ToolFlyout;
+    using static VeganLife.Helpers.AppSetting.StaticHelper;
 
     /// <summary>
     /// auto-generated.
@@ -24,6 +26,20 @@ namespace VeganLife
         {
             this.InitializeComponent();
             this.RegisterRoutes();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.Dispatcher.Dispatch(async () =>
+            {
+                await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
+                .ContinueWith(t =>
+                {
+                    HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
+                })
+                .ConfigureAwait(false);
+            });
         }
 
         public static void ShowFlyout()
@@ -80,7 +96,7 @@ namespace VeganLife
                 return false;
             }
 
-            return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is BMICalculatorPage;
+            return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is MainTool;
         }
 
         private void RegisterRoutes()
@@ -89,7 +105,7 @@ namespace VeganLife
             this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
             this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
             this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
-            this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
+            this.Routes.Add(nameof(MainTool), typeof(MainTool));
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));

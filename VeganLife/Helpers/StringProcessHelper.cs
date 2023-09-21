@@ -8,7 +8,7 @@ namespace VeganLife.Helpers
 
     public static class StringProcessHelper
     {
-        public static string ExtractImgSrc(string data)
+        public static string ExtractImageSrc(string data)
         {
             // Get the index of where the value of src starts.
             int start = data.IndexOf("<img src=\"") + 10;

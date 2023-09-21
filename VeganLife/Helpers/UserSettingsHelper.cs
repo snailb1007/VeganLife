@@ -90,7 +90,7 @@ namespace VeganLife.Helpers
         private static bool GetBoolKey(UserSettingKey key)
         {
             var data = Get(key);
-            return string.IsNullOrEmpty(data) ? false : Convert.ToBoolean(data);
+            return !string.IsNullOrEmpty(data) && Convert.ToBoolean(data);
         }
     }
 }

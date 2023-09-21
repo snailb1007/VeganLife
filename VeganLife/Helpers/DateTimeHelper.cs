@@ -19,7 +19,7 @@ namespace VeganLife.Helpers
             return DateTime.ParseExact(dateString, parseFormat, CultureInfo.InvariantCulture);
         }
 
-        public static string CalcuteTimeAgo(DateTime dateTime)
+        public static string CalculateTimeAgo(DateTime dateTime)
         {
             const int SECOND = 1;
             const int MINUTE = 60 * SECOND;
@@ -38,28 +38,23 @@ namespace VeganLife.Helpers
             {
                 return AppResources.appSet_dateTime_1m_ago;
             }
-            else
-            if (delta < 45 * MINUTE)
+            else if (delta < 45 * MINUTE)
             {
                 return ts.Minutes + AppResources.appSet_dateTime_manyM_ago;
             }
-            else
-            if (delta < 90 * MINUTE)
+            else if (delta < 90 * MINUTE)
             {
                 return AppResources.appSet_dateTime_1h_ago;
             }
-            else
-            if (delta < 24 * HOUR)
+            else if (delta < 24 * HOUR)
             {
                 return ts.Hours + AppResources.appSet_dateTime_manyH_ago;
             }
-            else
-            if (delta < 48 * HOUR)
+            else if (delta < 48 * HOUR)
             {
                 return AppResources.appSet_dateTime_yesterday_ago;
             }
-            else
-            if (delta < 30 * DAY)
+            else if (delta < 30 * DAY)
             {
                 return ts.Days + AppResources.appSet_dateTime_days_ago;
             }
