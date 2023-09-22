@@ -31,7 +31,7 @@
         </Tab>
         <Tab Title="{x:Static translate:AppResources.app_common_portionTab}" Icon="plan">
             <ShellContent
-                ContentTemplate="{DataTemplate contentViews:RationPlanPage}"
+                ContentTemplate="{DataTemplate view:ReportPage}"
                 Route="ration_plan"
                 Shell.NavBarIsVisible="False" />
         </Tab>

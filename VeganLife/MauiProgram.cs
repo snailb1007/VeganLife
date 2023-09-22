@@ -30,6 +30,12 @@ namespace VeganLife
     using VeganLife.Services.UserServices;
     using PanCardView;
     using VeganLife.Views.ToolFlyout;
+    using VeganLifeDataCenter.Data;
+    using Microsoft.EntityFrameworkCore;
+    using Sharpnado.Tabs;
+    using VeganLife.ViewModels.TabsViewModel;
+    using VeganLife.Views.ContentViews.Tabs;
+    using SkiaSharp.Views.Maui.Controls.Hosting;
 #endif
 
     /// <summary>
@@ -59,7 +65,10 @@ namespace VeganLife
                 .UseFFImageLoading()
                 .UseMauiCommunityToolkit()
                 .UseCardsView()
+                .UseSkiaSharp(true)
+                .UseSharpnadoTabs(loggerEnable: false)
                 .UseMicrocharts();
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
@@ -71,6 +80,8 @@ namespace VeganLife
             AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
+
+        public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
 
         private static void RegisterServices(IServiceCollection services)
         {
@@ -124,6 +135,16 @@ namespace VeganLife
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<WelcomePage>();
             services.AddTransient<WelcomeViewModel>();
+            services.AddTransient<ReportPage>();
+            services.AddTransient<ReportPageViewModel>();
+            services.AddTransient<CaloriesViewModel>();
+            services.AddTransient<MacrosViewModel>();
+            services.AddTransient<NutrientsViewModel>();
+            services.AddTransient<CaloriesTab>();
+            services.AddTransient<MacrosTab>();
+            services.AddTransient<NutrientsTab>();
+
+
             // Popup
             services.AddTransient<BmiResultPopup>();
             services.AddTransient<BmiResultPopupViewmodel>();
