@@ -102,10 +102,14 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="FFImageLoadingCompat.Maui" Version="0.1.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.53" />
 		<PackageReference Include="Microcharts.Maui" Version="1.0.0" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.2" />
 		<PackageReference Include="Mopups" Version="1.1.1" />
+		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.6" />
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.6" />
@@ -118,6 +122,9 @@
 	</ItemGroup>
 	<ItemGroup Condition=" '$(DefineConstants.Contains(`;GPT`))' == 'true' ">
 		<PackageReference Include="ChatGptNet" Version="2.2.14" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\VeganLifeDataCenter\VeganLifeDataCenter.csproj" />
 	</ItemGroup>
 	<!--<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
@@ -142,6 +149,12 @@
 		</Compile>
 		<Compile Update="Views\Controls\NavBarControl.xaml.cs">
 			<DependentUpon>NavBarControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Controls\Tabs\MacrosPage.xaml.cs">
+		  <DependentUpon>MacrosPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Controls\Tabs\MacrosPage.xaml.cs">
+		  <DependentUpon>MacrosPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\ToolFlyout\MainTool.xaml.cs">
 		  <DependentUpon>MainTool.xaml</DependentUpon>
@@ -170,6 +183,15 @@
 		<MauiXaml Update="Views\ContentViews\RationPlanPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\CaloriesTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\MacrosTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\NutrientsTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\VitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -181,6 +203,12 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NavBarRootPageControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\Tabs\CaloriesPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\Tabs\MacrosPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\DetailVitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -211,6 +239,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\RegistrationPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ReportPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SettingPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
