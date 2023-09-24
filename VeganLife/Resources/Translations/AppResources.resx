@@ -418,6 +418,12 @@ Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
 	<data name="normal_toolFlyout" xml:space="preserve">
     <value>Normal</value>
     </data>
+	<data name="app_title_report" xml:space="preserve">
+    <value>Report</value>
+    </data>
+	<data name="app_title_report" xml:space="preserve">
+    <value>Report</value>
+    </data>
 	<data name="lbSelectBtn_reCalculate_toolFlyout" xml:space="preserve">
     <value>Làm mới</value>
     </data>

@@ -7,6 +7,7 @@ namespace VeganLife.Data
     using SQLite;
     using VeganLife.Data.LocalData;
     using VeganLife.Services.LocalDataServices;
+    using VeganLifeDataCenter.Data;
 
     /// <summary>
     /// Local storage using sqlite.
