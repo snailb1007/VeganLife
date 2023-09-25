@@ -7,7 +7,8 @@
             if (value != null)
             {
                 var rootString = value as string;
-                value = rootString.Substring(rootString.IndexOf("["), rootString.IndexOf("]"));
+                var startIndex = rootString.IndexOf("[");
+                value = rootString.Substring(startIndex + 1, rootString.IndexOf("]") - startIndex -1);
             }
 
             return value;
