@@ -37,6 +37,7 @@ namespace VeganLife
     using VeganLife.Views.ContentViews.Tabs;
     using SkiaSharp.Views.Maui.Controls.Hosting;
     using VeganLife.ViewModels.ToolsFlyoutViewModel;
+    using VeganLife.Services.CommunityFreeService;
 #endif
 
     /// <summary>
@@ -105,6 +106,7 @@ namespace VeganLife
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<IUserDataService, UserDataService>();
+            services.AddSingleton<USDAApiService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
