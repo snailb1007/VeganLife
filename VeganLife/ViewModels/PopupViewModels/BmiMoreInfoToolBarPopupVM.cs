@@ -17,12 +17,17 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         [RelayCommand]
-        private async Task HyperlinkClicked(string parameter)
+        private async Task HyperlinkClicked(object parameter)
         {
             var data = parameter as string;
-            if (!string.IsNullOrEmpty(parameter) && !HyperlinkClickedCommand.IsRunning)
+            if (!string.IsNullOrEmpty(data) && !HyperlinkClickedCommand.IsRunning)
             {
-                await Browser.Default.OpenAsync(StringProcessHelper.GetHyperlink(parameter));
+                var link = StringProcessHelper.GetHyperlink(data);
+                if (!string.IsNullOrEmpty(link))
+                {
+                    await Browser.Default.OpenAsync(link);
+                    parameter = null;
+                }
             }
         }
     }
