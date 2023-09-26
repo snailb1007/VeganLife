@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VeganLife.Models.CommunityFreeServiceModel;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
-        public MacrosViewModel() 
+        [ObservableProperty]
+        private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
+        public MacrosViewModel()
             : base()
         {
+        }
+
+        [RelayCommand]
+        async Task ClickedThisTab()
+        {
+            await this.dataService.GetFoodsUSDA()
+                .ContinueWith(t => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(t.Result));
         }
     }
 }

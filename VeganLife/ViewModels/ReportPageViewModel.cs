@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.ViewModels
 {
-    public class ReportPageViewModel : BaseViewModel
+    public partial class ReportPageViewModel : BaseViewModel
     {
         private int _selectedViewModelIndex = 0;
         public int SelectedViewModelIndex
@@ -19,11 +15,11 @@ namespace VeganLife.ViewModels
         public CaloriesViewModel CaloriesViewModel { get; }
         public MacrosViewModel MacrosViewModel { get; }
         public NutrientsViewModel NutrientsViewModel { get; }
-        public ReportPageViewModel() 
+        public ReportPageViewModel()
             : base()
         {
             CaloriesViewModel = new CaloriesViewModel();
-            MacrosViewModel = new MacrosViewModel();
+            MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
             NutrientsViewModel = new NutrientsViewModel();
         }
 
@@ -34,6 +30,12 @@ namespace VeganLife.ViewModels
             var t3 = NutrientsViewModel.OnNavigatingTo(parameter);
             await Task.WhenAll(t1, t2, t3);
             return base.OnNavigatingTo(parameter);
+        }
+
+        [RelayCommand]
+        void MenuClicked()
+        {
+            MacrosViewModel.ClickedThisTabCommand.Execute(null);
         }
     }
 }
