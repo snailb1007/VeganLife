@@ -12,6 +12,7 @@ namespace VeganLife.Services
     using HtmlAgilityPack;
     using Newtonsoft.Json;
     using VeganLife.Data.RssFeedsData;
+    using VeganLife.Models.CommunityFreeServiceModel;
     using VeganLife.Models.FirebaseDataModel;
     using VeganLife.Models.FoodModel;
     using VeganLife.Models.GoogleNewsModels;
@@ -134,6 +135,32 @@ namespace VeganLife.Services
                 return Enumerable.Empty<VitaminModel>();
             }
         }
+
+        #region usda
+        public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA()
+        {
+            try
+            {
+                var data = await this.firebaseDatabase.Child("/USDA/food_data_central/list").OnceAsync<USDAFoodPreviewModel>();
+                return data.Select(item => new USDAFoodPreviewModel
+                {
+                    Id = item.Key,
+                    Image = item.Object?.Image,
+                    Name = item.Object?.Name,
+                    Category = item.Object?.Category,
+                });
+            }
+            catch (FirebaseException e)
+            {
+#if DEBUG
+                Console.WriteLine(e.StackTrace);
+#endif
+            }
+
+            return new[] { new USDAFoodPreviewModel { } };
+        }
+
+        #endregion
 
         public async Task<IEnumerable<Item>> LoadGoogleNews(string uri)
         {

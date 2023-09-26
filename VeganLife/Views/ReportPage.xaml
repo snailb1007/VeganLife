@@ -48,6 +48,7 @@
                         SelectedTabColor="#fff700"
                         UnselectedLabelColor="White" />
                     <tabs:UnderlinedTabItem
+                        Focused="UnderlinedTabItem_Focused"
                         Label="MACROS"
                         LabelSize="15"
                         SelectedTabColor="#fff700"
