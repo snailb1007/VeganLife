@@ -50,8 +50,12 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index)
+        public async Task SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
         {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { nameof(BMIResultModel), bMIResult }
+            };
             switch(index)
             {
                 case 0:
@@ -126,6 +130,7 @@ namespace VeganLife
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));
+            this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
 
             // Routes.Add(nameof(LoginPage), typeof(LoginPage));
             // Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));

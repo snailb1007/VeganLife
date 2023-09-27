@@ -125,16 +125,18 @@ namespace VeganLife.ViewModels
         {
         }
 
+        private BMIResultModel bmiResultData;
         [RelayCommand]
         private async Task CalculateBMI()
         {
             this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(new BMIResultModel()
+            bmiResultData = new BMIResultModel()
             {
                 BMIResult = (float)this.BmiResult,
                 Sex = this.IsMale ? ConstantHelper.BmiData.Male : ConstantHelper.BmiData.Female,
                 Age = this.AgeValue,
-            });
+            };
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(bmiResultData);
         }
 
         partial void OnWeightValueChanged(string value)
@@ -265,7 +267,10 @@ namespace VeganLife.ViewModels
                 var param = (message as BmiResultSelectedOptionMessage).Value;
                 if (App.Current.MainPage is AppShell currentShell)
                 {
-                    currentShell.SwitchShellContentToolsTab(param);
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await currentShell.SwitchShellContentToolsTab(param, this.bmiResultData);
+                    });
                 }
             }
         }
