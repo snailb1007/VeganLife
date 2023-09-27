@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BasePage
     x:Class="VeganLife.Views.ToolFlyout.MainTool"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -10,8 +11,9 @@
     x:Name="bmiCalculatorPage"
     Title="{x:Static translate:AppResources.app_common_toolsTab}"
     x:DataType="viewmodel:MainToolViewModel"
+    x:TypeArguments="viewmodel:MainToolViewModel"
     BackgroundImageSource="{Binding BackgroundIMG}">
-    <ContentPage.Resources>
+    <base:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:IsNotNullConverter x:Key="NullToFalseConverter" />
             <Style x:Key="InvalidEntryStyle" TargetType="Entry">
@@ -31,7 +33,7 @@
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </base:BasePage.Resources>
     <Grid>
         <ScrollView>
             <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
@@ -181,8 +183,12 @@
                                     HorizontalOptions="Center"
                                     Text="{x:Static translate:AppResources.height_bmiPage}" />
                                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                                    <Label
+                                    <Entry
                                         FontSize="25"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        MinimumWidthRequest="48"
+                                        Placeholder="170"
                                         Text="{Binding Height}"
                                         VerticalOptions="Center" />
                                     <Label Text="cm" VerticalOptions="Center" />
@@ -390,4 +396,4 @@
             IsRunning="{Binding CalculateBMICommand.IsRunning}"
             VerticalOptions="Center" />
     </Grid>
-</ContentPage>
+</base:BasePage>

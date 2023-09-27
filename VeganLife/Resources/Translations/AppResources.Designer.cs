@@ -513,6 +513,33 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đi tới trang phân tích.
+        /// </summary>
+        internal static string lbSelectBtn_goNext_toolFlyout {
+            get {
+                return ResourceManager.GetString("lbSelectBtn_goNext_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Làm mới.
+        /// </summary>
+        internal static string lbSelectBtn_reCalculate_toolFlyout {
+            get {
+                return ResourceManager.GetString("lbSelectBtn_reCalculate_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lưu và đặt làm chỉ số phân tích mặc định.
+        /// </summary>
+        internal static string lbSelectBtn_save_toolFlyout {
+            get {
+                return ResourceManager.GetString("lbSelectBtn_save_toolFlyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
         ///Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
         ///5th - 84th percentile: Bình thường (Normal weight) nếu BMI nằm trong khoảng này.

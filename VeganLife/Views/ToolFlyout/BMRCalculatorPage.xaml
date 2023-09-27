@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BasePage
     x:Class="VeganLife.Views.ToolFlyout.BMRCalculatorPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
-    Title="{x:Static translate:AppResources.title_bmrCalculatePage}">
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ToolsFlyoutViewModel"
+    Title="{x:Static translate:AppResources.title_bmrCalculatePage}"
+    x:DataType="viewmodel:BmrCalculatorViewModel"
+    x:TypeArguments="viewmodel:BmrCalculatorViewModel">
     <VerticalStackLayout>
         <Label
             HorizontalOptions="Center"
             Text="{x:Static translate:AppResources.featureFunction_common}"
             VerticalOptions="Center" />
     </VerticalStackLayout>
-</ContentPage>
+</base:BasePage>

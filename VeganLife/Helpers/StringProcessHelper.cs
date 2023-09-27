@@ -35,5 +35,18 @@ namespace VeganLife.Helpers
             sb = sb.Replace('đ', 'd');
             return sb.ToString().Normalize(NormalizationForm.FormD).ToLower();
         }
+
+        public static string GetHyperlink(string data)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                var startIndex = data.IndexOf("(");
+                return data.Substring(startIndex + 1, data.IndexOf(")") - startIndex);
+            }
+        }
     }
 }

@@ -36,6 +36,8 @@ namespace VeganLife
     using VeganLife.ViewModels.TabsViewModel;
     using VeganLife.Views.ContentViews.Tabs;
     using SkiaSharp.Views.Maui.Controls.Hosting;
+    using VeganLife.ViewModels.ToolsFlyoutViewModel;
+    using VeganLife.Services.CommunityFreeService;
 #endif
 
     /// <summary>
@@ -104,6 +106,7 @@ namespace VeganLife
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<IUserDataService, UserDataService>();
+            services.AddSingleton<USDAApiService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
@@ -143,6 +146,10 @@ namespace VeganLife
             services.AddTransient<CaloriesTab>();
             services.AddTransient<MacrosTab>();
             services.AddTransient<NutrientsTab>();
+            services.AddTransient<BMICalculatorPage>();
+            services.AddTransient<BmiCalculatorViewModel>();
+            services.AddTransient<BMRCalculatorPage>();
+            services.AddTransient<BmrCalculatorViewModel>();
 
 
             // Popup
@@ -151,6 +158,8 @@ namespace VeganLife
             services.AddTransient<ProfilePopup>();
             services.AddTransient<ProfilePopupViewModel>();
             services.AddTransient<AboutAppPopup>();
+            services.AddTransient<BmiMoreInfoToolBarPopup>();
+            services.AddTransient<BmiMoreInfoToolBarPopupVM>();
 
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();
