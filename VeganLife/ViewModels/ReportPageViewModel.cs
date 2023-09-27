@@ -5,12 +5,8 @@ namespace VeganLife.ViewModels
 {
     public partial class ReportPageViewModel : BaseViewModel
     {
+        [ObservableProperty]
         private int _selectedViewModelIndex = 0;
-        public int SelectedViewModelIndex
-        {
-            get => _selectedViewModelIndex;
-            set => SetAndRaise(ref _selectedViewModelIndex, value);
-        }
 
         public CaloriesViewModel CaloriesViewModel { get; }
         public MacrosViewModel MacrosViewModel { get; }
@@ -32,10 +28,20 @@ namespace VeganLife.ViewModels
             return base.OnNavigatingTo(parameter);
         }
 
-        [RelayCommand]
-        void MenuClicked()
+        partial void OnSelectedViewModelIndexChanged(int value)
         {
-            MacrosViewModel.ClickedThisTabCommand.Execute(null);
+            switch (value)
+            {
+                case 0:
+                    _ = CaloriesViewModel.ViewAppearingVM();
+                    break;
+                case 1:
+                    _ = MacrosViewModel.ViewAppearingVM();
+                    break;
+                case 2:
+                    _ = NutrientsViewModel.ViewAppearingVM();
+                    break;
+            }
         }
     }
 }

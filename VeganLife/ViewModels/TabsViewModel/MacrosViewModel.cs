@@ -11,11 +11,15 @@ namespace VeganLife.ViewModels.TabsViewModel
         {
         }
 
-        [RelayCommand]
-        async Task ClickedThisTab()
+        public override async Task<Task> ViewAppearingVM()
         {
-            await this.dataService.GetFoodsUSDA()
+            if (!UsdaFoodPreviews?.Any() ?? true)
+            {
+                await this.dataService.GetFoodsUSDA()
                 .ContinueWith(t => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(t.Result));
+            }
+
+            return base.ViewAppearingVM();
         }
     }
 }

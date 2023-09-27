@@ -10,81 +10,78 @@
     Title="ReportPage"
     x:DataType="viewmodel:ReportPageViewModel"
     x:TypeArguments="viewmodel:ReportPageViewModel">
-    <ScrollView>
-        <Grid RowDefinitions="80, 60, *">
-            <ContentView Padding="10" BackgroundColor="#12bc0a">
-                <DatePicker
-                    BackgroundColor="White"
-                    Format="dd/MM/yyyy"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />
-            </ContentView>
-            <ContentView Grid.Row="1" Margin="0,0,0,5">
-                <ContentView.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Offset="0.0" Color="#12bc0a" />
-                        <GradientStop Offset="0.5" Color="#3cc569" />
-                    </LinearGradientBrush>
-                </ContentView.Background>
-                <tabs:TabHostView
-                    CornerRadius="0"
-                    HorizontalOptions="FillAndExpand"
-                    IsSegmented="True"
-                    Orientation="Horizontal"
-                    SegmentedOutlineColor="Transparent"
-                    SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
-                    TabType="Fixed">
-                    <tabs:TabHostView.Shadow>
-                        <Shadow
-                            Brush="White"
-                            Opacity="0.7"
-                            Radius="30"
-                            Offset="0, 10" />
-                    </tabs:TabHostView.Shadow>
-                    <tabs:UnderlinedTabItem
-                        IsClippedToBounds="True"
-                        Label="CALORIES"
-                        LabelSize="15"
-                        SelectedTabColor="#fff700"
-                        UnselectedLabelColor="White" />
-                    <tabs:UnderlinedTabItem
-                        Focused="UnderlinedTabItem_Focused"
-                        Label="MACROS"
-                        LabelSize="15"
-                        SelectedTabColor="#fff700"
-                        UnselectedLabelColor="White" />
-                    <tabs:UnderlinedTabItem
-                        Label="NUTRIENTS"
-                        LabelSize="15"
-                        SelectedTabColor="#fff700"
-                        UnselectedLabelColor="White" />
-                </tabs:TabHostView>
-            </ContentView>
+    <Grid RowDefinitions="80, 60, *">
+        <ContentView Padding="10" BackgroundColor="#12bc0a">
+            <DatePicker
+                BackgroundColor="White"
+                Format="dd/MM/yyyy"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
+        </ContentView>
+        <ContentView Grid.Row="1" Margin="0,0,0,5">
+            <ContentView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.0" Color="#12bc0a" />
+                    <GradientStop Offset="0.5" Color="#3cc569" />
+                </LinearGradientBrush>
+            </ContentView.Background>
+            <tabs:TabHostView
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                IsSegmented="True"
+                Orientation="Horizontal"
+                SegmentedOutlineColor="Transparent"
+                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                TabType="Fixed">
+                <tabs:TabHostView.Shadow>
+                    <Shadow
+                        Brush="White"
+                        Opacity="0.7"
+                        Radius="30"
+                        Offset="0, 10" />
+                </tabs:TabHostView.Shadow>
+                <tabs:UnderlinedTabItem
+                    IsClippedToBounds="True"
+                    Label="CALORIES"
+                    LabelSize="15"
+                    SelectedTabColor="#fff700"
+                    UnselectedLabelColor="White" />
+                <tabs:UnderlinedTabItem
+                    Label="MACROS"
+                    LabelSize="15"
+                    SelectedTabColor="#fff700"
+                    UnselectedLabelColor="White" />
+                <tabs:UnderlinedTabItem
+                    Label="NUTRIENTS"
+                    LabelSize="15"
+                    SelectedTabColor="#fff700"
+                    UnselectedLabelColor="White" />
+            </tabs:TabHostView>
+        </ContentView>
 
-            <ContentView Grid.Row="2">
-                <tabs:ViewSwitcher
-                    x:Name="switcher"
-                    Grid.Row="1"
-                    Margin="0"
+        <ContentView Grid.Row="2">
+            <tabs:ViewSwitcher
+                x:Name="switcher"
+                Grid.Row="1"
+                Margin="0"
+                Animate="True"
+                SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
+                <tabs:DelayedView
+                    x:TypeArguments="views:CaloriesTab"
                     Animate="True"
-                    SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
-                    <tabs:DelayedView
-                        x:TypeArguments="views:CaloriesTab"
-                        Animate="True"
-                        BindingContext="{Binding CaloriesViewModel}"
-                        UseActivityIndicator="True" />
-                    <tabs:DelayedView
-                        x:TypeArguments="views:MacrosTab"
-                        Animate="True"
-                        BindingContext="{Binding MacrosViewModel}"
-                        UseActivityIndicator="True" />
-                    <tabs:DelayedView
-                        x:TypeArguments="views:NutrientsTab"
-                        Animate="True"
-                        BindingContext="{Binding NutrientsViewModel}"
-                        UseActivityIndicator="True" />
-                </tabs:ViewSwitcher>
-            </ContentView>
-        </Grid>
-    </ScrollView>
+                    BindingContext="{Binding CaloriesViewModel}"
+                    UseActivityIndicator="True" />
+                <tabs:DelayedView
+                    x:TypeArguments="views:MacrosTab"
+                    Animate="True"
+                    BindingContext="{Binding MacrosViewModel}"
+                    UseActivityIndicator="True" />
+                <tabs:DelayedView
+                    x:TypeArguments="views:NutrientsTab"
+                    Animate="True"
+                    BindingContext="{Binding NutrientsViewModel}"
+                    UseActivityIndicator="True" />
+            </tabs:ViewSwitcher>
+        </ContentView>
+    </Grid>
 </base:BasePage>
