@@ -9,9 +9,4 @@ public partial class ReportPage : BasePage<ReportPageViewModel>
 	{
 		this.InitializeComponent();
 	}
-
-    private void UnderlinedTabItem_Focused(object sender, FocusEventArgs e)
-    {
-        Console.WriteLine("==> UnderlinedTabItem_Focused ");
-    }
 }
