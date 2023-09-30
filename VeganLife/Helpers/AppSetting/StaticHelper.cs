@@ -18,8 +18,10 @@ namespace VeganLife.Helpers.AppSetting
             public static BmiModel BMIModel { get; set; }
         }
 
-        public static string MaleHeightAvgVN { get; set; }
-        public static string FemaleHeightAvgVN { get;set; }
+        public static float MaleHeightAvgVN { get; set; } = 0;
+        public static float FemaleHeightAvgVN { get; set; } = 0;
+        public static float FemaleHeightAvgUS { get;set; } = 0;
+        public static float MaleHeightAvgUS { get;set; } = 0;
 
     }
 }

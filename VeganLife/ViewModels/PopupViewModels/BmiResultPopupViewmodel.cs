@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Data.LocalData;
+
 namespace VeganLife.ViewModels.PopupViewModels
 {
     using CommunityToolkit.Mvvm.Messaging;
@@ -38,28 +40,43 @@ namespace VeganLife.ViewModels.PopupViewModels
         [ObservableProperty]
         private bool isSaveSelected;
 
+        private UserInfo localeUserInfo;
+        private readonly UserInfoDataStoreServie userStoreService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
         /// </summary>
         public BmiResultPopupViewmodel()
             : base()
         {
+            userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            this.IsLocaleUser = true;
         }
 
+        private float bmiResult;
+        [ObservableProperty]
+        private bool isLocaleUser;
+        private BMIResultModel result;
         /// <inheritdoc/>
-        public override Task OnNavigatingTo(object parameter)
+        public override async Task<Task> OnNavigatingTo(object parameter)
         {
             if (parameter != null)
             {
-                var result = parameter as BMIResultModel;
-                this.BmiResultText = result?.BMIResult.ToString();
-                if (short.TryParse(result.Age, out var age))
+                if (parameter is not BMIResultModel) return base.OnNavigatingTo(parameter);
+                result = (BMIResultModel)parameter;
+                bmiResult = result.BMIResult;
+                this.BmiResultText = result.BMIResult.ToString();
+                var healthDiagnosis =
+                        BMICalculateHelper.GetWeightStatusCategory(result.Age, result.IsMale, result.BMIResult);
+                this.BmiStatusColor = healthDiagnosis.StatusColor;
+                this.ClassifyLabel = healthDiagnosis.Classify;
+                this.Note = healthDiagnosis.Note;
+                localeUserInfo = (await userStoreService.GetItemsAsync()).FirstOrDefault();
+                if (localeUserInfo == null)
                 {
-                    var healthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(age, result.Sex, result.BMIResult);
-                    this.BmiStatusColor = healthDiagnosis.StatusColor;
-                    this.ClassifyLabel = healthDiagnosis.Classify;
-                    this.Note = healthDiagnosis.Note;
+                    this.IsLocaleUser = false;
                 }
+
 #if GPT
                 string sex = result.Sex;
                 string openAIMess = string.Empty;
@@ -93,13 +110,13 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         [RelayCommand]
-        private void SelectButton(string option)
+        private async Task SelectButton(string option)
         {
             if (option.Equals("0"))
             {
                 if (this.IsReCalculateSelected)
                 {
-                    ClosePopupCommand.Execute(null);
+                    this.GoCommand.Execute(null);
                     return;
                 }
 
@@ -111,7 +128,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             {
                 if (this.IsGoAnalysisPageSelected)
                 {
-                    ClosePopupCommand.Execute(null);
+                    this.GoCommand.Execute(null);
                     WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(1));
                     return;
                 }
@@ -129,14 +146,31 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         [RelayCommand]
-        private async Task ClosePopup()
+        private async Task Go()
         {
-            if (ClosePopupCommand.IsRunning)
+            if (this.GoCommand.IsRunning)
             {
                 return;
             }
 
             await MopupService.Instance.PopAsync();
+            if (this.IsSaveSelected)
+            {
+                await this.userStoreService.AddOrUpdateItemAsync(localeUserInfo, IsLocaleUser);
+            }
+        }
+
+        partial void OnIsSaveSelectedChanged(bool value)
+        {
+            if (value)
+            {
+                this.IsLocaleUser = localeUserInfo.Age == result.Age
+                    && localeUserInfo.IsMale == result.IsMale;
+                if (localeUserInfo != null && localeUserInfo.BMIResult != this.bmiResult)
+                {
+                    localeUserInfo.BMIResult = this.bmiResult;
+                }
+            }
         }
     }
 }

@@ -46,7 +46,9 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
+#if DEBUG
                 await Console.Out.WriteLineAsync(e.Message);
+#endif
                 return await Task.FromResult(false);
             }
         }
@@ -68,9 +70,9 @@ namespace VeganLife.Data
         }
 
         /// <inheritdoc/>
-        public Task<T> GetItemAsync(string id)
+        public async Task<T> GetItemAsync()
         {
-            throw new NotImplementedException();
+            return await this.connection.Table<T>().FirstOrDefaultAsync();
         }
 
         /// <inheritdoc/>

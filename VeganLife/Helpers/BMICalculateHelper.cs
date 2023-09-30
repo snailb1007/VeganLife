@@ -27,17 +27,17 @@ namespace VeganLife.Helpers
         /// Get bmi status.
         /// </summary>
         /// <param name="age">age to analysis.</param>
-        /// <param name="sex">sex to analysis.</param>
+        /// <param name="isMale">sex to analysis.</param>
         /// <param name="bmiData">bmiData to analysis.</param>
         /// <returns>Color for UI.</returns>
-        public static HealthDiagnosisModel GetWeightStatusCategory(short age, string sex, float bmiData)
+        public static HealthDiagnosisModel GetWeightStatusCategory(short age, bool isMale, float bmiData)
         {
             switch (age)
             {
                 case < 5:
                     return GetWSKLessThen5Age(bmiData);
                 case < 19:
-                    return GetWSKLessThen20Age(sex, bmiData);
+                    return GetWSKLessThen20Age(isMale, bmiData);
                 default:
                     return GetWSKForAdults(bmiData);
             }
@@ -68,13 +68,13 @@ namespace VeganLife.Helpers
             return result;
         }
 
-        private static HealthDiagnosisModel GetWSKLessThen20Age(string sex, float bmi)
+        private static HealthDiagnosisModel GetWSKLessThen20Age(bool IsMale, float bmi)
         {
             var result = new HealthDiagnosisModel();
             result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Note;
             result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Documents;
             result.Classify = AppResources.lessThan20_notFound_toolFlyout;
-            if (sex.Equals(ConstantHelper.BmiData.Male))
+            if (IsMale)
             {
                 result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Boy;
                 switch (bmi)
@@ -116,6 +116,14 @@ namespace VeganLife.Helpers
             return result;
         }
 
+        //public const byte Underweight3Threshold = 16;
+        //public const byte Underweight2Threshold = 17;
+        //public const float Underweight1Threshold = 18.5f;
+        //public const byte NormalThreshold = 25;
+        //public const byte ObeseThreshold = 30;
+        //public const float Obese1Threshold = 35;
+        //public const float obsese2Threshold = 40;
+        public const float NormalAVG = 21.75f;
         private static HealthDiagnosisModel GetWSKForAdults(float bmi)
         {
             var result = new HealthDiagnosisModel();
@@ -124,15 +132,15 @@ namespace VeganLife.Helpers
             switch (bmi)
             {
                 case < 16:
-                    result.StatusColor = Color.FromArgb("#ffda95"); // Underweight (Severe thinness)
+                    result.StatusColor = Color.FromArgb("#ffda95"); // Underweight 3 (Severe thinness)
                     result.Classify = AppResources.severeThinness_classify_bmi;
                     break;
                 case < 17:
-                    result.StatusColor = Color.FromArgb("#ffc251"); // Underweight (Moderate thinness)
+                    result.StatusColor = Color.FromArgb("#ffc251"); // Underweight 2 (Moderate thinness)
                     result.Classify = AppResources.moderateThinness_classify_bmi;
                     break;
                 case < 18.5f:
-                    result.StatusColor = Colors.Orange;
+                    result.StatusColor = Colors.Orange; // Underweight 1 (thinness)
                     result.Classify = AppResources.Thinness_classify_bmi;
                     break;
                 case < 25:
@@ -145,7 +153,7 @@ namespace VeganLife.Helpers
                     break;
                 case < 35:
                     result.StatusColor = Colors.Red;
-                    result.Classify = AppResources.obese1_classify_bmi;
+                    result.Classify = AppResources.obese1_classify_bmi; // Obese (Class I)
                     break;
                 case < 40:
                     result.StatusColor = Color.FromArgb("#a50000 "); // Obese (Class II)
