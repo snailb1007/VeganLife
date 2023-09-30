@@ -26,6 +26,8 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
 
         const string heightMaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_male";
         const string heightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
+        private float heightAvgVN;
+        private float heightAvgUS;
         public override async Task<Task> ViewAppearingVM()
         {
             var tasks = new List<Task>();
@@ -73,29 +75,47 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             {
                 this.GoalWeight = Math.Round(Math.Pow(this.LocalUserInfo.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
                 this.DifferentGoalWeight = Math.Abs(GoalWeight - this.LocalUserInfo.Weight);
-                var heightAvgVN = this.LocalUserInfo.IsMale ? StaticHelper.MaleHeightAvgVN : StaticHelper.FemaleHeightAvgVN;
-                var heightAvgUS = this.LocalUserInfo.IsMale ? StaticHelper.MaleHeightAvgUS : StaticHelper.FemaleHeightAvgUS;
+                heightAvgVN = this.LocalUserInfo.IsMale ? StaticHelper.MaleHeightAvgVN : StaticHelper.FemaleHeightAvgVN;
+                heightAvgUS = this.LocalUserInfo.IsMale ? StaticHelper.MaleHeightAvgUS : StaticHelper.FemaleHeightAvgUS;
                 this.Series = new ISeries[]
                 {
                     new ColumnSeries<double>
                             {
+                                Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
                                 Values = new ObservableCollection<double> { this.LocalUserInfo.Height},
                                 IsVisible = true
                             },
-                            new ColumnSeries<double>
+                    new ColumnSeries<double>
                             {
-                                Values = new ObservableCollection<double> { heightAvgUS},
+                                Name = $"Trung binh o VN: {heightAvgVN}cm",
+                                Values = new ObservableCollection<double> {heightAvgVN},
                                 IsVisible = true
                             },
-                            new ColumnSeries<double>
+                    new ColumnSeries<double>
                             {
-                                Values = new ObservableCollection<double> { heightAvgVN},
+                                Name = $"Trung binh o US: {heightAvgUS}cm",
+                                Values = new ObservableCollection<double> {heightAvgUS},
                                 IsVisible = true
                             },
                 };
             }
 
             return base.ViewAppearingVM();
+        }
+
+        [RelayCommand]
+        void HiddenOrShowClicked(string param)
+        {
+            if (param.Equals("vn"))
+            {
+                this.Series[1].IsVisible = !this.Series[1].IsVisible;
+                this.Series[1].Name = this.Series[1].IsVisible ? $"Trung binh o VN: {heightAvgVN}cm" : "Is Hidden";
+            }
+            else
+            {
+                this.Series[2].IsVisible = !this.Series[2].IsVisible;
+                this.Series[2].Name = this.Series[2].IsVisible ? $"Trung binh o US: {heightAvgUS}cm" : "Is Hidden";
+            }
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)

@@ -62,6 +62,17 @@
                                 Placeholder="Ten cua ban"
                                 Text="{Binding UserName}" />
                         </Frame>
+                        <Label Text="Sex" />
+                        <Grid ColumnDefinitions="*,*">
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <CheckBox IsChecked="{Binding IsMale}" />
+                                <Label Text="Nam" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                <CheckBox IsChecked="{Binding IsMale, Converter={StaticResource ReverseConverter}}" />
+                                <Label Text="Nu" />
+                            </HorizontalStackLayout>
+                        </Grid>
                         <Label Text="Age" />
                         <DatePicker
                             Date="{Binding SelectedDate}"
