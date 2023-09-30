@@ -54,12 +54,39 @@
             RowDefinitions="40,*"
             RowSpacing="0">
             <HorizontalStackLayout Spacing="10">
-                <Button CornerRadius="10" Text="Show VN" />
-                <Button CornerRadius="10" Text="Show US" />
+                <Button
+                    Command="{Binding HiddenOrShowClickedCommand}"
+                    CommandParameter="vn"
+                    CornerRadius="10"
+                    Text="Show VN">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Series[1].IsVisible}"
+                            TargetType="Button"
+                            Value="true">
+                            <Setter Property="Text" Value="Hidden vn" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button
+                    Command="{Binding HiddenOrShowClickedCommand}"
+                    CommandParameter="us"
+                    CornerRadius="10"
+                    Text="Show US">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Series[2].IsVisible}"
+                            TargetType="Button"
+                            Value="true">
+                            <Setter Property="Text" Value="Hidden us" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
             </HorizontalStackLayout>
             <lvc:CartesianChart
                 Grid.Row="1"
                 HeightRequest="400"
+                LegendPosition="Bottom"
                 Series="{Binding Series}" />
         </Grid>
     </VerticalStackLayout>
