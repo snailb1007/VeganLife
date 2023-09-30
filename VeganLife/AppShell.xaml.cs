@@ -52,10 +52,10 @@ namespace VeganLife
 
         public async Task SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
         {
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { nameof(BMIResultModel), bMIResult }
-            };
+            //var navigationParameter = new Dictionary<string, object>
+            //{
+            //    { nameof(BMIResultModel), bMIResult }
+            //};
             switch(index)
             {
                 case 0:

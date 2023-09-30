@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ToolsFlyoutViewModel"
     Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
@@ -20,7 +21,7 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </base:BasePage.ToolbarItems>
-    <VerticalStackLayout Margin="10">
+    <VerticalStackLayout Margin="10" Spacing="10">
         <Label
             FontAttributes="Bold"
             FontSize="Large"
@@ -48,5 +49,18 @@
                     Text="19.5" />
             </VerticalStackLayout>
         </Border>
+        <Grid
+            Margin="0,10,0,0"
+            RowDefinitions="40,*"
+            RowSpacing="0">
+            <HorizontalStackLayout Spacing="10">
+                <Button CornerRadius="10" Text="Show VN" />
+                <Button CornerRadius="10" Text="Show US" />
+            </HorizontalStackLayout>
+            <lvc:CartesianChart
+                Grid.Row="1"
+                HeightRequest="400"
+                Series="{Binding Series}" />
+        </Grid>
     </VerticalStackLayout>
 </base:BasePage>

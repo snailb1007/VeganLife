@@ -15,6 +15,8 @@ namespace VeganLife.Models
         public string VitaminRead { get; set; }
         public uint TotalRead { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        public float BMIResult { get; set; }
     }
 
     public partial class UserInfo
