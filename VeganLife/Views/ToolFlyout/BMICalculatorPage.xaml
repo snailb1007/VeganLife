@@ -16,6 +16,7 @@
                 <FontImageSource
                     FontFamily="{StaticResource FontAwesomeSolid}"
                     Glyph="&#xf142;"
+                    SemanticProperties.Description="More info BMI page"
                     Size="22"
                     Color="White" />
             </ToolbarItem.IconImageSource>

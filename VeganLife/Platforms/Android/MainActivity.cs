@@ -27,34 +27,34 @@ namespace VeganLife
             base.OnCreate(savedInstanceState);
         }
 
-        public override bool DispatchTouchEvent(MotionEvent ev)
-        {
-            if (ev.Action == MotionEventActions.Down ||
-                ev.Action == MotionEventActions.Move ||
-                ev.Action == MotionEventActions.Up)
-            {
-                byte count = 0;
-                foreach (var item in (Window.DecorView as ViewGroup).GetChildrenOfType<EditText>())
-                {
-                    if (!IsInsideEditViewTouch(item, ev.RawX, ev.RawY))
-                    {
-                        count++;
-                        break;
-                    }
-                }
+        //public override bool DispatchTouchEvent(MotionEvent ev)
+        //{
+        //    if (ev.Action == MotionEventActions.Down ||
+        //        ev.Action == MotionEventActions.Move ||
+        //        ev.Action == MotionEventActions.Up)
+        //    {
+        //        byte count = 0;
+        //        foreach (var item in (Window.DecorView as ViewGroup).GetChildrenOfType<EditText>())
+        //        {
+        //            if (!IsInsideEditViewTouch(item, ev.RawX, ev.RawY))
+        //            {
+        //                count++;
+        //                break;
+        //            }
+        //        }
 
-                if (count > 0)
-                {
-                    var currentFocus = Platform.CurrentActivity.CurrentFocus;
-                    if (currentFocus != null)
-                    {
-                        Platform.CurrentActivity.HideKeyboard(currentFocus);
-                    }
-                }
-            }
+        //        if (count > 0)
+        //        {
+        //            var currentFocus = Platform.CurrentActivity.CurrentFocus;
+        //            if (currentFocus != null)
+        //            {
+        //                Platform.CurrentActivity.HideKeyboard(currentFocus);
+        //            }
+        //        }
+        //    }
 
-            return base.DispatchTouchEvent(ev);
-        }
+        //    return base.DispatchTouchEvent(ev);
+        //}
 
         private bool IsInsideEditViewTouch(EditText editText, float xCoordinateTouch, float yCoordinateTouch)
         {
