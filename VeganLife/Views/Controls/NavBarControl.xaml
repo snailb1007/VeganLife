@@ -60,7 +60,8 @@
                     Clicked="hamburger_Clicked"
                     HeightRequest="30"
                     HorizontalOptions="Center"
-                    SemanticProperties.Description="Button open sidebar detail"
+                    SemanticProperties.Description="hamburger image button"
+                    SemanticProperties.Hint="Open flyout menu"
                     Source="hamburger.svg"
                     VerticalOptions="Center"
                     WidthRequest="30" />

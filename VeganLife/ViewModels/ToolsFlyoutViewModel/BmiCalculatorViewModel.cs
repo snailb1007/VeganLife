@@ -106,6 +106,11 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
         [RelayCommand]
         void HiddenOrShowClicked(string param)
         {
+            if (this.Series == null)
+            {
+                return;
+            }
+
             if (param.Equals("vn"))
             {
                 this.Series[1].IsVisible = !this.Series[1].IsVisible;
