@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:converterCustom="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ToolsFlyoutViewModel"
@@ -22,73 +23,114 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </base:BasePage.ToolbarItems>
-    <VerticalStackLayout Margin="10" Spacing="10">
-        <Label
-            FontAttributes="Bold"
-            FontSize="Large"
-            HorizontalOptions="Start"
-            Text="Kết quả"
-            VerticalOptions="Center" />
-        <Border StrokeShape="RoundRectangle 10" StrokeThickness="1">
-            <VerticalStackLayout Margin="5">
-                <StackLayout Margin="5" Orientation="Horizontal">
-                    <Label
-                        HorizontalOptions="StartAndExpand"
-                        Text="Thông tin BMI của bạn:"
-                        TextColor="Gray" />
-                    <Label
-                        FontAttributes="Bold"
-                        HorizontalOptions="End"
-                        Text="Bình thường"
-                        TextColor="Green" />
-                </StackLayout>
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <converterCustom:OnlyLineBreakConverter x:Key="OnlyLineBreakConverter" />
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+    <ContentView>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <VerticalStackLayout
+                Margin="10"
+                CompressedLayout.IsHeadless="True"
+                Spacing="10"
+                VerticalOptions="FillAndExpand">
                 <Label
-                    Margin="0,10,0,0"
                     FontAttributes="Bold"
-                    FontSize="32"
+                    FontSize="Large"
+                    HorizontalOptions="Start"
+                    Text="Kết quả"
+                    VerticalOptions="Center" />
+                <Frame
+                    Padding="0"
+                    CornerRadius="10"
+                    HasShadow="True">
+                    <VerticalStackLayout Margin="5">
+                        <StackLayout Margin="5" Orientation="Horizontal">
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="Thông tin BMI của bạn:"
+                                TextColor="Gray" />
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="End"
+                                Text="Bình thường"
+                                TextColor="Green" />
+                        </StackLayout>
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="32"
+                            HorizontalOptions="Center"
+                            Text="{Binding LocalUserInfo.BMIResult}" />
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Câng nặng khuyến nghị: " />
+                                        <Span Text="{Binding GoalWeight, Mode=OneWay}" TextColor="Green" />
+                                        <Span Text="kg" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <VerticalStackLayout CompressedLayout.IsHeadless="True" VerticalOptions="FillAndExpand">
+                    <Label Text="*Note:" TextColor="Red" />
+                    <Label
+                        LineBreakMode="WordWrap"
+                        Text="{Binding HealthDiagnosis.Note, Mode=OneWay, Converter={StaticResource OnlyLineBreakConverter}}"
+                        VerticalOptions="FillAndExpand" />
+                </VerticalStackLayout>
+                <Label
+                    Margin="0,20,0,0"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
                     HorizontalOptions="Center"
-                    Text="19.5" />
+                    Text="Biểu đồ trực quan đối chiếu chiều cao trung bình"
+                    TextColor="Gray" />
+                <Grid
+                    Margin="0,10,0,0"
+                    RowDefinitions="40,*"
+                    RowSpacing="0">
+                    <HorizontalStackLayout Spacing="10">
+                        <Button
+                            Command="{Binding HiddenOrShowClickedCommand}"
+                            CommandParameter="vn"
+                            CornerRadius="10"
+                            Text="Show VN">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Series[1].IsVisible}"
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="Text" Value="Hidden vn" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button
+                            Command="{Binding HiddenOrShowClickedCommand}"
+                            CommandParameter="us"
+                            CornerRadius="10"
+                            Text="Show US">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Series[2].IsVisible}"
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="Text" Value="Hidden us" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </HorizontalStackLayout>
+                    <lvc:CartesianChart
+                        Grid.Row="1"
+                        HeightRequest="400"
+                        LegendPosition="Bottom"
+                        Series="{Binding Series, Mode=OneWay}" />
+                </Grid>
             </VerticalStackLayout>
-        </Border>
-        <Grid
-            Margin="0,10,0,0"
-            RowDefinitions="40,*"
-            RowSpacing="0">
-            <HorizontalStackLayout Spacing="10">
-                <Button
-                    Command="{Binding HiddenOrShowClickedCommand}"
-                    CommandParameter="vn"
-                    CornerRadius="10"
-                    Text="Show VN">
-                    <Button.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Series[1].IsVisible}"
-                            TargetType="Button"
-                            Value="true">
-                            <Setter Property="Text" Value="Hidden vn" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-                <Button
-                    Command="{Binding HiddenOrShowClickedCommand}"
-                    CommandParameter="us"
-                    CornerRadius="10"
-                    Text="Show US">
-                    <Button.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Series[2].IsVisible}"
-                            TargetType="Button"
-                            Value="true">
-                            <Setter Property="Text" Value="Hidden us" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-            </HorizontalStackLayout>
-            <lvc:CartesianChart
-                Grid.Row="1"
-                HeightRequest="400"
-                LegendPosition="Bottom"
-                Series="{Binding Series}" />
-        </Grid>
-    </VerticalStackLayout>
+        </ScrollView>
+    </ContentView>
 </base:BasePage>
