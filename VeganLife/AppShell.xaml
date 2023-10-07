@@ -73,13 +73,13 @@
                 x:Name="bmiCalculator_tool"
                 Title="BMI"
                 ContentTemplate="{DataTemplate toolFlyout:BMICalculatorPage}"
-                Route="bmr_calculator"
+                Route="bmi_calculator_tool"
                 Shell.NavBarIsVisible="True" />
             <ShellContent
                 x:Name="bmrCalculator_tool"
                 Title="BMR"
                 ContentTemplate="{DataTemplate toolFlyout:BMRCalculatorPage}"
-                Route="bmr_calculator"
+                Route="bmr_calculator_tool"
                 Shell.NavBarIsVisible="True" />
         </Tab>
     </FlyoutItem>

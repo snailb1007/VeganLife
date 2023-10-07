@@ -72,6 +72,7 @@ namespace VeganLife.Data
         /// <inheritdoc/>
         public async Task<T> GetItemAsync()
         {
+            await this.Init();
             return await this.connection.Table<T>().FirstOrDefaultAsync();
         }
 

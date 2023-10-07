@@ -72,15 +72,17 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             var getLocalUserTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
             tasks.Add(getLocalUserTask);
             await Task.WhenAll(tasks);
-            this.LocalUserInfo = getLocalUserTask.Result;
+            MainThread.BeginInvokeOnMainThread(() => this.LocalUserInfo = getLocalUserTask.Result);
             if (LocalUserInfo != null && LocalUserInfo.BMIResult > 0)
             {
                 this.GoalWeight = Math.Round(Math.Pow(this.LocalUserInfo.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
                 this.DifferentGoalWeight = Math.Abs(GoalWeight - this.LocalUserInfo.Weight);
                 heightAvgVN = this.LocalUserInfo.IsMale ? StaticHelper.MaleHeightAvgVN : StaticHelper.FemaleHeightAvgVN;
                 heightAvgUS = this.LocalUserInfo.IsMale ? StaticHelper.MaleHeightAvgUS : StaticHelper.FemaleHeightAvgUS;
-                this.Series = new ISeries[]
+                if (Series == null)
                 {
+                    this.Series = new ISeries[]
+                    {
                     new ColumnSeries<double>
                             {
                                 Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
@@ -99,8 +101,11 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                                 Values = new ObservableCollection<double> {heightAvgUS},
                                 IsVisible = true
                             },
-                };
-                this.HealthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(LocalUserInfo.Age, LocalUserInfo.IsMale, LocalUserInfo.BMIResult);
+                    };
+
+                }
+
+                MainThread.BeginInvokeOnMainThread(() => this.HealthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(LocalUserInfo.Age, LocalUserInfo.IsMale, LocalUserInfo.BMIResult));
             }
 
             return base.ViewAppearingVM();
