@@ -16,9 +16,11 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
         private double goalWeight;
         [ObservableProperty]
         private double differentGoalWeight;
+        [ObservableProperty]
+        private HealthDiagnosisModel healthDiagnosis;
 
         [ObservableProperty]
-        public ISeries[] series;
+        private ISeries[] series;
         public BmiCalculatorViewModel()
            : base()
         {
@@ -98,6 +100,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                                 IsVisible = true
                             },
                 };
+                this.HealthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(LocalUserInfo.Age, LocalUserInfo.IsMale, LocalUserInfo.BMIResult);
             }
 
             return base.ViewAppearingVM();

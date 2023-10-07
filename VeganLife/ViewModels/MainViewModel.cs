@@ -10,6 +10,7 @@ namespace VeganLife.ViewModels
     using VeganLife.Helpers;
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
+    using VeganLife.Services.UserServices;
     using VeganLife.Views.FoodTab;
 
     /// <summary>
@@ -147,6 +148,10 @@ namespace VeganLife.ViewModels
 
             await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
             this.CurrentFoodSelected = null;
+            var userService = ServicesHelper.GetService<IUserDataService>();
+            await userService.Refresh();
+            (userService as UserDataService).UserInfo.TotalFoodDetailRead++;
+             await userService.SaveData();
         }
 
         [RelayCommand]
