@@ -44,18 +44,14 @@ namespace VeganLife
 
         public static void ShowFlyout()
         {
-            // TODO https://github.com/dotnet/maui/issues/8226
+            // TODO: https://github.com/dotnet/maui/issues/8226
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public async Task SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
+        public void SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
         {
-            //var navigationParameter = new Dictionary<string, object>
-            //{
-            //    { nameof(BMIResultModel), bMIResult }
-            //};
             switch(index)
             {
                 case 0:

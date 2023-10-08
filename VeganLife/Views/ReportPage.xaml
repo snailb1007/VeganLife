@@ -4,19 +4,100 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     xmlns:tabs="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
+    x:Name="rootReportPage"
     Title="ReportPage"
     x:DataType="viewmodel:ReportPageViewModel"
     x:TypeArguments="viewmodel:ReportPageViewModel">
     <Grid RowDefinitions="80, 60, *">
-        <ContentView Padding="10" BackgroundColor="#12bc0a">
-            <DatePicker
-                BackgroundColor="White"
-                Format="dd/MM/yyyy"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand" />
+        <ContentView Padding="10">
+            <ContentView.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+                </LinearGradientBrush>
+            </ContentView.Background>
+            <Grid ColumnDefinitions="48, *" ColumnSpacing="5">
+                <Border
+                    HeightRequest="42"
+                    HorizontalOptions="Center"
+                    Stroke="{StaticResource PrimaryLight}"
+                    StrokeThickness="1"
+                    VerticalOptions="Center"
+                    WidthRequest="42">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenMenuCommand}" />
+                    </Border.GestureRecognizers>
+                    <Image
+                        Margin="0"
+                        AutomationId="ImgHamburger"
+                        AutomationProperties.HelpText="open flyout menu"
+                        AutomationProperties.IsInAccessibleTree="False"
+                        HeightRequest="38"
+                        HorizontalOptions="Center"
+                        SemanticProperties.Description="hamburger image"
+                        Source="hamburger"
+                        VerticalOptions="Center"
+                        WidthRequest="38" />
+                </Border>
+                <Frame
+                    Grid.Column="1"
+                    Padding="0"
+                    HeightRequest="50"
+                    IsVisible="False">
+                    <Frame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedViewModelIndex}"
+                            TargetType="Frame"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <DatePicker
+                        BackgroundColor="White"
+                        Format="dd/MM/yyyy"
+                        HeightRequest="48"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center" />
+                </Frame>
+                <Frame
+                    Grid.Column="1"
+                    Padding="0"
+                    HeightRequest="50"
+                    IsVisible="False">
+                    <Frame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedViewModelIndex}"
+                            TargetType="Frame"
+                            Value="1">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <SearchBar
+                        x:DataType="tabVM:MacrosViewModel"
+                        BindingContext="{Binding BindingContext.MacrosViewModel, Source={x:Reference rootReportPage}}"
+                        HeightRequest="48"
+                        HorizontalOptions="Fill"
+                        Placeholder="Fill text here"
+                        Text="{Binding TextSearch}"
+                        VerticalOptions="Center">
+                        <SearchBar.Behaviors>
+                            <toolkit:UserStoppedTypingBehavior
+                                Command="{Binding EnsureSearchCommand}"
+                                MinimumLengthThreshold="1"
+                                ShouldDismissKeyboardAutomatically="False"
+                                StoppedTypingTimeThreshold="500" />
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+                </Frame>
+            </Grid>
         </ContentView>
         <ContentView Grid.Row="1" Margin="0,0,0,5">
             <ContentView.Background>
@@ -58,7 +139,6 @@
                     UnselectedLabelColor="White" />
             </tabs:TabHostView>
         </ContentView>
-
         <ContentView Grid.Row="2">
             <tabs:ViewSwitcher
                 x:Name="switcher"

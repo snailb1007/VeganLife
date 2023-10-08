@@ -6,7 +6,6 @@ namespace VeganLife.ViewModels
 {
     using CommunityToolkit.Mvvm.Messaging;
     using VeganLife.Helpers;
-    using VeganLife.Helpers.AppSetting;
     using VeganLife.messages;
     using VeganLife.Views.Popups;
     using VeganLife.Views.ToolFlyout;
@@ -18,7 +17,7 @@ namespace VeganLife.ViewModels
         public string AgeBmiRegexPattern { get; } = @"^\d+$";
 
         private float weight;
-        private short age;
+        // private short age;
 
         [ObservableProperty]
         private int height;
@@ -253,9 +252,9 @@ namespace VeganLife.ViewModels
                 var param = message.Value;
                 if (Application.Current.MainPage is AppShell currentShell)
                 {
-                    MainThread.BeginInvokeOnMainThread(async () =>
+                    MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        await currentShell.SwitchShellContentToolsTab(param, this.bmiResultData);
+                        currentShell.SwitchShellContentToolsTab(param, this.bmiResultData);
                     });
                 }
             }
