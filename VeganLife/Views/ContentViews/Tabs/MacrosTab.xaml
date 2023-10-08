@@ -8,7 +8,11 @@
     xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     x:DataType="vm:MacrosViewModel">
     <ScrollView>
-        <CollectionView ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}">
+        <CollectionView
+            ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
+            SelectedItem="{Binding UsdaFoodPreviewCurrent}"
+            SelectionChangedCommand="{Binding ItemSelectedChangedCommand}"
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="usdaModel:USDAFoodPreviewModel">
                     <Grid ColumnDefinitions="*,2*">
@@ -16,7 +20,7 @@
                             <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 DownsampleToViewSize="True"
-                                Source="{Binding Image}" />
+                                Source="{Binding Image, Mode=OneTime}" />
                         </Border>
                         <Label
                             Grid.Column="1"

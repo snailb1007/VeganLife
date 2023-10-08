@@ -1,4 +1,5 @@
-﻿// <copyright file="MainViewModel.cs" company="VeganLife">
+﻿using System.Linq;
+// <copyright file="MainViewModel.cs" company="VeganLife">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -10,6 +11,7 @@ namespace VeganLife.ViewModels
     using VeganLife.Helpers;
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
+    using VeganLife.Services.UserServices;
     using VeganLife.Views.FoodTab;
 
     /// <summary>
@@ -147,6 +149,10 @@ namespace VeganLife.ViewModels
 
             await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
             this.CurrentFoodSelected = null;
+            var userService = ServicesHelper.GetService<IUserDataService>();
+            await userService.Refresh();
+            (userService as UserDataService).UserInfo.TotalFoodDetailRead++;
+             await userService.SaveData();
         }
 
         [RelayCommand]
@@ -173,13 +179,6 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void EnsureSearch()
         {
-            //this.passFilterFoods = this.FilterKeySearch(this.allFoods.ToList(), this.SearchText);
-            //this.Foods.Clear();
-            //foreach (var i in this.FilterKeySearch(this.allFoods.ToList(), this.SearchText))
-            //{
-            //    this.Foods.Add(i);
-            //}
-
             Foods = new ObservableCollection<FoodPreviewModel>(this.FilterKeySearch(this.allFoods.ToList(), this.SearchText));
         }
 
@@ -200,15 +199,9 @@ namespace VeganLife.ViewModels
             foreach (var item in foods)
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
-                byte count = 0;
-                foreach (var word in words)
-                {
-                    if (normalName.Contains(word))
-                    {
-                        count++;
-                    }
-                }
-
+                int count = (from word in words
+                              where normalName.Contains(word)
+                              select word).Count();
                 item.CountCorrectWordOnSearch = count;
             }
 

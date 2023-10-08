@@ -39,6 +39,9 @@ namespace VeganLife.ViewModels.PopupViewModels
         private string errorMess;
         [ObservableProperty]
         private bool isUserLocalDataUpdating;
+
+        [ObservableProperty]
+        private bool isMale;
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePopupViewModel"/> class.
         /// </summary>
@@ -97,12 +100,13 @@ namespace VeganLife.ViewModels.PopupViewModels
 
             if (string.IsNullOrEmpty(ErrorMess) &&
                 !string.IsNullOrEmpty(UserName) &&
-                (UserInfo.Name != UserName || UserInfo.DateOfBirth != SelectedDate || UserInfo.Height != UserHeight))
+                (UserInfo.Name != UserName || UserInfo.DateOfBirth != SelectedDate || UserInfo.Height != UserHeight || UserInfo.IsMale != this.IsMale))
             {
                 IsUserLocalDataUpdating = true;
                 UserInfo.Name = UserName;
                 UserInfo.DateOfBirth = SelectedDate;
                 UserInfo.Height = UserHeight;
+                UserInfo.IsMale = IsMale;
                 if (float.TryParse(this.UserWeight, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue))
                 {
                     UserInfo.Weight = outValue;

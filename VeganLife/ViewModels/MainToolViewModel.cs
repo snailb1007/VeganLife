@@ -6,19 +6,18 @@ namespace VeganLife.ViewModels
 {
     using CommunityToolkit.Mvvm.Messaging;
     using VeganLife.Helpers;
-    using VeganLife.Helpers.AppSetting;
     using VeganLife.messages;
     using VeganLife.Views.Popups;
     using VeganLife.Views.ToolFlyout;
 
     public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
-        public string WeightBMIRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
+        public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
-        public string AgeBMIRegexPattern { get; } = @"^\d+$";
+        public string AgeBmiRegexPattern { get; } = @"^\d+$";
 
         private float weight;
-        private short age;
+        // private short age;
 
         [ObservableProperty]
         private int height;
@@ -36,10 +35,10 @@ namespace VeganLife.ViewModels
         private string weightValue;
 
         [ObservableProperty]
-        private string ageValue;
+        private byte ageValue;
 
         [ObservableProperty]
-        private string backgroundIMG;
+        private string backgroundImg;
 
         [ObservableProperty]
         private string weightErrMess;
@@ -125,16 +124,18 @@ namespace VeganLife.ViewModels
         {
         }
 
+        private BMIResultModel bmiResultData;
         [RelayCommand]
-        private async Task CalculateBMI()
+        private async Task CalculateBmi()
         {
             this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(new BMIResultModel()
+            bmiResultData = new BMIResultModel()
             {
                 BMIResult = (float)this.BmiResult,
-                Sex = this.IsMale ? ConstantHelper.BmiData.Male : ConstantHelper.BmiData.Female,
+                IsMale = this.IsMale,
                 Age = this.AgeValue,
-            });
+            };
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(bmiResultData);
         }
 
         partial void OnWeightValueChanged(string value)
@@ -163,21 +164,20 @@ namespace VeganLife.ViewModels
             this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
-        partial void OnAgeValueChanged(string value)
+        partial void OnAgeValueChanged(byte value)
         {
-            if (string.IsNullOrEmpty(value))
+            if (value <= 0)
             {
                 this.AgeErrMess = null;
                 this.IsEnableSubmit = false;
                 return;
             }
 
-            this.age = short.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
-            if (age <= 1)
+            if (value <= 1)
             {
                 this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooLow_bmiCalculatePage;
             }
-            else if (age >= 140)
+            else if (value >= 140)
             {
                 this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooHigh_bmiCalculatePage;
             }
@@ -197,7 +197,7 @@ namespace VeganLife.ViewModels
         private bool CheckEnableButtonCalculate()
         {
             return string.IsNullOrEmpty(this.WeightErrMess) && string.IsNullOrEmpty(this.AgeErrMess)
-            && !string.IsNullOrEmpty(this.WeightValue) && !string.IsNullOrEmpty(this.AgeValue);
+            && !string.IsNullOrEmpty(this.WeightValue) && (AgeValue >= 1);
         }
 
         [RelayCommand]
@@ -216,16 +216,9 @@ namespace VeganLife.ViewModels
                     WeightValue = (++weightNumber).ToString();
                 }
             }
-
-            if (data.ToString() == "age")
+            else
             {
-                if (AgeValue is null)
-                    AgeValue = "0";
-
-                if (Int32.TryParse(AgeValue, out int ageNumber))
-                {
-                    AgeValue = (++ageNumber).ToString();
-                }
+                AgeValue++;
             }
         }
 
@@ -248,13 +241,7 @@ namespace VeganLife.ViewModels
 
             if (data.ToString() == "age")
             {
-                if (AgeValue is null)
-                    AgeValue = "0";
-
-                if (Int32.TryParse(AgeValue, out int ageNumber) && ageNumber >= 1)
-                {
-                    AgeValue = (--ageNumber).ToString();
-                }
+                AgeValue--;
             }
         }
 
@@ -262,10 +249,13 @@ namespace VeganLife.ViewModels
         {
             if (message is not null)
             {
-                var param = (message as BmiResultSelectedOptionMessage).Value;
-                if (App.Current.MainPage is AppShell currentShell)
+                var param = message.Value;
+                if (Application.Current.MainPage is AppShell currentShell)
                 {
-                    currentShell.SwitchShellContentToolsTab(param);
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        currentShell.SwitchShellContentToolsTab(param, this.bmiResultData);
+                    });
                 }
             }
         }

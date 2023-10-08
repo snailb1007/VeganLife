@@ -6,27 +6,34 @@ namespace VeganLife.Views.Controls
 {
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
+    using VeganLife.Services.UserServices;
     using VeganLife.Views.Popups;
 
     public partial class FlyoutHeader : ContentView
     {
         private bool isProcessing;
+        private readonly IUserDataService userDataService;
 
         public FlyoutHeader()
         {
             this.InitializeComponent();
+            userDataService = ServicesHelper.GetService<IUserDataService>();
             DisplayUserInfoPreview();
         }
 
         private async void DisplayUserInfoPreview()
         {
-            var userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            var userData = (this.userDataService as UserDataService)?.UserInfo;
+            if (string.IsNullOrEmpty(userData?.Name))
+                userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
             if (userData != null)
             {
                 if (!string.IsNullOrEmpty(userData.Name))
                 {
                     lbUserName.Text = userData.Name;
                 }
+
+                avatarViewToolkit.ImageSource = userData.IsMale ? "profile_boy" : "profile_girl_strong";
             }
         }
 

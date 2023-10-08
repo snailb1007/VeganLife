@@ -138,7 +138,7 @@
                             CornerRadius="20"
                             SemanticProperties.Description="Button save food"
                             Text="Save"
-                            TextColor="SkyBlue"
+                            TextColor="{StaticResource PrimaryDark}"
                             VerticalOptions="Center">
                             <Button.Triggers>
                                 <DataTrigger
