@@ -8,11 +8,11 @@ namespace VeganLife.Services.CommunityFreeService
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
         private const string apiKey = "8tgleoubqLXYdky38LaQFpMaQIEqvTez4eFV6obc";
 
-        public USDAApiService()
-        {
-        }
+        //public USDAApiService()
+        //{
+        //}
 
-        public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(int foodId)
+        public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
         {
             using (var httpClient = new HttpClient())
             {

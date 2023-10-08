@@ -4,6 +4,7 @@
 
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Services.UserServices;
 
 namespace VeganLife.ViewModels
 {
@@ -15,15 +16,18 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         byte numberInfoMiss;
 
+        private readonly IUserDataService userDataService;
         public ProfileViewModel()
             : base()
         {
             MyInfo = new UserInfo();
+            userDataService = ServicesHelper.GetService<IUserDataService>();
         }
 
         public override async Task<Task> ViewAppearingVM()
         {
-            MyInfo = (await ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemsAsync())?.FirstOrDefault();
+            await this.userDataService.Refresh();
+            MyInfo = (userDataService as UserDataService).UserInfo;
             NumberInfoMiss = 4;
 
             if (MyInfo != null)

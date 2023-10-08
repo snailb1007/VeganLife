@@ -81,6 +81,7 @@
                             Grid.Column="1"
                             Margin="0"
                             Padding="2.5"
+                            AutomationProperties.HelpText="open filter options"
                             AutomationProperties.IsInAccessibleTree="False"
                             BackgroundColor="{StaticResource PrimaryLight}"
                             Command="{Binding FilterClickedCommand}"

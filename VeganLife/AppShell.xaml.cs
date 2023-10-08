@@ -44,13 +44,13 @@ namespace VeganLife
 
         public static void ShowFlyout()
         {
-            // TODO https://github.com/dotnet/maui/issues/8226
+            // TODO: https://github.com/dotnet/maui/issues/8226
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index)
+        public void SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
         {
             switch(index)
             {
@@ -126,6 +126,7 @@ namespace VeganLife
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));
+            this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
 
             // Routes.Add(nameof(LoginPage), typeof(LoginPage));
             // Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));

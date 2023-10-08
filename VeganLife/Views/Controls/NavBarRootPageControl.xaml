@@ -23,13 +23,15 @@
             <ImageButton
                 Margin="0"
                 Padding="0"
+                AutomationId="BtnHamburger"
+                AutomationProperties.HelpText="open flyout menu"
                 AutomationProperties.IsInAccessibleTree="False"
                 BorderColor="Transparent"
                 Clicked="ImageButton_Clicked"
                 HeightRequest="38"
                 HorizontalOptions="Center"
-                SemanticProperties.Description="Button open sidebar"
-                Source="hamburger.svg"
+                SemanticProperties.Description="hamburger image button"
+                Source="hamburger"
                 VerticalOptions="Center"
                 WidthRequest="38" />
         </Border>

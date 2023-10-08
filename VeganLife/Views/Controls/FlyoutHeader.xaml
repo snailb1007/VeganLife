@@ -22,11 +22,11 @@
             <Grid>
                 <HorizontalStackLayout Spacing="10">
                     <toolkit:AvatarView
+                        x:Name="avatarViewToolkit"
                         BorderColor="Yellow"
                         BorderWidth="1"
                         CornerRadius="40"
                         HeightRequest="80"
-                        ImageSource="profile_girl_strong"
                         WidthRequest="80">
                         <toolkit:AvatarView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="AvatarView_Tapped" />

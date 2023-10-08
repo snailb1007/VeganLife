@@ -21,8 +21,16 @@ namespace VeganLife.Services.UserServices
                 hasOldData = true;
                 UserInfo = new UserInfo();
                 UserInfo.Id = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
+                UserInfo.TotalFoodDetailRead = 0;
+                UserInfo.TotalVitaminRead = 0;
+                UserInfo.TotalDiscoveryRead = 0;
                 await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(this.UserInfo);
             }
+        }
+
+        public async Task Refresh()
+        {
+            this.UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
         }
 
         public short GetUserAge()
@@ -48,6 +56,11 @@ namespace VeganLife.Services.UserServices
             this.UserInfo.Height = height;
             this.UserInfo.Weight = weight;
             this.UserInfo.DateOfBirth = dateOfBirth;
+            await this.SaveData();
+        }
+
+        public async Task SaveData()
+        {
             await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(this.UserInfo, true);
         }
 

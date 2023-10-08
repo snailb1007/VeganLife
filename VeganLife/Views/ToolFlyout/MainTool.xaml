@@ -12,7 +12,7 @@
     Title="{x:Static translate:AppResources.app_common_toolsTab}"
     x:DataType="viewmodel:MainToolViewModel"
     x:TypeArguments="viewmodel:MainToolViewModel"
-    BackgroundImageSource="{Binding BackgroundIMG}">
+    BackgroundImageSource="{Binding BackgroundImg}">
     <base:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:IsNotNullConverter x:Key="NullToFalseConverter" />
@@ -229,7 +229,7 @@
                                                 InvalidStyle="{StaticResource InvalidEntryStyle}"
                                                 MaximumLength="6"
                                                 MinimumLength="1"
-                                                RegexPattern="{Binding WeightBMIRegexPattern, Mode=OneWay}"
+                                                RegexPattern="{Binding WeightBmiRegexPattern, Mode=OneWay}"
                                                 ValidStyle="{StaticResource ValidEntryStyle}" />
                                         </Entry.Behaviors>
                                     </Entry>
@@ -309,7 +309,7 @@
                                                 InvalidStyle="{StaticResource InvalidEntryStyle}"
                                                 MaximumLength="3"
                                                 MinimumLength="1"
-                                                RegexPattern="{Binding AgeBMIRegexPattern, Mode=OneWay}"
+                                                RegexPattern="{Binding AgeBmiRegexPattern, Mode=OneWay}"
                                                 ValidStyle="{StaticResource ValidEntryStyle}" />
                                         </Entry.Behaviors>
                                     </Entry>
@@ -382,7 +382,7 @@
                         </Grid>
                         <Button
                             Margin="20,0"
-                            Command="{Binding CalculateBMICommand}"
+                            Command="{Binding CalculateBmiCommand}"
                             FontAttributes="Bold"
                             FontSize="20"
                             IsEnabled="{Binding IsEnableSubmit, Mode=OneWay}"
@@ -393,7 +393,7 @@
         </ScrollView>
         <ActivityIndicator
             HorizontalOptions="Center"
-            IsRunning="{Binding CalculateBMICommand.IsRunning}"
+            IsRunning="{Binding CalculateBmiCommand.IsRunning}"
             VerticalOptions="Center" />
     </Grid>
 </base:BasePage>

@@ -47,7 +47,7 @@
                         </toolkit:AvatarView.Triggers>
                     </toolkit:AvatarView>
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                        <Label Text="Nguyen Van Thien" />
+                        <Label Text="{Binding MyInfo.Name, Mode=OneWay}" />
                         <Label Text="Người dùng" />
                     </VerticalStackLayout>
                     <Grid
@@ -65,6 +65,14 @@
                             BackgroundColor="Transparent"
                             HorizontalOptions="Center"
                             VerticalOptions="Center">
+                            <Grid.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding NumberInfoMiss, Mode=OneWay}"
+                                    TargetType="Grid"
+                                    Value="0">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </Grid.Triggers>
                             <Border
                                 BackgroundColor="Red"
                                 HeightRequest="18"
@@ -151,21 +159,42 @@
                                     Grid.Column="1"
                                     FontAttributes="Bold"
                                     FontSize="16"
-                                    Text="Nam" />
+                                    Text="Nam">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding MyInfo.IsMale, Mode=OneWay}"
+                                            TargetType="Label"
+                                            Value="False">
+                                            <Setter Property="Text" Value="Nu" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Grid.Column="2" Text="Cân nặng" />
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     FontAttributes="Bold"
-                                    FontSize="16"
-                                    Text="56kg" />
+                                    FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MyInfo.Weight, Mode=OneWay}" />
+                                            <Span Text="kg" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                                 <Label Grid.Column="3" Text="Chiều cao" />
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="3"
                                     FontAttributes="Bold"
-                                    FontSize="16"
-                                    Text="170cm" />
+                                    FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MyInfo.Height, Mode=OneWay}" />
+                                            <Span Text="cm" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                             </Grid>
                         </Border>
                     </StackLayout>
@@ -200,7 +229,7 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="16"
-                                Text="23" />
+                                Text="{Binding MyInfo.BMIResult}" />
                         </VerticalStackLayout>
                         <Label
                             Grid.Column="2"
@@ -256,7 +285,7 @@
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     HorizontalOptions="Center"
-                                    Text="52" />
+                                    Text="{Binding MyInfo.TotalFoodDetailRead}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
                                 <Label
@@ -267,7 +296,7 @@
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     HorizontalOptions="Center"
-                                    Text="29" />
+                                    Text="{Binding MyInfo.TotalVitaminRead, Mode=OneWay}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
                                 <Label
@@ -278,7 +307,7 @@
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     HorizontalOptions="Center"
-                                    Text="9" />
+                                    Text="{Binding MyInfo.TotalDiscoveryRead, Mode=OneWay}" />
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
