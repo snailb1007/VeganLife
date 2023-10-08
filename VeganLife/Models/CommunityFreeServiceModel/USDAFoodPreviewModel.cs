@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using SQLite;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
-    public class USDAFoodPreviewModel
+    public partial class USDAFoodPreviewModel
     {
+        [PrimaryKey]
         public string Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -11,5 +13,11 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public string Category { get; set; }
         [JsonProperty("image")]
         public string Image { get; set; }
+    }
+
+    public partial class USDAFoodPreviewModel : ObservableObject
+    {
+        [ObservableProperty]
+        private int countCorrectWordOnSearch;
     }
 }

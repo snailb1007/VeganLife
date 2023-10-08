@@ -1,7 +1,5 @@
 ﻿using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Painting;
-using SkiaSharp;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
@@ -105,6 +103,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
 
                 }
 
+                // TODO: bug not gen ui
                 MainThread.BeginInvokeOnMainThread(() => this.HealthDiagnosis = BMICalculateHelper.GetWeightStatusCategory(LocalUserInfo.Age, LocalUserInfo.IsMale, LocalUserInfo.BMIResult));
             }
 

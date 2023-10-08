@@ -1,4 +1,5 @@
 ﻿using VeganLife.Helpers;
+using VeganLife.Models.FoodModel;
 using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.ViewModels
@@ -19,13 +20,10 @@ namespace VeganLife.ViewModels
             NutrientsViewModel = new NutrientsViewModel();
         }
 
-        public override async Task<Task> OnNavigatingTo(object parameter)
+        [RelayCommand]
+        private void OpenMenu()
         {
-            var t1 = CaloriesViewModel.OnNavigatingTo(parameter);
-            var t2 = MacrosViewModel.OnNavigatingTo(parameter);
-            var t3 = NutrientsViewModel.OnNavigatingTo(parameter);
-            await Task.WhenAll(t1, t2, t3);
-            return base.OnNavigatingTo(parameter);
+            AppShell.ShowFlyout();
         }
 
         partial void OnSelectedViewModelIndexChanged(int value)
