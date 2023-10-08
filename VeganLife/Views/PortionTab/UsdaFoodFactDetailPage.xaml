@@ -5,16 +5,85 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
-    Title="UsdaFoodFactDetailPage"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
     x:TypeArguments="viewmodel:UsdaFoodFactDetailVM">
     <Grid RowDefinitions="*,*,*,*">
-        <VerticalStackLayout>
-            <Label Text="Chicken" />
-            <Label Text="147 calories" />
-        </VerticalStackLayout>
-        <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*">
-            <Image />
+        <Grid Grid.RowSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+                </LinearGradientBrush>
+            </Grid.Background>
+        </Grid>
+        <Grid RowDefinitions="48,*">
+            <Grid ColumnDefinitions="48,*,48">
+                <Button
+                    Padding="0"
+                    BackgroundColor="White"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    FontSize="Large"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Text="&#xf104;"
+                    TextColor="#FD8E4E"
+                    WidthRequest="40" />
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Text="{Binding CurrentFoodPreview.Name}"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </Grid>
+            <VerticalStackLayout Grid.Row="1">
+                <!--<Label
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Text="Chicken"
+                    TextColor="White" />-->
+                <Label
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Text="147 calories"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <Border
+                Margin="20,0,20,0"
+                StrokeShape="RoundRectangle 20"
+                StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Gray"
+                        Opacity="0.25"
+                        Radius="20"
+                        Offset="10,10" />
+                </Border.Shadow>
+            </Border>
+        </Grid>
+        <Grid
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            ColumnDefinitions="*,*,*,*">
+            <Border
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Padding="0"
+                StrokeShape="RoundRectangle 20"
+                VerticalOptions="Center">
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Gray"
+                        Opacity="0.25"
+                        Radius="10"
+                        Offset="10,10" />
+                </Border.Shadow>
+                <Image Aspect="AspectFill" Source="{Binding CurrentFoodPreview.Image}" />
+            </Border>
         </Grid>
     </Grid>
 </base:BasePage>
