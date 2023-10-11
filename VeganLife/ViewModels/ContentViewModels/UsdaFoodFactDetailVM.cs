@@ -25,12 +25,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
             if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
-                var x = await ServicesHelper.GetService<USDAApiService>()
-                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id).ConfigureAwait(true);
-                foreach (var i in x?.foodNutrients)
-                {
-                    await Console.Out.WriteLineAsync($"==> data {i.nutrient.name} - {i.amount}");
-                }
+                this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
+                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
             }
 
             return base.ViewAppearingVM();
