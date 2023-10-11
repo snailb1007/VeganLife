@@ -72,7 +72,7 @@ namespace VeganLife
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseMicrocharts();
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
-            AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
+            // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
             {
@@ -104,10 +104,11 @@ namespace VeganLife
             services.AddSingleton<ISQLite, SQLiteService>();
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
-            services.AddSingleton<UserInfoDataStoreServie>();
-            services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<USDAApiService>();
+            services.AddSingleton<UserInfoDataStoreServie>();
+            services.AddSingleton<FoodDetailDataStoreService>();
+            services.AddSingleton<UsdaFoodDataStoreService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();

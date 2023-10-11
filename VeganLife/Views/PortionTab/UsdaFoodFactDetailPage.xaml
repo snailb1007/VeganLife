@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
     x:TypeArguments="viewmodel:UsdaFoodFactDetailVM">
@@ -84,6 +85,38 @@
                 </Border.Shadow>
                 <Image Aspect="AspectFill" Source="{Binding CurrentFoodPreview.Image}" />
             </Border>
+        </Grid>
+        <Grid
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            HorizontalOptions="CenterAndExpand"
+            RowDefinitions="*">
+            <CollectionView
+                CanMixGroups="False"
+                HorizontalOptions="CenterAndExpand"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
+                SelectionMode="None"
+                VerticalOptions="Start">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:FoodNutrient">
+                        <HorizontalStackLayout
+                            HorizontalOptions="Center"
+                            Spacing="5"
+                            VerticalOptions="Center">
+                            <Label Text="{Binding nutrient.name}" />
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding amount}" />
+                                        <Span Text="{Binding nutrient.unitName}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </Grid>
 </base:BasePage>
