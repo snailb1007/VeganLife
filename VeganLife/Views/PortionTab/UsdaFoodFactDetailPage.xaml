@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<base:BasePage
+<uranium:UraniumContentPage
     x:Class="VeganLife.Views.PortionTab.UsdaFoodFactDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
-    x:DataType="viewmodel:UsdaFoodFactDetailVM"
-    x:TypeArguments="viewmodel:UsdaFoodFactDetailVM">
+    x:DataType="viewmodel:UsdaFoodFactDetailVM">
     <Grid RowDefinitions="*,*,*,*">
         <Grid Grid.RowSpan="2">
             <Grid.Background>
@@ -86,37 +86,45 @@
                 <Image Aspect="AspectFill" Source="{Binding CurrentFoodPreview.Image}" />
             </Border>
         </Grid>
-        <Grid
-            Grid.Row="2"
-            Grid.RowSpan="2"
-            HorizontalOptions="CenterAndExpand"
-            RowDefinitions="*">
-            <CollectionView
-                CanMixGroups="False"
-                HorizontalOptions="CenterAndExpand"
-                ItemSizingStrategy="MeasureAllItems"
-                ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
-                SelectionMode="None"
-                VerticalOptions="Start">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:FoodNutrient">
-                        <HorizontalStackLayout
-                            HorizontalOptions="Center"
-                            Spacing="5"
-                            VerticalOptions="Center">
-                            <Label Text="{Binding nutrient.name}" />
-                            <Label>
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding amount}" />
-                                        <Span Text="{Binding nutrient.unitName}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
     </Grid>
-</base:BasePage>
+    <uranium:UraniumContentPage.Attachments>
+        <material:BottomSheetView IsEnabled="False">
+            <material:BottomSheetView.Header />
+            <!--  Bottom Sheet Content here  -->
+            <Grid
+                HorizontalOptions="Fill"
+                MaximumHeightRequest="400"
+                MinimumHeightRequest="100"
+                RowDefinitions="*"
+                VerticalOptions="FillAndExpand">
+                <CollectionView
+                    CanMixGroups="False"
+                    HorizontalOptions="CenterAndExpand"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
+                    SelectionMode="None"
+                    VerticalOptions="Fill">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:FoodNutrient">
+                            <HorizontalStackLayout
+                                HorizontalOptions="Center"
+                                Spacing="5"
+                                VerticalOptions="Center">
+                                <Label Text="{Binding nutrient.name}" />
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding amount}" />
+                                            <Span Text="{Binding nutrient.unitName}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+        </material:BottomSheetView>
+    </uranium:UraniumContentPage.Attachments>
+</uranium:UraniumContentPage>
