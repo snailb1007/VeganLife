@@ -1,13 +1,19 @@
+using UraniumUI.Pages;
 using VeganLife.ViewModels.ContentViewModels;
-using VeganLife.Views.Base;
 
 namespace VeganLife.Views.PortionTab;
 
-public partial class UsdaFoodFactDetailPage : BasePage<UsdaFoodFactDetailVM>
+public partial class UsdaFoodFactDetailPage : UraniumContentPage
 {
 	public UsdaFoodFactDetailPage(UsdaFoodFactDetailVM vm)
-		: base(vm)
 	{
 		InitializeComponent();
+		this.BindingContext = vm;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _ = (BindingContext as UsdaFoodFactDetailVM).ViewAppearingVM();
+    }
 }

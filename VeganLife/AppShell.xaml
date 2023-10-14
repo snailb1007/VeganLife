@@ -11,9 +11,7 @@
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
     FlyoutIcon="hamburger"
-    Shell.NavBarIsVisible="False"
-    Shell.TabBarBackgroundColor="{AppThemeBinding Dark=Black,
-                                                  Light=White}">
+    Shell.NavBarIsVisible="False">
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
     </Shell.FlyoutHeader>
