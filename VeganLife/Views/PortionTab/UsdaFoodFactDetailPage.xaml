@@ -3,13 +3,17 @@
     x:Class="VeganLife.Views.PortionTab.UsdaFoodFactDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
+    xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
-    x:DataType="viewmodel:UsdaFoodFactDetailVM">
-    <Grid RowDefinitions="*,*,*,*">
-        <Grid Grid.RowSpan="2">
+    Padding="0"
+    x:DataType="viewmodel:UsdaFoodFactDetailVM"
+    BackgroundColor="{StaticResource PrimaryDark}">
+    <Grid BackgroundColor="{StaticResource Gray100}" RowDefinitions="*,*,*,*">
+        <Grid Grid.RowSpan="2" ZIndex="0">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
@@ -39,12 +43,6 @@
                     VerticalOptions="Center" />
             </Grid>
             <VerticalStackLayout Grid.Row="1">
-                <!--<Label
-                    FontAttributes="Bold"
-                    FontSize="Large"
-                    HorizontalOptions="Center"
-                    Text="Chicken"
-                    TextColor="White" />-->
                 <Label
                     FontSize="Large"
                     HorizontalOptions="Center"
@@ -52,9 +50,12 @@
                     TextColor="White" />
             </VerticalStackLayout>
         </Grid>
-        <Grid Grid.Row="1" Grid.RowSpan="2">
+        <Grid
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            ZIndex="1">
             <Border
-                Margin="20,0,20,0"
+                Margin="20,0"
                 StrokeShape="RoundRectangle 20"
                 StrokeThickness="0">
                 <Border.Shadow>
@@ -64,12 +65,43 @@
                         Radius="20"
                         Offset="10,10" />
                 </Border.Shadow>
+                <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
+                    <Grid.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="controls:NutritionFactImportantBorder">
+                                <Setter Property="Grid.Row" Value="1" />
+                                <Setter Property="Grid.RowSpan" Value="2" />
+                                <Setter Property="HeightRequest" Value="120" />
+                                <Setter Property="WidthRequest" Value="60" />
+                                <Setter Property="StrokeShape" Value="RoundRectangle 30" />
+                            </Style>
+                        </ResourceDictionary>
+                    </Grid.Resources>
+                    <controls:NutritionFactImportantBorder Title="Calo" BindingContext="{Binding CaloriesValue, Mode=OneWay}" />
+                    <controls:NutritionFactImportantBorder
+                        Title="Protein"
+                        Grid.Column="1"
+                        BindingContext="{Binding ProteinValue, Mode=OneWay}" />
+                    <controls:NutritionFactImportantBorder
+                        Title="Carb"
+                        Grid.Column="2"
+                        BindingContext="{Binding CarbValue, Mode=OneWay}" />
+                    <controls:NutritionFactImportantBorder
+                        Title="Fat"
+                        Grid.Column="3"
+                        BindingContext="{Binding FatValue, Mode=OneWay}" />
+                </Grid>
             </Border>
+            <ActivityIndicator
+                HeightRequest="48"
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                WidthRequest="48" />
         </Grid>
         <Grid
-            Grid.Row="0"
             Grid.RowSpan="2"
-            ColumnDefinitions="*,*,*,*">
+            ColumnDefinitions="*,*,*,*"
+            ZIndex="2">
             <Border
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
@@ -86,45 +118,46 @@
                 <Image Aspect="AspectFill" Source="{Binding CurrentFoodPreview.Image}" />
             </Border>
         </Grid>
+        <Button
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            CornerRadius="20"
+            FontAttributes="Bold"
+            FontSize="Header"
+            HeightRequest="48"
+            HorizontalOptions="Center"
+            MinimumWidthRequest="120"
+            Text="I eat it!"
+            VerticalOptions="CenterAndExpand"
+            ZIndex="2" />
     </Grid>
     <uranium:UraniumContentPage.Attachments>
-        <material:BottomSheetView IsEnabled="False">
+        <material:BottomSheetView IsEnabled="False" IsPresented="{Binding IsBottomSheetPresented, Mode=TwoWay}">
             <material:BottomSheetView.Header />
             <!--  Bottom Sheet Content here  -->
-            <Grid
-                HorizontalOptions="Fill"
-                MaximumHeightRequest="400"
-                MinimumHeightRequest="100"
-                RowDefinitions="*"
-                VerticalOptions="FillAndExpand">
-                <CollectionView
-                    CanMixGroups="False"
-                    HorizontalOptions="CenterAndExpand"
-                    ItemSizingStrategy="MeasureAllItems"
-                    ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
-                    SelectionMode="None"
-                    VerticalOptions="Fill">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:FoodNutrient">
-                            <HorizontalStackLayout
-                                HorizontalOptions="Center"
-                                Spacing="5"
-                                VerticalOptions="Center">
-                                <Label Text="{Binding nutrient.name}" />
-                                <Label>
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding amount}" />
-                                            <Span Text="{Binding nutrient.unitName}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-            </Grid>
+            <VerticalStackLayout>
+                <Label Text="Portion: 100g" />
+                <Grid
+                    Margin="5,0"
+                    HorizontalOptions="Fill"
+                    MaximumHeightRequest="400"
+                    MinimumHeightRequest="100"
+                    RowDefinitions="*"
+                    VerticalOptions="FillAndExpand">
+                    <cw:DataGridNutritionFactCW
+                        BorderColor="{StaticResource Gray400}"
+                        HeaderHeight="48"
+                        ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
+                        RefreshingEnabled="False"
+                        RowHeight="40"
+                        SelectionEnabled="False" />
+                    <ActivityIndicator
+                        HeightRequest="48"
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}"
+                        WidthRequest="48" />
+                </Grid>
+            </VerticalStackLayout>
         </material:BottomSheetView>
     </uranium:UraniumContentPage.Attachments>
 </uranium:UraniumContentPage>

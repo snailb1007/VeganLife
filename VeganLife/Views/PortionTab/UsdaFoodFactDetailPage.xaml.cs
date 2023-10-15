@@ -16,4 +16,10 @@ public partial class UsdaFoodFactDetailPage : UraniumContentPage
         base.OnAppearing();
         _ = (BindingContext as UsdaFoodFactDetailVM).ViewAppearingVM();
     }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        (BindingContext as UsdaFoodFactDetailVM).ViewDisappearingVM();
+    }
 }

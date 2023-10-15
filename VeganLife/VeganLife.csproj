@@ -99,6 +99,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.4" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
@@ -167,6 +168,12 @@
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+		<MauiXaml Update="Views\ContentViews\DataGridNutritionFactCW.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Flyout\ToolFlyout\BMRCalculatorPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
