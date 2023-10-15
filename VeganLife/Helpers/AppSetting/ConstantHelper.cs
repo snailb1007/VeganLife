@@ -40,5 +40,35 @@ namespace VeganLife.Helpers.AppSetting
             public const string Male = "Male";
             public const string Female = "Female";
         }
+
+        // Ignore Spelling: Proximates
+        public static class UsdaFoodNutrition
+        {
+            public const string Proximates = "Proximates";
+            public const string Water = "Water";
+            public const string Energy = "Energy";
+            public const string Protein = "Protein";
+            public const string fat = "fat";
+            public const string Ash = "Ash";
+            public const string Carbohydrate = "Carbohydrate";
+            public const string Fiber = "Fiber";
+            public const string Sugars = "Sugars";
+            public const string Sucrose = "Sucrose";
+            public const string Glucose = "Glucose";
+            public const string Fructose = "Fructose";
+            public const string Lactose = "Lactose";
+            public const string Maltose = "Maltose";
+            public const string GaLactose = "GaLactose";
+            public const string Starch = "Starch";
+            public const string Minerals = "Minerals";
+            public const string Calcium = "Calcium";
+            public const string Iron = "Iron";
+            public const string Magnesium = "Magnesium";
+            public const string Phosphorus = "Phosphorus";
+            public const string Potassium = "Potassium";
+            public const string Sodium = "Sodium";
+            public const string Zinc = "Zinc";
+            public const string Copper = "Copper";
+        }
     }
 }
