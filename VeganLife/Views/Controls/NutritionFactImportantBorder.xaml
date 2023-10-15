@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border
+    x:Class="VeganLife.Views.Controls.NutritionFactImportantBorder"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    x:Name="mainBorder"
+    Padding="0"
+    x:DataType="model:FoodNutrient"
+    BackgroundColor="{StaticResource Gray200}"
+    HorizontalOptions="Center">
+    <Grid RowDefinitions="*,*">
+        <Border
+            Padding="0"
+            BackgroundColor="{StaticResource Gray100}"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 30"
+            StrokeThickness="0"
+            VerticalOptions="Start"
+            WidthRequest="60">
+            <Border.Shadow>
+                <Shadow
+                    Brush="Gray"
+                    Opacity="0.25"
+                    Radius="30"
+                    Offset="10,10" />
+            </Border.Shadow>
+            <Label
+                FontAttributes="Bold"
+                FontSize="Header"
+                HorizontalOptions="Center"
+                Text="{Binding amount}"
+                TextColor="{StaticResource PrimaryDark}"
+                VerticalOptions="Center" />
+        </Border>
+        <VerticalStackLayout Grid.Row="1">
+            <Label
+                FontSize="Small"
+                HorizontalOptions="Center"
+                Text="{Binding nutrient.unitName}"
+                TextColor="{StaticResource PrimaryLight}" />
+            <Label
+                FontAttributes="Bold"
+                FontSize="Small"
+                HorizontalOptions="Center"
+                Text="{Binding Title, Source={x:Reference mainBorder}}"
+                TextColor="{StaticResource PrimaryLight}"
+                VerticalOptions="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</Border>
