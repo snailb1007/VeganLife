@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: App
+
 namespace VeganLife
 {
     using Microsoft.AppCenter.Crashes;
@@ -25,19 +27,15 @@ namespace VeganLife
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
-            if (UserSettingsHelper.IsFirstTime)
-            {
-                this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
-            }
-            else
-            {
-                this.MainPage = new AppShell();
-            }
-        }
-
-        protected override Window CreateWindow(IActivationState activationState)
-        {
-            return base.CreateWindow(activationState);
+            this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            //if (UserSettingsHelper.IsFirstTime)
+            //{
+            //    this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            //}
+            //else
+            //{
+            //    this.MainPage = new AppShell();
+            //}
         }
 
         public static void SetupCollectLogPermission()
