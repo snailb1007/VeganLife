@@ -39,6 +39,7 @@ namespace VeganLife
     using VeganLife.ViewModels.ToolsFlyoutViewModel;
     using VeganLife.Services.CommunityFreeService;
     using VeganLife.Views.PortionTab;
+    using UraniumUI;
 #endif
 
     /// <summary>
@@ -70,6 +71,7 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
+                .UseUraniumUIBlurs()
                 .UseMicrocharts();
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
