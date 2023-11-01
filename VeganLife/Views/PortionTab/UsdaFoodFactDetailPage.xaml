@@ -42,13 +42,18 @@
                     TextColor="White"
                     VerticalOptions="Center" />
             </Grid>
-            <VerticalStackLayout Grid.Row="1">
-                <Label
-                    FontSize="Large"
-                    HorizontalOptions="Center"
-                    Text="147 calories"
-                    TextColor="White" />
-            </VerticalStackLayout>
+            <Label
+                Grid.Row="1"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                TextColor="White">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding CaloriesValue.amount, Mode=OneWay}" />
+                        <Span Text=" calories" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </Grid>
         <Grid
             Grid.Row="1"
@@ -77,19 +82,26 @@
                             </Style>
                         </ResourceDictionary>
                     </Grid.Resources>
-                    <controls:NutritionFactImportantBorder Title="Calo" BindingContext="{Binding CaloriesValue, Mode=OneWay}" />
-                    <controls:NutritionFactImportantBorder
-                        Title="Protein"
-                        Grid.Column="1"
-                        BindingContext="{Binding ProteinValue, Mode=OneWay}" />
+                    <controls:NutritionFactImportantBorder Title="Protein" BindingContext="{Binding ProteinValue, Mode=OneWay}" />
                     <controls:NutritionFactImportantBorder
                         Title="Carb"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         BindingContext="{Binding CarbValue, Mode=OneWay}" />
                     <controls:NutritionFactImportantBorder
                         Title="Fat"
-                        Grid.Column="3"
+                        Grid.Column="2"
                         BindingContext="{Binding FatValue, Mode=OneWay}" />
+                    <Label
+                        Grid.RowSpan="4"
+                        Grid.Column="3"
+                        Text="Xem them &gt;"
+                        TextColor="{StaticResource LinkColor}"
+                        TextDecorations="Underline"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MoreClickedCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
             </Border>
             <ActivityIndicator

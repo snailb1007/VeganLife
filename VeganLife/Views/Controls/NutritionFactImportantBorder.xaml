@@ -41,7 +41,7 @@
                 TextColor="{StaticResource PrimaryLight}" />
             <Label
                 FontAttributes="Bold"
-                FontSize="Small"
+                FontSize="14"
                 HorizontalOptions="Center"
                 Text="{Binding Title, Source={x:Reference mainBorder}}"
                 TextColor="{StaticResource PrimaryLight}"
