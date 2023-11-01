@@ -100,13 +100,13 @@
                     FontFamily="FontAwesomeSolid"
                     Text="&#xf061;"
                     TextColor="Wheat" />-->
-                <!--<Button
+                <Button
                     Command="{Binding SkipCommand}"
                     FontAttributes="Bold"
                     HorizontalOptions="End"
                     MinimumWidthRequest="48"
                     Text="Skip"
-                    TextColor="Wheat" />-->
+                    TextColor="Wheat" />
             </StackLayout>
         </Grid>
     </base:BasePage.Content>

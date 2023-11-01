@@ -87,5 +87,11 @@ namespace VeganLife.ViewModels.ContentViewModels
 
             return base.ViewDisappearingVM();
         }
+
+        [RelayCommand]
+        private void MoreClicked()
+        {
+            IsBottomSheetPresented = !IsBottomSheetPresented;
+        }
     }
 }

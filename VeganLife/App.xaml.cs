@@ -27,15 +27,15 @@ namespace VeganLife
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
-            this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
-            //if (UserSettingsHelper.IsFirstTime)
-            //{
-            //    this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
-            //}
-            //else
-            //{
-            //    this.MainPage = new AppShell();
-            //}
+            //this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            if (UserSettingsHelper.IsFirstTime)
+            {
+                this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            }
+            else
+            {
+                this.MainPage = new AppShell();
+            }
         }
 
         public static void SetupCollectLogPermission()
