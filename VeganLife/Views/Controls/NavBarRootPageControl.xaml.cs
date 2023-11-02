@@ -2,12 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Helpers;
+using VeganLife.messages;
 using VeganLife.Services.UserServices;
 
 namespace VeganLife.Views.Controls
 {
-    public partial class NavBarRootPageControl : ContentView
+    public partial class NavBarRootPageControl : ContentView, IRecipient<ProfileChangedMessage>
     {
         public static BindableProperty IsVisibleGreetingContentProperty = BindableProperty.Create(
                 propertyName: "IsVisibleGreetingContent",
@@ -24,11 +26,14 @@ namespace VeganLife.Views.Controls
         public NavBarRootPageControl()
         {
             this.InitializeComponent();
-            Task.Run(async () =>
-            {
-                var userName = await ServicesHelper.GetService<IUserDataService>().GetUserNameAsync() ?? "...";
-                lbHi.Text = $"Hi {userName}";
-            }).Wait();
+            this.LoadUserDataAsync().Wait();
+            WeakReferenceMessenger.Default.Register(this);
+        }
+
+        private async Task LoadUserDataAsync()
+        {
+            var userName = await ServicesHelper.GetService<IUserDataService>().GetUserNameAsync() ?? "...";
+            lbHi.Text = $"Hi {userName}";
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
@@ -54,6 +59,11 @@ namespace VeganLife.Views.Controls
                     });
                 }
             }
+        }
+
+        public void Receive(ProfileChangedMessage message)
+        {
+            MainThread.BeginInvokeOnMainThread(async () => await LoadUserDataAsync());
         }
     }
 }

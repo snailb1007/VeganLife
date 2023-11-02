@@ -2,7 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Services.UserServices;
 
@@ -10,11 +9,16 @@ namespace VeganLife.ViewModels
 {
     public partial class ProfileViewModel : BaseViewModel
     {
+        const byte totalNumberSpec = 4;
+
         [ObservableProperty]
         UserInfo myInfo;
 
         [ObservableProperty]
         byte numberInfoMiss;
+
+        [ObservableProperty]
+        int degreePerfection;
 
         private readonly IUserDataService userDataService;
         public ProfileViewModel()
@@ -26,9 +30,10 @@ namespace VeganLife.ViewModels
 
         public override async Task<Task> ViewAppearingVM()
         {
+            IsLoading = true;
             await this.userDataService.Refresh();
             MyInfo = (userDataService as UserDataService).UserInfo;
-            NumberInfoMiss = 4;
+            NumberInfoMiss = totalNumberSpec;
 
             if (MyInfo != null)
             {
@@ -51,8 +56,11 @@ namespace VeganLife.ViewModels
                 {
                     NumberInfoMiss--;
                 }
+
+                DegreePerfection = (totalNumberSpec - NumberInfoMiss) / totalNumberSpec * 100;
             }
 
+            IsLoading = false;
             return base.ViewAppearingVM();
         }
 
@@ -66,5 +74,10 @@ namespace VeganLife.ViewModels
 
             await this.navigationService.PopAsync();
         }
+
+        //partial void OnNumberInfoMissChanged(byte value)
+        //{
+        //    DegreePerfection = (byte)(value * 25);
+        //}
     }
 }

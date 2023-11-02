@@ -4,12 +4,14 @@
 
 namespace VeganLife.Views.Controls
 {
+    using CommunityToolkit.Mvvm.Messaging;
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
+    using VeganLife.messages;
     using VeganLife.Services.UserServices;
     using VeganLife.Views.Popups;
 
-    public partial class FlyoutHeader : ContentView
+    public partial class FlyoutHeader : ContentView, IRecipient<ProfileChangedMessage>
     {
         private bool isProcessing;
         private readonly IUserDataService userDataService;
@@ -19,6 +21,7 @@ namespace VeganLife.Views.Controls
             this.InitializeComponent();
             userDataService = ServicesHelper.GetService<IUserDataService>();
             DisplayUserInfoPreview();
+            WeakReferenceMessenger.Default.Register(this);
         }
 
         private async void DisplayUserInfoPreview()
@@ -60,6 +63,11 @@ namespace VeganLife.Views.Controls
             Shell.Current.FlyoutIsPresented = false;
             await ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>();
             isProcessing = false;
+        }
+
+        public void Receive(ProfileChangedMessage message)
+        {
+            this.DisplayUserInfoPreview();
         }
     }
 }

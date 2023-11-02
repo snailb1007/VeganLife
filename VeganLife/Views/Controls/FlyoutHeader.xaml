@@ -23,8 +23,8 @@
                 <HorizontalStackLayout Spacing="10">
                     <toolkit:AvatarView
                         x:Name="avatarViewToolkit"
-                        BorderColor="Yellow"
-                        BorderWidth="1"
+                        BorderColor="{StaticResource PrimaryOrange1}"
+                        BorderWidth="2"
                         CornerRadius="40"
                         HeightRequest="80"
                         WidthRequest="80">
