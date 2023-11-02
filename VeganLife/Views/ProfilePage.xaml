@@ -31,7 +31,7 @@
                     ColumnDefinitions="Auto,*,Auto"
                     ColumnSpacing="10">
                     <toolkit:AvatarView
-                        BorderColor="Yellow"
+                        BorderColor="{StaticResource PrimaryOrange1}"
                         BorderWidth="1"
                         CornerRadius="40"
                         HorizontalOptions="CenterAndExpand"
@@ -110,21 +110,26 @@
                         <Label
                             FontAttributes="Bold"
                             FontSize="Medium"
-                            Text="Nguoi la" />
-                        <HorizontalStackLayout Spacing="5">
+                            Text="Thông tin cơ bản" />
+                        <HorizontalStackLayout CompressedLayout.IsHeadless="True" Spacing="5">
                             <Label
                                 FontSize="Small"
                                 Text="Độ hoàn thiện"
                                 VerticalOptions="Center" />
                             <Border
-                                BackgroundColor="#fcd684"
-                                Stroke="#e3e4a0"
+                                BackgroundColor="{StaticResource PrimaryOrange1}"
+                                Stroke="{StaticResource PrimaryOrange2}"
                                 StrokeShape="RoundRectangle 20"
                                 StrokeThickness="1">
-                                <HorizontalStackLayout Padding="5" Spacing="5">
-                                    <Label Text="Có vẻ ổn rồi" TextColor="Black" />
-                                    <Label Text="75%" TextColor="Black" />
-                                </HorizontalStackLayout>
+                                <Label Padding="5" TextColor="Black">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Có vẻ ổn rồi " />
+                                            <Span Text="{Binding DegreePerfection}" />
+                                            <Span Text="%" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                             </Border>
                         </HorizontalStackLayout>
                         <Border
@@ -203,6 +208,7 @@
             <VerticalStackLayout
                 Grid.Row="2"
                 Margin="20"
+                CompressedLayout.IsHeadless="True"
                 Spacing="10">
                 <Label
                     FontAttributes="Bold"

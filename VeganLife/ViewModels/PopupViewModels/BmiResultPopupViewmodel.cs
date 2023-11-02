@@ -110,7 +110,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         [RelayCommand]
-        private async Task SelectButton(string option)
+        private void SelectButton(string option)
         {
             if (option.Equals("0"))
             {
