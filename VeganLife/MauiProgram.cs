@@ -111,6 +111,7 @@ namespace VeganLife
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodDataStoreService>();
+            services.AddSingleton<FoodPreviewDataStoreService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();

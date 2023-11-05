@@ -26,7 +26,7 @@ namespace VeganLife.Views.Controls
         public NavBarRootPageControl()
         {
             this.InitializeComponent();
-            this.LoadUserDataAsync().Wait();
+            _ = this.LoadUserDataAsync();
             WeakReferenceMessenger.Default.Register(this);
         }
 
@@ -49,13 +49,15 @@ namespace VeganLife.Views.Controls
                     Task.Run(async () =>
                     {
                         byte count = 0;
-                        while (count < 3)
+                        while (count < 3 && img.IsVisible)
                         {
                             await img.RelRotateTo(20, 250, Easing.BounceOut);
                             await img.RelRotateTo(-40, 500, Easing.BounceOut);
                             await img.RelRotateTo(20, 250, Easing.BounceOut);
                             count++;
                         }
+
+                        img.IsVisible = false;
                     });
                 }
             }

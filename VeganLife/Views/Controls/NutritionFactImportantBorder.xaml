@@ -29,7 +29,7 @@
                 FontAttributes="Bold"
                 FontSize="Header"
                 HorizontalOptions="Center"
-                Text="{Binding amount}"
+                Text="{Binding Amount}"
                 TextColor="{StaticResource PrimaryDark}"
                 VerticalOptions="Center" />
         </Border>
@@ -37,7 +37,7 @@
             <Label
                 FontSize="Small"
                 HorizontalOptions="Center"
-                Text="{Binding nutrient.unitName}"
+                Text="{Binding Nutrient.unitName}"
                 TextColor="{StaticResource PrimaryLight}" />
             <Label
                 FontAttributes="Bold"

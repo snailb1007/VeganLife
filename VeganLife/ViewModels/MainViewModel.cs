@@ -19,10 +19,10 @@ namespace VeganLife.ViewModels
     /// </summary>
     public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
-        public static FoodPreviewDataStoreService DataStoreService;
+        private FoodPreviewDataStoreService dataStoreService;
         private IEnumerable<FoodPreviewModel> onlineFoodPreviewData;
         private IList<FoodPreviewModel> allFoods;
-        private IList<FoodPreviewModel> passFilterFoods;
+        //private IList<FoodPreviewModel> passFilterFoods;
 
         [ObservableProperty]
         private bool isSearchFocused;
@@ -56,7 +56,7 @@ namespace VeganLife.ViewModels
         private void Init()
         {
             this.Foods = new ObservableCollection<FoodPreviewModel>();
-            DataStoreService = new FoodPreviewDataStoreService(this.localDatabase);
+            dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
         public override Task ViewAppearingVM()
@@ -79,7 +79,7 @@ namespace VeganLife.ViewModels
 
             allFoods.Clear();
             Foods.Clear();
-            var localData = await DataStoreService.GetItemsAsync();
+            var localData = await dataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
             {
                 if (this.onlineFoodPreviewData?.Any() ?? false)
@@ -96,18 +96,18 @@ namespace VeganLife.ViewModels
                                 thisItemAlreadyExisted = true;
                                 thisOnlineItem.IsBookmarked = item.IsBookmarked;
                                 thisOnlineItem.IsRead = item.IsRead;
-                                await DataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                                await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                             }
                         }
 
                         // add new item from server to local
                         if (!thisItemAlreadyExisted)
                         {
-                            await DataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
+                            await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
                         }
                     }
 
-                    (await DataStoreService.GetItemsAsync()).ToList().ForEach(i => this.allFoods.Add(i));
+                    (await dataStoreService.GetItemsAsync()).ToList().ForEach(i => this.allFoods.Add(i));
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace VeganLife.ViewModels
                     this.onlineFoodPreviewData.ToList().ForEach(async i =>
                     {
                         this.allFoods.Add(i);
-                        await DataStoreService.AddOrUpdateItemAsync(i);
+                        await dataStoreService.AddOrUpdateItemAsync(i);
                     });
                 }
             }

@@ -15,9 +15,9 @@ namespace VeganLife.ViewModels
         public ReportPageViewModel()
             : base()
         {
-            CaloriesViewModel = new CaloriesViewModel();
+            CaloriesViewModel = ServicesHelper.GetService<CaloriesViewModel>();
             MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
-            NutrientsViewModel = new NutrientsViewModel();
+            NutrientsViewModel = ServicesHelper.GetService<NutrientsViewModel>();
         }
 
         [RelayCommand]

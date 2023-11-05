@@ -49,7 +49,7 @@
                 TextColor="White">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{Binding CaloriesValue.amount, Mode=OneWay}" />
+                        <Span Text="{Binding CaloriesValue.Amount, Mode=OneWay}" />
                         <Span Text=" calories" />
                     </FormattedString>
                 </Label.FormattedText>
