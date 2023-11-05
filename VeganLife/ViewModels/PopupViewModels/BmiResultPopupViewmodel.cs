@@ -166,7 +166,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             {
                 this.IsLocaleUser = localeUserInfo.Age == result.Age
                     && localeUserInfo.IsMale == result.IsMale;
-                if (localeUserInfo != null && localeUserInfo.BMIResult != this.bmiResult)
+                if (localeUserInfo.BMIResult != this.bmiResult)
                 {
                     localeUserInfo.BMIResult = this.bmiResult;
                 }
