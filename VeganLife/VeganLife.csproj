@@ -11,22 +11,22 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>VeganLife</ApplicationTitle>
+		<ApplicationTitle>HealthyChef</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.snailb.veganlife</ApplicationId>
+		<ApplicationId>com.snailb.healthychef</ApplicationId>
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0.5</ApplicationDisplayVersion>
-		<ApplicationVersion>5</ApplicationVersion>
+		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DefineConstants>$(DefineConstants);</DefineConstants>
+		<DefineConstants>$(DefineConstants);DATACENTER</DefineConstants>
 		<Optimize>True</Optimize>
 		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<LangVersion>latest</LangVersion>
@@ -34,19 +34,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0.5</ApplicationDisplayVersion>
-	  <ApplicationTitle>HealthyChef</ApplicationTitle>
-	  <ApplicationId>com.snailb.healthychef</ApplicationId>
-	  <ApplicationVersion>1</ApplicationVersion>
-	  <!--<AndroidLinkTool>r8</AndroidLinkTool>-->
+		<!--<AndroidLinkTool>r8</AndroidLinkTool>-->
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0.5</ApplicationDisplayVersion>
-	  <ApplicationTitle>HealthyChef</ApplicationTitle>
-	  <ApplicationId>com.snailb.healthychef</ApplicationId>
-	  <ApplicationVersion>1</ApplicationVersion>
-	  <!--<AndroidLinkTool>r8</AndroidLinkTool>-->
+		<!--<AndroidLinkTool>r8</AndroidLinkTool>-->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -70,18 +62,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="Models\Base\**" />
-	  <AndroidResource Remove="Views\Templates\**" />
-	  <Compile Remove="Models\Base\**" />
-	  <Compile Remove="Views\Templates\**" />
-	  <EmbeddedResource Remove="Models\Base\**" />
-	  <EmbeddedResource Remove="Views\Templates\**" />
-	  <MauiCss Remove="Models\Base\**" />
-	  <MauiCss Remove="Views\Templates\**" />
-	  <MauiXaml Remove="Models\Base\**" />
-	  <MauiXaml Remove="Views\Templates\**" />
-	  <None Remove="Models\Base\**" />
-	  <None Remove="Views\Templates\**" />
+		<AndroidResource Remove="Models\Base\**" />
+		<AndroidResource Remove="Views\Templates\**" />
+		<Compile Remove="Models\Base\**" />
+		<Compile Remove="Views\Templates\**" />
+		<EmbeddedResource Remove="Models\Base\**" />
+		<EmbeddedResource Remove="Views\Templates\**" />
+		<MauiCss Remove="Models\Base\**" />
+		<MauiCss Remove="Views\Templates\**" />
+		<MauiXaml Remove="Models\Base\**" />
+		<MauiXaml Remove="Views\Templates\**" />
+		<None Remove="Models\Base\**" />
+		<None Remove="Views\Templates\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -126,9 +118,9 @@
 	<ItemGroup Condition=" '$(DefineConstants.Contains(`;GPT`))' == 'true' ">
 		<PackageReference Include="ChatGptNet" Version="2.2.14" />
 	</ItemGroup>
-	<ItemGroup>
+	<!--<ItemGroup>
 	  <ProjectReference Include="..\VeganLifeDataCenter\VeganLifeDataCenter.csproj" />
-	</ItemGroup>
+	</ItemGroup>-->
 	<!--<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
 			<PrivateAssets>all</PrivateAssets>
@@ -154,13 +146,13 @@
 			<DependentUpon>NavBarControl.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\Controls\Tabs\MacrosPage.xaml.cs">
-		  <DependentUpon>MacrosPage.xaml</DependentUpon>
+			<DependentUpon>MacrosPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\Controls\Tabs\MacrosPage.xaml.cs">
-		  <DependentUpon>MacrosPage.xaml</DependentUpon>
+			<DependentUpon>MacrosPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\ToolFlyout\MainTool.xaml.cs">
-		  <DependentUpon>MainTool.xaml</DependentUpon>
+			<DependentUpon>MainTool.xaml</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
@@ -172,13 +164,13 @@
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Views\ContentViews\DataGridNutritionFactCW.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Flyout\ToolFlyout\BMRCalculatorPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\BookmarkPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -193,13 +185,13 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\CaloriesTab.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\MacrosTab.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\NutrientsTab.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\VitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -214,10 +206,10 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\Tabs\CaloriesPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\Tabs\MacrosPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\DetailVitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -235,10 +227,10 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\AboutAppPopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\BmiMoreInfoToolBarPopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\BmiResultPopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -247,16 +239,16 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\PortionTab\UsdaFoodFactDetailPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ProfilePage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\RegistrationPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ReportPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SettingPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -265,7 +257,7 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ToolFlyout\BMICalculatorPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\WebViewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
