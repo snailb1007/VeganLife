@@ -57,7 +57,7 @@ namespace VeganLife.Views.Controls
                             count++;
                         }
 
-                        img.IsVisible = false;
+                        MainThread.BeginInvokeOnMainThread(() => img.IsVisible = false);
                     });
                 }
             }
