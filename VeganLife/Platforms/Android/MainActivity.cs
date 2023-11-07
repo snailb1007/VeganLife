@@ -9,21 +9,29 @@ namespace VeganLife
     using Android.OS;
     using Android.Views;
     using Android.Widget;
+    using AndroidX.Activity;
+    using AndroidX.Core.OS;
     using Microsoft.Maui.Platform;
+    using VeganLife.Platforms.Android.Custom;
 
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
-        public static Activity CurrentActivity;
+        // public static Activity CurrentActivity;
 
         public MainActivity()
         {
-            CurrentActivity = this;
+            // CurrentActivity = this;
         }
 
         /// <inheritdoc/>
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            if (BuildCompat.IsAtLeastT)
+            {
+                OnBackPressedDispatcher.AddCallback(new CustomOnBackPressed(true));
+            }
+
             base.OnCreate(savedInstanceState);
         }
 

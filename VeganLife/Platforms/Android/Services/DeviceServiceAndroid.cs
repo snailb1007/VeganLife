@@ -12,10 +12,10 @@ namespace VeganLife.Services
 
         public int GetDeviceDPI()
         {
-            int resourceId = MainActivity.CurrentActivity.Resources.GetIdentifier(NaviBar, "dimen", "android");
+            int resourceId = Platform.CurrentActivity.Resources.GetIdentifier(NaviBar, "dimen", "android");
             if (resourceId > 0)
             {
-                return MainActivity.CurrentActivity.Resources.GetDimensionPixelSize(resourceId);
+                return Platform.CurrentActivity.Resources.GetDimensionPixelSize(resourceId);
             }
 
             return 0;

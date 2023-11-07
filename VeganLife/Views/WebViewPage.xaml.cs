@@ -14,7 +14,7 @@ namespace VeganLife.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            AppShell.ShowFlyout();
+            AppShell.ShowFlyOut();
         }
     }
 }

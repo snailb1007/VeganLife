@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  android:versionCode="5"
           android:versionName="1.0.5">
-	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:theme="@style/Theme.MaterialComponents"></application>
+	<application android:allowBackup="true"
+				 android:icon="@mipmap/appicon"
+				 android:enableOnBackInvokedCallback="true"
+				 android:supportsRtl="true"
+				 android:theme="@style/Theme.MaterialComponents"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<queries>

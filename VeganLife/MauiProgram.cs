@@ -30,8 +30,8 @@ namespace VeganLife
     using VeganLife.Services.UserServices;
     using PanCardView;
     using VeganLife.Views.ToolFlyout;
-    using VeganLifeDataCenter.Data;
-    using Microsoft.EntityFrameworkCore;
+    //using VeganLifeDataCenter.Data;
+    //using Microsoft.EntityFrameworkCore;
     using Sharpnado.Tabs;
     using VeganLife.ViewModels.TabsViewModel;
     using VeganLife.Views.ContentViews.Tabs;
@@ -73,7 +73,7 @@ namespace VeganLife
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseUraniumUIBlurs()
                 .UseMicrocharts();
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
+            //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
@@ -95,7 +95,7 @@ namespace VeganLife
             services.AddChatGpt(options =>
             {
                 //options.UseOpenAI(apiKey: $"sk-");
-                options.UseOpenAI(apiKey: "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");
+                options.UseOpenAI(apiKey: "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");
                 options.DefaultModel = "gpt-3.5-turbo";
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour

@@ -39,6 +39,6 @@ namespace VeganLife.Views.Controls
         }
 
         private void hamburger_Clicked(object sender, EventArgs e)
-            => AppShell.ShowFlyout();
+            => AppShell.ShowFlyOut();
     }
 }

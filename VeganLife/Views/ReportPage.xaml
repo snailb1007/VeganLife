@@ -114,13 +114,13 @@
                 SegmentedOutlineColor="Transparent"
                 SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
                 TabType="Fixed">
-                <tabs:TabHostView.Shadow>
+                <!--<tabs:TabHostView.Shadow>
                     <Shadow
                         Brush="White"
                         Opacity="0.7"
                         Radius="30"
                         Offset="0, 10" />
-                </tabs:TabHostView.Shadow>
+                </tabs:TabHostView.Shadow>-->
                 <tabs:UnderlinedTabItem
                     IsClippedToBounds="True"
                     Label="CALORIES"

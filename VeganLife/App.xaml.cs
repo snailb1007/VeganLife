@@ -38,6 +38,11 @@ namespace VeganLife
             }
         }
 
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            return base.CreateWindow(activationState);
+        }
+
         public static void SetupCollectLogPermission()
         {
             Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);

@@ -23,7 +23,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void OpenMenu()
         {
-            AppShell.ShowFlyout();
+            AppShell.ShowFlyOut();
         }
 
         partial void OnSelectedViewModelIndexChanged(int value)

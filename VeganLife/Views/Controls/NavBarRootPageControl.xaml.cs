@@ -37,7 +37,7 @@ namespace VeganLife.Views.Controls
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
-            => AppShell.ShowFlyout();
+            => AppShell.ShowFlyOut();
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

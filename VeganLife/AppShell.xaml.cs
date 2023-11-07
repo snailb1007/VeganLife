@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: App
+
 namespace VeganLife
 {
     using Mopups.Services;
@@ -42,7 +44,7 @@ namespace VeganLife
             });
         }
 
-        public static void ShowFlyout()
+        public static void ShowFlyOut()
         {
             // TODO: https://github.com/dotnet/maui/issues/8226
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
@@ -52,7 +54,7 @@ namespace VeganLife
 
         public void SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
         {
-            switch(index)
+            switch (index)
             {
                 case 0:
                     this.CurrentItem = mainTool_tool;
@@ -108,7 +110,7 @@ namespace VeganLife
 
         private static bool IsRootPage(VisualElement page)
         {
-            if (MopupService.Instance.PopupStack.Count() > 0)
+            if (MopupService.Instance.PopupStack.Any())
             {
                 return false;
             }
