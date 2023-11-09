@@ -100,13 +100,8 @@
             </Grid>
         </ContentView>
         <ContentView Grid.Row="1" Margin="0,0,0,5">
-            <ContentView.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Offset="0.0" Color="#12bc0a" />
-                    <GradientStop Offset="0.5" Color="#3cc569" />
-                </LinearGradientBrush>
-            </ContentView.Background>
             <tabs:TabHostView
+                BackgroundColor="{StaticResource Gray100}"
                 CornerRadius="0"
                 HorizontalOptions="FillAndExpand"
                 IsSegmented="True"
@@ -114,6 +109,15 @@
                 SegmentedOutlineColor="Transparent"
                 SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
                 TabType="Fixed">
+                <tabs:TabHostView.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="tabs:MaterialUnderlinedTabItem">
+                            <Setter Property="LabelSize" Value="15" />
+                            <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
+                            <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
+                        </Style>
+                    </ResourceDictionary>
+                </tabs:TabHostView.Resources>
                 <!--<tabs:TabHostView.Shadow>
                     <Shadow
                         Brush="White"
@@ -121,22 +125,16 @@
                         Radius="30"
                         Offset="0, 10" />
                 </tabs:TabHostView.Shadow>-->
-                <tabs:UnderlinedTabItem
-                    IsClippedToBounds="True"
-                    Label="CALORIES"
-                    LabelSize="15"
-                    SelectedTabColor="#fff700"
-                    UnselectedLabelColor="White" />
-                <tabs:UnderlinedTabItem
-                    Label="MACROS"
-                    LabelSize="15"
-                    SelectedTabColor="#fff700"
-                    UnselectedLabelColor="White" />
-                <tabs:UnderlinedTabItem
-                    Label="NUTRIENTS"
-                    LabelSize="15"
-                    SelectedTabColor="#fff700"
-                    UnselectedLabelColor="White" />
+                <tabs:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
+                    <!--<tabs:MaterialUnderlinedTabItem.Badge>
+                        <tabs:BadgeView
+                            BackgroundColor="White"
+                            Text="999+"
+                            TextColor="{StaticResource Accent}" />
+                    </tabs:MaterialUnderlinedTabItem.Badge>-->
+                </tabs:MaterialUnderlinedTabItem>
+                <tabs:MaterialUnderlinedTabItem Label="MACROS" />
+                <tabs:MaterialUnderlinedTabItem Label="NUTRIENTS" />
             </tabs:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">

@@ -15,21 +15,21 @@
         </dg:PaletteCollection>
     </dg:DataGrid.RowsBackgroundColorPalette>
     <dg:DataGrid.Columns>
-        <dg:DataGridColumn Width="6*" PropertyName="nutrient.name">
+        <dg:DataGridColumn Width="6*" PropertyName="Nutrient.name">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
                     <Span Text="Nutrition name" TextColor="White" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
         </dg:DataGridColumn>
-        <dg:DataGridColumn Width="3*" PropertyName="amount">
+        <dg:DataGridColumn Width="3*" PropertyName="Amount">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
                     <Span Text="Value" TextColor="White" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
         </dg:DataGridColumn>
-        <dg:DataGridColumn Width="*" PropertyName="nutrient.unitName">
+        <dg:DataGridColumn Width="*" PropertyName="Nutrient.unitName">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
                     <Span Text="Unit" TextColor="White" />
