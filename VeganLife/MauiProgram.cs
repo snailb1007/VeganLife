@@ -176,7 +176,7 @@ namespace VeganLife
         private static void AllowMultiLineTruncationOnAndroid()
         {
 #if ANDROID
-            static void UpdateMaxLines(LabelHandler handler, ILabel label)
+            static void UpdateMaxLines(ILabelHandler handler, ILabel label)
             {
                 var textView = handler.PlatformView;
                 if (label is Label controlsLabel && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End)
@@ -185,10 +185,10 @@ namespace VeganLife
                 }
             }
 
-            Label.ControlsLabelMapper.AppendToMapping(
+            LabelHandler.Mapper.AppendToMapping(
                nameof(Label.LineBreakMode), UpdateMaxLines);
 
-            Label.ControlsLabelMapper.AppendToMapping(
+            LabelHandler.Mapper.AppendToMapping(
                 nameof(Label.MaxLines), UpdateMaxLines);
 #endif
         }
