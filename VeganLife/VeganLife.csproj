@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android33.0</TargetFrameworks>
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -22,7 +22,7 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -85,7 +85,6 @@
 		<None Remove="Resources\Images\google.svg" />
 		<None Remove="Resources\Images\microsoft.svg" />
 		<None Remove="Resources\Images\nutrition_plan.svg" />
-		<None Remove="Resources\Images\setting.svg" />
 		<None Remove="Resources\Images\trending_fire.png" />
 		<None Remove="Resources\Images\tutorial2.jpg" />
 		<None Remove="Resources\Images\tutorial_background.jpg" />
@@ -93,9 +92,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.4" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="FFImageLoadingCompat.Maui" Version="0.1.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />

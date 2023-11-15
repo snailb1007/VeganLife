@@ -24,7 +24,6 @@
                 Margin="0"
                 Padding="0"
                 AutomationId="BtnHamburger"
-                AutomationProperties.HelpText="open flyout menu"
                 AutomationProperties.IsInAccessibleTree="False"
                 BorderColor="Transparent"
                 Clicked="ImageButton_Clicked"
