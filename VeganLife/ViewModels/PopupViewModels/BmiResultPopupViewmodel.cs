@@ -77,8 +77,8 @@ namespace VeganLife.ViewModels.PopupViewModels
                     this.IsLocaleUser = false;
                 }
 
-#if GPT
-                string sex = result.Sex;
+#if !GPT
+                string sex = result.IsMale ? "Male" : "Female";
                 string openAIMess = string.Empty;
                 try
                 {
@@ -89,7 +89,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                     {
                         if (t.Result.IsSuccessful)
                         {
-                            openAIMess = t.Result.GetMessage();
+                            openAIMess = t.Result.GetContent();
                             this.Message = openAIMess;
                         }
                     }).ConfigureAwait(true);

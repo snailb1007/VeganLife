@@ -40,6 +40,9 @@ namespace VeganLife
     using VeganLife.Services.CommunityFreeService;
     using VeganLife.Views.PortionTab;
     using UraniumUI;
+    using VeganLife.Services.OpenAIService;
+    using ChatGptNet.Models;
+    using VeganLife.Helpers.AppSetting;
 #endif
 
     /// <summary>
@@ -94,9 +97,8 @@ namespace VeganLife
 #if GPT
             services.AddChatGpt(options =>
             {
-                //options.UseOpenAI(apiKey: $"sk-");
-                options.UseOpenAI(apiKey: "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");
-                options.DefaultModel = "gpt-3.5-turbo";
+                options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
+                options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
             });
