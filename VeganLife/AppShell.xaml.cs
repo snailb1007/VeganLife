@@ -95,6 +95,7 @@ namespace VeganLife
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {
             if (args.Source != ShellNavigationSource.Unknown)
@@ -102,10 +103,12 @@ namespace VeganLife
             base.OnNavigating(args);
         }
 
+        /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
+            // TODO: make crash
+            //this.IsBusy = false;
             base.OnNavigated(args);
-            this.IsBusy = false;
         }
 
         private static bool IsRootPage(VisualElement page)
