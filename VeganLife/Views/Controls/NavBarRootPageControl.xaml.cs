@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: Nav
+
 using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Helpers;
 using VeganLife.messages;
@@ -17,10 +19,22 @@ namespace VeganLife.Views.Controls
                 defaultValue: false,
                 returnType: typeof(bool));
 
+        public static BindableProperty HamburgerSourceProperty = BindableProperty.Create(
+               propertyName: "HamburgerSource",
+               declaringType: typeof(NavBarRootPageControl),
+               defaultValue: "hamburger",
+               returnType: typeof(string));
+
         public bool IsVisibleGreetingContent
         {
             get => (bool)this.GetValue(IsVisibleGreetingContentProperty);
             set => this.SetValue(IsVisibleGreetingContentProperty, value);
+        }
+
+        public string HamburgerSource
+        {
+            get => (string)this.GetValue(HamburgerSourceProperty);
+            set => this.SetValue(HamburgerSourceProperty, value);
         }
 
         public NavBarRootPageControl()
@@ -41,7 +55,7 @@ namespace VeganLife.Views.Controls
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Width"))
+            if (e.PropertyName?.Equals("Width") ?? false)
             {
                 var img = sender as Image;
                 if (img?.Width > 0)

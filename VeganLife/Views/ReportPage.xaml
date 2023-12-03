@@ -42,7 +42,7 @@
                         HeightRequest="38"
                         HorizontalOptions="Center"
                         SemanticProperties.Description="hamburger image"
-                        Source="hamburger"
+                        Source="hamburger_white"
                         VerticalOptions="Center"
                         WidthRequest="38" />
                 </Border>

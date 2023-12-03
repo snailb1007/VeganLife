@@ -30,7 +30,7 @@
                 HeightRequest="38"
                 HorizontalOptions="Center"
                 SemanticProperties.Description="hamburger image button"
-                Source="hamburger"
+                Source="{Binding HamburgerSource, Source={x:Reference navBarRootContent}}"
                 VerticalOptions="Center"
                 WidthRequest="38" />
         </Border>
