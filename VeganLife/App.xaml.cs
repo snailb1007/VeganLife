@@ -38,10 +38,10 @@ namespace VeganLife
             }
         }
 
-        protected override Window CreateWindow(IActivationState activationState)
-        {
-            return base.CreateWindow(activationState);
-        }
+        //protected override Window CreateWindow(IActivationState activationState)
+        //{
+        //    return base.CreateWindow(activationState);
+        //}
 
         public static void SetupCollectLogPermission()
         {
