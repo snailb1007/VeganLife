@@ -33,6 +33,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            // Init data
             this.Dispatcher.Dispatch(async () =>
             {
                 await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
@@ -52,7 +53,7 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
+        public void SwitchShellContentToolsTab(byte index, BMIResultModel? bMIResult = null)
         {
             switch (index)
             {
@@ -79,7 +80,7 @@ namespace VeganLife
                     bool result = await this.DisplayAlert("Alert!", "Do you really want to exit?", "Yes", "No");
                     if (result)
                     {
-                        Application.Current.Quit(); // Or anything else
+                        Application.Current?.Quit(); // Or anything else
                     }
                 });
                 return true;
@@ -98,8 +99,8 @@ namespace VeganLife
         /// <inheritdoc/>
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {
-            if (args.Source != ShellNavigationSource.Unknown)
-                this.IsBusy = true;
+            //if (args.Source != ShellNavigationSource.Unknown)
+            //    this.IsBusy = true;
             base.OnNavigating(args);
         }
 

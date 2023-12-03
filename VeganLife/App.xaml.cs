@@ -76,7 +76,7 @@ namespace VeganLife
             }
 
 #if ANDROID
-            AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = Current.UserAppTheme switch
+            AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = Current?.UserAppTheme switch
             {
                 AppTheme.Light => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightNo,
                 AppTheme.Dark => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,
