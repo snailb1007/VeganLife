@@ -10,7 +10,7 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutIcon="hamburger"
+    FlyoutIcon="hamburger_white"
     Shell.NavBarIsVisible="False">
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
@@ -64,18 +64,21 @@
             x:Name="mainTool_tool"
             Title="{x:Static translate:AppResources.app_common_toolsTab}"
             ContentTemplate="{DataTemplate toolFlyout:MainTool}"
+            Icon="calculator"
             Route="main_tool"
             Shell.NavBarIsVisible="True" />
         <ShellContent
             x:Name="bmiCalculator_tool"
             Title="BMI"
             ContentTemplate="{DataTemplate toolFlyout:BMICalculatorPage}"
+            Icon="bmi_profile"
             Route="bmi_calculator_tool"
             Shell.NavBarIsVisible="True" />
         <ShellContent
             x:Name="bmrCalculator_tool"
             Title="BMR"
             ContentTemplate="{DataTemplate toolFlyout:BMRCalculatorPage}"
+            Icon="bmr_burn"
             Route="bmr_calculator_tool"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>

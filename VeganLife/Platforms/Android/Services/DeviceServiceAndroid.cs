@@ -12,15 +12,15 @@ namespace VeganLife.Services
 
         public int GetDeviceDPI()
         {
-            int resourceId = Platform.CurrentActivity.Resources.GetIdentifier(NaviBar, "dimen", "android");
+            int resourceId = Platform.CurrentActivity?.Resources?.GetIdentifier(NaviBar, "dimen", "android") ?? 0;
             if (resourceId > 0)
             {
-                return Platform.CurrentActivity.Resources.GetDimensionPixelSize(resourceId);
+                return (int)(Platform.CurrentActivity?.Resources?.GetDimensionPixelSize(resourceId))!;
             }
 
             return 0;
         }
 
-        public string GetDeviceId() => UUID.RandomUUID().ToString();
+        public string GetDeviceId() => UUID.RandomUUID()?.ToString() ?? string.Empty;
     }
 }

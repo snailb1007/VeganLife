@@ -105,26 +105,26 @@ namespace VeganLife.ViewModels.ContentViewModels
                 {
                     Entries = new ChartEntry[]
                     {
-                        new(FoodNutriFacts.Protein * 4)
+                        new(FoodNutriFacts?.Protein * 4)
                         {
                             Label = "Protein",
-                            ValueLabel = FoodNutriFacts.Protein.ToString(),
+                            ValueLabel = FoodNutriFacts?.Protein.ToString(),
                             Color = SKColor.Parse("#ffa890"),
                             ValueLabelColor = SKColors.Black,
                             TextColor = SKColors.Gray,
                         },
-                        new(FoodNutriFacts.Carb * 4)
+                        new(FoodNutriFacts?.Carb * 4)
                         {
                             Label = "Carb",
-                            ValueLabel = FoodNutriFacts.Carb.ToString(),
+                            ValueLabel = FoodNutriFacts?.Carb.ToString(),
                             Color = SKColor.Parse("#b7affe"),
                             ValueLabelColor = SKColors.Black,
                             TextColor = SKColors.Gray,
                         },
-                        new(FoodNutriFacts.Fat * 9)
+                        new(FoodNutriFacts?.Fat * 9)
                         {
                             Label = "Fat",
-                            ValueLabel = FoodNutriFacts.Fat.ToString(),
+                            ValueLabel = FoodNutriFacts?.Fat.ToString(),
                             Color = SKColor.Parse("#ff7caa"),
                             ValueLabelColor = SKColors.Black,
                             TextColor = SKColors.Gray,

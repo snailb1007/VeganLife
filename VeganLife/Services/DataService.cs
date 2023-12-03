@@ -185,6 +185,11 @@ namespace VeganLife.Services
 
         public async Task<List<string>> GetImageLinksAsync(string url)
         {
+            if (string.IsNullOrEmpty(url))
+            {
+                return new List<string>();
+            }
+
             List<string> imageLinks = new List<string>();
 
             using (HttpClient httpClient = new HttpClient())

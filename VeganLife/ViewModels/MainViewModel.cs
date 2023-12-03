@@ -152,7 +152,7 @@ namespace VeganLife.ViewModels
             var userService = ServicesHelper.GetService<IUserDataService>();
             await userService.Refresh();
             (userService as UserDataService).UserInfo.TotalFoodDetailRead++;
-             await userService.SaveData();
+            await userService.SaveData();
         }
 
         [RelayCommand]
