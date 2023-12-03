@@ -4,6 +4,9 @@
 
 namespace VeganLife
 {
+#if DEBUG
+    using Microsoft.Extensions.Logging;
+#endif
     using FFImageLoading.Maui;
     using Microsoft.Maui.Handlers;
     using Mopups.Hosting;
@@ -67,6 +70,9 @@ namespace VeganLife
                     fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                     fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
                 });
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
             builder
                 .ConfigureMopups()
                 .UseFFImageLoading()
