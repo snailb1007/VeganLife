@@ -142,7 +142,7 @@ namespace VeganLife.ViewModels
         {
             if (string.IsNullOrEmpty(value))
             {
-                this.WeightErrMess = null;
+                this.WeightErrMess = string.Empty;
                 this.IsEnableSubmit = false;
                 return;
             }
@@ -158,7 +158,7 @@ namespace VeganLife.ViewModels
             }
             else
             {
-                this.WeightErrMess = null;
+                this.WeightErrMess = string.Empty;
             }
 
             this.IsEnableSubmit = CheckEnableButtonCalculate();
@@ -168,7 +168,7 @@ namespace VeganLife.ViewModels
         {
             if (value <= 0)
             {
-                this.AgeErrMess = null;
+                this.AgeErrMess = string.Empty;
                 this.IsEnableSubmit = false;
                 return;
             }
@@ -183,7 +183,7 @@ namespace VeganLife.ViewModels
             }
             else
             {
-                this.AgeErrMess = null;
+                this.AgeErrMess = string.Empty;
             }
 
             this.IsEnableSubmit = CheckEnableButtonCalculate();
@@ -250,7 +250,7 @@ namespace VeganLife.ViewModels
             if (message is not null)
             {
                 var param = message.Value;
-                if (Application.Current.MainPage is AppShell currentShell)
+                if (Application.Current?.MainPage is AppShell currentShell)
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
