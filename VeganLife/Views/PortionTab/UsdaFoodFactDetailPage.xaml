@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<uranium:UraniumContentPage
+<ContentPage
     x:Class="VeganLife.Views.PortionTab.UsdaFoodFactDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
-    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
-    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     Padding="0"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
@@ -130,7 +128,7 @@
                 <Image Aspect="AspectFill" Source="{Binding CurrentFoodPreview.Image}" />
             </Border>
         </Grid>
-        <Button
+        <!--<Button
             Grid.Row="2"
             Grid.RowSpan="2"
             CornerRadius="20"
@@ -141,12 +139,68 @@
             MinimumWidthRequest="120"
             Text="I eat it!"
             VerticalOptions="CenterAndExpand"
-            ZIndex="2" />
+            ZIndex="2" />-->
+        <Border
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            HeightRequest="70"
+            HorizontalOptions="CenterAndExpand"
+            MinimumWidthRequest="120"
+            Stroke="{StaticResource PrimaryOrange}"
+            StrokeShape="RoundRectangle 20"
+            StrokeThickness="1"
+            VerticalOptions="CenterAndExpand"
+            ZIndex="2">
+            <HorizontalStackLayout
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                Spacing="10">
+                <Button
+                    Command="{Binding EatClickedCommand}"
+                    CornerRadius="20"
+                    HeightRequest="48"
+                    Text="I eat it!" />
+                <Border
+                    HeightRequest="40"
+                    StrokeShape="RoundRectangle 4"
+                    StrokeThickness="1"
+                    VerticalOptions="Center">
+                    <Grid
+                        ColumnDefinitions="40,48,40"
+                        ColumnSpacing="0"
+                        RowDefinitions="40">
+                        <Grid BackgroundColor="{StaticResource Gray100}">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="-"
+                                VerticalOptions="Center" />
+                        </Grid>
+                        <Entry
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            Placeholder="fill grams"
+                            VerticalOptions="Center" />
+                        <Grid Grid.Column="2" BackgroundColor="{StaticResource Gray100}">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="+"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </Border>
+            </HorizontalStackLayout>
+        </Border>
     </Grid>
-    <uranium:UraniumContentPage.Attachments>
-        <material:BottomSheetView IsEnabled="False" IsPresented="{Binding IsBottomSheetPresented, Mode=TwoWay}">
-            <material:BottomSheetView.Header />
-            <!--  Bottom Sheet Content here  -->
+    <!--<uranium:UraniumContentPage.Attachments>
+        <material:BottomSheetView IsPresented="{Binding IsBottomSheetPresented, Mode=TwoWay}">
+            <material:BottomSheetView.Header>
+    -->
+    <!--  Bottom Sheet Header here  -->
+    <!--
+            </material:BottomSheetView.Header>
+    -->
+    <!--  Bottom Sheet Content here  -->
+    <!--
             <VerticalStackLayout>
                 <Label Text="Portion: 100g" />
                 <Grid
@@ -171,5 +225,5 @@
                 </Grid>
             </VerticalStackLayout>
         </material:BottomSheetView>
-    </uranium:UraniumContentPage.Attachments>
-</uranium:UraniumContentPage>
+    </uranium:UraniumContentPage.Attachments>-->
+</ContentPage>

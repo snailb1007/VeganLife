@@ -1,4 +1,5 @@
-﻿using VeganLife.Helpers;
+﻿using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Services.CommunityFreeService;
@@ -24,6 +25,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private bool isBottomSheetPresented;
 
+        private NutritionMealLogDataStoreService foodLogService;
+
         public override Task OnNavigatingTo(object parameter)
         {
             if (parameter != null)
@@ -37,6 +40,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         public async override Task<Task> ViewAppearingVM()
         {
             this.IsLoading = true;
+            foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
             if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
                 this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
@@ -92,6 +96,14 @@ namespace VeganLife.ViewModels.ContentViewModels
         private void MoreClicked()
         {
             IsBottomSheetPresented = !IsBottomSheetPresented;
+        }
+
+        [RelayCommand]
+        private void EatClicked()
+        {
+            var today = DateTime.Now;
+            var id = today.ToString("yyyyMMddHH");
+            Console.WriteLine("==> eat clicked " + id);
         }
     }
 }

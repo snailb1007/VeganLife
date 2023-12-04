@@ -115,25 +115,23 @@
                             <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
                             <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
                         </Style>
+                        <Style TargetType="tabs:BadgeView">
+                            <!--<Setter Property="BackgroundColor" Value="White" />-->
+                            <!--<Setter Property="TextColor" Value="Red" />-->
+                        </Style>
                     </ResourceDictionary>
                 </tabs:TabHostView.Resources>
-                <!--<tabs:TabHostView.Shadow>
-                    <Shadow
-                        Brush="White"
-                        Opacity="0.7"
-                        Radius="30"
-                        Offset="0, 10" />
-                </tabs:TabHostView.Shadow>-->
                 <tabs:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
-                    <!--<tabs:MaterialUnderlinedTabItem.Badge>
-                        <tabs:BadgeView
-                            BackgroundColor="White"
-                            Text="999+"
-                            TextColor="{StaticResource Accent}" />
-                    </tabs:MaterialUnderlinedTabItem.Badge>-->
+                    <tabs:MaterialUnderlinedTabItem.Badge>
+                        <tabs:BadgeView Text="{Binding NumberBadgeCalories}" />
+                    </tabs:MaterialUnderlinedTabItem.Badge>
                 </tabs:MaterialUnderlinedTabItem>
                 <tabs:MaterialUnderlinedTabItem Label="MACROS" />
-                <tabs:MaterialUnderlinedTabItem Label="NUTRIENTS" />
+                <tabs:MaterialUnderlinedTabItem Label="NUTRIENTS">
+                    <tabs:MaterialUnderlinedTabItem.Badge>
+                        <tabs:BadgeView Text="{Binding NumberBadgeCart}" />
+                    </tabs:MaterialUnderlinedTabItem.Badge>
+                </tabs:MaterialUnderlinedTabItem>
             </tabs:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">

@@ -124,15 +124,16 @@ namespace VeganLife
 
         private void RegisterRoutes()
         {
-            this.Routes.Add(nameof(MainPage), typeof(MainPage));
-            this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
-            this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
-            this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
-            this.Routes.Add(nameof(MainTool), typeof(MainTool));
+            //this.Routes.Add(nameof(MainPage), typeof(MainPage));
+            //this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
+            //this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
+            //this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
+            //this.Routes.Add(nameof(MainTool), typeof(MainTool));
+            //this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
+
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));
-            this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
 
             // Routes.Add(nameof(LoginPage), typeof(LoginPage));
             // Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));

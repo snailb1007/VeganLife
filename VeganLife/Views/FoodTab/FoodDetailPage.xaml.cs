@@ -40,14 +40,14 @@ namespace VeganLife.Views.FoodTab
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Height"))
-            {
-                var img = sender as Image;
-                if (img?.Height > 0)
-                {
-                    this.imgHeight = img.Height;
-                }
-            }
+            //if (e.PropertyName.Equals("Height"))
+            //{
+            //    var img = sender as Image;
+            //    if (img?.Height > 0)
+            //    {
+            //        this.imgHeight = img.Height;
+            //    }
+            //}
         }
 
         //private void Frame_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -69,24 +69,24 @@ namespace VeganLife.Views.FoodTab
 
         private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Height"))
-            {
-                var stack = sender as VerticalStackLayout;
-                (stack as IView).InvalidateMeasure();
-            }
+            //if (e.PropertyName.Equals("Height"))
+            //{
+            //    var stack = sender as VerticalStackLayout;
+            //    (stack as IView).InvalidateMeasure();
+            //}
         }
 
         private void GoNutriFact_SwipeGesture_Swiped(object sender, SwipedEventArgs e)
         {
-            tabView.SelectedTab = tabItemNutritionFacts;
+            //tabView.SelectedTab = tabItemNutritionFacts;
         }
 
         private void tabItemNutritionFacts_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("IsSelected") && tabItemNutritionFacts.IsSelected)
-            {
-                (this.BindingContext as FoodDetailViewModel).GetNutriFactsCommand.Execute(null);
-            }
+            //if (e.PropertyName.Equals("IsSelected") && tabItemNutritionFacts.IsSelected)
+            //{
+            //    (this.BindingContext as FoodDetailViewModel).GetNutriFactsCommand.Execute(null);
+            //}
         }
     }
 }
