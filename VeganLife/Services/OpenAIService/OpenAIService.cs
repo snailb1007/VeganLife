@@ -11,10 +11,10 @@ namespace VeganLife.Services.OpenAIService
             try
             {
                 var response = await ServicesHelper.GetService<IChatGptClient>()
-                    .AskAsync(System.Guid.NewGuid(), message: question);
+                    .AskAsync(Guid.NewGuid(), message: question);
                 if (response?.IsSuccessful ?? false)
                 {
-                    return response.GetContent();
+                    return response.GetContent() ?? string.Empty;
                 }
 
                 return string.Empty;

@@ -1,5 +1,4 @@
 ﻿using VeganLife.Helpers;
-using VeganLife.Models.FoodModel;
 using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.ViewModels
@@ -8,6 +7,10 @@ namespace VeganLife.ViewModels
     {
         [ObservableProperty]
         private int _selectedViewModelIndex = 0;
+        [ObservableProperty]
+        private string numberBadgeCalories;
+        [ObservableProperty]
+        private string numberBadgeCart;
 
         public CaloriesViewModel CaloriesViewModel { get; }
         public MacrosViewModel MacrosViewModel { get; }
@@ -15,6 +18,8 @@ namespace VeganLife.ViewModels
         public ReportPageViewModel()
             : base()
         {
+            NumberBadgeCalories = "99";
+            NumberBadgeCart = String.Empty;
             CaloriesViewModel = ServicesHelper.GetService<CaloriesViewModel>();
             MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
             NutrientsViewModel = ServicesHelper.GetService<NutrientsViewModel>();

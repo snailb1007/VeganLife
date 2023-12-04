@@ -46,6 +46,7 @@ namespace VeganLife
     using VeganLife.Services.OpenAIService;
     using ChatGptNet.Models;
     using VeganLife.Helpers.AppSetting;
+    using The49.Maui.BottomSheet;
 #endif
 
     /// <summary>
@@ -81,7 +82,8 @@ namespace VeganLife
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseUraniumUIBlurs()
-                .UseMicrocharts();
+                .UseMicrocharts()
+                .UseBottomSheet();
             //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
@@ -89,9 +91,9 @@ namespace VeganLife
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
             });
-            CustomEntry();
-            CustomSearchBar();
-            AllowMultiLineTruncationOnAndroid();
+            //CustomEntry();
+            //CustomSearchBar();
+            //AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
 
@@ -120,6 +122,7 @@ namespace VeganLife
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
+            services.AddSingleton<NutritionMealLogDataStoreService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();

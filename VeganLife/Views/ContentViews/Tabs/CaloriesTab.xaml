@@ -7,8 +7,19 @@
     <Grid>
         <lvc:CartesianChart
             HorizontalOptions="FillAndExpand"
+            IsEnabled="False"
+            Opacity="0.5"
             Series="{Binding Series}"
             VerticalOptions="Fill"
             XAxes="{Binding XAxis}" />
+        <Grid>
+            <Label
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="Coming soon"
+                TextColor="Gray"
+                VerticalOptions="Start" />
+        </Grid>
     </Grid>
 </ContentView>

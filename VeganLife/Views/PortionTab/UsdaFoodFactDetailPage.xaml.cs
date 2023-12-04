@@ -1,9 +1,8 @@
-using UraniumUI.Pages;
 using VeganLife.ViewModels.ContentViewModels;
 
 namespace VeganLife.Views.PortionTab;
 
-public partial class UsdaFoodFactDetailPage : UraniumContentPage
+public partial class UsdaFoodFactDetailPage : ContentPage
 {
 	public UsdaFoodFactDetailPage(UsdaFoodFactDetailVM vm)
 	{

@@ -114,9 +114,10 @@
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.7" />
 		<PackageReference Include="UraniumUI.Blurs" Version="2.7.2" />
-		<PackageReference Include="UraniumUI.Material" Version="2.7.2" />
+		<!--<PackageReference Include="UraniumUI.Material" Version="2.7.2" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="ChatGptNet" Version="2.6.3" />
+		<PackageReference Include="The49.Maui.BottomSheet" Version="1.0.4" />
 		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 	</ItemGroup>
@@ -167,6 +168,9 @@
 	<ItemGroup>
 		<MauiXaml Update="Views\ContentViews\DataGridNutritionFactCW.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\DetailUsdaSpecBottomSheet.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
