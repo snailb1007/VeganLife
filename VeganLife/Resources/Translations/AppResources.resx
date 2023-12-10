@@ -438,4 +438,10 @@ Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
 		<value>Chào bạn {0}. Hôm nay là ngày hoàn hảo để nuôi dưỡng cơ thể và tâm hồn bạn với những bữa ăn ngon lành và bổ dưỡng.
 Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc trên hành trình hướng tới sức khỏe và hạnh phúc! 💪🥗🌟</value>
 	</data>
+	<data name="recipe_foodDetail" xml:space="preserve">
+		<value>Recipe</value>
+	</data>
+	<data name="nutritionFact_foodDetail" xml:space="preserve">
+		<value>Nutritions Fact</value>
+	</data>
 </root>

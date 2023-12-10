@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VerticalStackLayout
+    x:Class="VeganLife.Views.ContentViews.Tabs.RecipeFoodDetail"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    Margin="5,15"
+    BackgroundColor="Transparent">
+    <Border
+        Margin="0,20"
+        Padding="0"
+        Stroke="#f0f0f0"
+        StrokeThickness="2">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10" />
+        </Border.StrokeShape>
+        <VerticalStackLayout
+            Padding="0"
+            Spacing="10"
+            VerticalOptions="Start">
+            <cw:ElementFoodDetailCW
+                Title="{x:Static translate:AppResources.ingredient_foodDetailPage}"
+                ContentExpand="{Binding FoodDetail.Ingredient, Mode=OneWay}"
+                IsVisible="{Binding FoodDetail.Ingredient, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+            <cw:ElementFoodDetailCW
+                Title="{x:Static translate:AppResources.making_foodDetailPage}"
+                ContentExpand="{Binding FoodDetail.Making, Mode=OneWay}"
+                IsVisible="{Binding FoodDetail.Making, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+            <cw:ElementFoodDetailCW
+                Title="{x:Static translate:AppResources.sauce_foodDetailPage}"
+                ContentExpand="{Binding FoodDetail.Sauce, Mode=OneWay}"
+                IsVisible="{Binding FoodDetail.Sauce, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+            <cw:ElementFoodDetailCW
+                Title="{x:Static translate:AppResources.decorate_foodDetailPage}"
+                ContentExpand="{Binding FoodDetail.Decorate, Mode=OneWay}"
+                IsVisible="{Binding FoodDetail.Decorate, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+            <cw:ElementFoodDetailCW
+                Title="{x:Static translate:AppResources.note_foodDetailPage}"
+                ContentExpand="{Binding FoodDetail.Note, Mode=OneWay}"
+                IsVisible="{Binding FoodDetail.Note, Mode=OneWay, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+        </VerticalStackLayout>
+    </Border>
+</VerticalStackLayout>

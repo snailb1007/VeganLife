@@ -699,6 +699,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nutritions Fact.
+        /// </summary>
+        internal static string nutritionFact_foodDetail {
+            get {
+                return ResourceManager.GetString("nutritionFact_foodDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thừa cân.
         /// </summary>
         internal static string obese_classify_bmi {
@@ -786,6 +795,15 @@ namespace VeganLife.Resources.Translations {
         internal static string queryBMI_bmiPopup {
             get {
                 return ResourceManager.GetString("queryBMI_bmiPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipe.
+        /// </summary>
+        internal static string recipe_foodDetail {
+            get {
+                return ResourceManager.GetString("recipe_foodDetail", resourceCulture);
             }
         }
         
