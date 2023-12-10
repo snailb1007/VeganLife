@@ -1,6 +1,6 @@
 using VeganLife.Views.Base;
 
-namespace VeganLife.Views;
+namespace VeganLife.Views.MainPageFlyout;
 
 public partial class ReportPage : BasePage<ReportPageViewModel>
 {

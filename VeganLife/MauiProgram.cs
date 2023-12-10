@@ -13,9 +13,7 @@ namespace VeganLife
     using VeganLife.Handlers;
     using VeganLife.Services.LocalDataServices;
     using VeganLife.ViewModels.ContentViewModels;
-    using VeganLife.Views.ContentViews;
     using VeganLife.Views.Controls;
-    using VeganLife.Views.FoodTab;
     using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
 #if GPT
@@ -28,8 +26,6 @@ namespace VeganLife
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
     using Microsoft.Maui.Platform;
-    using Microsoft.AppCenter.Crashes;
-    using Microsoft.AppCenter;
     using VeganLife.Services.UserServices;
     using PanCardView;
     using VeganLife.Views.ToolFlyout;
@@ -43,10 +39,13 @@ namespace VeganLife
     using VeganLife.Services.CommunityFreeService;
     using VeganLife.Views.PortionTab;
     using UraniumUI;
-    using VeganLife.Services.OpenAIService;
     using ChatGptNet.Models;
     using VeganLife.Helpers.AppSetting;
     using The49.Maui.BottomSheet;
+    using VeganLife.Views.MainPageFlyout;
+    using VeganLife.Views.SettingFlyout;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.MainPageFlyout.VitaminTab;
 #endif
 
     /// <summary>
@@ -131,8 +130,6 @@ namespace VeganLife
             services.AddTransient<MainViewModel>();
             services.AddTransient<NewsFeedPage>();
             services.AddTransient<NewsFeedViewModel>();
-            services.AddTransient<RationPlanPage>();
-            services.AddTransient<RationPlanViewModel>();
             services.AddTransient<WebViewPage>();
             services.AddTransient<WebViewViewModel>();
             services.AddTransient<FlyoutHeader>();

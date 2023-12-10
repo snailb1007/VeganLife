@@ -79,6 +79,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\LoginPage.xaml.cs" />
+	  <Compile Remove="Views\RegistrationPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Views\LoginPage.xaml" />
+	  <MauiXaml Remove="Views\RegistrationPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
@@ -179,19 +189,16 @@
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Flyout\ToolFlyout\BMRCalculatorPage.xaml">
+		<MauiXaml Update="Views\ToolFlyout\BMRCalculatorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\BookmarkPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Flyout\ToolFlyout\BMICalculatorPage.xaml">
+		<MauiXaml Update="Views\ToolFlyout\BMICalculatorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\ElementFoodDetailCW.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\RationPlanPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\CaloriesTab.xaml">
@@ -203,7 +210,7 @@
 		<MauiXaml Update="Views\ContentViews\Tabs\NutrientsTab.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\VitaminAndMineralPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\VitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\FlyoutHeader.xaml">
@@ -221,19 +228,16 @@
 		<MauiXaml Update="Views\Controls\Tabs\MacrosPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\DetailVitaminAndMineralPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailVitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\FoodTab\FoodDetailPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\FoodTab\FoodDetailPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\FoodTab\FoodsByCategoryPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\FoodTab\FoodsByCategoryPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\LoginPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\NewsFeedPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\NewsFeedPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\AboutAppPopup.xaml">
@@ -248,22 +252,19 @@
 		<MauiXaml Update="Views\Popups\ProfilePopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\PortionTab\UsdaFoodFactDetailPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\PortionTab\UsdaFoodFactDetailPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ProfilePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\RegistrationPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\ReportPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\ReportPage.xaml">
+		<MauiXaml Update="Views\SettingFlyout\SettingPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\SettingPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\SettingTab\LicensePage.xaml">
+		<MauiXaml Update="Views\SettingFlyout\LicensePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ToolFlyout\BMICalculatorPage.xaml">

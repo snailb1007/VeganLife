@@ -12,7 +12,7 @@ namespace VeganLife.ViewModels
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
     using VeganLife.Services.UserServices;
-    using VeganLife.Views.FoodTab;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
 
     /// <summary>
     /// vm for MainPage.

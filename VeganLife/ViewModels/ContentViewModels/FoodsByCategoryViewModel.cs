@@ -5,7 +5,7 @@
 namespace VeganLife.ViewModels.ContentViewModels
 {
     using VeganLife.Models.FoodModel;
-    using VeganLife.Views.FoodTab;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
 
     public partial class FoodsByCategoryViewModel : BaseViewModel
     {

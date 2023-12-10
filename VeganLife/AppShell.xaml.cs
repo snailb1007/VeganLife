@@ -8,8 +8,9 @@ namespace VeganLife
 {
     using Mopups.Services;
     using VeganLife.Helpers;
-    using VeganLife.Views.ContentViews;
-    using VeganLife.Views.FoodTab;
+    using VeganLife.Views.MainPageFlyout;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.MainPageFlyout.VitaminTab;
     using VeganLife.Views.SettingTab;
     using VeganLife.Views.ToolFlyout;
     using static VeganLife.Helpers.AppSetting.StaticHelper;
@@ -119,7 +120,7 @@ namespace VeganLife
                 return false;
             }
 
-            return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is MainTool;
+            return page is MainPage || page is VitaminAndMineralPage || page is NewsFeedPage || page is MainTool;
         }
 
         private void RegisterRoutes()
