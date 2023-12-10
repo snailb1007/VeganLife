@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace VeganLife.Views
+namespace VeganLife.Views.SettingFlyout
 {
     using VeganLife.Views.Base;
 

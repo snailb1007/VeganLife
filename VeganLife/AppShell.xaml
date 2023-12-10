@@ -6,6 +6,8 @@
     xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:local="clr-namespace:VeganLife"
+    xmlns:mainFlyout="clr-namespace:VeganLife.Views.MainPageFlyout"
+    xmlns:settingFlyout="clr-namespace:VeganLife.Views.SettingFlyout"
     xmlns:toolFlyout="clr-namespace:VeganLife.Views.ToolFlyout"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
@@ -29,19 +31,19 @@
             Shell.NavBarIsVisible="False" />
         <ShellContent
             Title="{x:Static translate:AppResources.app_common_portionTab}"
-            ContentTemplate="{DataTemplate view:ReportPage}"
+            ContentTemplate="{DataTemplate mainFlyout:ReportPage}"
             Icon="plan"
             Route="ration_plan"
             Shell.NavBarIsVisible="False" />
         <ShellContent
             Title="{x:Static translate:AppResources.app_common_vitaminsTab}"
-            ContentTemplate="{DataTemplate contentViews:VitaminAndMineralPage}"
+            ContentTemplate="{DataTemplate mainFlyout:VitaminAndMineralPage}"
             Icon="vitamin"
             Route="vitamins_mineral"
             Shell.NavBarIsVisible="False" />
         <ShellContent
             Title="{x:Static translate:AppResources.explore_common}"
-            ContentTemplate="{DataTemplate view:NewsFeedPage}"
+            ContentTemplate="{DataTemplate mainFlyout:NewsFeedPage}"
             Icon="compass"
             Route="news_feed"
             Shell.NavBarIsVisible="False" />
@@ -96,7 +98,7 @@
         FlyoutDisplayOptions="AsSingleItem"
         Icon="setting">
         <ShellContent
-            ContentTemplate="{DataTemplate view:SettingPage}"
+            ContentTemplate="{DataTemplate settingFlyout:SettingPage}"
             Route="setting"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>

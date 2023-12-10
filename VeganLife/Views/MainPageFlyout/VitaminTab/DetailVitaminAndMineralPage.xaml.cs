@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace VeganLife.Views
+namespace VeganLife.Views.MainPageFlyout.VitaminTab
 {
     using VeganLife.ViewModels.ContentViewModels;
 
