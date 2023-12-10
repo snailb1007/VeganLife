@@ -27,6 +27,9 @@ namespace VeganLife.Models.FoodModel
 
         [JsonProperty("category")]
         public string Category { get; set; }
+
+        [JsonProperty("star")]
+        public string Star { get; set; }
     }
 
     public partial class FoodPreviewModel : ObservableObject
@@ -34,7 +37,7 @@ namespace VeganLife.Models.FoodModel
         [ObservableProperty]
         private int countCorrectWordOnSearch;
 
-        private string[] TimeArr => this.Time?.Split('-');
+        private string[]? TimeArr => this.Time?.Split('-');
 
         [ObservableProperty]
         private bool isBookmarked;

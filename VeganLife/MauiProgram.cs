@@ -23,7 +23,7 @@ namespace VeganLife
 #endif
 #if ANDROID
     using Android.Widget;
-    using Microcharts.Maui;
+    //using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
@@ -82,7 +82,6 @@ namespace VeganLife
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseUraniumUIBlurs()
-                .UseMicrocharts()
                 .UseBottomSheet();
             //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));

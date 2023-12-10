@@ -55,7 +55,7 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService).UserInfo;
+            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService)?.UserInfo!;
             if (UserInfo is null)
             {
                 return;

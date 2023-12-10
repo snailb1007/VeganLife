@@ -6,7 +6,6 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:contentVM="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
-    xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
     x:DataType="contentVM:RationPlanViewModel"
     x:TypeArguments="contentVM:RationPlanViewModel"
     Shell.NavBarIsVisible="False">
@@ -15,12 +14,12 @@
         ColumnDefinitions="*"
         RowDefinitions="Auto,2*,*">
         <control:NavBarRootPageControl Margin="5" />
-        <microcharts:ChartView
+        <!--<microcharts:ChartView
             Grid.Row="1"
             BackgroundColor="Transparent"
             Chart="{Binding PlantChart, Mode=OneWay}"
             HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand" />
+            VerticalOptions="CenterAndExpand" />-->
         <!--<Label
             Grid.Row="1"
             FontAttributes="Bold"
