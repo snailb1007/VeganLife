@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-// Ignore Spelling: Firebase
+// Ignore Spelling: Firebase Nutri
 
 namespace VeganLife.Services
 {
@@ -54,10 +54,15 @@ namespace VeganLife.Services
             try
             {
                 var data = await this.firebaseDatabase.Child(MenuFoodAddress).OnceAsync<MenuModel>().ConfigureAwait(false);
+                if (data is null)
+                {
+                    return Enumerable.Empty<FoodMenuCategoryModel>();
+                }
+
                 return data.Select(item => new FoodMenuCategoryModel
                 {
-                    ImgSource = item.Object?.ImgSource,
-                    Title = item.Key,
+                    ImgSource = item?.Object?.ImgSource,
+                    Title = item?.Key,
                 });
             }
             catch (FirebaseException e)
@@ -77,10 +82,11 @@ namespace VeganLife.Services
                 return data.Select(item => new FoodPreviewModel
                 {
                     Id = item.Key,
-                    Name = item.Object?.Name,
-                    Image = item.Object?.Image,
-                    Time = item.Object?.Time,
-                    Category = item.Object?.Category,
+                    Name = item.Object.Name,
+                    Image = item.Object.Image,
+                    Time = item.Object.Time,
+                    Category = item.Object.Category,
+                    Star = item.Object.Star
                 });
             }
             catch (FirebaseException e)
@@ -136,7 +142,7 @@ namespace VeganLife.Services
             }
         }
 
-        #region usda
+        #region USDA
         public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA()
         {
             try
@@ -145,9 +151,9 @@ namespace VeganLife.Services
                 return data.Select(item => new USDAFoodPreviewModel
                 {
                     Id = item.Key,
-                    Image = item.Object?.Image,
-                    Name = item.Object?.Name,
-                    Category = item.Object?.Category,
+                    Image = item.Object.Image,
+                    Name = item.Object.Name,
+                    Category = item.Object.Category,
                 });
             }
             catch (FirebaseException e)
@@ -185,6 +191,11 @@ namespace VeganLife.Services
 
         public async Task<List<string>> GetImageLinksAsync(string url)
         {
+            if (string.IsNullOrEmpty(url))
+            {
+                return new List<string>();
+            }
+
             List<string> imageLinks = new List<string>();
 
             using (HttpClient httpClient = new HttpClient())

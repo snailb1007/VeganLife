@@ -7,6 +7,7 @@ namespace VeganLife.Models.FoodModel
     using CommunityToolkit.Mvvm.Messaging;
     using Newtonsoft.Json;
     using SQLite;
+    using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Messages;
 
@@ -26,6 +27,9 @@ namespace VeganLife.Models.FoodModel
 
         [JsonProperty("category")]
         public string Category { get; set; }
+
+        [JsonProperty("star")]
+        public string Star { get; set; }
     }
 
     public partial class FoodPreviewModel : ObservableObject
@@ -33,7 +37,7 @@ namespace VeganLife.Models.FoodModel
         [ObservableProperty]
         private int countCorrectWordOnSearch;
 
-        private string[] TimeArr => this.Time?.Split('-');
+        private string[]? TimeArr => this.Time?.Split('-');
 
         [ObservableProperty]
         private bool isBookmarked;
@@ -51,7 +55,7 @@ namespace VeganLife.Models.FoodModel
         private async Task BookmarkClicked()
         {
             this.IsBookmarked = !this.IsBookmarked;
-            if (!await MainViewModel.DataStoreService.AddOrUpdateItemAsync(this, true))
+            if (!await (ServicesHelper.GetService<FoodPreviewDataStoreService>()).AddOrUpdateItemAsync(this, true))
             {
                 await ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
             }

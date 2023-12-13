@@ -70,7 +70,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void ShowMainMenu()
         {
-            AppShell.ShowFlyout();
+            AppShell.ShowFlyOut();
         }
     }
 }

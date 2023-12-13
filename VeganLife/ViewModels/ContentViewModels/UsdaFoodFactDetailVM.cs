@@ -1,4 +1,5 @@
-﻿using VeganLife.Helpers;
+﻿using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Services.CommunityFreeService;
@@ -24,6 +25,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private bool isBottomSheetPresented;
 
+        private NutritionMealLogDataStoreService foodLogService;
+
         public override Task OnNavigatingTo(object parameter)
         {
             if (parameter != null)
@@ -37,6 +40,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         public async override Task<Task> ViewAppearingVM()
         {
             this.IsLoading = true;
+            foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
             if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
                 this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
@@ -45,20 +49,20 @@ namespace VeganLife.ViewModels.ContentViewModels
                 {
                     foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
                     {
-                        if (this.CaloriesValue == null && i.nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
+                        if (this.CaloriesValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
                         {
                             this.CaloriesValue = i;
                         }
-                        else if (this.ProteinValue == null && i.nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
+                        else if (this.ProteinValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
                         {
                             this.ProteinValue = i;
                         }
-                        else if (CarbValue == null && i.nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
-                            && i.nutrient.name.Contains("difference"))
+                        else if (CarbValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
+                            && i.Nutrient.name.Contains("difference"))
                         {
                             this.CarbValue = i;
                         }
-                        else if (FatValue == null && i.nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
+                        else if (FatValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
                         {
                             this.FatValue = i;
                         }
@@ -86,6 +90,20 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             return base.ViewDisappearingVM();
+        }
+
+        [RelayCommand]
+        private void MoreClicked()
+        {
+            IsBottomSheetPresented = !IsBottomSheetPresented;
+        }
+
+        [RelayCommand]
+        private void EatClicked()
+        {
+            var today = DateTime.Now;
+            var id = today.ToString("yyyyMMddHH");
+            Console.WriteLine("==> eat clicked " + id);
         }
     }
 }

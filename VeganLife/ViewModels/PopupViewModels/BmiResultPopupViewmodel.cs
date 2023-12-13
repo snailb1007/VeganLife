@@ -10,11 +10,9 @@ namespace VeganLife.ViewModels.PopupViewModels
     using Mopups.Services;
     using VeganLife.Helpers;
     using VeganLife.messages;
-#if GPT
     using ChatGptNet;
     using ChatGptNet.Exceptions;
     using VeganLife.Resources.Translations;
-#endif
 
     /// <summary>
     /// vm for  BmiResultPopup.
@@ -71,46 +69,18 @@ namespace VeganLife.ViewModels.PopupViewModels
                 this.BmiStatusColor = healthDiagnosis.StatusColor;
                 this.ClassifyLabel = healthDiagnosis.Classify;
                 this.Note = healthDiagnosis.Note;
-                localeUserInfo = (await userStoreService.GetItemsAsync()).FirstOrDefault();
+                localeUserInfo = (await userStoreService.GetItemsAsync())?.FirstOrDefault()!;
                 if (localeUserInfo == null)
                 {
                     this.IsLocaleUser = false;
                 }
-
-#if GPT
-                string sex = result.Sex;
-                string openAIMess = string.Empty;
-                try
-                {
-                    string query = string.Format(AppResources.queryBMI_bmiPopup, sex, result.Age, result.BMIResult);
-                    await ServicesHelper.GetService<IChatGptClient>()
-                        .AskAsync(System.Guid.NewGuid(), message: query)
-                        .ContinueWith((t) =>
-                    {
-                        if (t.Result.IsSuccessful)
-                        {
-                            openAIMess = t.Result.GetMessage();
-                            this.Message = openAIMess;
-                        }
-                    }).ConfigureAwait(true);
-                }
-                catch (ChatGptException chatEX)
-                {
-#if DEBUG
-                    await Console.Out.WriteLineAsync("==> " + chatEX.Message);
-#endif
-                }
-                catch (Exception)
-                {
-                }
-#endif
             }
 
-            return base.OnNavigatingTo(parameter);
+            return base.OnNavigatingTo(parameter!);
         }
 
         [RelayCommand]
-        private async Task SelectButton(string option)
+        private void SelectButton(string option)
         {
             if (option.Equals("0"))
             {
@@ -166,7 +136,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             {
                 this.IsLocaleUser = localeUserInfo.Age == result.Age
                     && localeUserInfo.IsMale == result.IsMale;
-                if (localeUserInfo != null && localeUserInfo.BMIResult != this.bmiResult)
+                if (localeUserInfo.BMIResult != this.bmiResult)
                 {
                     localeUserInfo.BMIResult = this.bmiResult;
                 }

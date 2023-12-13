@@ -699,6 +699,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nutritions Fact.
+        /// </summary>
+        internal static string nutritionFact_foodDetail {
+            get {
+                return ResourceManager.GetString("nutritionFact_foodDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thừa cân.
         /// </summary>
         internal static string obese_classify_bmi {
@@ -762,11 +771,39 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chào bạn {0}. Cùng xây dựng kế hoạch một cách đầy năng lượng và hứng khởi nhé!.
+        /// </summary>
+        internal static string prompt_greeting {
+            get {
+                return ResourceManager.GetString("prompt_greeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chào bạn {0}. Hôm nay là ngày hoàn hảo để nuôi dưỡng cơ thể và tâm hồn bạn với những bữa ăn ngon lành và bổ dưỡng.
+        ///Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc trên hành trình hướng tới sức khỏe và hạnh phúc! 💪🥗🌟.
+        /// </summary>
+        internal static string prompt_greeting_v1 {
+            get {
+                return ResourceManager.GetString("prompt_greeting_v1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I&apos;m {0}, {1} years old, bmi index is {2}. Give me advice.
         /// </summary>
         internal static string queryBMI_bmiPopup {
             get {
                 return ResourceManager.GetString("queryBMI_bmiPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipe.
+        /// </summary>
+        internal static string recipe_foodDetail {
+            get {
+                return ResourceManager.GetString("recipe_foodDetail", resourceCulture);
             }
         }
         

@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:translate="clr-namespace:VeganLife.Resources.Translations">
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    x:Name="flyoutHeader">
     <ContentView.Background>
         <LinearGradientBrush EndPoint="0,1">
             <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
@@ -21,17 +22,37 @@
         <StackLayout Margin="10" Spacing="10">
             <Grid>
                 <HorizontalStackLayout Spacing="10">
-                    <toolkit:AvatarView
+                    <Image
+                        x:Name="imgAvatar"
+                        Aspect="AspectFit"
+                        HeightRequest="80"
+                        Source="profile_boy"
+                        WidthRequest="80">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AvatarView_Tapped" />
+                        </Image.GestureRecognizers>
+                        <!--<Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsMale, Source={x:Reference flyoutHeader}, Mode=OneWay}"
+                                TargetType="Image"
+                                Value="False">
+                                <Setter Property="Source" Value="profile_girl_strong" />
+                            </DataTrigger>
+                        </Image.Triggers>-->
+                    </Image>
+
+                    <!--<toolkit:AvatarView
                         x:Name="avatarViewToolkit"
-                        BorderColor="Yellow"
-                        BorderWidth="1"
+                        BorderColor="{StaticResource PrimaryOrange1}"
+                        BorderWidth="2"
                         CornerRadius="40"
                         HeightRequest="80"
+                        ImageSource="profile_boy"
                         WidthRequest="80">
                         <toolkit:AvatarView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="AvatarView_Tapped" />
                         </toolkit:AvatarView.GestureRecognizers>
-                    </toolkit:AvatarView>
+                    </toolkit:AvatarView>-->
                     <Label
                         x:Name="lbUserName"
                         FontAttributes="Bold"
@@ -50,7 +71,7 @@
                     TextColor="Black"
                     VerticalOptions="Start" />
             </Grid>
-            <Label Text="{x:Static translate:AppResources.description_flyoutHeader}" />
+            <Label x:Name="lbGreeting" Text="{x:Static translate:AppResources.description_flyoutHeader}" />
         </StackLayout>
     </Frame>
 </ContentView>

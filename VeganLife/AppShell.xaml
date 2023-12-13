@@ -6,11 +6,13 @@
     xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:local="clr-namespace:VeganLife"
+    xmlns:mainFlyout="clr-namespace:VeganLife.Views.MainPageFlyout"
+    xmlns:settingFlyout="clr-namespace:VeganLife.Views.SettingFlyout"
     xmlns:toolFlyout="clr-namespace:VeganLife.Views.ToolFlyout"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutIcon="hamburger"
+    FlyoutIcon="hamburger_white"
     Shell.NavBarIsVisible="False">
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
@@ -21,30 +23,30 @@
         Icon="{AppThemeBinding Dark=home_light,
                                Light=home}"
         Route="home">
-        <Tab Title="{x:Static translate:AppResources.veganFood_feedPage}" Icon="vegan_food">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="main"
-                Shell.NavBarIsVisible="False" />
-        </Tab>
-        <Tab Title="{x:Static translate:AppResources.app_common_portionTab}" Icon="plan">
-            <ShellContent
-                ContentTemplate="{DataTemplate view:ReportPage}"
-                Route="ration_plan"
-                Shell.NavBarIsVisible="False" />
-        </Tab>
-        <Tab Title="{x:Static translate:AppResources.app_common_vitaminsTab}" Icon="vitamin">
-            <ShellContent
-                ContentTemplate="{DataTemplate contentViews:VitaminAndMineralPage}"
-                Route="vitamins_mineral"
-                Shell.NavBarIsVisible="False" />
-        </Tab>
-        <Tab Title="{x:Static translate:AppResources.explore_common}" Icon="compass">
-            <ShellContent
-                ContentTemplate="{DataTemplate view:NewsFeedPage}"
-                Route="news_feed"
-                Shell.NavBarIsVisible="False" />
-        </Tab>
+        <ShellContent
+            Title="{x:Static translate:AppResources.veganFood_feedPage}"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Icon="vegan_food"
+            Route="main"
+            Shell.NavBarIsVisible="False" />
+        <ShellContent
+            Title="{x:Static translate:AppResources.app_common_portionTab}"
+            ContentTemplate="{DataTemplate mainFlyout:ReportPage}"
+            Icon="plan"
+            Route="ration_plan"
+            Shell.NavBarIsVisible="False" />
+        <ShellContent
+            Title="{x:Static translate:AppResources.app_common_vitaminsTab}"
+            ContentTemplate="{DataTemplate mainFlyout:VitaminAndMineralPage}"
+            Icon="vitamin"
+            Route="vitamins_mineral"
+            Shell.NavBarIsVisible="False" />
+        <ShellContent
+            Title="{x:Static translate:AppResources.explore_common}"
+            ContentTemplate="{DataTemplate mainFlyout:NewsFeedPage}"
+            Icon="compass"
+            Route="news_feed"
+            Shell.NavBarIsVisible="False" />
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_bookmarkTab}"
@@ -60,26 +62,27 @@
         Title="{x:Static translate:AppResources.app_common_toolsTab}"
         FlyoutDisplayOptions="AsSingleItem"
         Icon="calculator">
-        <Tab>
-            <ShellContent
-                x:Name="mainTool_tool"
-                Title="{x:Static translate:AppResources.app_common_toolsTab}"
-                ContentTemplate="{DataTemplate toolFlyout:MainTool}"
-                Route="main_tool"
-                Shell.NavBarIsVisible="True" />
-            <ShellContent
-                x:Name="bmiCalculator_tool"
-                Title="BMI"
-                ContentTemplate="{DataTemplate toolFlyout:BMICalculatorPage}"
-                Route="bmi_calculator_tool"
-                Shell.NavBarIsVisible="True" />
-            <ShellContent
-                x:Name="bmrCalculator_tool"
-                Title="BMR"
-                ContentTemplate="{DataTemplate toolFlyout:BMRCalculatorPage}"
-                Route="bmr_calculator_tool"
-                Shell.NavBarIsVisible="True" />
-        </Tab>
+        <ShellContent
+            x:Name="mainTool_tool"
+            Title="{x:Static translate:AppResources.app_common_toolsTab}"
+            ContentTemplate="{DataTemplate toolFlyout:MainTool}"
+            Icon="calculator"
+            Route="main_tool"
+            Shell.NavBarIsVisible="True" />
+        <ShellContent
+            x:Name="bmiCalculator_tool"
+            Title="BMI"
+            ContentTemplate="{DataTemplate toolFlyout:BMICalculatorPage}"
+            Icon="bmi_profile"
+            Route="bmi_calculator_tool"
+            Shell.NavBarIsVisible="True" />
+        <ShellContent
+            x:Name="bmrCalculator_tool"
+            Title="BMR"
+            ContentTemplate="{DataTemplate toolFlyout:BMRCalculatorPage}"
+            Icon="bmr_burn"
+            Route="bmr_calculator_tool"
+            Shell.NavBarIsVisible="True" />
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_webViewTab}"
@@ -95,7 +98,7 @@
         FlyoutDisplayOptions="AsSingleItem"
         Icon="setting">
         <ShellContent
-            ContentTemplate="{DataTemplate view:SettingPage}"
+            ContentTemplate="{DataTemplate settingFlyout:SettingPage}"
             Route="setting"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
