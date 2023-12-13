@@ -6,7 +6,7 @@ namespace VeganLife.ViewModels
 {
     using VeganLife.Helpers;
     using VeganLife.Services.LocalDataServices;
-    using VeganLifeDataCenter.Data;
+    //using VeganLifeDataCenter.Data;
 
     /// <summary>
     /// Base class for view-model class.
@@ -18,7 +18,7 @@ namespace VeganLife.ViewModels
         protected readonly IDeviceService deviceService;
         protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
-        protected readonly AppDbContext appDbContext;
+        //protected readonly AppDbContext appDbContext;
         protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 
         [ObservableProperty]
@@ -27,14 +27,14 @@ namespace VeganLife.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
         /// </summary>
-        public BaseViewModel()
+        protected BaseViewModel()
         {
             this.dataService = ServicesHelper.GetService<IDataService>();
             this.navigationService = ServicesHelper.GetService<INavigationService>();
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
-            this.appDbContext = ServicesHelper.GetService<AppDbContext>();
+            //this.appDbContext = ServicesHelper.GetService<AppDbContext>();
         }
 
         /// <summary>
@@ -62,22 +62,22 @@ namespace VeganLife.ViewModels
 
         public virtual Task ViewAppearingVM() => Task.CompletedTask;
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetAndRaise<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Equals(property, value))
-            {
-                return false;
-            }
+        //public event PropertyChangedEventHandler CustomPropertyChanged;
+        //protected bool SetAndRaise<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
+        //{
+        //    if (Equals(property, value))
+        //    {
+        //        return false;
+        //    }
 
-            property = value;
-            RaisePropertyChanged(propertyName);
-            return true;
-        }
+        //    property = value;
+        //    RaisePropertyChanged(propertyName);
+        //    return true;
+        //}
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        //{
+        //    CustomPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 }

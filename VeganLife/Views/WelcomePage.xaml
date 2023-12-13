@@ -4,17 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:WelcomeViewModel"
     x:TypeArguments="viewmodel:WelcomeViewModel"
+    BackgroundImageSource="tutorial_background"
     NavigationPage.HasNavigationBar="False">
-    <!--<ContentPage.Background>
-        <LinearGradientBrush EndPoint="0,1">
-            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
-            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
-        </LinearGradientBrush>
-    </ContentPage.Background>-->
     <ContentPage.Resources>
         <Style x:Key="IndicatorLabelStyle" TargetType="Label">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -35,76 +33,81 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
-        <Grid RowDefinitions="*" VerticalOptions="CenterAndExpand">
-            <CarouselView
-                x:Name="carouselView"
-                HorizontalOptions="FillAndExpand"
-                IndicatorView="indicatorView"
-                ItemsSource="{Binding ListImage, Mode=OneWay}"
-                Loop="False"
-                VerticalOptions="CenterAndExpand">
-                <CarouselView.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodel:WelcomeImage">
-                        <Grid
-                            HorizontalOptions="FillAndExpand"
-                            RowDefinitions="*"
-                            VerticalOptions="FillAndExpand">
-                            <ffimageloading:CachedImage
-                                Aspect="Fill"
-                                DownsampleToViewSize="True"
-                                Source="{Binding Image, Mode=OneWay}"
-                                VerticalOptions="FillAndExpand" />
-                        </Grid>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-            <IndicatorView
-                x:Name="indicatorView"
-                Grid.Row="1"
-                BackgroundColor="Transparent"
-                HorizontalOptions="Center"
-                IndicatorColor="Transparent"
-                SelectedIndicatorColor="Transparent"
-                VerticalOptions="End">
-                <IndicatorView.IndicatorTemplate>
+    <base:BasePage.Content>
+        <Grid>
+            <cards:CoverFlowView
+                Margin="0,0,25,0"
+                HorizontalOptions="Fill"
+                IsCyclical="false"
+                ItemsSource="{Binding ListImage}"
+                PositionShiftValue="125"
+                VerticalOptions="Center">
+                <x:Arguments>
+                    <proc:CoverFlowProcessor OpacityFactor="0.4" ScaleFactor="0.8" />
+                </x:Arguments>
+                <cards:CoverFlowView.ItemTemplate>
                     <DataTemplate>
-                        <Label
-                            BackgroundColor="Transparent"
-                            FontFamily="{StaticResource FontAwesomeSolid}"
-                            FontSize="20"
-                            Style="{StaticResource IndicatorLabelStyle}"
-                            Text="&#xf068;" />
+                        <ContentView>
+                            <Border
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="Fill"
+                                StrokeShape="RoundRectangle 5,25,5,25"
+                                StrokeThickness="0"
+                                VerticalOptions="CenterAndExpand">
+                                <Grid RowDefinitions=".7*,.3*">
+                                    <Image
+                                        Grid.RowSpan="2"
+                                        Aspect="AspectFill"
+                                        Source="{Binding .}" />
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        IsClippedToBounds="True"
+                                        VerticalOptions="EndAndExpand">
+                                        <StackLayout.Effects>
+                                            <uranium:BlurEffect Mode="Dark" />
+                                        </StackLayout.Effects>
+                                        <Label
+                                            Margin="10"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="3"
+                                            Text="Also you are able to manage IndicatorsControl appearing/disappearing. For example if user doesn't select new page during N miliseconds, the indicators will disappear. Just set ToFadeDuration = 2000 (2 seconds delay before disappearing) Yoy manage LeftArrowControl and RightArrowControl as well as IndicatorsControl (ToFadeDuration is presented too)."
+                                            TextColor="White"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </ContentView>
                     </DataTemplate>
-                </IndicatorView.IndicatorTemplate>
-            </IndicatorView>
-        </Grid>
-        <Grid
-            Margin="10,20"
-            ColumnDefinitions="8*,2*"
-            HorizontalOptions="FillAndExpand">
-            <HorizontalStackLayout Spacing="6">
-                <Button
+                </cards:CoverFlowView.ItemTemplate>
+            </cards:CoverFlowView>
+            <StackLayout MinimumHeightRequest="52" VerticalOptions="EndAndExpand">
+                <StackLayout.Effects>
+                    <uranium:BlurEffect Mode="Dark" />
+                </StackLayout.Effects>
+                <Label
+                    HorizontalOptions="CenterAndExpand"
+                    Text="thien"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <!--<Button
                     Background="Green"
-                    Clicked="PreviousButton"
                     CornerRadius="30"
                     FontFamily="FontAwesomeSolid"
                     Text="&#xf060;"
                     TextColor="Wheat" />
                 <Button
-                    Clicked="NextButton"
                     CornerRadius="30"
                     FontFamily="FontAwesomeSolid"
                     Text="&#xf061;"
+                    TextColor="Wheat" />-->
+                <Button
+                    Command="{Binding SkipCommand}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="End"
+                    MinimumWidthRequest="48"
+                    Text="Skip"
                     TextColor="Wheat" />
-            </HorizontalStackLayout>
-            <Button
-                Grid.Column="1"
-                Command="{Binding SkipCommand}"
-                FontAttributes="Bold"
-                HorizontalOptions="FillAndExpand"
-                Text="Skip"
-                TextColor="Wheat" />
+            </StackLayout>
         </Grid>
-    </StackLayout>
+    </base:BasePage.Content>
 </base:BasePage>

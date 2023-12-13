@@ -2,10 +2,22 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: App Rss Bmi
+
 namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
     {
+        public static class OpenAIConstant
+        {
+            public const string OpenAIUrl = "https://api.openai.com/";
+            public const string OpenAIToken = "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";
+            public const string OpenAITokenVip = "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";
+
+            public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
+            //public const string OpenAIEndpoint_Generations = "v1/images/generations";
+        }
+
         public const float AverageDaysInYear = 365.25f;
         public const string LanguageVietnam = "vi";
         public const string LanguageEnglish = "en";
@@ -16,10 +28,10 @@ namespace VeganLife.Helpers.AppSetting
         public const string DatabaseFileName = "SQLiteVeganLife.db3";
         public const SQLite.SQLiteOpenFlags SQLiteFlags =
 
-            // open database in read/write mdoe
+            // open database in read/write mode
             SQLite.SQLiteOpenFlags.ReadWrite |
 
-            // create database if doesnt exist
+            // create database if does not exist
             SQLite.SQLiteOpenFlags.Create |
 
             // multi-thread database access

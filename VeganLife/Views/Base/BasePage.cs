@@ -17,36 +17,42 @@ namespace VeganLife.Views.Base
 
     public abstract class BasePage : ContentPage, INotifyPropertyChanged
     {
-        protected BasePage(object viewModel = null)
+        protected BasePage(object? viewModel = null)
         {
             this.BindingContext = viewModel;
-            if (string.IsNullOrWhiteSpace(this.Title))
-            {
-                this.Title = this.GetType().Name;
-            }
+            //if (string.IsNullOrWhiteSpace(this.Title))
+            //{
+            //    this.Title = this.GetType().Name;
+            //}
         }
 
         /// <inheritdoc/>
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 #if DEBUG
             Debug.WriteLine($"=> OnAppearing: {this.Title}");
 #endif
-            await (this.BindingContext as BaseViewModel).ViewAppearingVM();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await (this.BindingContext as BaseViewModel)?.ViewAppearingVM()!;
+            });
         }
 
         /// <inheritdoc/>
-        protected override async void OnDisappearing()
+        protected override void OnDisappearing()
         {
             base.OnDisappearing();
 #if DEBUG
             Debug.WriteLine($"=> OnDisappearing: {this.Title}");
 #endif
-            await (this.BindingContext as BaseViewModel).ViewDisappearingVM();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await (this.BindingContext as BaseViewModel)?.ViewDisappearingVM()!;
+            });
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action? onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {

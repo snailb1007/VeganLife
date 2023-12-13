@@ -430,4 +430,18 @@ Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
 	<data name="lbSelectBtn_save_toolFlyout" xml:space="preserve">
     <value>Lưu và đặt làm chỉ số phân tích mặc định</value>
     </data>
+	<!--TODO-->
+	<data name="prompt_greeting" xml:space="preserve">
+		<value>Chào bạn {0}. Cùng xây dựng kế hoạch một cách đầy năng lượng và hứng khởi nhé!</value>
+	</data>
+	<data name="prompt_greeting_v1" xml:space="preserve">
+		<value>Chào bạn {0}. Hôm nay là ngày hoàn hảo để nuôi dưỡng cơ thể và tâm hồn bạn với những bữa ăn ngon lành và bổ dưỡng.
+Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc trên hành trình hướng tới sức khỏe và hạnh phúc! 💪🥗🌟</value>
+	</data>
+	<data name="recipe_foodDetail" xml:space="preserve">
+		<value>Recipe</value>
+	</data>
+	<data name="nutritionFact_foodDetail" xml:space="preserve">
+		<value>Nutritions Fact</value>
+	</data>
 </root>

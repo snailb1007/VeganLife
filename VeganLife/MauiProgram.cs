@@ -4,15 +4,16 @@
 
 namespace VeganLife
 {
+#if DEBUG
+    using Microsoft.Extensions.Logging;
+#endif
     using FFImageLoading.Maui;
     using Microsoft.Maui.Handlers;
     using Mopups.Hosting;
     using VeganLife.Handlers;
     using VeganLife.Services.LocalDataServices;
     using VeganLife.ViewModels.ContentViewModels;
-    using VeganLife.Views.ContentViews;
     using VeganLife.Views.Controls;
-    using VeganLife.Views.FoodTab;
     using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
 #if GPT
@@ -20,18 +21,16 @@ namespace VeganLife
 #endif
 #if ANDROID
     using Android.Widget;
-    using Microcharts.Maui;
+    //using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
     using Microsoft.Maui.Platform;
-    using Microsoft.AppCenter.Crashes;
-    using Microsoft.AppCenter;
     using VeganLife.Services.UserServices;
     using PanCardView;
     using VeganLife.Views.ToolFlyout;
-    using VeganLifeDataCenter.Data;
-    using Microsoft.EntityFrameworkCore;
+    //using VeganLifeDataCenter.Data;
+    //using Microsoft.EntityFrameworkCore;
     using Sharpnado.Tabs;
     using VeganLife.ViewModels.TabsViewModel;
     using VeganLife.Views.ContentViews.Tabs;
@@ -39,6 +38,14 @@ namespace VeganLife
     using VeganLife.ViewModels.ToolsFlyoutViewModel;
     using VeganLife.Services.CommunityFreeService;
     using VeganLife.Views.PortionTab;
+    using UraniumUI;
+    using ChatGptNet.Models;
+    using VeganLife.Helpers.AppSetting;
+    using The49.Maui.BottomSheet;
+    using VeganLife.Views.MainPageFlyout;
+    using VeganLife.Views.SettingFlyout;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.MainPageFlyout.VitaminTab;
 #endif
 
     /// <summary>
@@ -63,6 +70,9 @@ namespace VeganLife
                     fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
                     fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
                 });
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
             builder
                 .ConfigureMopups()
                 .UseFFImageLoading()
@@ -70,17 +80,18 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseMicrocharts();
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
+                .UseUraniumUIBlurs()
+                .UseBottomSheet();
+            //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
             });
-            CustomEntry();
-            CustomSearchBar();
-            AllowMultiLineTruncationOnAndroid();
+            //CustomEntry();
+            //CustomSearchBar();
+            //AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
 
@@ -92,9 +103,8 @@ namespace VeganLife
 #if GPT
             services.AddChatGpt(options =>
             {
-                //options.UseOpenAI(apiKey: $"sk-");
-                options.UseOpenAI(apiKey: "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");
-                options.DefaultModel = "gpt-3.5-turbo";
+                options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
+                options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
             });
@@ -109,6 +119,8 @@ namespace VeganLife
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodDataStoreService>();
+            services.AddSingleton<FoodPreviewDataStoreService>();
+            services.AddSingleton<NutritionMealLogDataStoreService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
@@ -118,8 +130,6 @@ namespace VeganLife
             services.AddTransient<MainViewModel>();
             services.AddTransient<NewsFeedPage>();
             services.AddTransient<NewsFeedViewModel>();
-            services.AddTransient<RationPlanPage>();
-            services.AddTransient<RationPlanViewModel>();
             services.AddTransient<WebViewPage>();
             services.AddTransient<WebViewViewModel>();
             services.AddTransient<FlyoutHeader>();
@@ -173,7 +183,7 @@ namespace VeganLife
         private static void AllowMultiLineTruncationOnAndroid()
         {
 #if ANDROID
-            static void UpdateMaxLines(LabelHandler handler, ILabel label)
+            static void UpdateMaxLines(ILabelHandler handler, ILabel label)
             {
                 var textView = handler.PlatformView;
                 if (label is Label controlsLabel && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End)
@@ -182,10 +192,10 @@ namespace VeganLife
                 }
             }
 
-            Label.ControlsLabelMapper.AppendToMapping(
+            LabelHandler.Mapper.AppendToMapping(
                nameof(Label.LineBreakMode), UpdateMaxLines);
 
-            Label.ControlsLabelMapper.AppendToMapping(
+            LabelHandler.Mapper.AppendToMapping(
                 nameof(Label.MaxLines), UpdateMaxLines);
 #endif
         }

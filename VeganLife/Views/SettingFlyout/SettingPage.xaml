@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.SettingFlyout.SettingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="settingRoot"
+    Title="{x:Static translate:AppResources.app_common_settingTab}"
+    x:DataType="viewmodel:SettingViewModel"
+    x:TypeArguments="viewmodel:SettingViewModel">
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+    <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+        <Label
+            Margin="0,10,0,0"
+            Text="{x:Static translate:AppResources.options_settingPage}"
+            TextColor="Gray" />
+        <!--<StackLayout
+            Margin="0"
+            Padding="0"
+            HorizontalOptions="Fill"
+            Orientation="Horizontal">
+            <Label
+                Margin="0,0,10,0"
+                FontFamily="FontAwesomeSolid"
+                FontSize="20"
+                HorizontalOptions="Start"
+                Text="{AppThemeBinding Dark=&#xf186;,
+                                       Light=&#xf185;}"
+                TextColor="{AppThemeBinding Dark=White,
+                                            Light=Orange}"
+                VerticalOptions="Center" />
+            <Label Text="{AppThemeBinding Dark={x:Static translate:AppResources.dark_settingPage}, Light={x:Static translate:AppResources.light_settingPage}}" VerticalOptions="Center" />
+            <Frame
+                Padding="1"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                HasShadow="False"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="StartAndExpand">
+                <Switch
+                    BackgroundColor="{AppThemeBinding Dark=Gray,
+                                                      Light=White}"
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding IsDarkMode, Mode=OneWay}"
+                    OnColor="{AppThemeBinding Dark=White,
+                                              Light=Gray}"
+                    ThumbColor="Green"
+                    Toggled="Switch_Toggled"
+                    VerticalOptions="Center" />
+            </Frame>
+        </StackLayout>-->
+        <StackLayout Orientation="Horizontal">
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Text="{x:Static translate:AppResources.collectLog_settingPage}"
+                VerticalOptions="Center" />
+            <Switch ThumbColor="{StaticResource PrimaryLight}" VerticalOptions="Center" />
+        </StackLayout>
+        <Label
+            Margin="0,10,0,0"
+            HorizontalOptions="Start"
+            Text="{x:Static translate:AppResources.technicalInfo_settingPage}"
+            TextColor="Gray"
+            VerticalOptions="Start" />
+        <StackLayout Orientation="Horizontal">
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Text="{x:Static translate:AppResources.appVersion_settingPage}"
+                VerticalOptions="Start" />
+            <Label HorizontalOptions="End" Text="{Binding AppVersionDisplay, Mode=OneWay}" />
+        </StackLayout>
+
+        <Label
+            HorizontalOptions="Start"
+            IsEnabled="{Binding OpenLicensePageCommand.IsRunning, Converter={StaticResource ReverseConverter}, Mode=OneWay}"
+            Text="{x:Static translate:AppResources.license_settingPage}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenLicensePageCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+    </VerticalStackLayout>
+</base:BasePage>

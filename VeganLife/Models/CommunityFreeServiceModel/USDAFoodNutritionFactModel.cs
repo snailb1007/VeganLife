@@ -1,11 +1,13 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
     public class USDAFoodNutritionFactModel
     {
         [PrimaryKey]
-        public int fdcId { get; set; }
+        [JsonProperty("fdcId")]
+        public int FdcId { get; set; }
         // public string footnote { get; set; }
         // public string description { get; set; }
         public string publicationDate { get; set; }
@@ -32,13 +34,18 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodNutrient
     {
-        public Nutrient nutrient { get; set; }
+        [JsonProperty("nutrient")]
+        public Nutrient Nutrient { get; set; }
         public string type { get; set; }
-        //public FoodNutrientDerivation foodNutrientDerivation { get; set; }
+        // public FoodNutrientDerivation foodNutrientDerivation { get; set; }
         public int? id { get; set; }
-        public double? amount { get; set; }
+        [JsonProperty("amount")]
+        public double? Amount { get; set; }
+        [JsonIgnore]
         public int? dataPoints { get; set; }
+        [JsonIgnore]
         public double? max { get; set; }
+        [JsonIgnore]
         public double? min { get; set; }
     }
 
@@ -80,6 +87,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public int id { get; set; }
         //public string number { get; set; }
         public string name { get; set; }
+        [JsonIgnore]
         public int rank { get; set; }
         public string unitName { get; set; }
     }

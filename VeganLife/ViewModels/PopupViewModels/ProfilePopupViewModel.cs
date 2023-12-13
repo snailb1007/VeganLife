@@ -2,9 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Android.OS;
 using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.messages;
 using VeganLife.Services.UserServices;
 
 namespace VeganLife.ViewModels.PopupViewModels
@@ -52,11 +55,17 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService).UserInfo;
+            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService)?.UserInfo!;
+            if (UserInfo is null)
+            {
+                return;
+            }
+
             UserName = UserInfo.Name;
             SelectedDate = UserInfo.DateOfBirth;
             UserWeight = UserInfo.Weight.ToString();
             UserHeight = UserInfo.Height;
+            IsMale = UserInfo.IsMale;
         }
 
         [RelayCommand]
@@ -121,6 +130,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
                 await toast.Show(cancellationTokenSource.Token);
+                WeakReferenceMessenger.Default.Send(new ProfileChangedMessage(null));
             }
         }
 
@@ -141,7 +151,7 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         partial void OnUserHeightChanged(short value)
         {
-            UserHeight = (short)UserHeight;
+            //UserHeight = UserHeight;
         }
 
         partial void OnIsWrongFormatNameChanged(bool value)

@@ -5,19 +5,10 @@ using VeganLife.Views.Popups;
 
 namespace VeganLife.ViewModels
 {
-    public class WelcomeImage
-    {
-        public WelcomeImage(string image)
-        {
-            this.Image = image;
-        }
-        public string Image { get; set; }
-    }
-
     public partial class WelcomeViewModel : BaseViewModel
     {
         [ObservableProperty]
-        IList<WelcomeImage> _listImage;
+        IList<string> _listImage;
 
         public WelcomeViewModel()
             : base()
@@ -48,12 +39,7 @@ namespace VeganLife.ViewModels
 
         void Init()
         {
-            ListImage = new List<WelcomeImage>
-            {
-                new WelcomeImage("slide_image1.jpg"),
-                new WelcomeImage("slide_image2.jpg"),
-                new WelcomeImage("slide_image3.jpg")
-            };
+            ListImage = new List<string> { "tutorial1", "tutorial2", "tutorial3" };
         }
 
         [RelayCommand]

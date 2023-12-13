@@ -2,12 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: App
+
 namespace VeganLife
 {
     using Mopups.Services;
     using VeganLife.Helpers;
-    using VeganLife.Views.ContentViews;
-    using VeganLife.Views.FoodTab;
+    using VeganLife.Views.MainPageFlyout;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.MainPageFlyout.VitaminTab;
     using VeganLife.Views.SettingTab;
     using VeganLife.Views.ToolFlyout;
     using static VeganLife.Helpers.AppSetting.StaticHelper;
@@ -31,6 +34,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            // Init data
             this.Dispatcher.Dispatch(async () =>
             {
                 await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
@@ -42,7 +46,7 @@ namespace VeganLife
             });
         }
 
-        public static void ShowFlyout()
+        public static void ShowFlyOut()
         {
             // TODO: https://github.com/dotnet/maui/issues/8226
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;
@@ -50,9 +54,9 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index, BMIResultModel bMIResult = null)
+        public void SwitchShellContentToolsTab(byte index, BMIResultModel? bMIResult = null)
         {
-            switch(index)
+            switch (index)
             {
                 case 0:
                     this.CurrentItem = mainTool_tool;
@@ -77,7 +81,7 @@ namespace VeganLife
                     bool result = await this.DisplayAlert("Alert!", "Do you really want to exit?", "Yes", "No");
                     if (result)
                     {
-                        Application.Current.Quit(); // Or anything else
+                        Application.Current?.Quit(); // Or anything else
                     }
                 });
                 return true;
@@ -93,40 +97,44 @@ namespace VeganLife
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {
-            if (args.Source != ShellNavigationSource.Unknown)
-                this.IsBusy = true;
+            //if (args.Source != ShellNavigationSource.Unknown)
+            //    this.IsBusy = true;
             base.OnNavigating(args);
         }
 
+        /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
+            // TODO: make crash
+            //this.IsBusy = false;
             base.OnNavigated(args);
-            this.IsBusy = false;
         }
 
         private static bool IsRootPage(VisualElement page)
         {
-            if (MopupService.Instance.PopupStack.Count() > 0)
+            if (MopupService.Instance.PopupStack.Any())
             {
                 return false;
             }
 
-            return page is MainPage || page is RationPlanPage || page is NewsFeedPage || page is MainTool;
+            return page is MainPage || page is VitaminAndMineralPage || page is NewsFeedPage || page is MainTool;
         }
 
         private void RegisterRoutes()
         {
-            this.Routes.Add(nameof(MainPage), typeof(MainPage));
-            this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
-            this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
-            this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
-            this.Routes.Add(nameof(MainTool), typeof(MainTool));
+            //this.Routes.Add(nameof(MainPage), typeof(MainPage));
+            //this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
+            //this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
+            //this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
+            //this.Routes.Add(nameof(MainTool), typeof(MainTool));
+            //this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
+
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));
-            this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
 
             // Routes.Add(nameof(LoginPage), typeof(LoginPage));
             // Routes.Add(nameof(RegistrationPage), typeof(RegistrationPage));

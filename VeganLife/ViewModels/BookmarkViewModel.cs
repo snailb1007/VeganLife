@@ -10,7 +10,7 @@ namespace VeganLife.ViewModels
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
     using VeganLife.Services.LocalDataServices;
-    using VeganLife.Views.FoodTab;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
 
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {

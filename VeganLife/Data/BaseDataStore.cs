@@ -32,7 +32,7 @@ namespace VeganLife.Data
             try
             {
                 await this.Init();
-                if (isUpdate)
+                if (await this.IsExistingItem(item))
                 {
                     await this.connection.UpdateAsync(item);
                 }
@@ -90,6 +90,23 @@ namespace VeganLife.Data
             }
         }
 
+        public async Task<T> GetFirstOrDefaultItem()
+        {
+            await this.Init();
+            try
+            {
+                var result = await this.connection.Table<T>().ToListAsync()
+                    .ContinueWith(t => t.Result.FirstOrDefault());
+                return result ?? default!;
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                await Console.Out.WriteLineAsync("Cant retrieve local data, " + e.Message);
+#endif
+                return default!;
+            }
+        }
         private async Task Init()
         {
             if (this.connection is not null)
@@ -98,23 +115,16 @@ namespace VeganLife.Data
             }
 
             this.connection = this.localDatabase.GetAsyncConnection();
-            await this.connection?.CreateTableAsync<T>();
+            await this.connection?.CreateTableAsync<T>()!;
         }
 
-        public async Task<T> GetFirstOrDefaultItem()
+        private async  Task<bool> IsExistingItem(T item)
         {
-            await this.Init();
-            try
-            {
-                return await this.connection.Table<T>().ToListAsync().ContinueWith(t => t.Result.FirstOrDefault());
-            }
-            catch (Exception e)
-            {
-#if DEBUG
-                await Console.Out.WriteLineAsync("Cant retrieve local data, " + e.Message);
-#endif
-                return Enumerable.Empty<T>().FirstOrDefault();
-            }
+            var idProperty = typeof(T).GetProperty("Id");
+            var idValue = idProperty?.GetValue(item);
+            var goalItem = await this.connection.FindAsync<T>(idValue);
+            return goalItem != null;
         }
+
     }
 }

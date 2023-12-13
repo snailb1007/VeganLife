@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// Ignore Spelling: App
+
 namespace VeganLife
 {
     using Microsoft.AppCenter.Crashes;
@@ -25,6 +27,7 @@ namespace VeganLife
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
+            //this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
             if (UserSettingsHelper.IsFirstTime)
             {
                 this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
@@ -35,10 +38,10 @@ namespace VeganLife
             }
         }
 
-        protected override Window CreateWindow(IActivationState activationState)
-        {
-            return base.CreateWindow(activationState);
-        }
+        //protected override Window CreateWindow(IActivationState activationState)
+        //{
+        //    return base.CreateWindow(activationState);
+        //}
 
         public static void SetupCollectLogPermission()
         {
@@ -73,7 +76,7 @@ namespace VeganLife
             }
 
 #if ANDROID
-            AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = Current.UserAppTheme switch
+            AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = Current?.UserAppTheme switch
             {
                 AppTheme.Light => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightNo,
                 AppTheme.Dark => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,

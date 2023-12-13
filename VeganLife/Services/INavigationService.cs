@@ -14,7 +14,7 @@ namespace VeganLife.Services
 
         Task DisplayAlert(string title, string message, string ok);
 
-        BaseViewModel GetPageViewModedl(Page page);
+        BaseViewModel GetPageViewModel(Page page);
 
         Task NavigateToPage<T>(object paramater = null)
             where T : Page;
