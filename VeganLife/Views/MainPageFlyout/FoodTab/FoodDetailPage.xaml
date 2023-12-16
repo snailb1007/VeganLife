@@ -56,7 +56,7 @@
                 FontFamily="FontAwesomeRegular"
                 FontSize="22"
                 HorizontalOptions="End"
-                SemanticProperties.Description="Button down-arrow food detail"
+                SemanticProperties.Description="Button bookmark"
                 Text="{StaticResource iconBookmark}"
                 TextColor="{StaticResource PrimaryOrange1}"
                 VerticalOptions="Center"
@@ -104,25 +104,52 @@
                     </DataTemplate>
                 </cards:CardsView.ItemTemplate>
             </cards:CardsView>
-            <StackLayout
+            <toolkit:Expander
+                x:Name="titleExpander"
                 Grid.RowSpan="2"
-                Padding="10"
-                HorizontalOptions="Fill"
-                Spacing="8"
-                VerticalOptions="End"
-                ZIndex="2">
-                <StackLayout.Effects>
+                Direction="Down"
+                FlowDirection="LeftToRight"
+                IsExpanded="True"
+                VerticalOptions="EndAndExpand">
+                <toolkit:Expander.Effects>
                     <uranium:BlurEffect />
-                </StackLayout.Effects>
-                <Label
-                    FontAttributes="Bold"
-                    FontFamily="PlayfairDisplaySemiBold"
-                    FontSize="18"
-                    LineBreakMode="TailTruncation"
-                    MaxLines="1"
-                    Text="{Binding FoodPreview.Name, Mode=OneWay}" />
-                <control:RatingControl HeightRequest="15" Value="{Binding FoodPreview.Star, Mode=OneWay}" />
-            </StackLayout>
+                </toolkit:Expander.Effects>
+                <toolkit:Expander.Header>
+                    <Label
+                        FontAttributes="Bold"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Text="{StaticResource IconAngleUp}"
+                        TextColor="{StaticResource PrimaryDark}">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="Text" Value="{StaticResource IconAngleDown}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </toolkit:Expander.Header>
+                <StackLayout
+                    Padding="10"
+                    HorizontalOptions="Fill"
+                    Spacing="8"
+                    VerticalOptions="EndAndExpand"
+                    ZIndex="2">
+                    <Label
+                        FontAttributes="Bold"
+                        FontFamily="PlayfairDisplaySemiBold"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Text="{Binding FoodPreview.Name, Mode=OneWay}"
+                        VerticalOptions="EndAndExpand" />
+                    <control:RatingControl HeightRequest="15" Value="{Binding FoodPreview.Star, Mode=OneWay}" />
+                </StackLayout>
+            </toolkit:Expander>
         </Grid>
         <Grid
             Grid.Row="1"

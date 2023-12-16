@@ -3,6 +3,7 @@
     x:Class="VeganLife.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:chatFlyout="clr-namespace:VeganLife.Views.ChatFlyout"
     xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:local="clr-namespace:VeganLife"
@@ -56,6 +57,15 @@
         <ShellContent
             ContentTemplate="{DataTemplate view:BookmarkPage}"
             Route="bookmark"
+            Shell.NavBarIsVisible="True" />
+    </FlyoutItem>
+    <FlyoutItem
+        Title="Conversation"
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="conversation">
+        <ShellContent
+            ContentTemplate="{DataTemplate chatFlyout:ChatListPage}"
+            Route="chat"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
     <FlyoutItem
