@@ -21,7 +21,6 @@ namespace VeganLife
 #endif
 #if ANDROID
     using Android.Widget;
-    //using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
@@ -46,6 +45,7 @@ namespace VeganLife
     using VeganLife.Views.SettingFlyout;
     using VeganLife.Views.MainPageFlyout.FoodTab;
     using VeganLife.Views.MainPageFlyout.VitaminTab;
+    using VeganLife.Views.ChatFlyout;
 #endif
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace VeganLife
             });
             //CustomEntry();
             //CustomSearchBar();
-            //AllowMultiLineTruncationOnAndroid();
+            AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
 
@@ -164,6 +164,7 @@ namespace VeganLife
             services.AddTransient<BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage>();
             services.AddTransient<UsdaFoodFactDetailVM>();
+            services.AddTransient<ChatListPage>();
 
             // Popup
             services.AddTransient<BmiResultPopup>();
@@ -182,22 +183,28 @@ namespace VeganLife
 
         private static void AllowMultiLineTruncationOnAndroid()
         {
-#if ANDROID
-            static void UpdateMaxLines(ILabelHandler handler, ILabel label)
+            static void UpdateMaxLines(LabelHandler handler, ILabel label)
             {
                 var textView = handler.PlatformView;
-                if (label is Label controlsLabel && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End)
+#if ANDROID
+                if (label is Label controlsLabel
+                    && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End && controlsLabel.MaxLines != -1)
                 {
                     textView.SetMaxLines(controlsLabel.MaxLines);
                 }
+#elif IOS
+                if (label is Label controlsLabel
+                          && textView.LineBreakMode == UILineBreakMode.TailTruncation)
+                {
+                    textView.Lines = controlsLabel.MaxLines;
+                }
+#endif
             }
 
             LabelHandler.Mapper.AppendToMapping(
-               nameof(Label.LineBreakMode), UpdateMaxLines);
-
+               nameof(Label.LineBreakMode), (h, v) => UpdateMaxLines((LabelHandler)h, v));
             LabelHandler.Mapper.AppendToMapping(
-                nameof(Label.MaxLines), UpdateMaxLines);
-#endif
+              nameof(Label.MaxLines), (h, v) => UpdateMaxLines((LabelHandler)h, v));
         }
 
         private static void CustomEntry()

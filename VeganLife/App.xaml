@@ -22,6 +22,8 @@
             <x:String x:Key="IconClose">&#xf057;</x:String>
             <x:String x:Key="IconAngleDown">&#xf107;</x:String>
             <x:String x:Key="IconAngleUp">&#xf106;</x:String>
+            <x:String x:Key="IconAngleRight">&#xf105;</x:String>
+            <x:String x:Key="IconAngleLeft">&#xf104;</x:String>
 
             <Style x:Key="itemFoodStyle" TargetType="Border">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -38,13 +40,13 @@
                 </Setter>
             </Style>
 
-            <DataTemplate x:Key="AppFunctionTemplate">
+            <!--<DataTemplate x:Key="AppFunctionTemplate">
                 <Grid Padding="5">
                     <Label Text="{Binding Key}" />
                 </Grid>
-            </DataTemplate>
+            </DataTemplate>-->
 
-            <DataTemplate x:Key="FoodPreviewSearchTemplate" x:DataType="modelFood:FoodPreviewModel">
+            <!--<DataTemplate x:Key="FoodPreviewSearchTemplate" x:DataType="modelFood:FoodPreviewModel">
                 <Grid Padding="5" ColumnDefinitions="*,4*">
                     <Border
                         BackgroundColor="Transparent"
@@ -61,9 +63,9 @@
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </Grid>
-            </DataTemplate>
+            </DataTemplate>-->
 
-            <DataTemplate x:Key="VitaminSearchTemplate" x:DataType="model:VitaminModel">
+            <!--<DataTemplate x:Key="VitaminSearchTemplate" x:DataType="model:VitaminModel">
                 <Grid Padding="0,5" RowDefinitions="*">
                     <Label
                         Grid.Column="1"
@@ -71,7 +73,7 @@
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </Grid>
-            </DataTemplate>
+            </DataTemplate>-->
 
             <DataTemplate x:Key="FoodPreviewCollection" x:DataType="modelFood:FoodPreviewModel">
                 <Border
@@ -108,15 +110,16 @@
                         <VerticalStackLayout
                             Grid.Column="1"
                             Spacing="10"
-                            VerticalOptions="Center">
+                            VerticalOptions="CenterAndExpand">
                             <Label
                                 Margin="0"
                                 FontAttributes="Bold"
+                                HorizontalOptions="StartAndExpand"
                                 LineBreakMode="TailTruncation"
                                 MaxLines="2"
                                 Style="{StaticResource TitleFood}"
                                 Text="{Binding Name, Mode=OneTime}"
-                                VerticalOptions="Center" />
+                                VerticalOptions="StartAndExpand" />
                             <HorizontalStackLayout Spacing="5">
                                 <Label
                                     FontFamily="FontAwesomeRegular"
@@ -156,7 +159,6 @@
                     </Grid>
                 </Border>
             </DataTemplate>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
