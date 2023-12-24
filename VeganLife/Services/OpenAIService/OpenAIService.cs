@@ -1,5 +1,6 @@
 ﻿using ChatGptNet;
 using ChatGptNet.Exceptions;
+using ChatGptNet.Extensions;
 using VeganLife.Helpers;
 
 namespace VeganLife.Services.OpenAIService

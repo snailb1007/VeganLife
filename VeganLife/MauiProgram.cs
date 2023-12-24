@@ -40,7 +40,6 @@ namespace VeganLife
     using UraniumUI;
     using ChatGptNet.Models;
     using VeganLife.Helpers.AppSetting;
-    using The49.Maui.BottomSheet;
     using VeganLife.Views.MainPageFlyout;
     using VeganLife.Views.SettingFlyout;
     using VeganLife.Views.MainPageFlyout.FoodTab;
@@ -81,8 +80,7 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseUraniumUIBlurs()
-                .UseBottomSheet();
+                .UseUraniumUIBlurs();
             //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
@@ -96,7 +94,7 @@ namespace VeganLife
             return builder.Build();
         }
 
-        public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
+        // public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
 
         private static void RegisterServices(IServiceCollection services)
         {
@@ -106,8 +104,8 @@ namespace VeganLife
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
                 options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
-                options.MessageLimit = 3; // Default: 15
-                options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
+                options.MessageLimit = 15; // Default: 15
+                options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });
 #endif
             services.AddSingleton<INavigationService, NavigationService>();

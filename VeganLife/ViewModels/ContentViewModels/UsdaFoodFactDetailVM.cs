@@ -27,6 +27,10 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         private NutritionMealLogDataStoreService foodLogService;
 
+        public UsdaFoodFactDetailVM()
+        {
+        }
+
         public override Task OnNavigatingTo(object parameter)
         {
             if (parameter != null)
@@ -93,9 +97,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         [RelayCommand]
-        private void MoreClicked()
+        private async Task MoreClicked()
         {
-            IsBottomSheetPresented = !IsBottomSheetPresented;
         }
 
         [RelayCommand]

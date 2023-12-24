@@ -43,7 +43,6 @@
             HorizontalTextAlignment="Center"
             Text="{x:Static translate:AppResources.emptyChat_conversationChat}"
             VerticalOptions="Center" />
-
         <Grid
             Grid.Row="2"
             Padding="16,0"
