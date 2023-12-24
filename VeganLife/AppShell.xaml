@@ -64,7 +64,7 @@
         FlyoutDisplayOptions="AsSingleItem"
         Icon="conversation">
         <ShellContent
-            ContentTemplate="{DataTemplate chatFlyout:ChatListPage}"
+            ContentTemplate="{DataTemplate chatFlyout:ConversationPage}"
             Route="chat"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>

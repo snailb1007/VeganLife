@@ -65,17 +65,11 @@
 
 	<ItemGroup>
 		<AndroidResource Remove="Models\Base\**" />
-		<AndroidResource Remove="Views\Templates\**" />
 		<Compile Remove="Models\Base\**" />
-		<Compile Remove="Views\Templates\**" />
 		<EmbeddedResource Remove="Models\Base\**" />
-		<EmbeddedResource Remove="Views\Templates\**" />
 		<MauiCss Remove="Models\Base\**" />
-		<MauiCss Remove="Views\Templates\**" />
 		<MauiXaml Remove="Models\Base\**" />
-		<MauiXaml Remove="Views\Templates\**" />
 		<None Remove="Models\Base\**" />
-		<None Remove="Views\Templates\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -194,6 +188,12 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Templates\BotMessItemTemplate.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Templates\UserMessItemTemplate.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ToolFlyout\BMRCalculatorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>

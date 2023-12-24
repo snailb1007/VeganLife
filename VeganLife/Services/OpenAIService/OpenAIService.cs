@@ -6,12 +6,12 @@ namespace VeganLife.Services.OpenAIService
 {
     public class OpenAIService : IOpenAIService
     {
-        public async Task<string> AskQuestionAsync(string question)
+        public async Task<string> AskQuestionAsync(Guid guid, string question)
         {
             try
             {
                 var response = await ServicesHelper.GetService<IChatGptClient>()
-                    .AskAsync(Guid.NewGuid(), message: question);
+                    .AskAsync(guid, message: question);
                 if (response?.IsSuccessful ?? false)
                 {
                     return response.GetContent() ?? string.Empty;

@@ -2,6 +2,6 @@
 {
     public interface IOpenAIService
     {
-        Task<string> AskQuestionAsync(string question);
+        Task<string> AskQuestionAsync(Guid guid, string question);
     }
 }

@@ -1,9 +1,10 @@
 namespace VeganLife.Views.ChatFlyout;
 
-public partial class ConversationPage : ContentView
+public partial class ConversationPage : ContentPage
 {
-	public ConversationPage()
+	public ConversationPage(ConversationViewModel viewModel)
 	{
+		this.BindingContext = viewModel;
 		InitializeComponent();
 	}
 }

@@ -444,4 +444,7 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="nutritionFact_foodDetail" xml:space="preserve">
 		<value>Nutritions Fact</value>
 	</data>
+	<data name="emptyChat_conversationChat" xml:space="preserve">
+		<value>Don't be afraid and ask us your question!</value>
+	</data>
 </root>
