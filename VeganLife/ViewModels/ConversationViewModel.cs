@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using VeganLife.Helpers;
 using VeganLife.Services.OpenAIService;
+using VeganLife.Services.UserServices;
 
 namespace VeganLife.ViewModels
 {
@@ -57,13 +58,11 @@ namespace VeganLife.ViewModels
         private void AddMessage(string message, bool isUserMessage)
         {
             if (Messages.Count <= 0) IsAnimationVisible = false;
-
             Messages.Add(new ChatMessageModel
             {
                 Text = message,
                 IsUserMessage = isUserMessage,
             });
-
             var collection = (CollectionView)Shell.Current.CurrentPage.FindByName("messCollection");
             Task.Delay(150).ContinueWith(t =>
             {
