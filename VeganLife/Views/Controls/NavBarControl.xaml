@@ -75,6 +75,7 @@
             HorizontalOptions="Center"
             IsVisible="{Binding Title, Source={x:Reference rootNavBarControl}, Converter={StaticResource IsStringNotNullOrEmptyConverter}, Mode=OneWay}"
             Text="{Binding Title, Source={x:Reference rootNavBarControl}, Mode=OneWay}"
+            TextColor="White"
             VerticalOptions="Center" />
     </Grid>
 </ContentView>

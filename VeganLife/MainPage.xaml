@@ -18,6 +18,7 @@
     x:TypeArguments="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}"
+    HideSoftInputOnTapped="True"
     Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -26,7 +27,7 @@
     </ContentPage.Resources>
     <Grid
         IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
-        RowDefinitions="56, Auto, *"
+        RowDefinitions="56, Auto,Auto, *"
         RowSpacing="0">
         <Grid.Triggers>
             <DataTrigger
@@ -46,12 +47,6 @@
             Margin="5"
             IsVisibleGreetingContent="True"
             VerticalOptions="Center" />
-        <!--  transparent view  -->
-        <Grid BackgroundColor="Transparent" IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay}">
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="gridTransparent_TapGestureRecognizer_Tapped" />
-            </Grid.GestureRecognizers>
-        </Grid>
         <toolkit:Expander Grid.Row="1" IsExpanded="{Binding IsFilterContentExpaned}">
             <toolkit:Expander.Header>
                 <Border
@@ -155,48 +150,37 @@
                 </Grid>
             </Grid>
         </toolkit:Expander>
-        <Grid Grid.Row="2" RowDefinitions="Auto,*">
-            <Label
-                Margin="10"
-                FontAttributes="Bold"
-                FontSize="18"
-                HorizontalOptions="StartAndExpand"
-                Text="{x:Static translate:AppResources.explore_common}"
-                TextColor="Gray"
-                VerticalOptions="Center" />
-            <RefreshView
-                Grid.Row="1"
-                Refreshing="RefreshView_Refreshing"
-                VerticalOptions="FillAndExpand">
-                <CollectionView
-                    x:Name="foodCollection"
-                    Margin="20,10"
-                    AutomationProperties.IsInAccessibleTree="False"
-                    ItemSizingStrategy="MeasureAllItems"
-                    ItemTemplate="{StaticResource FoodPreviewCollection}"
-                    ItemsSource="{Binding Foods, Mode=OneWay}"
-                    SelectedItem="{Binding CurrentFoodSelected}"
-                    SelectionChangedCommand="{Binding GoFoodDetailCommand}"
-                    SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
-                    SelectionMode="Single"
-                    SemanticProperties.Description="List food in mainpage">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                </CollectionView>
+        <Label
+            Grid.Row="2"
+            Margin="10"
+            FontAttributes="Bold"
+            FontSize="18"
+            HorizontalOptions="StartAndExpand"
+            Text="{x:Static translate:AppResources.explore_common}"
+            TextColor="Gray"
+            VerticalOptions="Center" />
+        <RefreshView
+            Grid.Row="3"
+            Refreshing="RefreshView_Refreshing"
+            VerticalOptions="FillAndExpand">
+            <CollectionView
+                x:Name="foodCollection"
+                Margin="20,10"
+                AutomationProperties.IsInAccessibleTree="False"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemTemplate="{StaticResource FoodPreviewCollection}"
+                ItemsSource="{Binding Foods, Mode=OneWay}"
+                SelectedItem="{Binding CurrentFoodSelected}"
+                SelectionChangedCommand="{Binding GoFoodDetailCommand}"
+                SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
+                SelectionMode="Single"
+                SemanticProperties.Description="List food in mainpage">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
 
-            </RefreshView>
-            <!--  transparent view  -->
-            <Grid
-                Grid.RowSpan="2"
-                BackgroundColor="Transparent"
-                IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay}">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="gridTransparent_TapGestureRecognizer_Tapped" />
-                </Grid.GestureRecognizers>
-            </Grid>
-        </Grid>
-
+        </RefreshView>
         <ActivityIndicator
             Grid.Row="1"
             Grid.RowSpan="2"

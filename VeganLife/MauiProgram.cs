@@ -46,6 +46,7 @@ namespace VeganLife
     using VeganLife.Views.MainPageFlyout.FoodTab;
     using VeganLife.Views.MainPageFlyout.VitaminTab;
     using VeganLife.Views.ChatFlyout;
+    using VeganLife.Services.OpenAIService;
 #endif
 
     /// <summary>
@@ -105,7 +106,7 @@ namespace VeganLife
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
                 options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
-                options.MessageLimit = 15; // Default: 15
+                options.MessageLimit = 3; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
             });
 #endif
@@ -115,6 +116,7 @@ namespace VeganLife
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
+            services.AddSingleton<IOpenAIService, OpenAIService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
@@ -165,6 +167,8 @@ namespace VeganLife
             services.AddTransient<UsdaFoodFactDetailPage>();
             services.AddTransient<UsdaFoodFactDetailVM>();
             services.AddTransient<ChatListPage>();
+            services.AddTransient<ConversationPage>();
+            services.AddTransient<ConversationViewModel>();
 
             // Popup
             services.AddTransient<BmiResultPopup>();
