@@ -36,13 +36,15 @@
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <Label
+                        Margin="20,0"
+                        HorizontalTextAlignment="Center"
+                        Text="{x:Static translate:AppResources.emptyChat_conversationChat}"
+                        VerticalOptions="Center" />
+                </CollectionView.EmptyView>
             </CollectionView>
         </Border>
-        <Label
-            Margin="20,0"
-            HorizontalTextAlignment="Center"
-            Text="{x:Static translate:AppResources.emptyChat_conversationChat}"
-            VerticalOptions="Center" />
         <Grid
             Grid.Row="2"
             Padding="16,0"
@@ -57,7 +59,7 @@
                     <Entry
                         Margin="16,0"
                         Placeholder="Enter text here..."
-                        Text="{Binding Query}"
+                        Text="{Binding Query, Mode=TwoWay}"
                         TranslationY="4" />
                     <Label Grid.Column="1" Text="Loading" />
                     <!--<skia:SKLottieView
