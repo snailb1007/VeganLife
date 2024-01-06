@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.ChatFlyout.ConversationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:templates="clr-namespace:VeganLife.Views.Templates"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels"
@@ -22,9 +23,10 @@
             BotMessageTemplate="{StaticResource BotMessageItemTemplate}"
             UserMessageItemTemplate="{StaticResource UserMessageItemTemplate}" />
     </ContentPage.Resources>
-    <Grid RowDefinitions="*, 16, Auto, 16">
+    <Grid RowDefinitions="Auto, *, 16, Auto, 16">
         <Border
-            Padding="16,10,16,30"
+            Grid.Row="1"
+            Padding="16,0"
             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColorLight},
                                               Dark={StaticResource SurfaceColorDark}}"
             StrokeShape="RoundRectangle 0,0,36,36"
@@ -32,7 +34,8 @@
             <CollectionView
                 x:Name="messCollection"
                 ItemTemplate="{StaticResource MessageDataTemplateSelector}"
-                ItemsSource="{Binding Messages, Mode=OneWay}">
+                ItemsSource="{Binding Messages, Mode=OneWay}"
+                VerticalOptions="End">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
@@ -45,8 +48,9 @@
                 </CollectionView.EmptyView>
             </CollectionView>
         </Border>
+        <Label HorizontalOptions="Center" Text="{Binding CurrentChat.TimesLimit}" />
         <Grid
-            Grid.Row="2"
+            Grid.Row="3"
             Padding="16,0"
             ColumnDefinitions="*, Auto, Auto"
             ColumnSpacing="10">
@@ -60,16 +64,17 @@
                         Margin="16,0"
                         Placeholder="Enter text here..."
                         Text="{Binding Query, Mode=TwoWay}"
+                        TextColor="{StaticResource Gray100}"
                         TranslationY="4" />
-                    <Label Grid.Column="1" Text="Loading" />
-                    <!--<skia:SKLottieView
+                    <skia:SKLottieView
                         Grid.Column="1"
                         HeightRequest="48"
                         HorizontalOptions="Center"
-                        IsVisible="{Binding IsBusy}"
+                        IsVisible="{Binding IsLoading}"
                         RepeatCount="-1"
                         Source="loading.json"
-                        WidthRequest="48" />-->
+                        VerticalOptions="Center"
+                        WidthRequest="48" />
                 </Grid>
             </Border>
             <ImageButton

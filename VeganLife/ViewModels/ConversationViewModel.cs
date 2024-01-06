@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Services.UserServices;
@@ -27,6 +28,8 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private ChatMessageModel theMessage;
+        [ObservableProperty]
+        private ChatLogsModel _currentChat;
 
         readonly IOpenAIService _openAIService;
         readonly IDispatcher _dispatcher;
@@ -46,13 +49,37 @@ namespace VeganLife.ViewModels
         }
 
         private Guid _sessionGuid;
+        private ChatLogsDataStoreService _chatLogsDataStoreService;
 
-        public ConversationViewModel(IDispatcher dispatcher, IOpenAIService openAIService)
+
+        public ConversationViewModel(IDispatcher dispatcher, IOpenAIService openAIService, ChatLogsDataStoreService chatLogsDataStoreService)
             : base()
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
+            this._chatLogsDataStoreService = chatLogsDataStoreService;
+        }
+
+        public override async Task<Task> ViewAppearingVM()
+        {
+            if (CurrentChat is null)
+            {
+                var lst = await _chatLogsDataStoreService.GetItemsAsync();
+                CurrentChat = lst.FirstOrDefault(i => i.ChatDate.Equals(DateTime.Today.Date))!;
+                if (CurrentChat is null)
+                {
+                    CurrentChat = new ChatLogsModel
+                    {
+                        AdWatchingLimit = 1,
+                        ChatDate = DateTime.Today.Date,
+                        TimesLimit = 5
+                    };
+                    await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+                }
+            }
+
+            return base.ViewAppearingVM();
         }
 
         private void AddMessage(string message, bool isUserMessage)
@@ -68,12 +95,15 @@ namespace VeganLife.ViewModels
             {
                 _dispatcher.Dispatch(() =>
                 {
-                    collection.ScrollTo
-                    (
-                        item: Messages.Last(),
-                        position: ScrollToPosition.End,
-                        animate: true
-                    );
+                    if (collection != null)
+                    {
+                        collection.ScrollTo
+                        (
+                            item: Messages.Last(),
+                            position: ScrollToPosition.End,
+                            animate: true
+                        );
+                    }
                 });
             });
         }
@@ -81,6 +111,11 @@ namespace VeganLife.ViewModels
         private async Task QueryManagerAsync(Func<Guid, string, Task<string>> queryManager)
         {
             if (string.IsNullOrEmpty(Query)) return;
+            if (CurrentChat.TimesLimit > 0)
+            {
+                CurrentChat.TimesLimit -= 1;
+            }
+
             string queryCopy = Query;
             Query = string.Empty;
             AddMessage(message: queryCopy, isUserMessage: true);
@@ -92,46 +127,15 @@ namespace VeganLife.ViewModels
 
         private async Task AskQuestionAsync()
         {
+            if (CurrentChat.TimesLimit < 1 || CurrentCommand.IsRunning)
+                return;
             if (_sessionGuid == Guid.Empty)
             {
                 _sessionGuid = Guid.NewGuid();
             }
 
             await QueryManagerAsync(_openAIService.AskQuestionAsync);
+            await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
         }
-
-        [RelayCommand]
-        private async Task AskQuestion()
-        {
-            OpacityModeMessage = 1;
-            OpacityModeImage = 0.5;
-
-            await Toast.Make("Write mode").Show();
-
-            CurrentCommand = new AsyncRelayCommand(AskQuestionAsync);
-        }
-
-        //[RelayCommand]
-        //private async Task CreateImage()
-        //{
-        //    OpacityModeMessage = 0.5;
-        //    OpacityModeImage = 1;
-
-        //    await Toast.Make("Image mode").Show();
-
-        //    CurrentCommand = new AsyncRelayCommand(CreateImageAsync);
-        //}
-
-        //[RelayCommand]
-        //private async Task SelectTheme()
-        //{
-        //    AppTheme currentTheme = Application.Current.RequestedTheme;
-        //    AppTheme newTheme = currentTheme == AppTheme.Dark ? AppTheme.Light : AppTheme.Dark;
-        //    Application.Current.UserAppTheme = newTheme;
-
-        //    await ConversationView.ScaleTo(0.95, 250, Easing.CubicOut);
-        //    await ConversationView.ScaleTo(1.05, 250, Easing.CubicIn);
-        //    await ConversationView.ScaleTo(1, 250, Easing.CubicOut);
-        //}
     }
 }

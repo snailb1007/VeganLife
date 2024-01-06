@@ -7,4 +7,10 @@ public partial class ConversationPage : ContentPage
 		this.BindingContext = viewModel;
 		InitializeComponent();
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+		await (this.BindingContext as ConversationViewModel)?.ViewAppearingVM()!;
+    }
 }
