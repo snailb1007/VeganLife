@@ -88,8 +88,8 @@ namespace VeganLife
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
             });
-            //CustomEntry();
-            //CustomSearchBar();
+            CustomEntry();
+            CustomSearchBar();
             AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
@@ -121,6 +121,7 @@ namespace VeganLife
             services.AddSingleton<UsdaFoodDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
+            services.AddSingleton<ChatLogsDataStoreService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
@@ -215,6 +216,7 @@ namespace VeganLife
             {
 #if ANDROID
                 handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #elif IOS
 			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
