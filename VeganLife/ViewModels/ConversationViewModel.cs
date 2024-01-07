@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Views;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.ChatFlyout;
 
 namespace VeganLife.ViewModels
 {
@@ -73,7 +75,7 @@ namespace VeganLife.ViewModels
                     {
                         AdWatchingLimit = 1,
                         ChatDate = DateTime.Today.Date,
-                        TimesLimit = 5
+                        TimesLimit = 3
                     };
                     await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
                 }
@@ -84,26 +86,25 @@ namespace VeganLife.ViewModels
 
         private void AddMessage(string message, bool isUserMessage)
         {
-            if (Messages.Count <= 0) IsAnimationVisible = false;
-            Messages.Add(new ChatMessageModel
+            // if (Messages.Count <= 0) IsAnimationVisible = false;
+            _dispatcher.Dispatch(() => Messages.Add(new ChatMessageModel
             {
                 Text = message,
                 IsUserMessage = isUserMessage,
-            });
+            }));
             var collection = (CollectionView)Shell.Current.CurrentPage.FindByName("messCollection");
+            if (collection is null)
+                return;
             Task.Delay(150).ContinueWith(t =>
             {
                 _dispatcher.Dispatch(() =>
                 {
-                    if (collection != null)
-                    {
                         collection.ScrollTo
                         (
                             item: Messages.Last(),
                             position: ScrollToPosition.End,
                             animate: true
                         );
-                    }
                 });
             });
         }
@@ -136,6 +137,12 @@ namespace VeganLife.ViewModels
 
             await QueryManagerAsync(_openAIService.AskQuestionAsync);
             await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+        }
+
+        [RelayCommand]
+        private async Task OpenDisclaimerPopup()
+        {
+            await navigationService.NavigateToPage<ChatGPTDisClaimerPage>();
         }
     }
 }

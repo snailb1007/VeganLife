@@ -78,6 +78,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\chat_disclaimer.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Remove="Views\LoginPage.xaml" />
 	  <MauiXaml Remove="Views\RegistrationPage.xaml" />
 	</ItemGroup>
@@ -95,7 +99,12 @@
 		<None Remove="Resources\Images\tutorial2.jpg" />
 		<None Remove="Resources\Images\tutorial_background.jpg" />
 		<None Remove="Resources\Images\web_view.svg" />
+		<None Remove="Resources\Raw\chat_disclaimer.txt" />
 		<None Remove="Resources\Raw\loading.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -169,6 +178,9 @@
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+		<MauiXaml Update="Views\ChatFlyout\ChatGPTDisClaimerPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ChatListPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

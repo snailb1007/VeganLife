@@ -18,7 +18,6 @@
     x:TypeArguments="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}"
-    HideSoftInputOnTapped="True"
     Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
