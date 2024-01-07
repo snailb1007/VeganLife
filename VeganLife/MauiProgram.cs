@@ -168,6 +168,7 @@ namespace VeganLife
             services.AddTransient<ChatListPage>();
             services.AddTransient<ConversationPage>();
             services.AddTransient<ConversationViewModel>();
+            services.AddTransient<ChatGPTDisClaimerPage>();
 
             // Popup
             services.AddTransient<BmiResultPopup>();
