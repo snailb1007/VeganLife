@@ -125,50 +125,74 @@ namespace VeganLife
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
+
             services.AddTransient<MainTool>();
             services.AddTransient<MainToolViewModel>();
+
             services.AddTransient<MainPage>();
             services.AddTransient<MainViewModel>();
+
             services.AddTransient<NewsFeedPage>();
             services.AddTransient<NewsFeedViewModel>();
+
             services.AddTransient<WebViewPage>();
             services.AddTransient<WebViewViewModel>();
+
             services.AddTransient<FlyoutHeader>();
             services.AddTransient<FlyouttHeaderViewModel>();
+
             services.AddTransient<VitaminAndMineralPage>();
             services.AddTransient<VitaminAndMineralViewModel>();
+
             services.AddTransient<FoodDetailPage>();
             services.AddTransient<FoodDetailViewModel>();
+
             services.AddTransient<BookmarkPage>();
             services.AddTransient<BookmarkViewModel>();
+
             services.AddTransient<FoodsByCategoryPage>();
             services.AddTransient<FoodsByCategoryViewModel>();
+
             services.AddTransient<DetailVitaminAndMineralPage>();
             services.AddTransient<DetailVitaminAndMineralViewModel>();
+
             services.AddTransient<LicensePage>();
             services.AddTransient<LicenseViewModel>();
+
             services.AddTransient<ProfilePage>();
             services.AddTransient<ProfileViewModel>();
+
             services.AddTransient<WelcomePage>();
             services.AddTransient<WelcomeViewModel>();
+
             services.AddTransient<ReportPage>();
             services.AddTransient<ReportPageViewModel>();
-            services.AddTransient<CaloriesViewModel>();
-            services.AddTransient<MacrosViewModel>();
-            services.AddTransient<NutrientsViewModel>();
+
             services.AddTransient<CaloriesTab>();
+            services.AddTransient<CaloriesViewModel>();
+
             services.AddTransient<MacrosTab>();
+            services.AddTransient<MacrosViewModel>();
+
             services.AddTransient<NutrientsTab>();
+            services.AddTransient<NutrientsViewModel>();
+
             services.AddTransient<BMICalculatorPage>();
             services.AddTransient<BmiCalculatorViewModel>();
+
             services.AddTransient<BMRCalculatorPage>();
             services.AddTransient<BmrCalculatorViewModel>();
+
             services.AddTransient<UsdaFoodFactDetailPage>();
             services.AddTransient<UsdaFoodFactDetailVM>();
+
             services.AddTransient<ChatListPage>();
+
             services.AddTransient<ConversationPage>();
             services.AddTransient<ConversationViewModel>();
+
             services.AddTransient<ChatGPTDisClaimerPage>();
+            services.AddTransient<ChatGPTDetailPage>();
 
             // Popup
             services.AddTransient<BmiResultPopup>();

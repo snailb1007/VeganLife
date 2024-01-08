@@ -12,7 +12,10 @@
     BackgroundColor="#f8f8f8">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding CurrentChat.TimesLimit}" />
-        <ToolbarItem Order="Secondary" Text="Detail" />
+        <ToolbarItem
+            Command="{Binding OpenChatGPTDetailPageCommand}"
+            Order="Secondary"
+            Text="Detail" />
         <ToolbarItem
             Command="{Binding OpenDisclaimerPopupCommand}"
             Order="Secondary"
