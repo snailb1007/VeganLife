@@ -1,9 +1,5 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Views;
-using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
+﻿using VeganLife.Data.LocalData;
 using VeganLife.Services.OpenAIService;
-using VeganLife.Services.UserServices;
 using VeganLife.Views.ChatFlyout;
 
 namespace VeganLife.ViewModels
@@ -142,7 +138,17 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OpenDisclaimerPopup()
         {
+            if (OpenDisclaimerPopupCommand.IsRunning)
+                return;
             await navigationService.NavigateToPage<ChatGPTDisClaimerPage>();
+        }
+
+        [RelayCommand]
+        private async Task OpenChatGPTDetailPage()
+        {
+            if (OpenChatGPTDetailPageCommand.IsRunning)
+                return;
+            await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
     }
 }

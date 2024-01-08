@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="VeganLife.Views.ChatFlyout.ChatGPTDisClaimerPage"
+    x:Class="VeganLife.Views.ChatFlyout.ChatGPTDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations">
@@ -34,7 +34,10 @@
             Grid.ColumnSpan="2"
             BackgroundColor="{StaticResource Gray100}"
             Orientation="Vertical">
-            <Label x:Name="lbContent" WidthRequest="{Binding Source={x:Reference rootGrid}, Path=Width, Mode=OneWay}" />
+            <Label
+                x:Name="lbContent"
+                LineBreakMode="WordWrap"
+                WidthRequest="{Binding Source={x:Reference rootGrid}, Path=Width, Mode=OneWay}" />
         </ScrollView>
         <Button
             Grid.Row="2"
