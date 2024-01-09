@@ -36,11 +36,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-		<!--<AndroidLinkTool>r8</AndroidLinkTool>-->
+	  <!--<AndroidLinkTool>r8</AndroidLinkTool>-->
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-		<!--<AndroidLinkTool>r8</AndroidLinkTool>-->
+	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -130,9 +130,9 @@
 		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
 		<PackageReference Include="Mopups" Version="1.2.0" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
-		<PackageReference Include="UraniumUI.Blurs" Version="2.7.3" />
 		<PackageReference Include="ChatGptNet" Version="3.0.6" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.86" />
+		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
 		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 	</ItemGroup>
