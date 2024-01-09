@@ -16,9 +16,7 @@ namespace VeganLife
     using VeganLife.Views.Controls;
     using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
-#if GPT
     using ChatGptNet;
-#endif
 #if ANDROID
     using Android.Widget;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -37,7 +35,6 @@ namespace VeganLife
     using VeganLife.ViewModels.ToolsFlyoutViewModel;
     using VeganLife.Services.CommunityFreeService;
     using VeganLife.Views.PortionTab;
-    using UraniumUI;
     using ChatGptNet.Models;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Views.MainPageFlyout;
@@ -46,6 +43,7 @@ namespace VeganLife
     using VeganLife.Views.MainPageFlyout.VitaminTab;
     using VeganLife.Views.ChatFlyout;
     using VeganLife.Services.OpenAIService;
+    using Sharpnado.MaterialFrame;
 #endif
 
     /// <summary>
@@ -80,7 +78,7 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseUraniumUIBlurs();
+                .UseSharpnadoMaterialFrame(loggerEnable: false);
             //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
@@ -99,7 +97,6 @@ namespace VeganLife
         private static void RegisterServices(IServiceCollection services)
         {
             // service
-#if GPT
             services.AddChatGpt(options =>
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
@@ -107,7 +104,6 @@ namespace VeganLife
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });
-#endif
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IDataService, DataService>();
             services.AddSingleton<ISQLite, SQLiteService>();

@@ -7,8 +7,8 @@
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:rv="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     Padding="0"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
@@ -47,9 +47,6 @@
                 HorizontalOptions="Fill"
                 IsExpanded="True"
                 VerticalOptions="EndAndExpand">
-                <toolkit:Expander.Effects>
-                    <uranium:BlurEffect />
-                </toolkit:Expander.Effects>
                 <toolkit:Expander.Header>
                     <Label
                         FontAttributes="Bold"
@@ -68,25 +65,23 @@
                         </Label.Triggers>
                     </Label>
                 </toolkit:Expander.Header>
-                <StackLayout
+                <rv:MaterialFrame
                     Padding="10"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="EndAndExpand"
-                    ZIndex="2">
-                    <Label
-                        BackgroundColor="Aqua"
-                        FontSize="Large"
-                        HorizontalOptions="CenterAndExpand"
-                        TextColor="White"
-                        WidthRequest="{Binding Source={x:Reference titleExpander}, Path=Width}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding CaloriesValue.Amount, Mode=OneWay}" />
-                                <Span Text=" calories" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
+                    HorizontalOptions="CenterAndExpand"
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialBlurStyle="Light"
+                    MaterialTheme="AcrylicBlur"
+                    VerticalOptions="EndAndExpand">
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
+                            TextColor="White"
+                            WidthRequest="{Binding Source={x:Reference titleExpander}, Path=Width}" />
+                        <Label Text=" calories" TextColor="White" />
+                    </StackLayout>
+                </rv:MaterialFrame>
             </toolkit:Expander>
         </Grid>
         <Grid

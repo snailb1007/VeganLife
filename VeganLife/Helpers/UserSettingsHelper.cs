@@ -59,7 +59,10 @@ namespace VeganLife.Helpers
             }
             catch (Exception ex)
             {
+                _ = ex;
+#if DEBUG
                 Debug.WriteLine(ex.Message);
+#endif
             }
 
             cache[key] = value;
