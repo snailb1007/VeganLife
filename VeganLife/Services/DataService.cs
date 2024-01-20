@@ -6,12 +6,11 @@
 
 namespace VeganLife.Services
 {
-    using System.Xml;
     using Firebase.Database;
     using Firebase.Database.Query;
     using HtmlAgilityPack;
-    using Newtonsoft.Json;
-    using VeganLife.Data.RssFeedsData;
+    using System.ServiceModel.Syndication;
+    using System.Xml;
     using VeganLife.Models.CommunityFreeServiceModel;
     using VeganLife.Models.FirebaseDataModel;
     using VeganLife.Models.FoodModel;
@@ -26,6 +25,10 @@ namespace VeganLife.Services
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins/list";
         private const string FoodNutriFacts = "Foods/nutritionFact";
+
+        public DataService()
+        {
+        }
 
         #region food
         public async Task<FoodDetailModel> GetFoodDetail(string id)
@@ -158,6 +161,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
+                _ = e;
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
@@ -168,26 +172,65 @@ namespace VeganLife.Services
 
         #endregion
 
-        public async Task<IEnumerable<Item>> LoadGoogleNews(string uri)
+        #region Google news feed
+        //public async Task<IEnumerable<Item>> LoadGoogleNews(string uri)
+        //{
+        //    var data = await _rssFeedsHttpRequest.GetRssData(uri);
+        //    if (string.IsNullOrEmpty(data))
+        //    {
+        //        return Enumerable.Empty<Item>();
+        //    }
+
+        //    var doc = new XmlDocument();
+        //    doc.LoadXml(data);
+        //    var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
+        //    if (string.IsNullOrEmpty(json))
+        //    {
+        //        return Enumerable.Empty<Item>();
+        //    }
+
+        //    var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
+        //    return baseData.rss.channel.item;
+        //}
+
+        public IEnumerable<Item> ReadRssFeed(string url)
         {
-            var rss = new RssFeedsHttpRequest();
-            var data = await rss.GetRssData(uri);
-            if (string.IsNullOrEmpty(data))
+            try
             {
+                var results = new List<Item>();
+                using (XmlReader reader = XmlReader.Create(url))
+                {
+                    SyndicationFeed feed = SyndicationFeed.Load(reader);
+                    foreach (var i in feed.Items)
+                    {
+                        results.Add(new Item
+                        {
+                            title = i.Title.Text,
+                            //Summary = item.Summary.Text,
+                            LocalTimePosted = i.PublishDate.DateTime,
+                            link = i.Links.FirstOrDefault()?.Uri.ToString() ?? string.Empty
+                        });
+                    }
+
+                    return results;
+                    //foreach (SyndicationItem item in feed.Items)
+                    //{
+                    //    string title = item.Title.Text;
+                    //    string summary = item.Summary.Text;
+                    //    Uri link = item.Links[0].Uri;
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = ex;
+#if DEBUG
+                Console.WriteLine(ex.Message);
+#endif
                 return Enumerable.Empty<Item>();
             }
-
-            var doc = new XmlDocument();
-            doc.LoadXml(data);
-            var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
-            if (string.IsNullOrEmpty(json))
-            {
-                return Enumerable.Empty<Item>();
-            }
-
-            var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
-            return baseData.rss.channel.item;
         }
+        #endregion
 
         public async Task<List<string>> GetImageLinksAsync(string url)
         {
@@ -228,12 +271,17 @@ namespace VeganLife.Services
                     }
                     else
                     {
+#if DEBUG
                         Console.WriteLine($"Failed to fetch content from {url}. Status code: {response.StatusCode}");
+#endif
                     }
                 }
                 catch (Exception ex)
                 {
+                    _ = ex;
+#if DEBUG
                     Console.WriteLine($"An error occurred: {ex.Message}");
+#endif
                 }
             }
 
@@ -272,6 +320,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
+                _ = e;
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif

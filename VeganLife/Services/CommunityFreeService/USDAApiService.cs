@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using VeganLife.Models.CommunityFreeServiceModel;
+﻿using VeganLife.Models.CommunityFreeServiceModel;
 
 namespace VeganLife.Services.CommunityFreeService
 {
@@ -8,35 +7,39 @@ namespace VeganLife.Services.CommunityFreeService
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
         private const string apiKey = "8tgleoubqLXYdky38LaQFpMaQIEqvTez4eFV6obc";
 
-        //public USDAApiService()
-        //{
-        //}
-
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
         {
-            using (var httpClient = new HttpClient())
+            var result = new USDAFoodNutritionFactModel();
+            try
             {
-                try
-                {
-                    string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
-                    HttpResponseMessage response = await httpClient.GetAsync(url);
+                string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
+                HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string json = await response.Content.ReadAsStringAsync();
-                        return JsonConvert.DeserializeObject<USDAFoodNutritionFactModel>(json);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"API request failed with status code: {response.StatusCode}");
-                        return null;
-                    }
-                }
-                catch (Exception ex)
+                if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                    return null;
+                    var streamData = await response.Content.ReadAsStreamAsync();
+                    var responseData = await Utf8Json.JsonSerializer.DeserializeAsync<USDAFoodNutritionFactModel>(streamData);
+                    if (responseData is not null)
+                    {
+                        result = responseData;
+                    }
                 }
+                else
+                {
+#if DEBUG
+                    Console.WriteLine($"API request failed with status code: {response.StatusCode}");
+#endif
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Console.WriteLine($"An error occurred: {ex.Message}");
+#endif
+                _ = ex;
+                return result;
             }
         }
     }

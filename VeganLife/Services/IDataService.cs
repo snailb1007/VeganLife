@@ -4,6 +4,7 @@
 
 namespace VeganLife.Services
 {
+    using System.ServiceModel.Syndication;
     using VeganLife.Models.CommunityFreeServiceModel;
     using VeganLife.Models.FirebaseDataModel;
     using VeganLife.Models.FoodModel;
@@ -21,7 +22,7 @@ namespace VeganLife.Services
 
         Task<IEnumerable<VitaminModel>> GetVitamins();
 
-        Task<IEnumerable<Item>> LoadGoogleNews(string uri);
+        IEnumerable<Item> ReadRssFeed(string url);
         Task<List<string>> GetImageLinksAsync(string url);
         Task<string> GetFireBaseValue(string nodePath);
         Task<BmiModel> GetHealthDiagnosisFirebaseDataModel();
