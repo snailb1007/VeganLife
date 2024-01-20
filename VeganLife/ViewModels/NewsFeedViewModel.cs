@@ -80,12 +80,7 @@ namespace VeganLife.ViewModels
                 this.SetFlagDiscoverySelected(isHealthy: true);
                 if (!this.dataHealthy?.Any() ?? true)
                 {
-                    //this.dataHealthy = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
-                    var x = new Stopwatch();
-                    x.Start();
                     this.dataHealthy = dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
-                    x.Stop();
-                    await Console.Out.WriteLineAsync("==> time " + x.ElapsedMilliseconds);
                 }
 
                 MainThread.BeginInvokeOnMainThread(() =>
