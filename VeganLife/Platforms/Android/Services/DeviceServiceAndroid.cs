@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Android.Content;
 using Java.Util;
 
 namespace VeganLife.Services
@@ -22,5 +23,70 @@ namespace VeganLife.Services
         }
 
         public string GetDeviceId() => UUID.RandomUUID()?.ToString() ?? string.Empty;
+
+        public bool IsAutomaticDateTimeEnabled()
+        {
+            try
+            {
+                if (Platform.CurrentActivity is null)
+                {
+#if DEBUG
+                    Console.WriteLine("==> Platform.CurrentActivity is null");
+#endif
+                    return false;
+                }
+
+                return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver, global::Android.Provider.Settings.Global.AutoTime) == 1;
+            }
+            catch (Exception e)
+            {
+                _ = e;
+                if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
+                {
+                    _ = nativeEx;
+#if DEBUG
+                    Console.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
+#endif
+                }
+
+                return false;
+            }
+        }
+
+        public bool IsAutomaticTimeZoneEnabled()
+        {
+            try
+            {
+                if (Platform.CurrentActivity is null)
+                {
+#if DEBUG
+                    Console.WriteLine("==> Platform.CurrentActivity is null");
+#endif
+                    return false;
+                }
+
+                return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver, global::Android.Provider.Settings.Global.AutoTimeZone) == 1;
+            }
+            catch (Exception e)
+            {
+                _ = e;
+                if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
+                {
+                    _ = nativeEx;
+#if DEBUG
+                    Console.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
+#endif
+                }
+
+                return false;
+            }
+        }
+
+        public void OpenDateSettings()
+        {
+            Intent intent = new Intent(Android.Provider.Settings.ActionDateSettings);
+            intent.AddFlags(ActivityFlags.NewTask);
+            Android.App.Application.Context.StartActivity(intent);
+        }
     }
 }
