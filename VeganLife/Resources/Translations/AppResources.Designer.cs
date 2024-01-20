@@ -414,6 +414,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t be afraid and ask us your question!.
+        /// </summary>
+        internal static string emptyChat_conversationChat {
+            get {
+                return ResourceManager.GetString("emptyChat_conversationChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name is empty.
         /// </summary>
         internal static string emptyName_profilePopupEdit {

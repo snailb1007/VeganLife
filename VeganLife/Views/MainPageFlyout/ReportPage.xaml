@@ -59,26 +59,6 @@
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                     </Frame.Triggers>
-                    <DatePicker
-                        BackgroundColor="White"
-                        Format="dd/MM/yyyy"
-                        HeightRequest="48"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Center" />
-                </Frame>
-                <Frame
-                    Grid.Column="1"
-                    Padding="0"
-                    HeightRequest="50"
-                    IsVisible="False">
-                    <Frame.Triggers>
-                        <DataTrigger
-                            Binding="{Binding SelectedViewModelIndex}"
-                            TargetType="Frame"
-                            Value="1">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                    </Frame.Triggers>
                     <SearchBar
                         x:DataType="tabVM:MacrosViewModel"
                         BindingContext="{Binding BindingContext.MacrosViewModel, Source={x:Reference rootReportPage}}"
@@ -95,6 +75,27 @@
                                 StoppedTypingTimeThreshold="500" />
                         </SearchBar.Behaviors>
                     </SearchBar>
+                </Frame>
+
+                <Frame
+                    Grid.Column="1"
+                    Padding="0"
+                    HeightRequest="50"
+                    IsVisible="False">
+                    <Frame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedViewModelIndex}"
+                            TargetType="Frame"
+                            Value="1">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <DatePicker
+                        BackgroundColor="White"
+                        Format="dd/MM/yyyy"
+                        HeightRequest="48"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center" />
                 </Frame>
             </Grid>
         </ContentView>
@@ -121,12 +122,12 @@
                         </Style>
                     </ResourceDictionary>
                 </tabs:TabHostView.Resources>
+                <tabs:MaterialUnderlinedTabItem Label="MACROS" />
                 <tabs:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
                     <tabs:MaterialUnderlinedTabItem.Badge>
                         <tabs:BadgeView Text="{Binding NumberBadgeCalories}" />
                     </tabs:MaterialUnderlinedTabItem.Badge>
                 </tabs:MaterialUnderlinedTabItem>
-                <tabs:MaterialUnderlinedTabItem Label="MACROS" />
                 <tabs:MaterialUnderlinedTabItem Label="NUTRIENTS">
                     <tabs:MaterialUnderlinedTabItem.Badge>
                         <tabs:BadgeView Text="{Binding NumberBadgeCart}" />
@@ -142,14 +143,14 @@
                 Animate="True"
                 SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
                 <tabs:DelayedView
-                    x:TypeArguments="views:CaloriesTab"
-                    Animate="True"
-                    BindingContext="{Binding CaloriesViewModel}"
-                    UseActivityIndicator="True" />
-                <tabs:DelayedView
                     x:TypeArguments="views:MacrosTab"
                     Animate="True"
                     BindingContext="{Binding MacrosViewModel}"
+                    UseActivityIndicator="True" />
+                <tabs:DelayedView
+                    x:TypeArguments="views:CaloriesTab"
+                    Animate="True"
+                    BindingContext="{Binding CaloriesViewModel}"
                     UseActivityIndicator="True" />
                 <tabs:DelayedView
                     x:TypeArguments="views:NutrientsTab"

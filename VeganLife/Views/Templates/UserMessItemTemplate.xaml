@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="VeganLife.Views.Templates.UserMessItemTemplate"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ColumnDefinitions="*"
+    HorizontalOptions="End">
+    <Border
+        x:Name="borderText"
+        Grid.Column="0"
+        Padding="12"
+        BackgroundColor="{StaticResource PrimaryLight}"
+        StrokeShape="RoundRectangle 16,16,16,0"
+        StrokeThickness="0">
+        <Label
+            HorizontalTextAlignment="End"
+            Text="{Binding Text}"
+            TextColor="{StaticResource Gray100}" />
+    </Border>
+</Grid>

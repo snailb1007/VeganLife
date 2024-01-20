@@ -10,8 +10,8 @@ namespace VeganLife.Views.MainPageFlyout.FoodTab
     public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
     {
         // private double marginTopContent;
-        private double imgHeight;
-        //private double frameTitleHeight;
+        // private double imgHeight;
+        // private double frameTitleHeight;
 
         //public double MarginTopContent
         //{

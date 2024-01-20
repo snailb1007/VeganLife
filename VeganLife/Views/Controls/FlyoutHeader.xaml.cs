@@ -45,7 +45,7 @@ namespace VeganLife.Views.Controls
                     lbGreeting.Text = string.Format(grettingList.ElementAt(randomGreetingIndex), userData.Name);
                 }
 
-                imgAvatar.Source = userData.IsMale ? "profile_boy" : "profile_girl_strong";
+                imgAvatar.Source = userData.Image;
             }
         }
 

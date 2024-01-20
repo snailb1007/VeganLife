@@ -31,14 +31,20 @@ namespace VeganLife.ViewModels
             AppShell.ShowFlyOut();
         }
 
+        public override async Task<Task> ViewAppearingVM()
+        {
+            await MacrosViewModel.ViewAppearingVM();
+            return base.ViewAppearingVM();
+        }
+
         partial void OnSelectedViewModelIndexChanged(int value)
         {
             switch (value)
             {
-                case 0:
+                case 1:
                     _ = CaloriesViewModel.ViewAppearingVM();
                     break;
-                case 1:
+                case 0:
                     _ = MacrosViewModel.ViewAppearingVM();
                     break;
                 case 2:
