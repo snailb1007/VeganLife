@@ -15,10 +15,11 @@
             <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout>
-        <control:NavBarControl Title="{Binding TitlePage, Mode=OneWay}" />
+    <Grid ColumnDefinitions="2.5*,5*,2.5*" RowDefinitions="Auto,*">
+        <control:NavBarControl Title="{Binding TitlePage, Mode=OneWay}" Grid.ColumnSpan="3" />
         <CollectionView
             Grid.Row="1"
+            Grid.ColumnSpan="3"
             Margin="20,10"
             EmptyView="{Binding TitlePage, StringFormat={x:Static translate:AppResources.noFoods_foodByCategoryDetailPage}, Mode=OneWay}"
             ItemTemplate="{StaticResource FoodPreviewCollection}"
@@ -30,12 +31,11 @@
                 <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
         </CollectionView>
-        <Grid ColumnDefinitions="2.5*,5*,2.5*" IsVisible="{Binding Foods, Converter={StaticResource IsListNullOrEmptyConverter}, Mode=OneWay}">
-            <Image
-                Grid.Column="1"
-                HorizontalOptions="Center"
-                Source="error_snail.jpg"
-                VerticalOptions="Center" />
-        </Grid>
-    </VerticalStackLayout>
+        <Image
+            Grid.Column="1"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Foods, Converter={StaticResource IsListNullOrEmptyConverter}, Mode=OneWay}"
+            Source="error_snail.jpg"
+            VerticalOptions="Center" />
+    </Grid>
 </ContentPage>

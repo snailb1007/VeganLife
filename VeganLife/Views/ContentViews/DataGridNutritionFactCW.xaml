@@ -6,7 +6,7 @@
     xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     x:DataType="model:FoodNutrient"
-    HeaderBackground="{StaticResource PrimaryOrange}"
+    HeaderBackground="{StaticResource PrimaryOrange1}"
     IsSortable="True">
     <dg:DataGrid.RowsBackgroundColorPalette>
         <dg:PaletteCollection>
@@ -18,21 +18,21 @@
         <dg:DataGridColumn Width="6*" PropertyName="Nutrient.name">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
-                    <Span Text="Nutrition name" TextColor="White" />
+                    <Span Text="Nutrition name" TextColor="{StaticResource Gray600}" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
         </dg:DataGridColumn>
         <dg:DataGridColumn Width="3*" PropertyName="Amount">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
-                    <Span Text="Value" TextColor="White" />
+                    <Span Text="Value" TextColor="{StaticResource Gray600}" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
         </dg:DataGridColumn>
         <dg:DataGridColumn Width="*" PropertyName="Nutrient.unitName">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
-                    <Span Text="Unit" TextColor="White" />
+                    <Span Text="Unit" TextColor="{StaticResource Gray600}" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
         </dg:DataGridColumn>

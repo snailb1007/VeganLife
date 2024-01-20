@@ -7,7 +7,6 @@
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
-    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:WelcomeViewModel"
     x:TypeArguments="viewmodel:WelcomeViewModel"
@@ -63,9 +62,6 @@
                                         Grid.Row="1"
                                         IsClippedToBounds="True"
                                         VerticalOptions="EndAndExpand">
-                                        <StackLayout.Effects>
-                                            <uranium:BlurEffect Mode="Dark" />
-                                        </StackLayout.Effects>
                                         <Label
                                             Margin="10"
                                             LineBreakMode="WordWrap"
@@ -81,9 +77,6 @@
                 </cards:CoverFlowView.ItemTemplate>
             </cards:CoverFlowView>
             <StackLayout MinimumHeightRequest="52" VerticalOptions="EndAndExpand">
-                <StackLayout.Effects>
-                    <uranium:BlurEffect Mode="Dark" />
-                </StackLayout.Effects>
                 <Label
                     HorizontalOptions="CenterAndExpand"
                     Text="thien"

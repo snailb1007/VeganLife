@@ -16,12 +16,9 @@ namespace VeganLife
     using VeganLife.Views.Controls;
     using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
-#if GPT
     using ChatGptNet;
-#endif
 #if ANDROID
     using Android.Widget;
-    //using Microcharts.Maui;
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
     using VeganLife.ViewModels.PopupViewModels;
     using VeganLife.Data.LocalData;
@@ -38,14 +35,15 @@ namespace VeganLife
     using VeganLife.ViewModels.ToolsFlyoutViewModel;
     using VeganLife.Services.CommunityFreeService;
     using VeganLife.Views.PortionTab;
-    using UraniumUI;
     using ChatGptNet.Models;
     using VeganLife.Helpers.AppSetting;
-    using The49.Maui.BottomSheet;
     using VeganLife.Views.MainPageFlyout;
     using VeganLife.Views.SettingFlyout;
     using VeganLife.Views.MainPageFlyout.FoodTab;
     using VeganLife.Views.MainPageFlyout.VitaminTab;
+    using VeganLife.Views.ChatFlyout;
+    using VeganLife.Services.OpenAIService;
+    using Sharpnado.MaterialFrame;
 #endif
 
     /// <summary>
@@ -80,8 +78,7 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseUraniumUIBlurs()
-                .UseBottomSheet();
+                .UseSharpnadoMaterialFrame(loggerEnable: false);
             //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
@@ -89,81 +86,109 @@ namespace VeganLife
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
             });
-            //CustomEntry();
-            //CustomSearchBar();
-            //AllowMultiLineTruncationOnAndroid();
+            CustomEntry();
+            CustomSearchBar();
+            AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
 
-        public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
+        // public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
 
         private static void RegisterServices(IServiceCollection services)
         {
             // service
-#if GPT
             services.AddChatGpt(options =>
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
                 options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
                 options.MessageLimit = 15; // Default: 15
-                options.MessageExpiration = TimeSpan.FromMinutes(5); // Default: 1 hour
+                options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });
-#endif
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IDataService, DataService>();
             services.AddSingleton<ISQLite, SQLiteService>();
             services.AddSingleton<IDeviceService, DeviceService>();
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
+            services.AddSingleton<IOpenAIService, OpenAIService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
+            services.AddSingleton<ChatLogsDataStoreService>();
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
+
             services.AddTransient<MainTool>();
             services.AddTransient<MainToolViewModel>();
+
             services.AddTransient<MainPage>();
             services.AddTransient<MainViewModel>();
+
             services.AddTransient<NewsFeedPage>();
             services.AddTransient<NewsFeedViewModel>();
+
             services.AddTransient<WebViewPage>();
             services.AddTransient<WebViewViewModel>();
+
             services.AddTransient<FlyoutHeader>();
             services.AddTransient<FlyouttHeaderViewModel>();
+
             services.AddTransient<VitaminAndMineralPage>();
             services.AddTransient<VitaminAndMineralViewModel>();
+
             services.AddTransient<FoodDetailPage>();
             services.AddTransient<FoodDetailViewModel>();
+
             services.AddTransient<BookmarkPage>();
             services.AddTransient<BookmarkViewModel>();
+
             services.AddTransient<FoodsByCategoryPage>();
             services.AddTransient<FoodsByCategoryViewModel>();
+
             services.AddTransient<DetailVitaminAndMineralPage>();
             services.AddTransient<DetailVitaminAndMineralViewModel>();
+
             services.AddTransient<LicensePage>();
             services.AddTransient<LicenseViewModel>();
+
             services.AddTransient<ProfilePage>();
             services.AddTransient<ProfileViewModel>();
+
             services.AddTransient<WelcomePage>();
             services.AddTransient<WelcomeViewModel>();
+
             services.AddTransient<ReportPage>();
             services.AddTransient<ReportPageViewModel>();
-            services.AddTransient<CaloriesViewModel>();
-            services.AddTransient<MacrosViewModel>();
-            services.AddTransient<NutrientsViewModel>();
+
             services.AddTransient<CaloriesTab>();
+            services.AddTransient<CaloriesViewModel>();
+
             services.AddTransient<MacrosTab>();
+            services.AddTransient<MacrosViewModel>();
+
             services.AddTransient<NutrientsTab>();
+            services.AddTransient<NutrientsViewModel>();
+
             services.AddTransient<BMICalculatorPage>();
             services.AddTransient<BmiCalculatorViewModel>();
+
             services.AddTransient<BMRCalculatorPage>();
             services.AddTransient<BmrCalculatorViewModel>();
+
             services.AddTransient<UsdaFoodFactDetailPage>();
             services.AddTransient<UsdaFoodFactDetailVM>();
+
+            services.AddTransient<ChatListPage>();
+
+            services.AddTransient<ConversationPage>();
+            services.AddTransient<ConversationViewModel>();
+
+            services.AddTransient<ChatGPTDisClaimerPage>();
+            services.AddTransient<ChatGPTDetailPage>();
 
             // Popup
             services.AddTransient<BmiResultPopup>();
@@ -182,22 +207,28 @@ namespace VeganLife
 
         private static void AllowMultiLineTruncationOnAndroid()
         {
-#if ANDROID
-            static void UpdateMaxLines(ILabelHandler handler, ILabel label)
+            static void UpdateMaxLines(LabelHandler handler, ILabel label)
             {
                 var textView = handler.PlatformView;
-                if (label is Label controlsLabel && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End)
+#if ANDROID
+                if (label is Label controlsLabel
+                    && textView.Ellipsize == Android.Text.TextUtils.TruncateAt.End && controlsLabel.MaxLines != -1)
                 {
                     textView.SetMaxLines(controlsLabel.MaxLines);
                 }
+#elif IOS
+                if (label is Label controlsLabel
+                          && textView.LineBreakMode == UILineBreakMode.TailTruncation)
+                {
+                    textView.Lines = controlsLabel.MaxLines;
+                }
+#endif
             }
 
             LabelHandler.Mapper.AppendToMapping(
-               nameof(Label.LineBreakMode), UpdateMaxLines);
-
+               nameof(Label.LineBreakMode), (h, v) => UpdateMaxLines((LabelHandler)h, v));
             LabelHandler.Mapper.AppendToMapping(
-                nameof(Label.MaxLines), UpdateMaxLines);
-#endif
+              nameof(Label.MaxLines), (h, v) => UpdateMaxLines((LabelHandler)h, v));
         }
 
         private static void CustomEntry()
@@ -206,6 +237,7 @@ namespace VeganLife
             {
 #if ANDROID
                 handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #elif IOS
 			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif

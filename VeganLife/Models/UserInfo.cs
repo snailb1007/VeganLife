@@ -24,5 +24,6 @@ namespace VeganLife.Models
     public partial class UserInfo
     {
         public byte Age => (byte)(DateTime.Today.Subtract(DateOfBirth).TotalDays / ConstantHelper.AverageDaysInYear);
+        public string Image => IsMale ? "profile_boy" : "profile_girl_strong";
     }
 }
