@@ -4,6 +4,7 @@
 
 namespace VeganLife.ViewModels
 {
+    using System.ServiceModel.Syndication;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Models.GoogleNewsModels;
     using VeganLife.Resources.Translations;
@@ -63,7 +64,7 @@ namespace VeganLife.ViewModels
                 this.SetFlagDiscoverySelected(isFood: true);
                 if (!this.dataFood?.Any() ?? true)
                 {
-                    this.dataFood = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+                    this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
                 }
 
                 MainThread.BeginInvokeOnMainThread(() =>
@@ -79,7 +80,12 @@ namespace VeganLife.ViewModels
                 this.SetFlagDiscoverySelected(isHealthy: true);
                 if (!this.dataHealthy?.Any() ?? true)
                 {
-                    this.dataHealthy = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
+                    //this.dataHealthy = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
+                    var x = new Stopwatch();
+                    x.Start();
+                    this.dataHealthy = dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
+                    x.Stop();
+                    await Console.Out.WriteLineAsync("==> time " + x.ElapsedMilliseconds);
                 }
 
                 MainThread.BeginInvokeOnMainThread(() =>
@@ -95,7 +101,7 @@ namespace VeganLife.ViewModels
                 this.SetFlagDiscoverySelected();
                 if (!this.dataReligion?.Any() ?? true)
                     {
-                    this.dataReligion = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsReligion);
+                    this.dataReligion = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsReligion);
                 }
 
                 MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataReligion));
@@ -105,7 +111,7 @@ namespace VeganLife.ViewModels
                 this.SetFlagDiscoverySelected(liveStrong: true);
                 if (!this.dataLiveStrong?.Any() ?? true)
                     {
-                    this.dataLiveStrong = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
+                    this.dataLiveStrong = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
                 }
 
                 MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataLiveStrong));
@@ -179,9 +185,11 @@ namespace VeganLife.ViewModels
             }
             catch (Exception ex)
             {
+                _ = ex;
+#if DEBUG
                 // An unexpected error occured. No browser may be installed on the device.
                 await Console.Out.WriteLineAsync("No browser may be installed on the device\n" + ex.Message);
-                throw;
+#endif
             }
             finally
             {
@@ -211,32 +219,13 @@ namespace VeganLife.ViewModels
                 this.DiscoveryMenu.Clear();
             }
 
-            this.dataFood = await this.dataService.LoadGoogleNews(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+            this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
             this.InitMenu();
             this.currentNumberItem = 20;
             this.Feeds = new ObservableCollection<Item>(this.dataFood.Take(this.currentNumberItem));
             this.IsLoading = false;
         }
 
-        // void SetHotFeeds(List<Item> data, HtmlWeb htmlWeb, string topic)
-        // {
-        //    HotItemModel itemHotFeeds = new HotItemModel();
-        //    string imgLinkHotItem = string.Empty;
-        //    foreach (var item in data)
-        //    {
-        //        if (item.source.url == "https://vtc.vn")
-        //            continue;
-        //        imgLinkHotItem = LoadUrlPreview(htmlWeb, item?.link);
-        //        if (!string.IsNullOrEmpty(imgLinkHotItem))
-        //        {
-        //            item.ImageTitleUri = imgLinkHotItem;
-        //            itemHotFeeds = new HotItemModel(item, topic);
-        //            break;
-        //        }
-        //    }
-
-        // HotFeeds.Add(itemHotFeeds);
-        // }
         private void InitMenu()
         {
             this.DiscoveryMenu = new ObservableCollection<Discovery>()
@@ -248,42 +237,6 @@ namespace VeganLife.ViewModels
             };
         }
 
-        // string nodeImgHead = "//meta[@property='og:image']";
-        //        string nodeWeb = "//a";
-        //        string LoadUrlPreview(HtmlWeb htmlWeb, string url)
-        //        {
-
-        // HtmlDocument htmlDoc = new HtmlDocument();
-        //            string result = htmlDoc.ParsedText ?? string.Empty;
-        //            try
-        //            {
-        //                htmlDoc = htmlWeb.Load(url.Remove(url.IndexOf("?")));
-        //                //get web
-        //                var webNode = htmlDoc.DocumentNode.SelectSingleNode(nodeWeb);
-        //                if (webNode != null)
-        //                {
-        //                    result = webNode?.Attributes["href"]?.Value ?? string.Empty;
-        //                }
-        //                // get image title
-        //                if (string.IsNullOrEmpty(result))
-        //                    return result;
-        //                htmlDoc = htmlWeb.Load(result);
-        //                var titleImageNode = htmlDoc.DocumentNode.SelectSingleNode(nodeImgHead);
-        //                if (titleImageNode != null)
-        //                {
-        //                    result = titleImageNode?.Attributes["Content"]?.Value ?? string.Empty;
-        // #if DEBUG
-        //                    Console.WriteLine(result);
-        // #endif
-        //                }
-        //            }
-        //            catch (Exception e)
-        //            {
-        //                Console.WriteLine(e.StackTrace);
-        //            }
-
-        // return result;
-        //        }
         private void SetFlagDiscoverySelected(bool isFood = false, bool isHealthy = false, bool liveStrong = false)
         {
             this.isFoodFeed = isFood;

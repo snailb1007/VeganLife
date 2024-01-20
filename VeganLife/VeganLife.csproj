@@ -128,11 +128,13 @@
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
-		<PackageReference Include="Mopups" Version="1.2.0" />
+		<PackageReference Include="Mopups" Version="1.3.0" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
-		<PackageReference Include="ChatGptNet" Version="3.0.6" />
+		<PackageReference Include="ChatGptNet" Version="3.1.2" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.86" />
 		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
+		<PackageReference Include="Utf8Json" Version="1.3.7" />
+		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
 		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 	</ItemGroup>
