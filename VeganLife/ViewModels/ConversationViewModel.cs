@@ -1,4 +1,6 @@
-﻿using VeganLife.Data.LocalData;
+﻿using Android.Companion;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
 
@@ -11,6 +13,9 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         bool isAnimationVisible = true;
+
+        [ObservableProperty]
+        bool isTrustedSetting = true;
 
         [ObservableProperty]
         ObservableCollection<ChatMessageModel> messages = new();
@@ -31,6 +36,7 @@ namespace VeganLife.ViewModels
 
         readonly IOpenAIService _openAIService;
         readonly IDispatcher _dispatcher;
+        readonly IDeviceService deviceService;
 
         private AsyncRelayCommand _currentCommand;
 
@@ -55,13 +61,23 @@ namespace VeganLife.ViewModels
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
+            deviceService = ServicesHelper.GetService<IDeviceService>();
             _sessionGuid = Guid.Empty;
             this._chatLogsDataStoreService = chatLogsDataStoreService;
         }
 
         public override async Task<Task> ViewAppearingVM()
         {
-            if (CurrentChat is null)
+            IsTrustedSetting = deviceService.IsAutomaticTimeZoneEnabled() && deviceService.IsAutomaticDateTimeEnabled();
+            if (!IsTrustedSetting)
+            {
+                bool isAcceptedGoSetting = await Shell.Current.DisplayAlert("Settings is invalid!", "Please turn on Automatic Time Zone & DateTime", "ok", "cancel");
+                if (isAcceptedGoSetting)
+                {
+                    deviceService.OpenDateSettings();
+                }
+            }
+            else if (CurrentChat is null)
             {
                 var lst = await _chatLogsDataStoreService.GetItemsAsync();
                 CurrentChat = lst.FirstOrDefault(i => i.ChatDate.Equals(DateTime.Today.Date))!;

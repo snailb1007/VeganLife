@@ -29,6 +29,7 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         public UsdaFoodFactDetailVM()
         {
+            CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
         }
 
         public override Task OnNavigatingTo(object parameter)
@@ -96,17 +97,17 @@ namespace VeganLife.ViewModels.ContentViewModels
             return base.ViewDisappearingVM();
         }
 
-        [RelayCommand]
-        private async Task MoreClicked()
-        {
-        }
+        //[RelayCommand]
+        //private async Task MoreClicked()
+        //{
+        //}
 
-        [RelayCommand]
-        private void EatClicked()
-        {
-            var today = DateTime.Now;
-            var id = today.ToString("yyyyMMddHH");
-            Console.WriteLine("==> eat clicked " + id);
-        }
+        //[RelayCommand]
+        //private void EatClicked()
+        //{
+        //    var today = DateTime.Now;
+        //    var id = today.ToString("yyyyMMddHH");
+        //    Console.WriteLine("==> eat clicked " + id);
+        //}
     }
 }

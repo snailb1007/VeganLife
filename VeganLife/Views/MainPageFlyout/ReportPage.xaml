@@ -144,9 +144,9 @@
                 SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
                 <tabs:DelayedView
                     x:TypeArguments="views:MacrosTab"
-                    Animate="True"
+                    Animate="False"
                     BindingContext="{Binding MacrosViewModel}"
-                    UseActivityIndicator="True" />
+                    UseActivityIndicator="False" />
                 <tabs:DelayedView
                     x:TypeArguments="views:CaloriesTab"
                     Animate="True"

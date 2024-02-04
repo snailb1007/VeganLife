@@ -33,7 +33,7 @@
             BotMessageTemplate="{StaticResource BotMessageItemTemplate}"
             UserMessageItemTemplate="{StaticResource UserMessageItemTemplate}" />
     </ContentPage.Resources>
-    <Grid RowDefinitions="48, *, Auto">
+    <Grid IsEnabled="{Binding IsTrustedSetting, Mode=OneWay}" RowDefinitions="48, *, Auto">
         <Border
             Grid.Row="1"
             Padding="16,10"
