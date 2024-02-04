@@ -77,22 +77,6 @@
                 </cards:CoverFlowView.ItemTemplate>
             </cards:CoverFlowView>
             <StackLayout MinimumHeightRequest="52" VerticalOptions="EndAndExpand">
-                <Label
-                    HorizontalOptions="CenterAndExpand"
-                    Text="thien"
-                    TextColor="White"
-                    VerticalOptions="Center" />
-                <!--<Button
-                    Background="Green"
-                    CornerRadius="30"
-                    FontFamily="FontAwesomeSolid"
-                    Text="&#xf060;"
-                    TextColor="Wheat" />
-                <Button
-                    CornerRadius="30"
-                    FontFamily="FontAwesomeSolid"
-                    Text="&#xf061;"
-                    TextColor="Wheat" />-->
                 <Button
                     Command="{Binding SkipCommand}"
                     FontAttributes="Bold"

@@ -11,7 +11,6 @@ namespace VeganLife.Helpers.AppSetting
         public static class OpenAIConstant
         {
             public const string OpenAIUrl = "https://api.openai.com/";
-            public const string OpenAIToken = "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";
             public const string OpenAITokenVip = "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";
 
             public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";

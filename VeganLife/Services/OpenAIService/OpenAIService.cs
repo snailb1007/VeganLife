@@ -23,7 +23,7 @@ namespace VeganLife.Services.OpenAIService
             catch (ChatGptException chatEX)
             {
 #if DEBUG
-                await Console.Out.WriteLineAsync("==> " + chatEX.Message);
+                await Console.Out.WriteLineAsync($"==> Failed code: {chatEX.StatusCode}\n{chatEX.Message}");
 #endif
                 return string.Empty;
             }
