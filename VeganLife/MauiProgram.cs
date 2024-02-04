@@ -44,6 +44,7 @@ namespace VeganLife
     using VeganLife.Views.ChatFlyout;
     using VeganLife.Services.OpenAIService;
     using Sharpnado.MaterialFrame;
+    using Sharpnado.CollectionView;
 #endif
 
     /// <summary>
@@ -78,6 +79,7 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
+                .UseSharpnadoCollectionView(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false);
             //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
             // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));

@@ -19,7 +19,7 @@ namespace VeganLife.Models
             this.guid = item.guid;
             this.pubDate = item.pubDate;
             this.description = item.description;
-            this.source = item.source;
+            //this.source = item.source;
             this.ImageTitleUri = item.ImageTitleUri;
             this.Topic = topic;
         }

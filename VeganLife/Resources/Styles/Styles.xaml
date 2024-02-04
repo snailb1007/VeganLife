@@ -445,9 +445,11 @@
                         BackgroundColor="Transparent"
                         DownsampleToViewSize="True"
                         ErrorPlaceholder="mascot_snail"
+                        FadeAnimationEnabled="True"
                         HeightRequest="70"
                         HorizontalOptions="End"
                         LoadingPlaceholder="mascot_snail"
+                        LoadingPriority="Low"
                         Source="{Binding Image, Mode=OneTime}"
                         WidthRequest="70" />
                 </Border>
