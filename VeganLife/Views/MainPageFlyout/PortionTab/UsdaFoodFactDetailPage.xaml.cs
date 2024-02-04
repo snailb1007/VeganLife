@@ -4,21 +4,28 @@ namespace VeganLife.Views.PortionTab;
 
 public partial class UsdaFoodFactDetailPage : ContentPage
 {
-	public UsdaFoodFactDetailPage(UsdaFoodFactDetailVM vm)
+    private readonly UsdaFoodFactDetailVM _vm;
+    public UsdaFoodFactDetailPage(UsdaFoodFactDetailVM vm)
 	{
-		InitializeComponent();
-		this.BindingContext = vm;
+        this.BindingContext = _vm = vm;
+        InitializeComponent();
 	}
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _ = (BindingContext as UsdaFoodFactDetailVM).ViewAppearingVM();
+        Dispatcher.Dispatch(async () =>
+        {
+            await _vm.ViewAppearingVM();
+        });
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        (BindingContext as UsdaFoodFactDetailVM).ViewDisappearingVM();
+        Dispatcher.Dispatch(async () =>
+        {
+            await _vm.ViewDisappearingVM();
+        });
     }
 }
