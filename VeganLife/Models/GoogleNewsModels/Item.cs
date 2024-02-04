@@ -18,12 +18,13 @@ namespace VeganLife.Models.GoogleNewsModels
 
         public string description { get; set; }
 
-        public Source source { get; set; }
+        // public Source source { get; set; }
 
         // custom
         public string ImageTitleUri { get; set; }
 
-        public DateTime LocalTimePosted => DateTimeHelper.GetDateTime(this.pubDate);
+        // public DateTime LocalTimePosted => DateTimeHelper.GetDateTime(this.pubDate);
+        public DateTime LocalTimePosted { get; set; }
 
         public string TimeAgoDisplay => DateTimeHelper.CalculateTimeAgo(this.LocalTimePosted);
     }

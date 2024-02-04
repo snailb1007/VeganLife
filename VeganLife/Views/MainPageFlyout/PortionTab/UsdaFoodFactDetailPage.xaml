@@ -67,20 +67,25 @@
                 </toolkit:Expander.Header>
                 <rv:MaterialFrame
                     Padding="10"
-                    HorizontalOptions="CenterAndExpand"
+                    HorizontalOptions="FillAndExpand"
                     LightThemeBackgroundColor="#F1F1F1"
                     MaterialBlurStyle="Light"
                     MaterialTheme="AcrylicBlur"
                     VerticalOptions="EndAndExpand">
-                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                        <Label
-                            FontSize="Large"
-                            HorizontalOptions="Center"
-                            Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
-                            TextColor="White"
-                            WidthRequest="{Binding Source={x:Reference titleExpander}, Path=Width}" />
-                        <Label Text=" calories" TextColor="White" />
-                    </StackLayout>
+                    <Label
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Calories: " TextColor="Black" />
+                                <Span
+                                    FontAttributes="Bold"
+                                    Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
+                                    TextColor="Black" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </rv:MaterialFrame>
             </toolkit:Expander>
         </Grid>

@@ -13,7 +13,8 @@ namespace VeganLife.ViewModels
         private string numberBadgeCart;
 
         public CaloriesViewModel CaloriesViewModel { get; }
-        public MacrosViewModel MacrosViewModel { get; }
+        [ObservableProperty]
+        private MacrosViewModel _macrosViewModel;
         public NutrientsViewModel NutrientsViewModel { get; }
         public ReportPageViewModel()
             : base()

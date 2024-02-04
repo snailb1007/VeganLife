@@ -27,27 +27,26 @@ namespace VeganLife.ViewModels.TabsViewModel
             {
                 if (!allUSDAFoodPreview?.Any() ?? true)
                 {
-                    await this.dataService.GetFoodsUSDA()
-                   .ContinueWith(t =>
-                   {
-                       this.allUSDAFoodPreview = new List<USDAFoodPreviewModel>(t.Result);
-                   });
+                    var foodData = await this.dataService.GetFoodsUSDA();
+                    this.allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
                 }
 
-                UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(allUSDAFoodPreview);
+                App.Current?.MainPage?.Dispatcher?
+                    .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>
+                    (allUSDAFoodPreview ?? new List<USDAFoodPreviewModel>()));
             }
 
             return base.ViewAppearingVM();
         }
 
         [RelayCommand]
-        private async Task ItemSelectedChanged()
+        private async Task ItemSelectedChanged(USDAFoodPreviewModel data)
         {
-            if (this.UsdaFoodPreviewCurrent != null)
-            {
-                await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(this.UsdaFoodPreviewCurrent);
-                this.UsdaFoodPreviewCurrent = null;
-            }
+            if (ItemSelectedChangedCommand.IsRunning || IsLoading || data is null)
+                return;
+            IsLoading = true;
+            await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(data);
+            IsLoading = false;
         }
 
         [RelayCommand]
