@@ -101,15 +101,33 @@ namespace VeganLife
         {
             //if (args.Source != ShellNavigationSource.Unknown)
             //    this.IsBusy = true;
+            _currentShellNavigationSource = args.Source;
             base.OnNavigating(args);
         }
 
+        private ShellNavigationSource _currentShellNavigationSource;
+        public IEnumerable<Page> PreviousPageStack { get; set; }
         /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
             // TODO: make crash
             //this.IsBusy = false;
             base.OnNavigated(args);
+            var currentSectionStack = GetCurrentSectionStack();
+            if (_currentShellNavigationSource != ShellNavigationSource.ShellSectionChanged
+                && PreviousPageStack is not null
+                && PreviousPageStack.Count() > currentSectionStack.Count)
+            {
+                foreach (var page in PreviousPageStack.Except(currentSectionStack))
+                {
+                    var vm = page?.BindingContext as BaseViewModel;
+                    if (page is null)
+                        continue;
+                    this.Dispatcher.Dispatch(async() => await vm?.ViewIsRemovedAsync());
+                }
+            }
+
+            PreviousPageStack = currentSectionStack;
         }
 
         private static bool IsRootPage(VisualElement page)
@@ -141,6 +159,26 @@ namespace VeganLife
             {
                 Routing.RegisterRoute(item.Key, item.Value);
             }
+        }
+
+        private List<Page> GetCurrentSectionStack()
+        {
+            var result = new List<Page>();
+            foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
+            {
+                if (item is null)
+                    continue;
+                result.Add(item);
+            }
+
+            foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
+            {
+                if (item is null)
+                    continue;
+                result.Add(item);
+            }
+
+            return result;
         }
     }
 }

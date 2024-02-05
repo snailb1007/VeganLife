@@ -140,8 +140,8 @@ namespace VeganLife.ViewModels
 
         private async Task AskQuestionAsync()
         {
-            if (CurrentChat.TimesLimit < 1 || CurrentCommand.IsRunning)
-                return;
+            //if (CurrentChat.TimesLimit < 100 || CurrentCommand.IsRunning)
+            //    return;
             if (_sessionGuid == Guid.Empty)
             {
                 _sessionGuid = Guid.NewGuid();

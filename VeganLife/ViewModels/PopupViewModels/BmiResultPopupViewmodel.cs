@@ -70,26 +70,27 @@ namespace VeganLife.ViewModels.PopupViewModels
                 this.ClassifyLabel = healthDiagnosis.Classify;
                 this.Note = healthDiagnosis.Note;
                 localeUserInfo = (await userStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                if (localeUserInfo == null)
-                {
-                    this.IsLocaleUser = false;
-                }
+                //if (localeUserInfo is not null
+                //    && !string.IsNullOrEmpty(localeUserInfo.Name)
+                //    && localeUserInfo.Age > 0
+                //    && localeUserInfo.Weight > 0
+                //    && localeUserInfo.Height > 0
+                //    && result.)
+                //{
+                //    this.IsLocaleUser = true;
+                //}
             }
 
             return base.OnNavigatingTo(parameter!);
         }
 
         [RelayCommand]
-        private void SelectButton(string option)
+        private async Task SelectButton(string option)
         {
             if (option.Equals("0"))
             {
-                if (this.IsReCalculateSelected)
-                {
-                    this.GoCommand.Execute(null);
-                    return;
-                }
-
+                WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(0));
+                await MopupService.Instance.PopAsync();
                 IsReCalculateSelected = true;
                 IsGoAnalysisPageSelected = false;
                 IsSaveSelected = false;
@@ -107,12 +108,12 @@ namespace VeganLife.ViewModels.PopupViewModels
                 IsGoAnalysisPageSelected = true;
                 IsSaveSelected = false;
             }
-            else
-            {
-                IsReCalculateSelected = false;
-                IsGoAnalysisPageSelected = false;
-                IsSaveSelected = true;
-            }
+            //else
+            //{
+            //    IsReCalculateSelected = false;
+            //    IsGoAnalysisPageSelected = false;
+            //    IsSaveSelected = true;
+            //}
         }
 
         [RelayCommand]

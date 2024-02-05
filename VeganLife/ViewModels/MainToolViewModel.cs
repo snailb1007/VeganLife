@@ -250,7 +250,13 @@ namespace VeganLife.ViewModels
             if (message is not null)
             {
                 var param = message.Value;
-                if (Application.Current?.MainPage is AppShell currentShell)
+                if (param == 0)
+                {
+                    Height = 0;
+                    WeightValue = "0";
+                    AgeValue = 0;
+                }
+                else if (Application.Current?.MainPage is AppShell currentShell)
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {

@@ -24,165 +24,165 @@
     <Grid
         BackgroundColor="Transparent"
         ColumnDefinitions="*,8.5*,*"
-        RowDefinitions="*,Auto,*">
+        HorizontalOptions="Center">
         <Border
-            Grid.Row="1"
             Grid.Column="1"
-            VerticalOptions="FillAndExpand">
+            BackgroundColor="White"
+            VerticalOptions="Center">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20" />
             </Border.StrokeShape>
-            <Grid RowDefinitions="Auto,*" VerticalOptions="FillAndExpand">
-                <Grid Grid.Row="0" IsClippedToBounds="True">
-                    <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand">
+            <Grid
+                ColumnDefinitions="*"
+                RowDefinitions="Auto,*"
+                VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand">
+                    <Label
+                        Margin="0,20,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.title_bmiPopup}" />
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        Text="{Binding BmiResultText, Mode=OneWay}"
+                        VerticalOptions="Center" />
+                    <VerticalStackLayout Margin="10,0">
                         <Label
-                            Margin="0,20,0,0"
-                            FontAttributes="Bold"
-                            FontSize="20"
-                            HorizontalOptions="Center"
-                            Text="{x:Static translate:AppResources.title_bmiPopup}" />
+                            HorizontalTextAlignment="Center"
+                            IsVisible="{Binding ClassifyLabel, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{x:Static translate:AppResources.titleClassify_toolFlyout}" />
+                                    <Span Text="{Binding ClassifyLabel}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                         <Label
+                            Grid.Row="1"
                             Grid.Column="1"
-                            FontAttributes="Bold"
-                            FontSize="25"
-                            HorizontalOptions="Center"
-                            Text="{Binding BmiResultText, Mode=OneWay}"
-                            VerticalOptions="Center" />
-                        <VerticalStackLayout Margin="10,0">
+                            FontSize="15"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="{Binding Message, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                            LineBreakMode="WordWrap"
+                            LineHeight="1.2"
+                            Text="{Binding Message}" />
+                        <Grid HorizontalOptions="Center" RowDefinitions="*,Auto">
                             <Label
-                                HorizontalTextAlignment="Center"
-                                IsVisible="{Binding ClassifyLabel, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="2">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{x:Static translate:AppResources.titleClassify_toolFlyout}" />
-                                        <Span Text="{Binding ClassifyLabel}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
+                                FontSize="16"
+                                Text="*Note: "
+                                TextColor="Red" />
                             <Label
                                 Grid.Row="1"
-                                Grid.Column="1"
                                 FontSize="15"
-                                HorizontalTextAlignment="Center"
-                                IsVisible="{Binding Message, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
-                                LineBreakMode="WordWrap"
-                                LineHeight="1.2"
-                                Text="{Binding Message}" />
-                            <Label
-                                HorizontalTextAlignment="Center"
                                 LineBreakMode="TailTruncation"
                                 LineHeight="1.2"
-                                MaxLines="2">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span
-                                            FontSize="16"
-                                            Text="*Note: "
-                                            TextColor="Red" />
-                                        <Span FontSize="15" Text="{Binding Note, Converter={StaticResource OnlyLineBreakConverter}}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </VerticalStackLayout>
-                        <Grid
-                            Margin="5,10,5,0"
-                            ColumnDefinitions="*,*,*"
-                            ColumnSpacing="5">
-                            <Grid.Resources>
-                                <ResourceDictionary>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Background" Value="Transparent" />
-                                        <Setter Property="BackgroundColor" Value="Transparent" />
-                                        <Setter Property="BorderColor" Value="SkyBlue" />
-                                        <Setter Property="BorderWidth" Value="0" />
-                                        <Setter Property="MinimumWidthRequest" Value="48" />
-                                        <Setter Property="CornerRadius" Value="23" />
-                                        <Setter Property="TextColor" Value="Gray" />
-                                        <Setter Property="FontSize" Value="Medium" />
-                                        <Setter Property="HorizontalOptions" Value="Center" />
-                                    </Style>
-                                </ResourceDictionary>
-                            </Grid.Resources>
-                            <Button
-                                Command="{Binding SelectButtonCommand}"
-                                CommandParameter="0"
-                                FontFamily="{StaticResource FontAwesomeSolid}"
-                                Text="&#xf2f9;">
-                                <Button.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsReCalculateSelected}"
-                                        TargetType="Button"
-                                        Value="true">
-                                        <Setter Property="FontSize" Value="Large" />
-                                        <Setter Property="BorderWidth" Value="1.2" />
-                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button
-                                Grid.Column="1"
-                                Command="{Binding SelectButtonCommand}"
-                                CommandParameter="1"
-                                FontFamily="{StaticResource FontAwesomeSolid}"
-                                Text="&#xf061;">
-                                <Button.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsGoAnalysisPageSelected}"
-                                        TargetType="Button"
-                                        Value="true">
-                                        <Setter Property="FontSize" Value="Large" />
-                                        <Setter Property="BorderWidth" Value="1.2" />
-                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button
-                                Grid.Column="2"
-                                Command="{Binding SelectButtonCommand}"
-                                CommandParameter="2"
-                                Text="Save">
-                                <Button.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsSaveSelected}"
-                                        TargetType="Button"
-                                        Value="true">
-                                        <Setter Property="FontSize" Value="18" />
-                                        <Setter Property="BorderWidth" Value="1.2" />
-                                        <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
+                                MaxLines="3"
+                                Text="{Binding Note, Converter={StaticResource OnlyLineBreakConverter}}" />
                         </Grid>
-                        <Label
-                            Margin="0,0,0,10"
-                            HorizontalOptions="Center"
-                            Text="{x:Static translate:AppResources.lbSelectBtn_goNext_toolFlyout}">
-                            <Label.Triggers>
+                    </VerticalStackLayout>
+                    <Grid
+                        Margin="5,10,5,0"
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="5">
+                        <Grid.Resources>
+                            <Style x:Key="btn" TargetType="Button">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                <Setter Property="BorderColor" Value="SkyBlue" />
+                                <Setter Property="BorderWidth" Value="0" />
+                                <Setter Property="MinimumWidthRequest" Value="48" />
+                                <Setter Property="CornerRadius" Value="23" />
+                                <Setter Property="TextColor" Value="Gray" />
+                                <Setter Property="FontSize" Value="Medium" />
+                                <Setter Property="HorizontalOptions" Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <Button
+                            Command="{Binding SelectButtonCommand}"
+                            CommandParameter="0"
+                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            Style="{StaticResource btn}"
+                            Text="&#xf2f9;">
+                            <Button.Triggers>
                                 <DataTrigger
                                     Binding="{Binding IsReCalculateSelected}"
-                                    TargetType="Label"
-                                    Value="True">
-                                    <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_reCalculate_toolFlyout}" />
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="FontSize" Value="Large" />
+                                    <Setter Property="BorderWidth" Value="1.2" />
+                                    <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
                                 </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding SelectButtonCommand}"
+                            CommandParameter="1"
+                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            Style="{StaticResource btn}"
+                            Text="&#xf061;">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsGoAnalysisPageSelected}"
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="FontSize" Value="Large" />
+                                    <Setter Property="BorderWidth" Value="1.2" />
+                                    <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <!--<Button
+                            Grid.Column="2"
+                            Command="{Binding SelectButtonCommand}"
+                            CommandParameter="2"
+                            Style="{StaticResource btn}"
+                            Text="Save">
+                            <Button.Triggers>
                                 <DataTrigger
                                     Binding="{Binding IsSaveSelected}"
-                                    TargetType="Label"
-                                    Value="True">
-                                    <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_save_toolFlyout}" />
+                                    TargetType="Button"
+                                    Value="true">
+                                    <Setter Property="FontSize" Value="18" />
+                                    <Setter Property="BorderWidth" Value="1.2" />
+                                    <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
                                 </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                    </VerticalStackLayout>
-                </Grid>
+                            </Button.Triggers>
+                        </Button>-->
+                    </Grid>
+                    <Label
+                        Margin="0,0,0,10"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.lbSelectBtn_goNext_toolFlyout}">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsReCalculateSelected}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_reCalculate_toolFlyout}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding IsSaveSelected}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_save_toolFlyout}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </VerticalStackLayout>
                 <Grid
                     Grid.Row="1"
                     BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}"
                     HeightRequest="48"
                     HorizontalOptions="Fill"
                     IsEnabled="{Binding IsLocaleUser, Mode=OneWay}"
-                    VerticalOptions="FillAndExpand">
+                    VerticalOptions="Fill">
                     <Grid.Triggers>
                         <DataTrigger
                             Binding="{Binding IsLocaleUser}"
