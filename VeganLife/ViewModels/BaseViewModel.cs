@@ -62,13 +62,14 @@ namespace VeganLife.ViewModels
 
         public virtual Task ViewAppearingVM() => Task.CompletedTask;
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
-        //public event PropertyChangedEventHandler CustomPropertyChanged;
-        //protected bool SetAndRaise<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
-        //{
-        //    if (Equals(property, value))
-        //    {
-        //        return false;
-        //    }
+        public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
+            //public event PropertyChangedEventHandler CustomPropertyChanged;
+            //protected bool SetAndRaise<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
+            //{
+            //    if (Equals(property, value))
+            //    {
+            //        return false;
+            //    }
 
         //    property = value;
         //    RaisePropertyChanged(propertyName);
@@ -79,5 +80,5 @@ namespace VeganLife.ViewModels
         //{
         //    CustomPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         //}
-    }
+        }
 }
