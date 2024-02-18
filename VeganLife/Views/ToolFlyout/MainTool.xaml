@@ -187,8 +187,10 @@
                                         FontSize="25"
                                         HorizontalOptions="Center"
                                         HorizontalTextAlignment="Center"
+                                        Keyboard="Numeric"
                                         MinimumWidthRequest="48"
                                         Placeholder="170"
+                                        ReturnType="Next"
                                         Text="{Binding Height}"
                                         VerticalOptions="Center" />
                                     <Label Text="cm" VerticalOptions="Center" />
