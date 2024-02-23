@@ -7,6 +7,7 @@ namespace VeganLife.ViewModels
     using CommunityToolkit.Mvvm.Messaging;
     using VeganLife.Helpers;
     using VeganLife.messages;
+    using VeganLife.Services.UserServices;
     using VeganLife.Views.Popups;
     using VeganLife.Views.ToolFlyout;
 
@@ -18,6 +19,7 @@ namespace VeganLife.ViewModels
 
         private float weight;
         // private short age;
+        private readonly IUserDataService _userDataService;
 
         [ObservableProperty]
         private int height;
@@ -51,6 +53,38 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private double bmiResult;
+
+        public MainToolViewModel(IUserDataService userDataService)
+            : base()
+        {
+            this._userDataService = userDataService;
+        }
+
+        public override Task ViewAppearingVM()
+        {
+            WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
+            return base.ViewAppearingVM();
+        }
+
+        public override Task ViewDisappearingVM()
+        {
+            WeakReferenceMessenger.Default.Unregister<BmiResultSelectedOptionMessage>(this);
+            return base.ViewDisappearingVM();
+        }
+
+        private BMIResultModel bmiResultData;
+        [RelayCommand]
+        private async Task CalculateBmi()
+        {
+            this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
+            bmiResultData = new BMIResultModel()
+            {
+                BMIResult = (float)this.BmiResult,
+                IsMale = this.IsMale,
+                Age = this.AgeValue,
+            };
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(bmiResultData);
+        }
 
         [RelayCommand]
         private void HelpSexDetail(string parameter)
@@ -100,42 +134,6 @@ namespace VeganLife.ViewModels
         private void SelectGender(string parameter)
         {
             this.IsMale = !this.IsMale;
-        }
-
-        public MainToolViewModel()
-            : base()
-        {
-            this.Init();
-        }
-
-        public override Task ViewAppearingVM()
-        {
-            WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
-            return base.ViewAppearingVM();
-        }
-
-        public override Task ViewDisappearingVM()
-        {
-            WeakReferenceMessenger.Default.Unregister<BmiResultSelectedOptionMessage>(this);
-            return base.ViewDisappearingVM();
-        }
-
-        private void Init()
-        {
-        }
-
-        private BMIResultModel bmiResultData;
-        [RelayCommand]
-        private async Task CalculateBmi()
-        {
-            this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
-            bmiResultData = new BMIResultModel()
-            {
-                BMIResult = (float)this.BmiResult,
-                IsMale = this.IsMale,
-                Age = this.AgeValue,
-            };
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(bmiResultData);
         }
 
         partial void OnWeightValueChanged(string value)

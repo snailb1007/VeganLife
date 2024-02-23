@@ -8,7 +8,7 @@ namespace VeganLife.Services
 
     public interface IPopupNaviService
     {
-        Task PushAsync<T>(object param = null, bool animate = true)
+        Task PushAsync<T>(object? param = null, bool animate = true)
             where T : PopupPage;
 
         Task PopAsync(bool animate = true);
