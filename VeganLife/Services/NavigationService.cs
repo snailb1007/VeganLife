@@ -82,7 +82,7 @@ namespace VeganLife.Services
         public async Task PopToRootAsync() => await this.Navigation.PopToRootAsync();
 
         /// <inheritdoc/>
-        public async Task NavigateToPage<T>(object parameter = null)
+        public async Task NavigateToPage<T>(object? parameter = null)
             where T : Page
         {
             var toPage = this.ResolvePage<T>();
@@ -94,7 +94,7 @@ namespace VeganLife.Services
                 // passing param
                 if (toViewModel is not null)
                 {
-                    await toViewModel.OnNavigatingTo(parameter);
+                    await toViewModel.OnNavigatingTo(parameter!);
                 }
 
                 ServicesHelper.GetService<IDeviceService>().HideKeyboard();

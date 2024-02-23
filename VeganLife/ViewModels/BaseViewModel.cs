@@ -23,6 +23,8 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private bool isLoading;
+        [ObservableProperty]
+        private bool _isNeedReloadAppearing;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
