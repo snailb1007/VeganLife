@@ -6,6 +6,7 @@ namespace VeganLife.Helpers
 {
     using System.Text;
     using System.Text.RegularExpressions;
+    using static Android.Renderscripts.ScriptGroup;
 
     public static class StringProcessHelper
     {
@@ -50,24 +51,30 @@ namespace VeganLife.Helpers
             }
         }
 
-        public static List<BaseDataModel> ParseTextData(string text)
+        public static List<BaseDataModel> ParseSections(string text)
         {
             List<BaseDataModel> informations = new List<BaseDataModel>();
 
-            // Split the text into sections based on the pattern
-            string[] sections = Regex.Split(text, @"\*\*(?=\d+\.)");
+            // Adjusted regex pattern to capture title and description
+            string pattern = @"(\d+)\.\s*(.*?)\n(.*?)\n?(?=\d+\.|$)";
 
-            foreach (string section in sections)
+            MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.Singleline);
+
+            foreach (Match match in matches)
             {
-                if (!string.IsNullOrWhiteSpace(section))
+                string title = match.Groups[2].Value.Trim();
+                string description = match.Groups[3].Value.Trim();
+                if (title.Contains("**"))
                 {
-                    section = "**" + section;
-                    // Extract title and content
-                    string title = Regex.Match(section, @"(?<=\*\*).+?(?=\*\*)").Value.Trim();
-                    string content = Regex.Replace(section, @"^.+?\*\*(.+)", "$1", RegexOptions.Singleline).Trim();
-
-                    informations.Add(new BaseDataModel { Title = title, Description = content });
+                    title = title.Replace("**", string.Empty);
                 }
+
+                if (description.Contains("**"))
+                {
+                    description = description.Replace("**", string.Empty);
+                }
+
+                informations.Add(new BaseDataModel { Title = title, Description = description });
             }
 
             return informations;

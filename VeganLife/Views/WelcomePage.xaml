@@ -50,7 +50,7 @@
                 <CarouselView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type viewmodel:WelcomeViewModel+TutorialModel}">
                         <Grid RowDefinitions="Auto, 2*, *">
-                            <Label FontSize="25" Text="Title" />
+                            <Label FontSize="25" Text="{Binding Title}" />
                             <rv:MaterialFrame
                                 Grid.Row="1"
                                 MaterialTheme="Acrylic"
@@ -60,7 +60,6 @@
                                     Aspect="AspectFit"
                                     Source="{Binding ImageLink}" />
                             </rv:MaterialFrame>
-
                             <Label
                                 Grid.Row="2"
                                 HorizontalOptions="Center"
