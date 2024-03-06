@@ -19,7 +19,7 @@ namespace VeganLife.ViewModels
         public override async Task<Task> ViewAppearingVM()
         {
             var tutorialData = await Helpers.ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.tutorial.txt");
-            var items = StringProcessHelper.ParseTextData(tutorialData);
+            var items = StringProcessHelper.ParseSections(tutorialData);
             if (items != null && items.Any())
             {
                 for (int i = 0; i < 3; i++)
