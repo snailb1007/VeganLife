@@ -27,7 +27,8 @@ namespace VeganLife
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
-            //this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            return;
             if (UserSettingsHelper.IsFirstTime)
             {
                 this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
