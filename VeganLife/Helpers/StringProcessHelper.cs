@@ -5,6 +5,7 @@
 namespace VeganLife.Helpers
 {
     using System.Text;
+    using System.Text.RegularExpressions;
 
     public static class StringProcessHelper
     {
@@ -47,6 +48,29 @@ namespace VeganLife.Helpers
                 var startIndex = data.IndexOf("(");
                 return data.Substring(startIndex + 1, data.IndexOf(")") - startIndex);
             }
+        }
+
+        public static List<BaseDataModel> ParseTextData(string text)
+        {
+            List<BaseDataModel> informations = new List<BaseDataModel>();
+
+            // Split the text into sections based on the pattern
+            string[] sections = Regex.Split(text, @"\*\*(?=\d+\.)");
+
+            foreach (string section in sections)
+            {
+                if (!string.IsNullOrWhiteSpace(section))
+                {
+                    section = "**" + section;
+                    // Extract title and content
+                    string title = Regex.Match(section, @"(?<=\*\*).+?(?=\*\*)").Value.Trim();
+                    string content = Regex.Replace(section, @"^.+?\*\*(.+)", "$1", RegexOptions.Singleline).Trim();
+
+                    informations.Add(new BaseDataModel { Title = title, Description = content });
+                }
+            }
+
+            return informations;
         }
     }
 }

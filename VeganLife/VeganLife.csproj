@@ -80,6 +80,7 @@
 	<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\chat_detail.txt" />
 	  <MauiAsset Remove="Resources\Raw\chat_disclaimer.txt" />
+	  <MauiAsset Remove="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -97,17 +98,17 @@
 		<None Remove="Resources\Images\microsoft.svg" />
 		<None Remove="Resources\Images\nutrition_plan.svg" />
 		<None Remove="Resources\Images\trending_fire.png" />
-		<None Remove="Resources\Images\tutorial2.jpg" />
-		<None Remove="Resources\Images\tutorial_background.jpg" />
 		<None Remove="Resources\Images\web_view.svg" />
 		<None Remove="Resources\Raw\chat_detail.txt" />
 		<None Remove="Resources\Raw\chat_disclaimer.txt" />
 		<None Remove="Resources\Raw\loading.json" />
+		<None Remove="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
 	  <EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
+	  <EmbeddedResource Include="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
