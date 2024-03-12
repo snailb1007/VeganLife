@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
     xmlns:rv="http://sharpnado.com"
@@ -33,31 +34,38 @@
         </Style>
     </ContentPage.Resources>
     <base:BasePage.Content>
-        <Grid Margin="0" RowDefinitions="3*, *">
-            <CarouselView
-                Grid.RowSpan="2"
+        <Grid
+            Margin="0"
+            ColumnDefinitions="*"
+            RowDefinitions="*, Auto">
+            <controls:CardCoverFlowViewControl
                 Margin="10,0"
                 FlowDirection="LeftToRight"
                 IndicatorView="indicatorView"
-                IsBounceEnabled="False"
+                IsCyclical="False"
+                IsViewReusingEnabled="True"
                 ItemsSource="{Binding ListImage}"
-                ItemsUpdatingScrollMode="KeepScrollOffset"
-                Loop="False"
-                VerticalOptions="Center">
-                <CarouselView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" />
-                </CarouselView.ItemsLayout>
-                <CarouselView.ItemTemplate>
+                PositionShiftValue="-10"
+                SelectedIndex="{Binding FlowViewSelectedIndex, Mode=TwoWay}"
+                VerticalOptions="Fill">
+                <controls:CardCoverFlowViewControl.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type viewmodel:WelcomeViewModel+TutorialModel}">
-                        <Grid RowDefinitions="Auto, 2*, *">
-                            <Label FontSize="25" Text="{Binding Title}" />
+                        <Grid ColumnDefinitions="*" RowDefinitions="*, 2*, *">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="{Binding Title}"
+                                VerticalOptions="Center" />
                             <rv:MaterialFrame
                                 Grid.Row="1"
+                                Padding="0"
+                                CornerRadius="20"
+                                IsClippedToBounds="True"
                                 MaterialTheme="Acrylic"
                                 VerticalOptions="Center">
                                 <Image
                                     Grid.RowSpan="2"
-                                    Aspect="AspectFit"
+                                    Aspect="AspectFill"
                                     Source="{Binding ImageLink}" />
                             </rv:MaterialFrame>
                             <Label
@@ -69,11 +77,11 @@
                                 VerticalOptions="Center" />
                         </Grid>
                     </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+                </controls:CardCoverFlowViewControl.ItemTemplate>
+            </controls:CardCoverFlowViewControl>
             <rv:MaterialFrame
                 Grid.Row="1"
-                Padding="10"
+                Margin="20,10"
                 CornerRadius="20"
                 LightThemeBackgroundColor="#F1F1F1"
                 MaterialTheme="Acrylic"
@@ -83,7 +91,19 @@
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Text="Truoc"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ManualSwipeCardCommand}" CommandParameter="0" />
+                        </Label.GestureRecognizers>
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding FlowViewSelectedIndex}"
+                                TargetType="Label"
+                                Value="0">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                     <VerticalStackLayout
                         Grid.Column="1"
                         Spacing="8"
@@ -104,13 +124,24 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </VerticalStackLayout>
-
                     <Label
                         Grid.Column="2"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Text="Sau"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ManualSwipeCardCommand}" CommandParameter="1" />
+                        </Label.GestureRecognizers>
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding FlowViewSelectedIndex}"
+                                TargetType="Label"
+                                Value="2">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </Grid>
             </rv:MaterialFrame>
         </Grid>
