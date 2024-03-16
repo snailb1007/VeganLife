@@ -9,6 +9,7 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
     xmlns:rv="http://sharpnado.com"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:WelcomeViewModel"
     x:TypeArguments="viewmodel:WelcomeViewModel"
@@ -90,7 +91,7 @@
                     <Label
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
-                        Text="Truoc"
+                        Text="{x:Static translate:AppResources.previous_welcomePage}"
                         VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ManualSwipeCardCommand}" CommandParameter="0" />
@@ -116,7 +117,7 @@
                             SelectedIndicatorColor="DarkGray" />
                         <Label
                             HorizontalOptions="Center"
-                            Text="Skip"
+                            Text="{x:Static translate:AppResources.skip_welcomePage}"
                             TextColor="{StaticResource LinkColor}"
                             TextDecorations="Underline">
                             <Label.GestureRecognizers>
@@ -128,7 +129,7 @@
                         Grid.Column="2"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
-                        Text="Sau"
+                        Text="{x:Static translate:AppResources.next_welcomePage}"
                         VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ManualSwipeCardCommand}" CommandParameter="1" />

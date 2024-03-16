@@ -15,7 +15,7 @@
         <ToolbarItem Clicked="ToolbarItem_Clicked">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    FontFamily="FASolid"
                     Glyph="&#xf142;"
                     SemanticProperties.Description="More info BMI page"
                     Size="22"

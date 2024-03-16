@@ -50,7 +50,7 @@
                         Padding="0"
                         BackgroundColor="Transparent"
                         Clicked="Button_Clicked"
-                        FontFamily="FontAwesomeSolid"
+                        FontFamily="FASolid"
                         FontSize="20"
                         HorizontalOptions="End"
                         Text="{StaticResource IconAngleDown}"

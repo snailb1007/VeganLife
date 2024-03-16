@@ -55,7 +55,7 @@
                         ColumnDefinitions="*,0.5*"
                         ColumnSpacing="1">
                         <Label
-                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontFamily="FASolid"
                             FontSize="Large"
                             Text="&#xf0f3;"
                             VerticalOptions="Center" />
@@ -239,7 +239,7 @@
                         </VerticalStackLayout>
                         <Label
                             Grid.Column="2"
-                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontFamily="FASolid"
                             Text="{StaticResource IconAngleDown}"
                             TextColor="White"
                             VerticalOptions="Center" />
@@ -276,7 +276,7 @@
                             </VerticalStackLayout>
                             <Label
                                 Grid.Column="2"
-                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                FontFamily="FASolid"
                                 FontSize="20"
                                 Text="{StaticResource IconAngleDown}"
                                 VerticalOptions="Center" />

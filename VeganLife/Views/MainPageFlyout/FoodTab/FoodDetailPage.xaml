@@ -52,7 +52,7 @@
                 AutomationProperties.IsInAccessibleTree="False"
                 BackgroundColor="Transparent"
                 Command="{Binding BookmarkClickedCommand}"
-                FontFamily="FontAwesomeRegular"
+                FontFamily="FARegular"
                 FontSize="22"
                 HorizontalOptions="End"
                 SemanticProperties.Description="Button bookmark"
@@ -65,7 +65,7 @@
                         Binding="{Binding FoodPreview.IsBookmarked}"
                         TargetType="Button"
                         Value="true">
-                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
+                        <Setter Property="FontFamily" Value="FASolid" />
                     </DataTrigger>
                 </Button.Triggers>
             </Button>
@@ -113,7 +113,7 @@
                 <toolkit:Expander.Header>
                     <Label
                         FontAttributes="Bold"
-                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontFamily="FASolid"
                         FontSize="Large"
                         HorizontalOptions="Center"
                         Text="{StaticResource IconAngleUp}"
