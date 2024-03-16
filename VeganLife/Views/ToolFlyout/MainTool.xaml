@@ -30,7 +30,7 @@
                 <Setter Property="CornerRadius" Value="15" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark=White, Light=Black}" />
                 <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+                <Setter Property="FontFamily" Value="FASolid" />
             </Style>
         </ResourceDictionary>
     </base:BasePage.Resources>
