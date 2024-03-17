@@ -104,7 +104,7 @@ namespace VeganLife
             services.AddChatGpt(options =>
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
-                options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
+                options.DefaultModel = OpenAIChatGptModels.Gpt35_Turbo;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });

@@ -468,8 +468,8 @@
                         Text="{Binding Name, Mode=OneTime}"
                         VerticalOptions="StartAndExpand" />
                     <HorizontalStackLayout Spacing="5">
-                        <controls:FALabel
-                            IconType="Regular"
+                        <Label
+                            FontFamily="FASolid"
                             Text="&#xf017;"
                             VerticalOptions="Center" />
                         <Label Text="{Binding Time, Mode=OneTime}" />
