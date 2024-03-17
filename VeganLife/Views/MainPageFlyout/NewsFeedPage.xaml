@@ -104,7 +104,7 @@
                                 </Grid>
                             </Border>
                             <Label
-                                FontFamily="FontAwesomeSolid"
+                                FontFamily="FALight"
                                 FontSize="12"
                                 HorizontalOptions="Center"
                                 IsVisible="{Binding IsSelected}"
@@ -148,7 +148,8 @@
                             </Border.GestureRecognizers>
                             <Grid
                                 BackgroundColor="Transparent"
-                                ColumnDefinitions="9*,*"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
                                 MinimumHeightRequest="10"
                                 RowDefinitions="*"
                                 VerticalOptions="CenterAndExpand">
@@ -171,10 +172,9 @@
                                 </VerticalStackLayout>
                                 <Label
                                     Grid.Column="1"
-                                    FontFamily="FontAwesomeSolid"
+                                    FontFamily="FALight"
                                     FontSize="30"
-                                    HorizontalOptions="Center"
-                                    ScaleY="1"
+                                    HorizontalOptions="End"
                                     Text="{StaticResource iconArrowRight}"
                                     TextColor="Gray"
                                     VerticalOptions="Center" />
