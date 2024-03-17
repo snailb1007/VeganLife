@@ -469,7 +469,7 @@
                         VerticalOptions="StartAndExpand" />
                     <HorizontalStackLayout Spacing="5">
                         <Label
-                            FontFamily="FASolid"
+                            FontFamily="FALight"
                             Text="&#xf017;"
                             VerticalOptions="Center" />
                         <Label Text="{Binding Time, Mode=OneTime}" />
