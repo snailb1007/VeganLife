@@ -139,6 +139,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="ggNewsModel:Item">
                         <Border
+                            Padding="0"
                             BackgroundColor="{AppThemeBinding Dark=#2b2d2e,
                                                               Light=#ffffff}"
                             StrokeShape="RoundRectangle 10"

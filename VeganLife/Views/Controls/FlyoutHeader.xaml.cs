@@ -40,25 +40,13 @@ namespace VeganLife.Views.Controls
             {
                 if (!string.IsNullOrEmpty(userData.Name))
                 {
-                    //lbUserName.Text = userData.Name;
+                    lbUserName.Text = userData.Name;
                     var randomGreetingIndex = (new Random()).Next(grettingList.Count());
-                    //lbGreeting.Text = string.Format(grettingList.ElementAt(randomGreetingIndex), userData.Name);
+                    lbGreeting.Text = string.Format(grettingList.ElementAt(randomGreetingIndex), userData.Name);
                 }
 
-                //imgAvatar.Source = userData.Image;
+                imgAvatar.Source = userData.Image;
             }
-        }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            if (isProcessing)
-            {
-                return;
-            }
-
-            isProcessing = true;
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
-            isProcessing = false;
         }
 
         private async void AvatarView_Tapped(object sender, TappedEventArgs e)
@@ -80,6 +68,18 @@ namespace VeganLife.Views.Controls
             {
                 await this.DisplayUserInfoPreview();
             });
+        }
+
+        private async void OnEditProfileClicked(object sender, TappedEventArgs e)
+        {
+            if (isProcessing)
+            {
+                return;
+            }
+
+            isProcessing = true;
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
+            isProcessing = false;
         }
     }
 }
