@@ -17,9 +17,6 @@
             MaterialTheme="Acrylic"
             VerticalOptions="Center"
             WidthRequest="42">
-            <!--<Border.StrokeShape>
-                <RoundRectangle CornerRadius="10" />
-            </Border.StrokeShape>-->
             <ImageButton
                 Margin="0"
                 Padding="0"
