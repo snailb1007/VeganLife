@@ -38,24 +38,17 @@
                     FontSize="18"
                     Text="{x:Static translate:AppResources.incognito_flyoutHeader}"
                     VerticalOptions="CenterAndExpand" />
-                <!--<controls:FALabel
+                <Label
                     Grid.ColumnSpan="2"
-                    FontSize="18"
-                    HorizontalOptions="End"
-                    IconType="Solid"
-                    Text="&#xf044;"
-                    VerticalOptions="Start" />-->
-                <!--<Button
-                    Grid.ColumnSpan="2"
-                    Padding="0"
-                    BackgroundColor="Transparent"
-                    Clicked="Button_Clicked"
-                    FontFamily="FASolid"
+                    FontFamily="FALight"
                     FontSize="18"
                     HorizontalOptions="End"
                     Text="&#xf044;"
-                    TextColor="Black"
-                    VerticalOptions="Start" />-->
+                    VerticalOptions="Start">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnEditProfileClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
             <Label x:Name="lbGreeting" Text="{x:Static translate:AppResources.description_flyoutHeader}" />
         </VerticalStackLayout>

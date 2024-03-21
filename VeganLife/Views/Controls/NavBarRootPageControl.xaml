@@ -3,23 +3,23 @@
     x:Class="VeganLife.Views.Controls.NavBarRootPageControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sharpnado="http://sharpnado.com"
     x:Name="navBarRootContent">
     <Grid
         ColumnDefinitions="45, *, 45"
         ColumnSpacing="0"
         RowDefinitions="45">
-        <Border
-            BackgroundColor="{AppThemeBinding Dark=Black,
-                                              Light=White}"
+        <sharpnado:MaterialFrame
+            CornerRadius="10"
             HeightRequest="42"
             HorizontalOptions="Center"
-            Stroke="{StaticResource PrimaryLight}"
-            StrokeThickness="1"
+            LightThemeBackgroundColor="#F1F1F1"
+            MaterialTheme="Acrylic"
             VerticalOptions="Center"
             WidthRequest="42">
-            <Border.StrokeShape>
+            <!--<Border.StrokeShape>
                 <RoundRectangle CornerRadius="10" />
-            </Border.StrokeShape>
+            </Border.StrokeShape>-->
             <ImageButton
                 Margin="0"
                 Padding="0"
@@ -33,7 +33,7 @@
                 Source="{Binding HamburgerSource, Source={x:Reference navBarRootContent}}"
                 VerticalOptions="Center"
                 WidthRequest="38" />
-        </Border>
+        </sharpnado:MaterialFrame>
         <Grid Grid.Column="1" IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}">
             <HorizontalStackLayout
                 HorizontalOptions="Center"
