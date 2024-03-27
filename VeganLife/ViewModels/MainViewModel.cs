@@ -1,12 +1,11 @@
-﻿using System.Linq;
-// <copyright file="MainViewModel.cs" company="VeganLife">
+﻿// <copyright file="MainViewModel.cs" company="VeganLife">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace VeganLife.ViewModels
 {
-    using System.Text.RegularExpressions;
     using CommunityToolkit.Mvvm.Messaging;
+    using System.Text.RegularExpressions;
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Messages;
@@ -103,7 +102,7 @@ namespace VeganLife.ViewModels
                         // add new item from server to local
                         if (!thisItemAlreadyExisted)
                         {
-                            await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
+                            await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem!);
                         }
                     }
 
@@ -148,10 +147,15 @@ namespace VeganLife.ViewModels
             }
 
             await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
-            this.CurrentFoodSelected = null;
+            this.CurrentFoodSelected = null!;
             var userService = ServicesHelper.GetService<IUserDataService>();
             await userService.Refresh();
-            (userService as UserDataService).UserInfo.TotalFoodDetailRead++;
+            var userInfo = (userService as UserDataService)?.UserInfo!;
+            if (userInfo != null)
+            {
+                userInfo.TotalFoodDetailRead++;
+            }
+
             await userService.SaveData();
         }
 
