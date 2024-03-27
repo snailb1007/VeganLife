@@ -447,4 +447,13 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="emptyChat_conversationChat" xml:space="preserve">
 		<value>Don't be afraid and ask us your question!</value>
 	</data>
+	<data name="previous_welcomePage" xml:space="preserve">
+		<value>Previous</value>
+	</data>
+	<data name="next_welcomePage" xml:space="preserve">
+		<value>Next</value>
+	</data>
+	<data name="skip_welcomePage" xml:space="preserve">
+		<value>Skip</value>
+	</data>
 </root>

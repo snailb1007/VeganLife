@@ -26,7 +26,7 @@
                         Background="Transparent"
                         Command="{Binding CloseThisPopupCommand}"
                         CornerRadius="15"
-                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontFamily="FASolid"
                         FontSize="Title"
                         HorizontalOptions="End"
                         Text="{StaticResource IconClose}"

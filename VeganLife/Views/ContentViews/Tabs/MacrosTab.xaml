@@ -12,7 +12,15 @@
         <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
             <sho:DraggableViewCell IsDraggable="False" IsEnabled="False">
                 <ContentView>
-                    <Grid ColumnDefinitions="*,2*">
+                    <!--<sho:MaterialFrame
+                        Padding="5"
+                        CornerRadius="10"
+                        HorizontalOptions="FillAndExpand"
+                        MaterialTheme="Acrylic"
+                        VerticalOptions="CenterAndExpand">
+
+                    </sho:MaterialFrame>-->
+                    <Grid ColumnDefinitions="*,2*" RowDefinitions="*">
                         <Border StrokeShape="RoundRectangle 5" StrokeThickness="5">
                             <ffimageloading:CachedImage
                                 Aspect="AspectFill"
@@ -29,12 +37,17 @@
             </sho:DraggableViewCell>
         </DataTemplate>
     </ContentView.Resources>
-    <sho:CollectionView
-        CollectionLayout="Vertical"
-        ItemHeight="100"
-        ItemSpacing="10"
-        ItemTemplate="{StaticResource classicItemTemplate}"
-        ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
-        TapCommand="{Binding ItemSelectedChangedCommand}"
-        VerticalOptions="Fill" />
+    <ContentView.Content>
+        <Grid RowDefinitions="*">
+            <Label Text="abc" />
+            <sho:CollectionView
+                CollectionLayout="Vertical"
+                ItemHeight="100"
+                ItemSpacing="10"
+                ItemTemplate="{StaticResource classicItemTemplate}"
+                ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
+                TapCommand="{Binding ItemSelectedChangedCommand}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentView.Content>
 </ContentView>

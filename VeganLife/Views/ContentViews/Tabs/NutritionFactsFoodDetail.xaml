@@ -39,7 +39,7 @@
                 Background="Transparent"
                 BackgroundColor="Transparent"
                 Command="{Binding ExpandClickedCommand}"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FASolid"
                 FontSize="Medium"
                 IsVisible="{Binding IsExpanded, Converter={StaticResource InvertedBoolConverter}}"
                 Text="&#xf103;"

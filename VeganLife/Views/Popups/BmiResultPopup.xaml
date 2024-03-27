@@ -106,7 +106,7 @@
                         <Button
                             Command="{Binding SelectButtonCommand}"
                             CommandParameter="0"
-                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontFamily="FASolid"
                             Style="{StaticResource btn}"
                             Text="&#xf2f9;">
                             <Button.Triggers>
@@ -124,7 +124,7 @@
                             Grid.Column="1"
                             Command="{Binding SelectButtonCommand}"
                             CommandParameter="1"
-                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontFamily="FASolid"
                             Style="{StaticResource btn}"
                             Text="&#xf061;">
                             <Button.Triggers>

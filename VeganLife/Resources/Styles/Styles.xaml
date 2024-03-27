@@ -3,6 +3,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel">
@@ -468,7 +469,7 @@
                         VerticalOptions="StartAndExpand" />
                     <HorizontalStackLayout Spacing="5">
                         <Label
-                            FontFamily="FontAwesomeRegular"
+                            FontFamily="FALight"
                             Text="&#xf017;"
                             VerticalOptions="Center" />
                         <Label Text="{Binding Time, Mode=OneTime}" />

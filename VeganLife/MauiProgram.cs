@@ -65,9 +65,11 @@ namespace VeganLife
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
-                    fonts.AddFont("FontAwesome6FreeBrands.otf", "FontAwesomeBrands");
-                    fonts.AddFont("FontAwesome6FreeRegular.otf", "FontAwesomeRegular");
-                    fonts.AddFont("FontAwesome6FreeSolid.otf", "FontAwesomeSolid");
+                    // v6.5.1
+                    fonts.AddFont("fa-solid-900.ttf", "FASolid");
+                    fonts.AddFont("fa-regular-400.ttf", "FARegular");
+                    fonts.AddFont("fa-thin-100.ttf", "FAThin");
+                    fonts.AddFont("fa-light-300.ttf", "FALight");
                 });
 #if DEBUG
             builder.Logging.AddDebug();
@@ -102,7 +104,7 @@ namespace VeganLife
             services.AddChatGpt(options =>
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
-                options.DefaultModel = OpenAIChatGptModels.Gpt35Turbo;
+                options.DefaultModel = OpenAIChatGptModels.Gpt35_Turbo;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });

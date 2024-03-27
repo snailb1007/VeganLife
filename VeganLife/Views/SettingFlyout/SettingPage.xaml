@@ -28,7 +28,7 @@
             Orientation="Horizontal">
             <Label
                 Margin="0,0,10,0"
-                FontFamily="FontAwesomeSolid"
+                FontFamily="FASolid"
                 FontSize="20"
                 HorizontalOptions="Start"
                 Text="{AppThemeBinding Dark=&#xf186;,

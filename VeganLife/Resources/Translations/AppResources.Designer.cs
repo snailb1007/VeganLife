@@ -661,6 +661,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string next_welcomePage {
+            get {
+                return ResourceManager.GetString("next_welcomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No information about {0} dishes.
         ///List is empty!.
         /// </summary>
@@ -780,6 +789,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        internal static string previous_welcomePage {
+            get {
+                return ResourceManager.GetString("previous_welcomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chào bạn {0}. Cùng xây dựng kế hoạch một cách đầy năng lượng và hứng khởi nhé!.
         /// </summary>
         internal static string prompt_greeting {
@@ -876,6 +894,15 @@ namespace VeganLife.Resources.Translations {
         internal static string sideMeal_rationPlantPage {
             get {
                 return ResourceManager.GetString("sideMeal_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        internal static string skip_welcomePage {
+            get {
+                return ResourceManager.GetString("skip_welcomePage", resourceCulture);
             }
         }
         
