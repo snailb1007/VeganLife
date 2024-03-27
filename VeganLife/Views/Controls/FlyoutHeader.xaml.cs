@@ -49,18 +49,6 @@ namespace VeganLife.Views.Controls
             }
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            if (isProcessing)
-            {
-                return;
-            }
-
-            isProcessing = true;
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
-            isProcessing = false;
-        }
-
         private async void AvatarView_Tapped(object sender, TappedEventArgs e)
         {
             if (isProcessing)
@@ -80,6 +68,18 @@ namespace VeganLife.Views.Controls
             {
                 await this.DisplayUserInfoPreview();
             });
+        }
+
+        private async void OnEditProfileClicked(object sender, TappedEventArgs e)
+        {
+            if (isProcessing)
+            {
+                return;
+            }
+
+            isProcessing = true;
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
+            isProcessing = false;
         }
     }
 }

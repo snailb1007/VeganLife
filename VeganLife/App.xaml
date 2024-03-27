@@ -11,11 +11,6 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <x:String x:Key="FontAwesomeRegular">FontAwesomeRegular</x:String>
-            <x:String x:Key="FontAwesomeSolid">FontAwesomeSolid</x:String>
-            <x:String x:Key="FontAwesomeBrands">FontAwesomeBrands</x:String>
-            <x:String x:Key="PlayfairDisplaySemiBold">PlayfairDisplaySemiBold</x:String>
-
             <!--<DataTemplate x:Key="AppFunctionTemplate">
                 <Grid Padding="5">
                     <Label Text="{Binding Key}" />

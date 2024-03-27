@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.Controls.FlyoutHeader"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     x:Name="flyoutHeader">
@@ -12,66 +13,44 @@
             <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
         </LinearGradientBrush>
     </ContentView.Background>
-    <Frame
+    <Border
         Margin="10"
-        Padding="0"
         BackgroundColor="{AppThemeBinding Dark=Black,
                                           Light=White}"
-        BorderColor="Transparent"
-        CornerRadius="10">
-        <StackLayout Margin="10" Spacing="10">
-            <Grid>
-                <HorizontalStackLayout Spacing="10">
-                    <Image
-                        x:Name="imgAvatar"
-                        Aspect="AspectFit"
-                        HeightRequest="80"
-                        Source="profile_boy"
-                        WidthRequest="80">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="AvatarView_Tapped" />
-                        </Image.GestureRecognizers>
-                        <!--<Image.Triggers>
-                            <DataTrigger
-                                Binding="{Binding IsMale, Source={x:Reference flyoutHeader}, Mode=OneWay}"
-                                TargetType="Image"
-                                Value="False">
-                                <Setter Property="Source" Value="profile_girl_strong" />
-                            </DataTrigger>
-                        </Image.Triggers>-->
-                    </Image>
-
-                    <!--<toolkit:AvatarView
-                        x:Name="avatarViewToolkit"
-                        BorderColor="{StaticResource PrimaryOrange1}"
-                        BorderWidth="2"
-                        CornerRadius="40"
-                        HeightRequest="80"
-                        ImageSource="profile_boy"
-                        WidthRequest="80">
-                        <toolkit:AvatarView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="AvatarView_Tapped" />
-                        </toolkit:AvatarView.GestureRecognizers>
-                    </toolkit:AvatarView>-->
-                    <Label
-                        x:Name="lbUserName"
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        Text="{x:Static translate:AppResources.incognito_flyoutHeader}"
-                        VerticalOptions="CenterAndExpand" />
-                </HorizontalStackLayout>
-                <Button
-                    Padding="0"
-                    BackgroundColor="Transparent"
-                    Clicked="Button_Clicked"
-                    FontFamily="FontAwesomeSolid"
+        StrokeShape="RoundRectangle 10"
+        StrokeThickness="0">
+        <VerticalStackLayout Margin="10" Spacing="10">
+            <Grid ColumnDefinitions="80, *" ColumnSpacing="10">
+                <Image
+                    x:Name="imgAvatar"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    Source="profile_boy"
+                    WidthRequest="80">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AvatarView_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label
+                    x:Name="lbUserName"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="{x:Static translate:AppResources.incognito_flyoutHeader}"
+                    VerticalOptions="CenterAndExpand" />
+                <Label
+                    Grid.ColumnSpan="2"
+                    FontFamily="FALight"
                     FontSize="18"
                     HorizontalOptions="End"
                     Text="&#xf044;"
-                    TextColor="Black"
-                    VerticalOptions="Start" />
+                    VerticalOptions="Start">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnEditProfileClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
             <Label x:Name="lbGreeting" Text="{x:Static translate:AppResources.description_flyoutHeader}" />
-        </StackLayout>
-    </Frame>
+        </VerticalStackLayout>
+    </Border>
 </ContentView>

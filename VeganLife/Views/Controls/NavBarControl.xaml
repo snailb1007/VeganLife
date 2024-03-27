@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:sharpnado="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="rootNavBarControl"
     BackgroundColor="Transparent">
@@ -14,22 +15,21 @@
         </LinearGradientBrush>
     </ContentView.Background>
     <ContentView.Resources>
-        <ResourceDictionary>
-            <x:String x:Key="lbIcon_angleLeft">&#xf104;</x:String>
-            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
-        </ResourceDictionary>
+        <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
     </ContentView.Resources>
     <Grid
         Margin="16,0"
         BackgroundColor="Transparent"
         ColumnDefinitions="Auto, *"
         HeightRequest="56">
-        <Frame
+        <sharpnado:MaterialFrame
             Padding="0"
             CornerRadius="20"
             HasShadow="True"
             HeightRequest="40"
             HorizontalOptions="Center"
+            LightThemeBackgroundColor="#F1F1F1"
+            MaterialTheme="Acrylic"
             VerticalOptions="Center">
             <HorizontalStackLayout Margin="5,0" Spacing="5">
                 <Button
@@ -37,11 +37,11 @@
                     Padding="0"
                     BackgroundColor="Transparent"
                     Clicked="Back_Clicked"
-                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    FontFamily="FARegular"
                     FontSize="20"
                     HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
-                    Text="{StaticResource lbIcon_angleLeft}"
+                    Text="&#xf104;"
                     TextColor="{AppThemeBinding Dark=White,
                                                 Light=Black}"
                     VerticalOptions="FillAndExpand"
@@ -66,7 +66,7 @@
                     VerticalOptions="Center"
                     WidthRequest="30" />
             </HorizontalStackLayout>
-        </Frame>
+        </sharpnado:MaterialFrame>
         <Label
             Grid.Row="1"
             Grid.ColumnSpan="2"

@@ -50,7 +50,7 @@
                 <toolkit:Expander.Header>
                     <Label
                         FontAttributes="Bold"
-                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontFamily="FASolid"
                         FontSize="Large"
                         HorizontalOptions="Center"
                         Text="{StaticResource IconAngleUp}"

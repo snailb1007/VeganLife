@@ -30,7 +30,7 @@
                         Grid.Column="1"
                         Background="Transparent"
                         BackgroundColor="Transparent"
-                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontFamily="FASolid"
                         Text="&#xf00d;"
                         TextColor="Gray"
                         VerticalOptions="Start" />

@@ -4,8 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:sharpnado="http://sharpnado.com"
     xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
-    xmlns:tabs="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
@@ -22,19 +22,17 @@
                 </LinearGradientBrush>
             </ContentView.Background>
             <Grid ColumnDefinitions="48, *" ColumnSpacing="5">
-                <Border
+                <sharpnado:MaterialFrame
+                    CornerRadius="10"
                     HeightRequest="42"
                     HorizontalOptions="Center"
-                    Stroke="{StaticResource PrimaryLight}"
-                    StrokeThickness="1"
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialTheme="Acrylic"
                     VerticalOptions="Center"
                     WidthRequest="42">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10" />
-                    </Border.StrokeShape>
-                    <Border.GestureRecognizers>
+                    <sharpnado:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenMenuCommand}" />
-                    </Border.GestureRecognizers>
+                    </sharpnado:MaterialFrame.GestureRecognizers>
                     <Image
                         Margin="0"
                         AutomationId="ImgHamburger"
@@ -42,10 +40,10 @@
                         HeightRequest="38"
                         HorizontalOptions="Center"
                         SemanticProperties.Description="hamburger image"
-                        Source="hamburger_white"
+                        Source="hamburger"
                         VerticalOptions="Center"
                         WidthRequest="38" />
-                </Border>
+                </sharpnado:MaterialFrame>
                 <Frame
                     Grid.Column="1"
                     Padding="0"
@@ -100,7 +98,7 @@
             </Grid>
         </ContentView>
         <ContentView Grid.Row="1" Margin="0,0,0,5">
-            <tabs:TabHostView
+            <sharpnado:TabHostView
                 BackgroundColor="{StaticResource Gray100}"
                 CornerRadius="0"
                 HorizontalOptions="FillAndExpand"
@@ -109,55 +107,55 @@
                 SegmentedOutlineColor="Transparent"
                 SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
                 TabType="Fixed">
-                <tabs:TabHostView.Resources>
+                <sharpnado:TabHostView.Resources>
                     <ResourceDictionary>
-                        <Style TargetType="tabs:MaterialUnderlinedTabItem">
+                        <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
                             <Setter Property="LabelSize" Value="15" />
                             <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
                             <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
                         </Style>
-                        <Style TargetType="tabs:BadgeView">
+                        <Style TargetType="sharpnado:BadgeView">
                             <!--<Setter Property="BackgroundColor" Value="White" />-->
                             <!--<Setter Property="TextColor" Value="Red" />-->
                         </Style>
                     </ResourceDictionary>
-                </tabs:TabHostView.Resources>
-                <tabs:MaterialUnderlinedTabItem Label="MACROS" />
-                <tabs:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
-                    <tabs:MaterialUnderlinedTabItem.Badge>
-                        <tabs:BadgeView Text="{Binding NumberBadgeCalories}" />
-                    </tabs:MaterialUnderlinedTabItem.Badge>
-                </tabs:MaterialUnderlinedTabItem>
-                <tabs:MaterialUnderlinedTabItem Label="NUTRIENTS">
-                    <tabs:MaterialUnderlinedTabItem.Badge>
-                        <tabs:BadgeView Text="{Binding NumberBadgeCart}" />
-                    </tabs:MaterialUnderlinedTabItem.Badge>
-                </tabs:MaterialUnderlinedTabItem>
-            </tabs:TabHostView>
+                </sharpnado:TabHostView.Resources>
+                <sharpnado:MaterialUnderlinedTabItem Label="MACROS" />
+                <sharpnado:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
+                    <sharpnado:MaterialUnderlinedTabItem.Badge>
+                        <sharpnado:BadgeView Text="{Binding NumberBadgeCalories}" />
+                    </sharpnado:MaterialUnderlinedTabItem.Badge>
+                </sharpnado:MaterialUnderlinedTabItem>
+                <sharpnado:MaterialUnderlinedTabItem Label="NUTRIENTS">
+                    <sharpnado:MaterialUnderlinedTabItem.Badge>
+                        <sharpnado:BadgeView Text="{Binding NumberBadgeCart}" />
+                    </sharpnado:MaterialUnderlinedTabItem.Badge>
+                </sharpnado:MaterialUnderlinedTabItem>
+            </sharpnado:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">
-            <tabs:ViewSwitcher
+            <sharpnado:ViewSwitcher
                 x:Name="switcher"
                 Grid.Row="1"
                 Margin="0"
                 Animate="True"
                 SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
-                <tabs:DelayedView
+                <sharpnado:DelayedView
                     x:TypeArguments="views:MacrosTab"
                     Animate="False"
                     BindingContext="{Binding MacrosViewModel}"
                     UseActivityIndicator="False" />
-                <tabs:DelayedView
+                <sharpnado:DelayedView
                     x:TypeArguments="views:CaloriesTab"
                     Animate="True"
                     BindingContext="{Binding CaloriesViewModel}"
                     UseActivityIndicator="True" />
-                <tabs:DelayedView
+                <sharpnado:DelayedView
                     x:TypeArguments="views:NutrientsTab"
                     Animate="True"
                     BindingContext="{Binding NutrientsViewModel}"
                     UseActivityIndicator="True" />
-            </tabs:ViewSwitcher>
+            </sharpnado:ViewSwitcher>
         </ContentView>
     </Grid>
 </base:BasePage>

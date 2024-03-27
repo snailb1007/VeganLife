@@ -7,7 +7,6 @@
 namespace VeganLife
 {
     using Microsoft.AppCenter.Crashes;
-    using Microsoft.Maui;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
@@ -27,7 +26,6 @@ namespace VeganLife
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
-            //this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
             if (UserSettingsHelper.IsFirstTime)
             {
                 this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());

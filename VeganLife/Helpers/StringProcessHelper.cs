@@ -5,6 +5,8 @@
 namespace VeganLife.Helpers
 {
     using System.Text;
+    using System.Text.RegularExpressions;
+    using static Android.Renderscripts.ScriptGroup;
 
     public static class StringProcessHelper
     {
@@ -47,6 +49,35 @@ namespace VeganLife.Helpers
                 var startIndex = data.IndexOf("(");
                 return data.Substring(startIndex + 1, data.IndexOf(")") - startIndex);
             }
+        }
+
+        public static List<BaseDataModel> ParseSections(string text)
+        {
+            List<BaseDataModel> informations = new List<BaseDataModel>();
+
+            // Adjusted regex pattern to capture title and description
+            string pattern = @"(\d+)\.\s*(.*?)\n(.*?)\n?(?=\d+\.|$)";
+
+            MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.Singleline);
+
+            foreach (Match match in matches)
+            {
+                string title = match.Groups[2].Value.Trim();
+                string description = match.Groups[3].Value.Trim();
+                if (title.Contains("**"))
+                {
+                    title = title.Replace("**", string.Empty);
+                }
+
+                if (description.Contains("**"))
+                {
+                    description = description.Replace("**", string.Empty);
+                }
+
+                informations.Add(new BaseDataModel { Title = title, Description = description });
+            }
+
+            return informations;
         }
     }
 }
