@@ -24,7 +24,7 @@
             <VerticalStackLayout Grid.Column="1" Spacing="5">
                 <Label
                     FontAttributes="Bold"
-                    FontFamily="{StaticResource PlayfairDisplaySemiBold}"
+                    FontFamily="PlayfairDisplaySemiBold"
                     FontSize="Medium"
                     Text="{x:Static translate:AppResources.app_name}" />
                 <Label
@@ -84,7 +84,7 @@
                         Clicked="Close_Clicked"
                         CornerRadius="10"
                         FontAttributes="Bold"
-                        FontFamily="{StaticResource PlayfairDisplaySemiBold}"
+                        FontFamily="PlayfairDisplaySemiBold"
                         HorizontalOptions="End"
                         Text="{x:Static translate:AppResources.close_common}"
                         TextColor="Black" />
