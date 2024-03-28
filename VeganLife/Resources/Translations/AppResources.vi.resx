@@ -141,6 +141,9 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
 	<data name="close_common" xml:space="preserve">
     <value>CLOSE</value>
   </data>
+	<data name="coming_soon" xml:space="preserve">
+    <value>Sắp ra mắt</value>
+  </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>

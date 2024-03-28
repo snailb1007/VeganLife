@@ -160,6 +160,9 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="close_common" xml:space="preserve">
     <value>Close</value>
   </data>
+	<data name="coming_soon" xml:space="preserve">
+    <value>Coming Soon</value>
+  </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Enter search term</value>
