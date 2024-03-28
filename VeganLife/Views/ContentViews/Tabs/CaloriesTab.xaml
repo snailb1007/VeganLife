@@ -3,7 +3,8 @@
     x:Class="VeganLife.Views.ContentViews.Tabs.CaloriesTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui">
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations">
     <Grid>
         <lvc:CartesianChart
             HorizontalOptions="FillAndExpand"
@@ -17,7 +18,7 @@
                 FontAttributes="Bold"
                 FontSize="Large"
                 HorizontalOptions="Center"
-                Text="Coming soon"
+                Text="{x:Static translate:AppResources.coming_soon}"
                 TextColor="Gray"
                 VerticalOptions="Start" />
         </Grid>

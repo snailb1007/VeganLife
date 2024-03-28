@@ -22,7 +22,10 @@
     </base:BasePage.Resources>
     <Grid RowDefinitions="Auto,*">
         <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
-        <VerticalStackLayout Grid.Row="1" Margin="10">
+        <VerticalStackLayout
+            Grid.Row="1"
+            Margin="10"
+            Opacity="0.5">
             <Label
                 FontAttributes="Bold"
                 FontSize="18"
@@ -78,5 +81,14 @@
                 </CollectionView>
             </Grid>
         </VerticalStackLayout>
+        <Grid Grid.RowSpan="2">
+            <Label
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="{x:Static translate:AppResources.coming_soon}"
+                TextColor="{StaticResource Gray950}"
+                VerticalOptions="Center" />
+        </Grid>
     </Grid>
 </base:BasePage>
