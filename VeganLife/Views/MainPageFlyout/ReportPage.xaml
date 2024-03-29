@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.MainPageFlyout.ReportPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:sharpnado="http://sharpnado.com"
+    xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
+    x:Name="rootReportPage"
+    Title="ReportPage"
+    x:DataType="viewmodel:ReportPageViewModel"
+    x:TypeArguments="viewmodel:ReportPageViewModel">
+    <Grid RowDefinitions="80, 60, *">
+        <ContentView Padding="10">
+            <ContentView.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+                </LinearGradientBrush>
+            </ContentView.Background>
+            <Grid ColumnDefinitions="48, *" ColumnSpacing="5">
+                <sharpnado:MaterialFrame
+                    CornerRadius="10"
+                    HeightRequest="42"
+                    HorizontalOptions="Center"
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialTheme="Acrylic"
+                    VerticalOptions="Center"
+                    WidthRequest="42">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenMenuCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <Image
+                        Margin="0"
+                        AutomationId="ImgHamburger"
+                        AutomationProperties.IsInAccessibleTree="False"
+                        HeightRequest="38"
+                        HorizontalOptions="Center"
+                        SemanticProperties.Description="hamburger image"
+                        Source="hamburger"
+                        VerticalOptions="Center"
+                        WidthRequest="38" />
+                </sharpnado:MaterialFrame>
+                <Frame
+                    Grid.Column="1"
+                    Padding="0"
+                    HeightRequest="50"
+                    IsVisible="False">
+                    <Frame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedViewModelIndex}"
+                            TargetType="Frame"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <SearchBar
+                        x:DataType="tabVM:MacrosViewModel"
+                        BindingContext="{Binding BindingContext.MacrosViewModel, Source={x:Reference rootReportPage}}"
+                        HeightRequest="48"
+                        HorizontalOptions="Fill"
+                        Placeholder="Fill text here"
+                        Text="{Binding TextSearch}"
+                        VerticalOptions="Center">
+                        <SearchBar.Behaviors>
+                            <toolkit:UserStoppedTypingBehavior
+                                Command="{Binding EnsureSearchCommand}"
+                                MinimumLengthThreshold="1"
+                                ShouldDismissKeyboardAutomatically="False"
+                                StoppedTypingTimeThreshold="500" />
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+                </Frame>
+
+                <Frame
+                    Grid.Column="1"
+                    Padding="0"
+                    HeightRequest="50"
+                    IsVisible="False">
+                    <Frame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedViewModelIndex}"
+                            TargetType="Frame"
+                            Value="1">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <DatePicker
+                        BackgroundColor="White"
+                        Format="dd/MM/yyyy"
+                        HeightRequest="48"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center" />
+                </Frame>
+            </Grid>
+        </ContentView>
+        <ContentView Grid.Row="1" Margin="0,0,0,5">
+            <sharpnado:TabHostView
+                BackgroundColor="{StaticResource Gray100}"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                IsSegmented="True"
+                Orientation="Horizontal"
+                SegmentedOutlineColor="Transparent"
+                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                TabType="Fixed">
+                <sharpnado:TabHostView.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
+                            <Setter Property="LabelSize" Value="15" />
+                            <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
+                            <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
+                        </Style>
+                        <Style TargetType="sharpnado:BadgeView">
+                            <!--<Setter Property="BackgroundColor" Value="White" />-->
+                            <!--<Setter Property="TextColor" Value="Red" />-->
+                        </Style>
+                    </ResourceDictionary>
+                </sharpnado:TabHostView.Resources>
+                <sharpnado:MaterialUnderlinedTabItem Label="MACROS" />
+                <sharpnado:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
+                    <sharpnado:MaterialUnderlinedTabItem.Badge>
+                        <sharpnado:BadgeView Text="{Binding NumberBadgeCalories}" />
+                    </sharpnado:MaterialUnderlinedTabItem.Badge>
+                </sharpnado:MaterialUnderlinedTabItem>
+                <sharpnado:MaterialUnderlinedTabItem Label="NUTRIENTS">
+                    <sharpnado:MaterialUnderlinedTabItem.Badge>
+                        <sharpnado:BadgeView Text="{Binding NumberBadgeCart}" />
+                    </sharpnado:MaterialUnderlinedTabItem.Badge>
+                </sharpnado:MaterialUnderlinedTabItem>
+            </sharpnado:TabHostView>
+        </ContentView>
+        <ContentView Grid.Row="2">
+            <sharpnado:ViewSwitcher
+                x:Name="switcher"
+                Grid.Row="1"
+                Margin="0"
+                Animate="True"
+                SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
+                <sharpnado:DelayedView
+                    x:TypeArguments="views:MacrosTab"
+                    Animate="False"
+                    BindingContext="{Binding MacrosViewModel}"
+                    UseActivityIndicator="False" />
+                <sharpnado:DelayedView
+                    x:TypeArguments="views:CaloriesTab"
+                    Animate="True"
+                    BindingContext="{Binding CaloriesViewModel}"
+                    UseActivityIndicator="True" />
+                <sharpnado:DelayedView
+                    x:TypeArguments="views:NutrientsTab"
+                    Animate="True"
+                    BindingContext="{Binding NutrientsViewModel}"
+                    UseActivityIndicator="True" />
+            </sharpnado:ViewSwitcher>
+        </ContentView>
+    </Grid>
+</base:BasePage>

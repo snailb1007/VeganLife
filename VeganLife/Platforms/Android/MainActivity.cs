@@ -1,21 +1,27 @@
-﻿using Android.App;
-using Android.Content.PM;
-using Android.OS;
+﻿// <copyright file="MainActivity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife;
-
-[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
-public class MainActivity : MauiAppCompatActivity
+namespace VeganLife
 {
-    public static Android.App.Activity CurrentActivity;
+    using Android.App;
+    using Android.Content.PM;
+    using Android.OS;
+    using Android.Widget;
 
-    public MainActivity()
+    [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
+    public class MainActivity : MauiAppCompatActivity
     {
-        CurrentActivity = this;
-    }
+        public MainActivity()
+        {
+        }
 
-    protected override void OnCreate(Bundle savedInstanceState)
-    {
-        base.OnCreate(savedInstanceState);
+        //private bool IsInsideEditViewTouch(EditText editText, float xCoordinateTouch, float yCoordinateTouch)
+        //{
+        //    int[] position = new int[2];
+        //    editText.GetLocationOnScreen(position);
+        //    var editTextRect = new Rect(position[0], position[1], editText.Width, editText.Height);
+        //    return editTextRect.Contains(xCoordinateTouch, yCoordinateTouch);
+        //}
     }
 }

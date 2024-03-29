@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="VeganLife.Views.Templates.BotMessItemTemplate"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ColumnDefinitions="22,*,10"
+    ColumnSpacing="5"
+    HorizontalOptions="Start">
+    <Border
+        x:Name="borderText"
+        Grid.Column="1"
+        Padding="12"
+        BackgroundColor="{StaticResource Gray100}"
+        Stroke="{StaticResource PrimaryLight}"
+        StrokeShape="RoundRectangle 16,16,0,16">
+        <Label HorizontalOptions="Start" Text="{Binding Text}" />
+    </Border>
+    <Image
+        x:Name="img"
+        HeightRequest="22"
+        VerticalOptions="End"
+        WidthRequest="22" />
+</Grid>

@@ -1,18 +1,34 @@
-﻿namespace VeganLife.ViewModels.ContentViewModels
+﻿// <copyright file="VitaminAndMineralViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class VitaminAndMineralViewModel : BaseViewModel
     {
         [ObservableProperty]
-        IEnumerable<VitaminModel> _vitamins;
+        private IEnumerable<VitaminModel> vitamins;
 
-        public VitaminAndMineralViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService, dataService)
+        public VitaminAndMineralViewModel()
+            : base()
         {
-            Init();
+            this.Init();
+            this.LoadDataAsync().ConfigureAwait(false);
         }
 
-        async void Init()
+        private void Init()
         {
-            Vitamins = await data_service.GetVitamins();
+        }
+
+        private async Task LoadDataAsync()
+        {
+            this.Vitamins = await this.dataService.GetVitamins();
+        }
+
+        [RelayCommand]
+        private async Task ItemSelectedAsync()
+        {
+            await Task.Delay(1);
         }
     }
 }

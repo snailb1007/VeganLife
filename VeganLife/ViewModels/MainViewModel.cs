@@ -1,58 +1,92 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using VeganLife.Data.LocalData;
-using VeganLife.Messages;
-using VeganLife.Models.FoodModel;
+﻿// <copyright file="MainViewModel.cs" company="VeganLife">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels
 {
+    using CommunityToolkit.Mvvm.Messaging;
+    using System.Text.RegularExpressions;
+    using VeganLife.Data.LocalData;
+    using VeganLife.Helpers;
+    using VeganLife.Messages;
+    using VeganLife.Models.FoodModel;
+    using VeganLife.Services.UserServices;
+    using VeganLife.Views.MainPageFlyout.FoodTab;
+
+    /// <summary>
+    /// vm for MainPage.
+    /// </summary>
     public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
-        FoodPreviewDataStoreService _dataStoreService;
-        IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
-        IList<FoodPreviewModel> _allFoods = new List<FoodPreviewModel>();
+        private FoodPreviewDataStoreService dataStoreService;
+        private IEnumerable<FoodPreviewModel> onlineFoodPreviewData;
+        private IList<FoodPreviewModel> allFoods;
+        //private IList<FoodPreviewModel> passFilterFoods;
 
         [ObservableProperty]
-        bool _isSearchFocused;
+        private bool isSearchFocused;
         [ObservableProperty]
-        ObservableCollection<FoodPreviewModel> _foods;
+        private bool isFilterContentExpaned;
         [ObservableProperty]
-        IEnumerable<FoodMenuCategoryModel> _category;
+        private ObservableCollection<FoodPreviewModel> foods;
         [ObservableProperty]
-        FoodPreviewModel _currentFoodSelected;
+        private IEnumerable<FoodMenuCategoryModel> category;
+        [ObservableProperty]
+        private FoodPreviewModel currentFoodSelected;
+        [ObservableProperty]
+        private string searchText;
 
-        public bool IsLoadDataOnAppearingDone { get; private set; }
+        private bool isLoadDataOnAppearingDone;
 
         public IAsyncRelayCommand GoFoodDetailCommand { get; }
-        public IAsyncRelayCommand LoadDataCommand { get; }
 
-        public MainViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
+        public MainViewModel()
+            : base()
         {
-            GoFoodDetailCommand = new AsyncRelayCommand<object>(GoFoodDetail);
-            LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
-            Init();
+            this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
+            this.allFoods = new List<FoodPreviewModel>();
+            this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
         }
 
-        void Init()
+        private void Init()
         {
-            Foods = new ObservableCollection<FoodPreviewModel>();
-            _dataStoreService = new FoodPreviewDataStoreService(local_database);
+            this.Foods = new ObservableCollection<FoodPreviewModel>();
+            dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
-        async Task LoadDataAsync()
+        public override Task ViewAppearingVM()
         {
-            if (IsNetworkConnected)
-                _onlineFoodPreviewData = await data_service.GetFoods();
-            var localData = await _dataStoreService.GetItemsAsync();
+            if (!isLoadDataOnAppearingDone)
+            {
+                LoadDataCommand.Execute(null);
+            }
+
+            return base.ViewAppearingVM();
+        }
+
+        [RelayCommand]
+        private async Task LoadDataAsync()
+        {
+            if (this.IsNetworkConnected)
+            {
+                this.onlineFoodPreviewData = await this.dataService.GetFoods();
+            }
+
+            allFoods.Clear();
+            Foods.Clear();
+            var localData = await dataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
             {
-                if (_onlineFoodPreviewData?.Any() ?? false)
+                if (this.onlineFoodPreviewData?.Any() ?? false)
                 {
                     // compare local vs online => update
-                    for (int i = 0; i < _onlineFoodPreviewData.Count(); i++)
+                    for (int i = 0; i < this.onlineFoodPreviewData.Count(); i++)
                     {
-                        var thisOnlineItem = _onlineFoodPreviewData.ElementAt(i);
+                        var thisOnlineItem = this.onlineFoodPreviewData.ElementAt(i);
                         bool thisItemAlreadyExisted = false;
                         foreach (var item in localData)
                         {
@@ -61,102 +95,129 @@ namespace VeganLife.ViewModels
                                 thisItemAlreadyExisted = true;
                                 thisOnlineItem.IsBookmarked = item.IsBookmarked;
                                 thisOnlineItem.IsRead = item.IsRead;
-                                await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                                await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                             }
                         }
+
                         // add new item from server to local
                         if (!thisItemAlreadyExisted)
                         {
-                            await _dataStoreService.AddOrUpdateItemAsync(thisOnlineItem);
+                            await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem!);
                         }
                     }
 
-                    (await _dataStoreService.GetItemsAsync()).ToList().ForEach(i => _allFoods.Add(i));
+                    (await dataStoreService.GetItemsAsync()).ToList().ForEach(i => this.allFoods.Add(i));
                 }
                 else
                 {
-                    localData.ToList().ForEach(i => Foods.Add(i));
+                    localData.ToList().ForEach(i => this.Foods.Add(i));
                 }
             }
             else
             {
-                if (_onlineFoodPreviewData?.Any() ?? false)
+                if (this.onlineFoodPreviewData?.Any() ?? false)
                 {
-                    _onlineFoodPreviewData.ToList().ForEach(async i =>
+                    this.onlineFoodPreviewData.ToList().ForEach(async i =>
                     {
-                        _allFoods.Add(i);
-                        await _dataStoreService.AddOrUpdateItemAsync(i);
+                        this.allFoods.Add(i);
+                        await dataStoreService.AddOrUpdateItemAsync(i);
                     });
                 }
             }
 
-            foreach (var i in _allFoods)
-                Foods.Add(i);
-            await SetupMenu();
-            IsLoadDataOnAppearingDone = true;
+            foreach (var i in this.allFoods)
+            {
+                this.Foods.Add(i);
+            }
+
+            await this.SetupMenu();
+            this.isLoadDataOnAppearingDone = true;
         }
 
-        async Task SetupMenu()
+        private async Task SetupMenu()
         {
-            Category = await data_service.GetFoodMenu();
+            this.Category = await this.dataService.GetFoodMenu();
         }
 
-        async Task GoFoodDetail(object obj)
+        private async Task GoFoodDetail(object obj)
         {
-            if (GoFoodDetailCommand.IsRunning)
+            if (this.GoFoodDetailCommand.IsRunning)
+            {
                 return;
-            await navigation_service.NavigateToFoodDetail(obj);
-            CurrentFoodSelected = null;
-        }
+            }
 
+            await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
+            this.CurrentFoodSelected = null!;
+            var userService = ServicesHelper.GetService<IUserDataService>();
+            await userService.Refresh();
+            var userInfo = (userService as UserDataService)?.UserInfo!;
+            if (userInfo != null)
+            {
+                userInfo.TotalFoodDetailRead++;
+            }
+
+            await userService.SaveData();
+        }
 
         [RelayCommand]
-        async Task CategoryClicked(object obj)
+        private async Task CategoryClicked(object obj)
         {
             var itemMenu = obj as FoodMenuCategoryModel;
-            if (itemMenu == null) return;
-            var foodByCategory = _allFoods.Where(i => i.Category.Contains(itemMenu.Title));
-            await Console.Out.WriteLineAsync("==>CategoryClicked" + foodByCategory.Count());
+            if (itemMenu == null)
+            {
+                return;
+            }
+
+            var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title));
             var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
             consignment.Add(itemMenu.Category, foodByCategory);
-            await navigation_service.NavigateToCategoryPage(consignment);
+            await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
         }
 
-        public override Task OnNavigatedFrom(bool isForwardNavigation)
+        [RelayCommand]
+        private void FilterClicked()
         {
-            return base.OnNavigatedFrom(isForwardNavigation);
+            this.IsFilterContentExpaned = !this.IsFilterContentExpaned;
         }
 
-        public async void Receive(BookmarkFoodModelMessage message)
+        [RelayCommand]
+        private void EnsureSearch()
+        {
+            Foods = new ObservableCollection<FoodPreviewModel>(this.FilterKeySearch(this.allFoods.ToList(), this.SearchText));
+        }
+
+        /// <inheritdoc/>
+        public void Receive(BookmarkFoodModelMessage message)
         {
             if (message == null)
+            {
                 return;
-            message.Value.IsBookmarked = !message.Value.IsBookmarked;
-            if (!await _dataStoreService.AddOrUpdateItemAsync(message.Value, true))
-                await navigation_service.DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+            }
+
             WeakReferenceMessenger.Default.Send(new BookmarkFoodChangedMessage(message.Value));
         }
-    }
 
-    public class FoodMenuCategoryModel : MenuModel
-    {
-        public string Category
+        private IEnumerable<FoodPreviewModel> FilterKeySearch(List<FoodPreviewModel> foods, string key)
         {
-            get
+            string[] words = Regex.Replace(key, @"\s+", " ").Split(' ');
+            foreach (var item in foods)
             {
-                switch (Title)
-                {
-                    case "breakfast":
-                        return "Bữa sáng";
-                    case "dessert":
-                        return "Tráng miệng";
-                    case "dinner":
-                        return "Bữa tối";
-                    case "drink":
-                        return "Đồ uống";
-                    default:
-                        return string.Empty;
-                }
+                var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
+                int count = (from word in words
+                              where normalName.Contains(word)
+                              select word).Count();
+                item.CountCorrectWordOnSearch = count;
+            }
+
+            var x = this.Foods.Where(w => w.CountCorrectWordOnSearch == words.Length).OrderByDescending(i => i.CountCorrectWordOnSearch);
+            return x;
+        }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            {
+                Foods = new ObservableCollection<FoodPreviewModel>(this.allFoods);
             }
         }
     }

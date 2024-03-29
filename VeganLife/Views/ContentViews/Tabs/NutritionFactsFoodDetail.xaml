@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Expander
+    x:Class="VeganLife.Views.ContentViews.Tabs.NutritionFactsFoodDetail"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:tabs="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations">
+    <toolkit:Expander.Header>
+        <VerticalStackLayout
+            x:Name="rootNutriFactContent"
+            Margin="10,10,10,0"
+            Spacing="10">
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static translate:AppResources.caloriesContent_foodDetailPage}" />
+                        <Span Text="{Binding FoodNutriFacts.Calories}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FontSize="Medium" Text="Biểu đồ tỷ lệ: Protein - Carb - Fat" />
+            <!--<microcharts:ChartView
+                                        x:Name="nutriFactMicroChart"
+                                        BackgroundColor="Transparent"
+                                        Chart="{Binding NutriDonutChart, Mode=OneWay}"
+                                        HeightRequest="200"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="{Binding Source={x:Reference rootNutriFactContent}, Path=Width}" />-->
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsExpanded, Converter={StaticResource InvertedBoolConverter}}"
+                Text="More"
+                TextColor="SkyBlue" />
+            <Button
+                Background="Transparent"
+                BackgroundColor="Transparent"
+                Command="{Binding ExpandClickedCommand}"
+                FontFamily="FASolid"
+                FontSize="Medium"
+                IsVisible="{Binding IsExpanded, Converter={StaticResource InvertedBoolConverter}}"
+                Text="&#xf103;"
+                TextColor="SkyBlue" />
+        </VerticalStackLayout>
+    </toolkit:Expander.Header>
+    <VerticalStackLayout Margin="0,20,0,0" Spacing="10">
+        <Label Text="Daily value" />
+        <!--<microcharts:ChartView
+                                    BackgroundColor="Transparent"
+                                    Chart="{Binding DailyRadialGaugeChart, Mode=OneWay}"
+                                    HeightRequest="200"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="{Binding Source={x:Reference rootNutriFactContent}, Path=Width}" />-->
+    </VerticalStackLayout>
+</toolkit:Expander>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="VeganLife.Views.Popups.BmiMoreInfoToolBarPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converterCustom="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.PopupViewModels"
+    x:Name="root"
+    x:DataType="viewmodel:BmiMoreInfoToolBarPopupVM"
+    CanBeDismissedByTappingOutsideOfPopup="False">
+    <Border StrokeShape="RoundRectangle 5" StrokeThickness="0">
+        <Border.Resources>
+            <ResourceDictionary>
+                <converterCustom:TitleForHyperlinkConverter x:Key="TitleForHyperlinkConverter" />
+            </ResourceDictionary>
+        </Border.Resources>
+        <Grid
+            x:Name="mainGrid"
+            BackgroundColor="Transparent"
+            RowDefinitions="*,48">
+            <VerticalStackLayout Padding="15" Spacing="10">
+                <Grid ColumnDefinitions="*,48">
+                    <Label
+                        FontAttributes="Bold"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Thông tin thêm"
+                        VerticalOptions="End" />
+                    <Button
+                        Grid.Column="1"
+                        Background="Transparent"
+                        BackgroundColor="Transparent"
+                        FontFamily="FASolid"
+                        Text="&#xf00d;"
+                        TextColor="Gray"
+                        VerticalOptions="Start" />
+                </Grid>
+                <Label Text="Các tài liệu được tham khảo và đề cập xuyên suốt được liệt kê dưới đây:" />
+                <CollectionView
+                    x:Name="collectionDoc"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemsSource="{Binding Documents, Mode=OneWay}"
+                    SelectionChangedCommand="{Binding HyperlinkClickedCommand}"
+                    SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={x:Reference collectionDoc}}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                MaxLines="1"
+                                Text="{Binding ., Converter={StaticResource TitleForHyperlinkConverter}}"
+                                TextColor="SkyBlue" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            <Grid
+                Grid.Row="1"
+                BackgroundColor="{StaticResource PrimaryDark}"
+                HeightRequest="48"
+                HorizontalOptions="Fill"
+                VerticalOptions="FillAndExpand">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Close_TapGestureRecognizer_Tapped" />
+                </Grid.GestureRecognizers>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Close"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+    </Border>
+</toolkit:Popup>

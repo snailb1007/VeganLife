@@ -1,11 +1,16 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Newtonsoft.Json;
-using PropertyChanged;
-using SQLite;
-using VeganLife.Messages;
+﻿// <copyright file="FoodPreviewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Models.FoodModel
 {
+    using CommunityToolkit.Mvvm.Messaging;
+    using Newtonsoft.Json;
+    using SQLite;
+    using VeganLife.Data.LocalData;
+    using VeganLife.Helpers;
+    using VeganLife.Messages;
+
     public partial class FoodPreviewModel
     {
         [JsonIgnore, PrimaryKey]
@@ -19,24 +24,42 @@ namespace VeganLife.Models.FoodModel
 
         [JsonProperty("time")]
         public string Time { get; set; }
+
         [JsonProperty("category")]
         public string Category { get; set; }
+
+        [JsonProperty("star")]
+        public string Star { get; set; }
     }
 
-    [AddINotifyPropertyChangedInterface]
-    public partial class FoodPreviewModel
+    public partial class FoodPreviewModel : ObservableObject
     {
-        string[] timeArr => Time?.Split('-');
+        [ObservableProperty]
+        private int countCorrectWordOnSearch;
 
-        public bool IsBookmarked { get; set; }
-        public bool IsRead { get; set; }
+        private string[]? TimeArr => this.Time?.Split('-');
+
+        [ObservableProperty]
+        private bool isBookmarked;
+
+        [ObservableProperty]
+        private bool isRead;
+
         public byte PrepTime
-            => (timeArr != null && byte.TryParse(timeArr[0], out var i)) ? i : (byte)0;
+            => (this.TimeArr != null && byte.TryParse(this.TimeArr[0], out var i)) ? i : (byte)0;
+
         public byte CookTime
-            => (timeArr != null && byte.TryParse(timeArr[1], out var i)) ? i : (byte)0;
+            => (this.TimeArr != null && byte.TryParse(this.TimeArr[1], out var i)) ? i : (byte)0;
+
         [RelayCommand]
-        void BookmarkClicked()
+        private async Task BookmarkClicked()
         {
+            this.IsBookmarked = !this.IsBookmarked;
+            if (!await (ServicesHelper.GetService<FoodPreviewDataStoreService>()).AddOrUpdateItemAsync(this, true))
+            {
+                await ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+            }
+
             WeakReferenceMessenger.Default.Send(new BookmarkFoodModelMessage(this));
         }
     }

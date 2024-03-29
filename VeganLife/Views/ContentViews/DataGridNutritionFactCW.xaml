@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dg:DataGrid
+    x:Class="VeganLife.Views.ContentViews.DataGridNutritionFactCW"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    x:DataType="model:FoodNutrient"
+    HeaderBackground="{StaticResource PrimaryOrange1}"
+    IsSortable="True">
+    <dg:DataGrid.RowsBackgroundColorPalette>
+        <dg:PaletteCollection>
+            <Color>#F2F2F2</Color>
+            <Color>#FFFFFF</Color>
+        </dg:PaletteCollection>
+    </dg:DataGrid.RowsBackgroundColorPalette>
+    <dg:DataGrid.Columns>
+        <dg:DataGridColumn Width="6*" PropertyName="Nutrient.name">
+            <dg:DataGridColumn.FormattedTitle>
+                <FormattedString>
+                    <Span Text="Nutrition name" TextColor="{StaticResource Gray600}" />
+                </FormattedString>
+            </dg:DataGridColumn.FormattedTitle>
+        </dg:DataGridColumn>
+        <dg:DataGridColumn Width="3*" PropertyName="Amount">
+            <dg:DataGridColumn.FormattedTitle>
+                <FormattedString>
+                    <Span Text="Value" TextColor="{StaticResource Gray600}" />
+                </FormattedString>
+            </dg:DataGridColumn.FormattedTitle>
+        </dg:DataGridColumn>
+        <dg:DataGridColumn Width="*" PropertyName="Nutrient.unitName">
+            <dg:DataGridColumn.FormattedTitle>
+                <FormattedString>
+                    <Span Text="Unit" TextColor="{StaticResource Gray600}" />
+                </FormattedString>
+            </dg:DataGridColumn.FormattedTitle>
+        </dg:DataGridColumn>
+    </dg:DataGrid.Columns>
+</dg:DataGrid>

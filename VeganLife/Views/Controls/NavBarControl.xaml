@@ -4,76 +4,78 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:sharpnado="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="rootNavBarControl"
     BackgroundColor="Transparent">
+    <ContentView.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+        </LinearGradientBrush>
+    </ContentView.Background>
     <ContentView.Resources>
-        <ResourceDictionary>
-            <toolkit:IsNullConverter x:Key="NullToFalseConverter" />
-        </ResourceDictionary>
+        <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
     </ContentView.Resources>
     <Grid
         Margin="16,0"
         BackgroundColor="Transparent"
-        ColumnDefinitions="*, 8*, *"
+        ColumnDefinitions="Auto, *"
         HeightRequest="56">
-        <Border
+        <sharpnado:MaterialFrame
+            Padding="0"
+            CornerRadius="20"
+            HasShadow="True"
             HeightRequest="40"
             HorizontalOptions="Center"
-            StrokeThickness="0"
-            VerticalOptions="Center"
-            WidthRequest="40">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
-            <ImageButton
-                Margin="0"
-                Padding="0"
-                Aspect="AspectFill"
-                BackgroundColor="Transparent"
-                Clicked="Back_Clicked"
-                HeightRequest="30"
-                HorizontalOptions="Center"
-                Source="back"
-                VerticalOptions="Center"
-                WidthRequest="30" />
-        </Border>
+            LightThemeBackgroundColor="#F1F1F1"
+            MaterialTheme="Acrylic"
+            VerticalOptions="Center">
+            <HorizontalStackLayout Margin="5,0" Spacing="5">
+                <Button
+                    Margin="0"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    Clicked="Back_Clicked"
+                    FontFamily="FARegular"
+                    FontSize="20"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand"
+                    Text="&#xf104;"
+                    TextColor="{AppThemeBinding Dark=White,
+                                                Light=Black}"
+                    VerticalOptions="FillAndExpand"
+                    WidthRequest="30" />
+                <Line
+                    BackgroundColor="Gray"
+                    HeightRequest="18"
+                    Opacity="0.25"
+                    VerticalOptions="Center"
+                    WidthRequest="2" />
+                <ImageButton
+                    Margin="0"
+                    Padding="0"
+                    AutomationProperties.IsInAccessibleTree="False"
+                    BorderColor="Transparent"
+                    Clicked="hamburger_Clicked"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    SemanticProperties.Description="hamburger image button"
+                    SemanticProperties.Hint="Open flyout menu"
+                    Source="hamburger.svg"
+                    VerticalOptions="Center"
+                    WidthRequest="30" />
+            </HorizontalStackLayout>
+        </sharpnado:MaterialFrame>
         <Label
-            Grid.Column="1"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
             FontAttributes="Bold"
             FontSize="Medium"
             HorizontalOptions="Center"
-            IsVisible="{Binding Title, Source={x:Reference rootNavBarControl}, Converter={StaticResource NullToFalseConverter}}"
-            Text="{Binding Title, Source={x:Reference rootNavBarControl}}"
+            IsVisible="{Binding Title, Source={x:Reference rootNavBarControl}, Converter={StaticResource IsStringNotNullOrEmptyConverter}, Mode=OneWay}"
+            Text="{Binding Title, Source={x:Reference rootNavBarControl}, Mode=OneWay}"
+            TextColor="White"
             VerticalOptions="Center" />
-        <Border
-            Grid.Column="2"
-            HeightRequest="40"
-            IsVisible="{Binding IsShowBookmarkTool, Source={x:Reference rootNavBarControl}}"
-            StrokeThickness="0"
-            WidthRequest="40">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
-            <Button
-                Grid.Column="1"
-                Padding="0"
-                BackgroundColor="Transparent"
-                FontFamily="FontAwesomeRegular"
-                FontSize="20"
-                HorizontalOptions="Center"
-                Text="&#xf02e;"
-                TextColor="Black"
-                VerticalOptions="Center">
-                <Button.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsBookmarked, Source={x:Reference rootNavBarControl}}"
-                        TargetType="Button"
-                        Value="true">
-                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
-                    </DataTrigger>
-                </Button.Triggers>
-            </Button>
-        </Border>
     </Grid>
 </ContentView>

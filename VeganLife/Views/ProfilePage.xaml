@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.ProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:DataType="viewmodel:ProfileViewModel"
+    x:TypeArguments="viewmodel:ProfileViewModel"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
+    <base:BasePage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+        </LinearGradientBrush>
+    </base:BasePage.Background>
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+    <base:BasePage.Content>
+        <Grid RowDefinitions="*,3*,6*" RowSpacing="0">
+            <Grid Margin="10,0" RowDefinitions="*,1">
+                <Grid
+                    Margin="0,5"
+                    ColumnDefinitions="Auto,*,Auto"
+                    ColumnSpacing="10">
+                    <toolkit:AvatarView
+                        BorderColor="{StaticResource PrimaryOrange1}"
+                        BorderWidth="1"
+                        CornerRadius="40"
+                        HorizontalOptions="CenterAndExpand"
+                        ImageSource="profile_girl_strong"
+                        VerticalOptions="CenterAndExpand">
+                        <toolkit:AvatarView.Triggers>
+                            <DataTrigger
+                                Binding="{Binding MyInfo.IsMale, Mode=OneWay}"
+                                TargetType="toolkit:AvatarView"
+                                Value="true">
+                                <Setter Property="ImageSource" Value="profile_boy.jpg" />
+                            </DataTrigger>
+                        </toolkit:AvatarView.Triggers>
+                    </toolkit:AvatarView>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Label Text="{Binding MyInfo.Name, Mode=OneWay}" />
+                        <Label Text="Người dùng" />
+                    </VerticalStackLayout>
+                    <Grid
+                        Grid.Column="2"
+                        ColumnDefinitions="*,0.5*"
+                        ColumnSpacing="1">
+                        <Label
+                            FontFamily="FASolid"
+                            FontSize="Large"
+                            Text="&#xf0f3;"
+                            VerticalOptions="Center" />
+                        <Grid
+                            Grid.Column="1"
+                            Margin="0,-10,0,0"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Grid.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding NumberInfoMiss, Mode=OneWay}"
+                                    TargetType="Grid"
+                                    Value="0">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </Grid.Triggers>
+                            <Border
+                                BackgroundColor="Red"
+                                HeightRequest="18"
+                                HorizontalOptions="Center"
+                                StrokeShape="RoundRectangle 9"
+                                StrokeThickness="0"
+                                VerticalOptions="Center"
+                                WidthRequest="18" />
+                            <Label
+                                FontSize="Small"
+                                HorizontalOptions="Center"
+                                Text="{Binding NumberInfoMiss, Mode=OneWay}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Line
+                    Grid.Row="1"
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    HeightRequest="1" />
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Margin="20"
+                BackgroundColor="Transparent">
+                <Border
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    Stroke="#1f807b"
+                    StrokeShape="RoundRectangle 10"
+                    StrokeThickness="1">
+                    <StackLayout
+                        Margin="10"
+                        BackgroundColor="Transparent"
+                        Spacing="10">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            Text="Thông tin cơ bản" />
+                        <HorizontalStackLayout CompressedLayout.IsHeadless="True" Spacing="5">
+                            <Label
+                                FontSize="Small"
+                                Text="Độ hoàn thiện"
+                                VerticalOptions="Center" />
+                            <Border
+                                BackgroundColor="{StaticResource PrimaryOrange1}"
+                                Stroke="{StaticResource PrimaryOrange2}"
+                                StrokeShape="RoundRectangle 20"
+                                StrokeThickness="1">
+                                <Label Padding="5" TextColor="Black">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Có vẻ ổn rồi " />
+                                            <Span Text="{Binding DegreePerfection}" />
+                                            <Span Text="%" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Border>
+                        </HorizontalStackLayout>
+                        <Border
+                            Margin="5,0"
+                            BackgroundColor="{StaticResource PrimaryDark}"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0"
+                            VerticalOptions="EndAndExpand">
+                            <Grid
+                                Padding="0,5"
+                                ColumnDefinitions="*,*,*,*"
+                                ColumnSpacing="10"
+                                RowDefinitions="Auto,Auto"
+                                RowSpacing="10">
+                                <Grid.Resources>
+                                    <ResourceDictionary>
+                                        <Style TargetType="Label">
+                                            <Setter Property="TextColor" Value="White" />
+                                            <Setter Property="HorizontalOptions" Value="Center" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                </Grid.Resources>
+                                <Label Text="Tuoi" />
+                                <Label
+                                    Grid.Row="1"
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="25" />
+                                <Label Grid.Column="1" Text="Sex" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="Nam">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding MyInfo.IsMale, Mode=OneWay}"
+                                            TargetType="Label"
+                                            Value="False">
+                                            <Setter Property="Text" Value="Nu" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Grid.Column="2" Text="Cân nặng" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    FontAttributes="Bold"
+                                    FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MyInfo.Weight, Mode=OneWay}" />
+                                            <Span Text="kg" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Grid.Column="3" Text="Chiều cao" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    FontAttributes="Bold"
+                                    FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MyInfo.Height, Mode=OneWay}" />
+                                            <Span Text="cm" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </StackLayout>
+                </Border>
+            </Grid>
+            <VerticalStackLayout
+                Grid.Row="2"
+                Margin="20"
+                CompressedLayout.IsHeadless="True"
+                Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Title"
+                    Text="Thông tin thêm" />
+                <Border
+                    Margin="0,10,0,0"
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    StrokeShape="RoundRectangle 10"
+                    StrokeThickness="0">
+                    <Grid
+                        Padding="5,15"
+                        ColumnDefinitions="2*,7*,*"
+                        ColumnSpacing="10">
+                        <Border
+                            Margin="5"
+                            BackgroundColor="#fcd684"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0">
+                            <Image Margin="10" Source="bmi_profile.svg" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="Chi so BMI" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Text="{Binding MyInfo.BMIResult}" />
+                        </VerticalStackLayout>
+                        <Label
+                            Grid.Column="2"
+                            FontFamily="FASolid"
+                            Text="{StaticResource IconAngleDown}"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+                <Border
+                    BackgroundColor="#fcd684"
+                    Stroke="#e3e4a0"
+                    StrokeShape="RoundRectangle 10"
+                    StrokeThickness="1">
+                    <Border.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Label">
+                                <Setter Property="TextColor" Value="Black" />
+                            </Style>
+                        </ResourceDictionary>
+                    </Border.Resources>
+                    <VerticalStackLayout Padding="5,15" Spacing="10">
+                        <Grid ColumnDefinitions="2*,7*,*" ColumnSpacing="10">
+                            <Border
+                                Margin="5"
+                                Padding="0"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0">
+                                <Image Margin="10" Source="readed_profile.svg" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Opacity="0.8" Text="Tổng số bài đã đọc" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="90" />
+                            </VerticalStackLayout>
+                            <Label
+                                Grid.Column="2"
+                                FontFamily="FASolid"
+                                FontSize="20"
+                                Text="{StaticResource IconAngleDown}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*,*">
+                            <VerticalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Opacity="0.8"
+                                    Text="Món ăn" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding MyInfo.TotalFoodDetailRead}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Opacity="0.8"
+                                    Text="Vitamins" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding MyInfo.TotalVitaminRead, Mode=OneWay}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Opacity="0.8"
+                                    Text="Khám phá" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding MyInfo.TotalDiscoveryRead, Mode=OneWay}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+                <Button
+                    Margin="20"
+                    BackgroundColor="{StaticResource PrimaryDark}"
+                    Command="{Binding CloseCommand}"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="Close" />
+            </VerticalStackLayout>
+        </Grid>
+    </base:BasePage.Content>
+</base:BasePage>

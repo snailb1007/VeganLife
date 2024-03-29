@@ -1,9 +1,14 @@
-namespace VeganLife.Views;
+// <copyright file="RegistrationPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class RegistrationPage : ContentPage
+namespace VeganLife.Views
 {
-	public RegistrationPage()
-	{
-		InitializeComponent();
-	}
+    public partial class RegistrationPage : ContentPage
+    {
+        public RegistrationPage()
+        {
+            this.InitializeComponent();
+        }
+    }
 }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VeganLife.Views.PortionTab.UsdaFoodFactDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
+    xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:rv="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    Padding="0"
+    x:DataType="viewmodel:UsdaFoodFactDetailVM"
+    BackgroundColor="{StaticResource PrimaryDark}">
+    <Grid BackgroundColor="{StaticResource Gray100}" RowDefinitions="*,*">
+        <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
+            <controls:NavBarControl
+                Title="{Binding CurrentFoodPreview.Name}"
+                BackgroundColor="Transparent"
+                VerticalOptions="Start"
+                ZIndex="1" />
+            <Border
+                Grid.Row="1"
+                Padding="0"
+                HorizontalOptions="FillAndExpand"
+                StrokeShape="RoundRectangle 20"
+                VerticalOptions="Center">
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Gray"
+                        Opacity="0.25"
+                        Radius="10"
+                        Offset="10,10" />
+                </Border.Shadow>
+                <ffimageloading:CachedImage
+                    Aspect="AspectFit"
+                    HorizontalOptions="FillAndExpand"
+                    Source="{Binding CurrentFoodPreview.Image}" />
+            </Border>
+            <toolkit:Expander
+                x:Name="titleExpander"
+                Grid.RowSpan="2"
+                BackgroundColor="Transparent"
+                Direction="Down"
+                FlowDirection="LeftToRight"
+                HorizontalOptions="Fill"
+                IsExpanded="True"
+                VerticalOptions="EndAndExpand">
+                <toolkit:Expander.Header>
+                    <Label
+                        FontAttributes="Bold"
+                        FontFamily="FASolid"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Text="{StaticResource IconAngleUp}"
+                        TextColor="{StaticResource PrimaryDark}">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="Text" Value="{StaticResource IconAngleDown}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </toolkit:Expander.Header>
+                <rv:MaterialFrame
+                    Padding="10"
+                    HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialBlurStyle="Light"
+                    MaterialTheme="AcrylicBlur"
+                    VerticalOptions="EndAndExpand">
+                    <Label
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Calories: " TextColor="Black" />
+                                <Span
+                                    FontAttributes="Bold"
+                                    Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
+                                    TextColor="Black" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </rv:MaterialFrame>
+            </toolkit:Expander>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="White"
+            RowDefinitions="Auto,*">
+            <Label Text="Portion: 100g" />
+            <cw:DataGridNutritionFactCW
+                Grid.Row="1"
+                Margin="5,0"
+                BorderColor="{StaticResource Gray400}"
+                HeaderHeight="48"
+                HorizontalOptions="Fill"
+                ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
+                MaximumHeightRequest="400"
+                MinimumHeightRequest="100"
+                RefreshingEnabled="False"
+                RowHeight="40"
+                SelectionEnabled="False" />
+        </Grid>
+    </Grid>
+</ContentPage>

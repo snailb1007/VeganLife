@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="VeganLife.Views.ContentViews.Tabs.MacrosTab"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:sho="http://sharpnado.com"
+    xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
+    x:DataType="vm:MacrosViewModel">
+    <ContentView.Resources>
+        <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
+            <sho:DraggableViewCell IsDraggable="False" IsEnabled="False">
+                <ContentView>
+                    <!--<sho:MaterialFrame
+                        Padding="5"
+                        CornerRadius="10"
+                        HorizontalOptions="FillAndExpand"
+                        MaterialTheme="Acrylic"
+                        VerticalOptions="CenterAndExpand">
+
+                    </sho:MaterialFrame>-->
+                    <Grid ColumnDefinitions="*,2*" RowDefinitions="*">
+                        <Border StrokeShape="RoundRectangle 5" StrokeThickness="5">
+                            <ffimageloading:CachedImage
+                                Aspect="AspectFill"
+                                DownsampleToViewSize="True"
+                                LoadingPriority="Low"
+                                Source="{Binding Image, Mode=OneTime}" />
+                        </Border>
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding Name}"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </ContentView>
+            </sho:DraggableViewCell>
+        </DataTemplate>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid RowDefinitions="*">
+            <Label Text="abc" />
+            <sho:CollectionView
+                CollectionLayout="Vertical"
+                ItemHeight="100"
+                ItemSpacing="10"
+                ItemTemplate="{StaticResource classicItemTemplate}"
+                ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
+                TapCommand="{Binding ItemSelectedChangedCommand}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>
