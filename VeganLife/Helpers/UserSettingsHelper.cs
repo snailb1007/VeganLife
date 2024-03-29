@@ -1,15 +1,28 @@
-﻿namespace VeganLife.Helpers
+﻿// <copyright file="UserSettingsHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace VeganLife.Helpers
 {
     public enum UserSettingKey
     {
         SelectedTheme,
-        ThemeMode,
-        ImgBackground
+        IsFirstTime,
+        IsAcceptedCollectLogs,
+        // IsDisplayedPolicyBox,
+        // IsDisplayedLogsPermissionBox,
     }
 
     public static partial class UserSettingsHelper
     {
-        static readonly Dictionary<string, string> _cache = new Dictionary<string, string>();
+        public static bool IsFirstTime => string.IsNullOrEmpty(Get(UserSettingKey.IsFirstTime));
+
+        public static bool IsAcceptedCollectLogs => GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
+    }
+
+    public static partial class UserSettingsHelper
+    {
+        static readonly Dictionary<string, string> cache = new Dictionary<string, string>();
 
         public static string Get(UserSettingKey key)
         {
@@ -23,16 +36,18 @@
 
         public static bool Remove(string key)
         {
-            _cache.Remove(key);
+            cache.Remove(key);
             return SecureStorage.Remove(key);
         }
 
         private static string Get(string key)
         {
             // ContainsKey need to be check or it will lead to KeyNotFoundException
-            var value = _cache.ContainsKey(key) ? _cache[key] : null;
+            var value = cache.ContainsKey(key) ? cache[key] : null;
             if (value != null)
+            {
                 return value;
+            }
 
             try
             {
@@ -44,10 +59,13 @@
             }
             catch (Exception ex)
             {
+                _ = ex;
+#if DEBUG
                 Debug.WriteLine(ex.Message);
+#endif
             }
 
-            _cache[key] = value;
+            cache[key] = value;
             return value;
         }
 
@@ -59,7 +77,7 @@
             }
             else
             {
-                _cache[key] = value;
+                cache[key] = value;
                 try
                 {
                     var task = Task.Run(async () => { await SecureStorage.SetAsync(key, value); });
@@ -70,6 +88,12 @@
                     Debug.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private static bool GetBoolKey(UserSettingKey key)
+        {
+            var data = Get(key);
+            return !string.IsNullOrEmpty(data) && Convert.ToBoolean(data);
         }
     }
 }

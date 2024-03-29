@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.ToolFlyout.MainTool"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="bmiCalculatorPage"
+    Title="{x:Static translate:AppResources.app_common_toolsTab}"
+    x:DataType="viewmodel:MainToolViewModel"
+    x:TypeArguments="viewmodel:MainToolViewModel"
+    BackgroundImageSource="{Binding BackgroundImg}">
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsNotNullConverter x:Key="NullToFalseConverter" />
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
+            <Style x:Key="btnPlusMinus" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=Black, Light=White}" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark=White, Light=Black}" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="FASolid" />
+            </Style>
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference bmiCalculatorPage}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="{x:Static translate:AppResources.sex_bmiPage}" />
+                    <Label
+                        FontFamily="FARegular"
+                        FontSize="15"
+                        Text="&#xf05a;"
+                        TextColor="CadetBlue">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding HelpSexDetailCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+                <Grid
+                    Margin="15,0"
+                    ColumnDefinitions="9*,Auto"
+                    ColumnSpacing="2"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding IsDisplayedSexDetail}"
+                    RowDefinitions="*"
+                    VerticalOptions="FillAndExpand">
+                    <Border
+                        x:Name="borderHelpSex"
+                        Padding="10"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="CenterAndExpand"
+                        StrokeShape="RoundRectangle 5"
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            x:Name="lbHelpSex"
+                            FontSize="12"
+                            HeightRequest="50"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="{x:Static translate:AppResources.sexDetail_content_bmiCalculatePage}"
+                            VerticalOptions="CenterAndExpand" />
+                    </Border>
+                    <Label
+                        Grid.Column="1"
+                        Padding="2"
+                        FontFamily="FARegular"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{StaticResource IconClose}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding HelpSexDetailCommand}" CommandParameter="closeSexDetail" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Frame
+                        Padding="5"
+                        BackgroundColor="Transparent"
+                        BorderColor="CadetBlue"
+                        CornerRadius="5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="0" />
+                        </Frame.GestureRecognizers>
+                        <Frame.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsMale, Mode=OneWay}"
+                                TargetType="Frame"
+                                Value="False">
+                                <Setter Property="BackgroundColor" Value="CadetBlue" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <Label
+                            FontFamily="FARegular"
+                            FontSize="20"
+                            Text="&#xf221;"
+                            VerticalOptions="Center" />
+                    </Frame>
+                    <Border
+                        Padding="5"
+                        BackgroundColor="Transparent"
+                        Stroke="CadetBlue"
+                        StrokeShape="RoundRectangle 5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="1" />
+                        </Border.GestureRecognizers>
+                        <Border.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsMale, Mode=OneWay}"
+                                TargetType="Border"
+                                Value="True">
+                                <Setter Property="BackgroundColor" Value="CadetBlue" />
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="FARegular"
+                            FontSize="20"
+                            Text="&#xf222;"
+                            VerticalOptions="Center" />
+                    </Border>
+                </HorizontalStackLayout>
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="{x:Static translate:AppResources.female_bmiPage}"
+                    TextColor="Gray">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsMale, Mode=OneWay}"
+                            TargetType="Label"
+                            Value="True">
+                            <Setter Property="Text" Value="{x:Static translate:AppResources.male_bmiPage}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label
+                    FontFamily="FARegular"
+                    FontSize="30"
+                    HorizontalOptions="Center"
+                    Text="&#xf182;"
+                    TextColor="HotPink">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsMale, Mode=OneWay}"
+                            TargetType="Label"
+                            Value="True">
+                            <Setter Property="Text" Value="&#xf183;" />
+                            <Setter Property="TextColor" Value="DeepSkyBlue" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Grid ColumnDefinitions="*,7*,*">
+                    <VerticalStackLayout Grid.Column="1" Spacing="20">
+                        <Frame
+                            Padding="5"
+                            BackgroundColor="Transparent"
+                            BorderColor="Gray"
+                            CornerRadius="5"
+                            IsClippedToBounds="True">
+                            <VerticalStackLayout Margin="5" Spacing="5">
+                                <Label
+                                    Margin="0,0,0,5"
+                                    FontAttributes="Bold"
+                                    FontSize="22"
+                                    HorizontalOptions="Center"
+                                    Text="{x:Static translate:AppResources.height_bmiPage}" />
+                                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                                    <Entry
+                                        FontSize="25"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Keyboard="Numeric"
+                                        MinimumWidthRequest="48"
+                                        Placeholder="170"
+                                        ReturnType="Next"
+                                        Text="{Binding Height}"
+                                        VerticalOptions="Center" />
+                                    <Label Text="cm" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Grid ColumnDefinitions="*,20*,*" HorizontalOptions="FillAndExpand">
+                                    <Slider
+                                        x:Name="slider"
+                                        Grid.Column="1"
+                                        HorizontalOptions="FillAndExpand"
+                                        Maximum="250"
+                                        Minimum="50"
+                                        VerticalOptions="FillAndExpand"
+                                        Value="{Binding Height}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Border
+                                Padding="10"
+                                BackgroundColor="Transparent"
+                                StrokeShape="RoundRectangle 10">
+                                <VerticalStackLayout>
+                                    <Label
+                                        FontSize="22"
+                                        HorizontalOptions="Center"
+                                        Text="{x:Static translate:AppResources.weight_bmiPage}" />
+                                    <Entry
+                                        x:Name="entryWeight"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Keyboard="Numeric"
+                                        Placeholder="50kg"
+                                        Text="{Binding WeightValue}">
+                                        <Entry.Behaviors>
+                                            <toolkit:TextValidationBehavior
+                                                Flags="ValidateOnValueChanged"
+                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                MaximumLength="6"
+                                                MinimumLength="1"
+                                                RegexPattern="{Binding WeightBmiRegexPattern, Mode=OneWay}"
+                                                ValidStyle="{StaticResource ValidEntryStyle}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                    <Grid
+                                        Padding="0,5"
+                                        ColumnDefinitions="*,*"
+                                        ColumnSpacing="5">
+                                        <Button
+                                            x:Name="increaseWeight"
+                                            Grid.Column="1"
+                                            AutomationProperties.IsInAccessibleTree="False"
+                                            Command="{Binding IncreaseCommand}"
+                                            CommandParameter="weight"
+                                            SemanticProperties.Description="Button increase Weight"
+                                            Style="{StaticResource btnPlusMinus}"
+                                            Text="&#x2b;">
+                                            <Button.Shadow>
+                                                <Shadow
+                                                    Brush="Black"
+                                                    Opacity="0.2"
+                                                    Radius="15"
+                                                    Offset="10,10" />
+                                            </Button.Shadow>
+                                        </Button>
+                                        <Button
+                                            x:Name="decreaseWeight"
+                                            Grid.Column="0"
+                                            AutomationProperties.IsInAccessibleTree="False"
+                                            Command="{Binding DecreaseCommand}"
+                                            CommandParameter="weight"
+                                            SemanticProperties.Description="Button decrease Weight"
+                                            Style="{StaticResource btnPlusMinus}"
+                                            Text="&#xf068;">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding WeightValue}"
+                                                    TargetType="Button"
+                                                    Value="0">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                    <Setter Property="TextColor" Value="Gray" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                            <Button.Shadow>
+                                                <Shadow
+                                                    Brush="Black"
+                                                    Opacity="0.2"
+                                                    Radius="15"
+                                                    Offset="10,10" />
+                                            </Button.Shadow>
+                                        </Button>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border
+                                Grid.Column="1"
+                                Padding="10"
+                                BackgroundColor="Transparent"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="1">
+                                <VerticalStackLayout>
+                                    <Label
+                                        FontSize="22"
+                                        HorizontalOptions="Center"
+                                        Text="{x:Static translate:AppResources.age_bmiPage}" />
+                                    <Entry
+                                        x:Name="entryAge"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Keyboard="Numeric"
+                                        Placeholder="20"
+                                        Text="{Binding AgeValue}">
+                                        <Entry.Behaviors>
+                                            <toolkit:TextValidationBehavior
+                                                Flags="ValidateOnValueChanged"
+                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                MaximumLength="3"
+                                                MinimumLength="1"
+                                                RegexPattern="{Binding AgeBmiRegexPattern, Mode=OneWay}"
+                                                ValidStyle="{StaticResource ValidEntryStyle}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                    <Grid
+                                        Padding="0,5"
+                                        ColumnDefinitions="*,*"
+                                        ColumnSpacing="5">
+                                        <Button
+                                            x:Name="increaseAge"
+                                            Grid.Column="1"
+                                            AutomationProperties.IsInAccessibleTree="False"
+                                            Command="{Binding IncreaseCommand}"
+                                            CommandParameter="age"
+                                            SemanticProperties.Description="Button increase Age"
+                                            Style="{StaticResource btnPlusMinus}"
+                                            Text="&#x2b;">
+                                            <Button.Shadow>
+                                                <Shadow
+                                                    Brush="Black"
+                                                    Opacity="0.2"
+                                                    Radius="15"
+                                                    Offset="10,10" />
+                                            </Button.Shadow>
+                                        </Button>
+                                        <Button
+                                            x:Name="decreaseAge"
+                                            Grid.Column="0"
+                                            AutomationProperties.IsInAccessibleTree="False"
+                                            Command="{Binding DecreaseCommand}"
+                                            CommandParameter="age"
+                                            SemanticProperties.Description="Button decrease Age"
+                                            Style="{StaticResource btnPlusMinus}"
+                                            Text="&#xf068;">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding AgeValue}"
+                                                    TargetType="Button"
+                                                    Value="0">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                    <Setter Property="TextColor" Value="Gray" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                            <Button.Shadow>
+                                                <Shadow
+                                                    Brush="Black"
+                                                    Opacity="0.2"
+                                                    Radius="15"
+                                                    Offset="10,10" />
+                                            </Button.Shadow>
+                                        </Button>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                        <Grid
+                            HorizontalOptions="CenterAndExpand"
+                            RowDefinitions="Auto,Auto"
+                            RowSpacing="6">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding WeightErrMess, Converter={StaticResource NullToFalseConverter}}"
+                                Text="{Binding WeightErrMess}"
+                                TextColor="Red" />
+                            <Label
+                                Grid.Row="1"
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding AgeErrMess, Converter={StaticResource NullToFalseConverter}}"
+                                Text="{Binding AgeErrMess}"
+                                TextColor="Red" />
+                        </Grid>
+                        <Button
+                            Margin="20,0"
+                            Command="{Binding CalculateBmiCommand}"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            IsEnabled="{Binding IsEnableSubmit, Mode=OneWay}"
+                            Text="{x:Static translate:AppResources.calculate_bmiPage}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding CalculateBmiCommand.IsRunning}"
+            VerticalOptions="Center" />
+    </Grid>
+</base:BasePage>

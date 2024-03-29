@@ -1,49 +1,44 @@
-using VeganLife.Helpers;
+// <copyright file="NavBarControl.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.Controls;
-
-public partial class NavBarControl : ContentView
+namespace VeganLife.Views.Controls
 {
-    public static BindableProperty TitleProperty = BindableProperty.Create(
-            propertyName: "Title",
-            declaringType: typeof(NavBarControl),
-            defaultValue: null,
-            returnType: typeof(string));
-    public string Title
-    {
-        get => (string)GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
+    using VeganLife.Helpers;
 
-    public static BindableProperty IsShowBookmarkToolProperty = BindableProperty.Create(
-            propertyName: "IsShowBookmarkTool",
-            declaringType: typeof(NavBarControl),
-            defaultValue: false,
-            returnType: typeof(bool));
-    public bool IsShowBookmarkTool
+    public partial class NavBarControl : ContentView
     {
-        get => (bool)GetValue(IsShowBookmarkToolProperty);
-        set => SetValue(IsShowBookmarkToolProperty, value);
-    }
+        public static BindableProperty TitleProperty = BindableProperty.Create(
+                propertyName: "Title",
+                declaringType: typeof(NavBarControl),
+                defaultValue: null,
+                returnType: typeof(string));
 
-    public static BindableProperty IsBookmarkedProperty = BindableProperty.Create(
-            propertyName: "IsBookmarked",
-            declaringType: typeof(NavBarControl),
-            defaultValue: false,
-            returnType: typeof(bool));
-    public bool IsBookmarked
-    {
-        get => (bool)GetValue(IsBookmarkedProperty);
-        set => SetValue(IsBookmarkedProperty, value);
-    }
+        public string Title
+        {
+            get => (string)this.GetValue(TitleProperty);
+            set => this.SetValue(TitleProperty, value);
+        }
 
-    public NavBarControl()
-	{
-		InitializeComponent();
-	}
+        public NavBarControl()
+        {
+            this.InitializeComponent();
+        }
 
-    async void Back_Clicked(object sender, EventArgs e)
-    {
-        await ServicesHelper.GetService<INavigationService>().PopAsync();
+        private bool _isProcessing;
+        private async void Back_Clicked(object sender, EventArgs e)
+        {
+            if (_isProcessing)
+            {
+                return;
+            }
+
+            _isProcessing = true;
+            await ServicesHelper.GetService<INavigationService>().PopAsync();
+            _isProcessing = false;
+        }
+
+        private void hamburger_Clicked(object sender, EventArgs e)
+            => AppShell.ShowFlyOut();
     }
 }

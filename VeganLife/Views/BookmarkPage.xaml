@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BasePage
     x:Class="VeganLife.Views.BookmarkPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    x:DataType="viewmodel:BookmarkViewModel">
+    x:DataType="viewmodel:BookmarkViewModel"
+    x:TypeArguments="viewmodel:BookmarkViewModel">
     <VerticalStackLayout Spacing="20">
-        <Label Text="Món ăn" />
         <CollectionView
             x:Name="foodCollection"
             Margin="20,10"
-            ItemsSource="{Binding Foods}"
+            ItemsSource="{Binding Foods, Mode=OneWay}"
             SelectedItem="{Binding FoodSelected, Mode=TwoWay}"
             SelectionChangedCommand="{Binding GoFoodDetailCommand}"
             SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
@@ -46,7 +47,7 @@
                                     BackgroundColor="Transparent"
                                     HeightRequest="70"
                                     HorizontalOptions="End"
-                                    Source="{Binding Image}"
+                                    Source="{Binding Image, Mode=OneWay}"
                                     WidthRequest="70" />
                             </Border>
                             <Label
@@ -55,7 +56,7 @@
                                 FontAttributes="Bold"
                                 LineBreakMode="TailTruncation"
                                 MaxLines="1"
-                                Text="{Binding Name}"
+                                Text="{Binding Name, Mode=OneWay}"
                                 VerticalOptions="Center" />
                         </Grid>
                     </Border>
@@ -63,4 +64,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
-</ContentPage>
+</base:BasePage>

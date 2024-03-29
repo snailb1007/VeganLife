@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.MainPageFlyout.FoodTab.FoodDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
+    xmlns:detailTab="clr-namespace:VeganLife.Views.ContentViews.Tabs"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:tabs="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    x:Name="root"
+    x:DataType="viewmodel:FoodDetailViewModel"
+    x:TypeArguments="viewmodel:FoodDetailViewModel"
+    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                      Dark=Black}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
+            <x:String x:Key="iconBookmark">&#xf02e;</x:String>
+            <Style TargetType="Line">
+                <Setter Property="HeightRequest" Value="1.5" />
+                <Setter Property="BackgroundColor" Value="#f0f0f0" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+            <Style x:Key="lbDetailMenu" TargetType="Label">
+                <Setter Property="Opacity" Value="0.5" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid
+        Margin="0"
+        Padding="0"
+        RowDefinitions="*,*"
+        RowSpacing="0"
+        ZIndex="0">
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <control:NavBarControl
+                BackgroundColor="Transparent"
+                VerticalOptions="Start"
+                ZIndex="1" />
+            <Button
+                AutomationProperties.IsInAccessibleTree="False"
+                BackgroundColor="Transparent"
+                Command="{Binding BookmarkClickedCommand}"
+                FontFamily="FARegular"
+                FontSize="22"
+                HorizontalOptions="End"
+                SemanticProperties.Description="Button bookmark"
+                Text="{StaticResource iconBookmark}"
+                TextColor="{StaticResource PrimaryOrange1}"
+                VerticalOptions="Center"
+                ZIndex="1">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding FoodPreview.IsBookmarked}"
+                        TargetType="Button"
+                        Value="true">
+                        <Setter Property="FontFamily" Value="FASolid" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <cards:CardsView
+                x:Name="cardsViewFoodImage"
+                Grid.Row="1"
+                BackgroundColor="Transparent"
+                IsAutoInteractionRunning="True"
+                IsHorizontalOrientation="True"
+                ItemsSource="{Binding FoodImage, Mode=OneWay}"
+                VerticalOptions="Fill"
+                ZIndex="0">
+                <cards:CardsView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <ffimageloading:CachedImage
+                                    x:Name="imgPreview"
+                                    Aspect="AspectFit"
+                                    DownsampleToViewSize="True"
+                                    ErrorPlaceholder="error_snail.jpg"
+                                    HorizontalOptions="FillAndExpand"
+                                    LoadingPlaceholder="relaxing.jpg"
+                                    PropertyChanged="Image_PropertyChanged"
+                                    Source="{Binding ., Mode=OneWay}"
+                                    VerticalOptions="FillAndExpand" />
+                            </Frame>
+                        </ContentView>
+                    </DataTemplate>
+                </cards:CardsView.ItemTemplate>
+            </cards:CardsView>
+            <toolkit:Expander
+                x:Name="titleExpander"
+                Grid.RowSpan="2"
+                Direction="Down"
+                FlowDirection="LeftToRight"
+                IsExpanded="True"
+                VerticalOptions="EndAndExpand">
+                <toolkit:Expander.Header>
+                    <Label
+                        FontAttributes="Bold"
+                        FontFamily="FASolid"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Text="{StaticResource IconAngleUp}"
+                        TextColor="{StaticResource PrimaryDark}"
+                        WidthRequest="48">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="Text" Value="{StaticResource IconAngleDown}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </toolkit:Expander.Header>
+                <tabs:MaterialFrame
+                    Padding="10"
+                    Elevation="50"
+                    HorizontalOptions="Fill"
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialBlurStyle="Light"
+                    MaterialTheme="AcrylicBlur"
+                    VerticalOptions="EndAndExpand">
+                    <VerticalStackLayout BackgroundColor="Transparent" Spacing="8">
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="PlayfairDisplaySemiBold"
+                            FontSize="18"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2"
+                            Text="{Binding FoodPreview.Name, Mode=OneWay}"
+                            VerticalOptions="EndAndExpand" />
+                        <control:RatingControl HeightRequest="15" Value="{Binding FoodPreview.Star, Mode=OneWay}" />
+                    </VerticalStackLayout>
+                </tabs:MaterialFrame>
+            </toolkit:Expander>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            IsClippedToBounds="True"
+            RowDefinitions="50,*">
+            <tabs:TabHostView BackgroundColor="{StaticResource Gray100}" SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}">
+                <tabs:TabHostView.Resources>
+                    <Style TargetType="tabs:MaterialUnderlinedTabItem">
+                        <Setter Property="LabelSize" Value="16" />
+                        <Setter Property="tabs:TouchEffect.Color" Value="{StaticResource PrimaryOrange2}" />
+                        <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
+                        <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray500}" />
+                    </Style>
+                    <Style TargetType="tabs:BadgeView">
+                        <!--<Setter Property="BackgroundColor" Value="White" />-->
+                        <!--<Setter Property="TextColor" Value="Red" />-->
+                    </Style>
+                </tabs:TabHostView.Resources>
+                <tabs:TabHostView.Tabs>
+                    <tabs:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.recipe_foodDetail}" />
+                    <tabs:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.nutritionFact_foodDetail}" />
+                </tabs:TabHostView.Tabs>
+            </tabs:TabHostView>
+            <ScrollView Grid.Row="1">
+                <tabs:ViewSwitcher
+                    x:Name="Switcher"
+                    Animate="True"
+                    SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
+                    <tabs:DelayedView x:TypeArguments="detailTab:RecipeFoodDetail" Animate="True" />
+                    <tabs:DelayedView x:TypeArguments="detailTab:NutritionFactsFoodDetail" Animate="True" />
+                </tabs:ViewSwitcher>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</base:BasePage>

@@ -1,10 +1,17 @@
-namespace VeganLife.Views;
+// <copyright file="BookmarkPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public partial class BookmarkPage : ContentPage
+namespace VeganLife.Views
 {
-	public BookmarkPage(BookmarkViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
-	}
+    using VeganLife.Views.Base;
+
+    public partial class BookmarkPage : BasePage<BookmarkViewModel>
+    {
+        public BookmarkPage(BookmarkViewModel vm)
+            : base(vm)
+        {
+            this.InitializeComponent();
+        }
+    }
 }

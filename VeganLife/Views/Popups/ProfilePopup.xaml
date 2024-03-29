@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Mopups:PopupPage
+    x:Class="VeganLife.Views.Popups.ProfilePopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
+    x:DataType="vm:ProfilePopupViewModel"
+    BackgroundColor="#80808080">
+    <Mopups:PopupPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
+        </ResourceDictionary>
+    </Mopups:PopupPage.Resources>
+    <Mopups:PopupPage.Content>
+        <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.5*,Auto,*">
+            <Frame
+                Grid.Row="1"
+                Grid.Column="1"
+                Padding="0"
+                BackgroundColor="White"
+                CornerRadius="10">
+                <VerticalStackLayout>
+                    <Button
+                        Background="Transparent"
+                        Command="{Binding CloseThisPopupCommand}"
+                        CornerRadius="15"
+                        FontFamily="FASolid"
+                        FontSize="Title"
+                        HorizontalOptions="End"
+                        Text="{StaticResource IconClose}"
+                        TextColor="Gray"
+                        VerticalOptions="Start" />
+                    <VerticalStackLayout Margin="20" Spacing="10">
+                        <VerticalStackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="Frame">
+                                    <Setter Property="CornerRadius" Value="4" />
+                                    <Setter Property="HasShadow" Value="True" />
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Opacity" Value="0.7" />
+                                    <Setter Property="Margin" Value="0,5,0,0" />
+                                </Style>
+                            </ResourceDictionary>
+                        </VerticalStackLayout.Resources>
+                        <Label HorizontalOptions="Center" Text="Profile" />
+                        <Label Margin="0,10,0,0" Text="Name" />
+                        <Frame BorderColor="Gray">
+                            <Frame.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsWrongFormatName, Mode=OneWay}"
+                                    TargetType="Frame"
+                                    Value="True">
+                                    <Setter Property="BorderColor" Value="Red" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <Entry
+                                Margin="5,0"
+                                Placeholder="Ten cua ban"
+                                Text="{Binding UserName}" />
+                        </Frame>
+                        <Label Text="Sex" />
+                        <Grid ColumnDefinitions="*,*">
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <CheckBox IsChecked="{Binding IsMale}" />
+                                <Label Text="Nam" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                <CheckBox IsChecked="{Binding IsMale, Converter={StaticResource ReverseConverter}}" />
+                                <Label Text="Nu" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                        <Label Text="Age" />
+                        <DatePicker
+                            Date="{Binding SelectedDate}"
+                            HorizontalOptions="Start"
+                            MinimumDate="01/01/1950" />
+                        <Label Text="Chieu cao" />
+                        <Label HorizontalOptions="Center" Text="{Binding UserHeight, Mode=OneWay}" />
+                        <Slider
+                            x:Name="sliderHeight"
+                            HorizontalOptions="FillAndExpand"
+                            Maximum="260"
+                            Minimum="50"
+                            VerticalOptions="FillAndExpand"
+                            Value="{Binding UserHeight}" />
+                        <Label Text="Can nang" />
+                        <Frame BorderColor="Gray">
+                            <Frame.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsWrongFormatWeight, Mode=OneWay}"
+                                    TargetType="Frame"
+                                    Value="True">
+                                    <Setter Property="BorderColor" Value="Red" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <Entry
+                                Keyboard="Numeric"
+                                Placeholder="Can nang"
+                                Text="{Binding UserWeight}" />
+                        </Frame>
+                        <Label Text="{Binding ErrorMess, Mode=OneWay}" TextColor="Red" />
+                        <Button
+                            Margin="20,10,20,0"
+                            Command="{Binding SaveDataCommand}"
+                            IsEnabled="{Binding SaveDataCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
+                            Text="Save" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <ActivityIndicator
+                    HeightRequest="48"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsUserLocalDataUpdating, Mode=OneWay}"
+                    IsVisible="{Binding IsUserLocalDataUpdating}"
+                    VerticalOptions="Center"
+                    WidthRequest="48" />
+            </Grid>
+        </Grid>
+    </Mopups:PopupPage.Content>
+</Mopups:PopupPage>

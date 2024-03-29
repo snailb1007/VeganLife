@@ -1,67 +1,79 @@
-using VeganLife.Models.FoodModel;
+﻿// <copyright file="ElementFoodDetailCW.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace VeganLife.Views.ContentViews;
-
-public partial class ElementFoodDetailCW : ContentView, INotifyPropertyChanged
+namespace VeganLife.Views.ContentViews
 {
-    public static BindableProperty TitleProperty = BindableProperty.Create(
-            propertyName: "Title",
-            declaringType: typeof(ElementFoodDetailCW),
-            defaultValue: null,
-            returnType: typeof(string));
-    public string Title
+    using VeganLife.Views.ContentViews.Base;
+
+    public partial class ElementFoodDetailCW : BaseContentView
     {
-        get => (string)GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
+        public static BindableProperty TitleProperty = BindableProperty.Create(
+                propertyName: "Title",
+                declaringType: typeof(ElementFoodDetailCW),
+                defaultValue: null,
+                returnType: typeof(string));
 
-    public static BindableProperty ContentExpandProperty = BindableProperty.Create(
-            propertyName: "ContentExpand",
-            declaringType: typeof(ElementFoodDetailCW),
-            defaultValue: string.Empty,
-            returnType: typeof(string));
-    public string ContentExpand
-    {
-        get => (string)GetValue(ContentExpandProperty);
-        set => SetValue(ContentExpandProperty, value);
-    }
-
-    bool _isExpanded = true;
-    //public bool IsExpanded
-    //{
-    //    get => _isExpanded;
-    //    set
-    //    {
-    //        _isExpanded = value;
-    //        OnPropertyChanged(nameof(IsExpanded));
-    //    }
-    //}
-
-    public ElementFoodDetailCW()
-	{
-		InitializeComponent();
-	}
-
-    FoodDetailModel _foodDetail;
-    protected override void OnBindingContextChanged()
-    {
-        base.OnBindingContextChanged();
-        if (BindingContext != null )
+        public string Title
         {
-            _foodDetail = BindingContext as FoodDetailModel;
-            if (_foodDetail != null )
-            {
+            get => (string)this.GetValue(TitleProperty);
+            set => this.SetValue(TitleProperty, value);
+        }
 
+        public static BindableProperty ContentExpandProperty = BindableProperty.Create(
+                propertyName: "ContentExpand",
+                declaringType: typeof(ElementFoodDetailCW),
+                defaultValue: null,
+                returnType: typeof(string));
+
+        public string ContentExpand
+        {
+            get => (string)this.GetValue(ContentExpandProperty);
+            set => this.SetValue(ContentExpandProperty, value);
+        }
+
+        private bool isExpanded = true;
+
+        public bool IsExpanded
+        {
+            get => this.isExpanded;
+            set => this.SetProperty(ref this.isExpanded, value);
+        }
+
+        public ElementFoodDetailCW()
+        {
+            this.InitializeComponent();
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName.Equals("Title"))
+            {
+                string img = string.Empty;
+                switch (this.Title)
+                {
+                    case "Nguyên liệu":
+                        img = "ingredients_food_detail";
+                        break;
+                    case "Cách làm":
+                        img = "cooking_food_detail";
+                        break;
+                    case "Nước sốt":
+                        img = "sauce_food_detail";
+                        break;
+                    case "Trang trí":
+                        img = "decorate_food_detail";
+                        break;
+                }
+
+                this.imgTitle.Source = img;
             }
         }
-    }
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        _isExpanded = !_isExpanded;
-        expander.IsExpanded = _isExpanded;
-        var source = _isExpanded ? Application.Current.Resources["IconAngleDown"]
-            : Application.Current.Resources["IconAngleUp"];
-        btnExpanedStatus.Text = source as string;
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            this.IsExpanded = !this.IsExpanded;
+        }
     }
 }

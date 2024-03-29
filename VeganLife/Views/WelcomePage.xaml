@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.WelcomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:rv="http://sharpnado.com"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:DataType="viewmodel:WelcomeViewModel"
+    x:TypeArguments="viewmodel:WelcomeViewModel"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <Style x:Key="IndicatorLabelStyle" TargetType="Label">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="LightGray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="Green" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <base:BasePage.Content>
+        <Grid
+            Margin="0"
+            ColumnDefinitions="*"
+            RowDefinitions="*, Auto">
+            <controls:CardCoverFlowViewControl
+                Margin="10,0"
+                FlowDirection="LeftToRight"
+                IndicatorView="indicatorView"
+                IsCyclical="False"
+                IsViewReusingEnabled="True"
+                ItemsSource="{Binding ListImage}"
+                PositionShiftValue="-10"
+                SelectedIndex="{Binding FlowViewSelectedIndex, Mode=TwoWay}"
+                VerticalOptions="Fill">
+                <controls:CardCoverFlowViewControl.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type viewmodel:WelcomeViewModel+TutorialModel}">
+                        <Grid ColumnDefinitions="*" RowDefinitions="*, 2*, *">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="{Binding Title}"
+                                VerticalOptions="Center" />
+                            <rv:MaterialFrame
+                                Grid.Row="1"
+                                Padding="0"
+                                CornerRadius="20"
+                                IsClippedToBounds="True"
+                                MaterialTheme="Acrylic"
+                                VerticalOptions="Center">
+                                <Image
+                                    Grid.RowSpan="2"
+                                    Aspect="AspectFill"
+                                    Source="{Binding ImageLink}" />
+                            </rv:MaterialFrame>
+                            <Label
+                                Grid.Row="2"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Description}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </controls:CardCoverFlowViewControl.ItemTemplate>
+            </controls:CardCoverFlowViewControl>
+            <rv:MaterialFrame
+                Grid.Row="1"
+                Margin="20,10"
+                CornerRadius="20"
+                LightThemeBackgroundColor="#F1F1F1"
+                MaterialTheme="Acrylic"
+                VerticalOptions="End">
+                <Grid Grid.Row="1" ColumnDefinitions="*,*,*">
+                    <Label
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.previous_welcomePage}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ManualSwipeCardCommand}" CommandParameter="0" />
+                        </Label.GestureRecognizers>
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding FlowViewSelectedIndex}"
+                                TargetType="Label"
+                                Value="0">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="8"
+                        VerticalOptions="End">
+                        <IndicatorView
+                            x:Name="indicatorView"
+                            HorizontalOptions="Center"
+                            IndicatorColor="LightGray"
+                            IndicatorSize="7"
+                            SelectedIndicatorColor="DarkGray" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="{x:Static translate:AppResources.skip_welcomePage}"
+                            TextColor="{StaticResource LinkColor}"
+                            TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SkipCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+                    <Label
+                        Grid.Column="2"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.next_welcomePage}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ManualSwipeCardCommand}" CommandParameter="1" />
+                        </Label.GestureRecognizers>
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding FlowViewSelectedIndex}"
+                                TargetType="Label"
+                                Value="2">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Grid>
+            </rv:MaterialFrame>
+        </Grid>
+    </base:BasePage.Content>
+</base:BasePage>

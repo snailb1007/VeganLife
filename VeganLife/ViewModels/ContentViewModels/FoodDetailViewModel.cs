@@ -1,79 +1,318 @@
-﻿using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
-using VeganLife.Models.FoodModel;
-using VeganLife.Services.LocalDataServices;
+﻿// <copyright file="FoodDetailViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
+    using SkiaSharp;
+    using VeganLife.Data.LocalData;
+    using VeganLife.Helpers;
+    using VeganLife.Models.FoodModel;
+
+    /// <summary>
+    /// vm for FoodDetailPage.
+    /// </summary>
     public partial class FoodDetailViewModel : BaseViewModel
     {
+        private FoodDetailDataStoreService foodDetailDataStoreService;
         [ObservableProperty]
-        bool _isDecorateExpaned;
+        private FoodPreviewModel foodPreview;
 
         [ObservableProperty]
-        bool _isIngredientExpaned = true;
+        private FoodDetailModel foodDetail;
 
         [ObservableProperty]
-        bool _isMakingExpaned;
+        private FoodNutrientFacts foodNutriFacts;
+
+        //[ObservableProperty]
+        //private DonutChart nutriDonutChart;
+
+        //[ObservableProperty]
+        //private RadialGaugeChart dailyRadialGaugeChart;
 
         [ObservableProperty]
-        bool _isSauceExpaned;
-
-        FoodDetailDataStoreService _foodDetailDataStoreService;
-        [ObservableProperty]
-        FoodPreviewModel _foodPreview;
+        private bool isExpanded;
 
         [ObservableProperty]
-        FoodDetailModel _foodDetail;
-        public FoodDetailViewModel(INavigationService navigationService, IDataService dataService)
-            : base(navigationService, dataService)
+        private ObservableCollection<string> foodImage;
+        [ObservableProperty]
+        private int _selectedViewModelIndex = 0;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FoodDetailViewModel"/> class.
+        /// </summary>
+        public FoodDetailViewModel()
+            : base()
         {
-            var database = ServicesHelper.GetService<ISQLite>();
-            if (database != null)
-                _foodDetailDataStoreService = new FoodDetailDataStoreService(database);
+            this.foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
+            this.FoodImage = new ObservableCollection<string>();
         }
 
+        /// <inheritdoc/>
         public override async Task<Task> OnNavigatingTo(object parameter)
         {
             if (parameter is not null)
             {
-                FoodPreview = parameter as FoodPreviewModel;
-                FoodPreview.IsRead = true;
+                this.FoodPreview = (FoodPreviewModel)parameter;
+                if (FoodPreview is null)
+                {
 
-                if (IsNetworkConnected)
-                    FoodDetail = await data_service.GetFoodDetail(FoodPreview?.Id ?? string.Empty);
-                if (FoodDetail == null)
-                    FoodDetail = (await _foodDetailDataStoreService.GetItemsAsync()).FirstOrDefault();
+                }
                 else
-                    await _foodDetailDataStoreService.AddOrUpdateItemAsync(FoodDetail);
+                {
+                    this.FoodPreview.IsRead = true;
+
+                    if (this.IsNetworkConnected)
+                    {
+                        this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
+                    }
+
+                    if (this.FoodDetail == null)
+                    {
+                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync()).FirstOrDefault();
+                    }
+                    else
+                    {
+                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                    }
+
+                    this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
+                    await Task.Run(this.GetMoreImage);
+                }
             }
 
-            return base.OnNavigatingTo(parameter);
-        }
-
-
-        [RelayCommand]
-        void OnBookmarkClicked()
-        {
-            if (FoodPreview == null) return;
-            FoodPreview.IsBookmarked = !FoodPreview.IsBookmarked;
+            return base.OnNavigatingTo(parameter!);
         }
 
         [RelayCommand]
-        void ExpandClicked(string param)
+        private void OnBookmarkClicked()
         {
-            switch(param)
+            if (this.FoodPreview == null)
             {
-                case "1":
-                    IsIngredientExpaned = !IsIngredientExpaned;
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-            };
+                return;
+            }
+
+            this.FoodPreview.BookmarkClickedCommand.Execute(null);
+        }
+
+        bool nutriFactsLoaded;
+
+        [RelayCommand]
+        private async Task GetNutriFacts()
+        {
+            if (nutriFactsLoaded || GetNutriFactsCommand.IsRunning)
+            {
+                return;
+            }
+
+            FoodNutriFacts = await this.dataService.GetFoodNutriFacts(this.FoodPreview.Id);
+            nutriFactsLoaded = FoodNutriFacts != null;
+            if (nutriFactsLoaded)
+            {
+                //NutriDonutChart = new DonutChart()
+                //{
+                //    Entries = new ChartEntry[]
+                //    {
+                //        new(FoodNutriFacts?.Protein * 4)
+                //        {
+                //            Label = "Protein",
+                //            ValueLabel = FoodNutriFacts?.Protein.ToString(),
+                //            Color = SKColor.Parse("#ffa890"),
+                //            ValueLabelColor = SKColors.Black,
+                //            TextColor = SKColors.Gray,
+                //        },
+                //        new(FoodNutriFacts?.Carb * 4)
+                //        {
+                //            Label = "Carb",
+                //            ValueLabel = FoodNutriFacts?.Carb.ToString(),
+                //            Color = SKColor.Parse("#b7affe"),
+                //            ValueLabelColor = SKColors.Black,
+                //            TextColor = SKColors.Gray,
+                //        },
+                //        new(FoodNutriFacts?.Fat * 9)
+                //        {
+                //            Label = "Fat",
+                //            ValueLabel = FoodNutriFacts?.Fat.ToString(),
+                //            Color = SKColor.Parse("#ff7caa"),
+                //            ValueLabelColor = SKColors.Black,
+                //            TextColor = SKColors.Gray,
+                //        },
+                //    },
+                //    LabelTextSize = 35,
+                //    HoleRadius = 0.25f,
+                //    GraphPosition = GraphPosition.AutoFill,
+                //    LabelMode = LabelMode.RightOnly
+                //};
+            }
+        }
+
+        [RelayCommand]
+        private void OnExpandClicked()
+        {
+            IsExpanded = !IsExpanded;
+            //if (IsExpanded && nutriFactsLoaded && DailyRadialGaugeChart == null)
+            //{
+            //    DailyRadialGaugeChart = new RadialGaugeChart()
+            //    {
+            //        Entries = new ChartEntry[]
+            //        {
+            //            new (FoodNutriFacts.Sodium)
+            //            {
+            //                Label = nameof(FoodNutriFacts.Sodium),
+            //                ValueLabel = FoodNutriFacts.Sodium.ToString() + "%",
+            //                Color = SKColor.Parse("#aaabad"),
+            //                ValueLabelColor = SKColors.Black,
+            //                TextColor = SKColors.Gray,
+            //            },
+            //            new (FoodNutriFacts.A)
+            //            {
+            //                Label = nameof(FoodNutriFacts.A),
+            //                ValueLabel = FoodNutriFacts.A.ToString() + "%",
+            //                Color = SKColor.Parse("#fa8c21"),
+            //                ValueLabelColor = SKColors.Black,
+            //                TextColor = SKColors.Gray,
+            //            },
+            //            //new (FoodNutrientFacts.Iron)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.Iron),
+            //            //    ValueLabel = FoodNutrientFacts.Iron.ToString() + "%",
+            //            //    Color = SKColor.Parse("#1a1a18"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.Magnesium)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.Magnesium),
+            //            //    ValueLabel = FoodNutrientFacts.Magnesium.ToString() + "%",
+            //            //    Color = SKColor.Parse("#365977"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.Zinc)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.Zinc),
+            //            //    ValueLabel = FoodNutrientFacts.Zinc.ToString() + "%",
+            //            //    Color = SKColor.Parse("#C6C7B9"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            new (FoodNutriFacts.B1)
+            //            {
+            //                Label = nameof(FoodNutriFacts.B1),
+            //                ValueLabel = FoodNutriFacts.B1.ToString() + "%",
+            //                Color = SKColor.Parse("#175DBC"),
+            //                ValueLabelColor = SKColors.Black,
+            //                TextColor = SKColors.Gray,
+            //            },
+            //            //new (FoodNutrientFacts.B3)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.B3),
+            //            //    ValueLabel = FoodNutrientFacts.B3.ToString() + "%",
+            //            //    Color = SKColor.Parse("#FC0E0E"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.B9)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.B9),
+            //            //    ValueLabel = FoodNutrientFacts.B9.ToString() + "%",
+            //            //    Color = SKColor.Parse("#E28A20"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.E)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.E),
+            //            //    ValueLabel = FoodNutrientFacts.E.ToString() + "%",
+            //            //    Color = SKColor.Parse("#CFB84D"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.Calcium)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.Calcium),
+            //            //    ValueLabel = FoodNutrientFacts.Calcium.ToString() + "%",
+            //            //    Color = SKColor.Parse("#7B7D82"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            new (FoodNutriFacts.D)
+            //            {
+            //                Label = nameof(FoodNutriFacts.D),
+            //                ValueLabel = FoodNutriFacts.D.ToString() + "%",
+            //                Color = SKColor.Parse("#479F10"),
+            //                ValueLabelColor = SKColors.Black,
+            //                TextColor = SKColors.Gray,
+            //            },
+            //            //new (FoodNutrientFacts.Kali)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.Kali),
+            //            //    ValueLabel = FoodNutrientFacts.Kali.ToString() + "%",
+            //            //    Color = SKColor.Parse("#84933C"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.Phosphorus)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.Phosphorus),
+            //            //    ValueLabel = FoodNutrientFacts.Phosphorus.ToString() + "%",
+            //            //    Color = SKColor.Parse("#874C40"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.B2)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.B2),
+            //            //    ValueLabel = FoodNutrientFacts.B2.ToString() + "%",
+            //            //    Color = SKColor.Parse("#874C40"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.B6)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.B6),
+            //            //    ValueLabel = FoodNutrientFacts.B6.ToString() + "%",
+            //            //    Color = SKColors.Yellow,
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.B12)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.B12),
+            //            //    ValueLabel = FoodNutrientFacts.B12.ToString() + "%",
+            //            //    Color = SKColor.Parse("#F9C394"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //            //new (FoodNutrientFacts.K)
+            //            //{
+            //            //    Label = nameof(FoodNutrientFacts.K),
+            //            //    ValueLabel = FoodNutrientFacts.K.ToString() + "%",
+            //            //    Color = SKColor.Parse("#718B5A"),
+            //            //    ValueLabelColor = SKColors.Black,
+            //            //    TextColor = SKColors.Gray,
+            //            //},
+            //        },
+            //        MaxValue = 100,
+            //        LabelTextSize = 35,
+            //    };
+            //}
+        }
+
+        private async Task GetMoreImage()
+        {
+            var imgs = await dataService.GetImageLinksAsync(this.FoodDetail.RootLink);
+            if (imgs?.Any() ?? false)
+            {
+                foreach (var item in imgs)
+                {
+                    if (!string.IsNullOrEmpty(item) && !item.Contains("150")
+                        && item.Contains(this.FoodDetail.Key) && !FoodImage.Contains(item))
+                    {
+                        this.FoodImage.Add(item);
+                    }
+                }
+            }
         }
     }
 }

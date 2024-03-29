@@ -3,42 +3,54 @@
     x:Class="VeganLife.Views.Controls.FlyoutHeader"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="{AppThemeBinding Dark=White,
-                                      Light=Gray}">
-    <Frame
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    x:Name="flyoutHeader">
+    <ContentView.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryDark}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+        </LinearGradientBrush>
+    </ContentView.Background>
+    <Border
         Margin="10"
-        Padding="0"
         BackgroundColor="{AppThemeBinding Dark=Black,
                                           Light=White}"
-        BorderColor="Transparent"
-        CornerRadius="10">
-        <StackLayout Margin="10" Spacing="10">
-            <Grid>
-                <HorizontalStackLayout Spacing="10">
-                    <Frame
-                        Padding="0"
-                        BorderColor="Aqua"
-                        CornerRadius="40"
-                        HeightRequest="80"
-                        WidthRequest="80">
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="No."
-                            VerticalOptions="Center" />
-                    </Frame>
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        Text="Ẩn danh"
-                        VerticalOptions="CenterAndExpand" />
-                </HorizontalStackLayout>
+        StrokeShape="RoundRectangle 10"
+        StrokeThickness="0">
+        <VerticalStackLayout Margin="10" Spacing="10">
+            <Grid ColumnDefinitions="80, *" ColumnSpacing="10">
+                <Image
+                    x:Name="imgAvatar"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    Source="profile_boy"
+                    WidthRequest="80">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AvatarView_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
                 <Label
-                    FontFamily="FontAwesomeSolid"
+                    x:Name="lbUserName"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="{x:Static translate:AppResources.incognito_flyoutHeader}"
+                    VerticalOptions="CenterAndExpand" />
+                <Label
+                    Grid.ColumnSpan="2"
+                    FontFamily="FALight"
                     FontSize="18"
                     HorizontalOptions="End"
-                    Text="&#xf044;" />
+                    Text="&#xf044;"
+                    VerticalOptions="Start">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnEditProfileClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
-            <Label Text="Bạn đang hoạt động ẩn danh, điền các thông tin để có trải nghiệm tốt hơn" />
-        </StackLayout>
-    </Frame>
+            <Label x:Name="lbGreeting" Text="{x:Static translate:AppResources.description_flyoutHeader}" />
+        </VerticalStackLayout>
+    </Border>
 </ContentView>

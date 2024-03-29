@@ -1,19 +1,25 @@
-﻿using System.Globalization;
-using VeganLife.Resources.Translations;
+﻿// <copyright file="DateTimeHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace VeganLife.Helpers
 {
+    using VeganLife.Resources.Translations;
+
     public static class DateTimeHelper
     {
         public static DateTime GetDateTime(string dateString)
         {
             if (string.IsNullOrEmpty(dateString))
+            {
                 return DateTime.MinValue;
+            }
+
             string parseFormat = "ddd, dd MMM yyyy HH:mm:ss 'GMT'K";
             return DateTime.ParseExact(dateString, parseFormat, CultureInfo.InvariantCulture);
         }
 
-        public static string CalcuteTimeAgo(DateTime dateTime)
+        public static string CalculateTimeAgo(DateTime dateTime)
         {
             const int SECOND = 1;
             const int MINUTE = 60 * SECOND;
@@ -32,37 +38,35 @@ namespace VeganLife.Helpers
             {
                 return AppResources.appSet_dateTime_1m_ago;
             }
-            else
-            if (delta < 45 * MINUTE)
+            else if (delta < 45 * MINUTE)
             {
                 return ts.Minutes + AppResources.appSet_dateTime_manyM_ago;
             }
-            else
-            if (delta < 90 * MINUTE)
+            else if (delta < 90 * MINUTE)
             {
                 return AppResources.appSet_dateTime_1h_ago;
             }
-            else
-            if (delta < 24 * HOUR)
+            else if (delta < 24 * HOUR)
             {
                 return ts.Hours + AppResources.appSet_dateTime_manyH_ago;
             }
-            else
-            if (delta < 48 * HOUR)
+            else if (delta < 48 * HOUR)
             {
                 return AppResources.appSet_dateTime_yesterday_ago;
             }
-            else
-            if (delta < 30 * DAY)
+            else if (delta < 30 * DAY)
             {
                 return ts.Days + AppResources.appSet_dateTime_days_ago;
             }
-            else if (delta < 12 * MONTH)            {
+            else if (delta < 12 * MONTH)
+            {
                 int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
                 return months <= 1 ? AppResources.appSet_dateTime_1Month_ago : months + AppResources.appSet_dateTime_months_ago;
             }
             else
+            {
                 return string.Empty;
+            }
         }
     }
 }

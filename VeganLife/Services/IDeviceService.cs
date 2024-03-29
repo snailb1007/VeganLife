@@ -4,5 +4,9 @@
     {
         void HideKeyboard();
         int GetDeviceDPI();
+        string GetDeviceId();
+        bool IsAutomaticDateTimeEnabled();
+        bool IsAutomaticTimeZoneEnabled();
+        void OpenDateSettings();
     }
 }
