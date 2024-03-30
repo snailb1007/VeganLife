@@ -23,4 +23,4 @@ jobs:
     - name: Install Maui workload
       run: dotnet workload install maui-android
     - name: Build
-      run: dotnet build VeganLife/VeganLife.csproj -c Release -f:net8.0-android
+      run: dotnet build VeganLife/VeganLife.csproj -c Release -f net8.0-android
