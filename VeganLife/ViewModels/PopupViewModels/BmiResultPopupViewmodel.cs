@@ -48,7 +48,6 @@ namespace VeganLife.ViewModels.PopupViewModels
             : base()
         {
             userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
-            this.IsLocaleUser = true;
         }
 
         private float bmiResult;
@@ -64,21 +63,20 @@ namespace VeganLife.ViewModels.PopupViewModels
                 result = (BMIResultModel)parameter;
                 bmiResult = result.BMIResult;
                 this.BmiResultText = result.BMIResult.ToString();
-                var healthDiagnosis =
-                        BMICalculateHelper.GetWeightStatusCategory(result.Age, result.IsMale, result.BMIResult);
+                var healthDiagnosis = BMICalculateHelper
+                    .GetWeightStatusCategory(result.Age, result.IsMale, result.BMIResult);
                 this.BmiStatusColor = healthDiagnosis.StatusColor;
                 this.ClassifyLabel = healthDiagnosis.Classify;
                 this.Note = healthDiagnosis.Note;
                 localeUserInfo = (await userStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                //if (localeUserInfo is not null
-                //    && !string.IsNullOrEmpty(localeUserInfo.Name)
-                //    && localeUserInfo.Age > 0
-                //    && localeUserInfo.Weight > 0
-                //    && localeUserInfo.Height > 0
-                //    && result.)
-                //{
-                //    this.IsLocaleUser = true;
-                //}
+                if (localeUserInfo is not null
+                    && !string.IsNullOrEmpty(localeUserInfo.Name)
+                    && localeUserInfo.Age > 0
+                    && localeUserInfo.Weight > 0
+                    && localeUserInfo.Height > 0)
+                {
+                    this.IsLocaleUser = true;
+                }
             }
 
             return base.OnNavigatingTo(parameter!);

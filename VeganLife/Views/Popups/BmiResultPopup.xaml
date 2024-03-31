@@ -18,6 +18,7 @@
     <mopups:PopupPage.Resources>
         <ResourceDictionary>
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
             <converterCustom:OnlyLineBreakConverter x:Key="OnlyLineBreakConverter" />
         </ResourceDictionary>
     </mopups:PopupPage.Resources>
@@ -175,21 +176,26 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
+                    <HorizontalStackLayout IsVisible="{Binding IsLocaleUser, Converter={StaticResource InvertedBoolConverter}}">
+                        <CheckBox IsChecked="{Binding IsSaveSelected, Mode=TwoWay}" />
+                        <Label Text="Save metrics to your profile" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
                 <Grid
                     Grid.Row="1"
                     BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}"
                     HeightRequest="48"
                     HorizontalOptions="Fill"
-                    IsEnabled="{Binding IsLocaleUser, Mode=OneWay}"
                     VerticalOptions="Fill">
                     <Grid.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsLocaleUser}"
-                            TargetType="Grid"
-                            Value="false">
+                        <MultiTrigger TargetType="Grid">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding IsLocaleUser}" Value="false" />
+                                <BindingCondition Binding="{Binding IsSaveSelected}" Value="false" />
+                            </MultiTrigger.Conditions>
                             <Setter Property="BackgroundColor" Value="Gray" />
-                        </DataTrigger>
+                            <Setter Property="IsEnabled" Value="False" />
+                        </MultiTrigger>
                     </Grid.Triggers>
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoCommand}" />
