@@ -6,6 +6,10 @@ name: android pre-release
 on:
   push:
     branches: [ "develop_1.0" ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
   pull_request:
     branches: [ "develop_1.0" ]
 
@@ -21,6 +25,10 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Install Maui workload
-      run: dotnet workload install maui
-    - name: Build android pre-release
+      run: |
+          dotnet workload install android --ignore-failed-sources
+          dotnet workload install maui --ignore-failed-sources
+    - name: Restore Dependencies
+        run: dotnet restore VeganLife/VeganLife.csproj
+    - name: Build Maui android
       run: dotnet build VeganLife/VeganLife.csproj -c Release -f net8.0-android --no-restore
