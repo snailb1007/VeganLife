@@ -70,9 +70,10 @@ namespace VeganLife.ViewModels.TabsViewModel
             foreach (var item in foods)
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
-                int count = (from word in words
-                             where normalName.Contains(word)
-                             select word).Count();
+                //int count = (from word in words
+                //             where normalName.Contains(word)
+                //             select word).Count();
+                int count = words.Count(word => normalName.Contains(word, StringComparison.InvariantCultureIgnoreCase));
                 item.CountCorrectWordOnSearch = count;
             }
 
