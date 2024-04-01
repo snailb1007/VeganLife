@@ -121,7 +121,7 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
