@@ -5,10 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:sho="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     x:DataType="vm:MacrosViewModel">
     <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
         <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
             <sho:DraggableViewCell IsDraggable="False" IsEnabled="False">
                 <ContentView>
@@ -39,15 +44,21 @@
     </ContentView.Resources>
     <ContentView.Content>
         <Grid RowDefinitions="*">
-            <Label Text="abc" />
             <sho:CollectionView
                 CollectionLayout="Vertical"
+                IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
                 ItemHeight="100"
                 ItemSpacing="10"
                 ItemTemplate="{StaticResource classicItemTemplate}"
                 ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
                 TapCommand="{Binding ItemSelectedChangedCommand}"
                 VerticalOptions="Fill" />
+            <Button
+                x:Name="spBtn"
+                HorizontalOptions="Center"
+                IsVisible="{Binding UsdaFoodPreviews, Converter={StaticResource IsListNullOrEmptyConverter}}"
+                Text="Support Request"
+                VerticalOptions="Center" />
         </Grid>
     </ContentView.Content>
 </ContentView>

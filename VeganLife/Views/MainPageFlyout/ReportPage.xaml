@@ -44,19 +44,20 @@
                         VerticalOptions="Center"
                         WidthRequest="38" />
                 </sharpnado:MaterialFrame>
-                <Frame
+                <Border
                     Grid.Column="1"
                     Padding="0"
                     HeightRequest="50"
-                    IsVisible="False">
-                    <Frame.Triggers>
+                    IsVisible="False"
+                    StrokeShape="RoundRectangle 20">
+                    <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding SelectedViewModelIndex}"
-                            TargetType="Frame"
+                            TargetType="Border"
                             Value="0">
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
-                    </Frame.Triggers>
+                    </Border.Triggers>
                     <SearchBar
                         x:DataType="tabVM:MacrosViewModel"
                         BindingContext="{Binding BindingContext.MacrosViewModel, Source={x:Reference rootReportPage}}"
@@ -73,8 +74,7 @@
                                 StoppedTypingTimeThreshold="500" />
                         </SearchBar.Behaviors>
                     </SearchBar>
-                </Frame>
-
+                </Border>
                 <Frame
                     Grid.Column="1"
                     Padding="0"
