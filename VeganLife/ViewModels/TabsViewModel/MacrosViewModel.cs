@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Views.PortionTab;
@@ -80,6 +81,17 @@ namespace VeganLife.ViewModels.TabsViewModel
             return allUSDAFoodPreview
                 .Where(w => w.CountCorrectWordOnSearch == words.Length)
                 .OrderByDescending(i => i.CountCorrectWordOnSearch);
+        }
+
+        [RelayCommand]
+        private async Task OnSupportRequest()
+        {
+            var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
+            var userTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
+            await Task.WhenAll(templateTask, userTask);
+            var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
+            content = content.Replace("@@@content@@@", TextSearch);
+            await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
         }
     }
 }

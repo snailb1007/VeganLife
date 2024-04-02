@@ -55,6 +55,7 @@
                 VerticalOptions="Fill" />
             <Button
                 x:Name="spBtn"
+                Command="{Binding SupportRequestCommand}"
                 HorizontalOptions="Center"
                 IsVisible="{Binding UsdaFoodPreviews, Converter={StaticResource IsListNullOrEmptyConverter}}"
                 Text="Support Request"
