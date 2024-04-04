@@ -57,13 +57,6 @@
                     Source="loading.json"
                     VerticalOptions="Center"
                     WidthRequest="100" />
-                <!--<ActivityIndicator
-                    HeightRequest="48"
-                    HorizontalOptions="Center"
-                    IsRunning="{Binding IsLoading}"
-                    IsVisible="{Binding IsLoading}"
-                    VerticalOptions="Center"
-                    WidthRequest="48" />-->
             </Grid>
         </Grid>
     </ControlTemplate>
