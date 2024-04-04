@@ -17,27 +17,37 @@
         <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
             <sho:DraggableViewCell IsDraggable="False" IsEnabled="False">
                 <ContentView>
-                    <!--<sho:MaterialFrame
-                        Padding="5"
+                    <sho:MaterialFrame
+                        Margin="10,0"
+                        Padding="0"
                         CornerRadius="10"
                         HorizontalOptions="FillAndExpand"
                         MaterialTheme="Acrylic"
                         VerticalOptions="CenterAndExpand">
-
-                    </sho:MaterialFrame>-->
-                    <Grid ColumnDefinitions="*,2*" RowDefinitions="*">
-                        <Border StrokeShape="RoundRectangle 5" StrokeThickness="5">
-                            <ffimageloading:CachedImage
-                                Aspect="AspectFill"
-                                DownsampleToViewSize="True"
-                                LoadingPriority="Low"
-                                Source="{Binding Image, Mode=OneTime}" />
-                        </Border>
-                        <Label
-                            Grid.Column="1"
-                            Text="{Binding Name}"
-                            VerticalOptions="Center" />
-                    </Grid>
+                        <Grid
+                            Margin="5"
+                            ColumnDefinitions="*,2*"
+                            ColumnSpacing="5"
+                            HeightRequest="95">
+                            <sho:MaterialFrame
+                                Margin="0"
+                                Padding="0"
+                                CornerRadius="8"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="FillAndExpand">
+                                <ffimageloading:CachedImage
+                                    Aspect="AspectFill"
+                                    DownsampleToViewSize="True"
+                                    LoadingPriority="Low"
+                                    Source="{Binding Image, Mode=OneTime}" />
+                            </sho:MaterialFrame>
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Name}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </sho:MaterialFrame>
                 </ContentView>
             </sho:DraggableViewCell>
         </DataTemplate>
@@ -47,8 +57,8 @@
             <sho:CollectionView
                 CollectionLayout="Vertical"
                 IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
-                ItemHeight="100"
-                ItemSpacing="10"
+                ItemHeight="110"
+                ItemSpacing="5"
                 ItemTemplate="{StaticResource classicItemTemplate}"
                 ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
                 TapCommand="{Binding ItemSelectedChangedCommand}"
