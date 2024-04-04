@@ -33,7 +33,8 @@
 		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<LangVersion>latest</LangVersion>
 		<WarningLevel>4</WarningLevel>
-		<_MauiForceXamlCForDebug>true</_MauiForceXamlCForDebug>
+		<_MauiForceXamlCForDebug>False</_MauiForceXamlCForDebug>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
