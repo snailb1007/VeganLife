@@ -81,5 +81,7 @@ namespace VeganLife.Helpers.AppSetting
             public const string Zinc = "Zinc";
             public const string Copper = "Copper";
         }
+
+        public const string TAG = "undefined";
     }
 }

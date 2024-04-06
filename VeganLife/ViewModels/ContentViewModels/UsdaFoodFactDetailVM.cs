@@ -8,7 +8,6 @@ namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
-        const string TAG = "undefined";
         [ObservableProperty]
         private USDAFoodPreviewModel currentFoodPreview;
         [ObservableProperty]
@@ -51,7 +50,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
             if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
-                if (this.CurrentFoodPreview.Id.Contains(TAG))
+                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                 {
                     this.CurrentUndefinedMacroFoodNutriFact = await dataService.GetMacroFoodNutriFacts(this.CurrentFoodPreview.Id);
                 }

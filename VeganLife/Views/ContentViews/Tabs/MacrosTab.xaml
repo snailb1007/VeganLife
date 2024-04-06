@@ -42,10 +42,44 @@
                                     LoadingPriority="Low"
                                     Source="{Binding Image, Mode=OneTime}" />
                             </sho:MaterialFrame>
-                            <Label
-                                Grid.Column="1"
-                                Text="{Binding Name}"
-                                VerticalOptions="Center" />
+                            <Grid Grid.Column="1">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding Name}"
+                                    VerticalOptions="Start" />
+                                <HorizontalStackLayout VerticalOptions="End">
+                                    <sho:MaterialFrame
+                                        Margin="0"
+                                        Padding="2"
+                                        CornerRadius="4"
+                                        IsVisible="{Binding IsUSDAFood, Mode=OneWay}"
+                                        LightThemeBackgroundColor="{StaticResource PrimaryOrange2}">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Micro"
+                                            Text="USDA"
+                                            TextColor="{StaticResource PrimaryLight}"
+                                            VerticalOptions="Center" />
+                                    </sho:MaterialFrame>
+                                </HorizontalStackLayout>
+                                <Label
+                                    FontFamily="FAThin"
+                                    HorizontalOptions="End"
+                                    Text="&#xe339;"
+                                    TextColor="Red"
+                                    VerticalOptions="Start">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsPlantOrigin}"
+                                            TargetType="Label"
+                                            Value="True">
+                                            <Setter Property="TextColor" Value="Green" />
+                                            <Setter Property="Text" Value="&#xf4d8;" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </Grid>
                         </Grid>
                     </sho:MaterialFrame>
                 </ContentView>
