@@ -76,7 +76,8 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     public class Nutrient
     {
         public int id { get; set; }
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
         //[JsonIgnore]
         public int rank { get; set; }
         public string unitName { get; set; }

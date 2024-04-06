@@ -13,7 +13,7 @@ namespace VeganLife.Models
 
     public class UndefinedFoodNutrient
     {
-        public double Amount { get; set; }
+        public double? Amount { get; set; }
         [DataMember(Name = "nutrient")]
         public UndefinedNutrient Nutrient { get; set; }
         [DataMember(Name = "unit")]

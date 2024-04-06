@@ -63,20 +63,20 @@ namespace VeganLife.ViewModels.ContentViewModels
                     {
                         foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
                         {
-                            if (this.CaloriesValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
+                            if (this.CaloriesValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
                             {
                                 this.CaloriesValue = i;
                             }
-                            else if (this.ProteinValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
+                            else if (this.ProteinValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
                             {
                                 this.ProteinValue = i;
                             }
-                            else if (CarbValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
-                                && i.Nutrient.name.Contains("difference"))
+                            else if (CarbValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
+                                && i.Nutrient.Name.Contains("difference"))
                             {
                                 this.CarbValue = i;
                             }
-                            else if (FatValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
+                            else if (FatValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
                             {
                                 this.FatValue = i;
                             }
