@@ -1,4 +1,6 @@
-﻿namespace VeganLife.Models
+﻿using System.Runtime.Serialization;
+
+namespace VeganLife.Models
 {
     public class BaseDataModel
     {

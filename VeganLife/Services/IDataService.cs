@@ -27,5 +27,6 @@ namespace VeganLife.Services
         Task<string> GetFireBaseValue(string nodePath);
         Task<BmiModel> GetHealthDiagnosisFirebaseDataModel();
         Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA();
+        Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id);
     }
 }
