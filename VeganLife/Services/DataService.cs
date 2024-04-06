@@ -25,6 +25,7 @@ namespace VeganLife.Services
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins/list";
         private const string FoodNutriFacts = "Foods/nutritionFact";
+        private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
 
         public DataService()
         {
@@ -118,6 +119,27 @@ namespace VeganLife.Services
                 Console.WriteLine(e.StackTrace);
 #endif
                 return new FoodNutrientFacts();
+            }
+        }
+
+        public async Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return new UndefinedMacroFoodNutriFactModel();
+            try
+            {
+                var data = await this.firebaseDatabase.Child(MacrosFoodNutriFactDetail).Child(id)
+                    .OnceSingleAsync<UndefinedMacroFoodNutriFactModel>();
+                data ??= new UndefinedMacroFoodNutriFactModel();
+                data.FdcId = id;
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+#if DEBUG
+                Console.WriteLine(e.StackTrace);
+#endif
+                return new UndefinedMacroFoodNutriFactModel();
             }
         }
         #endregion
