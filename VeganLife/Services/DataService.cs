@@ -157,6 +157,7 @@ namespace VeganLife.Services
                     Image = item.Object.Image,
                     Name = item.Object.Name,
                     Category = item.Object.Category,
+                    IsPlantOrigin = item.Object.IsPlantOrigin
                 });
             }
             catch (FirebaseException e)

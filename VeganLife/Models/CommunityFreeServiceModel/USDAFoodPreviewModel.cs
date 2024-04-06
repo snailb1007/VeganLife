@@ -13,6 +13,8 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public string Category { get; set; }
         [JsonProperty("image")]
         public string Image { get; set; }
+        [JsonProperty("isPlantOrigin")]
+        public bool IsPlantOrigin { get; set; }
     }
 
     public partial class USDAFoodPreviewModel : ObservableObject
