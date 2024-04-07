@@ -1,0 +1,10 @@
+﻿Nội dung như sau:
+
+@@@content@@@
+
+-----------------------------------
+Thông tin
+-----------------------------------
+Tên : @@@username@@@
+Số điện thoại : @@@phonenumber@@@
+Email : @@@email@@@

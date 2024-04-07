@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Views.PortionTab;
@@ -52,8 +54,23 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private void EnsureSearch()
         {
-            var x = this.FilterKeySearch(allUSDAFoodPreview, this.TextSearch);
-            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(x);
+            //var x = this.FilterKeySearch(allUSDAFoodPreview, this.TextSearch);
+            var foodSearch = SearchFoodByName(this.TextSearch);
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(foodSearch);
+        }
+
+        private IEnumerable<USDAFoodPreviewModel> SearchFoodByName(string name)
+        {
+            // Normalize input name to support UTF-8 and improve search accuracy
+            var normalizedName = NormalizeString(name);
+            return allUSDAFoodPreview.Where(item => NormalizeString(item.Name).Contains(normalizedName));
+        }
+
+        private string NormalizeString(string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD)
+                        .ToLower()
+                        .Trim();
         }
 
         partial void OnTextSearchChanged(string value)
@@ -64,21 +81,15 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
         }
 
-        private IEnumerable<USDAFoodPreviewModel> FilterKeySearch(List<USDAFoodPreviewModel> foods, string key)
+        [RelayCommand]
+        private async Task OnSupportRequest()
         {
-            string[] words = Regex.Replace(key, @"\s+", " ").Split(' ');
-            foreach (var item in foods)
-            {
-                var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
-                int count = (from word in words
-                             where normalName.Contains(word)
-                             select word).Count();
-                item.CountCorrectWordOnSearch = count;
-            }
-
-            return allUSDAFoodPreview
-                .Where(w => w.CountCorrectWordOnSearch == words.Length)
-                .OrderByDescending(i => i.CountCorrectWordOnSearch);
+            var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
+            var userTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
+            await Task.WhenAll(templateTask, userTask);
+            var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
+            content = content.Replace("@@@content@@@", TextSearch);
+            await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
         }
     }
 }

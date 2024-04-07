@@ -13,6 +13,11 @@
     Padding="0"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
     BackgroundColor="{StaticResource PrimaryDark}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid BackgroundColor="{StaticResource Gray100}" RowDefinitions="*,*">
         <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
             <controls:NavBarControl
@@ -105,7 +110,16 @@
                 MinimumHeightRequest="100"
                 RefreshingEnabled="False"
                 RowHeight="40"
-                SelectionEnabled="False" />
+                SelectionEnabled="False">
+                <cw:DataGridNutritionFactCW.Triggers>
+                    <DataTrigger
+                        Binding="{Binding CurrentFoodNutritionFact.foodNutrients, Converter={StaticResource IsListNullOrEmptyConverter}}"
+                        TargetType="cw:DataGridNutritionFactCW"
+                        Value="True">
+                        <Setter Property="ItemsSource" Value="{Binding CurrentUndefinedMacroFoodNutriFact.foodNutrients}" />
+                    </DataTrigger>
+                </cw:DataGridNutritionFactCW.Triggers>
+            </cw:DataGridNutritionFactCW>
         </Grid>
     </Grid>
 </ContentPage>
