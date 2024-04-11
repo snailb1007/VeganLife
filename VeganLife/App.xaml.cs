@@ -6,10 +6,12 @@
 
 namespace VeganLife
 {
+    using CommunityToolkit.Maui.Views;
     using Microsoft.AppCenter.Crashes;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
+    using VeganLife.Views.Popups;
 
     /// <summary>
     /// auto-generated.
@@ -26,20 +28,13 @@ namespace VeganLife
             this.InitializeComponent();
             this.SetupTheme();
             this.SetupLanguage();
+            this.MainPage = new AppShell();
             if (UserSettingsHelper.IsFirstTime)
             {
-                this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
-            }
-            else
-            {
-                this.MainPage = new AppShell();
+                // this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+                // return;
             }
         }
-
-        //protected override Window CreateWindow(IActivationState activationState)
-        //{
-        //    return base.CreateWindow(activationState);
-        //}
 
         public static void SetupCollectLogPermission()
         {

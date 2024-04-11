@@ -20,7 +20,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.9</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.11</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -34,7 +34,6 @@
 		<LangVersion>latest</LangVersion>
 		<WarningLevel>4</WarningLevel>
 		<_MauiForceXamlCForDebug>False</_MauiForceXamlCForDebug>
-		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">

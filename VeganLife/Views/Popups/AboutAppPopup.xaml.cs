@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using VeganLife.Helpers;
 
 namespace VeganLife.Views.Popups;
 
@@ -24,5 +25,6 @@ public partial class AboutAppPopup : Popup
     private void Close_Clicked(object sender, EventArgs e)
     {
         this.Close();
+        UserSettingsHelper.Set(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString());
     }
 }
