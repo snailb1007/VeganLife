@@ -6,10 +6,13 @@
 
 namespace VeganLife
 {
+    using CommunityToolkit.Maui.Views;
     using Mopups.Services;
     using VeganLife.Helpers;
+    using VeganLife.Resources.Translations;
     using VeganLife.Views.MainPageFlyout;
     using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
     using VeganLife.Views.ToolFlyout;
     using static VeganLife.Helpers.AppSetting.StaticHelper;
@@ -36,6 +39,21 @@ namespace VeganLife
             // Init data
             this.Dispatcher.Dispatch(async () =>
             {
+                if (UserSettingsHelper.IsFirstTime)
+                {
+                    UserSettingsHelper.Set(UserSettingKey.IsFirstTime, false.ToString());
+                    var isCollectAccepted = await ServicesHelper.GetService<INavigationService>().DisplayAlert(
+                    string.Empty,
+                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
+                    ok: AppResources.ok_common,
+                    cancel: AppResources.cancel_common);
+                    UserSettingsHelper.Set(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString());
+                }
+
+                if (!UserSettingsHelper.IsAcceptedTermsAndConditions)
+                {
+                    await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>());
+                }
                 await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
                 .ContinueWith(t =>
                 {

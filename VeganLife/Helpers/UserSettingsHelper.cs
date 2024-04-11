@@ -9,6 +9,7 @@ namespace VeganLife.Helpers
         SelectedTheme,
         IsFirstTime,
         IsAcceptedCollectLogs,
+        IsAcceptedTermsAndConditions,
         // IsDisplayedPolicyBox,
         // IsDisplayedLogsPermissionBox,
     }
@@ -18,6 +19,8 @@ namespace VeganLife.Helpers
         public static bool IsFirstTime => string.IsNullOrEmpty(Get(UserSettingKey.IsFirstTime));
 
         public static bool IsAcceptedCollectLogs => GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
+
+        public static bool IsAcceptedTermsAndConditions => GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions);
     }
 
     public static partial class UserSettingsHelper

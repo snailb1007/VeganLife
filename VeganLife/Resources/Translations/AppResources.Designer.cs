@@ -170,7 +170,7 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leafy Lifestyle.
+        ///   Looks up a localized string similar to HealthyChef.
         /// </summary>
         internal static string app_name {
             get {
