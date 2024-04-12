@@ -7,7 +7,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>8.0.14</MauiVersion>
+		<MauiVersion>8.0.20</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -122,7 +122,7 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
@@ -134,7 +134,7 @@
 		<PackageReference Include="Mopups" Version="1.3.1" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="ChatGptNet" Version="3.2.10" />
-		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.86" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
 		<PackageReference Include="Utf8Json" Version="1.3.7" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
