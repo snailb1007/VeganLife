@@ -51,7 +51,7 @@ namespace VeganLife.ViewModels
             this.IsDarkMode = parameter.IsToggled;
             var goalTheme = this.IsDarkMode ? AppTheme.Dark : AppTheme.Light;
             AppThemeHelper.SetTheme(goalTheme);
-            UserSettingsHelper.Set(UserSettingKey.SelectedTheme, goalTheme.ToString());
+            UserSettingsHelper.SetAsync(UserSettingKey.SelectedTheme, goalTheme.ToString());
         }
 
         [RelayCommand]

@@ -6,12 +6,9 @@
 
 namespace VeganLife
 {
-    using CommunityToolkit.Maui.Views;
-    using Microsoft.AppCenter.Crashes;
     using VeganLife.Helpers;
     using VeganLife.Helpers.AppSetting;
     using VeganLife.Resources.Translations;
-    using VeganLife.Views.Popups;
 
     /// <summary>
     /// auto-generated.
@@ -26,20 +23,20 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
-            this.SetupTheme();
+            _ = this.SetupThemeAsync();
             this.SetupLanguage();
             this.MainPage = new AppShell();
-            if (UserSettingsHelper.IsFirstTime)
-            {
-                // this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
-                // return;
-            }
+            //if (UserSettingsHelper.IsFirstTime)
+            //{
+            //    this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
+            //    return;
+            //}
         }
 
         public static void SetupCollectLogPermission()
         {
-            Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
-            Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
+            //Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
+            //Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
         }
 
         private void SetupLanguage()
@@ -51,16 +48,16 @@ namespace VeganLife
             AppResources.Culture = culture;
         }
 
-        private void SetupTheme()
+        private async Task SetupThemeAsync()
         {
-            if (string.IsNullOrEmpty(UserSettingsHelper.Get(UserSettingKey.SelectedTheme)))
+            if (string.IsNullOrEmpty(await UserSettingsHelper.GetAsync(UserSettingKey.SelectedTheme)))
             {
                 AppThemeHelper.SetTheme(AppTheme.Light);
-                UserSettingsHelper.Set(UserSettingKey.SelectedTheme, AppTheme.Light.ToString());
+                await UserSettingsHelper.SetAsync(UserSettingKey.SelectedTheme, AppTheme.Light.ToString());
             }
             else
             {
-                var currentThemeUser = UserSettingsHelper.Get(UserSettingKey.SelectedTheme);
+                var currentThemeUser = await UserSettingsHelper.GetAsync(UserSettingKey.SelectedTheme);
                 if (currentThemeUser != null)
                 {
                     var goalTheme = currentThemeUser == AppTheme.Dark.ToString() ? AppTheme.Dark : AppTheme.Light;
