@@ -460,7 +460,6 @@
     </Style>
     <DataTemplate x:Key="FoodPreviewCollection" x:DataType="modelFood:FoodPreviewModel">
         <Border
-            Padding="0"
             BackgroundColor="{AppThemeBinding Light=White,
                                               Dark=Gray}"
             Stroke="Transparent"
@@ -482,6 +481,7 @@
                     <ffimageloading:CachedImage
                         Aspect="AspectFill"
                         BackgroundColor="Transparent"
+                        CacheType="Disk"
                         DownsampleToViewSize="True"
                         ErrorPlaceholder="mascot_snail"
                         FadeAnimationEnabled="True"
