@@ -2,12 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AndroidX.ConstraintLayout.Core;
+using System.Collections.Concurrent;
+
 namespace VeganLife.Helpers
 {
     public enum UserSettingKey
     {
         SelectedTheme,
-        IsFirstTime,
+        HasPriorInstances,
         IsAcceptedCollectLogs,
         IsAcceptedTermsAndConditions,
         // IsDisplayedPolicyBox,
@@ -16,63 +19,39 @@ namespace VeganLife.Helpers
 
     public static partial class UserSettingsHelper
     {
-        public static bool IsFirstTime => string.IsNullOrEmpty(Get(UserSettingKey.IsFirstTime));
+        private static readonly ConcurrentDictionary<string, string> _cache = new ConcurrentDictionary<string, string>();
 
-        public static bool IsAcceptedCollectLogs => GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
-
-        public static bool IsAcceptedTermsAndConditions => GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions);
-    }
-
-    public static partial class UserSettingsHelper
-    {
-        static readonly Dictionary<string, string> cache = new Dictionary<string, string>();
-
-        public static string Get(UserSettingKey key)
+        public static async Task<string> GetAsync(UserSettingKey key)
         {
-            return Get(key.ToString());
+            return await GetAsync(key.ToString());
         }
 
-        public static void Set(UserSettingKey key, string value)
+        public static async Task SetAsync(UserSettingKey key, string value)
         {
-            Set(key.ToString(), value);
+            await Set(key.ToString(), value);
         }
 
         public static bool Remove(string key)
         {
-            cache.Remove(key);
+            _cache.TryRemove(key, out _);
             return SecureStorage.Remove(key);
         }
 
-        private static string Get(string key)
+        private static async Task<string> GetAsync(string key)
         {
-            // ContainsKey need to be check or it will lead to KeyNotFoundException
-            var value = cache.ContainsKey(key) ? cache[key] : null;
-            if (value != null)
+            if (!_cache.TryGetValue(key, out var value))
             {
-                return value;
-            }
-
-            try
-            {
-                var task = Task.Run(async () =>
+                value = await SecureStorage.GetAsync(key);
+                if (value != null)
                 {
-                    value = await SecureStorage.GetAsync(key);
-                });
-                task.Wait();
-            }
-            catch (Exception ex)
-            {
-                _ = ex;
-#if DEBUG
-                Debug.WriteLine(ex.Message);
-#endif
+                    _cache[key] = value;
+                }
             }
 
-            cache[key] = value;
-            return value;
+            return value!;
         }
 
-        private static void Set(string key, string value)
+        private static async Task Set(string key, string value)
         {
             if (value == null)
             {
@@ -80,23 +59,26 @@ namespace VeganLife.Helpers
             }
             else
             {
-                cache[key] = value;
-                try
+                if (_cache.TryAdd(key, value) || _cache[key] != value)
                 {
-                    var task = Task.Run(async () => { await SecureStorage.SetAsync(key, value); });
-                    task.Wait();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
+                    _cache[key] = value;
+                    try
+                    {
+                        await SecureStorage.SetAsync(key, value);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                        throw; // Consider rethrowing to notify about the failure
+                    }
                 }
             }
         }
 
-        private static bool GetBoolKey(UserSettingKey key)
+        public static async Task<bool> GetBoolKey(UserSettingKey key)
         {
-            var data = Get(key);
-            return !string.IsNullOrEmpty(data) && Convert.ToBoolean(data);
+            var value = await GetAsync(key);
+            return bool.TryParse(value, out bool result) && result;
         }
     }
 }

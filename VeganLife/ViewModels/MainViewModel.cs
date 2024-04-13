@@ -4,14 +4,17 @@
 
 namespace VeganLife.ViewModels
 {
+    using CommunityToolkit.Maui.Views;
     using CommunityToolkit.Mvvm.Messaging;
     using System.Text.RegularExpressions;
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
+    using VeganLife.Resources.Translations;
     using VeganLife.Services.UserServices;
     using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.Popups;
 
     /// <summary>
     /// vm for MainPage.
@@ -58,8 +61,24 @@ namespace VeganLife.ViewModels
             dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
-        public override Task ViewAppearingVM()
+        public override async Task<Task> ViewAppearingVM()
         {
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances))
+            {
+                await UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).ConfigureAwait(false);
+                var isCollectAccepted = await Shell.Current.CurrentPage.DisplayAlert(
+                string.Empty,
+                message: AppResources.Alert_CollectOperationLogsPermission_Message,
+                accept: AppResources.ok_common,
+                cancel: AppResources.cancel_common);
+                await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
+            }
+
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
+            {
+                await Shell.Current.CurrentPage.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>());
+            }
+
             if (!isLoadDataOnAppearingDone)
             {
                 LoadDataCommand.Execute(null);
