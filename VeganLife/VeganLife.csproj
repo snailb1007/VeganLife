@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks>net8.0-android34.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -20,11 +18,11 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.11</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.13</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -36,12 +34,11 @@
 		<_MauiForceXamlCForDebug>False</_MauiForceXamlCForDebug>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
 	  <!--<AndroidLinkTool>r8</AndroidLinkTool>-->
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-	  <AndroidLinkTool>r8</AndroidLinkTool>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<AndroidPackageFormats>aab;apk</AndroidPackageFormats>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -90,6 +87,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="proguard.cfg" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
@@ -130,7 +128,7 @@
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
+		<!--<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />-->
 		<PackageReference Include="Mopups" Version="1.3.1" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="ChatGptNet" Version="3.2.10" />
@@ -142,6 +140,10 @@
 		<PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.2" />
 		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProguardConfiguration Include="proguard.cfg" />
 	</ItemGroup>
 	<!--<ItemGroup>
 	  <ProjectReference Include="..\VeganLifeDataCenter\VeganLifeDataCenter.csproj" />

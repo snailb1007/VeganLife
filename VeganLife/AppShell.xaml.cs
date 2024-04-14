@@ -39,21 +39,6 @@ namespace VeganLife
             // Init data
             this.Dispatcher.Dispatch(async () =>
             {
-                if (UserSettingsHelper.IsFirstTime)
-                {
-                    UserSettingsHelper.Set(UserSettingKey.IsFirstTime, false.ToString());
-                    var isCollectAccepted = await ServicesHelper.GetService<INavigationService>().DisplayAlert(
-                    string.Empty,
-                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
-                    ok: AppResources.ok_common,
-                    cancel: AppResources.cancel_common);
-                    UserSettingsHelper.Set(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString());
-                }
-
-                if (!UserSettingsHelper.IsAcceptedTermsAndConditions)
-                {
-                    await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>());
-                }
                 await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
                 .ContinueWith(t =>
                 {
@@ -141,7 +126,7 @@ namespace VeganLife
                     var vm = page?.BindingContext as BaseViewModel;
                     if (page is null)
                         continue;
-                    this.Dispatcher.Dispatch(async() => await vm?.ViewIsRemovedAsync());
+                    this.Dispatcher.Dispatch(async () => await vm!.ViewIsRemovedAsync());
                 }
             }
 

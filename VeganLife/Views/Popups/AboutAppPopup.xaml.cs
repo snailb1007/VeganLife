@@ -22,9 +22,9 @@ public partial class AboutAppPopup : Popup
         Browser.Default.OpenAsync("https://veganhealthies.wordpress.com/2023/07/23/chinh-sach-quyen-rieng-tu/");
     }
 
-    private void Close_Clicked(object sender, EventArgs e)
+    private async void Close_Clicked(object sender, EventArgs e)
     {
         this.Close();
-        UserSettingsHelper.Set(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString());
+        await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString());
     }
 }
