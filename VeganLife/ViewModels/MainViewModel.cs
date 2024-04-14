@@ -61,24 +61,8 @@ namespace VeganLife.ViewModels
             dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
-        public override async Task<Task> ViewAppearingVM()
+        public override Task ViewAppearingVM()
         {
-            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances))
-            {
-                await UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).ConfigureAwait(false);
-                var isCollectAccepted = await Shell.Current.CurrentPage.DisplayAlert(
-                string.Empty,
-                message: AppResources.Alert_CollectOperationLogsPermission_Message,
-                accept: AppResources.ok_common,
-                cancel: AppResources.cancel_common);
-                await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
-            }
-
-            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
-            {
-                await Shell.Current.CurrentPage.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>());
-            }
-
             if (!isLoadDataOnAppearingDone)
             {
                 LoadDataCommand.Execute(null);
