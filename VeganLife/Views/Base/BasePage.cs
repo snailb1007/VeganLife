@@ -31,7 +31,7 @@ namespace VeganLife.Views.Base
         {
             base.OnAppearing();
 #if DEBUG
-            Debug.WriteLine($"=> OnAppearing: {this.Title}");
+            Debug.WriteLine($"★ OnAppearing: {this.Title}");
 #endif
             MainThread.BeginInvokeOnMainThread(async () =>
             {
@@ -44,12 +44,20 @@ namespace VeganLife.Views.Base
         {
             base.OnDisappearing();
 #if DEBUG
-            Debug.WriteLine($"=> OnDisappearing: {this.Title}");
+            Debug.WriteLine($"★ OnDisappearing: {this.Title}");
 #endif
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await (this.BindingContext as BaseViewModel)?.ViewDisappearingVM()!;
             });
+        }
+
+        protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+        {
+#if DEBUG
+            Debug.WriteLine($"★ OnNavigatedFrom: {this.Title}");
+#endif
+            base.OnNavigatedFrom(args);
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action? onChanged = null)
