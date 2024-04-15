@@ -10,6 +10,11 @@ namespace VeganLife.ViewModels.TabsViewModel
     public partial class MacrosViewModel : BaseViewModel
     {
         [ObservableProperty]
+        private bool _isFilterOpened;
+        [ObservableProperty]
+        private bool _isVeganSelected;
+
+        [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
         [ObservableProperty]
         private string textSearch;
@@ -59,6 +64,12 @@ namespace VeganLife.ViewModels.TabsViewModel
             this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(foodSearch);
         }
 
+        [RelayCommand]
+        private void OnFilter()
+        {
+            IsFilterOpened = !IsFilterOpened;
+        }
+
         private IEnumerable<USDAFoodPreviewModel> SearchFoodByName(string name)
         {
             // Normalize input name to support UTF-8 and improve search accuracy
@@ -90,6 +101,14 @@ namespace VeganLife.ViewModels.TabsViewModel
             var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
             content = content.Replace("@@@content@@@", TextSearch);
             await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
+        }
+
+        partial void OnIsVeganSelectedChanged(bool value)
+        {
+            if (value)
+            {
+                this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(allUSDAFoodPreview.Where(item => item.IsPlantOrigin));
+            }
         }
     }
 }

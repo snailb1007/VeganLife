@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sho:MaterialFrame
+    x:Class="VeganLife.Views.Controls.MaterialFrameSelectControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sho="http://sharpnado.com"
+    Margin="5"
+    CornerRadius="10">
+    <sho:MaterialFrame.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+    </sho:MaterialFrame.GestureRecognizers>
+    <Label
+        x:Name="lbTitle"
+        HorizontalOptions="Center"
+        VerticalOptions="Center" />
+</sho:MaterialFrame>

@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.ContentViews.Tabs.MacrosTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -38,6 +39,7 @@
                                 VerticalOptions="FillAndExpand">
                                 <ffimageloading:CachedImage
                                     Aspect="AspectFill"
+                                    CacheType="Disk"
                                     DownsampleToViewSize="True"
                                     LoadingPriority="Low"
                                     Source="{Binding Image, Mode=OneTime}" />
@@ -87,8 +89,25 @@
         </DataTemplate>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid RowDefinitions="*">
+        <Grid
+            RowDefinitions="Auto,*"
+            RowSpacing="10"
+            VerticalOptions="FillAndExpand">
+            <Border
+                Margin="5,0"
+                IsVisible="{Binding IsFilterOpened}"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="0">
+                <Grid
+                    BackgroundColor="{StaticResource Gray100}"
+                    ColumnDefinitions="*,*"
+                    ColumnSpacing="0">
+                    <controls:MaterialFrameSelectControl Title="Vegan" IsSelected="{Binding IsVeganSelected, Mode=TwoWay}" />
+                    <controls:MaterialFrameSelectControl Title="Un-Vegan" Grid.Column="1" />
+                </Grid>
+            </Border>
             <sho:CollectionView
+                Grid.Row="1"
                 CollectionLayout="Vertical"
                 IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
                 ItemHeight="110"
@@ -99,6 +118,7 @@
                 VerticalOptions="Fill" />
             <Button
                 x:Name="spBtn"
+                Grid.RowSpan="2"
                 Command="{Binding SupportRequestCommand}"
                 HorizontalOptions="Center"
                 IsVisible="{Binding UsdaFoodPreviews, Converter={StaticResource IsListNullOrEmptyConverter}}"
