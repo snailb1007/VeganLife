@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Android.Webkit;
+using System.Text;
 using System.Text.RegularExpressions;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
@@ -13,6 +14,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         private bool _isFilterOpened;
         [ObservableProperty]
         private bool _isVeganSelected;
+        [ObservableProperty]
+        private bool _isUnVeganSelected;
 
         [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
@@ -59,37 +62,13 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private void EnsureSearch()
         {
-            //var x = this.FilterKeySearch(allUSDAFoodPreview, this.TextSearch);
-            var foodSearch = SearchFoodByName(this.TextSearch);
-            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(foodSearch);
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
         }
 
         [RelayCommand]
         private void OnFilter()
         {
             IsFilterOpened = !IsFilterOpened;
-        }
-
-        private IEnumerable<USDAFoodPreviewModel> SearchFoodByName(string name)
-        {
-            // Normalize input name to support UTF-8 and improve search accuracy
-            var normalizedName = NormalizeString(name);
-            return allUSDAFoodPreview.Where(item => NormalizeString(item.Name).Contains(normalizedName));
-        }
-
-        private string NormalizeString(string input)
-        {
-            return input.Normalize(NormalizationForm.FormKD)
-                        .ToLower()
-                        .Trim();
-        }
-
-        partial void OnTextSearchChanged(string value)
-        {
-            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-            {
-                this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(this.allUSDAFoodPreview);
-            }
         }
 
         [RelayCommand]
@@ -107,8 +86,62 @@ namespace VeganLife.ViewModels.TabsViewModel
         {
             if (value)
             {
-                this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(allUSDAFoodPreview.Where(item => item.IsPlantOrigin));
+                IsUnVeganSelected = false;
             }
+
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+        }
+
+        partial void OnIsUnVeganSelectedChanged(bool value)
+        {
+            if (value)
+            {
+                IsVeganSelected = false;
+            }
+
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+        }
+
+        private IEnumerable<USDAFoodPreviewModel> GetFoodsFilter(string[] categories = null)
+        {
+            // Start with all food previews
+            var filteredFoods = allUSDAFoodPreview.AsParallel();
+
+            // Filter by vegan status
+            if (IsVeganSelected || IsUnVeganSelected)
+            {
+                bool veganStatus = IsVeganSelected;  // True if vegan, false if unvegan
+                filteredFoods = filteredFoods.Where(food => food.IsPlantOrigin == veganStatus);
+            }
+
+            // Filter by search text if not empty
+            if (!string.IsNullOrEmpty(TextSearch) && !string.IsNullOrWhiteSpace(TextSearch))
+            {
+                filteredFoods = SearchFoodByName(filteredFoods, TextSearch);
+            }
+
+            // Filter by categories if specified
+            if (categories != null && categories.Length > 0)
+            {
+                // Convert categories to a hash set for efficient lookup
+                HashSet<string> categorySet = new HashSet<string>(categories);
+                filteredFoods = filteredFoods.Where(food => categorySet.Contains(food.Category));
+            }
+
+            return filteredFoods;
+        }
+
+
+        private ParallelQuery<USDAFoodPreviewModel> SearchFoodByName(ParallelQuery<USDAFoodPreviewModel> uSDAFoods, string name)
+        {
+            // Normalize input name to support UTF-8 and improve search accuracy
+            var normalizedName = NormalizeString(name);
+            return uSDAFoods.Where(item => NormalizeString(item.Name).Contains(normalizedName));
+        }
+
+        private string NormalizeString(string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
         }
     }
 }

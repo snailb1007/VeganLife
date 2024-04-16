@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:sho="http://sharpnado.com"
     Margin="5"
-    CornerRadius="10">
+    CornerRadius="10"
+    MaterialTheme="Acrylic"
+    Opacity="0.5">
     <sho:MaterialFrame.GestureRecognizers>
         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
     </sho:MaterialFrame.GestureRecognizers>

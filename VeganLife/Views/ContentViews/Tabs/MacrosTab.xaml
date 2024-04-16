@@ -89,10 +89,7 @@
         </DataTemplate>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid
-            RowDefinitions="Auto,*"
-            RowSpacing="10"
-            VerticalOptions="FillAndExpand">
+        <Grid RowDefinitions="Auto,*" RowSpacing="10">
             <Border
                 Margin="5,0"
                 IsVisible="{Binding IsFilterOpened}"
@@ -103,19 +100,23 @@
                     ColumnDefinitions="*,*"
                     ColumnSpacing="0">
                     <controls:MaterialFrameSelectControl Title="Vegan" IsSelected="{Binding IsVeganSelected, Mode=TwoWay}" />
-                    <controls:MaterialFrameSelectControl Title="Un-Vegan" Grid.Column="1" />
+                    <controls:MaterialFrameSelectControl
+                        Title="Un-Vegan"
+                        Grid.Column="1"
+                        IsSelected="{Binding IsUnVeganSelected, Mode=TwoWay}" />
                 </Grid>
             </Border>
-            <sho:CollectionView
-                Grid.Row="1"
-                CollectionLayout="Vertical"
-                IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
-                ItemHeight="110"
-                ItemSpacing="5"
-                ItemTemplate="{StaticResource classicItemTemplate}"
-                ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
-                TapCommand="{Binding ItemSelectedChangedCommand}"
-                VerticalOptions="Fill" />
+            <RefreshView Grid.Row="1" IsClippedToBounds="False">
+                <sho:CollectionView
+                    CollectionLayout="Vertical"
+                    EnableDragAndDrop="False"
+                    IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
+                    ItemHeight="110"
+                    ItemSpacing="5"
+                    ItemTemplate="{StaticResource classicItemTemplate}"
+                    ItemsSource="{Binding UsdaFoodPreviews}"
+                    TapCommand="{Binding ItemSelectedChangedCommand}" />
+            </RefreshView>
             <Button
                 x:Name="spBtn"
                 Grid.RowSpan="2"

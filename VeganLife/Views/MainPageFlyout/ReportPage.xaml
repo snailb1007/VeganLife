@@ -163,7 +163,7 @@
                 SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
                 <sharpnado:DelayedView
                     x:TypeArguments="views:MacrosTab"
-                    Animate="False"
+                    Animate="True"
                     BindingContext="{Binding MacrosViewModel}"
                     UseActivityIndicator="False" />
                 <sharpnado:DelayedView
