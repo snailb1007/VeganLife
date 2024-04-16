@@ -16,20 +16,20 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
         <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
-            <sho:DraggableViewCell IsDraggable="False" IsEnabled="False">
-                <ContentView>
-                    <sho:MaterialFrame
-                        Margin="10,0"
-                        Padding="0"
-                        CornerRadius="10"
-                        HorizontalOptions="FillAndExpand"
-                        MaterialTheme="Acrylic"
-                        VerticalOptions="CenterAndExpand">
-                        <Grid
-                            Margin="5"
-                            ColumnDefinitions="*,2*"
-                            ColumnSpacing="5"
-                            HeightRequest="95">
+            <Grid RowDefinitions="Auto,10">
+                <sho:MaterialFrame
+                    Margin="10,0"
+                    Padding="0"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    MaterialTheme="Acrylic"
+                    VerticalOptions="CenterAndExpand">
+                    <Grid
+                        Margin="5"
+                        ColumnDefinitions="*,2*"
+                        ColumnSpacing="5"
+                        RowDefinitions="95">
+                        <Grid>
                             <sho:MaterialFrame
                                 Margin="0"
                                 Padding="0"
@@ -44,48 +44,48 @@
                                     LoadingPriority="Low"
                                     Source="{Binding Image, Mode=OneTime}" />
                             </sho:MaterialFrame>
-                            <Grid Grid.Column="1">
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="Medium"
-                                    Text="{Binding Name}"
-                                    VerticalOptions="Start" />
-                                <HorizontalStackLayout VerticalOptions="End">
-                                    <sho:MaterialFrame
-                                        Margin="0"
-                                        Padding="2"
-                                        CornerRadius="4"
-                                        IsVisible="{Binding IsUSDAFood, Mode=OneWay}"
-                                        LightThemeBackgroundColor="{StaticResource PrimaryOrange2}">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            FontSize="Micro"
-                                            Text="USDA"
-                                            TextColor="{StaticResource PrimaryLight}"
-                                            VerticalOptions="Center" />
-                                    </sho:MaterialFrame>
-                                </HorizontalStackLayout>
-                                <Label
-                                    FontFamily="FAThin"
-                                    HorizontalOptions="End"
-                                    Text="&#xe339;"
-                                    TextColor="Red"
-                                    VerticalOptions="Start">
-                                    <Label.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsPlantOrigin}"
-                                            TargetType="Label"
-                                            Value="True">
-                                            <Setter Property="TextColor" Value="Green" />
-                                            <Setter Property="Text" Value="&#xf4d8;" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </Grid>
                         </Grid>
-                    </sho:MaterialFrame>
-                </ContentView>
-            </sho:DraggableViewCell>
+                        <Grid Grid.Column="1">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                Text="{Binding Name}"
+                                VerticalOptions="Start" />
+                            <HorizontalStackLayout VerticalOptions="End">
+                                <sho:MaterialFrame
+                                    Margin="0"
+                                    Padding="2"
+                                    CornerRadius="4"
+                                    IsVisible="{Binding IsUSDAFood, Mode=OneWay}"
+                                    LightThemeBackgroundColor="{StaticResource PrimaryOrange2}">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Micro"
+                                        Text="USDA"
+                                        TextColor="{StaticResource PrimaryLight}"
+                                        VerticalOptions="Center" />
+                                </sho:MaterialFrame>
+                            </HorizontalStackLayout>
+                            <Label
+                                FontFamily="FAThin"
+                                HorizontalOptions="End"
+                                Text="&#xe339;"
+                                TextColor="Red"
+                                VerticalOptions="Start">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsPlantOrigin}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="TextColor" Value="Green" />
+                                        <Setter Property="Text" Value="&#xf4d8;" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Grid>
+                    </Grid>
+                </sho:MaterialFrame>
+            </Grid>
         </DataTemplate>
     </ContentView.Resources>
     <ContentView.Content>
@@ -98,7 +98,8 @@
                 <Grid
                     BackgroundColor="{StaticResource Gray100}"
                     ColumnDefinitions="*,*"
-                    ColumnSpacing="0">
+                    ColumnSpacing="0"
+                    RowDefinitions="Auto,*">
                     <controls:MaterialFrameSelectControl Title="Vegan" IsSelected="{Binding IsVeganSelected, Mode=TwoWay}" />
                     <controls:MaterialFrameSelectControl
                         Title="Un-Vegan"
@@ -106,16 +107,17 @@
                         IsSelected="{Binding IsUnVeganSelected, Mode=TwoWay}" />
                 </Grid>
             </Border>
-            <RefreshView Grid.Row="1" IsClippedToBounds="False">
-                <sho:CollectionView
-                    CollectionLayout="Vertical"
-                    EnableDragAndDrop="False"
+            <RefreshView
+                Grid.Row="1"
+                IsClippedToBounds="False"
+                IsRefreshing="False">
+                <CollectionView
+                    x:Name="FoodsPreviewCollection"
                     IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
-                    ItemHeight="110"
-                    ItemSpacing="5"
+                    ItemSizingStrategy="MeasureFirstItem"
                     ItemTemplate="{StaticResource classicItemTemplate}"
                     ItemsSource="{Binding UsdaFoodPreviews}"
-                    TapCommand="{Binding ItemSelectedChangedCommand}" />
+                    SelectionChangedCommand="{Binding ItemSelectedChangedCommand}" />
             </RefreshView>
             <Button
                 x:Name="spBtn"
