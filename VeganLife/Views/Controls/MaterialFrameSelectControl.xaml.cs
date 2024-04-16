@@ -29,8 +29,6 @@ public partial class MaterialFrameSelectControl : MaterialFrame
     public MaterialFrameSelectControl()
 	{
 		InitializeComponent();
-        this.MaterialTheme = Theme.AcrylicBlur;
-        this.BorderColor = Colors.Orange;
 	}
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -38,8 +36,7 @@ public partial class MaterialFrameSelectControl : MaterialFrame
         switch (propertyName)
         {
             case nameof(IsSelected):
-                this.MaterialTheme = IsSelected ? Theme.Acrylic : Theme.AcrylicBlur;
-                this.BorderColor = IsSelected ? Colors.Transparent : Colors.Orange;
+                this.Opacity = IsSelected ? 1 : 0.5;
                 break;
             case nameof(Title):
                 lbTitle.Text = Title;
