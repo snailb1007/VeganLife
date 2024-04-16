@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.PortionTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
@@ -33,7 +34,7 @@ namespace VeganLife.ViewModels.TabsViewModel
 
         public override async Task<Task> ViewAppearingVM()
         {
-            if (!UsdaFoodPreviews?.Any() ?? true)
+            if (!allUSDAFoodPreview?.Any() ?? true)
             {
                 if (!allUSDAFoodPreview?.Any() ?? true)
                 {
@@ -80,6 +81,16 @@ namespace VeganLife.ViewModels.TabsViewModel
             var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
             content = content.Replace("@@@content@@@", TextSearch);
             await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
+        }
+
+        internal void ScrollToTop()
+        {
+            var currentShoTab = Shell.Current.CurrentPage.FindByName("Tab1");
+            var collection = (currentShoTab as Sharpnado.Tabs.DelayedView<MacrosTab>)?.Content?.FindByName("FoodsPreviewCollection")!;
+            if (collection != null)
+            {
+                (collection as CollectionView)?.ScrollTo(UsdaFoodPreviews?.FirstOrDefault(), animate: false);
+            }
         }
 
         partial void OnIsVeganSelectedChanged(bool value)

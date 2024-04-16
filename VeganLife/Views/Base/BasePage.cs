@@ -35,7 +35,12 @@ namespace VeganLife.Views.Base
 #endif
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await (this.BindingContext as BaseViewModel)?.ViewAppearingVM()!;
+                var vm = this.BindingContext as BaseViewModel;
+                if (vm is null)
+                    return;
+                vm.IsLoading = true;
+                await vm.ViewAppearingVM()!;
+                vm.IsLoading = false;
             });
         }
 

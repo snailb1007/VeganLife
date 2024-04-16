@@ -162,6 +162,7 @@
                 Animate="True"
                 SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
                 <sharpnado:DelayedView
+                    x:Name="Tab1"
                     x:TypeArguments="views:MacrosTab"
                     Animate="True"
                     BindingContext="{Binding MacrosViewModel}"
