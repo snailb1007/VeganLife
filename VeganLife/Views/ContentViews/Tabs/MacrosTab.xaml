@@ -108,9 +108,11 @@
                 </Grid>
             </Border>
             <RefreshView
+                x:Name="refreshView"
                 Grid.Row="1"
                 IsClippedToBounds="False"
-                IsRefreshing="False">
+                IsRefreshing="False"
+                Refreshing="RefreshView_Refreshing">
                 <CollectionView
                     x:Name="FoodsPreviewCollection"
                     IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
