@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  android:versionCode="8"
-          android:versionName="1.0.8">
-	<application android:allowBackup="true"
+		  android:versionCode="13">
+	<application android:allowBackup="false"
 				 android:icon="@mipmap/appicon"
 				 android:supportsRtl="true"
 				 android:theme="@style/Theme.MaterialComponents"></application>
+	<supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="false" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-feature android:name="android.hardware.telephony" android:required="true"/>
 	<queries>
 		<intent>
 			<action android:name="android.intent.action.VIEW" />
@@ -18,5 +23,4 @@
 			<data android:scheme="https" />
 		</intent>
 	</queries>
-	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="34" />
 </manifest>

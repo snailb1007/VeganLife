@@ -1,12 +1,23 @@
-﻿using System.Text.RegularExpressions;
+﻿using Android.Webkit;
+using System.Text;
+using System.Text.RegularExpressions;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.PortionTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
+        [ObservableProperty]
+        private bool _isFilterOpened;
+        [ObservableProperty]
+        private bool _isVeganSelected;
+        [ObservableProperty]
+        private bool _isUnVeganSelected;
+
         [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
         [ObservableProperty]
@@ -23,7 +34,7 @@ namespace VeganLife.ViewModels.TabsViewModel
 
         public override async Task<Task> ViewAppearingVM()
         {
-            if (!UsdaFoodPreviews?.Any() ?? true)
+            if (!allUSDAFoodPreview?.Any() ?? true)
             {
                 if (!allUSDAFoodPreview?.Any() ?? true)
                 {
@@ -52,33 +63,96 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private void EnsureSearch()
         {
-            var x = this.FilterKeySearch(allUSDAFoodPreview, this.TextSearch);
-            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(x);
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
         }
 
-        partial void OnTextSearchChanged(string value)
+        [RelayCommand]
+        private void OnFilter()
         {
-            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            IsFilterOpened = !IsFilterOpened;
+        }
+
+        [RelayCommand]
+        private async Task OnSupportRequest()
+        {
+            var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
+            var userTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
+            await Task.WhenAll(templateTask, userTask);
+            var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
+            content = content.Replace("@@@content@@@", TextSearch);
+            await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
+        }
+
+        internal void ScrollToTop()
+        {
+            var currentShoTab = Shell.Current.CurrentPage.FindByName("Tab1");
+            var collection = (currentShoTab as Sharpnado.Tabs.DelayedView<MacrosTab>)?.Content?.FindByName("FoodsPreviewCollection")!;
+            if (collection != null)
             {
-                this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(this.allUSDAFoodPreview);
+                (collection as CollectionView)?.ScrollTo(UsdaFoodPreviews?.FirstOrDefault(), animate: false);
             }
         }
 
-        private IEnumerable<USDAFoodPreviewModel> FilterKeySearch(List<USDAFoodPreviewModel> foods, string key)
+        partial void OnIsVeganSelectedChanged(bool value)
         {
-            string[] words = Regex.Replace(key, @"\s+", " ").Split(' ');
-            foreach (var item in foods)
+            if (value)
             {
-                var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
-                int count = (from word in words
-                             where normalName.Contains(word)
-                             select word).Count();
-                item.CountCorrectWordOnSearch = count;
+                IsUnVeganSelected = false;
             }
 
-            return allUSDAFoodPreview
-                .Where(w => w.CountCorrectWordOnSearch == words.Length)
-                .OrderByDescending(i => i.CountCorrectWordOnSearch);
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+        }
+
+        partial void OnIsUnVeganSelectedChanged(bool value)
+        {
+            if (value)
+            {
+                IsVeganSelected = false;
+            }
+
+            this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+        }
+
+        private IEnumerable<USDAFoodPreviewModel> GetFoodsFilter(string[] categories = null)
+        {
+            // Start with all food previews
+            var filteredFoods = allUSDAFoodPreview.AsParallel();
+
+            // Filter by vegan status
+            if (IsVeganSelected || IsUnVeganSelected)
+            {
+                bool veganStatus = IsVeganSelected;  // True if vegan, false if unvegan
+                filteredFoods = filteredFoods.Where(food => food.IsPlantOrigin == veganStatus);
+            }
+
+            // Filter by search text if not empty
+            if (!string.IsNullOrEmpty(TextSearch) && !string.IsNullOrWhiteSpace(TextSearch))
+            {
+                filteredFoods = SearchFoodByName(filteredFoods, TextSearch);
+            }
+
+            // Filter by categories if specified
+            if (categories != null && categories.Length > 0)
+            {
+                // Convert categories to a hash set for efficient lookup
+                HashSet<string> categorySet = new HashSet<string>(categories);
+                filteredFoods = filteredFoods.Where(food => categorySet.Contains(food.Category));
+            }
+
+            return filteredFoods;
+        }
+
+
+        private ParallelQuery<USDAFoodPreviewModel> SearchFoodByName(ParallelQuery<USDAFoodPreviewModel> uSDAFoods, string name)
+        {
+            // Normalize input name to support UTF-8 and improve search accuracy
+            var normalizedName = NormalizeString(name);
+            return uSDAFoods.Where(item => NormalizeString(item.Name).Contains(normalizedName));
+        }
+
+        private string NormalizeString(string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
         }
     }
 }

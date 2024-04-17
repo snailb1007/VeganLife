@@ -4,7 +4,11 @@
 
 namespace VeganLife
 {
+    using CommunityToolkit.Maui.Views;
+    using VeganLife.Helpers;
+    using VeganLife.Resources.Translations;
     using VeganLife.Views.Base;
+    using VeganLife.Views.Popups;
 
     /// <summary>
     /// auto-generated.
@@ -55,6 +59,28 @@ namespace VeganLife
         {
             viewModel.LoadDataCommand.Execute(null);
             (sender as RefreshView).IsRefreshing = false;
+        }
+
+        private async void mainPageRoot_LoadedAsync(object sender, EventArgs e)
+        {
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances))
+            {
+                await UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).ConfigureAwait(false);
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    var isCollectAccepted = await this.DisplayAlert(
+                    string.Empty,
+                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
+                    accept: AppResources.ok_common,
+                    cancel: AppResources.cancel_common);
+                    await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
+                });
+            }
+
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
+            {
+                Dispatcher.Dispatch(async() => await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>()));
+            }
         }
     }
 }

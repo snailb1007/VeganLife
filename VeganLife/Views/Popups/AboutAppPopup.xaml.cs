@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using VeganLife.Helpers;
 
 namespace VeganLife.Views.Popups;
 
@@ -21,8 +22,9 @@ public partial class AboutAppPopup : Popup
         Browser.Default.OpenAsync("https://veganhealthies.wordpress.com/2023/07/23/chinh-sach-quyen-rieng-tu/");
     }
 
-    private void Close_Clicked(object sender, EventArgs e)
+    private async void Close_Clicked(object sender, EventArgs e)
     {
         this.Close();
+        await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString());
     }
 }

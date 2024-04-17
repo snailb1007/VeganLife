@@ -6,10 +6,13 @@
 
 namespace VeganLife
 {
+    using CommunityToolkit.Maui.Views;
     using Mopups.Services;
     using VeganLife.Helpers;
+    using VeganLife.Resources.Translations;
     using VeganLife.Views.MainPageFlyout;
     using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
     using VeganLife.Views.ToolFlyout;
     using static VeganLife.Helpers.AppSetting.StaticHelper;
@@ -123,7 +126,7 @@ namespace VeganLife
                     var vm = page?.BindingContext as BaseViewModel;
                     if (page is null)
                         continue;
-                    this.Dispatcher.Dispatch(async() => await vm?.ViewIsRemovedAsync());
+                    this.Dispatcher.Dispatch(async () => await vm!.ViewIsRemovedAsync());
                 }
             }
 

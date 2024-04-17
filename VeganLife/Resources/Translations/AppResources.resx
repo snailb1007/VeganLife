@@ -119,7 +119,7 @@
 	</resheader>
 	<!--app-->
 	<data name="app_name" xml:space="preserve">
-    <value>Leafy Lifestyle</value>
+    <value>HealthyChef</value>
   </data>
 	<data name="app_allow" xml:space="preserve">
     <value>I agree with </value>

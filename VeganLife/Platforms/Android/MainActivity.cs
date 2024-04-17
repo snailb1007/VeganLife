@@ -7,6 +7,7 @@ namespace VeganLife
     using Android.App;
     using Android.Content.PM;
     using Android.OS;
+    using Android.Views;
     using Android.Widget;
 
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
@@ -14,6 +15,11 @@ namespace VeganLife
     {
         public MainActivity()
         {
+        }
+
+        public override bool DispatchTouchEvent(MotionEvent? e)
+        {
+            return e?.PointerCount == 1 && base.DispatchTouchEvent(e);
         }
 
         //private bool IsInsideEditViewTouch(EditText editText, float xCoordinateTouch, float yCoordinateTouch)

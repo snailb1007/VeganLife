@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks>net8.0-android34.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>8.0.14</MauiVersion>
+		<MauiVersion>8.0.20</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -20,11 +18,11 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.8</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.13</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,15 +31,19 @@
 		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<LangVersion>latest</LangVersion>
 		<WarningLevel>4</WarningLevel>
-		<_MauiForceXamlCForDebug>true</_MauiForceXamlCForDebug>
+		<_MauiForceXamlCForDebug>False</_MauiForceXamlCForDebug>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-	  <!--<AndroidLinkTool>r8</AndroidLinkTool>-->
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
+		<AndroidLinkTool>r8</AndroidLinkTool>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<AndroidPackageFormats>aab;apk</AndroidPackageFormats>
+		<AndroidEnableMultiDex>True</AndroidEnableMultiDex>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-	  <AndroidLinkTool>r8</AndroidLinkTool>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
+	  <!--<AndroidEnableMultiDex>True</AndroidEnableMultiDex>-->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -90,6 +92,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="proguard.cfg" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
@@ -103,6 +106,7 @@
 		<None Remove="Resources\Raw\chat_detail.txt" />
 		<None Remove="Resources\Raw\chat_disclaimer.txt" />
 		<None Remove="Resources\Raw\loading.json" />
+		<None Remove="Resources\Raw\mail_template.txt" />
 		<None Remove="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
@@ -121,7 +125,7 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
@@ -129,11 +133,11 @@
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
+		<!--<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />-->
 		<PackageReference Include="Mopups" Version="1.3.1" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="ChatGptNet" Version="3.2.10" />
-		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.86" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
 		<PackageReference Include="Utf8Json" Version="1.3.7" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
@@ -141,6 +145,10 @@
 		<PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.2" />
 		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
 		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProguardConfiguration Include="proguard.cfg" />
 	</ItemGroup>
 	<!--<ItemGroup>
 	  <ProjectReference Include="..\VeganLifeDataCenter\VeganLifeDataCenter.csproj" />
@@ -206,6 +214,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\MaterialFrameSelectControl.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
