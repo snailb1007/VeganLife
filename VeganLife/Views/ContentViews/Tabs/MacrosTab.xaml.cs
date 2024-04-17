@@ -6,4 +6,9 @@ public partial class MacrosTab : ContentView
 	{
 		InitializeComponent();
 	}
+
+    private void RefreshView_Refreshing(object sender, EventArgs e)
+    {
+        refreshView.IsRefreshing = false;
+    }
 }

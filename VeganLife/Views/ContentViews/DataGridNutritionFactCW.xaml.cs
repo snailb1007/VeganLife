@@ -8,4 +8,23 @@ public partial class DataGridNutritionFactCW : DataGrid
 	{
 		InitializeComponent();
 	}
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(ItemsSource))
+        {
+            if (this.ItemsSource is not null)
+            {
+                if (this.ItemsSource is List<UndefinedFoodNutrient>)
+                {
+                    unitNameColumn.PropertyName = "Unit";
+                }
+                else
+                {
+                    unitNameColumn.PropertyName = "Nutrient.unitName";
+                }
+            }
+        }
+    }
 }

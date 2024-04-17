@@ -45,6 +45,7 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
+                _ = e;
 #if DEBUG
                 await Console.Out.WriteLineAsync(e.Message);
 #endif
@@ -101,6 +102,7 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
+                _ = e;
 #if DEBUG
                 await Console.Out.WriteLineAsync("Cant retrieve local data, " + e.Message);
 #endif

@@ -3,7 +3,7 @@ using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.ViewModels
 {
-    public partial class ReportPageViewModel : BaseViewModel
+    public partial class ReportPageViewModel : BaseViewModel, IScrollToTop
     {
         [ObservableProperty]
         private int _selectedViewModelIndex = 0;
@@ -51,6 +51,14 @@ namespace VeganLife.ViewModels
                 case 2:
                     _ = NutrientsViewModel.ViewAppearingVM();
                     break;
+            }
+        }
+
+        public void ScrollToTop()
+        {
+            if (SelectedViewModelIndex == 0)
+            {
+                MacrosViewModel.ScrollToTop();
             }
         }
     }

@@ -6,7 +6,6 @@ namespace VeganLife.Helpers
 {
     using System.Text;
     using System.Text.RegularExpressions;
-    using static Android.Renderscripts.ScriptGroup;
 
     public static class StringProcessHelper
     {

@@ -3,51 +3,132 @@
     x:Class="VeganLife.Views.ContentViews.Tabs.MacrosTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
     xmlns:sho="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     x:DataType="vm:MacrosViewModel">
     <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
         <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
-            <sho:DraggableViewCell IsDraggable="False" IsEnabled="False">
-                <ContentView>
-                    <!--<sho:MaterialFrame
-                        Padding="5"
-                        CornerRadius="10"
-                        HorizontalOptions="FillAndExpand"
-                        MaterialTheme="Acrylic"
-                        VerticalOptions="CenterAndExpand">
-
-                    </sho:MaterialFrame>-->
-                    <Grid ColumnDefinitions="*,2*" RowDefinitions="*">
-                        <Border StrokeShape="RoundRectangle 5" StrokeThickness="5">
-                            <ffimageloading:CachedImage
-                                Aspect="AspectFill"
-                                DownsampleToViewSize="True"
-                                LoadingPriority="Low"
-                                Source="{Binding Image, Mode=OneTime}" />
-                        </Border>
-                        <Label
-                            Grid.Column="1"
-                            Text="{Binding Name}"
-                            VerticalOptions="Center" />
+            <Grid RowDefinitions="Auto,10">
+                <sho:MaterialFrame
+                    Margin="10,0"
+                    Padding="0"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    MaterialTheme="Acrylic"
+                    VerticalOptions="CenterAndExpand">
+                    <Grid
+                        Margin="5"
+                        ColumnDefinitions="*,2*"
+                        ColumnSpacing="5"
+                        RowDefinitions="95">
+                        <Grid>
+                            <sho:MaterialFrame
+                                Margin="0"
+                                Padding="0"
+                                CornerRadius="8"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="FillAndExpand">
+                                <ffimageloading:CachedImage
+                                    Aspect="AspectFill"
+                                    CacheType="Disk"
+                                    DownsampleToViewSize="True"
+                                    LoadingPriority="Low"
+                                    Source="{Binding Image, Mode=OneTime}" />
+                            </sho:MaterialFrame>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                Text="{Binding Name}"
+                                VerticalOptions="Start" />
+                            <HorizontalStackLayout VerticalOptions="End">
+                                <sho:MaterialFrame
+                                    Margin="0"
+                                    Padding="2"
+                                    CornerRadius="4"
+                                    IsVisible="{Binding IsUSDAFood, Mode=OneWay}"
+                                    LightThemeBackgroundColor="{StaticResource PrimaryOrange2}">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Micro"
+                                        Text="USDA"
+                                        TextColor="{StaticResource PrimaryLight}"
+                                        VerticalOptions="Center" />
+                                </sho:MaterialFrame>
+                            </HorizontalStackLayout>
+                            <Label
+                                FontFamily="FAThin"
+                                HorizontalOptions="End"
+                                Text="&#xe339;"
+                                TextColor="Red"
+                                VerticalOptions="Start">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsPlantOrigin}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="TextColor" Value="Green" />
+                                        <Setter Property="Text" Value="&#xf4d8;" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Grid>
                     </Grid>
-                </ContentView>
-            </sho:DraggableViewCell>
+                </sho:MaterialFrame>
+            </Grid>
         </DataTemplate>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid RowDefinitions="*">
-            <Label Text="abc" />
-            <sho:CollectionView
-                CollectionLayout="Vertical"
-                ItemHeight="100"
-                ItemSpacing="10"
-                ItemTemplate="{StaticResource classicItemTemplate}"
-                ItemsSource="{Binding UsdaFoodPreviews, Mode=OneWay}"
-                TapCommand="{Binding ItemSelectedChangedCommand}"
-                VerticalOptions="Fill" />
+        <Grid RowDefinitions="Auto,*" RowSpacing="10">
+            <Border
+                Margin="5,0"
+                IsVisible="{Binding IsFilterOpened}"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="0">
+                <Grid
+                    BackgroundColor="{StaticResource Gray100}"
+                    ColumnDefinitions="*,*"
+                    ColumnSpacing="0"
+                    RowDefinitions="Auto,*">
+                    <controls:MaterialFrameSelectControl Title="Vegan" IsSelected="{Binding IsVeganSelected, Mode=TwoWay}" />
+                    <controls:MaterialFrameSelectControl
+                        Title="Un-Vegan"
+                        Grid.Column="1"
+                        IsSelected="{Binding IsUnVeganSelected, Mode=TwoWay}" />
+                </Grid>
+            </Border>
+            <RefreshView
+                x:Name="refreshView"
+                Grid.Row="1"
+                IsClippedToBounds="False"
+                IsRefreshing="False"
+                Refreshing="RefreshView_Refreshing">
+                <CollectionView
+                    x:Name="FoodsPreviewCollection"
+                    IsVisible="{Binding Source={x:Reference spBtn}, Path=IsVisible, Converter={StaticResource InvertedBoolConverter}}"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemTemplate="{StaticResource classicItemTemplate}"
+                    ItemsSource="{Binding UsdaFoodPreviews}"
+                    SelectionChangedCommand="{Binding ItemSelectedChangedCommand}" />
+            </RefreshView>
+            <Button
+                x:Name="spBtn"
+                Grid.RowSpan="2"
+                Command="{Binding SupportRequestCommand}"
+                HorizontalOptions="Center"
+                IsVisible="{Binding UsdaFoodPreviews, Converter={StaticResource IsListNullOrEmptyConverter}}"
+                Text="Support Request"
+                VerticalOptions="Center" />
         </Grid>
     </ContentView.Content>
 </ContentView>

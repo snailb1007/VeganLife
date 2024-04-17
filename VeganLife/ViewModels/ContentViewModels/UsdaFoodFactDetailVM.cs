@@ -12,6 +12,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         private USDAFoodPreviewModel currentFoodPreview;
         [ObservableProperty]
         private USDAFoodNutritionFactModel currentFoodNutritionFact;
+        [ObservableProperty]
+        private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
 
         [ObservableProperty]
         private FoodNutrient proteinValue;
@@ -48,36 +50,43 @@ namespace VeganLife.ViewModels.ContentViewModels
             foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
             if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
-                this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
-                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
-                if (this.CurrentFoodNutritionFact?.foodNutrients?.Any() ?? false)
+                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                 {
-                    foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
+                    this.CurrentUndefinedMacroFoodNutriFact = await dataService.GetMacroFoodNutriFacts(this.CurrentFoodPreview.Id);
+                }
+                else
+                {
+                    this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
+                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
+                    if (this.CurrentFoodNutritionFact?.foodNutrients?.Any() ?? false)
                     {
-                        if (this.CaloriesValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
+                        foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
                         {
-                            this.CaloriesValue = i;
-                        }
-                        else if (this.ProteinValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
-                        {
-                            this.ProteinValue = i;
-                        }
-                        else if (CarbValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
-                            && i.Nutrient.name.Contains("difference"))
-                        {
-                            this.CarbValue = i;
-                        }
-                        else if (FatValue == null && i.Nutrient.name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
-                        {
-                            this.FatValue = i;
-                        }
+                            if (this.CaloriesValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
+                            {
+                                this.CaloriesValue = i;
+                            }
+                            else if (this.ProteinValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
+                            {
+                                this.ProteinValue = i;
+                            }
+                            else if (CarbValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
+                                && i.Nutrient.Name.Contains("difference"))
+                            {
+                                this.CarbValue = i;
+                            }
+                            else if (FatValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
+                            {
+                                this.FatValue = i;
+                            }
 
-                        if (CarbValue != null
-                            && this.CaloriesValue != null
-                            && FatValue != null
-                            && ProteinValue != null)
-                        {
-                            break;
+                            if (CarbValue != null
+                                && this.CaloriesValue != null
+                                && FatValue != null
+                                && ProteinValue != null)
+                            {
+                                break;
+                            }
                         }
                     }
                 }

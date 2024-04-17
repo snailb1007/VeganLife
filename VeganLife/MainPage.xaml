@@ -18,6 +18,7 @@
     x:TypeArguments="viewmodel:MainViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
                                       Dark=Black}"
+    Loaded="mainPageRoot_LoadedAsync"
     Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -178,27 +179,6 @@
                     <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
             </CollectionView>
-
         </RefreshView>
-        <ActivityIndicator
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            IsRunning="False"
-            VerticalOptions="Center">
-            <ActivityIndicator.Triggers>
-                <DataTrigger
-                    Binding="{Binding GoFoodDetailCommand.IsRunning}"
-                    TargetType="ActivityIndicator"
-                    Value="true">
-                    <Setter Property="IsRunning" Value="True" />
-                </DataTrigger>
-                <DataTrigger
-                    Binding="{Binding LoadDataCommand.IsRunning}"
-                    TargetType="ActivityIndicator"
-                    Value="true">
-                    <Setter Property="IsRunning" Value="True" />
-                </DataTrigger>
-            </ActivityIndicator.Triggers>
-        </ActivityIndicator>
     </Grid>
 </base:BasePage>

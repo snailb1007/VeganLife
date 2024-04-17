@@ -4,14 +4,17 @@
 
 namespace VeganLife.ViewModels
 {
+    using CommunityToolkit.Maui.Views;
     using CommunityToolkit.Mvvm.Messaging;
     using System.Text.RegularExpressions;
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
+    using VeganLife.Resources.Translations;
     using VeganLife.Services.UserServices;
     using VeganLife.Views.MainPageFlyout.FoodTab;
+    using VeganLife.Views.Popups;
 
     /// <summary>
     /// vm for MainPage.
@@ -38,7 +41,7 @@ namespace VeganLife.ViewModels
 
         private bool isLoadDataOnAppearingDone;
 
-        public IAsyncRelayCommand GoFoodDetailCommand { get; }
+        //public IAsyncRelayCommand GoFoodDetailCommand { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -46,7 +49,7 @@ namespace VeganLife.ViewModels
         public MainViewModel()
             : base()
         {
-            this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
+            //this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
             this.allFoods = new List<FoodPreviewModel>();
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
@@ -71,6 +74,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task LoadDataAsync()
         {
+            IsLoading = true;
             if (this.IsNetworkConnected)
             {
                 this.onlineFoodPreviewData = await this.dataService.GetFoods();
@@ -132,6 +136,7 @@ namespace VeganLife.ViewModels
 
             await this.SetupMenu();
             this.isLoadDataOnAppearingDone = true;
+            IsLoading = false;
         }
 
         private async Task SetupMenu()
@@ -139,6 +144,7 @@ namespace VeganLife.ViewModels
             this.Category = await this.dataService.GetFoodMenu();
         }
 
+        [RelayCommand]
         private async Task GoFoodDetail(object obj)
         {
             if (this.GoFoodDetailCommand.IsRunning)
@@ -146,6 +152,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
+            IsLoading = true;
             await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
             this.CurrentFoodSelected = null!;
             var userService = ServicesHelper.GetService<IUserDataService>();
@@ -157,6 +164,7 @@ namespace VeganLife.ViewModels
             }
 
             await userService.SaveData();
+            IsLoading = false;
         }
 
         [RelayCommand]
