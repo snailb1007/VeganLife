@@ -4,8 +4,6 @@
 
 namespace VeganLife.ViewModels
 {
-    using VeganLife.Helpers;
-    using VeganLife.Helpers.AppSetting;
     using VeganLife.Views.SettingTab;
 
     /// <summary>
@@ -36,23 +34,23 @@ namespace VeganLife.ViewModels
 
         private void Init()
         {
-            var currentDeviceTheme = App.Current.UserAppTheme;
+            var currentDeviceTheme = App.Current?.UserAppTheme;
             this.IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }
 
-        [RelayCommand]
-        private void SwitchTheme(Microsoft.Maui.Controls.Switch parameter)
-        {
-            if (parameter == null)
-            {
-                return;
-            }
+        //[RelayCommand]
+        //private async Task SwitchThemeAsync(Microsoft.Maui.Controls.Switch parameter)
+        //{
+        //    if (parameter == null)
+        //    {
+        //        return;
+        //    }
 
-            this.IsDarkMode = parameter.IsToggled;
-            var goalTheme = this.IsDarkMode ? AppTheme.Dark : AppTheme.Light;
-            AppThemeHelper.SetTheme(goalTheme);
-            UserSettingsHelper.SetAsync(UserSettingKey.SelectedTheme, goalTheme.ToString());
-        }
+        //    this.IsDarkMode = parameter.IsToggled;
+        //    var goalTheme = this.IsDarkMode ? AppTheme.Dark : AppTheme.Light;
+        //    AppThemeHelper.SetTheme(goalTheme);
+        //    await UserSettingsHelper.SetAsync(UserSettingKey.SelectedTheme, goalTheme.ToString());
+        //}
 
         [RelayCommand]
         private async Task OpenLicensePage()

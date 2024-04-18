@@ -36,7 +36,6 @@ namespace VeganLife.ViewModels
 
         readonly IOpenAIService _openAIService;
         readonly IDispatcher _dispatcher;
-        readonly IDeviceService deviceService;
 
         private AsyncRelayCommand _currentCommand;
 
@@ -61,20 +60,21 @@ namespace VeganLife.ViewModels
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
-            deviceService = ServicesHelper.GetService<IDeviceService>();
             _sessionGuid = Guid.Empty;
             this._chatLogsDataStoreService = chatLogsDataStoreService;
         }
 
         public override async Task<Task> ViewAppearingVM()
         {
-            IsTrustedSetting = deviceService.IsAutomaticTimeZoneEnabled() && deviceService.IsAutomaticDateTimeEnabled();
+            IsTrustedSetting = deviceService != null
+                && deviceService.IsAutomaticTimeZoneEnabled()
+                && deviceService.IsAutomaticDateTimeEnabled();
             if (!IsTrustedSetting)
             {
                 bool isAcceptedGoSetting = await Shell.Current.DisplayAlert("Settings is invalid!", "Please turn on Automatic Time Zone & DateTime", "ok", "cancel");
                 if (isAcceptedGoSetting)
                 {
-                    deviceService.OpenDateSettings();
+                    deviceService?.OpenDateSettings();
                 }
             }
             else if (CurrentChat is null)
