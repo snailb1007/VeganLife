@@ -30,6 +30,26 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private ObservableCollection<Discovery> discoveryMenu;
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
+        /// </summary>
+        public NewsFeedViewModel()
+            : base()
+        {
+        }
+
+        public override Task ViewAppearingVM()
+        {
+            if (!isInitialized)
+            {
+                LoadData();
+                isInitialized = true;
+            }
+
+            return base.ViewAppearingVM();
+        }
+
         [RelayCommand]
         private void RefreshFoods()
         {
@@ -38,11 +58,11 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            this.Initialize();
+            this.LoadData();
         }
 
         [RelayCommand]
-        private async Task SelectDiscoveryMenu(object obj)
+        private void SelectDiscoveryMenu(object obj)
         {
             if (this.IsLoading)
             {
@@ -67,13 +87,10 @@ namespace VeganLife.ViewModels
                     this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
                 }
 
-                MainThread.BeginInvokeOnMainThread(() =>
+                foreach (var item in this.dataFood?.Take(this.currentNumberItem)!)
                 {
-                    foreach (var item in this.dataFood.Take(this.currentNumberItem))
-                    {
-                        this.Feeds.Add(item);
-                    }
-                });
+                    this.Feeds?.Add(item);
+                }
             }
             else if (currentItem.Title.Equals(AppResources.healthy_feedPage))
             {
@@ -83,19 +100,16 @@ namespace VeganLife.ViewModels
                     this.dataHealthy = dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
                 }
 
-                MainThread.BeginInvokeOnMainThread(() =>
+                foreach (var item in this.dataHealthy?.Take(this.currentNumberItem)!)
                 {
-                    foreach (var item in this.dataHealthy.Take(this.currentNumberItem))
-                    {
-                        this.Feeds.Add(item);
-                    }
-                });
+                    this.Feeds?.Add(item);
+                }
             }
             else if (currentItem.Title.Equals(AppResources.religion_feedPage))
             {
                 this.SetFlagDiscoverySelected();
                 if (!this.dataReligion?.Any() ?? true)
-                    {
+                {
                     this.dataReligion = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsReligion);
                 }
 
@@ -105,14 +119,14 @@ namespace VeganLife.ViewModels
             {
                 this.SetFlagDiscoverySelected(liveStrong: true);
                 if (!this.dataLiveStrong?.Any() ?? true)
-                    {
+                {
                     this.dataLiveStrong = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
                 }
 
                 MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataLiveStrong));
             }
 
-            foreach (var item in this.DiscoveryMenu)
+            foreach (var item in this.DiscoveryMenu!)
             {
                 item.IsSelected = false;
             }
@@ -149,7 +163,7 @@ namespace VeganLife.ViewModels
             {
                 for (int i = 0; i < 10 && (i + this.currentNumberItem) < listTemp?.Count(); i++)
                 {
-                    this.Feeds.Add(listTemp.ElementAt(i + this.currentNumberItem));
+                    this.Feeds?.Add(listTemp.ElementAt(i + this.currentNumberItem));
                 }
 
                 this.currentNumberItem += 10;
@@ -192,16 +206,7 @@ namespace VeganLife.ViewModels
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
-        /// </summary>
-        public NewsFeedViewModel()
-            : base()
-        {
-            this.Initialize();
-        }
-
-        private async void Initialize()
+        private void LoadData()
         {
             this.IsLoading = true;
             if (this.Feeds != null && this.Feeds.Any())

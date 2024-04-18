@@ -34,6 +34,8 @@ namespace VeganLife.ViewModels.TabsViewModel
 
         public override async Task<Task> ViewAppearingVM()
         {
+            if (isInitialized)
+                return base.ViewAppearingVM();
             if (!allUSDAFoodPreview?.Any() ?? true)
             {
                 if (!allUSDAFoodPreview?.Any() ?? true)
@@ -47,17 +49,25 @@ namespace VeganLife.ViewModels.TabsViewModel
                     (allUSDAFoodPreview ?? new List<USDAFoodPreviewModel>()));
             }
 
+            isInitialized = true;
             return base.ViewAppearingVM();
         }
 
         [RelayCommand]
-        private async Task ItemSelectedChanged(USDAFoodPreviewModel data)
+        private async Task ItemSelectedChanged(USDAFoodPreviewModel param)
         {
-            if (ItemSelectedChangedCommand.IsRunning || IsLoading || data is null)
-                return;
-            IsLoading = true;
-            await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(data);
-            IsLoading = false;
+            try
+            {
+                if (ItemSelectedChangedCommand.IsRunning || IsLoading || param is null)
+                    return;
+                IsLoading = true;
+                await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
+                IsLoading = false;
+            }
+            finally
+            {
+                UsdaFoodPreviewCurrent = null!;
+            }
         }
 
         [RelayCommand]
