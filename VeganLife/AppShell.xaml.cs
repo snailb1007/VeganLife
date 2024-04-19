@@ -124,9 +124,9 @@ namespace VeganLife
                 foreach (var page in PreviousPageStack.Except(currentSectionStack))
                 {
                     var vm = page?.BindingContext as BaseViewModel;
-                    if (page is null)
+                    if (page is null || vm is null)
                         continue;
-                    this.Dispatcher.Dispatch(async () => await vm!.ViewIsRemovedAsync());
+                    this.Dispatcher.Dispatch(async () => await vm.ViewIsRemovedAsync()!);
                 }
             }
 
