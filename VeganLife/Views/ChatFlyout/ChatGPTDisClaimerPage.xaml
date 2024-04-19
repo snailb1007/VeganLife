@@ -44,6 +44,7 @@
             HeightRequest="48"
             HorizontalOptions="CenterAndExpand"
             Text="Close"
+            TextColor="White"
             WidthRequest="100" />
     </Grid>
 </ContentPage>
