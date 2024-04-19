@@ -21,8 +21,7 @@
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_homeTab}"
         FlyoutDisplayOptions="AsSingleItem"
-        Icon="{AppThemeBinding Dark=home_light,
-                               Light=home}"
+        Icon="home"
         Route="home">
         <ShellContent
             Title="{x:Static translate:AppResources.veganFood_feedPage}"
@@ -52,8 +51,7 @@
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_bookmarkTab}"
         FlyoutDisplayOptions="AsSingleItem"
-        Icon="{AppThemeBinding Dark=bookmarked_light,
-                               Light=bookmarked}">
+        Icon="bookmarked">
         <ShellContent
             ContentTemplate="{DataTemplate view:BookmarkPage}"
             Route="bookmark"
