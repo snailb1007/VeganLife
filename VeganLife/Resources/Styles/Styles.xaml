@@ -53,12 +53,23 @@
                     HorizontalOptions="Center"
                     IsVisible="{Binding IsLoading}"
                     RepeatCount="-1"
-                    RepeatMode="Reverse"
+                    RepeatMode="Restart"
                     Source="loading.json"
                     VerticalOptions="Center"
                     WidthRequest="100" />
             </Grid>
         </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="EmptyListAnimationTemplate">
+        <skia:SKLottieView
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="empty_list.json"
+            VerticalOptions="Center"
+            WidthRequest="100" />
     </ControlTemplate>
 
     <Style ApplyToDerivedTypes="True" TargetType="ContentPage">

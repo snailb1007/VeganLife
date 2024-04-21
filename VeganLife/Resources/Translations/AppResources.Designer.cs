@@ -423,6 +423,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty list!.
+        /// </summary>
+        internal static string empty_list {
+            get {
+                return ResourceManager.GetString("empty_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t be afraid and ask us your question!.
         /// </summary>
         internal static string emptyChat_conversationChat {
@@ -482,6 +491,24 @@ namespace VeganLife.Resources.Translations {
         internal static string female_bmiPage {
             get {
                 return ResourceManager.GetString("female_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill text here.
+        /// </summary>
+        internal static string fillText_placeHolder_macroTab {
+            get {
+                return ResourceManager.GetString("fillText_placeHolder_macroTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go list page.
+        /// </summary>
+        internal static string goList_bookmarkPage {
+            get {
+                return ResourceManager.GetString("goList_bookmarkPage", resourceCulture);
             }
         }
         
