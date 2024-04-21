@@ -105,6 +105,7 @@
 		<None Remove="Resources\Images\web_view.svg" />
 		<None Remove="Resources\Raw\chat_detail.txt" />
 		<None Remove="Resources\Raw\chat_disclaimer.txt" />
+		<None Remove="Resources\Raw\empty_list.json" />
 		<None Remove="Resources\Raw\loading.json" />
 		<None Remove="Resources\Raw\mail_template.txt" />
 		<None Remove="Resources\Raw\tutorial.txt" />

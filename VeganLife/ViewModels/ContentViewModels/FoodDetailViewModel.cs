@@ -51,6 +51,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         /// <inheritdoc/>
         public override async Task<Task> OnNavigatingTo(object parameter)
         {
+            IsLoading = true;
             if (parameter is not null)
             {
                 this.FoodPreview = (FoodPreviewModel)parameter;
@@ -69,7 +70,7 @@ namespace VeganLife.ViewModels.ContentViewModels
 
                     if (this.FoodDetail == null)
                     {
-                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync()).FirstOrDefault();
+                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
                     }
                     else
                     {
@@ -77,10 +78,11 @@ namespace VeganLife.ViewModels.ContentViewModels
                     }
 
                     this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
-                    await Task.Run(this.GetMoreImage);
+                    await GetMoreImage().ConfigureAwait(false);
                 }
             }
 
+            IsLoading = false;
             return base.OnNavigatingTo(parameter!);
         }
 
@@ -304,14 +306,23 @@ namespace VeganLife.ViewModels.ContentViewModels
             var imgs = await dataService.GetImageLinksAsync(this.FoodDetail.RootLink);
             if (imgs?.Any() ?? false)
             {
-                foreach (var item in imgs)
+                var filteredImages = imgs.Where(item =>
+                    !string.IsNullOrEmpty(item) &&
+                    !item.Contains("150") &&
+                    item.Contains(this.FoodDetail.Key) &&
+                    !FoodImage.Contains(item)).ToList();
+                foreach (var i in filteredImages)
                 {
-                    if (!string.IsNullOrEmpty(item) && !item.Contains("150")
-                        && item.Contains(this.FoodDetail.Key) && !FoodImage.Contains(item))
-                    {
-                        this.FoodImage.Add(item);
-                    }
+                    FoodImage.Add(i);
                 }
+                //foreach (var item in imgs)
+                //{
+                //    if (!string.IsNullOrEmpty(item) && !item.Contains("150")
+                //        && item.Contains(this.FoodDetail.Key) && !FoodImage.Contains(item))
+                //    {
+                //        this.FoodImage.Add(item);
+                //    }
+                //}
             }
         }
     }

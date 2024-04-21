@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:BookmarkViewModel"
     x:TypeArguments="viewmodel:BookmarkViewModel">
@@ -20,6 +21,20 @@
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Spacing="20">
+                    <ContentView ControlTemplate="{StaticResource EmptyListAnimationTemplate}" />
+                    <Label
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.empty_list}" />
+                    <Button
+                        Margin="0,20,0,0"
+                        Command="{Binding GoListPageCommand}"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.goList_bookmarkPage}" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="modelFood:FoodPreviewModel">
                     <Border

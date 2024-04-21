@@ -129,7 +129,7 @@ namespace VeganLife.ViewModels
                 }
             }
 
-            foreach (var i in this.allFoods)
+            foreach (var i in this.allFoods.Where(i => !string.IsNullOrEmpty(i.Name)))
             {
                 this.Foods.Add(i);
             }
