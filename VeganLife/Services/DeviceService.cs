@@ -37,10 +37,12 @@ namespace VeganLife.Services
             }
             catch (FeatureNotSupportedException fbsEx)
             {
+                _ = fbsEx;
                 // Email is not supported on this device
             }
             catch (Exception ex)
             {
+                _ = ex;
                 // Some other exception occurred
             }
         }

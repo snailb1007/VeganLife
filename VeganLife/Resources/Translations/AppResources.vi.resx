@@ -144,6 +144,10 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
 	<data name="coming_soon" xml:space="preserve">
     <value>Sắp ra mắt</value>
   </data>
+	<data name="empty_list" xml:space="preserve">
+    <value>Không có gì ở đây!
+Danh sách trống.</value>
+  </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>
@@ -440,5 +444,11 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	</data>
 	<data name="skip_welcomePage" xml:space="preserve">
 		<value>Bỏ qua</value>
+	</data>
+	<data name="goList_bookmarkPage" xml:space="preserve">
+		<value>Tới trang danh sách</value>
+	</data>
+	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
+		<value>Nhập để tìm kiếm nguyên liệu, thực phẩm,...</value>
 	</data>
 </root>

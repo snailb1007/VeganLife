@@ -18,6 +18,8 @@ namespace VeganLife.ViewModels
         protected readonly IDeviceService deviceService;
         protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
+
+        protected bool isInitialized;
         //protected readonly AppDbContext appDbContext;
         protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 

@@ -163,6 +163,9 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="coming_soon" xml:space="preserve">
     <value>Coming Soon</value>
   </data>
+	<data name="empty_list" xml:space="preserve">
+    <value>Empty list!</value>
+  </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Enter search term</value>
@@ -458,5 +461,11 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	</data>
 	<data name="skip_welcomePage" xml:space="preserve">
 		<value>Skip</value>
+	</data>
+	<data name="goList_bookmarkPage" xml:space="preserve">
+		<value>Go list page</value>
+	</data>
+	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
+		<value>Fill text here</value>
 	</data>
 </root>

@@ -7,17 +7,18 @@
     xmlns:templates="clr-namespace:VeganLife.Views.Templates"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels"
+    x:Name="ConversationPageRoot"
     Title="HealthyChef - beta"
     x:DataType="vm:ConversationViewModel"
     BackgroundColor="#f8f8f8">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding CurrentChat.TimesLimit}" />
-        <ToolbarItem
-            Command="{Binding OpenChatGPTDetailPageCommand}"
+        <ToolbarItem Text="{Binding BindingContext.CurrentChat.TimesLimit, Source={x:Reference ConversationPageRoot}}" />
+        <!--<ToolbarItem
+            Command="{Binding OpenChatGPTDetailPageCommand, Source={x:Reference ConversationPageRoot}}"
             Order="Secondary"
-            Text="Detail" />
+            Text="Detail" />-->
         <ToolbarItem
-            Command="{Binding OpenDisclaimerPopupCommand}"
+            Command="{Binding BindingContext.OpenDisclaimerPopupCommand, Source={x:Reference ConversationPageRoot}}"
             Order="Secondary"
             Text="Disclaimer" />
     </ContentPage.ToolbarItems>
