@@ -83,8 +83,19 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task GoFoodDetail(object obj)
         {
+            IsLoading = true;
             await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
             await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
+            IsLoading = false;
+            FoodSelected = null;
+        }
+
+        [RelayCommand]
+        private async Task GoListPageAsync()
+        {
+            IsLoading = true;
+            await Shell.Current.GoToAsync("//home/main");
+            IsLoading = false;
         }
 
         // partial void OnFoodsChanged(ObservableCollection<FoodPreviewModel> value)
