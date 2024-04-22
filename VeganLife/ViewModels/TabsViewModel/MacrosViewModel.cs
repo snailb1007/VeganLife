@@ -123,7 +123,15 @@ namespace VeganLife.ViewModels.TabsViewModel
             this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
         }
 
-        private IEnumerable<USDAFoodPreviewModel> GetFoodsFilter(string[] categories = null)
+        partial void OnTextSearchChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+            }
+        }
+
+        private IEnumerable<USDAFoodPreviewModel> GetFoodsFilter(string[] categories = null!)
         {
             // Start with all food previews
             var filteredFoods = allUSDAFoodPreview.AsParallel();
