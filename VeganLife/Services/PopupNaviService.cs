@@ -72,7 +72,7 @@ namespace VeganLife.Services
             var toPage = this.ResolvePage<T>();
             if (toPage is not null)
             {
-                toPage.NavigatedTo += this.Page_NavigatedTo;
+                toPage.NavigatedTo += Page_NavigatedTo;
                 var toViewModel = this.GetPopupViewModel(toPage);
 
                 // passing param
