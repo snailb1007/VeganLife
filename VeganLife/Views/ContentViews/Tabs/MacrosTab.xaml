@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
@@ -32,22 +32,21 @@
                     ColumnDefinitions="*,2*"
                     ColumnSpacing="5"
                     RowDefinitions="85">
-                    <Grid>
-                        <sho:MaterialFrame
-                            Margin="0"
-                            Padding="0"
-                            CornerRadius="8"
-                            HorizontalOptions="FillAndExpand"
-                            IsClippedToBounds="True"
-                            VerticalOptions="FillAndExpand">
-                            <ffimageloading:CachedImage
-                                Aspect="AspectFill"
-                                CacheType="Disk"
-                                DownsampleToViewSize="True"
-                                LoadingPriority="Low"
-                                Source="{Binding Image, Mode=OneTime}" />
-                        </sho:MaterialFrame>
-                    </Grid>
+                    <sho:MaterialFrame
+                        Margin="0"
+                        Padding="0"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        IsClippedToBounds="True"
+                        VerticalOptions="FillAndExpand">
+                        <ffimageloading:CachedImage
+                            Aspect="AspectFill"
+                            CacheType="Disk"
+                            DownsampleToViewSize="True"
+                            LoadingPriority="Low"
+                            Source="{Binding Image, Mode=OneTime}" />
+                    </sho:MaterialFrame>
                     <Grid Grid.Column="1">
                         <Label
                             FontAttributes="Bold"
