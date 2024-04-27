@@ -7,6 +7,7 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     x:Name="macroTabRoot"
@@ -100,6 +101,7 @@
                     BackgroundColor="{StaticResource Gray100}"
                     ColumnDefinitions="*,*"
                     ColumnSpacing="0"
+                    HeightRequest="60"
                     RowDefinitions="Auto,*">
                     <controls:MaterialFrameSelectControl Title="Vegan" IsSelected="{Binding IsVeganSelected, Mode=TwoWay}" />
                     <controls:MaterialFrameSelectControl
@@ -121,13 +123,23 @@
                     ItemsSource="{Binding UsdaFoodPreviews}"
                     SelectionMode="None"
                     VerticalScrollBarVisibility="Always">
-                    <!--
-                        SelectedItem="{Binding UsdaFoodPreviewCurrent, Mode=TwoWay}"
-                        SelectionChangedCommand="{Binding ItemSelectedChangedCommand}"
-                    -->
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
+                    <CollectionView.Header>
+                        <Label Margin="0,0,10,0" HorizontalOptions="End">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontSize="Medium"
+                                        Text="{Binding UsdaFoodPreviews.Count}"
+                                        TextColor="Green" />
+                                    <Span Text="{x:Static translate:AppResources.result_lb}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </CollectionView.Header>
+                    <CollectionView.Footer />
                     <CollectionView.EmptyView>
                         <ContentView>
                             <Button

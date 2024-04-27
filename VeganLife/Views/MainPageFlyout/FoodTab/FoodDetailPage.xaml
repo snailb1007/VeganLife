@@ -80,26 +80,16 @@
                 ZIndex="0">
                 <cards:CardsView.ItemTemplate>
                     <DataTemplate>
-                        <ContentView>
-                            <Frame
-                                Padding="0"
-                                BackgroundColor="Transparent"
-                                CornerRadius="5"
-                                HasShadow="False"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
-                                <ffimageloading:CachedImage
-                                    x:Name="imgPreview"
-                                    Aspect="AspectFit"
-                                    DownsampleToViewSize="True"
-                                    ErrorPlaceholder="error_snail.jpg"
-                                    HorizontalOptions="FillAndExpand"
-                                    LoadingPlaceholder="relaxing.jpg"
-                                    PropertyChanged="Image_PropertyChanged"
-                                    Source="{Binding ., Mode=OneWay}"
-                                    VerticalOptions="FillAndExpand" />
-                            </Frame>
-                        </ContentView>
+                        <ffimageloading:CachedImage
+                            Aspect="AspectFit"
+                            CacheType="Disk"
+                            DownsampleToViewSize="True"
+                            ErrorPlaceholder="error_snail.jpg"
+                            HorizontalOptions="FillAndExpand"
+                            LoadingPlaceholder="relaxing.jpg"
+                            PropertyChanged="Image_PropertyChanged"
+                            Source="{Binding ., Mode=OneWay}"
+                            VerticalOptions="FillAndExpand" />
                     </DataTemplate>
                 </cards:CardsView.ItemTemplate>
             </cards:CardsView>

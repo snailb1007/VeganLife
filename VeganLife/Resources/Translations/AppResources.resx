@@ -166,6 +166,9 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="empty_list" xml:space="preserve">
     <value>Empty list!</value>
   </data>
+	<data name="result_lb" xml:space="preserve">
+    <value> results</value>
+  </data>
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Enter search term</value>
