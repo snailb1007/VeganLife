@@ -8,7 +8,7 @@
 	<supports-screens
         android:smallScreens="true"
         android:normalScreens="true"
-        android:largeScreens="false"
+        android:largeScreens="true"
         android:xlargeScreens="false" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
