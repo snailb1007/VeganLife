@@ -59,8 +59,8 @@
                                         <ffimageloading:CachedImage
                                             Aspect="AspectFill"
                                             DownsampleToViewSize="True"
-                                            ErrorPlaceholder="mascot_snail.jpg"
-                                            LoadingPlaceholder="mascot_snail.jpg"
+                                            ErrorPlaceholder="app_icon.jpg"
+                                            LoadingPlaceholder="app_icon.jpg"
                                             Source="{Binding Image}" />
                                     </Frame>
                                     <VerticalStackLayout Grid.Column="1">

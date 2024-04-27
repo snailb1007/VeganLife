@@ -504,11 +504,11 @@
                         BackgroundColor="Transparent"
                         CacheType="Disk"
                         DownsampleToViewSize="True"
-                        ErrorPlaceholder="mascot_snail"
+                        ErrorPlaceholder="app_icon.jpg"
                         FadeAnimationEnabled="True"
                         HeightRequest="70"
                         HorizontalOptions="End"
-                        LoadingPlaceholder="mascot_snail"
+                        LoadingPlaceholder="app_icon.jpg"
                         LoadingPriority="Low"
                         Source="{Binding Image, Mode=OneTime}"
                         WidthRequest="70" />
