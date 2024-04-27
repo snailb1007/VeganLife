@@ -880,6 +880,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  results.
+        /// </summary>
+        internal static string result_lb {
+            get {
+                return ResourceManager.GetString("result_lb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sauce.
         /// </summary>
         internal static string sauce_foodDetailPage {

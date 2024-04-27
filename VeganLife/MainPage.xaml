@@ -178,6 +178,19 @@
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
+                <CollectionView.Header>
+                    <Label Margin="0,0,10,0" HorizontalOptions="End">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontSize="Medium"
+                                    Text="{Binding Foods.Count}"
+                                    TextColor="Green" />
+                                <Span Text="{x:Static translate:AppResources.result_lb}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </CollectionView.Header>
             </CollectionView>
         </RefreshView>
     </Grid>

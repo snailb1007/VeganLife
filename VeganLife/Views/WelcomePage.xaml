@@ -6,7 +6,7 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
     xmlns:rv="http://sharpnado.com"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"

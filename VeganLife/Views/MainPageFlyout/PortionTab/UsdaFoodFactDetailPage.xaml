@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:rv="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -25,24 +25,11 @@
                 BackgroundColor="Transparent"
                 VerticalOptions="Start"
                 ZIndex="1" />
-            <Border
+            <ffimageloading:CachedImage
                 Grid.Row="1"
-                Padding="0"
+                Aspect="AspectFill"
                 HorizontalOptions="FillAndExpand"
-                StrokeShape="RoundRectangle 20"
-                VerticalOptions="Center">
-                <Border.Shadow>
-                    <Shadow
-                        Brush="Gray"
-                        Opacity="0.25"
-                        Radius="10"
-                        Offset="10,10" />
-                </Border.Shadow>
-                <ffimageloading:CachedImage
-                    Aspect="AspectFit"
-                    HorizontalOptions="FillAndExpand"
-                    Source="{Binding CurrentFoodPreview.Image}" />
-            </Border>
+                Source="{Binding CurrentFoodPreview.Image}" />
             <toolkit:Expander
                 x:Name="titleExpander"
                 Grid.RowSpan="2"
