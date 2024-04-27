@@ -108,6 +108,7 @@
 		<None Remove="Resources\Raw\empty_list.json" />
 		<None Remove="Resources\Raw\loading.json" />
 		<None Remove="Resources\Raw\mail_template.txt" />
+		<None Remove="Resources\Raw\swipe_rightToLeft.json" />
 		<None Remove="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
