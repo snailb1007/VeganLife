@@ -32,6 +32,8 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         [ObservableProperty]
         private bool isExpanded;
+        [ObservableProperty]
+        private bool isShowingSwipeAnimation;
 
         [ObservableProperty]
         private ObservableCollection<string> foodImage;
@@ -78,7 +80,21 @@ namespace VeganLife.ViewModels.ContentViewModels
                     }
 
                     this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
-                    await GetMoreImage().ConfigureAwait(false);
+                    await GetMoreImage()
+                        .ContinueWith(t =>
+                        {
+                            foreach (var i in t.Result)
+                            {
+                                FoodImage.Add(i);
+                            }
+
+                            IsShowingSwipeAnimation = true;
+                            Task.Delay(5000).ContinueWith(t =>
+                            {
+                                IsShowingSwipeAnimation = false;
+                            });
+                        })
+                        .ConfigureAwait(false);
                 }
             }
 
@@ -301,7 +317,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             //}
         }
 
-        private async Task GetMoreImage()
+        private async Task<List<string>> GetMoreImage()
         {
             var imgs = await dataService.GetImageLinksAsync(this.FoodDetail.RootLink);
             if (imgs?.Any() ?? false)
@@ -311,19 +327,10 @@ namespace VeganLife.ViewModels.ContentViewModels
                     !item.Contains("150") &&
                     item.Contains(this.FoodDetail.Key) &&
                     !FoodImage.Contains(item)).ToList();
-                foreach (var i in filteredImages)
-                {
-                    FoodImage.Add(i);
-                }
-                //foreach (var item in imgs)
-                //{
-                //    if (!string.IsNullOrEmpty(item) && !item.Contains("150")
-                //        && item.Contains(this.FoodDetail.Key) && !FoodImage.Contains(item))
-                //    {
-                //        this.FoodImage.Add(item);
-                //    }
-                //}
+                return filteredImages;
             }
+
+            return new List<string>();
         }
     }
 }
