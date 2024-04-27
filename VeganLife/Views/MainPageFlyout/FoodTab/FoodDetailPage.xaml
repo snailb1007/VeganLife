@@ -79,7 +79,7 @@
                 VerticalOptions="Fill"
                 ZIndex="0">
                 <cards:CardsView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="x:String">
                         <ffimageloading:CachedImage
                             Aspect="AspectFit"
                             CacheType="Disk"
