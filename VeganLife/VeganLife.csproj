@@ -96,7 +96,6 @@
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
-		<None Remove="Resources\Images\archives.svg" />
 		<None Remove="Resources\Images\facebook2019.svg" />
 		<None Remove="Resources\Images\google.svg" />
 		<None Remove="Resources\Images\microsoft.svg" />
