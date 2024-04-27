@@ -28,6 +28,6 @@ jobs:
         dotnet workload install android --ignore-failed-sources
         dotnet workload install maui --ignore-failed-sources
     - name: Restore Dependencies
-      run: dotnet restore VeganLife/VeganLife.csproj # Corrected indentation
+      run: dotnet restore VeganLife/VeganLife.csproj
     - name: Build Maui android
-      run: dotnet build VeganLife/VeganLife.csproj -c Release -f net8.0-android34 --no-restore
+      run: dotnet build VeganLife/VeganLife.csproj -c Release -f net8.0-android34
