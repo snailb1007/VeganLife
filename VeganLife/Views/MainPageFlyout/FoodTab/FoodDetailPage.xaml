@@ -93,6 +93,10 @@
                     </DataTemplate>
                 </cards:CardsView.ItemTemplate>
             </cards:CardsView>
+            <ContentView
+                Grid.Row="1"
+                ControlTemplate="{StaticResource SwipeLeftAnimationTemplate}"
+                IsVisible="{Binding IsShowingSwipeAnimation}" />
             <toolkit:Expander
                 x:Name="titleExpander"
                 Grid.RowSpan="2"
