@@ -17,7 +17,7 @@
         </Border.Resources>
         <Grid
             x:Name="mainGrid"
-            BackgroundColor="Transparent"
+            BackgroundColor="White"
             RowDefinitions="*,48">
             <VerticalStackLayout Padding="15" Spacing="10">
                 <Grid ColumnDefinitions="*,48">
@@ -36,22 +36,23 @@
                         VerticalOptions="Start" />
                 </Grid>
                 <Label Text="Các tài liệu được tham khảo và đề cập xuyên suốt được liệt kê dưới đây:" />
-                <CollectionView
-                    x:Name="collectionDoc"
-                    ItemSizingStrategy="MeasureFirstItem"
-                    ItemsSource="{Binding Documents, Mode=OneWay}"
-                    SelectionChangedCommand="{Binding HyperlinkClickedCommand}"
-                    SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={x:Reference collectionDoc}}"
-                    SelectionMode="Single">
-                    <CollectionView.ItemTemplate>
+                <ListView ItemsSource="{Binding Documents, Mode=OneWay}">
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Label
-                                MaxLines="1"
-                                Text="{Binding ., Converter={StaticResource TitleForHyperlinkConverter}}"
-                                TextColor="SkyBlue" />
+                            <ViewCell Height="48">
+                                <Label
+                                    MaxLines="1"
+                                    Text="{Binding ., Converter={StaticResource TitleForHyperlinkConverter}}"
+                                    TextColor="SkyBlue"
+                                    VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding HyperlinkClickedCommand}" CommandParameter="{Binding .}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </ViewCell>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    </ListView.ItemTemplate>
+                </ListView>
             </VerticalStackLayout>
             <Grid
                 Grid.Row="1"
