@@ -128,7 +128,7 @@
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
+		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.3" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
 		<PackageReference Include="FFImageLoading.Maui" Version="1.2.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
