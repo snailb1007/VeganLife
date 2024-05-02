@@ -112,11 +112,11 @@
     <value>Chính sách &amp; quyền riêng tư.</value>
   </data>
 	<data name="app_slogan" xml:space="preserve">
-    <value>Sống chay lành,
-nếm cả khoảnh khắc</value>
+    <value>Mỗi ngày một món chay,
+Sức khỏe vẫn đầy</value>
     </data>
 	<data name="app_detail" xml:space="preserve">
-    <value>Sống chay lành là ứng dụng về công thức món chay, đưa các giá trị ăn chay tới gần với bạn.</value>
+    <value>HealthyChef là ứng dụng di động dành cho những ai yêu thích ẩm thực chay và muốn duy trì lối sống lành mạnh. Ứng dụng này cung cấp một loạt công thức nấu ăn chay ngon miệng, dễ chuẩn bị, cùng các công cụ tiện ích giúp bạn tính toán BMI và macros. Với HealthyChef, bạn không chỉ tìm thấy nguồn cảm hứng nấu ăn mới mỗi ngày mà còn có thể quản lý sức khỏe một cách tiện lợi.</value>
   </data>
 	<!--common-->
 	<data name="explore_common" xml:space="preserve">
