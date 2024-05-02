@@ -8,7 +8,8 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.PopupViewModels"
     x:Name="root"
     x:DataType="viewmodel:BmiMoreInfoToolBarPopupVM"
-    CanBeDismissedByTappingOutsideOfPopup="False">
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    Color="Transparent">
     <Border StrokeShape="RoundRectangle 5" StrokeThickness="0">
         <Border.Resources>
             <ResourceDictionary>
