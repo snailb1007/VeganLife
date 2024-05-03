@@ -128,7 +128,8 @@ namespace VeganLife
                         continue;
                     if (page.BindingContext is BaseViewModel vm)
                     {
-                        this.Dispatcher.Dispatch(async () => await vm.ViewIsRemovedAsync()!);
+                        this.Dispatcher.Dispatch(async ()
+                            => await vm.ViewIsRemovedAsync().ConfigureAwait(false)!);
                     }
 
                     page.TearDown();
@@ -136,25 +137,6 @@ namespace VeganLife
             }
 
             PreviousPageStack = currentSectionStack;
-            //List<Page> GetCurrentSectionStack()
-            //{
-            //    var result = new List<Page>();
-            //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
-            //    {
-            //        if (item is null)
-            //            continue;
-            //        result.Add(item);
-            //    }
-
-            //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
-            //    {
-            //        if (item is null)
-            //            continue;
-            //        result.Add(item);
-            //    }
-
-            //    return result;
-            //}
         }
 
         private static bool IsRootPage(VisualElement page)
@@ -192,5 +174,24 @@ namespace VeganLife
             => navigation.NavigationStack
                 .Concat(navigation.ModalStack)
                 .Where(p => p is not null).ToHashSet();
+        //List<Page> GetCurrentSectionStack()
+        //{
+        //    var result = new List<Page>();
+        //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
+        //    {
+        //        if (item is null)
+        //            continue;
+        //        result.Add(item);
+        //    }
+
+        //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
+        //    {
+        //        if (item is null)
+        //            continue;
+        //        result.Add(item);
+        //    }
+
+        //    return result;
+        //}
     }
 }
