@@ -170,16 +170,26 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task CategoryClicked(object obj)
         {
+            if (this.allFoods == null || !this.allFoods.Any())
+            {
+                return;
+            }
+
             var itemMenu = obj as FoodMenuCategoryModel;
             if (itemMenu == null)
             {
                 return;
             }
 
-            var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title));
-            var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
-            consignment.Add(itemMenu.Category, foodByCategory);
+            IsLoading = true;
+            var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title))
+                .ToList();
+            var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>
+            {
+                { itemMenu.Category, foodByCategory }
+            };
             await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
+            IsLoading = false;
         }
 
         [RelayCommand]
@@ -212,8 +222,8 @@ namespace VeganLife.ViewModels
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
                 int count = (from word in words
-                              where normalName.Contains(word)
-                              select word).Count();
+                             where normalName.Contains(word)
+                             select word).Count();
                 item.CountCorrectWordOnSearch = count;
             }
 
