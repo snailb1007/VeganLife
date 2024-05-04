@@ -4,17 +4,14 @@
 
 namespace VeganLife.ViewModels
 {
-    using CommunityToolkit.Maui.Views;
     using CommunityToolkit.Mvvm.Messaging;
     using System.Text.RegularExpressions;
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
-    using VeganLife.Resources.Translations;
     using VeganLife.Services.UserServices;
     using VeganLife.Views.MainPageFlyout.FoodTab;
-    using VeganLife.Views.Popups;
 
     /// <summary>
     /// vm for MainPage.
