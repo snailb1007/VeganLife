@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
     HeaderBackground="{StaticResource PrimaryOrange1}"
-    IsSortable="True">
+    SortingEnabled="True">
     <dg:DataGrid.RowsBackgroundColorPalette>
         <dg:PaletteCollection>
             <Color>#F2F2F2</Color>
