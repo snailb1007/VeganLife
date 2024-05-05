@@ -151,6 +151,10 @@ Danh sách trống.</value>
 	<data name="result_lb" xml:space="preserve">
     <value> kết quả</value>
   </data>
+	<data name="save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+	<!--end common-->
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>
@@ -179,7 +183,7 @@ Danh sách trống.</value>
 	<data name="app_common_vitaminsTab" xml:space="preserve">
     <value>Vitamins</value>
   </data>
-	<data name="app_common_porytionTab" xml:space="preserve">
+	<data name="app_common_portionTab" xml:space="preserve">
     <value>Khẩu phần</value>
   </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
@@ -350,6 +354,10 @@ Danh sách trống!</value>
 	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
     <value>Độ tuổi quá lớn, dường như bạn nhập sai</value>
     </data>
+	<!--start profile popup-->
+	<data name="title_profile_profilePopupEdit" xml:space="preserve">
+    <value>Hồ sơ</value>
+    </data>
 	<data name="emptyName_profilePopupEdit" xml:space="preserve">
     <value>Chưa nhập tên!</value>
     </data>
@@ -362,6 +370,16 @@ Danh sách trống!</value>
 	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
     <value>Thông tin được lưu thành công</value>
     </data>
+	<data name="sex_options_profilePopupEdit" xml:space="preserve">
+    <value>Giới tính</value>
+    </data>
+	<data name="name_options_profilePopupEdit" xml:space="preserve">
+    <value>Tên</value>
+    </data>
+	<data name="dateOfBirth_options_profilePopupEdit" xml:space="preserve">
+    <value>Ngày sinh</value>
+    </data>
+	<!--end profile popup-->
 	<data name="title_bmrCalculatePage" xml:space="preserve">
     <value>Tốc độ chuyển hóa cơ bản</value>
     </data>

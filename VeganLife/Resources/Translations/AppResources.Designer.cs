@@ -396,6 +396,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of birth.
+        /// </summary>
+        internal static string dateOfBirth_options_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("dateOfBirth_options_profilePopupEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decorate.
         /// </summary>
         internal static string decorate_foodDetailPage {
@@ -688,6 +697,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string name_options_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("name_options_profilePopupEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Điều hướng thất bại!.
         /// </summary>
         internal static string navigationFailed_alert_common {
@@ -898,6 +916,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search anything!.
         /// </summary>
         internal static string searchPlace_mainPage {
@@ -921,6 +948,15 @@ namespace VeganLife.Resources.Translations {
         internal static string sex_bmiPage {
             get {
                 return ResourceManager.GetString("sex_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sex.
+        /// </summary>
+        internal static string sex_options_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("sex_options_profilePopupEdit", resourceCulture);
             }
         }
         
@@ -1002,6 +1038,24 @@ namespace VeganLife.Resources.Translations {
         internal static string title_bmrCalculatePage {
             get {
                 return ResourceManager.GetString("title_bmrCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MACRO.
+        /// </summary>
+        internal static string title_macroTab {
+            get {
+                return ResourceManager.GetString("title_macroTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        internal static string title_profile_profilePopupEdit {
+            get {
+                return ResourceManager.GetString("title_profile_profilePopupEdit", resourceCulture);
             }
         }
         

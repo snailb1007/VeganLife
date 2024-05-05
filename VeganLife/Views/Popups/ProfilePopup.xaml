@@ -6,6 +6,7 @@
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
     x:DataType="vm:ProfilePopupViewModel"
     BackgroundColor="#80808080">
@@ -52,8 +53,8 @@
                             FontSize="Large"
                             HorizontalOptions="Center"
                             Opacity="1"
-                            Text="Profile" />
-                        <Label Margin="0,10,0,0" Text="Name" />
+                            Text="{x:Static translate:AppResources.title_profile_profilePopupEdit}" />
+                        <Label Margin="0,10,0,0" Text="{x:Static translate:AppResources.name_options_profilePopupEdit}" />
                         <sho:MaterialFrame BorderColor="Transparent">
                             <sho:MaterialFrame.Triggers>
                                 <DataTrigger
@@ -65,27 +66,27 @@
                             </sho:MaterialFrame.Triggers>
                             <Entry
                                 Margin="5,0"
-                                Placeholder="Ten cua ban"
+                                Placeholder="name"
                                 Text="{Binding UserName}"
                                 VerticalOptions="Center" />
                         </sho:MaterialFrame>
-                        <Label Text="Sex" />
+                        <Label Text="{x:Static translate:AppResources.sex_options_profilePopupEdit}" />
                         <Grid ColumnDefinitions="*,*">
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <CheckBox IsChecked="{Binding IsMale}" />
-                                <Label Text="Nam" />
+                                <Label Text="{x:Static translate:AppResources.male_bmiPage}" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center">
                                 <CheckBox IsChecked="{Binding IsMale, Converter={StaticResource ReverseConverter}}" />
-                                <Label Text="Nu" />
+                                <Label Text="{x:Static translate:AppResources.female_bmiPage}" />
                             </HorizontalStackLayout>
                         </Grid>
-                        <Label Text="Age" />
+                        <Label Text="{x:Static translate:AppResources.dateOfBirth_options_profilePopupEdit}" />
                         <DatePicker
                             Date="{Binding SelectedDate}"
                             HorizontalOptions="Start"
                             MinimumDate="01/01/1950" />
-                        <Label Text="Chieu cao" />
+                        <Label Text="{x:Static translate:AppResources.height_bmiPage}" />
                         <Label HorizontalOptions="Center" Text="{Binding UserHeight, Mode=OneWay}" />
                         <Slider
                             x:Name="sliderHeight"
@@ -94,7 +95,7 @@
                             Minimum="50"
                             VerticalOptions="FillAndExpand"
                             Value="{Binding UserHeight}" />
-                        <Label Text="Can nang" />
+                        <Label Text="{x:Static translate:AppResources.weight_bmiPage}" />
                         <sho:MaterialFrame BorderColor="Transparent">
                             <sho:MaterialFrame.Triggers>
                                 <DataTrigger
@@ -106,7 +107,7 @@
                             </sho:MaterialFrame.Triggers>
                             <Entry
                                 Keyboard="Numeric"
-                                Placeholder="Can nang"
+                                Placeholder="weight"
                                 Text="{Binding UserWeight}"
                                 VerticalOptions="Center" />
                         </sho:MaterialFrame>
@@ -115,7 +116,7 @@
                             Margin="20,10,20,0"
                             Command="{Binding SaveDataCommand}"
                             IsEnabled="{Binding SaveDataCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
-                            Text="Save" />
+                            Text="{x:Static translate:AppResources.save}" />
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </sho:MaterialFrame>
