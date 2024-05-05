@@ -169,6 +169,10 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="result_lb" xml:space="preserve">
     <value> results</value>
   </data>
+	<data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+	<!--common-->
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Enter search term</value>
@@ -366,6 +370,10 @@ List is empty!</value>
 	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
     <value>Chasing age is too old, you seem to have entered it wrong</value>
     </data>
+	<!--start profile popup-->
+	<data name="title_profile_profilePopupEdit" xml:space="preserve">
+    <value>Profile</value>
+    </data>
 	<data name="emptyName_profilePopupEdit" xml:space="preserve">
     <value>Name is empty</value>
     </data>
@@ -378,6 +386,16 @@ List is empty!</value>
 	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
     <value>User information saved successfully</value>
     </data>
+	<data name="sex_options_profilePopupEdit" xml:space="preserve">
+    <value>Sex</value>
+    </data>
+	<data name="name_options_profilePopupEdit" xml:space="preserve">
+    <value>Name</value>
+    </data>
+	<data name="dateOfBirth_options_profilePopupEdit" xml:space="preserve">
+    <value>Date of birth</value>
+    </data>
+	<!--end profile popup-->
 	<data name="title_bmrCalculatePage" xml:space="preserve">
     <value>Basal metabolic rate</value>
     </data>
@@ -470,5 +488,8 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	</data>
 	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
 		<value>Fill text here</value>
+	</data>
+	<data name="title_macroTab" xml:space="preserve">
+		<value>MACRO</value>
 	</data>
 </root>

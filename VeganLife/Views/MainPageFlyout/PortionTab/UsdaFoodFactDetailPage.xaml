@@ -9,6 +9,7 @@
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     Padding="0"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
@@ -64,8 +65,10 @@
                             </Label.Triggers>
                         </Label>
                     </toolkit:Expander.Header>
-
-                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
+                    <Grid
+                        Margin="0,0,0,5"
+                        ColumnDefinitions="*,*,*"
+                        RowDefinitions="Auto,Auto">
                         <Label
                             FontSize="Medium"
                             HorizontalOptions="Center"
@@ -79,11 +82,17 @@
                             MaterialTheme="Acrylic">
                             <Label
                                 FontAttributes="Bold"
-                                FontSize="Large"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
-                                TextColor="{StaticResource PrimaryOrange1}" />
+                                TextColor="{StaticResource PrimaryOrange1}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="Large" Text="{Binding CaloriesValue.Amount, Mode=OneWay}" />
+                                        <Span Text=" " />
+                                        <Span FontSize="Small" Text="{Binding CaloriesValue.Unit}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </sho:MaterialFrame>
                         <Label
                             Grid.Column="1"
@@ -100,11 +109,17 @@
                             MaterialTheme="Acrylic">
                             <Label
                                 FontAttributes="Bold"
-                                FontSize="Large"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding ProteinValue.Amount, Mode=OneWay}"
-                                TextColor="{StaticResource PrimaryOrange1}" />
+                                TextColor="{StaticResource PrimaryOrange1}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="Large" Text="{Binding ProteinValue.Amount, Mode=OneWay}" />
+                                        <Span Text=" " />
+                                        <Span FontSize="Small" Text="{Binding ProteinValue.Unit}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </sho:MaterialFrame>
                         <Label
                             Grid.Column="2"
@@ -121,11 +136,17 @@
                             MaterialTheme="Acrylic">
                             <Label
                                 FontAttributes="Bold"
-                                FontSize="Large"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding CarbValue.Amount, Mode=OneWay}"
-                                TextColor="{StaticResource PrimaryOrange1}" />
+                                TextColor="{StaticResource PrimaryOrange1}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="Large" Text="{Binding CarbValue.Amount, Mode=OneWay}" />
+                                        <Span Text=" " />
+                                        <Span FontSize="Small" Text="{Binding CarbValue.Unit}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </sho:MaterialFrame>
                     </Grid>
                 </toolkit:Expander>
@@ -135,7 +156,14 @@
             Grid.Row="1"
             BackgroundColor="White"
             RowDefinitions="Auto,*">
-            <Label Text="Portion: 100g" />
+            <Label Margin="5">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static translate:AppResources.app_common_portionTab}" />
+                        <Span FontAttributes="Bold" Text=": 100g" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <cw:DataGridNutritionFactCW
                 Grid.Row="1"
                 Margin="5,0"
