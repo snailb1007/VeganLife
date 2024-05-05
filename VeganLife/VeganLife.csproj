@@ -57,7 +57,6 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\facebook2019.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\google.svg" BaseSize="50,50" />
-		<MauiImage Update="Resources\Images\filter.svg" BaseSize="25,25" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -126,9 +125,9 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="akgul.Maui.DataGrid" Version="3.0.0" />
+		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.3" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
 		<PackageReference Include="FFImageLoading.Maui" Version="1.2.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />

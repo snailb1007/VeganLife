@@ -4,7 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
     x:DataType="vm:ProfilePopupViewModel"
     BackgroundColor="#80808080">
@@ -15,12 +17,12 @@
     </Mopups:PopupPage.Resources>
     <Mopups:PopupPage.Content>
         <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.5*,Auto,*">
-            <Frame
+            <sho:MaterialFrame
                 Grid.Row="1"
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="White"
-                CornerRadius="10">
+                CornerRadius="10"
+                MaterialTheme="Acrylic">
                 <VerticalStackLayout>
                     <Button
                         Background="Transparent"
@@ -29,16 +31,17 @@
                         FontFamily="FASolid"
                         FontSize="Title"
                         HorizontalOptions="End"
-                        Text="{StaticResource IconClose}"
+                        Text="&#xf00d;"
                         TextColor="Gray"
                         VerticalOptions="Start" />
                     <VerticalStackLayout Margin="20" Spacing="10">
                         <VerticalStackLayout.Resources>
                             <ResourceDictionary>
-                                <Style TargetType="Frame">
+                                <Style TargetType="sho:MaterialFrame">
                                     <Setter Property="CornerRadius" Value="4" />
-                                    <Setter Property="HasShadow" Value="True" />
                                     <Setter Property="Padding" Value="2" />
+                                    <Setter Property="MaterialTheme" Value="Acrylic" />
+                                    <Setter Property="HeightRequest" Value="55" />
                                 </Style>
                                 <Style TargetType="Label">
                                     <Setter Property="Opacity" Value="0.7" />
@@ -46,39 +49,44 @@
                                 </Style>
                             </ResourceDictionary>
                         </VerticalStackLayout.Resources>
-                        <Label HorizontalOptions="Center" Text="Profile" />
-                        <Label Margin="0,10,0,0" Text="Name" />
-                        <Frame BorderColor="Gray">
-                            <Frame.Triggers>
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Opacity="1"
+                            Text="{x:Static translate:AppResources.title_profile_profilePopupEdit}" />
+                        <Label Margin="0,10,0,0" Text="{x:Static translate:AppResources.name_options_profilePopupEdit}" />
+                        <sho:MaterialFrame BorderColor="Transparent">
+                            <sho:MaterialFrame.Triggers>
                                 <DataTrigger
                                     Binding="{Binding IsWrongFormatName, Mode=OneWay}"
-                                    TargetType="Frame"
+                                    TargetType="sho:MaterialFrame"
                                     Value="True">
                                     <Setter Property="BorderColor" Value="Red" />
                                 </DataTrigger>
-                            </Frame.Triggers>
+                            </sho:MaterialFrame.Triggers>
                             <Entry
                                 Margin="5,0"
-                                Placeholder="Ten cua ban"
-                                Text="{Binding UserName}" />
-                        </Frame>
-                        <Label Text="Sex" />
+                                Placeholder="name"
+                                Text="{Binding UserName}"
+                                VerticalOptions="Center" />
+                        </sho:MaterialFrame>
+                        <Label Text="{x:Static translate:AppResources.sex_options_profilePopupEdit}" />
                         <Grid ColumnDefinitions="*,*">
                             <HorizontalStackLayout HorizontalOptions="Center">
                                 <CheckBox IsChecked="{Binding IsMale}" />
-                                <Label Text="Nam" />
+                                <Label Text="{x:Static translate:AppResources.male_bmiPage}" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center">
                                 <CheckBox IsChecked="{Binding IsMale, Converter={StaticResource ReverseConverter}}" />
-                                <Label Text="Nu" />
+                                <Label Text="{x:Static translate:AppResources.female_bmiPage}" />
                             </HorizontalStackLayout>
                         </Grid>
-                        <Label Text="Age" />
+                        <Label Text="{x:Static translate:AppResources.dateOfBirth_options_profilePopupEdit}" />
                         <DatePicker
                             Date="{Binding SelectedDate}"
                             HorizontalOptions="Start"
                             MinimumDate="01/01/1950" />
-                        <Label Text="Chieu cao" />
+                        <Label Text="{x:Static translate:AppResources.height_bmiPage}" />
                         <Label HorizontalOptions="Center" Text="{Binding UserHeight, Mode=OneWay}" />
                         <Slider
                             x:Name="sliderHeight"
@@ -87,39 +95,31 @@
                             Minimum="50"
                             VerticalOptions="FillAndExpand"
                             Value="{Binding UserHeight}" />
-                        <Label Text="Can nang" />
-                        <Frame BorderColor="Gray">
-                            <Frame.Triggers>
+                        <Label Text="{x:Static translate:AppResources.weight_bmiPage}" />
+                        <sho:MaterialFrame BorderColor="Transparent">
+                            <sho:MaterialFrame.Triggers>
                                 <DataTrigger
                                     Binding="{Binding IsWrongFormatWeight, Mode=OneWay}"
-                                    TargetType="Frame"
+                                    TargetType="sho:MaterialFrame"
                                     Value="True">
                                     <Setter Property="BorderColor" Value="Red" />
                                 </DataTrigger>
-                            </Frame.Triggers>
+                            </sho:MaterialFrame.Triggers>
                             <Entry
                                 Keyboard="Numeric"
-                                Placeholder="Can nang"
-                                Text="{Binding UserWeight}" />
-                        </Frame>
+                                Placeholder="weight"
+                                Text="{Binding UserWeight}"
+                                VerticalOptions="Center" />
+                        </sho:MaterialFrame>
                         <Label Text="{Binding ErrorMess, Mode=OneWay}" TextColor="Red" />
                         <Button
                             Margin="20,10,20,0"
                             Command="{Binding SaveDataCommand}"
                             IsEnabled="{Binding SaveDataCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
-                            Text="Save" />
+                            Text="{x:Static translate:AppResources.save}" />
                     </VerticalStackLayout>
                 </VerticalStackLayout>
-            </Frame>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <ActivityIndicator
-                    HeightRequest="48"
-                    HorizontalOptions="Center"
-                    IsRunning="{Binding IsUserLocalDataUpdating, Mode=OneWay}"
-                    IsVisible="{Binding IsUserLocalDataUpdating}"
-                    VerticalOptions="Center"
-                    WidthRequest="48" />
-            </Grid>
+            </sho:MaterialFrame>
         </Grid>
     </Mopups:PopupPage.Content>
 </Mopups:PopupPage>

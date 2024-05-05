@@ -144,7 +144,7 @@
                         </Style>
                     </ResourceDictionary>
                 </sharpnado:TabHostView.Resources>
-                <sharpnado:MaterialUnderlinedTabItem Label="MACROS" />
+                <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.title_macroTab}" />
                 <sharpnado:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
                     <sharpnado:MaterialUnderlinedTabItem.Badge>
                         <sharpnado:BadgeView Text="{Binding NumberBadgeCalories}" />
