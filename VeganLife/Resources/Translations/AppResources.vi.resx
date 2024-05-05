@@ -112,11 +112,11 @@
     <value>Chính sách &amp; quyền riêng tư.</value>
   </data>
 	<data name="app_slogan" xml:space="preserve">
-    <value>Sống chay lành,
-nếm cả khoảnh khắc</value>
+    <value>Mỗi ngày một món chay,
+Sức khỏe vẫn đầy</value>
     </data>
 	<data name="app_detail" xml:space="preserve">
-    <value>Sống chay lành là ứng dụng về công thức món chay, đưa các giá trị ăn chay tới gần với bạn.</value>
+    <value>HealthyChef là ứng dụng di động dành cho những ai yêu thích ẩm thực chay và muốn duy trì lối sống lành mạnh. Ứng dụng này cung cấp một loạt công thức nấu ăn chay ngon miệng, dễ chuẩn bị, cùng các công cụ tiện ích giúp bạn tính toán BMI và macros. Với HealthyChef, bạn không chỉ tìm thấy nguồn cảm hứng nấu ăn mới mỗi ngày mà còn có thể quản lý sức khỏe một cách tiện lợi.</value>
   </data>
 	<!--common-->
 	<data name="explore_common" xml:space="preserve">
@@ -151,6 +151,10 @@ Danh sách trống.</value>
 	<data name="result_lb" xml:space="preserve">
     <value> kết quả</value>
   </data>
+	<data name="save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+	<!--end common-->
 	<!--shell-->
 	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>
@@ -179,7 +183,7 @@ Danh sách trống.</value>
 	<data name="app_common_vitaminsTab" xml:space="preserve">
     <value>Vitamins</value>
   </data>
-	<data name="app_common_porytionTab" xml:space="preserve">
+	<data name="app_common_portionTab" xml:space="preserve">
     <value>Khẩu phần</value>
   </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
@@ -350,6 +354,10 @@ Danh sách trống!</value>
 	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
     <value>Độ tuổi quá lớn, dường như bạn nhập sai</value>
     </data>
+	<!--start profile popup-->
+	<data name="title_profile_profilePopupEdit" xml:space="preserve">
+    <value>Hồ sơ</value>
+    </data>
 	<data name="emptyName_profilePopupEdit" xml:space="preserve">
     <value>Chưa nhập tên!</value>
     </data>
@@ -362,6 +370,16 @@ Danh sách trống!</value>
 	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
     <value>Thông tin được lưu thành công</value>
     </data>
+	<data name="sex_options_profilePopupEdit" xml:space="preserve">
+    <value>Giới tính</value>
+    </data>
+	<data name="name_options_profilePopupEdit" xml:space="preserve">
+    <value>Tên</value>
+    </data>
+	<data name="dateOfBirth_options_profilePopupEdit" xml:space="preserve">
+    <value>Ngày sinh</value>
+    </data>
+	<!--end profile popup-->
 	<data name="title_bmrCalculatePage" xml:space="preserve">
     <value>Tốc độ chuyển hóa cơ bản</value>
     </data>

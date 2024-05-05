@@ -30,4 +30,4 @@ jobs:
     - name: Restore Dependencies
       run: dotnet restore VeganLife/VeganLife.csproj
     - name: Build Maui android
-      run: dotnet build VeganLife/VeganLife.csproj -c Release -f net8.0-android34
+      run: dotnet build VeganLife/VeganLife.csproj -c Release -f net8.0-android34 --no-restore
