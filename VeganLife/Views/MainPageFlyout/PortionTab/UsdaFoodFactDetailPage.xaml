@@ -7,7 +7,7 @@
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
-    xmlns:rv="http://sharpnado.com"
+    xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     Padding="0"
@@ -30,7 +30,7 @@
                 Aspect="AspectFill"
                 HorizontalOptions="FillAndExpand"
                 Source="{Binding CurrentFoodPreview.Image}" />
-            <rv:MaterialFrame
+            <sho:MaterialFrame
                 Grid.RowSpan="2"
                 Padding="2"
                 HorizontalOptions="FillAndExpand"
@@ -71,47 +71,65 @@
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
                             Text="Calories" />
-                        <Label
+                        <sho:MaterialFrame
                             Grid.Row="1"
-                            FontAttributes="Bold"
-                            FontSize="Large"
+                            Padding="5"
+                            CornerRadius="8"
                             HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
-                            TextColor="{StaticResource PrimaryOrange1}" />
+                            MaterialTheme="Acrylic">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Large"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding CaloriesValue.Amount, Mode=OneWay}"
+                                TextColor="{StaticResource PrimaryOrange1}" />
+                        </sho:MaterialFrame>
                         <Label
                             Grid.Column="1"
                             FontSize="Medium"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
                             Text="Protein" />
-                        <Label
+                        <sho:MaterialFrame
                             Grid.Row="1"
                             Grid.Column="1"
-                            FontAttributes="Bold"
-                            FontSize="Large"
+                            Padding="5"
+                            CornerRadius="8"
                             HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding ProteinValue.Amount, Mode=OneWay}"
-                            TextColor="{StaticResource PrimaryOrange1}" />
+                            MaterialTheme="Acrylic">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Large"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding ProteinValue.Amount, Mode=OneWay}"
+                                TextColor="{StaticResource PrimaryOrange1}" />
+                        </sho:MaterialFrame>
                         <Label
                             Grid.Column="2"
                             FontSize="Medium"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
                             Text="Carb" />
-                        <Label
+                        <sho:MaterialFrame
                             Grid.Row="1"
                             Grid.Column="2"
-                            FontAttributes="Bold"
-                            FontSize="Large"
+                            Padding="5"
+                            CornerRadius="8"
                             HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding CarbValue.Amount, Mode=OneWay}"
-                            TextColor="{StaticResource PrimaryOrange1}" />
+                            MaterialTheme="Acrylic">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Large"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding CarbValue.Amount, Mode=OneWay}"
+                                TextColor="{StaticResource PrimaryOrange1}" />
+                        </sho:MaterialFrame>
                     </Grid>
                 </toolkit:Expander>
-            </rv:MaterialFrame>
+            </sho:MaterialFrame>
         </Grid>
         <Grid
             Grid.Row="1"
