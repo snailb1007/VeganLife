@@ -4,17 +4,14 @@
 
 namespace VeganLife.ViewModels
 {
-    using CommunityToolkit.Maui.Views;
     using CommunityToolkit.Mvvm.Messaging;
     using System.Text.RegularExpressions;
     using VeganLife.Data.LocalData;
     using VeganLife.Helpers;
     using VeganLife.Messages;
     using VeganLife.Models.FoodModel;
-    using VeganLife.Resources.Translations;
     using VeganLife.Services.UserServices;
     using VeganLife.Views.MainPageFlyout.FoodTab;
-    using VeganLife.Views.Popups;
 
     /// <summary>
     /// vm for MainPage.
@@ -170,16 +167,26 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task CategoryClicked(object obj)
         {
+            if (this.allFoods == null || !this.allFoods.Any())
+            {
+                return;
+            }
+
             var itemMenu = obj as FoodMenuCategoryModel;
             if (itemMenu == null)
             {
                 return;
             }
 
-            var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title));
-            var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>();
-            consignment.Add(itemMenu.Category, foodByCategory);
+            IsLoading = true;
+            var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title))
+                .ToList();
+            var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>
+            {
+                { itemMenu.Category, foodByCategory }
+            };
             await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
+            IsLoading = false;
         }
 
         [RelayCommand]
@@ -212,8 +219,8 @@ namespace VeganLife.ViewModels
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
                 int count = (from word in words
-                              where normalName.Contains(word)
-                              select word).Count();
+                             where normalName.Contains(word)
+                             select word).Count();
                 item.CountCorrectWordOnSearch = count;
             }
 
