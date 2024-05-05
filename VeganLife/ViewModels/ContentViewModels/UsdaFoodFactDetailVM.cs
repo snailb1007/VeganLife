@@ -15,14 +15,15 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
 
+        // simplys
         [ObservableProperty]
-        private FoodNutrient proteinValue;
+        private UndefinedFoodNutrient proteinValue = null;
         [ObservableProperty]
-        private FoodNutrient carbValue;
+        private UndefinedFoodNutrient carbValue;
         [ObservableProperty]
-        private FoodNutrient caloriesValue;
-        [ObservableProperty]
-        private FoodNutrient fatValue;
+        private UndefinedFoodNutrient caloriesValue;
+        //[ObservableProperty]
+        //private UndefinedFoodNutrient fatValue;
 
         [ObservableProperty]
         private bool isBottomSheetPresented;
@@ -52,43 +53,11 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                 {
-                    this.CurrentUndefinedMacroFoodNutriFact = await dataService.GetMacroFoodNutriFacts(this.CurrentFoodPreview.Id);
+                    await ProcessUndefineFoodAsync().ConfigureAwait(false);
                 }
                 else
                 {
-                    this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
-                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
-                    if (this.CurrentFoodNutritionFact?.foodNutrients?.Any() ?? false)
-                    {
-                        foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
-                        {
-                            if (this.CaloriesValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy))
-                            {
-                                this.CaloriesValue = i;
-                            }
-                            else if (this.ProteinValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein))
-                            {
-                                this.ProteinValue = i;
-                            }
-                            else if (CarbValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate)
-                                && i.Nutrient.Name.Contains("difference"))
-                            {
-                                this.CarbValue = i;
-                            }
-                            else if (FatValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.fat))
-                            {
-                                this.FatValue = i;
-                            }
-
-                            if (CarbValue != null
-                                && this.CaloriesValue != null
-                                && FatValue != null
-                                && ProteinValue != null)
-                            {
-                                break;
-                            }
-                        }
-                    }
+                    await ProcessUsdaFoodAsync().ConfigureAwait(false);
                 }
             }
 
@@ -106,17 +75,76 @@ namespace VeganLife.ViewModels.ContentViewModels
             return base.ViewDisappearingVM();
         }
 
-        //[RelayCommand]
-        //private async Task MoreClicked()
-        //{
-        //}
+        private async Task ProcessUndefineFoodAsync()
+        {
+            this.CurrentUndefinedMacroFoodNutriFact = await dataService.GetMacroFoodNutriFacts(this.CurrentFoodPreview.Id);
+            if (this.CurrentUndefinedMacroFoodNutriFact?.foodNutrients?.Any() ?? false)
+            {
+                foreach (var i in this.CurrentUndefinedMacroFoodNutriFact.foodNutrients)
+                {
+                    if (ProteinValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein, StringComparison.OrdinalIgnoreCase))
+                    {
+                        ProteinValue = i;
+                    }
+                    else if (CarbValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate, StringComparison.OrdinalIgnoreCase))
+                    {
+                        CarbValue = i;
+                    }
+                    else if (CaloriesValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy, StringComparison.OrdinalIgnoreCase))
+                    {
+                        CaloriesValue = i;
+                    }
 
-        //[RelayCommand]
-        //private void EatClicked()
-        //{
-        //    var today = DateTime.Now;
-        //    var id = today.ToString("yyyyMMddHH");
-        //    Console.WriteLine("==> eat clicked " + id);
-        //}
+                    if (ProteinValue != null
+                        && CarbValue != null
+                        && CaloriesValue != null)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        UndefinedFoodNutrient _caloriesValue = null;
+        UndefinedFoodNutrient _proteinValue = null;
+        UndefinedFoodNutrient _carbValue = null;
+        public  async Task ProcessUsdaFoodAsync()
+        {
+            this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
+                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
+            if (this.CurrentFoodNutritionFact?.foodNutrients?.Any() ?? false)
+            {
+                foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
+                {
+                    SetNutrientValue(ref _proteinValue!, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
+                    SetNutrientValue(ref _carbValue!, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
+                    SetNutrientValue(ref _caloriesValue!, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
+
+                    if (_proteinValue != null
+                        && _carbValue != null
+                        && _caloriesValue != null)
+                    {
+                        break;
+                    }
+                }
+
+                ProteinValue = _proteinValue;
+                CarbValue = _carbValue;
+                CaloriesValue = _caloriesValue;
+                void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source, string[] searchTerms)
+                {
+                    var nutrientName = source.Nutrient.Name;
+                    bool isMatchesAllTerms = searchTerms.All(term => nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
+                    if (targetNutrient == null && isMatchesAllTerms)
+                    {
+                        targetNutrient = new UndefinedFoodNutrient()
+                        {
+                            Amount = source.Amount,
+                            Unit = source.Nutrient.unitName
+                        };
+                    }
+                }
+            }
+        }
     }
 }

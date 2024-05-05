@@ -6,13 +6,11 @@
 
 namespace VeganLife
 {
-    using CommunityToolkit.Maui.Views;
     using Mopups.Services;
     using VeganLife.Helpers;
-    using VeganLife.Resources.Translations;
+    using VeganLife.Helpers.Extensions;
     using VeganLife.Views.MainPageFlyout;
     using VeganLife.Views.MainPageFlyout.FoodTab;
-    using VeganLife.Views.Popups;
     using VeganLife.Views.SettingTab;
     using VeganLife.Views.ToolFlyout;
     using static VeganLife.Helpers.AppSetting.StaticHelper;
@@ -116,17 +114,25 @@ namespace VeganLife
             // TODO: make crash
             //this.IsBusy = false;
             base.OnNavigated(args);
-            var currentSectionStack = GetCurrentSectionStack();
+            var currentSectionStack = this.Items
+                .SelectMany(item => item.Items)
+                .SelectMany(section => GetNavigationStack(section.Navigation)).ToHashSet();
             if (_currentShellNavigationSource != ShellNavigationSource.ShellSectionChanged
                 && PreviousPageStack is not null
                 && PreviousPageStack.Count() > currentSectionStack.Count)
             {
-                foreach (var page in PreviousPageStack.Except(currentSectionStack))
+                var pagesToRemove = PreviousPageStack.Except(currentSectionStack);
+                foreach (var page in pagesToRemove)
                 {
-                    var vm = page?.BindingContext as BaseViewModel;
-                    if (page is null || vm is null)
+                    if (page is null)
                         continue;
-                    this.Dispatcher.Dispatch(async () => await vm.ViewIsRemovedAsync()!);
+                    if (page.BindingContext is BaseViewModel vm)
+                    {
+                        this.Dispatcher.Dispatch(async ()
+                            => await vm.ViewIsRemovedAsync().ConfigureAwait(false)!);
+                    }
+
+                    page.TearDown();
                 }
             }
 
@@ -164,24 +170,28 @@ namespace VeganLife
             }
         }
 
-        private List<Page> GetCurrentSectionStack()
-        {
-            var result = new List<Page>();
-            foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
-            {
-                if (item is null)
-                    continue;
-                result.Add(item);
-            }
+        private HashSet<Page> GetNavigationStack(INavigation navigation)
+            => navigation.NavigationStack
+                .Concat(navigation.ModalStack)
+                .Where(p => p is not null).ToHashSet();
+        //List<Page> GetCurrentSectionStack()
+        //{
+        //    var result = new List<Page>();
+        //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
+        //    {
+        //        if (item is null)
+        //            continue;
+        //        result.Add(item);
+        //    }
 
-            foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
-            {
-                if (item is null)
-                    continue;
-                result.Add(item);
-            }
+        //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
+        //    {
+        //        if (item is null)
+        //            continue;
+        //        result.Add(item);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }
