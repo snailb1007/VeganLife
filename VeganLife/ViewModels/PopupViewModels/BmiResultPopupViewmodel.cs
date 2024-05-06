@@ -10,9 +10,6 @@ namespace VeganLife.ViewModels.PopupViewModels
     using Mopups.Services;
     using VeganLife.Helpers;
     using VeganLife.messages;
-    using ChatGptNet;
-    using ChatGptNet.Exceptions;
-    using VeganLife.Resources.Translations;
 
     /// <summary>
     /// vm for  BmiResultPopup.
@@ -37,6 +34,8 @@ namespace VeganLife.ViewModels.PopupViewModels
         private bool isGoAnalysisPageSelected = true;
         [ObservableProperty]
         private bool isSaveSelected;
+        [ObservableProperty]
+        private bool isAllowSaveBmiResult;
 
         private UserInfo localeUserInfo;
         private readonly UserInfoDataStoreServie userStoreService;
@@ -140,6 +139,11 @@ namespace VeganLife.ViewModels.PopupViewModels
                     localeUserInfo.BMIResult = this.bmiResult;
                 }
             }
+        }
+
+        partial void OnIsAllowSaveBmiResultChanged(bool value)
+        {
+
         }
     }
 }
