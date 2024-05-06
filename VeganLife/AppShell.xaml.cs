@@ -132,7 +132,7 @@ namespace VeganLife
                             => await vm.ViewIsRemovedAsync().ConfigureAwait(false)!);
                     }
 
-                    page.TearDown();
+                    // page.TearDown();
                 }
             }
 
