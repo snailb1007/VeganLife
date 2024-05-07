@@ -2,12 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Resources.Translations;
+using static VeganLife.Helpers.AppSetting.StaticHelper;
+
 namespace VeganLife.Helpers
 {
-    using VeganLife.Helpers.AppSetting;
-    using VeganLife.Resources.Translations;
-    using static VeganLife.Helpers.AppSetting.StaticHelper;
-
     public static class BMICalculateHelper
     {
         /// <summary>

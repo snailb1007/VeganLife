@@ -6,7 +6,9 @@ namespace VeganLife.Services.UserServices
     public class UserDataService : IUserDataService
     {
         public UserInfo UserInfo { get; set; }
-        private bool hasOldData;
+
+        private bool _hasOldData;
+
         public UserDataService()
         {
             this.UserInfo = new UserInfo();
@@ -15,10 +17,10 @@ namespace VeganLife.Services.UserServices
         private async Task Init()
         {
             UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
-            this.hasOldData = UserInfo != null;
-            if (!hasOldData)
+            this._hasOldData = UserInfo != null;
+            if (!_hasOldData)
             {
-                hasOldData = true;
+                _hasOldData = true;
                 UserInfo = new UserInfo();
                 UserInfo.Id = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
                 UserInfo.TotalFoodDetailRead = 0;
@@ -40,7 +42,7 @@ namespace VeganLife.Services.UserServices
 
         public async Task<string> GetUserNameAsync()
         {
-            if (!hasOldData)
+            if (!_hasOldData)
             {
                 await Init();
             }
@@ -51,7 +53,10 @@ namespace VeganLife.Services.UserServices
         public async Task SaveData(DateTime dateOfBirth, string name = null, bool isMale = false, short height = 0, float weight = 0)
         {
             if (!string.IsNullOrEmpty(name))
+            {
                 this.UserInfo.Name = name;
+            }
+
             this.UserInfo.IsMale = isMale;
             this.UserInfo.Height = height;
             this.UserInfo.Weight = weight;

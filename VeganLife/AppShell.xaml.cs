@@ -100,14 +100,16 @@ namespace VeganLife
         /// <inheritdoc/>
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {
-            //if (args.Source != ShellNavigationSource.Unknown)
+            // if (args.Source != ShellNavigationSource.Unknown)
             //    this.IsBusy = true;
             _currentShellNavigationSource = args.Source;
             base.OnNavigating(args);
         }
 
         private ShellNavigationSource _currentShellNavigationSource;
+
         public IEnumerable<Page> PreviousPageStack { get; set; }
+
         /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
@@ -125,7 +127,10 @@ namespace VeganLife
                 foreach (var page in pagesToRemove)
                 {
                     if (page is null)
+                    {
                         continue;
+                    }
+
                     if (page.BindingContext is BaseViewModel vm)
                     {
                         this.Dispatcher.Dispatch(async ()
@@ -174,8 +179,9 @@ namespace VeganLife
             => navigation.NavigationStack
                 .Concat(navigation.ModalStack)
                 .Where(p => p is not null).ToHashSet();
-        //List<Page> GetCurrentSectionStack()
-        //{
+
+        // List<Page> GetCurrentSectionStack()
+        // {
         //    var result = new List<Page>();
         //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
         //    {
@@ -184,14 +190,14 @@ namespace VeganLife
         //        result.Add(item);
         //    }
 
-        //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
+        // foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
         //    {
         //        if (item is null)
         //            continue;
         //        result.Add(item);
         //    }
 
-        //    return result;
-        //}
+        // return result;
+        // }
     }
 }

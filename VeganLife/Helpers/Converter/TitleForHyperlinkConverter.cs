@@ -8,7 +8,7 @@
             {
                 var rootString = value as string;
                 var startIndex = rootString.IndexOf("[");
-                value = rootString.Substring(startIndex + 1, rootString.IndexOf("]") - startIndex -1);
+                value = rootString.Substring(startIndex + 1, rootString.IndexOf("]") - startIndex - 1);
             }
 
             return value;

@@ -10,7 +10,7 @@ namespace VeganLife.Helpers
     {
         public static T GetService<T>() => IPlatformApplication.Current.Services.GetService<T>();
 
-        public static BaseViewModel GetCurrentViewModel()
+        public static BaseViewModel? GetCurrentViewModel()
         {
             if (GetService<IPopupNaviService>().GetPopupStackCount() > 0)
             {
@@ -24,7 +24,7 @@ namespace VeganLife.Helpers
             }
             else
             {
-                return Application.Current.MainPage.BindingContext as BaseViewModel;
+                return Application.Current?.MainPage?.BindingContext as BaseViewModel;
             }
         }
     }
