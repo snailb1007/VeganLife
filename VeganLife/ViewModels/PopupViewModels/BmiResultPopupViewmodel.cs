@@ -27,7 +27,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         [ObservableProperty]
         private string classifyLabel;
         [ObservableProperty]
-        private string note;
+        private string? note;
         [ObservableProperty]
         private bool isReCalculateSelected;
         [ObservableProperty]

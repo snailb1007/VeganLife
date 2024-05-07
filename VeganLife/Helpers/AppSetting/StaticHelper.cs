@@ -15,7 +15,7 @@ namespace VeganLife.Helpers.AppSetting
         }
         public static class HealthDiagnosisFirebaseDataModel
         {
-            public static BmiModel BMIModel { get; set; }
+            public static BmiModel? BMIModel { get; set; }
         }
 
         public static float MaleHeightAvgVN { get; set; } = 0;

@@ -32,7 +32,7 @@ namespace VeganLife.ViewModels
         {
             IsLoading = true;
             await this.userDataService.Refresh();
-            MyInfo = (userDataService as UserDataService).UserInfo;
+            MyInfo = (userDataService as UserDataService)?.UserInfo!;
             NumberInfoMiss = totalNumberSpec;
 
             if (MyInfo != null)

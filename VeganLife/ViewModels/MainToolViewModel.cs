@@ -13,6 +13,8 @@ namespace VeganLife.ViewModels
 
     public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
+        private BMIResultModel? _bmiResultData;
+
         public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
         public string AgeBmiRegexPattern { get; } = @"^\d+$";
@@ -34,22 +36,22 @@ namespace VeganLife.ViewModels
         private bool isEnableSubmit;
 
         [ObservableProperty]
-        private string weightValue;
+        private string? weightValue;
 
         [ObservableProperty]
         private byte ageValue;
 
         [ObservableProperty]
-        private string backgroundImg;
+        private string? backgroundImg;
 
         [ObservableProperty]
-        private string weightErrMess;
+        private string? weightErrMess;
 
         [ObservableProperty]
-        private string ageErrMess;
+        private string? ageErrMess;
 
         [ObservableProperty]
-        private string generalError;
+        private string? generalError;
 
         [ObservableProperty]
         private double bmiResult;
@@ -72,18 +74,17 @@ namespace VeganLife.ViewModels
             return base.ViewDisappearingVM();
         }
 
-        private BMIResultModel bmiResultData;
         [RelayCommand]
         private async Task CalculateBmi()
         {
             this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
-            bmiResultData = new BMIResultModel()
+            _bmiResultData = new BMIResultModel()
             {
                 BMIResult = (float)this.BmiResult,
                 IsMale = this.IsMale,
                 Age = this.AgeValue,
             };
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(bmiResultData);
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(_bmiResultData);
         }
 
         [RelayCommand]
@@ -258,7 +259,7 @@ namespace VeganLife.ViewModels
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        currentShell.SwitchShellContentToolsTab(param, this.bmiResultData);
+                        currentShell.SwitchShellContentToolsTab(param, this._bmiResultData);
                     });
                 }
             }
