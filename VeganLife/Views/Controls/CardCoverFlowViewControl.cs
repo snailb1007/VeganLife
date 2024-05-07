@@ -1,14 +1,15 @@
-﻿using PanCardView;
-using VeganLife.Helpers.Extensions;
-
-namespace VeganLife.Views.Controls
+﻿namespace VeganLife.Views.Controls
 {
+    using PanCardView;
+    using VeganLife.Helpers.Extensions;
+
     class CardCoverFlowViewControl : CoverFlowView
     {
         private readonly object _locker = new object();
         private CancellationTokenSource _slideShowTokenSource;
         private bool _hasRenderer;
         private bool _isInteracting;
+
         public CardCoverFlowViewControl()
         {
             UserInteracted += NoAnimationCoverFlowView_UserInteracted;

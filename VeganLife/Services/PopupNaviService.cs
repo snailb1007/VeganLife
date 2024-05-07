@@ -66,7 +66,7 @@ namespace VeganLife.Services
             }
         }
 
-        public async Task PushAsync<T>(object param = null!, bool animate = true)
+        public async Task PushAsync<T>(object? param = null, bool animate = true)
             where T : PopupPage
         {
             var toPage = this.ResolvePage<T>();
