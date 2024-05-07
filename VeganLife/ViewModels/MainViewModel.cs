@@ -2,17 +2,17 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Text.RegularExpressions;
+using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.Messages;
+using VeganLife.Models.FoodModel;
+using VeganLife.Services.UserServices;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+
 namespace VeganLife.ViewModels
 {
-    using System.Text.RegularExpressions;
-    using CommunityToolkit.Mvvm.Messaging;
-    using VeganLife.Data.LocalData;
-    using VeganLife.Helpers;
-    using VeganLife.Messages;
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Services.UserServices;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-
     /// <summary>
     /// vm for MainPage.
     /// </summary>
@@ -183,7 +183,7 @@ namespace VeganLife.ViewModels
                 .ToList();
             var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>
             {
-                { itemMenu.Category, foodByCategory }
+                { itemMenu.Category, foodByCategory },
             };
             await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
             IsLoading = false;
