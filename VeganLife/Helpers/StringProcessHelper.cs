@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Text;
+using System.Text.RegularExpressions;
+
 namespace VeganLife.Helpers
 {
-    using System.Text;
-    using System.Text.RegularExpressions;
-
     public static class StringProcessHelper
     {
         public static string ExtractImageSrc(string data)
@@ -37,7 +37,7 @@ namespace VeganLife.Helpers
             return sb.ToString().Normalize(NormalizationForm.FormD).ToLower();
         }
 
-        public static string GetHyperlink(string data)
+        public static string GetHyperLink(string data)
         {
             if (string.IsNullOrEmpty(data))
             {

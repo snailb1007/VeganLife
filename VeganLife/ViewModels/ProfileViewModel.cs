@@ -65,7 +65,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        async Task Close()
+        private async Task Close()
         {
             if (CloseCommand.IsRunning)
             {
@@ -75,9 +75,9 @@ namespace VeganLife.ViewModels
             await this.navigationService.PopAsync();
         }
 
-        //partial void OnNumberInfoMissChanged(byte value)
-        //{
+        // partial void OnNumberInfoMissChanged(byte value)
+        // {
         //    DegreePerfection = (byte)(value * 25);
-        //}
+        // }
     }
 }

@@ -32,14 +32,17 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
             return base.OnItemSelected(item);
         }
 
-        async Task PerformTabReselectedAsync()
+        private async Task PerformTabReselectedAsync()
         {
             var currentVM = ServicesHelper.GetCurrentViewModel();
             if (currentVM != null)
             {
                 INavigationService navigationService = ServicesHelper.GetService<INavigationService>();
                 if (navigationService is null)
+                {
                     return;
+                }
+
                 if (navigationService?.GetStackCount() == 1 && currentVM is IScrollToTop)
                 {
                     ((IScrollToTop)currentVM).ScrollToTop();

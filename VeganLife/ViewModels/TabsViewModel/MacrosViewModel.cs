@@ -1,6 +1,8 @@
-﻿using Android.Webkit;
+﻿// <copyright file="MacrosViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System.Text;
-using System.Text.RegularExpressions;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;

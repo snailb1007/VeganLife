@@ -22,7 +22,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             var data = parameter as string;
             if (!string.IsNullOrEmpty(data) && !HyperlinkClickedCommand.IsRunning)
             {
-                var link = StringProcessHelper.GetHyperlink(data);
+                var link = StringProcessHelper.GetHyperLink(data);
                 if (!string.IsNullOrEmpty(link))
                 {
                     await Browser.Default.OpenAsync(link);
