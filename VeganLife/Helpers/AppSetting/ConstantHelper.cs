@@ -13,6 +13,7 @@ namespace VeganLife.Helpers.AppSetting
             public const string OpenAITokenVip = "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";
 
             public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
+
             // public const string OpenAIEndpoint_Generations = "v1/images/generations";
         }
 

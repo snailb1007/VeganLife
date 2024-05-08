@@ -46,7 +46,7 @@ namespace VeganLife.ViewModels
         /// </summary>
         /// <param name="parameter">The first name to join.</param>
         /// <returns>>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task OnNavigatingTo(object parameter)
+        public virtual Task OnNavigatingTo(object? parameter)
             => Task.CompletedTask;
 
         /// <summary>

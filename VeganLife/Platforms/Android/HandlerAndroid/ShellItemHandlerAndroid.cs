@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Microsoft.Maui.Controls.Platform.Compatibility;
+using VeganLife.Helpers;
+
 namespace VeganLife.Platforms.Android.HandlerAndroid
 {
-    using Microsoft.Maui.Controls.Platform.Compatibility;
-    using VeganLife.Helpers;
-
     public class ShellItemHandlerAndroid : ShellItemRenderer
     {
         public ShellItemHandlerAndroid(IShellContext shellContext)

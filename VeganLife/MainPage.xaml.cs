@@ -2,14 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Maui.Views;
+using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
+using VeganLife.Views.Base;
+using VeganLife.Views.Popups;
+
 namespace VeganLife
 {
-    using CommunityToolkit.Maui.Views;
-    using VeganLife.Helpers;
-    using VeganLife.Resources.Translations;
-    using VeganLife.Views.Base;
-    using VeganLife.Views.Popups;
-
     /// <summary>
     /// auto-generated.
     /// </summary>
@@ -32,7 +32,10 @@ namespace VeganLife
         private void RefreshView_Refreshing(object sender, EventArgs e)
         {
             viewModel.LoadDataCommand.Execute(null);
-            (sender as RefreshView).IsRefreshing = false;
+            if (sender is RefreshView refreshView)
+            {
+                refreshView.IsRefreshing = false;
+            }
         }
 
         private async void mainPageRoot_LoadedAsync(object sender, EventArgs e)

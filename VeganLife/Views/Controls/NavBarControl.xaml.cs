@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+
 namespace VeganLife.Views.Controls
 {
-    using VeganLife.Helpers;
-
     public partial class NavBarControl : ContentView
     {
         public static BindableProperty TitleProperty = BindableProperty.Create(
@@ -26,6 +26,7 @@ namespace VeganLife.Views.Controls
         }
 
         private bool _isProcessing;
+
         private async void Back_Clicked(object sender, EventArgs e)
         {
             if (_isProcessing)

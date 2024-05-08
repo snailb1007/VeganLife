@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+
 namespace VeganLife.Models.GoogleNewsModels
 {
-    using VeganLife.Helpers;
-
     public class Item
     {
         public string title { get; set; }

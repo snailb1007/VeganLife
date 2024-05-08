@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views.MainPageFlyout
 {
-    using VeganLife.Views.Base;
-
     public partial class NewsFeedPage : BasePage<NewsFeedViewModel>
     {
         public NewsFeedPage(NewsFeedViewModel vm)
