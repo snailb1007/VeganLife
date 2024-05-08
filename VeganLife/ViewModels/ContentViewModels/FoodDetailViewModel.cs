@@ -56,23 +56,11 @@ namespace VeganLife.ViewModels.ContentViewModels
                 else
                 {
                     this.FoodPreview.IsRead = true;
-
+                    this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
                     if (this.IsNetworkConnected)
                     {
                         this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
-                    }
-
-                    if (this.FoodDetail == null)
-                    {
-                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                    }
-                    else
-                    {
-                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
-                    }
-
-                    this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
-                    await GetMoreImage()
+                        await GetMoreImage()
                         .ContinueWith(t =>
                         {
                             foreach (var i in t.Result)
@@ -87,6 +75,16 @@ namespace VeganLife.ViewModels.ContentViewModels
                             });
                         })
                         .ConfigureAwait(false);
+                    }
+
+                    if (this.FoodDetail == null)
+                    {
+                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
+                    }
+                    else
+                    {
+                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                    }
                 }
             }
 
