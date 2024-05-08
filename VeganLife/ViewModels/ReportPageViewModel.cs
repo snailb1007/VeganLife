@@ -1,4 +1,8 @@
-﻿using VeganLife.Helpers;
+﻿// <copyright file="ReportPageViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.ViewModels
@@ -13,9 +17,12 @@ namespace VeganLife.ViewModels
         private string numberBadgeCart;
 
         public CaloriesViewModel CaloriesViewModel { get; }
+
         [ObservableProperty]
         private MacrosViewModel _macrosViewModel;
+
         public NutrientsViewModel NutrientsViewModel { get; }
+
         public ReportPageViewModel()
             : base()
         {

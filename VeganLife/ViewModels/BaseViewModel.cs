@@ -2,12 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+using VeganLife.Services.LocalDataServices;
+
 namespace VeganLife.ViewModels
 {
-    using VeganLife.Helpers;
-    using VeganLife.Services.LocalDataServices;
-    //using VeganLifeDataCenter.Data;
-
     /// <summary>
     /// Base class for view-model class.
     /// </summary>
@@ -20,7 +19,7 @@ namespace VeganLife.ViewModels
         protected readonly IPopupNaviService popupNaviService;
 
         protected bool isInitialized;
-        //protected readonly AppDbContext appDbContext;
+
         protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 
         [ObservableProperty]
@@ -38,7 +37,8 @@ namespace VeganLife.ViewModels
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
-            //this.appDbContext = ServicesHelper.GetService<AppDbContext>();
+
+            // this.appDbContext = ServicesHelper.GetService<AppDbContext>();
         }
 
         /// <summary>
@@ -65,24 +65,9 @@ namespace VeganLife.ViewModels
             => Task.CompletedTask;
 
         public virtual Task ViewAppearingVM() => Task.CompletedTask;
+
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
+
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
-            //public event PropertyChangedEventHandler CustomPropertyChanged;
-            //protected bool SetAndRaise<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
-            //{
-            //    if (Equals(property, value))
-            //    {
-            //        return false;
-            //    }
-
-        //    property = value;
-        //    RaisePropertyChanged(propertyName);
-        //    return true;
-        //}
-
-        //protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        //{
-        //    CustomPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
         }
 }

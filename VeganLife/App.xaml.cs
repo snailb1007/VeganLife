@@ -2,42 +2,39 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-// Ignore Spelling: App
+using VeganLife.Helpers;
+using VeganLife.Helpers.AppSetting;
+using VeganLife.Resources.Translations;
 
+// Ignore Spelling: App
 namespace VeganLife
 {
-    using VeganLife.Helpers;
-    using VeganLife.Helpers.AppSetting;
-    using VeganLife.Resources.Translations;
-
     /// <summary>
     /// auto-generated.
     /// </summary>
     public partial class App : Application
     {
+        public static double MainSize
+        {
+            get => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
         /// </summary>
-
-        public static double MainSize => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
         public App()
         {
             this.InitializeComponent();
             _ = this.SetupThemeAsync();
             this.SetupLanguage();
             this.MainPage = new AppShell();
-            //if (UserSettingsHelper.IsFirstTime)
-            //{
-            //    this.MainPage = new NavigationPage(ServicesHelper.GetService<WelcomePage>());
-            //    return;
-            //}
         }
 
-        public static void SetupCollectLogPermission()
-        {
-            //Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
-            //Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
-        }
+        // public static void SetupCollectLogPermission()
+        // {
+            // Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
+            // Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
+        // }
 
         private void SetupLanguage()
         {

@@ -2,20 +2,19 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-// Ignore Spelling: Firebase Nutri
+using Firebase.Database;
+using Firebase.Database.Query;
+using HtmlAgilityPack;
+using System.ServiceModel.Syndication;
+using System.Xml;
+using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Models.FirebaseDataModel;
+using VeganLife.Models.FoodModel;
+using VeganLife.Models.GoogleNewsModels;
 
+// Ignore Spelling: Firebase Nutri
 namespace VeganLife.Services
 {
-    using Firebase.Database;
-    using Firebase.Database.Query;
-    using HtmlAgilityPack;
-    using System.ServiceModel.Syndication;
-    using System.Xml;
-    using VeganLife.Models.CommunityFreeServiceModel;
-    using VeganLife.Models.FirebaseDataModel;
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Models.GoogleNewsModels;
-
     public class DataService : IDataService
     {
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);

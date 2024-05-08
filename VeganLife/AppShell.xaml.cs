@@ -2,19 +2,17 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-// Ignore Spelling: App
+using Mopups.Services;
+using VeganLife.Helpers;
+using VeganLife.Views.MainPageFlyout;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+using VeganLife.Views.SettingTab;
+using VeganLife.Views.ToolFlyout;
+using static VeganLife.Helpers.AppSetting.StaticHelper;
 
+// Ignore Spelling: App
 namespace VeganLife
 {
-    using Mopups.Services;
-    using VeganLife.Helpers;
-    using VeganLife.Helpers.Extensions;
-    using VeganLife.Views.MainPageFlyout;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-    using VeganLife.Views.SettingTab;
-    using VeganLife.Views.ToolFlyout;
-    using static VeganLife.Helpers.AppSetting.StaticHelper;
-
     /// <summary>
     /// auto-generated.
     /// </summary>
@@ -67,7 +65,6 @@ namespace VeganLife
                 case 2:
                     this.CurrentItem = bmrCalculator_tool;
                     break;
-
             }
         }
 
@@ -114,7 +111,6 @@ namespace VeganLife
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
             // TODO: make crash
-            //this.IsBusy = false;
             base.OnNavigated(args);
             var currentSectionStack = this.Items
                 .SelectMany(item => item.Items)
@@ -156,13 +152,12 @@ namespace VeganLife
 
         private void RegisterRoutes()
         {
-            //this.Routes.Add(nameof(MainPage), typeof(MainPage));
-            //this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
-            //this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
-            //this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
-            //this.Routes.Add(nameof(MainTool), typeof(MainTool));
-            //this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
-
+            // this.Routes.Add(nameof(MainPage), typeof(MainPage));
+            // this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
+            // this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
+            // this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
+            // this.Routes.Add(nameof(MainTool), typeof(MainTool));
+            // this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));

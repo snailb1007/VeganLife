@@ -17,6 +17,8 @@ namespace VeganLife.ViewModels.PopupViewModels
     /// </summary>
     public partial class ProfilePopupViewModel : BaseViewModel
     {
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         [ObservableProperty]
         private UserInfo userInfo;
 
@@ -45,6 +47,7 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         [ObservableProperty]
         private bool isMale;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePopupViewModel"/> class.
         /// </summary>
@@ -79,7 +82,6 @@ namespace VeganLife.ViewModels.PopupViewModels
             await popupNaviService.PopAsync();
         }
 
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         [RelayCommand]
         private async Task SaveData()
         {
@@ -121,15 +123,15 @@ namespace VeganLife.ViewModels.PopupViewModels
                     UserInfo.Weight = outValue;
                 }
 
-                await ServicesHelper.GetService<IUserDataService>().SaveData(this.UserInfo.DateOfBirth,
+                await ServicesHelper.GetService<IUserDataService>().SaveData(
+                    this.UserInfo.DateOfBirth,
                     name: this.UserInfo.Name,
                     isMale: this.UserInfo.IsMale,
                     height: this.UserInfo.Height,
-                    weight: this.UserInfo.Weight
-                    );
+                    weight: this.UserInfo.Weight);
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
-                await toast.Show(cancellationTokenSource.Token);
+                await toast.Show(_cancellationTokenSource.Token);
                 WeakReferenceMessenger.Default.Send(new ProfileChangedMessage(null));
             }
         }
@@ -151,7 +153,6 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         partial void OnUserHeightChanged(short value)
         {
-            //UserHeight = UserHeight;
         }
 
         partial void OnIsWrongFormatNameChanged(bool value)

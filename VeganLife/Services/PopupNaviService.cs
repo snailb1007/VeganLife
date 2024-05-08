@@ -2,13 +2,13 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Interfaces;
+using Mopups.Pages;
+using Mopups.Services;
+using VeganLife.Helpers;
+
 namespace VeganLife.Services
 {
-    using Mopups.Interfaces;
-    using Mopups.Pages;
-    using Mopups.Services;
-    using VeganLife.Helpers;
-
     public class PopupNaviService : IPopupNaviService
     {
         private readonly IServiceProvider services;

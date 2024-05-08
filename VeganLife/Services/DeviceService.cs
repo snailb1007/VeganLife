@@ -2,15 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Microsoft.Maui.Platform;
+
 namespace VeganLife.Services
 {
-    using Microsoft.Maui.Platform;
-
     public partial class DeviceService : IDeviceService
     {
         public void HideKeyboard()
         {
-            if (Platform.CurrentActivity.CurrentFocus != null)
+            if (Platform.CurrentActivity?.CurrentFocus != null)
             {
                 Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus);
             }
@@ -30,20 +30,20 @@ namespace VeganLife.Services
                     Body = body,
                     To = recipients,
                     Cc = CCrecipients,
-                    BodyFormat = EmailBodyFormat.PlainText // Use EmailBodyFormat.Html for HTML content
+                    BodyFormat = EmailBodyFormat.PlainText, // Use EmailBodyFormat.Html for HTML content
                 };
 
                 await Email.ComposeAsync(message);
             }
             catch (FeatureNotSupportedException fbsEx)
             {
-                _ = fbsEx;
                 // Email is not supported on this device
+                _ = fbsEx;
             }
             catch (Exception ex)
             {
-                _ = ex;
                 // Some other exception occurred
+                _ = ex;
             }
         }
     }

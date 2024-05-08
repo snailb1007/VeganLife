@@ -1,4 +1,8 @@
-﻿using VeganLife.Data.LocalData;
+﻿// <copyright file="UsdaFoodFactDetailVM.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -22,8 +26,6 @@ namespace VeganLife.ViewModels.ContentViewModels
         private UndefinedFoodNutrient carbValue;
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
-        //[ObservableProperty]
-        //private UndefinedFoodNutrient fatValue;
 
         [ObservableProperty]
         private bool isBottomSheetPresented;
@@ -141,7 +143,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                         targetNutrient = new UndefinedFoodNutrient()
                         {
                             Amount = source.Amount,
-                            Unit = source.Nutrient.unitName,
+                            Unit = source?.Nutrient?.unitName,
                         };
                     }
                 }
