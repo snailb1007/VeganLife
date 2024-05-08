@@ -200,7 +200,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        void Increase(object data)
+        private void Increase(object data)
         {
             if (data is null)
                 return;
@@ -208,9 +208,11 @@ namespace VeganLife.ViewModels
             if (data.ToString() == "weight")
             {
                 if (WeightValue is null)
+                {
                     WeightValue = "0";
+                }
 
-                if (Int32.TryParse(WeightValue, out int weightNumber))
+                if (int.TryParse(WeightValue, out int weightNumber))
                 {
                     WeightValue = (++weightNumber).ToString();
                 }
@@ -222,17 +224,21 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        void Decrease(object data)
+        private void Decrease(object data)
         {
             if (data is null)
+            {
                 return;
+            }
 
             if (data.ToString() == "weight")
             {
                 if (WeightValue is null)
+                {
                     WeightValue = "0";
+                }
 
-                if (Int32.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
+                if (int.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
                 {
                     WeightValue = (--weightNumber).ToString();
                 }
@@ -257,10 +263,7 @@ namespace VeganLife.ViewModels
                 }
                 else if (Application.Current?.MainPage is AppShell currentShell)
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        currentShell.SwitchShellContentToolsTab(param, this._bmiResultData);
-                    });
+                    MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param, this._bmiResultData));
                 }
             }
         }

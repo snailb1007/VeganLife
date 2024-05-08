@@ -105,6 +105,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 IsGoAnalysisPageSelected = true;
                 IsSaveSelected = false;
             }
+
             //else
             //{
             //    IsReCalculateSelected = false;

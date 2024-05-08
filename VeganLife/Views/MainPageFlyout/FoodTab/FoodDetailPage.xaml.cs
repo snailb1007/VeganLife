@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views.MainPageFlyout.FoodTab
 {
-    using VeganLife.ViewModels.ContentViewModels;
-    using VeganLife.Views.Base;
-
     public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
     {
         // private double marginTopContent;
@@ -18,13 +18,14 @@ namespace VeganLife.Views.MainPageFlyout.FoodTab
         //    get => this.marginTopContent;
         //    set => this.SetProperty(ref this.marginTopContent, value);
         //}
-
         private double widthOfTabView;
+
         public double WidthOfTabView
         {
             get => this.widthOfTabView;
             set => SetProperty(ref this.widthOfTabView, value);
         }
+
         public FoodDetailPage(FoodDetailViewModel vm)
             : base(vm)
         {
