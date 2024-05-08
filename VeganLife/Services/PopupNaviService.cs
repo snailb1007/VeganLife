@@ -37,7 +37,7 @@ namespace VeganLife.Services
 
         public int GetPopupStackCount() => this.Navigation?.PopupStack?.Count ?? 0;
 
-        public BaseViewModel GetPopupViewModel(PopupPage popup) => popup?.BindingContext as BaseViewModel;
+        public BaseViewModel GetPopupViewModel(PopupPage? popup) => popup?.BindingContext as BaseViewModel;
 
         public PopupNaviService(IServiceProvider serviceProvider)
         {
@@ -95,10 +95,10 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
+        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
             => await this.CallNavigatedTo(sender as PopupPage);
 
-        private Task CallNavigatedTo(PopupPage p)
+        private Task CallNavigatedTo(PopupPage? p)
         {
             var fromViewModel = this.GetPopupViewModel(p);
             if (fromViewModel is not null)
@@ -109,7 +109,7 @@ namespace VeganLife.Services
             return Task.CompletedTask;
         }
 
-        private async void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
+        private async void Page_NavigatedFrom(object? sender, NavigatedFromEventArgs e)
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page

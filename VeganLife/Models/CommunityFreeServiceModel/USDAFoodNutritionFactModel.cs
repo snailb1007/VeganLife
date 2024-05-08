@@ -75,39 +75,55 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     public class FoodPortion
     {
         public int id { get; set; }
+
         public double gramWeight { get; set; }
+
         public int sequenceNumber { get; set; }
+
         public int amount { get; set; }
+
         public string? modifier { get; set; }
+
         public MeasureUnit? measureUnit { get; set; }
+
         public int? dataPoints { get; set; }
     }
 
     public class MeasureUnit
     {
         public int id { get; set; }
+
         public string? name { get; set; }
+
         public string? abbreviation { get; set; }
     }
 
     public class Nutrient
     {
         public int id { get; set; }
+
         [DataMember(Name = "name")]
         public string? Name { get; set; }
-        //[JsonIgnore]
+
         public int rank { get; set; }
+
         public string? unitName { get; set; }
     }
 
     public class NutrientConversionFactor
     {
         public int id { get; set; }
+
         public double proteinValue { get; set; }
+
         public double fatValue { get; set; }
+
         public double carbohydrateValue { get; set; }
+
         public string? type { get; set; }
+
         public string? name { get; set; }
+
         public double? value { get; set; }
     }
 }

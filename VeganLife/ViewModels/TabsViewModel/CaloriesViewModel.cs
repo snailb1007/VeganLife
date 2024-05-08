@@ -43,7 +43,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             },
             new StackedColumnSeries<int>
             {
-                Values = new List<int> { 0,  0, 10},
+                Values = new List<int> { 0,  0, 10 },
                 Stroke = null,
                 StackGroup = 2,
             },
@@ -53,8 +53,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         {
             new Axis
             {
-                Labels = new[] { "Mo 18", "Tu 19", "We 20" }
-            }
+                Labels = new[] { "Mo 18", "Tu 19", "We 20" },
+            },
         };
 
         public CaloriesViewModel()

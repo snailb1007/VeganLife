@@ -47,7 +47,7 @@
             //return base.ViewAppearingVM();
         //}
 
-        void Init()
+        private void Init()
         {
             //ListImage = new List<TutorialModel>
             //{
@@ -58,7 +58,7 @@
         }
 
         [RelayCommand]
-        void Skip()
+        private void Skip()
         {
             // if (Application.Current is not null)
             // {

@@ -90,7 +90,7 @@ namespace VeganLife.Services
                     Image = item.Object.Image,
                     Time = item.Object.Time,
                     Category = item.Object.Category,
-                    Star = item.Object.Star
+                    Star = item.Object.Star,
                 });
             }
             catch (FirebaseException e)
@@ -105,7 +105,10 @@ namespace VeganLife.Services
         public async Task<FoodNutrientFacts> GetFoodNutriFacts(string id)
         {
             if (string.IsNullOrEmpty(id))
+            {
                 return new FoodNutrientFacts();
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(FoodNutriFacts).Child(id).OnceSingleAsync<FoodNutrientFacts>().ConfigureAwait(false);
@@ -228,19 +231,12 @@ namespace VeganLife.Services
                         results.Add(new Item
                         {
                             title = i.Title.Text,
-                            //Summary = item.Summary.Text,
                             LocalTimePosted = i.PublishDate.DateTime,
-                            link = i.Links.FirstOrDefault()?.Uri.ToString() ?? string.Empty
+                            link = i.Links.FirstOrDefault()?.Uri.ToString() ?? string.Empty,
                         });
                     }
 
                     return results;
-                    //foreach (SyndicationItem item in feed.Items)
-                    //{
-                    //    string title = item.Title.Text;
-                    //    string summary = item.Summary.Text;
-                    //    Uri link = item.Links[0].Uri;
-                    //}
                 }
             }
             catch (Exception ex)
@@ -283,7 +279,7 @@ namespace VeganLife.Services
                         {
                             foreach (HtmlNode imgNode in imgNodes)
                             {
-                                string imgSrc = imgNode.GetAttributeValue("src", "");
+                                string imgSrc = imgNode.GetAttributeValue("src", string.Empty);
                                 if (!string.IsNullOrEmpty(imgSrc))
                                 {
                                     imageLinks.Add(imgSrc);

@@ -97,7 +97,7 @@ namespace VeganLife.Views.Controls
             set { SetValue(ValueProperty, IsWhiteStarProperty); }
         }
 
-        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void Handle_PaintSurface(object? sender, SKPaintSurfaceEventArgs e)
         {
             this.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
         }

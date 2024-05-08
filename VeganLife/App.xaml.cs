@@ -67,7 +67,7 @@ namespace VeganLife
             {
                 AppTheme.Light => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightNo,
                 AppTheme.Dark => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,
-                _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem
+                _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem,
             };
 #endif
         }

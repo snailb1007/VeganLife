@@ -87,23 +87,22 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                     new ColumnSeries<double>
                             {
                                 Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
-                                Values = new ObservableCollection<double> { this.LocalUserInfo.Height},
+                                Values = new ObservableCollection<double> { this.LocalUserInfo.Height },
                                 IsVisible = true,
                             },
                     new ColumnSeries<double>
                             {
                                 Name = $"Trung binh o VN: {heightAvgVN}cm",
-                                Values = new ObservableCollection<double> {heightAvgVN},
+                                Values = new ObservableCollection<double> { heightAvgVN },
                                 IsVisible = true,
                             },
                     new ColumnSeries<double>
                             {
                                 Name = $"Trung binh o US: {heightAvgUS}cm",
-                                Values = new ObservableCollection<double> {heightAvgUS},
+                                Values = new ObservableCollection<double> { heightAvgUS },
                                 IsVisible = true,
                             },
                     };
-
                 }
 
                 // TODO: bug not gen ui

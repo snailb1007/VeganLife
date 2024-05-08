@@ -2,7 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AndroidX.ConstraintLayout.Core;
 using System.Collections.Concurrent;
 
 namespace VeganLife.Helpers
@@ -13,8 +12,6 @@ namespace VeganLife.Helpers
         HasPriorInstances,
         IsAcceptedCollectLogs,
         IsAcceptedTermsAndConditions,
-        // IsDisplayedPolicyBox,
-        // IsDisplayedLogsPermissionBox,
     }
 
     public static partial class UserSettingsHelper
