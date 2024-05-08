@@ -6,6 +6,8 @@ namespace VeganLife.Views.Controls
 {
     public class RatingControl : SKCanvasView
     {
+        private const string Star = "M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z";
+
         private float _itemWidth;
         private float _itemHeight;
         private float _canvasScale;
@@ -13,7 +15,6 @@ namespace VeganLife.Views.Controls
         private SKColor _sKOutlineOnColor = SKColors.Transparent;
         private SKColor _sKOutlineOffColor = SKColors.Gray;
         private SKColor _sKOutlineOffWhiteColor = SKColors.White;
-        private const string Star = "M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z";
 
         public RatingControl()
         {
@@ -22,7 +23,9 @@ namespace VeganLife.Views.Controls
         }
 
         public SKColor CanvasBackgroundColor { get; set; } = SKColors.Transparent;
+
         public float StrokeWidth { get; set; } = 0.1f;
+
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(RatingControl), default(double), propertyChanged: OnValueChanged);
         public static readonly BindableProperty PathProperty = BindableProperty.Create(nameof(Path), typeof(string), typeof(RatingControl), Star);
         public static readonly BindableProperty CountProperty = BindableProperty.Create(nameof(Count), typeof(int), typeof(RatingControl), 5);
@@ -85,7 +88,7 @@ namespace VeganLife.Views.Controls
         {
             Full,
             Half,
-            Floating
+            Floating,
         }
 
         public bool IsWhiteStar
@@ -132,21 +135,33 @@ namespace VeganLife.Views.Controls
         private double CalculateValue(double x)
         {
             if (x < this._itemWidth)
+            {
                 return (double)x / this._itemWidth;
+            }
             else if (x < this._itemWidth + this.Spacing)
+            {
                 return 1;
+            }
             else
+            {
                 return 1 + CalculateValue(x - (this._itemWidth + this.Spacing));
+            }
         }
 
         public double ClampValue(double val)
         {
             if (val < 0)
+            {
                 return 0;
+            }
             else if (val > this.Count)
+            {
                 return this.Count;
+            }
             else
+            {
                 return val;
+            }
         }
 
         public void SetValue(double x, double y)

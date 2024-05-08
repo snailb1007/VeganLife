@@ -2,20 +2,20 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using SQLite;
+using VeganLife.Data.LocalData;
+using VeganLife.Services.LocalDataServices;
+
 namespace VeganLife.Data
 {
-    using SQLite;
-    using VeganLife.Data.LocalData;
-    using VeganLife.Services.LocalDataServices;
-
     /// <summary>
     /// Local storage using sqlite.
     /// </summary>
     public class BaseDataStore<T> : IDataStoreService<T>
         where T : new()
     {
-        private SQLiteAsyncConnection connection;
-        private readonly ISQLite localDatabase;
+        private readonly ISQLite _localDatabase;
+        private SQLiteAsyncConnection _connection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDataStore{T}"/> class.
@@ -23,7 +23,7 @@ namespace VeganLife.Data
         /// <param name="database">ISQLite.</param>
         public BaseDataStore(ISQLite database)
         {
-            this.localDatabase = database;
+            this._localDatabase = database;
         }
 
         /// <inheritdoc/>
@@ -34,11 +34,11 @@ namespace VeganLife.Data
                 await this.Init();
                 if (await this.IsExistingItem(item))
                 {
-                    await this.connection.UpdateAsync(item);
+                    await this._connection.UpdateAsync(item);
                 }
                 else
                 {
-                    await this.connection.InsertAsync(item);
+                    await this._connection.InsertAsync(item);
                 }
 
                 return await Task.FromResult(true);
@@ -59,7 +59,7 @@ namespace VeganLife.Data
             await this.Init();
             try
             {
-                await this.connection.DeleteAsync(item);
+                await this._connection.DeleteAsync(item);
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -73,7 +73,7 @@ namespace VeganLife.Data
         public async Task<T> GetItemAsync()
         {
             await this.Init();
-            return await this.connection.Table<T>().FirstOrDefaultAsync();
+            return await this._connection.Table<T>().FirstOrDefaultAsync();
         }
 
         /// <inheritdoc/>
@@ -82,7 +82,7 @@ namespace VeganLife.Data
             await this.Init();
             try
             {
-                return await this.connection.Table<T>().ToListAsync();
+                return await this._connection.Table<T>().ToListAsync();
             }
             catch (Exception e)
             {
@@ -96,7 +96,7 @@ namespace VeganLife.Data
             await this.Init();
             try
             {
-                var result = await this.connection.Table<T>().ToListAsync()
+                var result = await this._connection.Table<T>().ToListAsync()
                     .ContinueWith(t => t.Result.FirstOrDefault());
                 return result ?? default!;
             }
@@ -109,24 +109,24 @@ namespace VeganLife.Data
                 return default!;
             }
         }
+
         private async Task Init()
         {
-            if (this.connection is not null)
+            if (this._connection is not null)
             {
                 return;
             }
 
-            this.connection = this.localDatabase.GetAsyncConnection();
-            await this.connection?.CreateTableAsync<T>()!;
+            this._connection = this._localDatabase.GetAsyncConnection();
+            await this._connection?.CreateTableAsync<T>()!;
         }
 
-        private async  Task<bool> IsExistingItem(T item)
+        private async Task<bool> IsExistingItem(T item)
         {
             var idProperty = typeof(T).GetProperty("Id");
             var idValue = idProperty?.GetValue(item);
-            var goalItem = await this.connection.FindAsync<T>(idValue);
+            var goalItem = await this._connection.FindAsync<T>(idValue);
             return goalItem != null;
         }
-
     }
 }

@@ -1,6 +1,8 @@
-﻿using Android.Companion;
+﻿// <copyright file="ConversationViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
 
@@ -8,34 +10,34 @@ namespace VeganLife.ViewModels
 {
     public partial class ConversationViewModel : BaseViewModel
     {
-        [ObservableProperty]
-        string query;
+        private readonly IOpenAIService _openAIService;
+        private readonly IDispatcher _dispatcher;
 
         [ObservableProperty]
-        bool isAnimationVisible = true;
+        private string query;
 
         [ObservableProperty]
-        bool isTrustedSetting = true;
+        private bool isAnimationVisible = true;
 
         [ObservableProperty]
-        ObservableCollection<ChatMessageModel> messages = new();
+        private bool isTrustedSetting = true;
 
         [ObservableProperty]
-        ContentPage conversationView;
+        private ObservableCollection<ChatMessageModel> messages = new();
 
         [ObservableProperty]
-        double opacityModeMessage = 1;
+        private ContentPage conversationView;
 
         [ObservableProperty]
-        double opacityModeImage = 0.5;
+        private double opacityModeMessage = 1;
+
+        [ObservableProperty]
+        private double opacityModeImage = 0.5;
 
         [ObservableProperty]
         private ChatMessageModel theMessage;
         [ObservableProperty]
         private ChatLogsModel _currentChat;
-
-        readonly IOpenAIService _openAIService;
-        readonly IDispatcher _dispatcher;
 
         private AsyncRelayCommand _currentCommand;
 
@@ -45,6 +47,7 @@ namespace VeganLife.ViewModels
             {
                 return _currentCommand ??= new AsyncRelayCommand(AskQuestionAsync);
             }
+
             set
             {
                 SetProperty(ref _currentCommand, value);
@@ -53,7 +56,6 @@ namespace VeganLife.ViewModels
 
         private Guid _sessionGuid;
         private ChatLogsDataStoreService _chatLogsDataStoreService;
-
 
         public ConversationViewModel(IDispatcher dispatcher, IOpenAIService openAIService, ChatLogsDataStoreService chatLogsDataStoreService)
             : base()
@@ -87,7 +89,7 @@ namespace VeganLife.ViewModels
                     {
                         AdWatchingLimit = 1,
                         ChatDate = DateTime.Today.Date,
-                        TimesLimit = 3
+                        TimesLimit = 3,
                     };
                     await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
                 }
@@ -99,31 +101,34 @@ namespace VeganLife.ViewModels
         private void AddMessage(string message, bool isUserMessage)
         {
             // if (Messages.Count <= 0) IsAnimationVisible = false;
-            _dispatcher.Dispatch(() => Messages.Add(new ChatMessageModel
-            {
-                Text = message,
-                IsUserMessage = isUserMessage,
-            }));
+            _ = _dispatcher.Dispatch(() => Messages.Add(new ChatMessageModel { Text = message, IsUserMessage = isUserMessage }));
             var collection = (CollectionView)Shell.Current.CurrentPage.FindByName("messCollection");
             if (collection is null)
+            {
                 return;
+            }
+
             Task.Delay(150).ContinueWith(t =>
             {
                 _dispatcher.Dispatch(() =>
                 {
-                        collection.ScrollTo
-                        (
-                            item: Messages.Last(),
-                            position: ScrollToPosition.End,
-                            animate: true
-                        );
+                    collection.ScrollTo
+                    (
+                        item: Messages.Last(),
+                        position: ScrollToPosition.End,
+                        animate: true
+                    );
                 });
             });
         }
 
         private async Task QueryManagerAsync(Func<Guid, string, Task<string>> queryManager)
         {
-            if (string.IsNullOrEmpty(Query)) return;
+            if (string.IsNullOrEmpty(Query))
+            {
+                return;
+            }
+
             if (CurrentChat.TimesLimit > 0)
             {
                 CurrentChat.TimesLimit -= 1;
@@ -140,8 +145,6 @@ namespace VeganLife.ViewModels
 
         private async Task AskQuestionAsync()
         {
-            //if (CurrentChat.TimesLimit < 100 || CurrentCommand.IsRunning)
-            //    return;
             if (_sessionGuid == Guid.Empty)
             {
                 _sessionGuid = Guid.NewGuid();
@@ -155,7 +158,10 @@ namespace VeganLife.ViewModels
         private async Task OpenDisclaimerPopup()
         {
             if (OpenDisclaimerPopupCommand.IsRunning)
+            {
                 return;
+            }
+
             await navigationService.NavigateToPage<ChatGPTDisClaimerPage>();
         }
 
@@ -163,7 +169,10 @@ namespace VeganLife.ViewModels
         private async Task OpenChatGPTDetailPage()
         {
             if (OpenChatGPTDetailPageCommand.IsRunning)
+            {
                 return;
+            }
+
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
     }

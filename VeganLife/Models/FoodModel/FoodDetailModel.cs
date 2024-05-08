@@ -2,14 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Newtonsoft.Json;
+using SQLite;
+
 namespace VeganLife.Models.FoodModel
 {
-    using Newtonsoft.Json;
-    using SQLite;
-
     public class FoodDetailModel
     {
-        [JsonIgnore ,PrimaryKey]
+        [JsonIgnore]
+        [PrimaryKey]
         public string Id { get; set; }
 
         [JsonProperty("decore")]

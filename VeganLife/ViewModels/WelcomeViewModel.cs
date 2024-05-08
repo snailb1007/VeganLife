@@ -1,15 +1,10 @@
-﻿using Android.Provider;
-using CommunityToolkit.Maui.Views;
-using VeganLife.Helpers;
-using VeganLife.Resources.Translations;
-using VeganLife.Views.Popups;
-
-namespace VeganLife.ViewModels
+﻿namespace VeganLife.ViewModels
 {
     public partial class WelcomeViewModel : BaseViewModel
     {
         [ObservableProperty]
-        IList<TutorialModel> _listImage;
+        private IList<TutorialModel> _listImage;
+
         [ObservableProperty]
         private byte _flowViewSelectedIndex;
 
@@ -52,7 +47,6 @@ namespace VeganLife.ViewModels
             //return base.ViewAppearingVM();
         //}
 
-
         void Init()
         {
             //ListImage = new List<TutorialModel>
@@ -66,10 +60,10 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         void Skip()
         {
-            //if (Application.Current is not null)
-            //{
+            // if (Application.Current is not null)
+            // {
             //    Application.Current.MainPage = new AppShell();
-            //}
+            // }
         }
 
         public class TutorialModel : BaseDataModel
@@ -80,13 +74,13 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void ManualSwipeCard(string param)
         {
-            //if (param.Equals("0") && FlowViewSelectedIndex > 0)
-            //{
+            // if (param.Equals("0") && FlowViewSelectedIndex > 0)
+            // {
             //    FlowViewSelectedIndex--;
-            //}else if (param.Equals("1") && FlowViewSelectedIndex < ListImage.Count -1)
-            //{
+            // }else if (param.Equals("1") && FlowViewSelectedIndex < ListImage.Count -1)
+            // {
             //    FlowViewSelectedIndex++;
-            //}
+            // }
         }
     }
 }

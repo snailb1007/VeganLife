@@ -2,14 +2,13 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Models.FirebaseDataModel;
+using VeganLife.Models.FoodModel;
+using VeganLife.Models.GoogleNewsModels;
+
 namespace VeganLife.Services
 {
-    using System.ServiceModel.Syndication;
-    using VeganLife.Models.CommunityFreeServiceModel;
-    using VeganLife.Models.FirebaseDataModel;
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Models.GoogleNewsModels;
-
     public interface IDataService
     {
         Task<IEnumerable<FoodPreviewModel>> GetFoods();
@@ -23,10 +22,15 @@ namespace VeganLife.Services
         Task<IEnumerable<VitaminModel>> GetVitamins();
 
         IEnumerable<Item> ReadRssFeed(string url);
+
         Task<List<string>> GetImageLinksAsync(string url);
+
         Task<string> GetFireBaseValue(string nodePath);
+
         Task<BmiModel> GetHealthDiagnosisFirebaseDataModel();
+
         Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA();
+
         Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id);
     }
 }

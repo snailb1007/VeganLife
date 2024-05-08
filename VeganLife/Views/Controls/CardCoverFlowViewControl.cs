@@ -1,9 +1,9 @@
-﻿namespace VeganLife.Views.Controls
-{
-    using PanCardView;
-    using VeganLife.Helpers.Extensions;
+﻿using PanCardView;
+using VeganLife.Helpers.Extensions;
 
-    class CardCoverFlowViewControl : CoverFlowView
+namespace VeganLife.Views.Controls
+{
+    internal class CardCoverFlowViewControl : CoverFlowView
     {
         private readonly object _locker = new object();
         private CancellationTokenSource _slideShowTokenSource;
@@ -95,7 +95,9 @@
             {
                 // issue 367 - bug only appear on android
                 if (DeviceInfo.Current.Platform == DevicePlatform.iOS || !_isInteracting)
+                {
                     await MainThread.InvokeOnMainThreadAsync(() => this.SetSelectedIndexWithShouldAutoNavigateToNext(true)).ConfigureAwait(false);
+                }
             }
 
             await SlideShowAsync(token).ConfigureAwait(false);

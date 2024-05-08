@@ -1,4 +1,8 @@
-﻿using ChatGptNet;
+﻿// <copyright file="OpenAIService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using ChatGptNet;
 using ChatGptNet.Exceptions;
 using ChatGptNet.Extensions;
 using VeganLife.Helpers;
