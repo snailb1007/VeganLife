@@ -86,5 +86,12 @@
                 }
             }
         }
+
+        public static void LogError(this Exception e)
+        {
+#if DEBUG
+            Console.Out.WriteLineAsync($"Error: {e.Message}");
+#endif
+        }
     }
 }

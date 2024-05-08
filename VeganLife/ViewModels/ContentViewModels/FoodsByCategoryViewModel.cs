@@ -23,7 +23,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override Task OnNavigatingTo(object parameter)
+        public override Task OnNavigatingTo(object? parameter)
         {
             var data = parameter as Dictionary<string, IEnumerable<FoodPreviewModel>>;
             if (data != null)

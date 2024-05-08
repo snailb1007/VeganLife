@@ -27,7 +27,7 @@ namespace VeganLife.ViewModels
             : base()
         {
             NumberBadgeCalories = "99";
-            NumberBadgeCart = String.Empty;
+            NumberBadgeCart = string.Empty;
             CaloriesViewModel = ServicesHelper.GetService<CaloriesViewModel>();
             MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
             NutrientsViewModel = ServicesHelper.GetService<NutrientsViewModel>();

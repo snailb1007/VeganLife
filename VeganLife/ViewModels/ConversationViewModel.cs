@@ -112,12 +112,10 @@ namespace VeganLife.ViewModels
             {
                 _dispatcher.Dispatch(() =>
                 {
-                    collection.ScrollTo
-                    (
+                    collection.ScrollTo(
                         item: Messages.Last(),
                         position: ScrollToPosition.End,
-                        animate: true
-                    );
+                        animate: true);
                 });
             });
         }

@@ -128,7 +128,10 @@ namespace VeganLife.Services
         public async Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id)
         {
             if (string.IsNullOrEmpty(id))
+            {
                 return new UndefinedMacroFoodNutriFactModel();
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(MacrosFoodNutriFactDetail).Child(id)
@@ -181,7 +184,7 @@ namespace VeganLife.Services
                     Image = item.Object.Image,
                     Name = item.Object.Name,
                     Category = item.Object.Category,
-                    IsPlantOrigin = item.Object.IsPlantOrigin
+                    IsPlantOrigin = item.Object.IsPlantOrigin,
                 });
             }
             catch (FirebaseException e)

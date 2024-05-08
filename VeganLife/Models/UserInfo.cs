@@ -1,8 +1,8 @@
-﻿namespace VeganLife.Models
-{
-    using SQLite;
-    using VeganLife.Helpers.AppSetting;
+﻿using SQLite;
+using VeganLife.Helpers.AppSetting;
 
+namespace VeganLife.Models
+{
     public partial class UserInfo
     {
         [PrimaryKey]

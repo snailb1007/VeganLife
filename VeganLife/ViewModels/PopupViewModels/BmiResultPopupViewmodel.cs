@@ -2,28 +2,30 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Mvvm.Messaging;
+using Mopups.Services;
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.messages;
 
 namespace VeganLife.ViewModels.PopupViewModels
 {
-    using CommunityToolkit.Mvvm.Messaging;
-    using Mopups.Services;
-    using VeganLife.Helpers;
-    using VeganLife.messages;
-
     /// <summary>
     /// vm for  BmiResultPopup.
     /// </summary>
     public partial class BmiResultPopupViewmodel : BaseViewModel
     {
-        [ObservableProperty]
-        private string bmiResultText;
-
-        [ObservableProperty]
-        private Color bmiStatusColor;
+        private readonly UserInfoDataStoreServie _userStoreService;
+        private UserInfo _localeUserInfo;
+        private float _bmiResult;
+        private BMIResultModel _result;
 
         public string Message { get; set; }
 
+        [ObservableProperty]
+        private string bmiResultText;
+        [ObservableProperty]
+        private Color bmiStatusColor;
         [ObservableProperty]
         private string classifyLabel;
         [ObservableProperty]
@@ -36,9 +38,8 @@ namespace VeganLife.ViewModels.PopupViewModels
         private bool isSaveSelected;
         [ObservableProperty]
         private bool isAllowSaveBmiResult;
-
-        private UserInfo localeUserInfo;
-        private readonly UserInfoDataStoreServie userStoreService;
+        [ObservableProperty]
+        private bool isLocaleUser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
@@ -46,33 +47,33 @@ namespace VeganLife.ViewModels.PopupViewModels
         public BmiResultPopupViewmodel()
             : base()
         {
-            userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            _userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
         }
 
-        private float bmiResult;
-        [ObservableProperty]
-        private bool isLocaleUser;
-        private BMIResultModel result;
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object parameter)
+        public override async Task<Task> OnNavigatingTo(object? parameter)
         {
             if (parameter != null)
             {
-                if (parameter is not BMIResultModel) return base.OnNavigatingTo(parameter);
-                result = (BMIResultModel)parameter;
-                bmiResult = result.BMIResult;
-                this.BmiResultText = result.BMIResult.ToString();
+                if (parameter is not BMIResultModel)
+                {
+                    return base.OnNavigatingTo(parameter);
+                }
+
+                _result = (BMIResultModel)parameter;
+                _bmiResult = _result.BMIResult;
+                this.BmiResultText = _result.BMIResult.ToString();
                 var healthDiagnosis = BMICalculateHelper
-                    .GetWeightStatusCategory(result.Age, result.IsMale, result.BMIResult);
+                    .GetWeightStatusCategory(_result.Age, _result.IsMale, _result.BMIResult);
                 this.BmiStatusColor = healthDiagnosis.StatusColor;
                 this.ClassifyLabel = healthDiagnosis.Classify;
                 this.Note = healthDiagnosis.Note;
-                localeUserInfo = (await userStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                if (localeUserInfo is not null
-                    && !string.IsNullOrEmpty(localeUserInfo.Name)
-                    && localeUserInfo.Age > 0
-                    && localeUserInfo.Weight > 0
-                    && localeUserInfo.Height > 0)
+                _localeUserInfo = (await _userStoreService.GetItemsAsync())?.FirstOrDefault()!;
+                if (_localeUserInfo is not null
+                    && !string.IsNullOrEmpty(_localeUserInfo.Name)
+                    && _localeUserInfo.Age > 0
+                    && _localeUserInfo.Weight > 0
+                    && _localeUserInfo.Height > 0)
                 {
                     this.IsLocaleUser = true;
                 }
@@ -125,7 +126,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             await MopupService.Instance.PopAsync();
             if (this.IsSaveSelected)
             {
-                await this.userStoreService.AddOrUpdateItemAsync(localeUserInfo, IsLocaleUser);
+                await this._userStoreService.AddOrUpdateItemAsync(_localeUserInfo, IsLocaleUser);
             }
         }
 
@@ -133,11 +134,11 @@ namespace VeganLife.ViewModels.PopupViewModels
         {
             if (value)
             {
-                this.IsLocaleUser = localeUserInfo.Age == result.Age
-                    && localeUserInfo.IsMale == result.IsMale;
-                if (localeUserInfo.BMIResult != this.bmiResult)
+                this.IsLocaleUser = _localeUserInfo.Age == _result.Age
+                    && _localeUserInfo.IsMale == _result.IsMale;
+                if (_localeUserInfo.BMIResult != this._bmiResult)
                 {
-                    localeUserInfo.BMIResult = this.bmiResult;
+                    _localeUserInfo.BMIResult = this._bmiResult;
                 }
             }
         }

@@ -109,7 +109,7 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
+        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
             => await this.CallNavigatedTo((sender as Page)!);
 
         private Task CallNavigatedTo(Page p)

@@ -11,6 +11,8 @@ namespace VeganLife.ViewModels
     {
         private const byte totalNumberSpec = 4;
 
+        private readonly IUserDataService _userDataService;
+
         [ObservableProperty]
         private UserInfo myInfo;
 
@@ -19,8 +21,6 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private int degreePerfection;
-
-        private readonly IUserDataService _userDataService;
 
         public ProfileViewModel()
             : base()
