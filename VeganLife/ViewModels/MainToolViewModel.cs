@@ -1,18 +1,16 @@
-﻿// <copyright file="BMICalculatorViewModel.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Helpers;
+using VeganLife.messages;
+using VeganLife.Services.UserServices;
+using VeganLife.Views.Popups;
+using VeganLife.Views.ToolFlyout;
 
 namespace VeganLife.ViewModels
 {
-    using CommunityToolkit.Mvvm.Messaging;
-    using VeganLife.Helpers;
-    using VeganLife.messages;
-    using VeganLife.Services.UserServices;
-    using VeganLife.Views.Popups;
-    using VeganLife.Views.ToolFlyout;
-
     public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
+        private readonly IUserDataService _userDataService;
+
         private BMIResultModel? _bmiResultData;
 
         public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
@@ -20,9 +18,8 @@ namespace VeganLife.ViewModels
         public string AgeBmiRegexPattern { get; } = @"^\d+$";
 
         private float weight;
-        // private short age;
-        private readonly IUserDataService _userDataService;
 
+        // private short age;
         [ObservableProperty]
         private int height;
 

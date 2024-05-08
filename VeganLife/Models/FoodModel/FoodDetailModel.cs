@@ -23,7 +23,7 @@ namespace VeganLife.Models.FoodModel
         public string Sauce { get; set; }
 
         [JsonProperty("note")]
-        public string Note { get;set; }
+        public string Note { get; set; }
 
         [JsonProperty("root_link")]
         public string RootLink { get; set; }

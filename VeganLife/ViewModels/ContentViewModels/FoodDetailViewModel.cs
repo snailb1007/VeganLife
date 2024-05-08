@@ -44,7 +44,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object parameter)
+        public override async Task<Task> OnNavigatingTo(object? parameter)
         {
             IsLoading = true;
             if (parameter is not null)
