@@ -32,6 +32,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
             // Init data
             this.Dispatcher.Dispatch(async () =>
             {

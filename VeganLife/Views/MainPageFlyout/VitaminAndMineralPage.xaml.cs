@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views.MainPageFlyout
 {
-    using VeganLife.ViewModels.ContentViewModels;
-    using VeganLife.Views.Base;
-
     /// <summary>
     /// Service to handle navigation for shell app.
     /// </summary>

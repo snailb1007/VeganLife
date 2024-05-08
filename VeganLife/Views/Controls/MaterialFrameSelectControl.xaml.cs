@@ -9,6 +9,7 @@ public partial class MaterialFrameSelectControl : MaterialFrame
                 declaringType: typeof(MaterialFrameSelectControl),
                 defaultValue: false,
                 returnType: typeof(bool));
+
     public bool IsSelected
     {
         get => (bool)this.GetValue(IsSelectedProperty);
@@ -20,6 +21,7 @@ public partial class MaterialFrameSelectControl : MaterialFrame
                 declaringType: typeof(MaterialFrameSelectControl),
                 defaultValue: string.Empty,
                 returnType: typeof(string));
+
     public string Title
     {
         get => (string)this.GetValue(TitleProperty);
@@ -27,9 +29,9 @@ public partial class MaterialFrameSelectControl : MaterialFrame
     }
 
     public MaterialFrameSelectControl()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {

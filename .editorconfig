@@ -1,12 +1,15 @@
 ﻿[*.cs]
 
 # SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1005.severity = none
 dotnet_diagnostic.SA1101.severity = none
 dotnet_diagnostic.SA1201.severity = none
 dotnet_diagnostic.SA1202.severity = none
+dotnet_diagnostic.SA1208.severity = none
 dotnet_diagnostic.SA1309.severity = none
 dotnet_diagnostic.SA1402.severity = none
 dotnet_diagnostic.SA1401.severity = none
+dotnet_diagnostic.SA1512.severity = none
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1601.severity = none
 dotnet_diagnostic.SA1602.severity = none

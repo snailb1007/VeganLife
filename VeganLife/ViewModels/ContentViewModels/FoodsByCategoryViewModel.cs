@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Models.FoodModel;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+
 namespace VeganLife.ViewModels.ContentViewModels
 {
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-
     public partial class FoodsByCategoryViewModel : BaseViewModel
     {
         [ObservableProperty]

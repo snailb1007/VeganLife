@@ -30,12 +30,13 @@ namespace VeganLife.Services
         {
         }
 
-        #region food
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
-
             if (string.IsNullOrEmpty(id))
+            {
                 return new FoodDetailModel();
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>();
@@ -141,7 +142,6 @@ namespace VeganLife.Services
                 return new UndefinedMacroFoodNutriFactModel();
             }
         }
-        #endregion
 
         public async Task<IEnumerable<VitaminModel>> GetVitamins()
         {

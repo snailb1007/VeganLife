@@ -8,13 +8,14 @@ namespace VeganLife.Views.ToolFlyout;
 
 public partial class BMICalculatorPage : BasePage<BmiCalculatorViewModel>
 {
-	public BMICalculatorPage(BmiCalculatorViewModel vm) : base(vm)
-	{
-		InitializeComponent();
-	}
+    public BMICalculatorPage(BmiCalculatorViewModel vm)
+        : base(vm)
+    {
+        InitializeComponent();
+    }
 
     private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-		await this.ShowPopupAsync(ServicesHelper.GetService<BmiMoreInfoToolBarPopup>());
+        await this.ShowPopupAsync(ServicesHelper.GetService<BmiMoreInfoToolBarPopup>());
     }
 }
