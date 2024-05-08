@@ -19,8 +19,27 @@ namespace VeganLife.ViewModels
         protected readonly IPopupNaviService popupNaviService;
 
         protected bool isInitialized;
+        private bool _hasShownAlert;
 
-        protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+        protected bool IsNetworkConnected
+        {
+            get
+            {
+                var isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+
+                if (!isConnected && !_hasShownAlert)
+                {
+                    _hasShownAlert = true; // Prevent showing multiple alerts consecutively
+                    MainThread.BeginInvokeOnMainThread(() => DisplayNoInternetAlert().ConfigureAwait(false));
+                }
+                else if (isConnected)
+                {
+                    _hasShownAlert = false;
+                }
+
+                return isConnected;
+            }
+        }
 
         [ObservableProperty]
         private bool isLoading;
@@ -37,8 +56,27 @@ namespace VeganLife.ViewModels
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
+        }
 
-            // this.appDbContext = ServicesHelper.GetService<AppDbContext>();
+        private void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess != NetworkAccess.Internet)
+            {
+                // No internet connection
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayNoInternetAlert().ConfigureAwait(false);
+                });
+            }
+        }
+
+        protected async Task DisplayNoInternetAlert()
+        {
+            await navigationService.DisplayAlert(
+                "Connectivity Issue",
+                "No Internet connection is available. Please check your connection and try again.",
+                "OK");
         }
 
         /// <summary>

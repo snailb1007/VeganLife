@@ -101,7 +101,7 @@ namespace VeganLife.Services
                 ServicesHelper.GetService<IDeviceService>().HideKeyboard();
 
                 // navigate
-                MainThread.BeginInvokeOnMainThread( async () => await this.Navigation.PushAsync(toPage));
+                MainThread.BeginInvokeOnMainThread(async () => await this.Navigation.PushAsync(toPage));
             }
             else
             {
