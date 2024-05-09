@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Views.Base;
+
 namespace VeganLife.Views.SettingFlyout
 {
-    using VeganLife.Views.Base;
-
     public partial class SettingPage : BasePage<SettingViewModel>
     {
         public SettingPage(SettingViewModel vm)

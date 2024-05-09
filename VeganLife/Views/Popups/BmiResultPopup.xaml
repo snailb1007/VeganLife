@@ -176,9 +176,18 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
-                    <HorizontalStackLayout IsVisible="{Binding IsLocaleUser, Converter={StaticResource InvertedBoolConverter}}">
+                    <HorizontalStackLayout>
                         <CheckBox IsChecked="{Binding IsSaveSelected, Mode=TwoWay}" />
-                        <Label Text="Save metrics to your profile" VerticalOptions="Center" />
+                        <Label Text="Save metrics to your profile" VerticalOptions="Center">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsLocaleUser}"
+                                    TargetType="Label"
+                                    Value="True">
+                                    <Setter Property="Text" Value="Save BMI result to history list" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
                 <Grid

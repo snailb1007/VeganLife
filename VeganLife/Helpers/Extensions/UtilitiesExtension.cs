@@ -10,10 +10,14 @@
             void TearDownImpl(IVisualTreeElement vte, bool isRoot)
             {
                 if (vte is not BindableObject bindableObject)
+                {
                     return;
+                }
 
-                foreach (IVisualTreeElement childElement in vte.GetVisualChildren())
+                foreach (var childElement in vte.GetVisualChildren())
+                {
                     TearDownImpl(childElement, false);
+                }
 
                 if (vte is VisualElement visualElement)
                 {
@@ -24,22 +28,36 @@
                     visualElement.Parent = null;
 
                     if (vte is ListView listView)
+                    {
                         listView.ItemsSource = null;
+                    }
                     else if (vte is ContentView contentView)
+                    {
                         contentView.Content = null;
+                    }
                     else if (vte is Border border)
+                    {
                         border.Content = null;
+                    }
                     else if (vte is ContentPage contentPage)
+                    {
                         contentPage.Content = null;
+                    }
                     else if (vte is ScrollView scrollView)
+                    {
                         scrollView.Content = null;
+                    }
 
                     visualElement.ClearLogicalChildren();
+
                     // The _last_ thing we want to do is disconnect the handler.
                     if (visualElement.Handler != null)
                     {
                         if (visualElement.Handler is IDisposable disposableHandler)
+                        {
                             disposableHandler.Dispose();
+                        }
+
                         visualElement.Handler?.DisconnectHandler();
                     }
 
@@ -59,11 +77,21 @@
                         disposablePlatformView.Dispose();
 #endif
                         if (element.Handler is IDisposable disposableElementHandler)
+                        {
                             disposableElementHandler.Dispose();
+                        }
+
                         element.Handler.DisconnectHandler();
                     }
                 }
             }
+        }
+
+        public static void LogError(this Exception e)
+        {
+#if DEBUG
+            Console.Out.WriteLineAsync($"Error: {e.Message}");
+#endif
         }
     }
 }

@@ -2,14 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Maui.Views;
+using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
+using VeganLife.Views.Base;
+using VeganLife.Views.Popups;
+
 namespace VeganLife
 {
-    using CommunityToolkit.Maui.Views;
-    using VeganLife.Helpers;
-    using VeganLife.Resources.Translations;
-    using VeganLife.Views.Base;
-    using VeganLife.Views.Popups;
-
     /// <summary>
     /// auto-generated.
     /// </summary>
@@ -24,32 +24,6 @@ namespace VeganLife
             this.viewModel = vm;
         }
 
-        // private bool processing;
-
-        //private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
-        //{
-        //    if (this.processing)
-        //    {
-        //        return;
-        //    }
-
-        //    this.processing = true;
-        //    var menu = sender as CarouselView;
-        //    foreach (var i in menu?.VisibleViews)
-        //    {
-        //        var img = i.FindByName<Image>("imgMenu");
-        //        if (img == null)
-        //        {
-        //            return;
-        //        }
-
-        //        Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(img);
-        //        Task.Run(async () => await img.RelRotateTo(360, 5000, Easing.BounceOut));
-        //    }
-
-        //    this.processing = false;
-        //}
-
         private void gridTransparent_TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
             this.searchBar.Unfocus();
@@ -58,7 +32,10 @@ namespace VeganLife
         private void RefreshView_Refreshing(object sender, EventArgs e)
         {
             viewModel.LoadDataCommand.Execute(null);
-            (sender as RefreshView).IsRefreshing = false;
+            if (sender is RefreshView refreshView)
+            {
+                refreshView.IsRefreshing = false;
+            }
         }
 
         private async void mainPageRoot_LoadedAsync(object sender, EventArgs e)
@@ -79,7 +56,7 @@ namespace VeganLife
 
             if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
             {
-                Dispatcher.Dispatch(async() => await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>()));
+                Dispatcher.Dispatch(async () => await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>()));
             }
         }
     }

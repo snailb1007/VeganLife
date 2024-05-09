@@ -2,13 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers.AppSetting;
+using VeganLife.Models.GoogleNewsModels;
+using VeganLife.Resources.Translations;
+
 namespace VeganLife.ViewModels
 {
-    using System.ServiceModel.Syndication;
-    using VeganLife.Helpers.AppSetting;
-    using VeganLife.Models.GoogleNewsModels;
-    using VeganLife.Resources.Translations;
-
     /// <summary>
     /// vm for NewsFeedPage.
     /// </summary>
@@ -113,7 +112,8 @@ namespace VeganLife.ViewModels
                     this.dataReligion = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsReligion);
                 }
 
-                MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataReligion));
+                MainThread.BeginInvokeOnMainThread(() => this.Feeds
+                    = new ObservableCollection<Item>(this.dataReligion));
             }
             else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
             {
@@ -123,7 +123,8 @@ namespace VeganLife.ViewModels
                     this.dataLiveStrong = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
                 }
 
-                MainThread.BeginInvokeOnMainThread(() => this.Feeds = new ObservableCollection<Item>(this.dataLiveStrong));
+                MainThread.BeginInvokeOnMainThread(() => this.Feeds
+                    = new ObservableCollection<Item>(this.dataLiveStrong));
             }
 
             foreach (var item in this.DiscoveryMenu!)

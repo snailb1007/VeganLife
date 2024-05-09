@@ -1,4 +1,8 @@
-﻿using VeganLife.Models.CommunityFreeServiceModel;
+﻿// <copyright file="USDAApiService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using VeganLife.Models.CommunityFreeServiceModel;
 
 namespace VeganLife.Services.CommunityFreeService
 {

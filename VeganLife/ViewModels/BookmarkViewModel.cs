@@ -2,19 +2,19 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.Messages;
+using VeganLife.Models.FoodModel;
+using VeganLife.Services.LocalDataServices;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+
 namespace VeganLife.ViewModels
 {
-    using CommunityToolkit.Mvvm.Messaging;
-    using VeganLife.Data.LocalData;
-    using VeganLife.Helpers;
-    using VeganLife.Messages;
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Services.LocalDataServices;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
-        readonly FoodPreviewDataStoreService dataStoreService;
+        private readonly FoodPreviewDataStoreService dataStoreService;
 
         [ObservableProperty]
         private ObservableCollection<FoodPreviewModel> foods;

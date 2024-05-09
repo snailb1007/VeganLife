@@ -8,6 +8,9 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
 {
     public partial class BmiCalculatorViewModel : BaseViewModel, IQueryAttributable
     {
+        private const string heightMaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_male";
+        private const string heightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
+
         [ObservableProperty]
         private UserInfo localUserInfo;
         [ObservableProperty]
@@ -19,15 +22,15 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
 
         [ObservableProperty]
         private ISeries[] series;
+
         public BmiCalculatorViewModel()
            : base()
         {
         }
 
-        const string heightMaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_male";
-        const string heightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
         private float heightAvgVN;
         private float heightAvgUS;
+
         public override async Task<Task> ViewAppearingVM()
         {
             var tasks = new List<Task>();
@@ -84,23 +87,22 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                     new ColumnSeries<double>
                             {
                                 Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
-                                Values = new ObservableCollection<double> { this.LocalUserInfo.Height},
-                                IsVisible = true
+                                Values = new ObservableCollection<double> { this.LocalUserInfo.Height },
+                                IsVisible = true,
                             },
                     new ColumnSeries<double>
                             {
                                 Name = $"Trung binh o VN: {heightAvgVN}cm",
-                                Values = new ObservableCollection<double> {heightAvgVN},
-                                IsVisible = true
+                                Values = new ObservableCollection<double> { heightAvgVN },
+                                IsVisible = true,
                             },
                     new ColumnSeries<double>
                             {
                                 Name = $"Trung binh o US: {heightAvgUS}cm",
-                                Values = new ObservableCollection<double> {heightAvgUS},
-                                IsVisible = true
+                                Values = new ObservableCollection<double> { heightAvgUS },
+                                IsVisible = true,
                             },
                     };
-
                 }
 
                 // TODO: bug not gen ui
@@ -111,7 +113,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
         }
 
         [RelayCommand]
-        void HiddenOrShowClicked(string param)
+        private void HiddenOrShowClicked(string param)
         {
             if (this.Series == null)
             {

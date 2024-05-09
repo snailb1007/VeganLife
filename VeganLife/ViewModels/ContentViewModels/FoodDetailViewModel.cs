@@ -2,13 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.Models.FoodModel;
+
 namespace VeganLife.ViewModels.ContentViewModels
 {
-    using SkiaSharp;
-    using VeganLife.Data.LocalData;
-    using VeganLife.Helpers;
-    using VeganLife.Models.FoodModel;
-
     /// <summary>
     /// vm for FoodDetailPage.
     /// </summary>
@@ -23,12 +22,6 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         [ObservableProperty]
         private FoodNutrientFacts foodNutriFacts;
-
-        //[ObservableProperty]
-        //private DonutChart nutriDonutChart;
-
-        //[ObservableProperty]
-        //private RadialGaugeChart dailyRadialGaugeChart;
 
         [ObservableProperty]
         private bool isExpanded;
@@ -51,7 +44,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object parameter)
+        public override async Task<Task> OnNavigatingTo(object? parameter)
         {
             IsLoading = true;
             if (parameter is not null)
@@ -59,28 +52,15 @@ namespace VeganLife.ViewModels.ContentViewModels
                 this.FoodPreview = (FoodPreviewModel)parameter;
                 if (FoodPreview is null)
                 {
-
                 }
                 else
                 {
                     this.FoodPreview.IsRead = true;
-
+                    this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
                     if (this.IsNetworkConnected)
                     {
                         this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
-                    }
-
-                    if (this.FoodDetail == null)
-                    {
-                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                    }
-                    else
-                    {
-                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
-                    }
-
-                    this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
-                    await GetMoreImage()
+                        await GetMoreImage()
                         .ContinueWith(t =>
                         {
                             foreach (var i in t.Result)
@@ -95,6 +75,16 @@ namespace VeganLife.ViewModels.ContentViewModels
                             });
                         })
                         .ConfigureAwait(false);
+                    }
+
+                    if (this.FoodDetail == null)
+                    {
+                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
+                    }
+                    else
+                    {
+                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                    }
                 }
             }
 
@@ -113,22 +103,22 @@ namespace VeganLife.ViewModels.ContentViewModels
             this.FoodPreview.BookmarkClickedCommand.Execute(null);
         }
 
-        bool nutriFactsLoaded;
+        private bool _nutriFactsLoaded;
 
         [RelayCommand]
         private async Task GetNutriFacts()
         {
-            if (nutriFactsLoaded || GetNutriFactsCommand.IsRunning)
+            if (_nutriFactsLoaded || GetNutriFactsCommand.IsRunning)
             {
                 return;
             }
 
             FoodNutriFacts = await this.dataService.GetFoodNutriFacts(this.FoodPreview.Id);
-            nutriFactsLoaded = FoodNutriFacts != null;
-            if (nutriFactsLoaded)
+            _nutriFactsLoaded = FoodNutriFacts != null;
+            if (_nutriFactsLoaded)
             {
-                //NutriDonutChart = new DonutChart()
-                //{
+                // NutriDonutChart = new DonutChart()
+                // {
                 //    Entries = new ChartEntry[]
                 //    {
                 //        new(FoodNutriFacts?.Protein * 4)
@@ -160,7 +150,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                 //    HoleRadius = 0.25f,
                 //    GraphPosition = GraphPosition.AutoFill,
                 //    LabelMode = LabelMode.RightOnly
-                //};
+                // };
             }
         }
 
@@ -168,8 +158,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         private void OnExpandClicked()
         {
             IsExpanded = !IsExpanded;
-            //if (IsExpanded && nutriFactsLoaded && DailyRadialGaugeChart == null)
-            //{
+            // if (IsExpanded && nutriFactsLoaded && DailyRadialGaugeChart == null)
+            // {
             //    DailyRadialGaugeChart = new RadialGaugeChart()
             //    {
             //        Entries = new ChartEntry[]
@@ -314,7 +304,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             //        MaxValue = 100,
             //        LabelTextSize = 35,
             //    };
-            //}
+            // }
         }
 
         private async Task<List<string>> GetMoreImage()

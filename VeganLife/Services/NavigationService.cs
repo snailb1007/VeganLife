@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+
 namespace VeganLife.Services
 {
-    using VeganLife.Helpers;
-
     /// <summary>
     /// Service to handle navigation for shell app.
     /// </summary>
@@ -36,7 +36,8 @@ namespace VeganLife.Services
         private readonly IServiceProvider services;
 
         private Page? mainPage => Application.Current?.MainPage;
-        private IDispatcher? dispatcher => Application.Current?.Dispatcher;
+
+        // private IDispatcher? dispatcher => Application.Current?.Dispatcher;
 
         /// <summary>
         /// Get vm from page.
@@ -100,10 +101,7 @@ namespace VeganLife.Services
                 ServicesHelper.GetService<IDeviceService>().HideKeyboard();
 
                 // navigate
-                MainThread.BeginInvokeOnMainThread( async () => await this.Navigation.PushAsync(toPage));
-
-                // subscribe
-                //toPage.NavigatedFrom += this.Page_NavigatedFrom;
+                MainThread.BeginInvokeOnMainThread(async () => await this.Navigation.PushAsync(toPage));
             }
             else
             {
@@ -111,7 +109,7 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
+        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
             => await this.CallNavigatedTo((sender as Page)!);
 
         private Task CallNavigatedTo(Page p)
@@ -137,7 +135,6 @@ namespace VeganLife.Services
                 if (!isForwardNavigation)
                 {
                     thisPage.NavigatedTo -= this.Page_NavigatedTo;
-                    //thisPage.NavigatedFrom -= this.Page_NavigatedFrom;
                 }
 
                 await this.CallNavigatedFrom(thisPage, isForwardNavigation);

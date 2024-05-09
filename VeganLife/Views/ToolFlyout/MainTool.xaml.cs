@@ -1,14 +1,16 @@
-// <copyright file="BMICalculatorPage.xaml.cs" company="PlaceholderCompany">
+// <copyright file="MainTool.xaml.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Android.Widget;
 using VeganLife.Views.Base;
 
 namespace VeganLife.Views.ToolFlyout
 {
     public partial class MainTool : BasePage<MainToolViewModel>
     {
-        public MainTool(MainToolViewModel vm) : base(vm)
+        public MainTool(MainToolViewModel vm)
+            : base(vm)
         {
             this.InitializeComponent();
         }
@@ -16,7 +18,10 @@ namespace VeganLife.Views.ToolFlyout
         protected override void OnHandlerChanged()
         {
             base.OnHandlerChanged();
-            (slider.Handler.PlatformView as Android.Widget.SeekBar).ContentDescription = "this is slider";
+            if ((slider.Handler?.PlatformView as SeekBar) is SeekBar seekBar)
+            {
+                seekBar.ContentDescription = "this is slider";
+            }
         }
     }
 }

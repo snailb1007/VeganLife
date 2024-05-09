@@ -4,8 +4,8 @@ public partial class ChatGPTDetailPage : ContentPage
 {
     private INavigationService _navigationService;
     public ChatGPTDetailPage(INavigationService navigationService)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         this._navigationService = navigationService;
     }
 

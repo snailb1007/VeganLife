@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android34.0</TargetFrameworks>
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.19</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.21</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -127,16 +127,16 @@
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.3" />
+		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.4" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
-		<PackageReference Include="FFImageLoading.Maui" Version="1.2.1" />
+		<PackageReference Include="FFImageLoading.Maui" Version="1.2.3" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
 		<!--<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />-->
 		<PackageReference Include="Mopups" Version="1.3.1" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
-		<PackageReference Include="ChatGptNet" Version="3.2.10" />
+		<PackageReference Include="ChatGptNet" Version="3.2.14" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
 		<PackageReference Include="Utf8Json" Version="1.3.7" />
@@ -153,7 +153,7 @@
 	<!--<ItemGroup>
 	  <ProjectReference Include="..\VeganLifeDataCenter\VeganLifeDataCenter.csproj" />
 	</ItemGroup>-->
-	<!--<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -163,7 +163,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="MvvmCross.CodeAnalysis" Version="8.0.2" />
-	</ItemGroup>-->
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Update="Resources\Translations\AppResources.Designer.cs">

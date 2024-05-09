@@ -1,3 +1,7 @@
+// <copyright file="AboutAppPopup.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 
@@ -5,12 +9,12 @@ namespace VeganLife.Views.Popups;
 
 public partial class AboutAppPopup : Popup
 {
-	public AboutAppPopup()
-	{
-		this.InitializeComponent();
-		rootGrid.WidthRequest = App.MainSize * 0.8;
+    public AboutAppPopup()
+    {
+        this.InitializeComponent();
+        rootGrid.WidthRequest = App.MainSize * 0.8;
         lbVersion.Text = AppInfo.Current.VersionString;
-	}
+    }
 
     private void TermsAndConditions_Tapped(object sender, TappedEventArgs e)
     {

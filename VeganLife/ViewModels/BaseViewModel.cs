@@ -2,12 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+using VeganLife.Services.LocalDataServices;
+
 namespace VeganLife.ViewModels
 {
-    using VeganLife.Helpers;
-    using VeganLife.Services.LocalDataServices;
-    //using VeganLifeDataCenter.Data;
-
     /// <summary>
     /// Base class for view-model class.
     /// </summary>
@@ -20,8 +19,27 @@ namespace VeganLife.ViewModels
         protected readonly IPopupNaviService popupNaviService;
 
         protected bool isInitialized;
-        //protected readonly AppDbContext appDbContext;
-        protected bool IsNetworkConnected => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+        private bool _hasShownAlert;
+
+        protected bool IsNetworkConnected
+        {
+            get
+            {
+                var isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+
+                if (!isConnected && !_hasShownAlert)
+                {
+                    _hasShownAlert = true; // Prevent showing multiple alerts consecutively
+                    MainThread.BeginInvokeOnMainThread(() => DisplayNoInternetAlert().ConfigureAwait(false));
+                }
+                else if (isConnected)
+                {
+                    _hasShownAlert = false;
+                }
+
+                return isConnected;
+            }
+        }
 
         [ObservableProperty]
         private bool isLoading;
@@ -38,7 +56,27 @@ namespace VeganLife.ViewModels
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
-            //this.appDbContext = ServicesHelper.GetService<AppDbContext>();
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
+        }
+
+        private void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess != NetworkAccess.Internet)
+            {
+                // No internet connection
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayNoInternetAlert().ConfigureAwait(false);
+                });
+            }
+        }
+
+        protected async Task DisplayNoInternetAlert()
+        {
+            await navigationService.DisplayAlert(
+                "Connectivity Issue",
+                "No Internet connection is available. Please check your connection and try again.",
+                "OK");
         }
 
         /// <summary>
@@ -46,7 +84,7 @@ namespace VeganLife.ViewModels
         /// </summary>
         /// <param name="parameter">The first name to join.</param>
         /// <returns>>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task OnNavigatingTo(object parameter)
+        public virtual Task OnNavigatingTo(object? parameter)
             => Task.CompletedTask;
 
         /// <summary>
@@ -65,24 +103,9 @@ namespace VeganLife.ViewModels
             => Task.CompletedTask;
 
         public virtual Task ViewAppearingVM() => Task.CompletedTask;
+
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
+
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
-            //public event PropertyChangedEventHandler CustomPropertyChanged;
-            //protected bool SetAndRaise<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
-            //{
-            //    if (Equals(property, value))
-            //    {
-            //        return false;
-            //    }
-
-        //    property = value;
-        //    RaisePropertyChanged(propertyName);
-        //    return true;
-        //}
-
-        //protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        //{
-        //    CustomPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
         }
 }

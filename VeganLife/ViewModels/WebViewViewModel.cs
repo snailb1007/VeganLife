@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Threading.Tasks;
+using VeganLife.Resources.Translations;
+
 namespace VeganLife.ViewModels
 {
-    using System.Threading.Tasks;
-    using VeganLife.Resources.Translations;
-
     /// <summary>
     /// vm for WebViewPage.
     /// </summary>

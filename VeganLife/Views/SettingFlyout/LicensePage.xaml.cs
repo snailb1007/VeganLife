@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.ViewModels.ContentViewModels;
+
 namespace VeganLife.Views.SettingTab
 {
-    using VeganLife.ViewModels.ContentViewModels;
-
     /// <summary>
     /// class for LicensePage xaml.
     /// </summary>
