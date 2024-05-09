@@ -5,9 +5,9 @@ namespace VeganLife.Views.ToolFlyout;
 
 public partial class BMRCalculatorPage : BasePage<BmrCalculatorViewModel>
 {
-	public BMRCalculatorPage(BmrCalculatorViewModel vm)
-		: base(vm)
-	{
-		InitializeComponent();
-	}
+    public BMRCalculatorPage(BmrCalculatorViewModel vm)
+        : base(vm)
+    {
+        InitializeComponent();
+    }
 }

@@ -2,12 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Resources.Translations;
+using static VeganLife.Helpers.AppSetting.StaticHelper;
+
 namespace VeganLife.Helpers
 {
-    using VeganLife.Helpers.AppSetting;
-    using VeganLife.Resources.Translations;
-    using static VeganLife.Helpers.AppSetting.StaticHelper;
-
     public static class BMICalculateHelper
     {
         /// <summary>
@@ -16,7 +15,7 @@ namespace VeganLife.Helpers
         /// <param name="mass">mass to Calculate.</param>
         /// <param name="height">height to Calculate.</param>
         /// <returns>Bmi value.</returns>
-        public static double Calculate(float mass, float height) => Math.Round((mass / (height * height)),2);
+        public static double Calculate(float mass, float height) => Math.Round(mass / (height * height), 2);
 
         // Orange: Underweight (Mild thinness)
         // Green: Normal range
@@ -46,9 +45,9 @@ namespace VeganLife.Helpers
         private static HealthDiagnosisModel GetWSKLessThen5Age(float bmi)
         {
             var result = new HealthDiagnosisModel();
-            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Note;
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Note ?? string.Empty;
             result.Classify = AppResources.lessThan5_notFound_toolFlyout;
-            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Documents;
+            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan5Age?.Documents ?? string.Empty;
             switch (bmi)
             {
                 case < 14:
@@ -68,15 +67,15 @@ namespace VeganLife.Helpers
             return result;
         }
 
-        private static HealthDiagnosisModel GetWSKLessThen20Age(bool IsMale, float bmi)
+        private static HealthDiagnosisModel GetWSKLessThen20Age(bool isMale, float bmi)
         {
             var result = new HealthDiagnosisModel();
-            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Note;
-            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Documents;
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Note ?? string.Empty;
+            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.Documents ?? string.Empty;
             result.Classify = AppResources.lessThan20_notFound_toolFlyout;
-            if (IsMale)
+            if (isMale)
             {
-                result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Boy;
+                result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Boy ?? string.Empty;
                 switch (bmi)
                 {
                     case < 14:
@@ -95,7 +94,7 @@ namespace VeganLife.Helpers
             }
             else
             {
-                result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Girl;
+                result.ChartLink = HealthDiagnosisFirebaseDataModel.BMIModel?.LessThan20Age?.ChartLink?.Girl ?? string.Empty;
                 switch (bmi)
                 {
                     case < 14:
@@ -116,19 +115,20 @@ namespace VeganLife.Helpers
             return result;
         }
 
-        //public const byte Underweight3Threshold = 16;
-        //public const byte Underweight2Threshold = 17;
-        //public const float Underweight1Threshold = 18.5f;
-        //public const byte NormalThreshold = 25;
-        //public const byte ObeseThreshold = 30;
-        //public const float Obese1Threshold = 35;
-        //public const float obsese2Threshold = 40;
+        // public const byte Underweight3Threshold = 16;
+        // public const byte Underweight2Threshold = 17;
+        // public const float Underweight1Threshold = 18.5f;
+        // public const byte NormalThreshold = 25;
+        // public const byte ObeseThreshold = 30;
+        // public const float Obese1Threshold = 35;
+        // public const float obsese2Threshold = 40;
         public const float NormalAVG = 21.75f;
+
         private static HealthDiagnosisModel GetWSKForAdults(float bmi)
         {
             var result = new HealthDiagnosisModel();
-            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Note;
-            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Documents;
+            result.Note = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Note ?? string.Empty;
+            result.Documents = HealthDiagnosisFirebaseDataModel.BMIModel?.Adult?.Documents ?? string.Empty;
             switch (bmi)
             {
                 case < 16:

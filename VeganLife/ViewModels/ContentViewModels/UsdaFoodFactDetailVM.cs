@@ -1,4 +1,8 @@
-﻿using VeganLife.Data.LocalData;
+﻿// <copyright file="UsdaFoodFactDetailVM.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -22,8 +26,6 @@ namespace VeganLife.ViewModels.ContentViewModels
         private UndefinedFoodNutrient carbValue;
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
-        //[ObservableProperty]
-        //private UndefinedFoodNutrient fatValue;
 
         [ObservableProperty]
         private bool isBottomSheetPresented;
@@ -105,10 +107,11 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
         }
 
-        UndefinedFoodNutrient _caloriesValue = null;
-        UndefinedFoodNutrient _proteinValue = null;
-        UndefinedFoodNutrient _carbValue = null;
-        public  async Task ProcessUsdaFoodAsync()
+        private UndefinedFoodNutrient _caloriesValue = null;
+        private UndefinedFoodNutrient _proteinValue = null;
+        private UndefinedFoodNutrient _carbValue = null;
+
+        public async Task ProcessUsdaFoodAsync()
         {
             this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
                     .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
@@ -116,9 +119,9 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
                 {
-                    SetNutrientValue(ref _proteinValue!, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
-                    SetNutrientValue(ref _carbValue!, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
-                    SetNutrientValue(ref _caloriesValue!, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
+                    SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
+                    SetNutrientValue(ref _carbValue, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
+                    SetNutrientValue(ref _caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
 
                     if (_proteinValue != null
                         && _carbValue != null
@@ -133,14 +136,14 @@ namespace VeganLife.ViewModels.ContentViewModels
                 CaloriesValue = _caloriesValue;
                 void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source, string[] searchTerms)
                 {
-                    var nutrientName = source.Nutrient.Name;
+                    var nutrientName = source.Nutrient?.Name;
                     bool isMatchesAllTerms = searchTerms.All(term => nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
                     if (targetNutrient == null && isMatchesAllTerms)
                     {
                         targetNutrient = new UndefinedFoodNutrient()
                         {
                             Amount = source.Amount,
-                            Unit = source.Nutrient.unitName
+                            Unit = source?.Nutrient?.unitName,
                         };
                     }
                 }

@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Models.FoodModel;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+
 namespace VeganLife.ViewModels.ContentViewModels
 {
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-
     public partial class FoodsByCategoryViewModel : BaseViewModel
     {
         [ObservableProperty]
@@ -23,7 +23,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override Task OnNavigatingTo(object parameter)
+        public override Task OnNavigatingTo(object? parameter)
         {
             var data = parameter as Dictionary<string, IEnumerable<FoodPreviewModel>>;
             if (data != null)

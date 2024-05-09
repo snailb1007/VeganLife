@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.ViewModels.ContentViewModels;
+
 namespace VeganLife.Views.MainPageFlyout.FoodTab
 {
-    using VeganLife.ViewModels.ContentViewModels;
-
     public partial class FoodsByCategoryPage : ContentPage
     {
         public FoodsByCategoryPage(FoodsByCategoryViewModel vm)

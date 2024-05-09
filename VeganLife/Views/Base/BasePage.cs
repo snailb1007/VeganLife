@@ -20,10 +20,6 @@ namespace VeganLife.Views.Base
         protected BasePage(object? viewModel = null)
         {
             this.BindingContext = viewModel;
-            //if (string.IsNullOrWhiteSpace(this.Title))
-            //{
-            //    this.Title = this.GetType().Name;
-            //}
         }
 
         /// <inheritdoc/>

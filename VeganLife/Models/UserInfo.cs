@@ -7,23 +7,36 @@ namespace VeganLife.Models
     {
         [PrimaryKey]
         public string Id { get; set; }
+
         public string Name { get; set; }
+
         public bool IsMale { get; set; }
+
         public float Weight { get; set; }
+
         public short Height { get; set; }
+
         public string FoodsRead { get; set; }
+
         public string VitaminRead { get; set; }
+
         public uint TotalRead { get; set; }
+
         public DateTime DateOfBirth { get; set; }
+
         public float BMIResult { get; set; }
+
         public uint TotalFoodDetailRead { get; set; }
+
         public uint TotalVitaminRead { get; set; }
+
         public uint TotalDiscoveryRead { get; set; }
     }
 
     public partial class UserInfo
     {
-        public byte Age => (byte)(DateTime.Today.Subtract(DateOfBirth).TotalDays / ConstantHelper.AverageDaysInYear);
-        public string Image => IsMale ? "profile_boy" : "profile_girl_strong";
+        public byte Age => (byte)(DateTime.Today.Subtract(this.DateOfBirth).TotalDays / ConstantHelper.AverageDaysInYear);
+
+        public string Image => this.IsMale ? "profile_boy" : "profile_girl_strong";
     }
 }

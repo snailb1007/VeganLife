@@ -9,11 +9,14 @@ namespace VeganLife.Helpers
             string result = string.Empty;
             var assembly = Assembly.GetExecutingAssembly();
             if (assembly is null)
+            {
                 return result;
+            }
+
             Stream? stream = assembly.GetManifestResourceStream(resourceName);
             try
             {
-                if (stream is  not null)
+                if (stream is not null)
                 {
                     using (var reader = new StreamReader(stream))
                     {

@@ -3,7 +3,6 @@
 // </copyright>
 
 // Ignore Spelling: Nav
-
 using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Helpers;
 using VeganLife.messages;
