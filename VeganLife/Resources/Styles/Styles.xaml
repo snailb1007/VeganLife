@@ -72,6 +72,15 @@
             WidthRequest="100" />
     </ControlTemplate>
 
+    <ControlTemplate x:Key="CantFindAnimationTemplate">
+        <skia:SKLottieView
+            HorizontalOptions="Center"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="cant_find_data.json"
+            VerticalOptions="Center" />
+    </ControlTemplate>
+
     <ControlTemplate x:Key="SwipeLeftAnimationTemplate">
         <skia:SKLottieView
             HeightRequest="100"

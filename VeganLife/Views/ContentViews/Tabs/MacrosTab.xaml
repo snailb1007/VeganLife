@@ -139,15 +139,21 @@
                             </Label.FormattedText>
                         </Label>
                     </CollectionView.Header>
-                    <CollectionView.Footer />
                     <CollectionView.EmptyView>
                         <ContentView>
-                            <Button
-                                x:Name="spBtn"
-                                Command="{Binding SupportRequestCommand}"
-                                HorizontalOptions="Center"
-                                Text="Support Request"
-                                VerticalOptions="Center" />
+                            <VerticalStackLayout>
+                                <ContentView
+                                    ControlTemplate="{StaticResource CantFindAnimationTemplate}"
+                                    HeightRequest="150"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="150" />
+                                <Button
+                                    x:Name="spBtn"
+                                    Command="{Binding SupportRequestCommand}"
+                                    HorizontalOptions="Center"
+                                    Text="Support Request"
+                                    VerticalOptions="Center" />
+                            </VerticalStackLayout>
                         </ContentView>
                     </CollectionView.EmptyView>
                 </CollectionView>
