@@ -83,51 +83,23 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         [RelayCommand]
-        private async Task SelectButton(string option)
-        {
-            if (option.Equals("0"))
-            {
-                WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(0));
-                await MopupService.Instance.PopAsync();
-                IsReCalculateSelected = true;
-                IsGoAnalysisPageSelected = false;
-                IsSaveSelected = false;
-            }
-            else if (option.Equals("1"))
-            {
-                if (this.IsGoAnalysisPageSelected)
-                {
-                    this.GoCommand.Execute(null);
-                    WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(1));
-                    return;
-                }
-
-                IsReCalculateSelected = false;
-                IsGoAnalysisPageSelected = true;
-                IsSaveSelected = false;
-            }
-
-            //else
-            //{
-            //    IsReCalculateSelected = false;
-            //    IsGoAnalysisPageSelected = false;
-            //    IsSaveSelected = true;
-            //}
-        }
-
-        [RelayCommand]
         private async Task Go()
         {
-            if (this.GoCommand.IsRunning)
+            if (!IsSaveSelected || this.GoCommand.IsRunning)
             {
                 return;
             }
 
+            await Task.WhenAll(
+                MopupService.Instance.PopAsync(),
+                _userStoreService.AddOrUpdateItemAsync(_localeUserInfo, IsLocaleUser));
+            WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(1));
+        }
+
+        [RelayCommand]
+        private async Task CloseAsync()
+        {
             await MopupService.Instance.PopAsync();
-            if (this.IsSaveSelected)
-            {
-                await this._userStoreService.AddOrUpdateItemAsync(_localeUserInfo, IsLocaleUser);
-            }
         }
 
         partial void OnIsSaveSelectedChanged(bool value)
