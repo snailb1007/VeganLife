@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Resources.Translations;
+
 namespace VeganLife.Helpers
 {
-    using VeganLife.Resources.Translations;
-
     public static class DateTimeHelper
     {
         public static DateTime GetDateTime(string dateString)

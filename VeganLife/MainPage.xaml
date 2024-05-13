@@ -192,6 +192,15 @@
                         </Label.FormattedText>
                     </Label>
                 </CollectionView.Header>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout>
+                        <ContentView
+                            ControlTemplate="{StaticResource CantFindAnimationTemplate}"
+                            HeightRequest="150"
+                            HorizontalOptions="Center"
+                            WidthRequest="150" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
             </CollectionView>
         </RefreshView>
     </Grid>

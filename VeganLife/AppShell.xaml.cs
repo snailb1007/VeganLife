@@ -2,19 +2,17 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-// Ignore Spelling: App
+using Mopups.Services;
+using VeganLife.Helpers;
+using VeganLife.Views.MainPageFlyout;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+using VeganLife.Views.SettingTab;
+using VeganLife.Views.ToolFlyout;
+using static VeganLife.Helpers.AppSetting.StaticHelper;
 
+// Ignore Spelling: App
 namespace VeganLife
 {
-    using Mopups.Services;
-    using VeganLife.Helpers;
-    using VeganLife.Helpers.Extensions;
-    using VeganLife.Views.MainPageFlyout;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-    using VeganLife.Views.SettingTab;
-    using VeganLife.Views.ToolFlyout;
-    using static VeganLife.Helpers.AppSetting.StaticHelper;
-
     /// <summary>
     /// auto-generated.
     /// </summary>
@@ -34,6 +32,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
             // Init data
             this.Dispatcher.Dispatch(async () =>
             {
@@ -67,7 +66,6 @@ namespace VeganLife
                 case 2:
                     this.CurrentItem = bmrCalculator_tool;
                     break;
-
             }
         }
 
@@ -100,19 +98,20 @@ namespace VeganLife
         /// <inheritdoc/>
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {
-            //if (args.Source != ShellNavigationSource.Unknown)
+            // if (args.Source != ShellNavigationSource.Unknown)
             //    this.IsBusy = true;
             _currentShellNavigationSource = args.Source;
             base.OnNavigating(args);
         }
 
         private ShellNavigationSource _currentShellNavigationSource;
+
         public IEnumerable<Page> PreviousPageStack { get; set; }
+
         /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
             // TODO: make crash
-            //this.IsBusy = false;
             base.OnNavigated(args);
             var currentSectionStack = this.Items
                 .SelectMany(item => item.Items)
@@ -125,14 +124,17 @@ namespace VeganLife
                 foreach (var page in pagesToRemove)
                 {
                     if (page is null)
+                    {
                         continue;
+                    }
+
                     if (page.BindingContext is BaseViewModel vm)
                     {
                         this.Dispatcher.Dispatch(async ()
                             => await vm.ViewIsRemovedAsync().ConfigureAwait(false)!);
                     }
 
-                    page.TearDown();
+                    // page.TearDown();
                 }
             }
 
@@ -151,13 +153,12 @@ namespace VeganLife
 
         private void RegisterRoutes()
         {
-            //this.Routes.Add(nameof(MainPage), typeof(MainPage));
-            //this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
-            //this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
-            //this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
-            //this.Routes.Add(nameof(MainTool), typeof(MainTool));
-            //this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
-
+            // this.Routes.Add(nameof(MainPage), typeof(MainPage));
+            // this.Routes.Add(nameof(RationPlanPage), typeof(RationPlanPage));
+            // this.Routes.Add(nameof(VitaminAndMineralPage), typeof(VitaminAndMineralPage));
+            // this.Routes.Add(nameof(NewsFeedPage), typeof(NewsFeedPage));
+            // this.Routes.Add(nameof(MainTool), typeof(MainTool));
+            // this.Routes.Add(nameof(BMICalculatorPage), typeof(BMICalculatorPage));
             this.Routes.Add(nameof(FoodsByCategoryPage), typeof(FoodsByCategoryPage));
             this.Routes.Add(nameof(FoodDetailPage), typeof(FoodDetailPage));
             this.Routes.Add(nameof(LicensePage), typeof(LicensePage));
@@ -174,8 +175,9 @@ namespace VeganLife
             => navigation.NavigationStack
                 .Concat(navigation.ModalStack)
                 .Where(p => p is not null).ToHashSet();
-        //List<Page> GetCurrentSectionStack()
-        //{
+
+        // List<Page> GetCurrentSectionStack()
+        // {
         //    var result = new List<Page>();
         //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.NavigationStack)
         //    {
@@ -184,14 +186,14 @@ namespace VeganLife
         //        result.Add(item);
         //    }
 
-        //    foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
+        // foreach (var item in this.CurrentItem.CurrentItem.Navigation.ModalStack)
         //    {
         //        if (item is null)
         //            continue;
         //        result.Add(item);
         //    }
 
-        //    return result;
-        //}
+        // return result;
+        // }
     }
 }

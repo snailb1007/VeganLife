@@ -9,30 +9,31 @@ namespace VeganLife.ViewModels
 {
     public partial class ProfileViewModel : BaseViewModel
     {
-        const byte totalNumberSpec = 4;
+        private const byte totalNumberSpec = 4;
+
+        private readonly IUserDataService _userDataService;
 
         [ObservableProperty]
-        UserInfo myInfo;
+        private UserInfo myInfo;
 
         [ObservableProperty]
-        byte numberInfoMiss;
+        private byte numberInfoMiss;
 
         [ObservableProperty]
-        int degreePerfection;
+        private int degreePerfection;
 
-        private readonly IUserDataService userDataService;
         public ProfileViewModel()
             : base()
         {
             MyInfo = new UserInfo();
-            userDataService = ServicesHelper.GetService<IUserDataService>();
+            _userDataService = ServicesHelper.GetService<IUserDataService>();
         }
 
         public override async Task<Task> ViewAppearingVM()
         {
             IsLoading = true;
-            await this.userDataService.Refresh();
-            MyInfo = (userDataService as UserDataService).UserInfo;
+            await this._userDataService.Refresh();
+            MyInfo = (_userDataService as UserDataService)?.UserInfo!;
             NumberInfoMiss = totalNumberSpec;
 
             if (MyInfo != null)
@@ -65,7 +66,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        async Task Close()
+        private async Task Close()
         {
             if (CloseCommand.IsRunning)
             {
@@ -75,9 +76,9 @@ namespace VeganLife.ViewModels
             await this.navigationService.PopAsync();
         }
 
-        //partial void OnNumberInfoMissChanged(byte value)
-        //{
+        // partial void OnNumberInfoMissChanged(byte value)
+        // {
         //    DegreePerfection = (byte)(value * 25);
-        //}
+        // }
     }
 }

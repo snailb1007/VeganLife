@@ -2,12 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Pages;
+using Mopups.Services;
+using VeganLife.ViewModels.PopupViewModels;
+
 namespace VeganLife.Views.Popups
 {
-    using Mopups.Pages;
-    using Mopups.Services;
-    using VeganLife.ViewModels.PopupViewModels;
-
     public partial class BmiResultPopup : PopupPage
     {
         public BmiResultPopup(BmiResultPopupViewmodel vm)

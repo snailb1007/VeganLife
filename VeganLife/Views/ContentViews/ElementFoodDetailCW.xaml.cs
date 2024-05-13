@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Views.ContentViews.Base;
+
 namespace VeganLife.Views.ContentViews
 {
-    using VeganLife.Views.ContentViews.Base;
-
     public partial class ElementFoodDetailCW : BaseContentView
     {
         public static BindableProperty TitleProperty = BindableProperty.Create(

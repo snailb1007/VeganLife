@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Pages;
+
 namespace VeganLife.Services
 {
-    using Mopups.Pages;
-
     public interface IPopupNaviService
     {
         Task PushAsync<T>(object? param = null, bool animate = true)

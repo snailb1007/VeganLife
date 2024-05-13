@@ -4,10 +4,10 @@ namespace VeganLife.Views.ContentViews;
 
 public partial class DataGridNutritionFactCW : DataGrid
 {
-	public DataGridNutritionFactCW()
-	{
-		InitializeComponent();
-	}
+    public DataGridNutritionFactCW()
+    {
+        InitializeComponent();
+    }
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {

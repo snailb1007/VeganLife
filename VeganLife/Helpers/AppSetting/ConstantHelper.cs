@@ -3,7 +3,6 @@
 // </copyright>
 
 // Ignore Spelling: App Rss Bmi
-
 namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
@@ -14,7 +13,8 @@ namespace VeganLife.Helpers.AppSetting
             public const string OpenAITokenVip = "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";
 
             public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
-            //public const string OpenAIEndpoint_Generations = "v1/images/generations";
+
+            // public const string OpenAIEndpoint_Generations = "v1/images/generations";
         }
 
         public const float AverageDaysInYear = 365.25f;
@@ -59,7 +59,7 @@ namespace VeganLife.Helpers.AppSetting
             public const string Water = "Water";
             public const string Energy = "Energy";
             public const string Protein = "Protein";
-            public const string fat = "fat";
+            public const string Fat = "fat";
             public const string Ash = "Ash";
             public const string Carbohydrate = "Carbohydrate";
             public const string Fiber = "Fiber";

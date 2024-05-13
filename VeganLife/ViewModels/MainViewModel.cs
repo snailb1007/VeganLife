@@ -2,27 +2,27 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Text.RegularExpressions;
+using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.Messages;
+using VeganLife.Models.FoodModel;
+using VeganLife.Services.UserServices;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+
 namespace VeganLife.ViewModels
 {
-    using CommunityToolkit.Mvvm.Messaging;
-    using System.Text.RegularExpressions;
-    using VeganLife.Data.LocalData;
-    using VeganLife.Helpers;
-    using VeganLife.Messages;
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Services.UserServices;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-
     /// <summary>
     /// vm for MainPage.
     /// </summary>
     public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
-        private FoodPreviewDataStoreService dataStoreService;
-        private IEnumerable<FoodPreviewModel> onlineFoodPreviewData;
-        private IList<FoodPreviewModel> allFoods;
-        //private IList<FoodPreviewModel> passFilterFoods;
+        private FoodPreviewDataStoreService _dataStoreService;
+        private IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
+        private IList<FoodPreviewModel> _allFoods;
 
+        // private IList<FoodPreviewModel> passFilterFoods;
         [ObservableProperty]
         private bool isSearchFocused;
         [ObservableProperty]
@@ -38,7 +38,7 @@ namespace VeganLife.ViewModels
 
         private bool isLoadDataOnAppearingDone;
 
-        //public IAsyncRelayCommand GoFoodDetailCommand { get; }
+        // public IAsyncRelayCommand GoFoodDetailCommand { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -46,8 +46,8 @@ namespace VeganLife.ViewModels
         public MainViewModel()
             : base()
         {
-            //this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
-            this.allFoods = new List<FoodPreviewModel>();
+            // this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
+            this._allFoods = new List<FoodPreviewModel>();
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
         }
@@ -55,7 +55,7 @@ namespace VeganLife.ViewModels
         private void Init()
         {
             this.Foods = new ObservableCollection<FoodPreviewModel>();
-            dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
+            _dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
         public override Task ViewAppearingVM()
@@ -71,23 +71,23 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task LoadDataAsync()
         {
-            IsLoading = true;
+            this.IsLoading = true;
             if (this.IsNetworkConnected)
             {
-                this.onlineFoodPreviewData = await this.dataService.GetFoods();
+                this._onlineFoodPreviewData = await this.dataService.GetFoods();
             }
 
-            allFoods.Clear();
+            this._allFoods.Clear();
             Foods.Clear();
-            var localData = await dataStoreService.GetItemsAsync();
+            var localData = await _dataStoreService.GetItemsAsync();
             if (localData?.Any() ?? false)
             {
-                if (this.onlineFoodPreviewData?.Any() ?? false)
+                if (this._onlineFoodPreviewData?.Any() ?? false)
                 {
                     // compare local vs online => update
-                    for (int i = 0; i < this.onlineFoodPreviewData.Count(); i++)
+                    for (int i = 0; i < this._onlineFoodPreviewData.Count(); i++)
                     {
-                        var thisOnlineItem = this.onlineFoodPreviewData.ElementAt(i);
+                        var thisOnlineItem = this._onlineFoodPreviewData.ElementAt(i);
                         bool thisItemAlreadyExisted = false;
                         foreach (var item in localData)
                         {
@@ -96,18 +96,18 @@ namespace VeganLife.ViewModels
                                 thisItemAlreadyExisted = true;
                                 thisOnlineItem.IsBookmarked = item.IsBookmarked;
                                 thisOnlineItem.IsRead = item.IsRead;
-                                await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                                await this._dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                             }
                         }
 
                         // add new item from server to local
                         if (!thisItemAlreadyExisted)
                         {
-                            await dataStoreService.AddOrUpdateItemAsync(thisOnlineItem!);
+                            await this._dataStoreService.AddOrUpdateItemAsync(thisOnlineItem!);
                         }
                     }
 
-                    (await dataStoreService.GetItemsAsync()).ToList().ForEach(i => this.allFoods.Add(i));
+                    (await this._dataStoreService.GetItemsAsync()).ToList().ForEach(i => this._allFoods.Add(i));
                 }
                 else
                 {
@@ -116,17 +116,17 @@ namespace VeganLife.ViewModels
             }
             else
             {
-                if (this.onlineFoodPreviewData?.Any() ?? false)
+                if (this._onlineFoodPreviewData?.Any() ?? false)
                 {
-                    this.onlineFoodPreviewData.ToList().ForEach(async i =>
+                    this._onlineFoodPreviewData.ToList().ForEach(async i =>
                     {
-                        this.allFoods.Add(i);
-                        await dataStoreService.AddOrUpdateItemAsync(i);
+                        this._allFoods.Add(i);
+                        await _dataStoreService.AddOrUpdateItemAsync(i);
                     });
                 }
             }
 
-            foreach (var i in this.allFoods.Where(i => !string.IsNullOrEmpty(i.Name)))
+            foreach (var i in this._allFoods.Where(i => !string.IsNullOrEmpty(i.Name)))
             {
                 this.Foods.Add(i);
             }
@@ -167,7 +167,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task CategoryClicked(object obj)
         {
-            if (this.allFoods == null || !this.allFoods.Any())
+            if (this._allFoods == null || !this._allFoods.Any())
             {
                 return;
             }
@@ -179,11 +179,11 @@ namespace VeganLife.ViewModels
             }
 
             IsLoading = true;
-            var foodByCategory = this.allFoods.Where(i => i.Category.Contains(itemMenu.Title))
+            var foodByCategory = this._allFoods.Where(i => i.Category.Contains(itemMenu.Title))
                 .ToList();
             var consignment = new Dictionary<string, IEnumerable<FoodPreviewModel>>
             {
-                { itemMenu.Category, foodByCategory }
+                { itemMenu.Category, foodByCategory },
             };
             await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
             IsLoading = false;
@@ -198,7 +198,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void EnsureSearch()
         {
-            Foods = new ObservableCollection<FoodPreviewModel>(this.FilterKeySearch(this.allFoods.ToList(), this.SearchText));
+            Foods = new ObservableCollection<FoodPreviewModel>(this.FilterKeySearch(this._allFoods.ToList(), this.SearchText));
         }
 
         /// <inheritdoc/>
@@ -232,7 +232,7 @@ namespace VeganLife.ViewModels
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
             {
-                Foods = new ObservableCollection<FoodPreviewModel>(this.allFoods);
+                Foods = new ObservableCollection<FoodPreviewModel>(this._allFoods);
             }
         }
     }
