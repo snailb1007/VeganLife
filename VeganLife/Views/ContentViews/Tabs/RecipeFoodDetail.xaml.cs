@@ -1,11 +1,9 @@
-using Sharpnado.Tabs;
-
 namespace VeganLife.Views.ContentViews.Tabs;
 
 public partial class RecipeFoodDetail : VerticalStackLayout
 {
-	public RecipeFoodDetail()
-	{
-		InitializeComponent();
-	}
+    public RecipeFoodDetail()
+    {
+        InitializeComponent();
+    }
 }

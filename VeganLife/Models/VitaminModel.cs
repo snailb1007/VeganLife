@@ -2,14 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Newtonsoft.Json;
+
 namespace VeganLife.Models
 {
-    using Newtonsoft.Json;
-
     public class VitaminModel
     {
         [JsonIgnore]
-        public string Id { get; set; }
+        required public string Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

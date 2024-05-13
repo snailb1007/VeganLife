@@ -223,6 +223,9 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
     <value>N/A</value>
   </data>
+	<data name="cantFindBmiResult_bmiCalculatePage" xml:space="preserve">
+    <value>cantFindBmiResult_bmiCalculatePage</value>
+  </data>
 	<data name="appSet_dateTime_1s_ago" xml:space="preserve">
     <value>one second ago</value>
   </data>

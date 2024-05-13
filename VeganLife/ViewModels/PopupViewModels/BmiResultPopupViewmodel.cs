@@ -2,44 +2,44 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using CommunityToolkit.Mvvm.Messaging;
+using Mopups.Services;
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.messages;
 
 namespace VeganLife.ViewModels.PopupViewModels
 {
-    using CommunityToolkit.Mvvm.Messaging;
-    using Mopups.Services;
-    using VeganLife.Helpers;
-    using VeganLife.messages;
-    using ChatGptNet;
-    using ChatGptNet.Exceptions;
-    using VeganLife.Resources.Translations;
-
     /// <summary>
     /// vm for  BmiResultPopup.
     /// </summary>
     public partial class BmiResultPopupViewmodel : BaseViewModel
     {
-        [ObservableProperty]
-        private string bmiResultText;
-
-        [ObservableProperty]
-        private Color bmiStatusColor;
+        private readonly UserInfoDataStoreServie _userStoreService;
+        private UserInfo _localeUserInfo;
+        private float _bmiResult;
+        private BMIResultModel _result;
 
         public string Message { get; set; }
 
         [ObservableProperty]
+        private string bmiResultText;
+        [ObservableProperty]
+        private Color bmiStatusColor;
+        [ObservableProperty]
         private string classifyLabel;
         [ObservableProperty]
-        private string note;
+        private string? note;
         [ObservableProperty]
         private bool isReCalculateSelected;
         [ObservableProperty]
         private bool isGoAnalysisPageSelected = true;
         [ObservableProperty]
         private bool isSaveSelected;
-
-        private UserInfo localeUserInfo;
-        private readonly UserInfoDataStoreServie userStoreService;
+        [ObservableProperty]
+        private bool isAllowSaveBmiResult;
+        [ObservableProperty]
+        private bool isLocaleUser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
@@ -47,33 +47,33 @@ namespace VeganLife.ViewModels.PopupViewModels
         public BmiResultPopupViewmodel()
             : base()
         {
-            userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            _userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
         }
 
-        private float bmiResult;
-        [ObservableProperty]
-        private bool isLocaleUser;
-        private BMIResultModel result;
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object parameter)
+        public override async Task<Task> OnNavigatingTo(object? parameter)
         {
             if (parameter != null)
             {
-                if (parameter is not BMIResultModel) return base.OnNavigatingTo(parameter);
-                result = (BMIResultModel)parameter;
-                bmiResult = result.BMIResult;
-                this.BmiResultText = result.BMIResult.ToString();
+                if (parameter is not BMIResultModel)
+                {
+                    return base.OnNavigatingTo(parameter);
+                }
+
+                _result = (BMIResultModel)parameter;
+                _bmiResult = _result.BMIResult;
+                this.BmiResultText = _result.BMIResult.ToString();
                 var healthDiagnosis = BMICalculateHelper
-                    .GetWeightStatusCategory(result.Age, result.IsMale, result.BMIResult);
+                    .GetWeightStatusCategory(_result.Age, _result.IsMale, _result.BMIResult);
                 this.BmiStatusColor = healthDiagnosis.StatusColor;
                 this.ClassifyLabel = healthDiagnosis.Classify;
                 this.Note = healthDiagnosis.Note;
-                localeUserInfo = (await userStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                if (localeUserInfo is not null
-                    && !string.IsNullOrEmpty(localeUserInfo.Name)
-                    && localeUserInfo.Age > 0
-                    && localeUserInfo.Weight > 0
-                    && localeUserInfo.Height > 0)
+                _localeUserInfo = (await _userStoreService.GetItemsAsync())?.FirstOrDefault()!;
+                if (_localeUserInfo is not null
+                    && !string.IsNullOrEmpty(_localeUserInfo.Name)
+                    && _localeUserInfo.Age > 0
+                    && _localeUserInfo.Weight > 0
+                    && _localeUserInfo.Height > 0)
                 {
                     this.IsLocaleUser = true;
                 }
@@ -83,63 +83,41 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         [RelayCommand]
-        private async Task SelectButton(string option)
-        {
-            if (option.Equals("0"))
-            {
-                WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(0));
-                await MopupService.Instance.PopAsync();
-                IsReCalculateSelected = true;
-                IsGoAnalysisPageSelected = false;
-                IsSaveSelected = false;
-            }
-            else if (option.Equals("1"))
-            {
-                if (this.IsGoAnalysisPageSelected)
-                {
-                    this.GoCommand.Execute(null);
-                    WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(1));
-                    return;
-                }
-
-                IsReCalculateSelected = false;
-                IsGoAnalysisPageSelected = true;
-                IsSaveSelected = false;
-            }
-            //else
-            //{
-            //    IsReCalculateSelected = false;
-            //    IsGoAnalysisPageSelected = false;
-            //    IsSaveSelected = true;
-            //}
-        }
-
-        [RelayCommand]
         private async Task Go()
         {
-            if (this.GoCommand.IsRunning)
+            if (!IsSaveSelected || this.GoCommand.IsRunning)
             {
                 return;
             }
 
+            await Task.WhenAll(
+                MopupService.Instance.PopAsync(),
+                _userStoreService.AddOrUpdateItemAsync(_localeUserInfo, IsLocaleUser));
+            WeakReferenceMessenger.Default.Send(new BmiResultSelectedOptionMessage(1));
+        }
+
+        [RelayCommand]
+        private async Task CloseAsync()
+        {
             await MopupService.Instance.PopAsync();
-            if (this.IsSaveSelected)
-            {
-                await this.userStoreService.AddOrUpdateItemAsync(localeUserInfo, IsLocaleUser);
-            }
         }
 
         partial void OnIsSaveSelectedChanged(bool value)
         {
             if (value)
             {
-                this.IsLocaleUser = localeUserInfo.Age == result.Age
-                    && localeUserInfo.IsMale == result.IsMale;
-                if (localeUserInfo.BMIResult != this.bmiResult)
+                this.IsLocaleUser = _localeUserInfo.Age == _result.Age
+                    && _localeUserInfo.IsMale == _result.IsMale;
+                if (_localeUserInfo.BMIResult != this._bmiResult)
                 {
-                    localeUserInfo.BMIResult = this.bmiResult;
+                    _localeUserInfo.BMIResult = this._bmiResult;
                 }
             }
+        }
+
+        partial void OnIsAllowSaveBmiResultChanged(bool value)
+        {
+
         }
     }
 }

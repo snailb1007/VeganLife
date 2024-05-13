@@ -87,107 +87,27 @@
                                 Text="{Binding Note, Converter={StaticResource OnlyLineBreakConverter}}" />
                         </Grid>
                     </VerticalStackLayout>
-                    <Grid
-                        Margin="5,10,5,0"
-                        ColumnDefinitions="*,*"
-                        ColumnSpacing="5">
-                        <Grid.Resources>
-                            <Style x:Key="btn" TargetType="Button">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="BackgroundColor" Value="Transparent" />
-                                <Setter Property="BorderColor" Value="SkyBlue" />
-                                <Setter Property="BorderWidth" Value="0" />
-                                <Setter Property="MinimumWidthRequest" Value="48" />
-                                <Setter Property="CornerRadius" Value="23" />
-                                <Setter Property="TextColor" Value="Gray" />
-                                <Setter Property="FontSize" Value="Medium" />
-                                <Setter Property="HorizontalOptions" Value="Center" />
-                            </Style>
-                        </Grid.Resources>
-                        <Button
-                            Command="{Binding SelectButtonCommand}"
-                            CommandParameter="0"
-                            FontFamily="FASolid"
-                            Style="{StaticResource btn}"
-                            Text="&#xf2f9;">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsReCalculateSelected}"
-                                    TargetType="Button"
-                                    Value="true">
-                                    <Setter Property="FontSize" Value="Large" />
-                                    <Setter Property="BorderWidth" Value="1.2" />
-                                    <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                        <Button
-                            Grid.Column="1"
-                            Command="{Binding SelectButtonCommand}"
-                            CommandParameter="1"
-                            FontFamily="FASolid"
-                            Style="{StaticResource btn}"
-                            Text="&#xf061;">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsGoAnalysisPageSelected}"
-                                    TargetType="Button"
-                                    Value="true">
-                                    <Setter Property="FontSize" Value="Large" />
-                                    <Setter Property="BorderWidth" Value="1.2" />
-                                    <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                        <!--<Button
-                            Grid.Column="2"
-                            Command="{Binding SelectButtonCommand}"
-                            CommandParameter="2"
-                            Style="{StaticResource btn}"
-                            Text="Save">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsSaveSelected}"
-                                    TargetType="Button"
-                                    Value="true">
-                                    <Setter Property="FontSize" Value="18" />
-                                    <Setter Property="BorderWidth" Value="1.2" />
-                                    <Setter Property="TextColor" Value="{StaticResource PrimaryLight}" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>-->
-                    </Grid>
-                    <Label
-                        Margin="0,0,0,10"
-                        HorizontalOptions="Center"
-                        Text="{x:Static translate:AppResources.lbSelectBtn_goNext_toolFlyout}">
-                        <Label.Triggers>
-                            <DataTrigger
-                                Binding="{Binding IsReCalculateSelected}"
-                                TargetType="Label"
-                                Value="True">
-                                <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_reCalculate_toolFlyout}" />
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding IsSaveSelected}"
-                                TargetType="Label"
-                                Value="True">
-                                <Setter Property="Text" Value="{x:Static translate:AppResources.lbSelectBtn_save_toolFlyout}" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <HorizontalStackLayout IsVisible="{Binding IsLocaleUser, Converter={StaticResource InvertedBoolConverter}}">
+                    <HorizontalStackLayout HorizontalOptions="Center">
                         <CheckBox IsChecked="{Binding IsSaveSelected, Mode=TwoWay}" />
-                        <Label Text="Save metrics to your profile" VerticalOptions="Center" />
+                        <Label Text="Save metrics to your profile" VerticalOptions="Center">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsLocaleUser}"
+                                    TargetType="Label"
+                                    Value="True">
+                                    <Setter Property="Text" Value="Save BMI result to history list" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
                 <Grid
                     Grid.Row="1"
-                    BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}"
+                    ColumnDefinitions="*,*"
                     HeightRequest="48"
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill">
-                    <Grid.Triggers>
+                    <!--<Grid.Triggers>
                         <MultiTrigger TargetType="Grid">
                             <MultiTrigger.Conditions>
                                 <BindingCondition Binding="{Binding IsLocaleUser}" Value="false" />
@@ -196,17 +116,36 @@
                             <Setter Property="BackgroundColor" Value="Gray" />
                             <Setter Property="IsEnabled" Value="False" />
                         </MultiTrigger>
-                    </Grid.Triggers>
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoCommand}" />
-                    </Grid.GestureRecognizers>
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        HorizontalOptions="Center"
-                        Text="Go"
-                        TextColor="White"
-                        VerticalOptions="Center" />
+                    </Grid.Triggers>-->
+                    <Grid BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}" Opacity="1">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Grid.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsSaveSelected}"
+                                TargetType="Grid"
+                                Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </DataTrigger>
+                        </Grid.Triggers>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Text="Go BMI"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                    </Grid>
+                    <Grid Grid.Column="1" BackgroundColor="Gray">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CloseCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Close"
+                            VerticalOptions="Center" />
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

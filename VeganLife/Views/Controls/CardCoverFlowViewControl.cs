@@ -3,12 +3,13 @@ using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Views.Controls
 {
-    class CardCoverFlowViewControl : CoverFlowView
+    internal class CardCoverFlowViewControl : CoverFlowView
     {
         private readonly object _locker = new object();
         private CancellationTokenSource _slideShowTokenSource;
         private bool _hasRenderer;
         private bool _isInteracting;
+
         public CardCoverFlowViewControl()
         {
             UserInteracted += NoAnimationCoverFlowView_UserInteracted;
@@ -94,7 +95,9 @@ namespace VeganLife.Views.Controls
             {
                 // issue 367 - bug only appear on android
                 if (DeviceInfo.Current.Platform == DevicePlatform.iOS || !_isInteracting)
+                {
                     await MainThread.InvokeOnMainThreadAsync(() => this.SetSelectedIndexWithShouldAutoNavigateToNext(true)).ConfigureAwait(false);
+                }
             }
 
             await SlideShowAsync(token).ConfigureAwait(false);

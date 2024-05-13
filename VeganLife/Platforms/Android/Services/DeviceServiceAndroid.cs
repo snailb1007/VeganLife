@@ -16,7 +16,7 @@ namespace VeganLife.Services
             int resourceId = Platform.CurrentActivity?.Resources?.GetIdentifier(NaviBar, "dimen", "android") ?? 0;
             if (resourceId > 0)
             {
-                return (int)(Platform.CurrentActivity?.Resources?.GetDimensionPixelSize(resourceId))!;
+                return (int)Platform.CurrentActivity?.Resources?.GetDimensionPixelSize(resourceId);
             }
 
             return 0;

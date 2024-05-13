@@ -1,26 +1,27 @@
-﻿// <copyright file="BMICalculatorViewModel.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.messages;
+using VeganLife.Services.UserServices;
+using VeganLife.Views.Popups;
+using VeganLife.Views.ToolFlyout;
 
 namespace VeganLife.ViewModels
 {
-    using CommunityToolkit.Mvvm.Messaging;
-    using VeganLife.Helpers;
-    using VeganLife.messages;
-    using VeganLife.Services.UserServices;
-    using VeganLife.Views.Popups;
-    using VeganLife.Views.ToolFlyout;
-
     public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
+        private readonly UserInfoDataStoreServie _infoDataStoreServie;
+
+        private BMIResultModel? _bmiResultData;
+        private UserInfo _localUserInfor;
+
         public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
         public string AgeBmiRegexPattern { get; } = @"^\d+$";
 
         private float weight;
-        // private short age;
-        private readonly IUserDataService _userDataService;
 
+        // private short age;
         [ObservableProperty]
         private int height;
 
@@ -34,34 +35,47 @@ namespace VeganLife.ViewModels
         private bool isEnableSubmit;
 
         [ObservableProperty]
-        private string weightValue;
+        private string? weightValue;
 
         [ObservableProperty]
         private byte ageValue;
 
         [ObservableProperty]
-        private string backgroundImg;
+        private string? backgroundImg;
 
         [ObservableProperty]
-        private string weightErrMess;
+        private string? weightErrMess;
 
         [ObservableProperty]
-        private string ageErrMess;
+        private string? ageErrMess;
 
         [ObservableProperty]
-        private string generalError;
+        private string? generalError;
 
         [ObservableProperty]
         private double bmiResult;
 
-        public MainToolViewModel(IUserDataService userDataService)
+        public MainToolViewModel(UserInfoDataStoreServie userInfoDataStoreServie)
             : base()
         {
-            this._userDataService = userDataService;
+            _infoDataStoreServie = userInfoDataStoreServie;
         }
 
-        public override Task ViewAppearingVM()
+        public override async Task<Task> ViewAppearingVM()
         {
+            await _infoDataStoreServie.GetItemsAsync().ContinueWith(t =>
+            {
+                this._localUserInfor = t?.Result?.FirstOrDefault() ?? new UserInfo();
+
+                // fill data from user service
+                if (!string.IsNullOrEmpty(_localUserInfor.Name))
+                {
+                    this.IsMale = _localUserInfor.IsMale;
+                    this.AgeValue = _localUserInfor.Age;
+                    this.Height = _localUserInfor.Height;
+                    this.WeightValue = _localUserInfor.Weight.ToString();
+                }
+            }).ConfigureAwait(false);
             WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
             return base.ViewAppearingVM();
         }
@@ -72,18 +86,17 @@ namespace VeganLife.ViewModels
             return base.ViewDisappearingVM();
         }
 
-        private BMIResultModel bmiResultData;
         [RelayCommand]
         private async Task CalculateBmi()
         {
             this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
-            bmiResultData = new BMIResultModel()
+            _bmiResultData = new BMIResultModel()
             {
                 BMIResult = (float)this.BmiResult,
                 IsMale = this.IsMale,
                 Age = this.AgeValue,
             };
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(bmiResultData);
+            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(_bmiResultData);
         }
 
         [RelayCommand]
@@ -199,7 +212,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        void Increase(object data)
+        private void Increase(object data)
         {
             if (data is null)
                 return;
@@ -207,9 +220,11 @@ namespace VeganLife.ViewModels
             if (data.ToString() == "weight")
             {
                 if (WeightValue is null)
+                {
                     WeightValue = "0";
+                }
 
-                if (Int32.TryParse(WeightValue, out int weightNumber))
+                if (int.TryParse(WeightValue, out int weightNumber))
                 {
                     WeightValue = (++weightNumber).ToString();
                 }
@@ -221,17 +236,21 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        void Decrease(object data)
+        private void Decrease(object data)
         {
             if (data is null)
+            {
                 return;
+            }
 
             if (data.ToString() == "weight")
             {
                 if (WeightValue is null)
+                {
                     WeightValue = "0";
+                }
 
-                if (Int32.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
+                if (int.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
                 {
                     WeightValue = (--weightNumber).ToString();
                 }
@@ -256,10 +275,7 @@ namespace VeganLife.ViewModels
                 }
                 else if (Application.Current?.MainPage is AppShell currentShell)
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        currentShell.SwitchShellContentToolsTab(param, this.bmiResultData);
-                    });
+                    MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param, this._bmiResultData));
                 }
             }
         }

@@ -15,7 +15,7 @@ public partial class NutritionFactImportantBorder : Border
     }
 
     public NutritionFactImportantBorder()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 }

@@ -2,14 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Newtonsoft.Json;
+using SQLite;
+
 namespace VeganLife.Models.FoodModel
 {
-    using Newtonsoft.Json;
-    using SQLite;
-
     public class FoodDetailModel
     {
-        [JsonIgnore ,PrimaryKey]
+        [JsonIgnore]
+        [PrimaryKey]
         public string Id { get; set; }
 
         [JsonProperty("decore")]
@@ -22,7 +23,7 @@ namespace VeganLife.Models.FoodModel
         public string Sauce { get; set; }
 
         [JsonProperty("note")]
-        public string Note { get;set; }
+        public string Note { get; set; }
 
         [JsonProperty("root_link")]
         public string RootLink { get; set; }

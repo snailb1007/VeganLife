@@ -1,6 +1,8 @@
-﻿using Android.Webkit;
+﻿// <copyright file="MacrosViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System.Text;
-using System.Text.RegularExpressions;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -26,7 +28,7 @@ namespace VeganLife.ViewModels.TabsViewModel
         private USDAFoodPreviewModel usdaFoodPreviewCurrent;
 
         private List<USDAFoodPreviewModel> allUSDAFoodPreview;
-        //private IEnumerable<USDAFoodPreviewModel> passedFoodFilter;
+
         public MacrosViewModel()
             : base()
         {
@@ -35,7 +37,10 @@ namespace VeganLife.ViewModels.TabsViewModel
         public override async Task<Task> ViewAppearingVM()
         {
             if (isInitialized)
+            {
                 return base.ViewAppearingVM();
+            }
+
             if (!allUSDAFoodPreview?.Any() ?? true)
             {
                 if (!allUSDAFoodPreview?.Any() ?? true)
@@ -45,8 +50,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 }
 
                 App.Current?.MainPage?.Dispatcher?
-                    .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>
-                    (allUSDAFoodPreview ?? new List<USDAFoodPreviewModel>()));
+                    .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(allUSDAFoodPreview ?? []));
             }
 
             isInitialized = true;
@@ -59,7 +63,10 @@ namespace VeganLife.ViewModels.TabsViewModel
             try
             {
                 if (ItemSelectedChangedCommand.IsRunning || IsLoading || param is null)
+                {
                     return;
+                }
+
                 IsLoading = true;
                 await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
                 IsLoading = false;
@@ -159,7 +166,6 @@ namespace VeganLife.ViewModels.TabsViewModel
 
             return filteredFoods;
         }
-
 
         private ParallelQuery<USDAFoodPreviewModel> SearchFoodByName(ParallelQuery<USDAFoodPreviewModel> uSDAFoods, string name)
         {

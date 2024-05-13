@@ -2,51 +2,47 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+#if DEBUG
+using Microsoft.Extensions.Logging;
+#endif
+using Android.Widget;
+using ChatGptNet;
+using ChatGptNet.Models;
+using FFImageLoading.Maui;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
+using Mopups.Hosting;
+using PanCardView;
+using Sharpnado.CollectionView;
+using Sharpnado.MaterialFrame;
+using Sharpnado.Tabs;
+using SkiaSharp.Views.Maui.Controls.Hosting;
+using VeganLife.Data.LocalData;
+using VeganLife.Handlers;
+using VeganLife.Helpers.AppSetting;
+using VeganLife.Services.CommunityFreeService;
+using VeganLife.Services.LocalDataServices;
+using VeganLife.Services.OpenAIService;
+using VeganLife.Services.UserServices;
+using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.ViewModels.PopupViewModels;
+using VeganLife.ViewModels.TabsViewModel;
+using VeganLife.ViewModels.ToolsFlyoutViewModel;
+using VeganLife.Views.ChatFlyout;
+using VeganLife.Views.ContentViews.Tabs;
+using VeganLife.Views.Controls;
+using VeganLife.Views.MainPageFlyout;
+using VeganLife.Views.MainPageFlyout.FoodTab;
+using VeganLife.Views.MainPageFlyout.VitaminTab;
+using VeganLife.Views.Popups;
+using VeganLife.Views.PortionTab;
+using VeganLife.Views.SettingFlyout;
+using VeganLife.Views.SettingTab;
+using VeganLife.Views.ToolFlyout;
+
 namespace VeganLife
 {
-#if DEBUG
-    using Microsoft.Extensions.Logging;
-#endif
-    using FFImageLoading.Maui;
-    using Microsoft.Maui.Handlers;
-    using Mopups.Hosting;
-    using VeganLife.Handlers;
-    using VeganLife.Services.LocalDataServices;
-    using VeganLife.ViewModels.ContentViewModels;
-    using VeganLife.Views.Controls;
-    using VeganLife.Views.Popups;
-    using VeganLife.Views.SettingTab;
-    using ChatGptNet;
-#if ANDROID
-    using Android.Widget;
-    using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-    using VeganLife.ViewModels.PopupViewModels;
-    using VeganLife.Data.LocalData;
-    using Microsoft.Maui.Platform;
-    using VeganLife.Services.UserServices;
-    using PanCardView;
-    using VeganLife.Views.ToolFlyout;
-    //using VeganLifeDataCenter.Data;
-    //using Microsoft.EntityFrameworkCore;
-    using Sharpnado.Tabs;
-    using VeganLife.ViewModels.TabsViewModel;
-    using VeganLife.Views.ContentViews.Tabs;
-    using SkiaSharp.Views.Maui.Controls.Hosting;
-    using VeganLife.ViewModels.ToolsFlyoutViewModel;
-    using VeganLife.Services.CommunityFreeService;
-    using VeganLife.Views.PortionTab;
-    using ChatGptNet.Models;
-    using VeganLife.Helpers.AppSetting;
-    using VeganLife.Views.MainPageFlyout;
-    using VeganLife.Views.SettingFlyout;
-    using VeganLife.Views.MainPageFlyout.FoodTab;
-    using VeganLife.Views.MainPageFlyout.VitaminTab;
-    using VeganLife.Views.ChatFlyout;
-    using VeganLife.Services.OpenAIService;
-    using Sharpnado.MaterialFrame;
-    using Sharpnado.CollectionView;
-#endif
-
     /// <summary>
     /// auto-generated.
     /// </summary>
@@ -65,6 +61,7 @@ namespace VeganLife
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
+
                     // v6.5.1
                     fonts.AddFont("fa-solid-900.ttf", "FASolid");
                     fonts.AddFont("fa-regular-400.ttf", "FARegular");
@@ -83,8 +80,6 @@ namespace VeganLife
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseSharpnadoCollectionView(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false);
-            //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Filename={GetDatabasePath()}", x => x.MigrationsAssembly(nameof(VeganLifeDataCenter))));
-            // AppCenter.Start("2772beb2-5a37-4296-9ecb-d8ba262856ca", typeof(Crashes));
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
             {
@@ -97,7 +92,6 @@ namespace VeganLife
         }
 
         // public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
-
         private static void RegisterServices(IServiceCollection services)
         {
             // service
@@ -122,6 +116,7 @@ namespace VeganLife
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
             services.AddSingleton<ChatLogsDataStoreService>();
+
             // page
             services.AddTransient<SettingPage>();
             services.AddTransient<SettingViewModel>();
@@ -255,7 +250,10 @@ namespace VeganLife
 #if ANDROID
                 var child = handler.PlatformView.GetChildrenOfType<ImageView>();
                 foreach (var item in child)
+                {
                     item.SetColorFilter(Colors.Gray.ToAndroid());
+                }
+
                 // remove underline
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #endif

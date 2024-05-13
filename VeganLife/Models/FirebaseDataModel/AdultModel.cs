@@ -1,5 +1,8 @@
-﻿// Ignore Spelling: Firebase
+﻿// <copyright file="AdultModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
+// Ignore Spelling: Firebase
 using Newtonsoft.Json;
 
 namespace VeganLife.Models.FirebaseDataModel

@@ -1,5 +1,9 @@
-﻿using PanCardView;
+﻿// <copyright file="PanCardExtension.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System.Reflection;
+using PanCardView;
 
 namespace VeganLife.Helpers.Extensions
 {

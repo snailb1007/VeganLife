@@ -207,6 +207,9 @@ Danh sách trống.</value>
 	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
     <value>Giới tính khi sinh ra, đặc chưng bởi nhiều đặc điểm về hình thái, giải phẫu, sinh lí... đặc biệt là cơ quan sinh sản, chất nội tiết và nhiễm sắc thể giới tính</value>
     </data>
+	<data name="cantFindBmiResult_bmiCalculatePage" xml:space="preserve">
+    <value>Hồ sơ cá nhận của bạn chưa có chỉ số BMI!</value>
+  </data>
 	<data name="appSet_dateTime_1s_ago" xml:space="preserve">
     <value>vừa xong</value>
     </data>

@@ -2,20 +2,19 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-// Ignore Spelling: Firebase Nutri
+using Firebase.Database;
+using Firebase.Database.Query;
+using HtmlAgilityPack;
+using System.ServiceModel.Syndication;
+using System.Xml;
+using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Models.FirebaseDataModel;
+using VeganLife.Models.FoodModel;
+using VeganLife.Models.GoogleNewsModels;
 
+// Ignore Spelling: Firebase Nutri
 namespace VeganLife.Services
 {
-    using Firebase.Database;
-    using Firebase.Database.Query;
-    using HtmlAgilityPack;
-    using System.ServiceModel.Syndication;
-    using System.Xml;
-    using VeganLife.Models.CommunityFreeServiceModel;
-    using VeganLife.Models.FirebaseDataModel;
-    using VeganLife.Models.FoodModel;
-    using VeganLife.Models.GoogleNewsModels;
-
     public class DataService : IDataService
     {
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
@@ -31,12 +30,13 @@ namespace VeganLife.Services
         {
         }
 
-        #region food
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
-
             if (string.IsNullOrEmpty(id))
+            {
                 return new FoodDetailModel();
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>();
@@ -90,7 +90,7 @@ namespace VeganLife.Services
                     Image = item.Object.Image,
                     Time = item.Object.Time,
                     Category = item.Object.Category,
-                    Star = item.Object.Star
+                    Star = item.Object.Star,
                 });
             }
             catch (FirebaseException e)
@@ -105,7 +105,10 @@ namespace VeganLife.Services
         public async Task<FoodNutrientFacts> GetFoodNutriFacts(string id)
         {
             if (string.IsNullOrEmpty(id))
+            {
                 return new FoodNutrientFacts();
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(FoodNutriFacts).Child(id).OnceSingleAsync<FoodNutrientFacts>().ConfigureAwait(false);
@@ -125,7 +128,10 @@ namespace VeganLife.Services
         public async Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id)
         {
             if (string.IsNullOrEmpty(id))
+            {
                 return new UndefinedMacroFoodNutriFactModel();
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(MacrosFoodNutriFactDetail).Child(id)
@@ -142,7 +148,6 @@ namespace VeganLife.Services
                 return new UndefinedMacroFoodNutriFactModel();
             }
         }
-        #endregion
 
         public async Task<IEnumerable<VitaminModel>> GetVitamins()
         {
@@ -179,7 +184,7 @@ namespace VeganLife.Services
                     Image = item.Object.Image,
                     Name = item.Object.Name,
                     Category = item.Object.Category,
-                    IsPlantOrigin = item.Object.IsPlantOrigin
+                    IsPlantOrigin = item.Object.IsPlantOrigin,
                 });
             }
             catch (FirebaseException e)
@@ -229,19 +234,12 @@ namespace VeganLife.Services
                         results.Add(new Item
                         {
                             title = i.Title.Text,
-                            //Summary = item.Summary.Text,
                             LocalTimePosted = i.PublishDate.DateTime,
-                            link = i.Links.FirstOrDefault()?.Uri.ToString() ?? string.Empty
+                            link = i.Links.FirstOrDefault()?.Uri.ToString() ?? string.Empty,
                         });
                     }
 
                     return results;
-                    //foreach (SyndicationItem item in feed.Items)
-                    //{
-                    //    string title = item.Title.Text;
-                    //    string summary = item.Summary.Text;
-                    //    Uri link = item.Links[0].Uri;
-                    //}
                 }
             }
             catch (Exception ex)
@@ -284,7 +282,7 @@ namespace VeganLife.Services
                         {
                             foreach (HtmlNode imgNode in imgNodes)
                             {
-                                string imgSrc = imgNode.GetAttributeValue("src", "");
+                                string imgSrc = imgNode.GetAttributeValue("src", string.Empty);
                                 if (!string.IsNullOrEmpty(imgSrc))
                                 {
                                     imageLinks.Add(imgSrc);
