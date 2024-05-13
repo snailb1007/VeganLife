@@ -2,11 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Android.App;
+using Android.Runtime;
+using Firebase;
+
 namespace VeganLife
 {
-    using Android.App;
-    using Android.Runtime;
-
     [Application]
     public class MainApplication : MauiApplication
     {

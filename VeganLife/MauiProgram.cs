@@ -72,6 +72,11 @@ namespace VeganLife
             builder.Logging.AddDebug();
 #endif
             builder
+                //.UseSentry(options =>
+                //{
+                //    options.Dsn = ConstantHelper.SentryConstant.SentryDsn;
+                //    options.Debug = false;
+                //})
                 .ConfigureMopups()
                 .UseFFImageLoading()
                 .UseMauiCommunityToolkit()
@@ -116,6 +121,7 @@ namespace VeganLife
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
             services.AddSingleton<ChatLogsDataStoreService>();
+            services.AddSingleton<SentryService>();
 
             // page
             services.AddTransient<SettingPage>();

@@ -43,7 +43,9 @@
 	</PropertyGroup>
 
 	<!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-	  --><!--<AndroidEnableMultiDex>True</AndroidEnableMultiDex>--><!--
+	  -->
+	<!--<AndroidEnableMultiDex>True</AndroidEnableMultiDex>-->
+	<!--
 	</PropertyGroup>-->
 
 	<ItemGroup>
@@ -75,20 +77,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Views\LoginPage.xaml.cs" />
-	  <Compile Remove="Views\RegistrationPage.xaml.cs" />
+		<AndroidResource Remove="Platforms\Android\Resources\values\strings.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Remove="Views\LoginPage.xaml" />
+		<MauiXaml Remove="Views\RegistrationPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Views\LoginPage.xaml.cs" />
+		<Compile Remove="Views\RegistrationPage.xaml.cs" />
+	</ItemGroup>
+
+	<!--<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\chat_detail.txt" />
 	  <MauiAsset Remove="Resources\Raw\chat_disclaimer.txt" />
 	  <MauiAsset Remove="Resources\Raw\tutorial.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Remove="Views\LoginPage.xaml" />
-	  <MauiXaml Remove="Views\RegistrationPage.xaml" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<None Remove="proguard.cfg" />
@@ -111,15 +117,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
-	  <EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
-	  <EmbeddedResource Include="Resources\Raw\tutorial.txt" />
+		<EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
+		<EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
+		<EmbeddedResource Include="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Sentry.Maui" Version="4.6.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
@@ -196,37 +203,37 @@
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Views\ChatFlyout\ChatGPTDetailPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ChatGPTDisClaimerPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ChatListPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ConversationPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\DataGridNutritionFactCW.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\NutritionFactsFoodDetail.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\MaterialFrameSelectControl.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Templates\BotMessItemTemplate.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Templates\UserMessItemTemplate.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ToolFlyout\BMRCalculatorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>

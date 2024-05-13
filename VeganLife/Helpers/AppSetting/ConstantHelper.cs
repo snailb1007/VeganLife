@@ -83,5 +83,10 @@ namespace VeganLife.Helpers.AppSetting
         }
 
         public const string TAG = "undefined";
+
+        public class SentryConstant
+        {
+            public const string SentryDsn = "https://b90c02848f7946c5bdae502bbf5282bc@o4505328939696128.ingest.us.sentry.io/4505328943104000";
+        }
     }
 }
