@@ -38,5 +38,11 @@ namespace VeganLife.Models
         public byte Age => (byte)(DateTime.Today.Subtract(this.DateOfBirth).TotalDays / ConstantHelper.AverageDaysInYear);
 
         public string Image => this.IsMale ? "profile_boy" : "profile_girl_strong";
+
+        public bool IsEnoughNecessaryData => this.Name != null
+            && this.Weight != 0
+            && this.Height != 0
+            && this.DateOfBirth != null
+            && this.BMIResult > 0;
     }
 }

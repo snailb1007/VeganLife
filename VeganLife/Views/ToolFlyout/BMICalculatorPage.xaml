@@ -6,6 +6,7 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:converterCustom="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ToolsFlyoutViewModel"
     Title="{x:Static translate:AppResources.title_bmiCalculatePage}"
@@ -26,117 +27,131 @@
     <base:BasePage.Resources>
         <ResourceDictionary>
             <converterCustom:OnlyLineBreakConverter x:Key="OnlyLineBreakConverter" />
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </base:BasePage.Resources>
     <ContentView>
         <ScrollView VerticalOptions="Fill">
-            <VerticalStackLayout
-                x:Name="mainVerticalStack"
-                Margin="10"
-                Spacing="10"
-                VerticalOptions="Fill">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="Large"
-                    HorizontalOptions="Start"
-                    Text="Kết quả"
-                    VerticalOptions="Center" />
-                <Border>
-                    <VerticalStackLayout Margin="5">
-                        <StackLayout
-                            Margin="5"
-                            CompressedLayout.IsHeadless="True"
-                            Orientation="Horizontal">
-                            <Label
-                                HorizontalOptions="StartAndExpand"
-                                Text="Thông tin BMI của bạn:"
-                                TextColor="Gray" />
-                            <Label
-                                FontAttributes="Bold"
-                                HorizontalOptions="End"
-                                Text="Bình thường"
-                                TextColor="Green" />
-                        </StackLayout>
-                        <Label
-                            Margin="0,10,0,0"
-                            FontAttributes="Bold"
-                            FontSize="32"
-                            HorizontalOptions="Fill"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding LocalUserInfo.BMIResult}" />
-                        <Label HorizontalOptions="Fill" HorizontalTextAlignment="Center">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Câng nặng khuyến nghị: " />
-                                    <Span Text="{Binding GoalWeight, Mode=OneWay}" TextColor="Green" />
-                                    <Span Text="kg" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </VerticalStackLayout>
-                </Border>
-                <Label
-                    HeightRequest="100"
-                    HorizontalTextAlignment="Start"
-                    LineBreakMode="WordWrap"
-                    MinimumHeightRequest="1"
-                    Opacity="0.8"
+            <Grid>
+                <VerticalStackLayout IsVisible="{Binding LocalUserInfo.IsEnoughNecessaryData, Converter={StaticResource ReverseConverter}}">
+                    <ContentView
+                        ControlTemplate="{StaticResource CantFindAnimationTemplate}"
+                        HeightRequest="200"
+                        VerticalOptions="Start"
+                        WidthRequest="200" />
+                    <Label
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.cantFindBmiResult_bmiCalculatePage}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout
+                    x:Name="mainVerticalStack"
+                    Margin="10"
+                    IsVisible="{Binding LocalUserInfo.IsEnoughNecessaryData}"
+                    Spacing="10"
                     VerticalOptions="Fill">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="*Note: " TextColor="Red" />
-                            <Span Text="{Binding HealthDiagnosis.Note, Mode=OneWay, Converter={StaticResource OnlyLineBreakConverter}}" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Label
-                    Margin="0,20,0,0"
-                    FontAttributes="Bold"
-                    FontSize="Medium"
-                    HorizontalOptions="Center"
-                    Text="Biểu đồ trực quan đối chiếu chiều cao trung bình"
-                    TextColor="Gray" />
-                <Grid
-                    Margin="0,10,0,0"
-                    RowDefinitions="40,*"
-                    RowSpacing="0">
-                    <HorizontalStackLayout Spacing="10">
-                        <Button
-                            Command="{Binding HiddenOrShowClickedCommand}"
-                            CommandParameter="vn"
-                            CornerRadius="10"
-                            Text="Show VN">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Series[1].IsVisible}"
-                                    TargetType="Button"
-                                    Value="true">
-                                    <Setter Property="Text" Value="Hidden vn" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                        <Button
-                            Command="{Binding HiddenOrShowClickedCommand}"
-                            CommandParameter="us"
-                            CornerRadius="10"
-                            Text="Show US">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Series[2].IsVisible}"
-                                    TargetType="Button"
-                                    Value="true">
-                                    <Setter Property="Text" Value="Hidden us" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                    </HorizontalStackLayout>
-                    <lvc:CartesianChart
-                        Grid.Row="1"
-                        HeightRequest="400"
-                        LegendPosition="Bottom"
-                        Series="{Binding Series, Mode=OneWay}" />
-                </Grid>
-            </VerticalStackLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalOptions="Start"
+                        Text="Kết quả"
+                        VerticalOptions="Center" />
+                    <Border>
+                        <VerticalStackLayout Margin="5">
+                            <StackLayout
+                                Margin="5"
+                                CompressedLayout.IsHeadless="True"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="Thông tin BMI của bạn:"
+                                    TextColor="Gray" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="End"
+                                    Text="Bình thường"
+                                    TextColor="Green" />
+                            </StackLayout>
+                            <Label
+                                Margin="0,10,0,0"
+                                FontAttributes="Bold"
+                                FontSize="32"
+                                HorizontalOptions="Fill"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding LocalUserInfo.BMIResult}" />
+                            <Label HorizontalOptions="Fill" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Câng nặng khuyến nghị: " />
+                                        <Span Text="{Binding GoalWeight, Mode=OneWay}" TextColor="Green" />
+                                        <Span Text=" kg" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </Border>
+                    <Label
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="WordWrap"
+                        MinimumHeightRequest="1"
+                        Opacity="0.8"
+                        VerticalOptions="Fill">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="*Note: " TextColor="Red" />
+                                <Span Text="{Binding HealthDiagnosis.Note, Mode=OneWay, Converter={StaticResource OnlyLineBreakConverter}}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Margin="0,20,0,0"
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="Biểu đồ trực quan đối chiếu chiều cao trung bình"
+                        TextColor="Gray" />
+                    <Grid
+                        Margin="0,10,0,0"
+                        RowDefinitions="40,*"
+                        RowSpacing="0">
+                        <HorizontalStackLayout Spacing="10">
+                            <Button
+                                Command="{Binding HiddenOrShowClickedCommand}"
+                                CommandParameter="vn"
+                                CornerRadius="10"
+                                Text="Show VN">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Series[1].IsVisible}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="Text" Value="Hidden vn" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button
+                                Command="{Binding HiddenOrShowClickedCommand}"
+                                CommandParameter="us"
+                                CornerRadius="10"
+                                Text="Show US">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Series[2].IsVisible}"
+                                        TargetType="Button"
+                                        Value="true">
+                                        <Setter Property="Text" Value="Hidden us" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </HorizontalStackLayout>
+                        <lvc:CartesianChart
+                            Grid.Row="1"
+                            HeightRequest="400"
+                            LegendPosition="Bottom"
+                            Series="{Binding Series, Mode=OneWay}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Grid>
         </ScrollView>
     </ContentView>
 </base:BasePage>
