@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.messages;
 using VeganLife.Services.UserServices;
@@ -9,9 +10,10 @@ namespace VeganLife.ViewModels
 {
     public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
-        private readonly IUserDataService _userDataService;
+        private readonly UserInfoDataStoreServie _infoDataStoreServie;
 
         private BMIResultModel? _bmiResultData;
+        private UserInfo _localUserInfor;
 
         public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
@@ -53,14 +55,27 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private double bmiResult;
 
-        public MainToolViewModel(IUserDataService userDataService)
+        public MainToolViewModel(UserInfoDataStoreServie userInfoDataStoreServie)
             : base()
         {
-            this._userDataService = userDataService;
+            _infoDataStoreServie = userInfoDataStoreServie;
         }
 
-        public override Task ViewAppearingVM()
+        public override async Task<Task> ViewAppearingVM()
         {
+            await _infoDataStoreServie.GetItemsAsync().ContinueWith(t =>
+            {
+                this._localUserInfor = t?.Result?.FirstOrDefault() ?? new UserInfo();
+
+                // fill data from user service
+                if (!string.IsNullOrEmpty(_localUserInfor.Name))
+                {
+                    this.IsMale = _localUserInfor.IsMale;
+                    this.AgeValue = _localUserInfor.Age;
+                    this.Height = _localUserInfor.Height;
+                    this.WeightValue = _localUserInfor.Weight.ToString();
+                }
+            }).ConfigureAwait(false);
             WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
             return base.ViewAppearingVM();
         }

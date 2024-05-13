@@ -351,6 +351,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cantFindBmiResult_bmiCalculatePage.
+        /// </summary>
+        internal static string cantFindBmiResult_bmiCalculatePage {
+            get {
+                return ResourceManager.GetString("cantFindBmiResult_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string close_common {
