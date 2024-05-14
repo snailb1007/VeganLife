@@ -229,6 +229,9 @@
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\SupportPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Templates\BotMessItemTemplate.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
