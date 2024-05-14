@@ -360,6 +360,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to chatWithUs_supportPage.
+        /// </summary>
+        internal static string chatWithUs_supportPage {
+            get {
+                return ResourceManager.GetString("chatWithUs_supportPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string close_common {
@@ -1065,6 +1074,15 @@ namespace VeganLife.Resources.Translations {
         internal static string title_profile_profilePopupEdit {
             get {
                 return ResourceManager.GetString("title_profile_profilePopupEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to title_supportPage.
+        /// </summary>
+        internal static string title_supportPage {
+            get {
+                return ResourceManager.GetString("title_supportPage", resourceCulture);
             }
         }
         
