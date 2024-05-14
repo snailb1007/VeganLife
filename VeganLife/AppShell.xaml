@@ -122,4 +122,7 @@
             Route="setting"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
+    <Shell.FlyoutFooter>
+        <contentViews:ShellFlyoutFooterCustom />
+    </Shell.FlyoutFooter>
 </Shell>
