@@ -152,6 +152,7 @@ namespace VeganLife
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
+            services.AddTransient<SupportPage, SupportPageVM>();
 
             services.AddTransient<ChatGPTDisClaimerPage>();
             services.AddTransient<ChatGPTDetailPage>();
