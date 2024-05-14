@@ -7,6 +7,8 @@ namespace VeganLife.Helpers.AppSetting
 {
     public static class ConstantHelper
     {
+        public const string AppStoreLink = "https://play.google.com/store/apps/details?id=com.snailb.healthychef";
+
         public static class OpenAIConstant
         {
             public const string OpenAIUrl = "https://api.openai.com/";
@@ -87,6 +89,11 @@ namespace VeganLife.Helpers.AppSetting
         public class SentryConstant
         {
             public const string SentryDsn = "***REMOVED***";
+        }
+
+        public class Community
+        {
+            public const string FacebookLink = "https://www.facebook.com/profile.php?id=100085495641484";
         }
     }
 }
