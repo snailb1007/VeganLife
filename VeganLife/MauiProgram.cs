@@ -40,6 +40,7 @@ using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
+using CommunityToolkit.Maui;
 
 namespace VeganLife
 {
@@ -124,90 +125,45 @@ namespace VeganLife
             services.AddSingleton<SentryService>();
 
             // page
-            services.AddTransient<SettingPage>();
-            services.AddTransient<SettingViewModel>();
-
-            services.AddTransient<MainTool>();
-            services.AddTransient<MainToolViewModel>();
-
-            services.AddTransient<MainPage>();
-            services.AddTransient<MainViewModel>();
-
-            services.AddTransient<NewsFeedPage>();
-            services.AddTransient<NewsFeedViewModel>();
-
-            services.AddTransient<WebViewPage>();
-            services.AddTransient<WebViewViewModel>();
-
-            services.AddTransient<FlyoutHeader>();
-            services.AddTransient<FlyouttHeaderViewModel>();
-
-            services.AddTransient<VitaminAndMineralPage>();
-            services.AddTransient<VitaminAndMineralViewModel>();
-
-            services.AddTransient<FoodDetailPage>();
-            services.AddTransient<FoodDetailViewModel>();
-
-            services.AddTransient<BookmarkPage>();
-            services.AddTransient<BookmarkViewModel>();
-
-            services.AddTransient<FoodsByCategoryPage>();
-            services.AddTransient<FoodsByCategoryViewModel>();
-
-            services.AddTransient<DetailVitaminAndMineralPage>();
-            services.AddTransient<DetailVitaminAndMineralViewModel>();
-
-            services.AddTransient<LicensePage>();
-            services.AddTransient<LicenseViewModel>();
-
-            services.AddTransient<ProfilePage>();
-            services.AddTransient<ProfileViewModel>();
-
-            services.AddTransient<WelcomePage>();
-            services.AddTransient<WelcomeViewModel>();
-
-            services.AddTransient<ReportPage>();
-            services.AddTransient<ReportPageViewModel>();
-
-            services.AddTransient<CaloriesTab>();
-            services.AddTransient<CaloriesViewModel>();
-
-            services.AddTransient<MacrosTab>();
-            services.AddTransient<MacrosViewModel>();
-
-            services.AddTransient<NutrientsTab>();
-            services.AddTransient<NutrientsViewModel>();
-
-            services.AddTransient<BMICalculatorPage>();
-            services.AddTransient<BmiCalculatorViewModel>();
-
-            services.AddTransient<BMRCalculatorPage>();
-            services.AddTransient<BmrCalculatorViewModel>();
-
-            services.AddTransient<UsdaFoodFactDetailPage>();
-            services.AddTransient<UsdaFoodFactDetailVM>();
-
-            services.AddTransient<ChatListPage>();
-
-            services.AddTransient<ConversationPage>();
-            services.AddTransient<ConversationViewModel>();
-
-            services.AddTransient<ChatGPTDisClaimerPage>();
-            services.AddTransient<ChatGPTDetailPage>();
-
-            // Popup
-            services.AddTransient<BmiResultPopup>();
-            services.AddTransient<BmiResultPopupViewmodel>();
-            services.AddTransient<ProfilePopup>();
-            services.AddTransient<ProfilePopupViewModel>();
-            services.AddTransient<AboutAppPopup>();
-            services.AddTransient<BmiMoreInfoToolBarPopup>();
-            services.AddTransient<BmiMoreInfoToolBarPopupVM>();
-
+            // services.AddTransient<WebViewPage, WebViewViewModel>();
+            // services.AddTransient<WelcomePage, WelcomeViewModel>();
+            // services.AddTransient<ChatListPage>();
             // services.AddTransient<LoginPage>();
             // services.AddTransient<LoginViewModel>();
             // services.AddTransient<RegistrationPage>();
             // services.AddTransient<RegistrationViewModel>();
+            services.AddTransient<SettingPage, SettingViewModel>();
+            services.AddTransient<MainTool, MainToolViewModel>();
+            services.AddTransient<MainPage, MainViewModel>();
+            services.AddTransient<NewsFeedPage, NewsFeedViewModel>();
+            services.AddTransient<FlyoutHeader, FlyouttHeaderViewModel>();
+            services.AddTransient<VitaminAndMineralPage, VitaminAndMineralViewModel>();
+            services.AddTransient<FoodDetailPage, FoodDetailViewModel>();
+            services.AddTransient<BookmarkPage, BookmarkViewModel>();
+            services.AddTransient<FoodsByCategoryPage, FoodsByCategoryViewModel>();
+            services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
+            services.AddTransient<LicensePage, LicenseViewModel>();
+            services.AddTransient<ProfilePage, ProfileViewModel>();
+            services.AddTransient<ReportPage, ReportPageViewModel>();
+            services.AddTransient<CaloriesTab, CaloriesViewModel>();
+            services.AddTransient<MacrosTab, MacrosViewModel>();
+            services.AddTransient<NutrientsTab, NutrientsViewModel>();
+            services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
+            services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
+            services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
+            services.AddTransient<ConversationPage, ConversationViewModel>();
+
+            services.AddTransient<ChatGPTDisClaimerPage>();
+            services.AddTransient<ChatGPTDetailPage>();
+
+            // Toolkit pop-up
+            services.AddTransient<AboutAppPopup>();
+
+            services.AddTransientPopup<BmiMoreInfoToolBarPopup, BmiMoreInfoToolBarPopupVM>();
+
+            // Mopup
+            services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
+            services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()
