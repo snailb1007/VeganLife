@@ -14,7 +14,6 @@ using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using Mopups.Hosting;
 using PanCardView;
-using Sharpnado.CollectionView;
 using Sharpnado.MaterialFrame;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -40,7 +39,6 @@ using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
-using CommunityToolkit.Maui;
 
 namespace VeganLife
 {
@@ -73,18 +71,12 @@ namespace VeganLife
             builder.Logging.AddDebug();
 #endif
             builder
-                //.UseSentry(options =>
-                //{
-                //    options.Dsn = ConstantHelper.SentryConstant.SentryDsn;
-                //    options.Debug = false;
-                //})
                 .ConfigureMopups()
                 .UseFFImageLoading()
                 .UseMauiCommunityToolkit()
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseSharpnadoCollectionView(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false);
             RegisterServices(builder.Services);
             builder.ConfigureMauiHandlers((h) =>
