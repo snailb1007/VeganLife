@@ -174,6 +174,9 @@ Danh sách trống.</value>
   <data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Nhập cụm từ tìm kiếm</value>
   </data>
+	<data name="shareWithFriends_footer_shell" xml:space="preserve">
+    <value>Chia sẻ với bạn bè</value>
+  </data>
   <data name="app_common_homeTab" xml:space="preserve">
     <value>Trang chủ</value>
   </data>

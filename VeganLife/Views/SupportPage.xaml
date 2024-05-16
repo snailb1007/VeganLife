@@ -17,6 +17,5 @@
             HeightRequest="48"
             Source="facebook2019.svg"
             WidthRequest="48" />
-        <Button Command="{Binding ShareAppCommand}" Text="Share app" />
     </VerticalStackLayout>
 </ContentPage>
