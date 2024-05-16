@@ -102,7 +102,10 @@ namespace VeganLife.ViewModels
         public virtual Task OnNavigatedTo()
             => Task.CompletedTask;
 
-        public virtual Task ViewAppearingVM() => Task.CompletedTask;
+        public virtual Task ViewAppearingVM()
+        {
+            return Task.CompletedTask;
+        }
 
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
 

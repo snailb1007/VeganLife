@@ -2,7 +2,6 @@
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.messages;
-using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;
 using VeganLife.Views.ToolFlyout;
 

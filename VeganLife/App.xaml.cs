@@ -30,12 +30,6 @@ namespace VeganLife
             this.MainPage = new AppShell();
         }
 
-        // public static void SetupCollectLogPermission()
-        // {
-            // Crashes.NotifyUserConfirmation(UserSettingsHelper.IsAcceptedCollectLogs ? UserConfirmation.Send : UserConfirmation.DontSend);
-            // Crashes.SetEnabledAsync(UserSettingsHelper.IsAcceptedCollectLogs);
-        // }
-
         private void SetupLanguage()
         {
             StaticHelper.AppSetting.IsVietnameseLang = true;
@@ -47,6 +41,8 @@ namespace VeganLife
 
         private async Task SetupThemeAsync()
         {
+            var isCollectAccepted = await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
+            ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
             if (string.IsNullOrEmpty(await UserSettingsHelper.GetAsync(UserSettingKey.SelectedTheme)))
             {
                 AppThemeHelper.SetTheme(AppTheme.Light);

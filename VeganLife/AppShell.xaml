@@ -92,7 +92,7 @@
             Route="bmr_calculator_tool"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
-    <FlyoutItem
+    <!--<FlyoutItem
         Title="{x:Static translate:AppResources.app_common_webViewTab}"
         FlyoutDisplayOptions="AsSingleItem"
         Icon="web_view">
@@ -100,6 +100,18 @@
             ContentTemplate="{DataTemplate view:WebViewPage}"
             Route="web_view"
             Shell.NavBarIsVisible="False" />
+    </FlyoutItem>-->
+    <FlyoutItem Title="{x:Static translate:AppResources.title_supportPage}" FlyoutDisplayOptions="AsSingleItem">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="FARegular"
+                Glyph="&#xf590;"
+                Color="Black" />
+        </FlyoutItem.Icon>
+        <ShellContent
+            ContentTemplate="{DataTemplate view:SupportPage}"
+            Route="support"
+            Shell.NavBarIsVisible="True" />
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_settingTab}"
@@ -110,4 +122,7 @@
             Route="setting"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
+    <Shell.FlyoutFooter>
+        <contentViews:ShellFlyoutFooterCustom />
+    </Shell.FlyoutFooter>
 </Shell>
