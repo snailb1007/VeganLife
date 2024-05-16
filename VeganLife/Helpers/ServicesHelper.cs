@@ -27,5 +27,17 @@ namespace VeganLife.Helpers
                 return Application.Current?.MainPage?.BindingContext as BaseViewModel;
             }
         }
+
+        public static async Task OpenViaBrowserAsync(string uri)
+        {
+            try
+            {
+                await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex) when (ex.ToString().Contains("ActivityNotFoundException"))
+            {
+                //await AlertHelper.ShowErrorAlertAsync(I18nHelper.Get("Common_Error_BrowserNotFound"));
+            }
+        }
     }
 }
