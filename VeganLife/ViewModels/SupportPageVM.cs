@@ -19,16 +19,5 @@ namespace VeganLife.ViewModels
                 await ServicesHelper.OpenViaBrowserAsync(ConstantHelper.Community.FacebookLink);
             }
         }
-
-        [RelayCommand]
-        private async Task ShareAppAsync()
-        {
-            await Share.RequestAsync(new ShareTextRequest
-            {
-                Uri = ConstantHelper.AppStoreLink,
-                Title = AppResources.app_name,
-                Text = "Invite your friends",
-            });
-        }
     }
 }

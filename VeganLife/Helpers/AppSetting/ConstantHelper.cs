@@ -93,7 +93,7 @@ namespace VeganLife.Helpers.AppSetting
 
         public class Community
         {
-            public const string FacebookLink = "https://www.facebook.com/profile.php?id=100085495641484";
+            public const string FacebookLink = "https://www.facebook.com/healthychef.life";
         }
     }
 }

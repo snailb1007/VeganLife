@@ -988,6 +988,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chia sẻ với bạn bè.
+        /// </summary>
+        internal static string shareWithFriends_footer_shell {
+            get {
+                return ResourceManager.GetString("shareWithFriends_footer_shell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Side meal.
         /// </summary>
         internal static string sideMeal_rationPlantPage {

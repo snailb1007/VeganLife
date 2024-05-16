@@ -105,7 +105,7 @@
         <FlyoutItem.Icon>
             <FontImageSource
                 FontFamily="FARegular"
-                Glyph="&#xf1e0;"
+                Glyph="&#xf590;"
                 Color="Black" />
         </FlyoutItem.Icon>
         <ShellContent
