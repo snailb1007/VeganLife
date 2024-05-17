@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!--
+  <!--
     Microsoft ResX Schema
 
     Version 2.0
@@ -59,440 +59,441 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<!--app-->
-	<data name="app_name" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="app_name" xml:space="preserve">
     <value>HealthyChef</value>
   </data>
-	<data name="app_allow" xml:space="preserve">
+  <data name="app_allow" xml:space="preserve">
     <value>I agree with </value>
   </data>
-	<data name="app_TermsAndConditions" xml:space="preserve">
+  <data name="app_TermsAndConditions" xml:space="preserve">
     <value>Terms &amp; Conditions.</value>
   </data>
-	<data name="app_PrivacyPolicy" xml:space="preserve">
+  <data name="app_PrivacyPolicy" xml:space="preserve">
     <value>Privacy Policy.</value>
   </data>
-	<data name="app_slogan" xml:space="preserve">
+  <data name="app_slogan" xml:space="preserve">
     <value>Live a healthy life,
 taste the whole moment</value>
-    </data>
-	<data name="app_detail" xml:space="preserve">
+  </data>
+  <data name="app_detail" xml:space="preserve">
     <value>Leafy Lifestyle is an application about vegetarian recipes, bringing vegetarian values closer to you.</value>
   </data>
-	<!--common-->
-	<data name="explore_common" xml:space="preserve">
+  <data name="explore_common" xml:space="preserve">
     <value>Explore</value>
   </data>
-	<data name="navigationFailed_alert_common" xml:space="preserve">
+  <data name="navigationFailed_alert_common" xml:space="preserve">
     <value>Điều hướng thất bại!</value>
   </data>
-	<data name="ok_common" xml:space="preserve">
+  <data name="ok_common" xml:space="preserve">
     <value>OK</value>
   </data>
-	<data name="cancel_common" xml:space="preserve">
+  <data name="cancel_common" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<data name="featureFunction_common" xml:space="preserve">
+  <data name="featureFunction_common" xml:space="preserve">
     <value>Feature under development</value>
   </data>
-	<data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
+  <data name="Alert_CollectOperationLogsPermission_Message" xml:space="preserve">
     <value>Allows the application to collect crash.
 Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes.</value>
   </data>
-	<data name="close_common" xml:space="preserve">
+  <data name="close_common" xml:space="preserve">
     <value>Close</value>
   </data>
-	<data name="coming_soon" xml:space="preserve">
+  <data name="coming_soon" xml:space="preserve">
     <value>Coming Soon</value>
   </data>
-	<data name="empty_list" xml:space="preserve">
+  <data name="empty_list" xml:space="preserve">
     <value>Empty list!</value>
   </data>
-	<data name="result_lb" xml:space="preserve">
+  <data name="result_lb" xml:space="preserve">
     <value> results</value>
   </data>
-	<data name="save" xml:space="preserve">
+  <data name="save" xml:space="preserve">
     <value>Save</value>
   </data>
-	<!--common-->
-	<!--shell-->
-	<data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
+  <data name="enterSearchTerm_Placeholder_shell" xml:space="preserve">
     <value>Enter search term</value>
   </data>
-
-	<data name="app_common_homeTab" xml:space="preserve">
+	<data name="shareWithFriends_footer_shell" xml:space="preserve">
+    <value>Chia sẻ với bạn bè</value>
+  </data>
+  <data name="app_common_homeTab" xml:space="preserve">
     <value>Home</value>
   </data>
-	<data name="app_common_searchTab" xml:space="preserve">
+  <data name="app_common_searchTab" xml:space="preserve">
     <value>Search</value>
   </data>
-	<data name="app_common_settingTab" xml:space="preserve">
+  <data name="app_common_settingTab" xml:space="preserve">
     <value>Settings</value>
   </data>
-	<data name="app_common_webViewTab" xml:space="preserve">
+  <data name="app_common_webViewTab" xml:space="preserve">
     <value>WebView</value>
   </data>
-	<data name="app_common_bookmarkTab" xml:space="preserve">
+  <data name="app_common_bookmarkTab" xml:space="preserve">
     <value>Bookmark</value>
   </data>
-	<data name="app_common_vitaminsTab" xml:space="preserve">
+  <data name="app_common_vitaminsTab" xml:space="preserve">
     <value>Vitamins</value>
   </data>
-	<data name="app_common_portionTab" xml:space="preserve">
+  <data name="app_common_portionTab" xml:space="preserve">
     <value>Portion</value>
   </data>
-	<data name="app_common_toolsTab" xml:space="preserve">
+  <data name="app_common_toolsTab" xml:space="preserve">
     <value>Tools</value>
   </data>
-	<data name="optionTitle_settingTab" xml:space="preserve">
+  <data name="optionTitle_settingTab" xml:space="preserve">
     <value>Options setting</value>
   </data>
-	<data name="darkMode_option_settingTab" xml:space="preserve">
+  <data name="darkMode_option_settingTab" xml:space="preserve">
     <value>Dark</value>
   </data>
-	<data name="lightMode_option_settingTab" xml:space="preserve">
+  <data name="lightMode_option_settingTab" xml:space="preserve">
     <value>Light</value>
   </data>
-	<data name="technicalTitle_settingTab" xml:space="preserve">
+  <data name="technicalTitle_settingTab" xml:space="preserve">
     <value>Technical info</value>
   </data>
-	<data name="license_technicalTitle_settingTab" xml:space="preserve">
+  <data name="license_technicalTitle_settingTab" xml:space="preserve">
     <value>Licenses</value>
   </data>
-	<data name="title_bmiCalculatePage" xml:space="preserve">
+  <data name="title_bmiCalculatePage" xml:space="preserve">
     <value>Body mass index</value>
   </data>
-	<data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
+  <data name="sexDetail_content_bmiCalculatePage" xml:space="preserve">
     <value>N/A</value>
   </data>
-	<data name="cantFindBmiResult_bmiCalculatePage" xml:space="preserve">
+  <data name="cantFindBmiResult_bmiCalculatePage" xml:space="preserve">
     <value>cantFindBmiResult_bmiCalculatePage</value>
   </data>
-	<data name="appSet_dateTime_1s_ago" xml:space="preserve">
+  <data name="appSet_dateTime_1s_ago" xml:space="preserve">
     <value>one second ago</value>
   </data>
-	<data name="appSet_dateTime_manyS_ago" xml:space="preserve">
+  <data name="appSet_dateTime_manyS_ago" xml:space="preserve">
     <value> seconds ago</value>
   </data>
-	<data name="appSet_dateTime_1m_ago" xml:space="preserve">
+  <data name="appSet_dateTime_1m_ago" xml:space="preserve">
     <value>a minute ago</value>
   </data>
-	<data name="appSet_dateTime_manyM_ago" xml:space="preserve">
+  <data name="appSet_dateTime_manyM_ago" xml:space="preserve">
     <value> minutes ago</value>
   </data>
-	<data name="appSet_dateTime_1h_ago" xml:space="preserve">
+  <data name="appSet_dateTime_1h_ago" xml:space="preserve">
     <value>an hour ago</value>
   </data>
-	<data name="appSet_dateTime_manyH_ago" xml:space="preserve">
+  <data name="appSet_dateTime_manyH_ago" xml:space="preserve">
     <value> hours ago</value>
   </data>
-	<data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
+  <data name="appSet_dateTime_yesterday_ago" xml:space="preserve">
     <value>yesterday</value>
   </data>
-	<data name="appSet_dateTime_days_ago" xml:space="preserve">
+  <data name="appSet_dateTime_days_ago" xml:space="preserve">
     <value> days ago</value>
   </data>
-	<data name="appSet_dateTime_1Month_ago" xml:space="preserve">
+  <data name="appSet_dateTime_1Month_ago" xml:space="preserve">
     <value>one month ago</value>
   </data>
-	<data name="appSet_dateTime_months_ago" xml:space="preserve">
+  <data name="appSet_dateTime_months_ago" xml:space="preserve">
     <value> months ago</value>
   </data>
-	<data name="veganFood_feedPage" xml:space="preserve">
+  <data name="veganFood_feedPage" xml:space="preserve">
     <value>Vegan food</value>
   </data>
-	<data name="healthy_feedPage" xml:space="preserve">
+  <data name="healthy_feedPage" xml:space="preserve">
     <value>Healthy</value>
   </data>
-	<data name="religion_feedPage" xml:space="preserve">
+  <data name="religion_feedPage" xml:space="preserve">
     <value>Religion</value>
   </data>
-	<data name="liveStrong_feedPage" xml:space="preserve">
+  <data name="liveStrong_feedPage" xml:space="preserve">
     <value>Strong</value>
   </data>
-	<data name="ingredient_foodDetailPage" xml:space="preserve">
+  <data name="ingredient_foodDetailPage" xml:space="preserve">
     <value>Ingredients</value>
   </data>
-	<data name="making_foodDetailPage" xml:space="preserve">
+  <data name="making_foodDetailPage" xml:space="preserve">
     <value>Cooking</value>
   </data>
-	<data name="sauce_foodDetailPage" xml:space="preserve">
+  <data name="sauce_foodDetailPage" xml:space="preserve">
     <value>Sauce</value>
   </data>
-	<data name="decorate_foodDetailPage" xml:space="preserve">
+  <data name="decorate_foodDetailPage" xml:space="preserve">
     <value>Decorate</value>
   </data>
-	<data name="note_foodDetailPage" xml:space="preserve">
+  <data name="note_foodDetailPage" xml:space="preserve">
     <value>Note</value>
-    </data>
-	<data name="searchPlace_mainPage" xml:space="preserve">
+  </data>
+  <data name="searchPlace_mainPage" xml:space="preserve">
     <value>Search anything!</value>
   </data>
-	<data name="noVitamin_vitaminPage" xml:space="preserve">
+  <data name="noVitamin_vitaminPage" xml:space="preserve">
     <value>No information on vitamins &amp; minerals.
 List is empty!</value>
   </data>
-	<data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
+  <data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
     <value>No information about {0} dishes.
 List is empty!</value>
   </data>
-	<data name="options_settingPage" xml:space="preserve">
+  <data name="options_settingPage" xml:space="preserve">
     <value>Options</value>
-    </data>
-	<data name="dark_settingPage" xml:space="preserve">
+  </data>
+  <data name="dark_settingPage" xml:space="preserve">
     <value>Dark</value>
-    </data>
-	<data name="light_settingPage" xml:space="preserve">
+  </data>
+  <data name="light_settingPage" xml:space="preserve">
     <value>Light</value>
-    </data>
-	<data name="technicalInfo_settingPage" xml:space="preserve">
+  </data>
+  <data name="technicalInfo_settingPage" xml:space="preserve">
     <value>Technical Info</value>
-    </data>
-	<data name="appVersion_settingPage" xml:space="preserve">
+  </data>
+  <data name="appVersion_settingPage" xml:space="preserve">
     <value>App version</value>
-    </data>
-	<data name="license_settingPage" xml:space="preserve">
+  </data>
+  <data name="license_settingPage" xml:space="preserve">
     <value>License</value>
-    </data>
-	<data name="sex_bmiPage" xml:space="preserve">
+  </data>
+  <data name="sex_bmiPage" xml:space="preserve">
     <value>Sex</value>
-    </data>
-	<data name="male_bmiPage" xml:space="preserve">
+  </data>
+  <data name="male_bmiPage" xml:space="preserve">
     <value>Male</value>
-    </data>
-	<data name="female_bmiPage" xml:space="preserve">
+  </data>
+  <data name="female_bmiPage" xml:space="preserve">
     <value>Female</value>
-    </data>
-	<data name="height_bmiPage" xml:space="preserve">
+  </data>
+  <data name="height_bmiPage" xml:space="preserve">
     <value>Hegiht</value>
-    </data>
-	<data name="weight_bmiPage" xml:space="preserve">
+  </data>
+  <data name="weight_bmiPage" xml:space="preserve">
     <value>Weight</value>
-    </data>
-	<data name="age_bmiPage" xml:space="preserve">
+  </data>
+  <data name="age_bmiPage" xml:space="preserve">
     <value>Age</value>
-    </data>
-	<data name="calculate_bmiPage" xml:space="preserve">
+  </data>
+  <data name="calculate_bmiPage" xml:space="preserve">
     <value>Calculate</value>
-    </data>
-	<data name="queryBMI_bmiPopup" xml:space="preserve">
+  </data>
+  <data name="queryBMI_bmiPopup" xml:space="preserve">
     <value>I'm {0}, {1} years old, bmi index is {2}. Give me advice</value>
-    </data>
-	<data name="title_bmiPopup" xml:space="preserve">
+  </data>
+  <data name="title_bmiPopup" xml:space="preserve">
     <value>Your BMI</value>
-    </data>
-	<data name="incognito_flyoutHeader" xml:space="preserve">
+  </data>
+  <data name="incognito_flyoutHeader" xml:space="preserve">
     <value>Incognito</value>
-    </data>
-	<data name="description_flyoutHeader" xml:space="preserve">
+  </data>
+  <data name="description_flyoutHeader" xml:space="preserve">
     <value>You are operating anonymously, fill in the information for a better experience</value>
-    </data>
-	<data name="lunch_rationPlantPage" xml:space="preserve">
+  </data>
+  <data name="lunch_rationPlantPage" xml:space="preserve">
     <value>Lunch</value>
-    </data>
-	<data name="breakfast_rationPlantPage" xml:space="preserve">
+  </data>
+  <data name="breakfast_rationPlantPage" xml:space="preserve">
     <value>Breakfast</value>
-    </data>
-	<data name="dinner_rationPlantPage" xml:space="preserve">
+  </data>
+  <data name="dinner_rationPlantPage" xml:space="preserve">
     <value>Dinner</value>
-    </data>
-	<data name="sideMeal_rationPlantPage" xml:space="preserve">
+  </data>
+  <data name="sideMeal_rationPlantPage" xml:space="preserve">
     <value>Side meal</value>
-    </data>
-	<data name="collectLog_settingPage" xml:space="preserve">
+  </data>
+  <data name="collectLog_settingPage" xml:space="preserve">
     <value>Allow collect logs</value>
-    </data>
-	<data name="wrongWeight_tooLow_bmiCalculatePage" xml:space="preserve">
+  </data>
+  <data name="wrongWeight_tooLow_bmiCalculatePage" xml:space="preserve">
     <value>Weight is too low, you seem to have entered it wrong</value>
-    </data>
-	<data name="wrongWeight_tooHigh_bmiCalculatePage" xml:space="preserve">
+  </data>
+  <data name="wrongWeight_tooHigh_bmiCalculatePage" xml:space="preserve">
     <value>Weight is too big, you seem to have entered it wrong</value>
-    </data>
-	<data name="wrongAge_tooLow_bmiCalculatePage" xml:space="preserve">
+  </data>
+  <data name="wrongAge_tooLow_bmiCalculatePage" xml:space="preserve">
     <value>Age is too young, not yet supported
 	Re-enter</value>
-    </data>
-	<data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
+  </data>
+  <data name="wrongAge_tooHigh_bmiCalculatePage" xml:space="preserve">
     <value>Chasing age is too old, you seem to have entered it wrong</value>
-    </data>
-	<!--start profile popup-->
-	<data name="title_profile_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="title_profile_profilePopupEdit" xml:space="preserve">
     <value>Profile</value>
-    </data>
-	<data name="emptyName_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="emptyName_profilePopupEdit" xml:space="preserve">
     <value>Name is empty</value>
-    </data>
-	<data name="emptyWeight_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="emptyWeight_profilePopupEdit" xml:space="preserve">
     <value>Weight is empty!</value>
-    </data>
-	<data name="wrongWeight_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="wrongWeight_profilePopupEdit" xml:space="preserve">
     <value>You seem to have entered weight wrong!</value>
-    </data>
-	<data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="infoAlert_userDataSaved_profilePopupEdit" xml:space="preserve">
     <value>User information saved successfully</value>
-    </data>
-	<data name="sex_options_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="sex_options_profilePopupEdit" xml:space="preserve">
     <value>Sex</value>
-    </data>
-	<data name="name_options_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="name_options_profilePopupEdit" xml:space="preserve">
     <value>Name</value>
-    </data>
-	<data name="dateOfBirth_options_profilePopupEdit" xml:space="preserve">
+  </data>
+  <data name="dateOfBirth_options_profilePopupEdit" xml:space="preserve">
     <value>Date of birth</value>
-    </data>
-	<!--end profile popup-->
-	<data name="title_bmrCalculatePage" xml:space="preserve">
+  </data>
+  <data name="title_bmrCalculatePage" xml:space="preserve">
     <value>Basal metabolic rate</value>
-    </data>
-	<data name="caloriesContent_foodDetailPage" xml:space="preserve">
+  </data>
+  <data name="caloriesContent_foodDetailPage" xml:space="preserve">
     <value>Calories content: </value>
-    </data>
-	<data name="lessThan5_notFound_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="lessThan5_notFound_toolFlyout" xml:space="preserve">
     <value>Not found!</value>
-    </data>
-	<data name="titleClassify_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="titleClassify_toolFlyout" xml:space="preserve">
     <value>Classify: </value>
-    </data>
-	<data name="severeThinness_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="severeThinness_classify_bmi" xml:space="preserve">
     <value>Thiếu cân - Rất gầy</value>
-    </data>
-	<data name="moderateThinness_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="moderateThinness_classify_bmi" xml:space="preserve">
     <value>Thiếu cân - Gầy</value>
-    </data>
-	<data name="Thinness_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="Thinness_classify_bmi" xml:space="preserve">
     <value>Thiếu cân</value>
-    </data>
-	<data name="normal_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="normal_classify_bmi" xml:space="preserve">
     <value>Bình thường</value>
-    </data>
-	<data name="obese_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="obese_classify_bmi" xml:space="preserve">
     <value>Thừa cân</value>
-    </data>
-	<data name="obese1_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="obese1_classify_bmi" xml:space="preserve">
     <value>Thừa cân - Béo phì độ 1</value>
-    </data>
-	<data name="obese2_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="obese2_classify_bmi" xml:space="preserve">
     <value>Thừa cân - Béo phì độ 2</value>
-    </data>
-	<data name="obese3_classify_bmi" xml:space="preserve">
+  </data>
+  <data name="obese3_classify_bmi" xml:space="preserve">
     <value>Thừa cân - Béo phì độ 3</value>
-    </data>
-	<data name="lessThan20_notFound_toolFlyout" xml:space="preserve">
-		<value>Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
+  </data>
+  <data name="lessThan20_notFound_toolFlyout" xml:space="preserve">
+    <value>Đối với trẻ em và thanh thiếu niên trong khoảng độ tuổi này, chỉ số BMI được tính toán theo cách sau:
 Dưới 5th: Gầy (Underweight) nếu BMI &lt; 5th percentile.
 5th - 84th percentile: Bình thường (Normal weight) nếu BMI nằm trong khoảng này.
 85th - 94th percentile: Thừa cân (Overweight) nếu BMI nằm trong khoảng này.
 95th percentile trở lên: Béo phì (Obese) nếu BMI ≥ 95th percentile.</value>
-    </data>
-	<data name="underweight_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="underweight_toolFlyout" xml:space="preserve">
     <value>Underweight</value>
-    </data>
-	<data name="normal_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="normal_toolFlyout" xml:space="preserve">
     <value>Normal</value>
-    </data>
-	<data name="app_title_report" xml:space="preserve">
+  </data>
+  <data name="app_title_report" xml:space="preserve">
     <value>Report</value>
-    </data>
-	<data name="lbSelectBtn_reCalculate_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="lbSelectBtn_reCalculate_toolFlyout" xml:space="preserve">
     <value>Làm mới</value>
-    </data>
-	<data name="lbSelectBtn_goNext_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="lbSelectBtn_goNext_toolFlyout" xml:space="preserve">
     <value>Đi tới trang phân tích</value>
-    </data>
-	<data name="lbSelectBtn_save_toolFlyout" xml:space="preserve">
+  </data>
+  <data name="lbSelectBtn_save_toolFlyout" xml:space="preserve">
     <value>Lưu và đặt làm chỉ số phân tích mặc định</value>
-    </data>
-	<!--TODO-->
-	<data name="prompt_greeting" xml:space="preserve">
-		<value>Chào bạn {0}. Cùng xây dựng kế hoạch một cách đầy năng lượng và hứng khởi nhé!</value>
-	</data>
-	<data name="prompt_greeting_v1" xml:space="preserve">
-		<value>Chào bạn {0}. Hôm nay là ngày hoàn hảo để nuôi dưỡng cơ thể và tâm hồn bạn với những bữa ăn ngon lành và bổ dưỡng.
+  </data>
+  <data name="prompt_greeting" xml:space="preserve">
+    <value>Chào bạn {0}. Cùng xây dựng kế hoạch một cách đầy năng lượng và hứng khởi nhé!</value>
+  </data>
+  <data name="prompt_greeting_v1" xml:space="preserve">
+    <value>Chào bạn {0}. Hôm nay là ngày hoàn hảo để nuôi dưỡng cơ thể và tâm hồn bạn với những bữa ăn ngon lành và bổ dưỡng.
 Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc trên hành trình hướng tới sức khỏe và hạnh phúc! 💪🥗🌟</value>
-	</data>
-	<data name="recipe_foodDetail" xml:space="preserve">
-		<value>Recipe</value>
-	</data>
-	<data name="nutritionFact_foodDetail" xml:space="preserve">
-		<value>Nutritions Fact</value>
-	</data>
-	<data name="emptyChat_conversationChat" xml:space="preserve">
-		<value>Don't be afraid and ask us your question!</value>
-	</data>
-	<data name="previous_welcomePage" xml:space="preserve">
-		<value>Previous</value>
-	</data>
-	<data name="next_welcomePage" xml:space="preserve">
-		<value>Next</value>
-	</data>
-	<data name="skip_welcomePage" xml:space="preserve">
-		<value>Skip</value>
-	</data>
-	<data name="goList_bookmarkPage" xml:space="preserve">
-		<value>Go list page</value>
-	</data>
-	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
-		<value>Fill text here</value>
-	</data>
-	<data name="title_macroTab" xml:space="preserve">
-		<value>MACRO</value>
-	</data>
+  </data>
+  <data name="recipe_foodDetail" xml:space="preserve">
+    <value>Recipe</value>
+  </data>
+  <data name="nutritionFact_foodDetail" xml:space="preserve">
+    <value>Nutritions Fact</value>
+  </data>
+  <data name="emptyChat_conversationChat" xml:space="preserve">
+    <value>Don't be afraid and ask us your question!</value>
+  </data>
+  <data name="previous_welcomePage" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="next_welcomePage" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="skip_welcomePage" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="goList_bookmarkPage" xml:space="preserve">
+    <value>Go list page</value>
+  </data>
+  <data name="fillText_placeHolder_macroTab" xml:space="preserve">
+    <value>Fill text here</value>
+  </data>
+  <data name="title_macroTab" xml:space="preserve">
+    <value>MACRO</value>
+  </data>
+  <data name="chatWithUs_supportPage" xml:space="preserve">
+    <value>chatWithUs_supportPage</value>
+  </data>
+  <data name="title_supportPage" xml:space="preserve">
+    <value>title_supportPage</value>
+  </data>
 </root>

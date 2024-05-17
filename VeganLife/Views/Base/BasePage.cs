@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
+
 namespace VeganLife.Views.Base
 {
     public abstract class BasePage<TViewModel> : BasePage
@@ -10,6 +12,7 @@ namespace VeganLife.Views.Base
         protected BasePage(TViewModel viewModel)
             : base(viewModel)
         {
+            ServicesHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
         }
 
         public new TViewModel BindingContext => (TViewModel)base.BindingContext;
@@ -33,7 +36,10 @@ namespace VeganLife.Views.Base
             {
                 var vm = this.BindingContext as BaseViewModel;
                 if (vm is null)
+                {
                     return;
+                }
+
                 vm.IsLoading = true;
                 await vm.ViewAppearingVM()!;
                 vm.IsLoading = false;

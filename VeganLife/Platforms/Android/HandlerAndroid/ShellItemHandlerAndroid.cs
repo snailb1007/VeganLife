@@ -47,10 +47,11 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
                 {
                     ((IScrollToTop)currentVM).ScrollToTop();
                 }
-                else if (!currentVM.IsLoading)
-                {
-                    await navigationService?.PopToRootAsync()!;
-                }
+
+                //else if (!currentVM.IsLoading)
+                //{
+                //    await navigationService?.PopToRootAsync()!;
+                //}
             }
         }
     }
