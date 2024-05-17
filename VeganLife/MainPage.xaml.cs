@@ -50,6 +50,7 @@ namespace VeganLife
                     message: AppResources.Alert_CollectOperationLogsPermission_Message,
                     accept: AppResources.ok_common,
                     cancel: AppResources.cancel_common);
+                    ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
                     await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
                 });
             }

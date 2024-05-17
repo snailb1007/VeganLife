@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers;
 using VeganLife.Views.SettingTab;
 
 namespace VeganLife.ViewModels
@@ -16,6 +17,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string appVersionDisplay;
 
+        [ObservableProperty]
+        private bool isAllowCollectLogs;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingViewModel"/> class.
         /// </summary>
@@ -25,9 +29,10 @@ namespace VeganLife.ViewModels
             this.Init();
         }
 
-        public override Task ViewAppearingVM()
+        public override async Task<Task> ViewAppearingVM()
         {
             this.AppVersionDisplay = AppInfo.VersionString;
+            IsAllowCollectLogs = await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
             return base.ViewAppearingVM();
         }
 
@@ -41,6 +46,14 @@ namespace VeganLife.ViewModels
         private async Task OpenLicensePage()
         {
             await this.navigationService.NavigateToPage<LicensePage>();
+        }
+
+        partial void OnIsAllowCollectLogsChanged(bool value)
+        {
+            IsLoading = true;
+            ServicesHelper.GetService<SentryService>().IsEnabled = value;
+            _ = UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).ConfigureAwait(false);
+            Task.Delay(500).ContinueWith(t => IsLoading = false);
         }
     }
 }

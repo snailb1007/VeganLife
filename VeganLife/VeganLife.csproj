@@ -5,7 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>8.0.21</MauiVersion>
+		<MauiVersion>8.0.40</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.22</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.27</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -43,7 +43,9 @@
 	</PropertyGroup>
 
 	<!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-	  --><!--<AndroidEnableMultiDex>True</AndroidEnableMultiDex>--><!--
+	  -->
+	<!--<AndroidEnableMultiDex>True</AndroidEnableMultiDex>-->
+	<!--
 	</PropertyGroup>-->
 
 	<ItemGroup>
@@ -55,8 +57,8 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\facebook2019.svg" BaseSize="50,50" />
-		<MauiImage Update="Resources\Images\google.svg" BaseSize="50,50" />
+		<!--<MauiImage Update="Resources\Images\facebook2019.svg" BaseSize="50,50" />-->
+		<!--<MauiImage Update="Resources\Images\google.svg" BaseSize="50,50" />-->
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -75,32 +77,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Views\LoginPage.xaml.cs" />
-	  <Compile Remove="Views\RegistrationPage.xaml.cs" />
+		<AndroidResource Remove="Platforms\Android\Resources\values\strings.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Remove="Views\LoginPage.xaml" />
+		<MauiXaml Remove="Views\RegistrationPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Views\LoginPage.xaml.cs" />
+		<Compile Remove="Views\RegistrationPage.xaml.cs" />
+	</ItemGroup>
+
+	<!--<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\chat_detail.txt" />
 	  <MauiAsset Remove="Resources\Raw\chat_disclaimer.txt" />
 	  <MauiAsset Remove="Resources\Raw\tutorial.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Remove="Views\LoginPage.xaml" />
-	  <MauiXaml Remove="Views\RegistrationPage.xaml" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<None Remove="proguard.cfg" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeBrands.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
-		<None Remove="Resources\Images\facebook2019.svg" />
-		<None Remove="Resources\Images\google.svg" />
-		<None Remove="Resources\Images\microsoft.svg" />
+		<!--<None Remove="Resources\Images\facebook2019.svg" />-->
+		<!--<None Remove="Resources\Images\google.svg" />-->
+		<!--<None Remove="Resources\Images\microsoft.svg" />-->
 		<None Remove="Resources\Images\nutrition_plan.svg" />
-		<None Remove="Resources\Images\trending_fire.png" />
-		<None Remove="Resources\Images\web_view.svg" />
+		<!--<None Remove="Resources\Images\trending_fire.png" />-->
+		<!--<None Remove="Resources\Images\web_view.svg" />-->
 		<None Remove="Resources\Raw\chat_detail.txt" />
 		<None Remove="Resources\Raw\chat_disclaimer.txt" />
 		<None Remove="Resources\Raw\empty_list.json" />
@@ -111,15 +117,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
-	  <EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
-	  <EmbeddedResource Include="Resources\Raw\tutorial.txt" />
+		<EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
+		<EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
+		<EmbeddedResource Include="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Sentry.Maui" Version="4.6.2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
@@ -129,11 +136,10 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.4" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
-		<PackageReference Include="FFImageLoading.Maui" Version="1.2.3" />
+		<PackageReference Include="FFImageLoading.Maui" Version="1.2.4" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
-		<!--<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />-->
 		<PackageReference Include="Mopups" Version="1.3.1" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="ChatGptNet" Version="3.2.14" />
@@ -141,10 +147,6 @@
 		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
 		<PackageReference Include="Utf8Json" Version="1.3.7" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
-		<PackageReference Include="Sharpnado.CollectionView.Maui" Version="3.1.2" />
-		<PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.2" />
-		<!--<PackageReference Include="Firebase.Auth" Version="1.0.0" />-->
-		<!--<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />-->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -196,37 +198,43 @@
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Views\ChatFlyout\ChatGPTDetailPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ChatGPTDisClaimerPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ChatListPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ChatFlyout\ConversationPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\DataGridNutritionFactCW.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\Tabs\NutritionFactsFoodDetail.xaml">
+		<MauiXaml Update="Views\ContentViews\ShellFlyoutFooterCustom.xaml">
 		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\NutritionFactsFoodDetail.xaml">
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\MaterialFrameSelectControl.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Templates\BotMessItemTemplate.xaml">
+		<MauiXaml Update="Views\SupportPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Templates\BotMessItemTemplate.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Templates\UserMessItemTemplate.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ToolFlyout\BMRCalculatorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -309,11 +317,11 @@
 		<MauiXaml Update="Views\ToolFlyout\BMICalculatorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\WebViewPage.xaml">
+		<!--<MauiXaml Update="Views\WebViewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\WelcomePage.xaml">
+		</MauiXaml>-->
+		<!--<MauiXaml Update="Views\WelcomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
+		</MauiXaml>-->
 	</ItemGroup>
 </Project>

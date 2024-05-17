@@ -37,7 +37,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
         }
 
-        public override Task OnNavigatingTo(object parameter)
+        public override Task OnNavigatingTo(object? parameter)
         {
             if (parameter != null)
             {

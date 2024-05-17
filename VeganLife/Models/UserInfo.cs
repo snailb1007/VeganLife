@@ -39,7 +39,7 @@ namespace VeganLife.Models
 
         public string Image => this.IsMale ? "profile_boy" : "profile_girl_strong";
 
-        public bool IsEnoughNecessaryData => this.Name != null
+        public bool IsEnoughNecessaryData => !string.IsNullOrEmpty(this.Name)
             && this.Weight != 0
             && this.Height != 0
             && this.DateOfBirth != null
