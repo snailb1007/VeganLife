@@ -6,6 +6,7 @@ using System.Text;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Resources.Translations;
 using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.PortionTab;
 
@@ -100,14 +101,13 @@ namespace VeganLife.ViewModels.TabsViewModel
             await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
         }
 
-        internal void ScrollToTop()
+        [RelayCommand]
+        private async Task OpenAIConversation()
         {
-            var currentShoTab = Shell.Current.CurrentPage.FindByName("Tab1");
-            var collection = (currentShoTab as Sharpnado.Tabs.DelayedView<MacrosTab>)?.Content?.FindByName("FoodsPreviewCollection")!;
-            if (collection != null)
-            {
-                (collection as CollectionView)?.ScrollTo(UsdaFoodPreviews?.FirstOrDefault(), animate: false);
-            }
+            IsLoading = true;
+            string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
+            IsLoading = false;
         }
 
         partial void OnIsVeganSelectedChanged(bool value)
@@ -135,6 +135,16 @@ namespace VeganLife.ViewModels.TabsViewModel
             if (string.IsNullOrEmpty(value))
             {
                 UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+            }
+        }
+
+        internal void ScrollToTop()
+        {
+            var currentShoTab = Shell.Current.CurrentPage.FindByName("Tab1");
+            var collection = (currentShoTab as Sharpnado.Tabs.DelayedView<MacrosTab>)?.Content?.FindByName("FoodsPreviewCollection")!;
+            if (collection != null)
+            {
+                (collection as CollectionView)?.ScrollTo(UsdaFoodPreviews?.FirstOrDefault(), animate: false);
             }
         }
 

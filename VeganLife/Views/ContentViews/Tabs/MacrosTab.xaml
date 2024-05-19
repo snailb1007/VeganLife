@@ -147,12 +147,19 @@
                                     HeightRequest="150"
                                     HorizontalOptions="Center"
                                     WidthRequest="150" />
-                                <Button
-                                    x:Name="spBtn"
-                                    Command="{Binding SupportRequestCommand}"
-                                    HorizontalOptions="Center"
-                                    Text="Support Request"
-                                    VerticalOptions="Center" />
+                                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                                    <Button
+                                        Command="{Binding OpenAIConversationCommand}"
+                                        HorizontalOptions="Center"
+                                        Text="Asking AI"
+                                        VerticalOptions="Center" />
+                                    <Button
+                                        x:Name="spBtn"
+                                        Command="{Binding SupportRequestCommand}"
+                                        HorizontalOptions="Center"
+                                        Text="Support Request"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
                             </VerticalStackLayout>
                         </ContentView>
                     </CollectionView.EmptyView>
