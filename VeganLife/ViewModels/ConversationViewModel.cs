@@ -2,12 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Android.Media;
 using VeganLife.Data.LocalData;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
 
 namespace VeganLife.ViewModels
 {
+    [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class ConversationViewModel : BaseViewModel
     {
         private readonly IOpenAIService _openAIService;
@@ -38,6 +40,9 @@ namespace VeganLife.ViewModels
         private ChatMessageModel theMessage;
         [ObservableProperty]
         private ChatLogsModel _currentChat;
+
+        [ObservableProperty]
+        private string passedData;
 
         private AsyncRelayCommand _currentCommand;
 
@@ -89,7 +94,7 @@ namespace VeganLife.ViewModels
                     {
                         AdWatchingLimit = 1,
                         ChatDate = DateTime.Today.Date,
-                        TimesLimit = 3,
+                        TimesLimit = 5,
                     };
                     await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
                 }
@@ -143,6 +148,12 @@ namespace VeganLife.ViewModels
 
         private async Task AskQuestionAsync()
         {
+            if (CurrentCommand.IsRunning
+                || CurrentChat.TimesLimit < 1)
+            {
+                return;
+            }
+
             if (_sessionGuid == Guid.Empty)
             {
                 _sessionGuid = Guid.NewGuid();
@@ -172,6 +183,11 @@ namespace VeganLife.ViewModels
             }
 
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
+        }
+
+        partial void OnPassedDataChanged(string value)
+        {
+            this.Query = value;
         }
     }
 }

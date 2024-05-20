@@ -4,6 +4,7 @@
 
 using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
+using VeganLife.Views.ContentViews.Tabs;
 
 namespace VeganLife.ViewModels
 {

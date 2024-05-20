@@ -284,6 +284,9 @@ Application logs are used to collect and analyze information for quality improve
   <data name="searchPlace_mainPage" xml:space="preserve">
     <value>Search anything!</value>
   </data>
+	<data name="cookingRecipe_mainPage" xml:space="preserve">
+    <value>cookingRecipe_mainPage</value>
+  </data>
   <data name="noVitamin_vitaminPage" xml:space="preserve">
     <value>No information on vitamins &amp; minerals.
 List is empty!</value>
@@ -471,6 +474,9 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
   </data>
   <data name="emptyChat_conversationChat" xml:space="preserve">
     <value>Don't be afraid and ask us your question!</value>
+  </data>
+	<data name="askingAI_conversationChat" xml:space="preserve">
+    <value>askingAI_conversationChat</value>
   </data>
   <data name="previous_welcomePage" xml:space="preserve">
     <value>Previous</value>
