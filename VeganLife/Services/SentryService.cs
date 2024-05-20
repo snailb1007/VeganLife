@@ -50,14 +50,12 @@ namespace VeganLife.Services
                 // options.Debug = true; // Set to false in production
             });
             _isEnabled = true;
-            LogMessage("Sentry enabled");
         }
 
         private void DisableSentry()
         {
             if (_sentryInstance != null)
             {
-                LogMessage("Sentry disabled");
                 _sentryInstance.Dispose(); // Properly shutdown Sentry
             }
 

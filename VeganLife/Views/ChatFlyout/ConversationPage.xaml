@@ -72,12 +72,13 @@
             <Border
                 Grid.Column="0"
                 BackgroundColor="{StaticResource PrimaryLight}"
-                HeightRequest="48"
                 StrokeShape="RoundRectangle 36">
                 <Grid ColumnDefinitions="*, 50">
-                    <Entry
+                    <Editor
                         Margin="16,0"
                         MaxLength="100"
+                        MaximumHeightRequest="100"
+                        MinimumHeightRequest="48"
                         Placeholder="Enter text here..."
                         Text="{Binding Query, Mode=TwoWay}"
                         TextColor="{StaticResource Gray100}"
