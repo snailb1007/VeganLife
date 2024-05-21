@@ -288,6 +288,9 @@ Danh sách trống.</value>
   <data name="searchPlace_mainPage" xml:space="preserve">
     <value>Tìm kiếm gì đó!</value>
   </data>
+	<data name="cookingRecipe_mainPage" xml:space="preserve">
+    <value>Công thức nấu ăn cho món </value>
+  </data>
   <data name="noVitamin_vitaminPage" xml:space="preserve">
     <value>không có thông tin về Vitamin &amp; chất khoáng.
 Danh sách trống!</value>
@@ -471,10 +474,13 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
     <value>Công thức</value>
   </data>
   <data name="nutritionFact_foodDetail" xml:space="preserve">
-    <value>Nutritions Fact</value>
+    <value>Giá trị dinh dưỡng</value>
   </data>
   <data name="emptyChat_conversationChat" xml:space="preserve">
     <value>Đừng lo lắng và hãy hỏi chúng tôi câu hỏi của bạn!</value>
+  </data>
+	<data name="askingAI_conversationChat" xml:space="preserve">
+    <value>Hỏi trợ lý</value>
   </data>
   <data name="previous_welcomePage" xml:space="preserve">
     <value>Trước</value>

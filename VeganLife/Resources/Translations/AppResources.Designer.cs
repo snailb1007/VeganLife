@@ -315,6 +315,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to askingAI_conversationChat.
+        /// </summary>
+        internal static string askingAI_conversationChat {
+            get {
+                return ResourceManager.GetString("askingAI_conversationChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Breakfast.
         /// </summary>
         internal static string breakfast_rationPlantPage {
@@ -392,6 +401,15 @@ namespace VeganLife.Resources.Translations {
         internal static string coming_soon {
             get {
                 return ResourceManager.GetString("coming_soon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cookingRecipe_mainPage.
+        /// </summary>
+        internal static string cookingRecipe_mainPage {
+            get {
+                return ResourceManager.GetString("cookingRecipe_mainPage", resourceCulture);
             }
         }
         

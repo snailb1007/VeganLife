@@ -8,6 +8,7 @@ using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Models.FoodModel;
+using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.MainPageFlyout.FoodTab;
 
@@ -199,6 +200,20 @@ namespace VeganLife.ViewModels
         private void EnsureSearch()
         {
             Foods = new ObservableCollection<FoodPreviewModel>(this.FilterKeySearch(this._allFoods.ToList(), this.SearchText));
+        }
+
+        [RelayCommand]
+        private async Task OpenAIConversation()
+        {
+            if (IsLoading || OpenAIConversationCommand.IsRunning)
+            {
+                return;
+            }
+
+            IsLoading = true;
+            string query = AppResources.cookingRecipe_mainPage + SearchText;
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
+            IsLoading = false;
         }
 
         /// <inheritdoc/>
