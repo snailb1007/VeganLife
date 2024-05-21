@@ -26,56 +26,66 @@ namespace VeganLife.Services
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
 
-        public DataService()
+        // Method for fetching a single item
+        public async Task<T> GetSingleDataFromFirebaseAsync<T>(string path, T defaultValue = default)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                return defaultValue;
+            }
+
+            try
+            {
+                T result = await this.firebaseDatabase.Child(path).OnceSingleAsync<T>().ConfigureAwait(false);
+                return result ?? defaultValue;
+            }
+            catch (FirebaseException e)
+            {
+                Debug.WriteLine($"Firebase error in GetSingleDataFromFirebaseAsync: {e.Message}");
+                return defaultValue;
+            }
+        }
+
+        // Method for fetching a collection
+        public async Task<IReadOnlyCollection<FirebaseObject<T>>> GetCollectionFromFirebaseAsync<T>(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return null;
+            }
+
+            try
+            {
+                var result = await this.firebaseDatabase.Child(path).OnceAsync<T>().ConfigureAwait(false);
+                return result;
+            }
+            catch (FirebaseException e)
+            {
+                Debug.WriteLine($"Firebase error in GetCollectionFromFirebaseAsync: {e.Message}");
+                return null;
+            }
         }
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return new FoodDetailModel();
-            }
-
-            try
-            {
-                var data = await this.firebaseDatabase.Child(FoodDetailAddress).Child(id).OnceSingleAsync<FoodDetailModel>();
-                data ??= new FoodDetailModel();
-                data.Id = id;
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
-                return new FoodDetailModel();
-            }
+            var data = await this.GetSingleDataFromFirebaseAsync<FoodDetailModel>($"{FoodDetailAddress}/{id}", new FoodDetailModel());
+            data.Id = id;
+            return data;
         }
 
         public async Task<IEnumerable<FoodMenuCategoryModel>> GetFoodMenu()
         {
-            try
+            var data = await this.GetCollectionFromFirebaseAsync<FoodMenuCategoryModel>(MenuFoodAddress);
+            if (data is null)
             {
-                var data = await this.firebaseDatabase.Child(MenuFoodAddress).OnceAsync<MenuModel>().ConfigureAwait(false);
-                if (data is null)
-                {
-                    return Enumerable.Empty<FoodMenuCategoryModel>();
-                }
-
-                return data.Select(item => new FoodMenuCategoryModel
-                {
-                    ImgSource = item?.Object?.ImgSource,
-                    Title = item?.Key,
-                });
-            }
-            catch (FirebaseException e)
-            {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
                 return Enumerable.Empty<FoodMenuCategoryModel>();
             }
+
+            return data.Select(item => new FoodMenuCategoryModel
+            {
+                ImgSource = item?.Object?.ImgSource,
+                Title = item?.Key,
+            });
         }
 
         public async Task<IEnumerable<FoodPreviewModel>> GetFoods()

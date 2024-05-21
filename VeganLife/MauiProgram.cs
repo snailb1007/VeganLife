@@ -196,6 +196,16 @@ namespace VeganLife
 			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
             });
+
+            EditorHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, editor) =>
+            {
+#if ANDROID
+                handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#elif IOS
+			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#endif
+            });
         }
 
         private static void CustomSearchBar()

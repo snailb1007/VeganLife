@@ -199,6 +199,11 @@
                             HeightRequest="150"
                             HorizontalOptions="Center"
                             WidthRequest="150" />
+                        <Button
+                            Command="{Binding OpenAIConversationCommand}"
+                            HorizontalOptions="Center"
+                            Text="{x:Static translate:AppResources.askingAI_conversationChat}"
+                            VerticalOptions="Center" />
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
             </CollectionView>
