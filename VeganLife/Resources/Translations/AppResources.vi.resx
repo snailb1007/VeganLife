@@ -503,4 +503,79 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
   <data name="title_supportPage" xml:space="preserve">
     <value>Hỗ trợ</value>
   </data>
+	<data name="Proximates_common" xml:space="preserve">
+    <value>Chất dinh dưỡng</value>
+  </data>
+	<data name="Water_common" xml:space="preserve">
+    <value>Nước</value>
+  </data>
+	<data name="Energy_common" xml:space="preserve">
+    <value>Năng lượng</value>
+  </data>
+	<data name="Protein_common" xml:space="preserve">
+    <value>Chất đạm</value>
+  </data>
+	<data name="Fat_common" xml:space="preserve">
+    <value>Chất béo</value>
+  </data>
+	<data name="Ash_common" xml:space="preserve">
+    <value>Ash</value>
+  </data>
+	<data name="Carbohydrate_common" xml:space="preserve">
+    <value>Carbohydrate</value>
+  </data>
+	<data name="Fiber_common" xml:space="preserve">
+    <value>Chất xơ</value>
+  </data>
+	<data name="Sugars_common" xml:space="preserve">
+    <value>Đường</value>
+  </data>
+	<data name="Sucrose_common" xml:space="preserve">
+    <value>Đường sucrose</value>
+  </data>
+	<data name="Glucose_common" xml:space="preserve">
+    <value>Đường glucose</value>
+  </data>
+	<data name="Fructose_common" xml:space="preserve">
+    <value>Đường Fructose</value>
+  </data>
+	<data name="Lactose_common" xml:space="preserve">
+    <value>Đường Lactose</value>
+  </data>
+	<data name="Maltose_common" xml:space="preserve">
+    <value>Đường Maltose</value>
+  </data>
+	<data name="GaLactose_common" xml:space="preserve">
+    <value>Đường GaLactose</value>
+  </data>
+	<data name="Starch_common" xml:space="preserve">
+    <value>Tinh bột</value>
+  </data>
+	<data name="Minerals_common" xml:space="preserve">
+    <value>Khoáng chất</value>
+  </data>
+	<data name="Calcium_common" xml:space="preserve">
+    <value>Canxi</value>
+  </data>
+	<data name="Iron_common" xml:space="preserve">
+    <value>Sắt</value>
+  </data>
+	<data name="Magnesium_common" xml:space="preserve">
+    <value>Magie</value>
+  </data>
+	<data name="Phosphorus_common" xml:space="preserve">
+    <value>Phốt pho</value>
+  </data>
+	<data name="Potassium_common" xml:space="preserve">
+    <value>Kali</value>
+  </data>
+	<data name="Sodium_common" xml:space="preserve">
+    <value>Muối Natri</value>
+  </data>
+	<data name="Zinc_common" xml:space="preserve">
+    <value>Kẽm</value>
+  </data>
+	<data name="Copper_common" xml:space="preserve">
+    <value>Đồng</value>
+  </data>
 </root>
