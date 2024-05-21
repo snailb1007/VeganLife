@@ -98,7 +98,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public string? abbreviation { get; set; }
     }
 
-    public class Nutrient
+    public partial class Nutrient
     {
         public int id { get; set; }
 
@@ -108,6 +108,11 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public int rank { get; set; }
 
         public string? unitName { get; set; }
+    }
+
+    public partial class Nutrient
+    {
+
     }
 
     public class NutrientConversionFactor
