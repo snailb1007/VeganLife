@@ -2,6 +2,8 @@
 
 using SQLite;
 using System.Runtime.Serialization;
+using VeganLife.Helpers;
+using static VeganLife.Helpers.AppSetting.ConstantHelper;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
@@ -112,7 +114,28 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public partial class Nutrient
     {
+        public string DisplayName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Name))
+                {
+                    return string.Empty;
+                }
 
+                // Try to get the Vietnamese translation
+                foreach (var entry in NutritionFactsHelper.VietnameseTranslations)
+                {
+                    if (Name.ToLower().Contains(entry.Key.ToLower(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return $"{Name} ({entry.Value})";
+                    }
+                }
+
+                // If no translation is available, just return the English name
+                return Name;
+            }
+        }
     }
 
     public class NutrientConversionFactor

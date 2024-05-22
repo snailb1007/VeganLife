@@ -13,7 +13,7 @@
         </dg:PaletteCollection>
     </dg:DataGrid.RowsBackgroundColorPalette>
     <dg:DataGrid.Columns>
-        <dg:DataGridColumn Width="6*" PropertyName="Nutrient.Name">
+        <dg:DataGridColumn Width="6*" PropertyName="Nutrient.DisplayName">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
                     <Span Text="Nutrition name" TextColor="{StaticResource Gray600}" />
