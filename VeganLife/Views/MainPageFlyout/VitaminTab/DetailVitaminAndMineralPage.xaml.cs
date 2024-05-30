@@ -3,14 +3,15 @@
 // </copyright>
 
 using VeganLife.ViewModels.ContentViewModels;
+using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout.VitaminTab
 {
-    public partial class DetailVitaminAndMineralPage : ContentPage
+    public partial class DetailVitaminAndMineralPage : BasePage<DetailVitaminAndMineralViewModel>
     {
         public DetailVitaminAndMineralPage(DetailVitaminAndMineralViewModel vm)
+            : base(vm)
         {
-            this.BindingContext = vm;
             this.InitializeComponent();
         }
     }

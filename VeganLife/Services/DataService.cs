@@ -22,7 +22,7 @@ namespace VeganLife.Services
         private const string FoodDetailAddress = "Foods/detail";
         private const string MenuFoodAddress = "App/img/menu_food";
         private const string FoodListAddress = "Foods/list";
-        private const string VitaminListAddress = "Vitamins/list";
+        private const string VitaminListAddress = "Vitamins";
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
 
@@ -47,7 +47,7 @@ namespace VeganLife.Services
         }
 
         // Method for fetching a collection
-        public async Task<IReadOnlyCollection<FirebaseObject<T>>> GetCollectionFromFirebaseAsync<T>(string path)
+        private async Task<IReadOnlyCollection<FirebaseObject<T>>> GetCollectionFromFirebaseAsync<T>(string path)
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -161,25 +161,18 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<VitaminModel>> GetVitamins()
         {
-            try
+            var data = await this.GetCollectionFromFirebaseAsync<VitaminModel>(VitaminListAddress);
+            if (data is null)
             {
-                var dataTask = await this.firebaseDatabase.Child(VitaminListAddress).OnceAsync<VitaminModel>().ConfigureAwait(false);
-                return dataTask.Select(i => new VitaminModel
-                {
-                    Id = i.Key,
-                    Name = i.Object?.Name,
-                    Image = i.Object?.Image,
-                    Summary = i.Object?.Summary,
-                    WebView = i.Object?.WebView,
-                });
-            }
-            catch (FirebaseException e)
-            {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
                 return Enumerable.Empty<VitaminModel>();
             }
+
+            return data.Select(i => new VitaminModel
+            {
+                Id = i.Key,
+                Content = i.Object?.Content ?? string.Empty,
+                Date = i.Object?.Date ?? string.Empty,
+            });
         }
 
         #region USDA

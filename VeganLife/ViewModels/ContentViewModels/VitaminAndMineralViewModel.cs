@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Views.MainPageFlyout.VitaminTab;
+
 namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class VitaminAndMineralViewModel : BaseViewModel
@@ -12,23 +14,26 @@ namespace VeganLife.ViewModels.ContentViewModels
         public VitaminAndMineralViewModel()
             : base()
         {
-            this.Init();
-            this.LoadDataAsync().ConfigureAwait(false);
         }
 
-        private void Init()
+        public override async Task<Task> ViewAppearingVM()
         {
-        }
-
-        private async Task LoadDataAsync()
-        {
-            this.Vitamins = await this.dataService.GetVitamins();
+            this.Vitamins = await this.dataService.GetVitamins().ConfigureAwait(false);
+            return base.ViewAppearingVM();
         }
 
         [RelayCommand]
-        private async Task ItemSelectedAsync()
+        private async Task ItemSelectedAsync(VitaminModel param)
         {
-            await Task.Delay(1);
+            if (param == null)
+            {
+                return;
+            }
+
+            IsLoading = true;
+            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param)
+                .ConfigureAwait(false);
+            IsLoading = false;
         }
     }
 }

@@ -10,6 +10,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    x:Name="selfVitaminAndMineralPage"
     x:DataType="viewmodel:VitaminAndMineralViewModel"
     x:TypeArguments="viewmodel:VitaminAndMineralViewModel"
     BackgroundColor="{AppThemeBinding Light=#f8f8f8,
@@ -35,57 +36,44 @@
                     EmptyView="{x:Static translate:AppResources.noVitamin_vitaminPage}"
                     ItemSizingStrategy="MeasureFirstItem"
                     ItemsSource="{Binding Vitamins, Mode=OneWay}"
-                    SelectionChanged="VitaminsCollection_SelectionChanged"
-                    SelectionMode="Single"
+                    SelectionMode="None"
                     VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:VitaminModel">
-                            <Frame
+                            <Border
                                 Padding="5"
                                 BackgroundColor="White"
-                                BorderColor="Transparent"
-                                CornerRadius="10">
+                                HeightRequest="80"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfVitaminAndMineralPage}}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="*,3*,0.5*" ColumnSpacing="5">
-                                    <Frame
+                                    <!--<Border
                                         Margin="2"
                                         Padding="0"
-                                        CornerRadius="10">
+                                        StrokeShape="RoundRectangle 10">
                                         <ffimageloading:CachedImage
                                             Aspect="AspectFill"
                                             DownsampleToViewSize="True"
                                             ErrorPlaceholder="app_icon.jpg"
                                             LoadingPlaceholder="app_icon.jpg"
                                             Source="{Binding Image}" />
-                                    </Frame>
+                                    </Border>-->
                                     <VerticalStackLayout Grid.Column="1">
-                                        <Label FontSize="12" Text="{Binding Id}" />
-                                        <Label
-                                            FontAttributes="Bold"
-                                            FontSize="16"
-                                            Text="{Binding Name}" />
-                                        <Label
-                                            LineBreakMode="TailTruncation"
-                                            MaxLines="1"
-                                            Text="{Binding Summary}" />
+                                        <Label FontSize="Medium" Text="{Binding Id}" />
+                                        <Label FontSize="Small" Text="{Binding Date}" />
                                     </VerticalStackLayout>
                                 </Grid>
-                            </Frame>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Grid>
         </VerticalStackLayout>
-        <!--<Grid Grid.RowSpan="2">
-            <Label
-                FontAttributes="Bold"
-                FontSize="Large"
-                HorizontalOptions="Center"
-                Text="{x:Static translate:AppResources.coming_soon}"
-                TextColor="{StaticResource Gray950}"
-                VerticalOptions="Center" />
-        </Grid>-->
     </Grid>
 </base:BasePage>

@@ -11,16 +11,23 @@ namespace VeganLife.Models
         [JsonIgnore]
         required public string Id { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("content")]
+        public string Content { get; set; }
 
-        [JsonProperty("image")]
-        public string Image { get; set; }
-
-        [JsonProperty("summary")]
-        public string Summary { get; set; }
-
-        [JsonProperty("web_view")]
-        public string WebView { get; set; }
+        [JsonProperty("date")]
+        public string Date { get; set; }
     }
+
+    // TODO
+    //public class AffiliationModel
+    //{
+    //    [JsonIgnore]
+    //    required public string Id { get; set; }
+
+    //    [JsonProperty("name")]
+    //    public string Name { get; set; }
+
+    //    [JsonProperty("link")]
+    //    public string Link { get; set; }
+    //}
 }
