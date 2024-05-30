@@ -21,9 +21,5 @@ namespace VeganLife.Views.MainPageFlyout
         {
             this.InitializeComponent();
         }
-
-        private void VitaminsCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
     }
 }
