@@ -16,10 +16,15 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
         }
 
-        public override async Task<Task> ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
-            this.Vitamins = await this.dataService.GetVitamins().ConfigureAwait(false);
-            return base.ViewAppearingVM();
+            if (!this.isInitialized)
+            {
+                this.Vitamins = await this.dataService.GetVitamins().ConfigureAwait(false);
+            }
+
+            await base.ViewAppearingVM();
+            this.isInitialized = true;
         }
 
         [RelayCommand]

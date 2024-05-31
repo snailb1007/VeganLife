@@ -12,6 +12,7 @@ namespace VeganLife.ViewModels.ContentViewModels
     {
         [ObservableProperty]
         private VitaminModel vitamin;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVitaminAndMineralViewModel"/> class.
         /// </summary>
