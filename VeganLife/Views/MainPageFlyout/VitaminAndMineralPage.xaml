@@ -65,7 +65,19 @@
                                             Source="{Binding Image}" />
                                     </Border>-->
                                     <VerticalStackLayout Grid.Column="1">
-                                        <Label FontSize="Medium" Text="{Binding Id}" />
+                                        <Label
+                                            FontSize="Medium"
+                                            HorizontalOptions="FillAndExpand"
+                                            LineBreakMode="WordWrap"
+                                            TextColor="Black"
+                                            VerticalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Id}" />
+                                                    <Span Text="{Binding VietnameseName, StringFormat=' ({0})'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
                                         <Label FontSize="Small" Text="{Binding Date}" />
                                     </VerticalStackLayout>
                                 </Grid>

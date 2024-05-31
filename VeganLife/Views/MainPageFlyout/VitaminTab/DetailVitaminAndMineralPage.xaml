@@ -6,6 +6,7 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    Title="{Binding Vitamin.Id}"
     x:DataType="viewmodel:DetailVitaminAndMineralViewModel"
     x:TypeArguments="viewmodel:DetailVitaminAndMineralViewModel"
     Shell.NavBarIsVisible="True">

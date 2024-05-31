@@ -78,5 +78,25 @@ namespace VeganLife.Helpers
 
             return informations;
         }
+
+        public static string GetNameContainVietnameseTranslations(string enName)
+        {
+            if (string.IsNullOrEmpty(enName))
+            {
+                return string.Empty;
+            }
+
+            // Try to get the Vietnamese translation
+            foreach (var entry in NutritionFactsHelper.VietnameseTranslations)
+            {
+                if (enName.ToLower().Contains(entry.Key.ToLower(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return entry.Value;
+                }
+            }
+
+            // If no translation is available, just return the English name
+            return enName;
+        }
     }
 }
