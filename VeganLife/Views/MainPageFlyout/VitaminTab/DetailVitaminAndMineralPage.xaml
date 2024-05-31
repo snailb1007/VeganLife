@@ -5,18 +5,40 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     Title="{Binding Vitamin.Id}"
     x:DataType="viewmodel:DetailVitaminAndMineralViewModel"
     x:TypeArguments="viewmodel:DetailVitaminAndMineralViewModel"
     Shell.NavBarIsVisible="True">
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <converter:MarkdownStylingConverter x:Key="MarkdownStylingConverter" />
+            <converter:MarkdownMenuConverter x:Key="MarkdownMenuConverter" />
+        </ResourceDictionary>
+    </base:BasePage.Resources>
     <ScrollView>
-        <VerticalStackLayout Margin="16,16,16,0" Padding="0,0,0,16">
-            <Label
-                HorizontalOptions="Center"
-                LineBreakMode="WordWrap"
-                Text="{Binding Vitamin.Content}"
-                VerticalOptions="FillAndExpand" />
-        </VerticalStackLayout>
+        <StackLayout>
+            <!--  Menu List  -->
+            <ListView ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownMenuConverter}}" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding .}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <VerticalStackLayout
+                Margin="16,16,16,0"
+                Padding="0,0,0,16"
+                BindableLayout.ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownStylingConverter}}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label FormattedText="{Binding .}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+        </StackLayout>
     </ScrollView>
 </base:BasePage>
