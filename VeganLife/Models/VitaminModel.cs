@@ -3,10 +3,11 @@
 // </copyright>
 
 using Newtonsoft.Json;
+using VeganLife.Helpers;
 
 namespace VeganLife.Models
 {
-    public class VitaminModel
+    public partial class VitaminModel
     {
         [JsonIgnore]
         required public string Id { get; set; }
@@ -16,6 +17,11 @@ namespace VeganLife.Models
 
         [JsonProperty("date")]
         public string Date { get; set; }
+    }
+
+    public partial class VitaminModel
+    {
+        public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Id);
     }
 
     // TODO
