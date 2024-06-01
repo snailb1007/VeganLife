@@ -6,10 +6,14 @@ using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
+    [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class VitaminAndMineralViewModel : BaseViewModel
     {
         [ObservableProperty]
         private IEnumerable<VitaminModel> vitamins;
+
+        [ObservableProperty]
+        private string passedData;
 
         public VitaminAndMineralViewModel()
             : base()
@@ -39,6 +43,18 @@ namespace VeganLife.ViewModels.ContentViewModels
             await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param)
                 .ConfigureAwait(false);
             IsLoading = false;
+        }
+
+        partial void OnPassedDataChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
+            var target = this.Vitamins?.FirstOrDefault(v => v.Id == value);
+            ItemSelectedCommand.Execute(target);
+            PassedData = string.Empty;
         }
     }
 }
