@@ -1,7 +1,7 @@
-﻿// <copyright file="DetailVitaminAndMineralViewModel.cs" company="PlaceholderCompany">
+﻿// <copy
+// right file="DetailVitaminAndMineralViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -29,6 +29,29 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             return base.OnNavigatingTo(parameter);
+        }
+
+        [RelayCommand]
+        private async Task ItemSelectedAsync(byte param)
+        {
+            if (ItemSelectedCommand.IsRunning || param < 0)
+            {
+                return;
+            }
+
+            IsLoading = true;
+            var scrollView = Shell.Current.CurrentPage.FindByName<ScrollView>("DetailVitaminAndMineralScrollView");
+            var stackLayout = scrollView?.Content as StackLayout;
+            var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
+            var target = mainStackLayout?.Children
+                .OfType<Label>()
+                .FirstOrDefault(label => label.AutomationId == param.ToString()); ;
+            if (target != null)
+            {
+                await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+            }
+
+            IsLoading = false;
         }
     }
 }

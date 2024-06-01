@@ -1,4 +1,6 @@
-﻿namespace VeganLife.Helpers.Converter
+﻿using VeganLife.Models.ConverterModels;
+
+namespace VeganLife.Helpers.Converter
 {
     public class MarkdownMenuConverter : IValueConverter
     {
@@ -8,15 +10,19 @@
                 return null;
 
             var lines = text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var headers = new List<string>();
-            int headerCount = 0;
+            var headers = new List<MarkdownMenuModel>();
+            byte headerCount = 0;
 
             foreach (var line in lines)
             {
                 if (line.StartsWith("#### "))
                 {
                     headerCount++;
-                    headers.Add($"{headerCount}. {line.Substring(5)}");
+                    headers.Add(new MarkdownMenuModel()
+                    {
+                        Content = $"{headerCount}. {line.Substring(5)}",
+                        Id = headerCount,
+                    });
                 }
             }
 
