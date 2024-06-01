@@ -41,14 +41,17 @@ namespace VeganLife.ViewModels.ContentViewModels
 
             IsLoading = true;
             var scrollView = Shell.Current.CurrentPage.FindByName<ScrollView>("DetailVitaminAndMineralScrollView");
-            var stackLayout = scrollView?.Content as StackLayout;
-            var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
-            var target = mainStackLayout?.Children
-                .OfType<Label>()
-                .FirstOrDefault(label => label.AutomationId == param.ToString()); ;
-            if (target != null)
+            if (scrollView != null)
             {
-                await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+                var stackLayout = scrollView.Content as StackLayout;
+                var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
+                var target = mainStackLayout?.Children
+                    .OfType<Label>()
+                    .FirstOrDefault(label => label.AutomationId == param.ToString()); ;
+                if (target != null)
+                {
+                    await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+                }
             }
 
             IsLoading = false;

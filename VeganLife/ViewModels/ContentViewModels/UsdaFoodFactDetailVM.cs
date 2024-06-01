@@ -7,6 +7,7 @@ using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Services.CommunityFreeService;
+using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -26,9 +27,6 @@ namespace VeganLife.ViewModels.ContentViewModels
         private UndefinedFoodNutrient carbValue;
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
-
-        [ObservableProperty]
-        private bool isBottomSheetPresented;
 
         private NutritionMealLogDataStoreService foodLogService;
 
@@ -67,14 +65,17 @@ namespace VeganLife.ViewModels.ContentViewModels
             return base.ViewAppearingVM();
         }
 
-        public override Task ViewDisappearingVM()
+        [RelayCommand]
+        private async Task GoDetailVitaminAsync(string param)
         {
-            if (this.IsBottomSheetPresented)
+            if (GoDetailVitaminCommand.IsRunning || string.IsNullOrEmpty(param))
             {
-                IsBottomSheetPresented = false;
+                return;
             }
 
-            return base.ViewDisappearingVM();
+            IsLoading = true;
+            await Shell.Current.GoToAsync($"//home/vitamins_mineral?PassedData={param}");
+            IsLoading = false;
         }
 
         private async Task ProcessUndefineFoodAsync()
