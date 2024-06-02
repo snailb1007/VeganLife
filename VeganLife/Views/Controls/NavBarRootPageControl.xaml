@@ -30,8 +30,12 @@
             VerticalOptions="Center"
             WidthRequest="38" />
     </sharpnado:MaterialFrame>
-    <Grid Grid.Column="1" IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}">
+    <Grid
+        Grid.Column="1"
+        HorizontalOptions="FillAndExpand"
+        IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}">
         <HorizontalStackLayout
+            Margin="20,0,0,0"
             HorizontalOptions="Center"
             Spacing="10"
             VerticalOptions="Center">

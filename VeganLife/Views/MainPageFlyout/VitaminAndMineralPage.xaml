@@ -23,7 +23,21 @@
     </base:BasePage.Resources>
     <Grid RowDefinitions="Auto,*">
         <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
-        <VerticalStackLayout Grid.Row="1" Margin="10">
+        <VerticalStackLayout
+            Grid.Row="1"
+            Margin="10"
+            Spacing="10">
+            <Border StrokeShape="RoundRectangle 10" StrokeThickness="1">
+                <SearchBar Text="{Binding SearchText, Mode=TwoWay}">
+                    <SearchBar.Behaviors>
+                        <toolkit:UserStoppedTypingBehavior
+                            Command="{Binding EnsureSearchCommand}"
+                            MinimumLengthThreshold="1"
+                            ShouldDismissKeyboardAutomatically="False"
+                            StoppedTypingTimeThreshold="500" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+            </Border>
             <Grid RowDefinitions="*">
                 <CollectionView
                     x:Name="vitaminsCollection"
@@ -63,8 +77,9 @@
                                             FontSize="Medium"
                                             HorizontalOptions="FillAndExpand"
                                             LineBreakMode="WordWrap"
+                                            MaxLines="2"
                                             TextColor="Black"
-                                            VerticalOptions="Center">
+                                            VerticalOptions="Start">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{Binding Id}" />

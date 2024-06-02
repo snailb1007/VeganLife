@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Text;
+using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.ContentViewModels
@@ -10,10 +12,15 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class VitaminAndMineralViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private IEnumerable<VitaminModel> vitamins;
+        private ObservableCollection<VitaminModel> vitamins;
 
         [ObservableProperty]
         private string passedData;
+
+        [ObservableProperty]
+        private string searchText;
+
+        private IEnumerable<VitaminModel> _allVitamins;
 
         public VitaminAndMineralViewModel()
             : base()
@@ -24,7 +31,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
             if (!this.isInitialized)
             {
-                this.Vitamins = await this.dataService.GetVitamins().ConfigureAwait(false);
+                this._allVitamins = await this.dataService.GetVitamins().ConfigureAwait(false);
+                this.Vitamins = new ObservableCollection<VitaminModel>(this._allVitamins ?? []);
             }
 
             await base.ViewAppearingVM();
@@ -45,6 +53,20 @@ namespace VeganLife.ViewModels.ContentViewModels
             IsLoading = false;
         }
 
+        [RelayCommand]
+        private void EnsureSearch()
+        {
+            if (string.IsNullOrEmpty(this.SearchText) || string.IsNullOrWhiteSpace(this.SearchText))
+            {
+                return;
+            }
+
+            IsLoading = true;
+            var searchResult = SearchFoodByName(this.Vitamins.AsParallel(), SearchText);
+            this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
+            IsLoading = false;
+        }
+
         partial void OnPassedDataChanged(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -52,9 +74,31 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            var target = this.Vitamins?.FirstOrDefault(v => v.Id == value);
-            ItemSelectedCommand.Execute(target);
+            _ = navigationService.PopToRootAsync();
+            SearchText = value;
             PassedData = string.Empty;
+        }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value)
+                || string.IsNullOrWhiteSpace(value))
+            {
+                Vitamins = new ObservableCollection<VitaminModel>(this._allVitamins);
+            }
+        }
+
+        private ParallelQuery<VitaminModel> SearchFoodByName(ParallelQuery<VitaminModel> vitamins, string name)
+        {
+            // Normalize input name to support UTF-8 and improve search accuracy
+            var normalizedName = NormalizeString(name);
+            return vitamins.Where(item => NormalizeString(item.Id).Contains(normalizedName)
+            || NormalizeString(item.VietnameseName).Contains(normalizedName));
+
+            string NormalizeString(string input)
+            {
+                return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
+            }
         }
     }
 }
