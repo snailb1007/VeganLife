@@ -4,6 +4,7 @@
 
 using Newtonsoft.Json;
 using VeganLife.Helpers;
+using Xamarin.Google.Crypto.Tink.Shaded.Protobuf;
 
 namespace VeganLife.Models
 {
@@ -22,6 +23,10 @@ namespace VeganLife.Models
     public partial class VitaminModel
     {
         public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Id);
+
+        public DateTime DateTime => DateTime.ParseExact(this.Date, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+        public string TimeAgo => DateTimeHelper.CalculateTimeAgo(this.DateTime);
     }
 
     // TODO

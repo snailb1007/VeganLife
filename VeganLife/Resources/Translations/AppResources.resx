@@ -291,6 +291,9 @@ Application logs are used to collect and analyze information for quality improve
     <value>No information on vitamins &amp; minerals.
 List is empty!</value>
   </data>
+	<data name="firstQuery_vitaminPage" xml:space="preserve">
+    <value>firstQuery_vitaminPage</value>
+  </data>
 	<data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
     <value>No information about {0} dishes.
 List is empty!</value>
