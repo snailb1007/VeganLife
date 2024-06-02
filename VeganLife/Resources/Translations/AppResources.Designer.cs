@@ -612,6 +612,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to firstQuery_vitaminPage.
+        /// </summary>
+        internal static string firstQuery_vitaminPage {
+            get {
+                return ResourceManager.GetString("firstQuery_vitaminPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fructose.
         /// </summary>
         internal static string Fructose_common {

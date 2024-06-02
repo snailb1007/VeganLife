@@ -4,6 +4,7 @@
 
 using System.Text;
 using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.ContentViewModels
@@ -64,6 +65,15 @@ namespace VeganLife.ViewModels.ContentViewModels
             IsLoading = true;
             var searchResult = SearchFoodByName(this.Vitamins.AsParallel(), SearchText);
             this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
+            IsLoading = false;
+        }
+
+        [RelayCommand]
+        private async Task OpenAIConversationAsync()
+        {
+            IsLoading = true;
+            string query = string.Format(AppResources.firstQuery_vitaminPage, SearchText);
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             IsLoading = false;
         }
 
