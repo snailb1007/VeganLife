@@ -47,7 +47,6 @@ namespace VeganLife.ViewModels
         public MainViewModel()
             : base()
         {
-            // this.GoFoodDetailCommand = new AsyncRelayCommand<object>(this.GoFoodDetail);
             this._allFoods = new List<FoodPreviewModel>();
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);

@@ -315,6 +315,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ash.
+        /// </summary>
+        internal static string Ash_common {
+            get {
+                return ResourceManager.GetString("Ash_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to askingAI_conversationChat.
         /// </summary>
         internal static string askingAI_conversationChat {
@@ -329,6 +338,15 @@ namespace VeganLife.Resources.Translations {
         internal static string breakfast_rationPlantPage {
             get {
                 return ResourceManager.GetString("breakfast_rationPlantPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calcium.
+        /// </summary>
+        internal static string Calcium_common {
+            get {
+                return ResourceManager.GetString("Calcium_common", resourceCulture);
             }
         }
         
@@ -365,6 +383,15 @@ namespace VeganLife.Resources.Translations {
         internal static string cantFindBmiResult_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("cantFindBmiResult_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carbohydrate.
+        /// </summary>
+        internal static string Carbohydrate_common {
+            get {
+                return ResourceManager.GetString("Carbohydrate_common", resourceCulture);
             }
         }
         
@@ -410,6 +437,15 @@ namespace VeganLife.Resources.Translations {
         internal static string cookingRecipe_mainPage {
             get {
                 return ResourceManager.GetString("cookingRecipe_mainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copper.
+        /// </summary>
+        internal static string Copper_common {
+            get {
+                return ResourceManager.GetString("Copper_common", resourceCulture);
             }
         }
         
@@ -504,6 +540,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Energy.
+        /// </summary>
+        internal static string Energy_common {
+            get {
+                return ResourceManager.GetString("Energy_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter search term.
         /// </summary>
         internal static string enterSearchTerm_Placeholder_shell {
@@ -518,6 +563,15 @@ namespace VeganLife.Resources.Translations {
         internal static string explore_common {
             get {
                 return ResourceManager.GetString("explore_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fat.
+        /// </summary>
+        internal static string Fat_common {
+            get {
+                return ResourceManager.GetString("Fat_common", resourceCulture);
             }
         }
         
@@ -540,11 +594,56 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fiber.
+        /// </summary>
+        internal static string Fiber_common {
+            get {
+                return ResourceManager.GetString("Fiber_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fill text here.
         /// </summary>
         internal static string fillText_placeHolder_macroTab {
             get {
                 return ResourceManager.GetString("fillText_placeHolder_macroTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to firstQuery_vitaminPage.
+        /// </summary>
+        internal static string firstQuery_vitaminPage {
+            get {
+                return ResourceManager.GetString("firstQuery_vitaminPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fructose.
+        /// </summary>
+        internal static string Fructose_common {
+            get {
+                return ResourceManager.GetString("Fructose_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GaLactose.
+        /// </summary>
+        internal static string GaLactose_common {
+            get {
+                return ResourceManager.GetString("GaLactose_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glucose.
+        /// </summary>
+        internal static string Glucose_common {
+            get {
+                return ResourceManager.GetString("Glucose_common", resourceCulture);
             }
         }
         
@@ -599,6 +698,24 @@ namespace VeganLife.Resources.Translations {
         internal static string ingredient_foodDetailPage {
             get {
                 return ResourceManager.GetString("ingredient_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iron.
+        /// </summary>
+        internal static string Iron_common {
+            get {
+                return ResourceManager.GetString("Iron_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lactose.
+        /// </summary>
+        internal static string Lactose_common {
+            get {
+                return ResourceManager.GetString("Lactose_common", resourceCulture);
             }
         }
         
@@ -706,6 +823,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Magnesium.
+        /// </summary>
+        internal static string Magnesium_common {
+            get {
+                return ResourceManager.GetString("Magnesium_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cooking.
         /// </summary>
         internal static string making_foodDetailPage {
@@ -720,6 +846,24 @@ namespace VeganLife.Resources.Translations {
         internal static string male_bmiPage {
             get {
                 return ResourceManager.GetString("male_bmiPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maltose.
+        /// </summary>
+        internal static string Maltose_common {
+            get {
+                return ResourceManager.GetString("Maltose_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minerals.
+        /// </summary>
+        internal static string Minerals_common {
+            get {
+                return ResourceManager.GetString("Minerals_common", resourceCulture);
             }
         }
         
@@ -879,6 +1023,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phosphorus.
+        /// </summary>
+        internal static string Phosphorus_common {
+            get {
+                return ResourceManager.GetString("Phosphorus_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Potassium.
+        /// </summary>
+        internal static string Potassium_common {
+            get {
+                return ResourceManager.GetString("Potassium_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         internal static string previous_welcomePage {
@@ -903,6 +1065,24 @@ namespace VeganLife.Resources.Translations {
         internal static string prompt_greeting_v1 {
             get {
                 return ResourceManager.GetString("prompt_greeting_v1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Protein.
+        /// </summary>
+        internal static string Protein_common {
+            get {
+                return ResourceManager.GetString("Protein_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proximates.
+        /// </summary>
+        internal static string Proximates_common {
+            get {
+                return ResourceManager.GetString("Proximates_common", resourceCulture);
             }
         }
         
@@ -1033,6 +1213,42 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sodium.
+        /// </summary>
+        internal static string Sodium_common {
+            get {
+                return ResourceManager.GetString("Sodium_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starch.
+        /// </summary>
+        internal static string Starch_common {
+            get {
+                return ResourceManager.GetString("Starch_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sucrose.
+        /// </summary>
+        internal static string Sucrose_common {
+            get {
+                return ResourceManager.GetString("Sucrose_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sugars.
+        /// </summary>
+        internal static string Sugars_common {
+            get {
+                return ResourceManager.GetString("Sugars_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Technical Info.
         /// </summary>
         internal static string technicalInfo_settingPage {
@@ -1141,6 +1357,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Water.
+        /// </summary>
+        internal static string Water_common {
+            get {
+                return ResourceManager.GetString("Water_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weight.
         /// </summary>
         internal static string weight_bmiPage {
@@ -1192,6 +1417,15 @@ namespace VeganLife.Resources.Translations {
         internal static string wrongWeight_tooLow_bmiCalculatePage {
             get {
                 return ResourceManager.GetString("wrongWeight_tooLow_bmiCalculatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zinc.
+        /// </summary>
+        internal static string Zinc_common {
+            get {
+                return ResourceManager.GetString("Zinc_common", resourceCulture);
             }
         }
     }

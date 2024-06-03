@@ -4,6 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+    xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    x:Name="selfDataGridNutritionFactCW"
     HeaderBackground="{StaticResource PrimaryOrange1}"
     SortingEnabled="True">
     <dg:DataGrid.RowsBackgroundColorPalette>
@@ -13,12 +15,36 @@
         </dg:PaletteCollection>
     </dg:DataGrid.RowsBackgroundColorPalette>
     <dg:DataGrid.Columns>
-        <dg:DataGridColumn Width="6*" PropertyName="Nutrient.Name">
+        <dg:DataGridColumn Width="6*" PropertyName="Nutrient">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
                     <Span Text="Nutrition name" TextColor="{StaticResource Gray600}" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
+            <dg:DataGridColumn.CellTemplate>
+                <DataTemplate x:DataType="usdaModel:Nutrient">
+                    <ContentView HorizontalOptions="Fill" VerticalOptions="Fill">
+                        <Label
+                            HorizontalOptions="CenterAndExpand"
+                            TextColor="Black"
+                            VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Name}" />
+                                    <Span
+                                        Text="{Binding VietnameseName, StringFormat=' ({0})'}"
+                                        TextColor="{StaticResource LinkColor}"
+                                        TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.GoDetailVitaminCommand, Source={x:Reference selfDataGridNutritionFactCW}}" CommandParameter="{Binding Name}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </ContentView>
+                </DataTemplate>
+            </dg:DataGridColumn.CellTemplate>
         </dg:DataGridColumn>
         <dg:DataGridColumn Width="3*" PropertyName="Amount">
             <dg:DataGridColumn.FormattedTitle>

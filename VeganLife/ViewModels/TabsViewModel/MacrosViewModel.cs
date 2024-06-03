@@ -28,7 +28,7 @@ namespace VeganLife.ViewModels.TabsViewModel
         [ObservableProperty]
         private USDAFoodPreviewModel usdaFoodPreviewCurrent;
 
-        private List<USDAFoodPreviewModel> allUSDAFoodPreview;
+        private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
 
         public MacrosViewModel()
             : base()
@@ -42,16 +42,16 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return base.ViewAppearingVM();
             }
 
-            if (!allUSDAFoodPreview?.Any() ?? true)
+            if (!_allUSDAFoodPreview?.Any() ?? true)
             {
-                if (!allUSDAFoodPreview?.Any() ?? true)
+                if (!_allUSDAFoodPreview?.Any() ?? true)
                 {
                     var foodData = await this.dataService.GetFoodsUSDA();
-                    this.allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
+                    this._allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
                 }
 
                 App.Current?.MainPage?.Dispatcher?
-                    .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(allUSDAFoodPreview ?? []));
+                    .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(_allUSDAFoodPreview ?? []));
             }
 
             isInitialized = true;
@@ -151,7 +151,7 @@ namespace VeganLife.ViewModels.TabsViewModel
         private IEnumerable<USDAFoodPreviewModel> GetFoodsFilter(string[] categories = null!)
         {
             // Start with all food previews
-            var filteredFoods = allUSDAFoodPreview.AsParallel();
+            var filteredFoods = _allUSDAFoodPreview.AsParallel();
 
             // Filter by vegan status
             if (IsVeganSelected || IsUnVeganSelected)
