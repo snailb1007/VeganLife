@@ -5,13 +5,11 @@
 #if DEBUG
 using Microsoft.Extensions.Logging;
 #endif
-using Android.Widget;
 using ChatGptNet;
 using ChatGptNet.Models;
 using FFImageLoading.Maui;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
 using Mopups.Hosting;
 using PanCardView;
 using Sharpnado.MaterialFrame;
@@ -84,7 +82,10 @@ namespace VeganLife
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
             });
             CustomEntry();
-            CustomSearchBar();
+            builder.ConfigureMauiHandlers((handlers) =>
+            {
+                handlers.AddHandler(typeof(SearchBar), typeof(Handlers.SearchBarHandler));
+            });
             AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
@@ -204,23 +205,6 @@ namespace VeganLife
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #elif IOS
 			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#endif
-            });
-        }
-
-        private static void CustomSearchBar()
-        {
-            SearchBarHandler.Mapper.AppendToMapping("CustomizationSearchBar", (handler, view) =>
-            {
-#if ANDROID
-                var child = handler.PlatformView.GetChildrenOfType<ImageView>();
-                foreach (var item in child)
-                {
-                    item.SetColorFilter(Colors.Gray.ToAndroid());
-                }
-
-                // remove underline
-                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #endif
             });
         }
