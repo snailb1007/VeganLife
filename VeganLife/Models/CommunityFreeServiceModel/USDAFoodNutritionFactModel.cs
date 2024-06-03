@@ -2,6 +2,7 @@
 
 using SQLite;
 using System.Runtime.Serialization;
+using VeganLife.Helpers;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
@@ -98,7 +99,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public string? abbreviation { get; set; }
     }
 
-    public class Nutrient
+    public partial class Nutrient
     {
         public int id { get; set; }
 
@@ -108,6 +109,11 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public int rank { get; set; }
 
         public string? unitName { get; set; }
+    }
+
+    public partial class Nutrient
+    {
+        public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
     }
 
     public class NutrientConversionFactor

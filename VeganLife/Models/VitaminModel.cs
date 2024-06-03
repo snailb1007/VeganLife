@@ -3,24 +3,42 @@
 // </copyright>
 
 using Newtonsoft.Json;
+using VeganLife.Helpers;
+using Xamarin.Google.Crypto.Tink.Shaded.Protobuf;
 
 namespace VeganLife.Models
 {
-    public class VitaminModel
+    public partial class VitaminModel
     {
         [JsonIgnore]
         required public string Id { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("content")]
+        public string Content { get; set; }
 
-        [JsonProperty("image")]
-        public string Image { get; set; }
-
-        [JsonProperty("summary")]
-        public string Summary { get; set; }
-
-        [JsonProperty("web_view")]
-        public string WebView { get; set; }
+        [JsonProperty("date")]
+        public string Date { get; set; }
     }
+
+    public partial class VitaminModel
+    {
+        public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Id);
+
+        public DateTime DateTime => DateTime.ParseExact(this.Date, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+        public string TimeAgo => DateTimeHelper.CalculateTimeAgo(this.DateTime);
+    }
+
+    // TODO
+    //public class AffiliationModel
+    //{
+    //    [JsonIgnore]
+    //    required public string Id { get; set; }
+
+    //    [JsonProperty("name")]
+    //    public string Name { get; set; }
+
+    //    [JsonProperty("link")]
+    //    public string Link { get; set; }
+    //}
 }

@@ -23,6 +23,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
+            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid
@@ -202,6 +203,7 @@
                         <Button
                             Command="{Binding OpenAIConversationCommand}"
                             HorizontalOptions="Center"
+                            IsVisible="{Binding SearchText, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                             Text="{x:Static translate:AppResources.askingAI_conversationChat}"
                             VerticalOptions="Center" />
                     </VerticalStackLayout>

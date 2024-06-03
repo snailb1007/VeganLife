@@ -39,117 +39,120 @@
                 MaterialBlurStyle="Light"
                 MaterialTheme="AcrylicBlur"
                 VerticalOptions="EndAndExpand">
-                <toolkit:Expander
-                    x:Name="titleExpander"
-                    BackgroundColor="Transparent"
-                    Direction="Down"
-                    FlowDirection="LeftToRight"
-                    HorizontalOptions="Fill"
-                    IsExpanded="True"
-                    VerticalOptions="EndAndExpand">
-                    <toolkit:Expander.Header>
-                        <Label
-                            FontAttributes="Bold"
-                            FontFamily="FASolid"
-                            FontSize="Large"
-                            HorizontalOptions="Center"
-                            Text="{StaticResource IconAngleUp}"
-                            TextColor="{StaticResource PrimaryDark}">
-                            <Label.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
-                                    TargetType="Label"
-                                    Value="True">
-                                    <Setter Property="Text" Value="{StaticResource IconAngleDown}" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                    </toolkit:Expander.Header>
-                    <Grid
-                        Margin="0,0,0,5"
-                        ColumnDefinitions="*,*,*"
-                        RowDefinitions="Auto,Auto">
-                        <Label
-                            FontSize="Medium"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="Calories" />
-                        <sho:MaterialFrame
-                            Grid.Row="1"
-                            Padding="5"
-                            CornerRadius="8"
-                            HorizontalOptions="Center"
-                            MaterialTheme="Acrylic">
+                <Grid>
+                    <toolkit:Expander
+                        x:Name="titleExpander"
+                        BackgroundColor="Transparent"
+                        Direction="Down"
+                        FlowDirection="LeftToRight"
+                        HorizontalOptions="Fill"
+                        IsExpanded="True"
+                        VerticalOptions="EndAndExpand">
+                        <toolkit:Expander.Header>
                             <Label
                                 FontAttributes="Bold"
+                                FontFamily="FASolid"
+                                FontSize="Large"
                                 HorizontalOptions="Center"
-                                HorizontalTextAlignment="Center"
-                                TextColor="{StaticResource PrimaryOrange1}">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span FontSize="Large" Text="{Binding CaloriesValue.Amount, Mode=OneWay}" />
-                                        <Span Text=" " />
-                                        <Span FontSize="Small" Text="{Binding CaloriesValue.Unit}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
+                                Text="{StaticResource IconAngleUp}"
+                                TextColor="{StaticResource PrimaryDark}">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="Text" Value="{StaticResource IconAngleDown}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
                             </Label>
-                        </sho:MaterialFrame>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="Medium"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="Protein" />
-                        <sho:MaterialFrame
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Padding="5"
-                            CornerRadius="8"
-                            HorizontalOptions="Center"
-                            MaterialTheme="Acrylic">
+                        </toolkit:Expander.Header>
+
+                        <Grid
+                            Margin="0,0,0,5"
+                            ColumnDefinitions="*,*,*"
+                            RowDefinitions="Auto,Auto">
                             <Label
-                                FontAttributes="Bold"
+                                FontSize="Medium"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                TextColor="{StaticResource PrimaryOrange1}">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span FontSize="Large" Text="{Binding ProteinValue.Amount, Mode=OneWay}" />
-                                        <Span Text=" " />
-                                        <Span FontSize="Small" Text="{Binding ProteinValue.Unit}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </sho:MaterialFrame>
-                        <Label
-                            Grid.Column="2"
-                            FontSize="Medium"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="Carb" />
-                        <sho:MaterialFrame
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            Padding="5"
-                            CornerRadius="8"
-                            HorizontalOptions="Center"
-                            MaterialTheme="Acrylic">
+                                Text="Calories" />
+                            <sho:MaterialFrame
+                                Grid.Row="1"
+                                Padding="5"
+                                CornerRadius="8"
+                                HorizontalOptions="Center"
+                                MaterialTheme="Acrylic">
+                                <Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{StaticResource PrimaryDark}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontSize="Large" Text="{Binding CaloriesValue.Amount, Mode=OneWay}" />
+                                            <Span Text=" " />
+                                            <Span FontSize="Small" Text="{Binding CaloriesValue.Unit}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </sho:MaterialFrame>
                             <Label
-                                FontAttributes="Bold"
+                                Grid.Column="1"
+                                FontSize="Medium"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                TextColor="{StaticResource PrimaryOrange1}">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span FontSize="Large" Text="{Binding CarbValue.Amount, Mode=OneWay}" />
-                                        <Span Text=" " />
-                                        <Span FontSize="Small" Text="{Binding CarbValue.Unit}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </sho:MaterialFrame>
-                    </Grid>
-                </toolkit:Expander>
+                                Text="Protein" />
+                            <sho:MaterialFrame
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Padding="5"
+                                CornerRadius="8"
+                                HorizontalOptions="Center"
+                                MaterialTheme="Acrylic">
+                                <Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{StaticResource PrimaryDark}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontSize="Large" Text="{Binding ProteinValue.Amount, Mode=OneWay}" />
+                                            <Span Text=" " />
+                                            <Span FontSize="Small" Text="{Binding ProteinValue.Unit}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </sho:MaterialFrame>
+                            <Label
+                                Grid.Column="2"
+                                FontSize="Medium"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="Carb" />
+                            <sho:MaterialFrame
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Padding="5"
+                                CornerRadius="8"
+                                HorizontalOptions="Center"
+                                MaterialTheme="Acrylic">
+                                <Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{StaticResource PrimaryDark}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontSize="Large" Text="{Binding CarbValue.Amount, Mode=OneWay}" />
+                                            <Span Text=" " />
+                                            <Span FontSize="Small" Text="{Binding CarbValue.Unit}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </sho:MaterialFrame>
+                        </Grid>
+                    </toolkit:Expander>
+                </Grid>
             </sho:MaterialFrame>
         </Grid>
         <Grid
@@ -173,7 +176,7 @@
                 ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
                 MaximumHeightRequest="400"
                 MinimumHeightRequest="100"
-                RefreshingEnabled="False"
+                RefreshingEnabled="True"
                 RowHeight="40"
                 SelectionMode="None">
                 <cw:DataGridNutritionFactCW.Triggers>

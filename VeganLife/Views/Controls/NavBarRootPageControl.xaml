@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView
+<Grid
     x:Class="VeganLife.Views.Controls.NavBarRootPageControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:sharpnado="http://sharpnado.com"
-    x:Name="navBarRootContent">
-    <Grid
-        ColumnDefinitions="45, *, 45"
-        ColumnSpacing="0"
-        RowDefinitions="45">
-        <sharpnado:MaterialFrame
-            CornerRadius="10"
-            HeightRequest="42"
+    x:Name="navBarRootContent"
+    ColumnDefinitions="45, Auto, 45"
+    ColumnSpacing="0"
+    RowDefinitions="45">
+    <sharpnado:MaterialFrame
+        CornerRadius="10"
+        HeightRequest="42"
+        HorizontalOptions="Center"
+        LightThemeBackgroundColor="#F1F1F1"
+        MaterialTheme="Acrylic"
+        VerticalOptions="Center"
+        WidthRequest="42">
+        <ImageButton
+            Margin="0"
+            Padding="0"
+            AutomationId="BtnHamburger"
+            AutomationProperties.IsInAccessibleTree="False"
+            BorderColor="Transparent"
+            Clicked="ImageButton_Clicked"
+            HeightRequest="38"
             HorizontalOptions="Center"
-            LightThemeBackgroundColor="#F1F1F1"
-            MaterialTheme="Acrylic"
+            SemanticProperties.Description="hamburger image button"
+            Source="{Binding HamburgerSource, Source={x:Reference navBarRootContent}}"
             VerticalOptions="Center"
-            WidthRequest="42">
-            <ImageButton
-                Margin="0"
-                Padding="0"
-                AutomationId="BtnHamburger"
-                AutomationProperties.IsInAccessibleTree="False"
-                BorderColor="Transparent"
-                Clicked="ImageButton_Clicked"
-                HeightRequest="38"
-                HorizontalOptions="Center"
-                SemanticProperties.Description="hamburger image button"
-                Source="{Binding HamburgerSource, Source={x:Reference navBarRootContent}}"
-                VerticalOptions="Center"
-                WidthRequest="38" />
-        </sharpnado:MaterialFrame>
-        <Grid Grid.Column="1" IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}">
-            <HorizontalStackLayout
-                HorizontalOptions="Center"
-                Spacing="10"
-                VerticalOptions="Center">
-                <Label
-                    x:Name="lbHi"
-                    FontAttributes="Bold"
-                    HorizontalOptions="StartAndExpand"
-                    Text="Hi, ..."
-                    VerticalOptions="Center" />
-                <Image
-                    HorizontalOptions="End"
-                    IsAnimationPlaying="True"
-                    PropertyChanged="Image_PropertyChanged"
-                    Source="hand.svg"
-                    WidthRequest="30" />
-            </HorizontalStackLayout>
-        </Grid>
+            WidthRequest="38" />
+    </sharpnado:MaterialFrame>
+    <Grid
+        Grid.Column="1"
+        HorizontalOptions="FillAndExpand"
+        IsVisible="{Binding IsVisibleGreetingContent, Source={x:Reference navBarRootContent}, Mode=OneWay}">
+        <HorizontalStackLayout
+            Margin="20,0,0,0"
+            HorizontalOptions="Center"
+            Spacing="10"
+            VerticalOptions="Center">
+            <Label
+                x:Name="lbHi"
+                FontAttributes="Bold"
+                HorizontalOptions="StartAndExpand"
+                Text="Hi, ..."
+                VerticalOptions="Center" />
+            <Image
+                HorizontalOptions="End"
+                IsAnimationPlaying="True"
+                PropertyChanged="Image_PropertyChanged"
+                Source="hand.svg"
+                WidthRequest="30" />
+        </HorizontalStackLayout>
     </Grid>
-</ContentView>
+</Grid>
