@@ -7,6 +7,7 @@
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     x:Name="selfDataGridNutritionFactCW"
     HeaderBackground="{StaticResource PrimaryOrange1}"
+    Refreshing="selfDataGridNutritionFactCW_Refreshing"
     SortingEnabled="True">
     <dg:DataGrid.RowsBackgroundColorPalette>
         <dg:PaletteCollection>
@@ -15,14 +16,16 @@
         </dg:PaletteCollection>
     </dg:DataGrid.RowsBackgroundColorPalette>
     <dg:DataGrid.Columns>
-        <dg:DataGridColumn Width="6*" PropertyName="Nutrient">
+        <dg:DataGridColumn
+            Width="6*"
+            PropertyName="Nutrient">
             <dg:DataGridColumn.FormattedTitle>
                 <FormattedString>
                     <Span Text="Nutrition name" TextColor="{StaticResource Gray600}" />
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
             <dg:DataGridColumn.CellTemplate>
-                <DataTemplate x:DataType="usdaModel:Nutrient">
+                <DataTemplate>
                     <ContentView HorizontalOptions="Fill" VerticalOptions="Fill">
                         <Label
                             HorizontalOptions="CenterAndExpand"

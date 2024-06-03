@@ -4,6 +4,7 @@
 
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
+using VeganLife.Helpers;
 
 namespace VeganLife.Models
 {
@@ -28,9 +29,14 @@ namespace VeganLife.Models
         public string Unit { get; set; }
     }
 
-    public class UndefinedNutrient
+    public partial class UndefinedNutrient
     {
         [DataMember(Name = "name")]
         public string Name { get; set; }
+    }
+
+    public partial class UndefinedNutrient
+    {
+        public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
     }
 }
