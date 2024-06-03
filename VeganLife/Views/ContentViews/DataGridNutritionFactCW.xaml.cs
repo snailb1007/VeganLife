@@ -27,4 +27,10 @@ public partial class DataGridNutritionFactCW : DataGrid
             }
         }
     }
+
+    private void selfDataGridNutritionFactCW_Refreshing(object sender, EventArgs e)
+    {
+        Task.Delay(200);
+        this.IsRefreshing = false;
+    }
 }
