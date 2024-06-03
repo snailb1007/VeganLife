@@ -555,7 +555,6 @@
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="TailTruncation"
                         MaxLines="2"
-                        Style="{StaticResource TitleFood}"
                         Text="{Binding Name, Mode=OneTime}"
                         VerticalOptions="StartAndExpand" />
                     <HorizontalStackLayout Spacing="5">

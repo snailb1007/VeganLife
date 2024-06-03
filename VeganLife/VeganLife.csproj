@@ -90,6 +90,10 @@
 		<Compile Remove="Views\RegistrationPage.xaml.cs" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\letter_thankYou.txt" />
+	</ItemGroup>
+
 	<!--<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\chat_detail.txt" />
 	  <MauiAsset Remove="Resources\Raw\chat_disclaimer.txt" />
@@ -110,16 +114,16 @@
 		<None Remove="Resources\Raw\chat_detail.txt" />
 		<None Remove="Resources\Raw\chat_disclaimer.txt" />
 		<None Remove="Resources\Raw\empty_list.json" />
+		<None Remove="Resources\Raw\letter_thankYou.txt" />
 		<None Remove="Resources\Raw\loading.json" />
 		<None Remove="Resources\Raw\mail_template.txt" />
 		<None Remove="Resources\Raw\swipe_rightToLeft.json" />
-		<None Remove="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
 		<EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
-		<EmbeddedResource Include="Resources\Raw\tutorial.txt" />
+		<EmbeddedResource Include="Resources\Raw\letter_thankYou.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
