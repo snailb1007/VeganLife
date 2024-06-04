@@ -32,6 +32,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
 
             // Init data
             this.Dispatcher.Dispatch(async () =>
