@@ -149,7 +149,7 @@ namespace VeganLife
                 return false;
             }
 
-            return page is MainPage || page is VitaminAndMineralPage || page is NewsFeedPage || page is MainTool;
+            return page is MainPage || page is NewsFeedPage || page is MainTool;
         }
 
         private void RegisterRoutes()

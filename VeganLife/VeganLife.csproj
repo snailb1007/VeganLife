@@ -225,6 +225,9 @@
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\VitaminsTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Controls\MaterialFrameSelectControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -259,9 +262,6 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\NutrientsTab.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\MainPageFlyout\VitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\FlyoutHeader.xaml">

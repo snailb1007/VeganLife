@@ -130,7 +130,7 @@ namespace VeganLife
             services.AddTransient<MainPage, MainViewModel>();
             services.AddTransient<NewsFeedPage, NewsFeedViewModel>();
             services.AddTransient<FlyoutHeader, FlyouttHeaderViewModel>();
-            services.AddTransient<VitaminAndMineralPage, VitaminAndMineralViewModel>();
+            //services.AddTransient<VitaminAndMineralPage, VitaminAndMineralViewModel>();
             services.AddTransient<FoodDetailPage, FoodDetailViewModel>();
             services.AddTransient<BookmarkPage, BookmarkViewModel>();
             services.AddTransient<FoodsByCategoryPage, FoodsByCategoryViewModel>();
@@ -138,14 +138,17 @@ namespace VeganLife
             services.AddTransient<LicensePage, LicenseViewModel>();
             services.AddTransient<ProfilePage, ProfileViewModel>();
             services.AddTransient<ReportPage, ReportPageViewModel>();
-            services.AddTransient<CaloriesTab, CaloriesViewModel>();
-            services.AddTransient<MacrosTab, MacrosViewModel>();
-            services.AddTransient<NutrientsTab, NutrientsViewModel>();
             services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
             services.AddTransient<SupportPage, SupportPageVM>();
+
+            // tab content
+            services.AddTransient<CaloriesTab, CaloriesViewModel>();
+            services.AddTransient<MacrosTab, MacrosViewModel>();
+            services.AddTransient<NutrientsTab, NutrientsViewModel>();
+            services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
 
             services.AddTransient<ChatGPTDisClaimerPage>();
             services.AddTransient<ChatGPTDetailPage>();
