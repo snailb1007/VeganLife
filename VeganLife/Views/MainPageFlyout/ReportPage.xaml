@@ -145,7 +145,7 @@
                     </ResourceDictionary>
                 </sharpnado:TabHostView.Resources>
                 <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.title_macroTab}" />
-                <sharpnado:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
+                <!--<sharpnado:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
                     <sharpnado:MaterialUnderlinedTabItem.Badge>
                         <sharpnado:BadgeView Text="{Binding NumberBadgeCalories}" />
                     </sharpnado:MaterialUnderlinedTabItem.Badge>
@@ -154,7 +154,7 @@
                     <sharpnado:MaterialUnderlinedTabItem.Badge>
                         <sharpnado:BadgeView Text="{Binding NumberBadgeCart}" />
                     </sharpnado:MaterialUnderlinedTabItem.Badge>
-                </sharpnado:MaterialUnderlinedTabItem>
+                </sharpnado:MaterialUnderlinedTabItem>-->
             </sharpnado:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">
@@ -170,7 +170,7 @@
                     Animate="True"
                     BindingContext="{Binding MacrosViewModel}"
                     UseActivityIndicator="False" />
-                <sharpnado:DelayedView
+                <!--<sharpnado:DelayedView
                     x:TypeArguments="views:CaloriesTab"
                     Animate="True"
                     BindingContext="{Binding CaloriesViewModel}"
@@ -179,7 +179,7 @@
                     x:TypeArguments="views:NutrientsTab"
                     Animate="True"
                     BindingContext="{Binding NutrientsViewModel}"
-                    UseActivityIndicator="True" />
+                    UseActivityIndicator="True" />-->
             </sharpnado:ViewSwitcher>
         </ContentView>
     </Grid>
