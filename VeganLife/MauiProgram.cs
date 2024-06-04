@@ -137,7 +137,7 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage, LicenseViewModel>();
             services.AddTransient<ProfilePage, ProfileViewModel>();
-            services.AddTransient<ReportPage, ReportPageViewModel>();
+            services.AddTransient<NoteBookPage, ReportPageViewModel>();
             services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
@@ -145,9 +145,7 @@ namespace VeganLife
             services.AddTransient<SupportPage, SupportPageVM>();
 
             // tab content
-            services.AddTransient<CaloriesTab, CaloriesViewModel>();
             services.AddTransient<MacrosTab, MacrosViewModel>();
-            services.AddTransient<NutrientsTab, NutrientsViewModel>();
             services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
 
             services.AddTransient<ChatGPTDisClaimerPage>();

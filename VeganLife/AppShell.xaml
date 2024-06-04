@@ -31,13 +31,19 @@
             Shell.NavBarIsVisible="False" />
         <ShellContent
             Title="{x:Static translate:AppResources.app_common_encyclopediaTab}"
-            ContentTemplate="{DataTemplate mainFlyout:ReportPage}"
+            ContentTemplate="{DataTemplate mainFlyout:NoteBookPage}"
             Route="encyclopedia"
             Shell.NavBarIsVisible="False">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="FALight" Glyph="&#xf5db;" />
             </ShellContent.Icon>
         </ShellContent>
+        <ShellContent
+            Title="{x:Static translate:AppResources.explore_common}"
+            ContentTemplate="{DataTemplate mainFlyout:NewsFeedPage}"
+            Icon="compass"
+            Route="news_feed"
+            Shell.NavBarIsVisible="False" />
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_bookmarkTab}"

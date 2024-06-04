@@ -189,6 +189,9 @@
 		<Compile Update="Views\Controls\Tabs\MacrosPage.xaml.cs">
 			<DependentUpon>MacrosPage.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="Views\MainPageFlyout\NoteBookPage.xaml.cs">
+		  <DependentUpon>NoteBookPage.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Views\ToolFlyout\MainTool.xaml.cs">
 			<DependentUpon>MainTool.xaml</DependentUpon>
 		</Compile>
@@ -255,13 +258,7 @@
 		<MauiXaml Update="Views\ContentViews\ElementFoodDetailCW.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\Tabs\CaloriesTab.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\MacrosTab.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\Tabs\NutrientsTab.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\FlyoutHeader.xaml">
@@ -309,7 +306,7 @@
 		<MauiXaml Update="Views\ProfilePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\MainPageFlyout\ReportPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\NoteBookPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SettingFlyout\SettingPage.xaml">
