@@ -98,6 +98,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to app_common_encyclopediaTab.
+        /// </summary>
+        internal static string app_common_encyclopediaTab {
+            get {
+                return ResourceManager.GetString("app_common_encyclopediaTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string app_common_homeTab {
@@ -112,6 +121,15 @@ namespace VeganLife.Resources.Translations {
         internal static string app_common_portionTab {
             get {
                 return ResourceManager.GetString("app_common_portionTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to app_common_recipeTab.
+        /// </summary>
+        internal static string app_common_recipeTab {
+            get {
+                return ResourceManager.GetString("app_common_recipeTab", resourceCulture);
             }
         }
         

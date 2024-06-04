@@ -3,11 +3,10 @@
 // </copyright>
 
 using System.Text;
-using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
-namespace VeganLife.ViewModels.ContentViewModels
+namespace VeganLife.ViewModels
 {
     [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class VitaminAndMineralViewModel : BaseViewModel
@@ -19,7 +18,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private string passedData;
 
         [ObservableProperty]
-        private string searchText;
+        private string vitaminSearchText;
 
         private IEnumerable<VitaminModel> _allVitamins;
 
@@ -57,13 +56,13 @@ namespace VeganLife.ViewModels.ContentViewModels
         [RelayCommand]
         private void EnsureSearch()
         {
-            if (string.IsNullOrEmpty(this.SearchText) || string.IsNullOrWhiteSpace(this.SearchText))
+            if (string.IsNullOrEmpty(this.VitaminSearchText) || string.IsNullOrWhiteSpace(this.VitaminSearchText))
             {
                 return;
             }
 
             IsLoading = true;
-            var searchResult = SearchFoodByName(this.Vitamins.AsParallel(), SearchText);
+            var searchResult = SearchFoodByName(this.Vitamins.AsParallel(), VitaminSearchText);
             this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
             IsLoading = false;
         }
@@ -72,7 +71,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private async Task OpenAIConversationAsync()
         {
             IsLoading = true;
-            string query = string.Format(AppResources.firstQuery_vitaminPage, SearchText);
+            string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
             await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             IsLoading = false;
         }
@@ -85,11 +84,11 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             _ = navigationService.PopToRootAsync();
-            SearchText = value;
+            VitaminSearchText = value;
             PassedData = string.Empty;
         }
 
-        partial void OnSearchTextChanged(string value)
+        partial void OnVitaminSearchTextChanged(string value)
         {
             if (string.IsNullOrEmpty(value)
                 || string.IsNullOrWhiteSpace(value))

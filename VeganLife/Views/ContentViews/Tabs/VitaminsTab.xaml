@@ -1,43 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<base:BasePage
-    x:Class="VeganLife.Views.MainPageFlyout.VitaminAndMineralPage"
+<ContentView
+    x:Class="VeganLife.Views.ContentViews.Tabs.VitaminsTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:base="clr-namespace:VeganLife.Views.Base"
-    xmlns:control="clr-namespace:VeganLife.Views.Controls"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
-    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="selfVitaminAndMineralPage"
-    x:DataType="viewmodel:VitaminAndMineralViewModel"
-    x:TypeArguments="viewmodel:VitaminAndMineralViewModel"
-    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
-                                      Dark=Black}"
-    Shell.NavBarIsVisible="False">
-    <base:BasePage.Resources>
+    x:DataType="viewmodel:VitaminAndMineralViewModel">
+    <ContentView.Resources>
         <ResourceDictionary>
             <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
         </ResourceDictionary>
-    </base:BasePage.Resources>
+    </ContentView.Resources>
     <Grid RowDefinitions="Auto,*">
-        <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
         <VerticalStackLayout
             Grid.Row="1"
             Margin="10"
             Spacing="10">
-            <Border StrokeShape="RoundRectangle 10" StrokeThickness="1">
-                <SearchBar Text="{Binding SearchText, Mode=TwoWay}">
-                    <SearchBar.Behaviors>
-                        <toolkit:UserStoppedTypingBehavior
-                            Command="{Binding EnsureSearchCommand}"
-                            MinimumLengthThreshold="1"
-                            ShouldDismissKeyboardAutomatically="False"
-                            StoppedTypingTimeThreshold="500" />
-                    </SearchBar.Behaviors>
-                </SearchBar>
-            </Border>
             <Grid RowDefinitions="*">
                 <CollectionView
                     x:Name="vitaminsCollection"
@@ -64,11 +45,11 @@
                                         Text="{x:Static translate:AppResources.askingAI_conversationChat}"
                                         VerticalOptions="Center" />
                                     <!--<Button
-                                        x:Name="spBtn"
-                                        Command="{Binding SupportRequestCommand}"
-                                        HorizontalOptions="Center"
-                                        Text="Support Request"
-                                        VerticalOptions="Center" />-->
+                                    x:Name="spBtn"
+                                    Command="{Binding SupportRequestCommand}"
+                                    HorizontalOptions="Center"
+                                    Text="Support Request"
+                                    VerticalOptions="Center" />-->
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
                         </ContentView>
@@ -86,16 +67,16 @@
                                 </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="*,3*,0.5*" ColumnSpacing="5">
                                     <!--<Border
-                                        Margin="2"
-                                        Padding="0"
-                                        StrokeShape="RoundRectangle 10">
-                                        <ffimageloading:CachedImage
-                                            Aspect="AspectFill"
-                                            DownsampleToViewSize="True"
-                                            ErrorPlaceholder="app_icon.jpg"
-                                            LoadingPlaceholder="app_icon.jpg"
-                                            Source="{Binding Image}" />
-                                    </Border>-->
+                                    Margin="2"
+                                    Padding="0"
+                                    StrokeShape="RoundRectangle 10">
+                                    <ffimageloading:CachedImage
+                                        Aspect="AspectFill"
+                                        DownsampleToViewSize="True"
+                                        ErrorPlaceholder="app_icon.jpg"
+                                        LoadingPlaceholder="app_icon.jpg"
+                                        Source="{Binding Image}" />
+                                </Border>-->
                                     <VerticalStackLayout Grid.Column="1">
                                         <Label
                                             FontSize="Medium"
@@ -121,4 +102,4 @@
             </Grid>
         </VerticalStackLayout>
     </Grid>
-</base:BasePage>
+</ContentView>
