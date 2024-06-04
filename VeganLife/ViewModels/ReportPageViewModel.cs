@@ -17,21 +17,13 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string numberBadgeCart;
 
-        public CaloriesViewModel CaloriesViewModel { get; }
-
         [ObservableProperty]
         private MacrosViewModel _macrosViewModel;
-
-        public NutrientsViewModel NutrientsViewModel { get; }
 
         public ReportPageViewModel()
             : base()
         {
-            NumberBadgeCalories = "99";
-            NumberBadgeCart = string.Empty;
-            CaloriesViewModel = ServicesHelper.GetService<CaloriesViewModel>();
             MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
-            NutrientsViewModel = ServicesHelper.GetService<NutrientsViewModel>();
         }
 
         [RelayCommand]
@@ -50,14 +42,11 @@ namespace VeganLife.ViewModels
         {
             switch (value)
             {
-                case 1:
-                    _ = CaloriesViewModel.ViewAppearingVM();
-                    break;
                 case 0:
                     _ = MacrosViewModel.ViewAppearingVM();
                     break;
-                case 2:
-                    _ = NutrientsViewModel.ViewAppearingVM();
+                case 1:
+                    //_ = NutrientsViewModel.ViewAppearingVM();
                     break;
             }
         }
