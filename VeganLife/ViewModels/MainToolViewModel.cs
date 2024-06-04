@@ -214,7 +214,9 @@ namespace VeganLife.ViewModels
         private void Increase(object data)
         {
             if (data is null)
+            {
                 return;
+            }
 
             if (data.ToString() == "weight")
             {
