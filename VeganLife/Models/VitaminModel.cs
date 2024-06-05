@@ -3,6 +3,7 @@
 // </copyright>
 
 using Newtonsoft.Json;
+using SQLite;
 using VeganLife.Helpers;
 
 namespace VeganLife.Models
@@ -10,6 +11,7 @@ namespace VeganLife.Models
     public partial class VitaminModel
     {
         [JsonIgnore]
+        [PrimaryKey]
         public string Id { get; set; }
 
         [JsonProperty("content")]

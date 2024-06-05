@@ -32,17 +32,6 @@ namespace VeganLife.ViewModels
             if (!this.isInitialized)
             {
                 this._allVitamins = await this.dataService.GetVitamins();
-                if (this._allVitamins != null && this._allVitamins.Any())
-                {
-                    await this._vitaminsDataStoreService.SaveItems(this._allVitamins)
-                        .ConfigureAwait(false);
-                }
-                else
-                {
-                    this._allVitamins = await this._vitaminsDataStoreService.GetItemsAsync()
-                        .ConfigureAwait(false);
-                }
-
                 this.Vitamins = new ObservableCollection<VitaminModel>(this._allVitamins ?? []);
             }
 

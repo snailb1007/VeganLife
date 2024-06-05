@@ -33,7 +33,23 @@ namespace VeganLife.Data
             await this.Init();
             try
             {
-                return await this._connection.InsertAllAsync(items) > 0;
+                var res = await this._connection.InsertAllAsync(items);
+                return res > 0;
+            }
+            catch (Exception e)
+            {
+                e.LogError();
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteAllItems()
+        {
+            await this.Init();
+            try
+            {
+                var res = await this._connection.DeleteAllAsync<T>();
+                return res > 0;
             }
             catch (Exception e)
             {

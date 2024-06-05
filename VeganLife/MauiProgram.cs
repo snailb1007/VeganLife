@@ -109,28 +109,24 @@ namespace VeganLife
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
             services.AddSingleton<USDAApiService>();
+            services.AddSingleton<SentryService>();
+
+            // local service
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
             services.AddSingleton<ChatLogsDataStoreService>();
-            services.AddSingleton<SentryService>();
+            services.AddSingleton<VitaminsDataStoreService>();
+            services.AddSingleton<UpdateMasterDataStoreService>();
 
             // page
-            // services.AddTransient<WebViewPage, WebViewViewModel>();
-            // services.AddTransient<WelcomePage, WelcomeViewModel>();
-            // services.AddTransient<ChatListPage>();
-            // services.AddTransient<LoginPage>();
-            // services.AddTransient<LoginViewModel>();
-            // services.AddTransient<RegistrationPage>();
-            // services.AddTransient<RegistrationViewModel>();
             services.AddTransient<SettingPage, SettingViewModel>();
             services.AddTransient<MainTool, MainToolViewModel>();
             services.AddTransient<MainPage, MainViewModel>();
             services.AddTransient<NewsFeedPage, NewsFeedViewModel>();
             services.AddTransient<FlyoutHeader, FlyouttHeaderViewModel>();
-            //services.AddTransient<VitaminAndMineralPage, VitaminAndMineralViewModel>();
             services.AddTransient<FoodDetailPage, FoodDetailViewModel>();
             services.AddTransient<BookmarkPage, BookmarkViewModel>();
             services.AddTransient<FoodsByCategoryPage, FoodsByCategoryViewModel>();
@@ -153,7 +149,6 @@ namespace VeganLife
 
             // Toolkit pop-up
             services.AddTransient<AboutAppPopup>();
-
             services.AddTransientPopup<BmiMoreInfoToolBarPopup, BmiMoreInfoToolBarPopupVM>();
 
             // Mopup
