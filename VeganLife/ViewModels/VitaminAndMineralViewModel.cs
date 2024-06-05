@@ -3,35 +3,46 @@
 // </copyright>
 
 using System.Text;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels
 {
-    [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class VitaminAndMineralViewModel : BaseViewModel
     {
+        private IEnumerable<VitaminModel> _allVitamins;
+        private readonly VitaminsDataStoreService _vitaminsDataStoreService;
+
         [ObservableProperty]
         private ObservableCollection<VitaminModel> vitamins;
 
         [ObservableProperty]
-        private string passedData;
-
-        [ObservableProperty]
         private string vitaminSearchText;
-
-        private IEnumerable<VitaminModel> _allVitamins;
 
         public VitaminAndMineralViewModel()
             : base()
         {
+            _vitaminsDataStoreService = ServicesHelper.GetService<VitaminsDataStoreService>();
         }
 
         public override async Task ViewAppearingVM()
         {
             if (!this.isInitialized)
             {
-                this._allVitamins = await this.dataService.GetVitamins().ConfigureAwait(false);
+                this._allVitamins = await this.dataService.GetVitamins();
+                if (this._allVitamins != null && this._allVitamins.Any())
+                {
+                    await this._vitaminsDataStoreService.SaveItems(this._allVitamins)
+                        .ConfigureAwait(false);
+                }
+                else
+                {
+                    this._allVitamins = await this._vitaminsDataStoreService.GetItemsAsync()
+                        .ConfigureAwait(false);
+                }
+
                 this.Vitamins = new ObservableCollection<VitaminModel>(this._allVitamins ?? []);
             }
 
@@ -74,18 +85,6 @@ namespace VeganLife.ViewModels
             string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
             await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             IsLoading = false;
-        }
-
-        partial void OnPassedDataChanged(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return;
-            }
-
-            _ = navigationService.PopToRootAsync();
-            VitaminSearchText = value;
-            PassedData = string.Empty;
         }
 
         partial void OnVitaminSearchTextChanged(string value)

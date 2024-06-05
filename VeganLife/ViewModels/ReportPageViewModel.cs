@@ -3,9 +3,7 @@
 // </copyright>
 
 using VeganLife.Helpers;
-using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.ViewModels.TabsViewModel;
-using VeganLife.Views.ContentViews.Tabs;
 
 namespace VeganLife.ViewModels
 {

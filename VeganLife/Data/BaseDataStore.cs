@@ -28,6 +28,20 @@ namespace VeganLife.Data
             Init().ConfigureAwait(false);
         }
 
+        public async Task<bool> SaveItems(IEnumerable<T> items)
+        {
+            await this.Init();
+            try
+            {
+                return await this._connection.InsertAllAsync(items) > 0;
+            }
+            catch (Exception e)
+            {
+                e.LogError();
+                return false;
+            }
+        }
+
         /// <inheritdoc/>
         public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
