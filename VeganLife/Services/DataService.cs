@@ -5,8 +5,11 @@
 using Firebase.Database;
 using Firebase.Database.Query;
 using HtmlAgilityPack;
+using System.Runtime.ConstrainedExecution;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Models.FirebaseDataModel;
 using VeganLife.Models.FoodModel;
@@ -19,12 +22,48 @@ namespace VeganLife.Services
     {
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
         private const string FirebaseClientLink = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
+
+        // update master
+        private const string UpdateMasterVitamin = "/App/updateMaster/vitamin";
+
         private const string FoodDetailAddress = "Foods/detail";
         private const string MenuFoodAddress = "App/img/menu_food";
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins";
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
+
+        private readonly UpdateMasterDataStoreService _updateMasterDataStoreService;
+        private IList<UpdateMasterModel> _updateMasters;
+
+        public DataService()
+        {
+            _updateMasterDataStoreService = ServicesHelper.GetService<UpdateMasterDataStoreService>();
+            _ = _updateMasterDataStoreService.GetItemsAsync()
+                .ContinueWith(t =>
+                {
+                    _updateMasters = new List<UpdateMasterModel>(t.Result);
+                });
+        }
+
+        private async Task<UpdateMasterStruct> CheckUpdateMaster(string key)
+        {
+            int ver = 0;
+            switch (key)
+            {
+                case nameof(VitaminModel):
+                    ver = await GetUpdateMasterVitamin();
+                    break;
+            }
+
+            var updateMaster = _updateMasters.FirstOrDefault(i => i.Id == key);
+            if (updateMaster is null)
+            {
+                return new(true, ver, false);
+            }
+
+            return new(ver > updateMaster.Version, ver);
+        }
 
         // Method for fetching a single item
         public async Task<T> GetSingleDataFromFirebaseAsync<T>(string path, T defaultValue = default)
@@ -68,7 +107,7 @@ namespace VeganLife.Services
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
-            var data = await this.GetSingleDataFromFirebaseAsync<FoodDetailModel>($"{FoodDetailAddress}/{id}", new FoodDetailModel());
+            var data = await this.GetSingleDataFromFirebaseAsync($"{FoodDetailAddress}/{id}", new FoodDetailModel());
             data.Id = id;
             return data;
         }
@@ -161,18 +200,44 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<VitaminModel>> GetVitamins()
         {
-            var data = await this.GetCollectionFromFirebaseAsync<VitaminModel>(VitaminListAddress);
-            if (data is null)
+            var localVitaminStore = ServicesHelper.GetService<VitaminsDataStoreService>();
+            var masterData = await CheckUpdateMaster(nameof(VitaminModel));
+            if (masterData.HasUpdate)
             {
-                return Enumerable.Empty<VitaminModel>();
-            }
+                var data = await this.GetCollectionFromFirebaseAsync<VitaminModel>(VitaminListAddress);
+                if (data is null)
+                {
+                    return Enumerable.Empty<VitaminModel>();
+                }
 
-            return data.Select(i => new VitaminModel
+                var res = data.Select(i => new VitaminModel
+                {
+                    Id = i.Key,
+                    Content = i.Object?.Content ?? string.Empty,
+                    Date = i.Object?.Date ?? string.Empty,
+                });
+                if (masterData.IsExistMasterTable)
+                {
+                    await localVitaminStore.DeleteAllItems();
+                }
+
+                // Update local data
+                await localVitaminStore.SaveItems(res)
+                    .ContinueWith(t => _updateMasterDataStoreService
+                        .AddOrUpdateItemAsync(
+                            new UpdateMasterModel()
+                            {
+                                Id = nameof(VitaminModel),
+                                Version = masterData.Ver,
+                            },
+                            isUpdate: masterData.IsExistMasterTable))
+                    .ConfigureAwait(false);
+                return res;
+            }
+            else
             {
-                Id = i.Key,
-                Content = i.Object?.Content ?? string.Empty,
-                Date = i.Object?.Date ?? string.Empty,
-            });
+                return await localVitaminStore.GetItemsAsync();
+            }
         }
 
         #region USDA
@@ -351,5 +416,21 @@ namespace VeganLife.Services
                 return null;
             }
         }
+
+        private async Task<int> GetUpdateMasterVitamin()
+        {
+            try
+            {
+                var data = await this.firebaseDatabase.Child(UpdateMasterVitamin).OnceSingleAsync<int>();
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+                _ = e;
+                return -1;
+            }
+        }
     }
+
+    internal record UpdateMasterStruct(bool HasUpdate, int Ver, bool IsExistMasterTable = true);
 }
