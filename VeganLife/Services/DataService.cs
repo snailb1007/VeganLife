@@ -8,6 +8,7 @@ using HtmlAgilityPack;
 using System.Runtime.ConstrainedExecution;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -35,10 +36,15 @@ namespace VeganLife.Services
 
         private readonly UpdateMasterDataStoreService _updateMasterDataStoreService;
         private IList<UpdateMasterModel> _updateMasters;
+        private readonly IDictionary<string, object> _dataStore;
 
         public DataService()
         {
             _updateMasterDataStoreService = ServicesHelper.GetService<UpdateMasterDataStoreService>();
+            _dataStore = new Dictionary<string, object>
+            {
+                { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
+            };
             _ = _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
@@ -122,8 +128,8 @@ namespace VeganLife.Services
 
             return data.Select(item => new FoodMenuCategoryModel
             {
-                ImgSource = item?.Object?.ImgSource,
-                Title = item?.Key,
+                ImgSource = item?.Object?.ImgSource ?? string.Empty,
+                Title = item?.Key ?? string.Empty,
             });
         }
 
@@ -216,13 +222,19 @@ namespace VeganLife.Services
                     Content = i.Object?.Content ?? string.Empty,
                     Date = i.Object?.Date ?? string.Empty,
                 });
+                var localData = _dataStore[nameof(VitaminModel)] as VitaminsDataStoreService;
+                if (localData is null)
+                {
+                    return res;
+                }
+
                 if (masterData.IsExistMasterTable)
                 {
-                    await localVitaminStore.DeleteAllItems();
+                    await localData.DeleteAllItems();
                 }
 
                 // Update local data
-                await localVitaminStore.SaveItems(res)
+                await localData.SaveItems(res)
                     .ContinueWith(t => _updateMasterDataStoreService
                         .AddOrUpdateItemAsync(
                             new UpdateMasterModel()
@@ -240,7 +252,6 @@ namespace VeganLife.Services
             }
         }
 
-        #region USDA
         public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA()
         {
             try
@@ -266,29 +277,6 @@ namespace VeganLife.Services
             return new[] { new USDAFoodPreviewModel { } };
         }
 
-        #endregion
-
-        #region Google news feed
-        //public async Task<IEnumerable<Item>> LoadGoogleNews(string uri)
-        //{
-        //    var data = await _rssFeedsHttpRequest.GetRssData(uri);
-        //    if (string.IsNullOrEmpty(data))
-        //    {
-        //        return Enumerable.Empty<Item>();
-        //    }
-
-        //    var doc = new XmlDocument();
-        //    doc.LoadXml(data);
-        //    var json = JsonConvert.SerializeXmlNode(doc.DocumentElement);
-        //    if (string.IsNullOrEmpty(json))
-        //    {
-        //        return Enumerable.Empty<Item>();
-        //    }
-
-        //    var baseData = JsonConvert.DeserializeObject<GoogleNewsModel>(json);
-        //    return baseData.rss.channel.item;
-        //}
-
         public IEnumerable<Item> ReadRssFeed(string url)
         {
             try
@@ -313,13 +301,10 @@ namespace VeganLife.Services
             catch (Exception ex)
             {
                 _ = ex;
-#if DEBUG
-                Console.WriteLine(ex.Message);
-#endif
+                Debug.WriteLine(ex.Message);
                 return Enumerable.Empty<Item>();
             }
         }
-        #endregion
 
         public async Task<List<string>> GetImageLinksAsync(string url)
         {
@@ -360,17 +345,13 @@ namespace VeganLife.Services
                     }
                     else
                     {
-#if DEBUG
-                        Console.WriteLine($"Failed to fetch content from {url}. Status code: {response.StatusCode}");
-#endif
+                        Debug.WriteLine($"Failed to fetch content from {url}. Status code: {response.StatusCode}");
                     }
                 }
                 catch (Exception ex)
                 {
                     _ = ex;
-#if DEBUG
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-#endif
+                    Debug.WriteLine($"An error occurred: {ex.Message}");
                 }
             }
 
@@ -410,9 +391,7 @@ namespace VeganLife.Services
             catch (FirebaseException e)
             {
                 _ = e;
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
+                Debug.WriteLine(e.StackTrace);
                 return null;
             }
         }
