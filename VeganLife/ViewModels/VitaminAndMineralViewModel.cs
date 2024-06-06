@@ -3,8 +3,6 @@
 // </copyright>
 
 using System.Text;
-using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
