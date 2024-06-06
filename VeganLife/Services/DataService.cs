@@ -15,6 +15,7 @@ using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Models.FirebaseDataModel;
 using VeganLife.Models.FoodModel;
 using VeganLife.Models.GoogleNewsModels;
+using VeganLife.Resources.Translations;
 
 // Ignore Spelling: Firebase Nutri
 namespace VeganLife.Services
@@ -25,7 +26,8 @@ namespace VeganLife.Services
         private const string FirebaseClientLink = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
 
         // update master
-        private const string UpdateMasterVitamin = "/App/updateMaster/vitamin";
+        private const string UpdateMasterVitaminAddress = "/App/updateMaster/vitamin";
+        private const string UpdateMasterUsdaFoodsAddress = "/App/updateMaster/usdaFoods";
 
         private const string FoodDetailAddress = "Foods/detail";
         private const string MenuFoodAddress = "App/img/menu_food";
@@ -33,6 +35,7 @@ namespace VeganLife.Services
         private const string VitaminListAddress = "Vitamins";
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
+        private const string UsdaFoodPreviewsAddress = "/USDA/food_data_central/list";
 
         private readonly UpdateMasterDataStoreService _updateMasterDataStoreService;
         private IList<UpdateMasterModel> _updateMasters;
@@ -44,12 +47,36 @@ namespace VeganLife.Services
             _dataStore = new Dictionary<string, object>
             {
                 { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
+                { nameof(USDAFoodPreviewModel), ServicesHelper.GetService<UsdaFoodPreviewsDataStore>() },
             };
             _ = _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
                     _updateMasters = new List<UpdateMasterModel>(t.Result);
                 });
+        }
+
+        public async Task<bool> GetMaintenanceStatusAsync()
+        {
+            try
+            {
+                var data = await this.firebaseDatabase.Child("/App/isServerInMaintenance").OnceSingleAsync<bool>();
+                if (data)
+                {
+                    await App.Current?.MainPage?.DisplayAlert(
+                        title: AppResources.Infor_common,
+                        message: AppResources.ServiecStop_common,
+                        "OK")!;
+                }
+
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+                _ = e;
+                Debug.WriteLine(e.StackTrace);
+                return false;
+            }
         }
 
         private async Task<UpdateMasterStruct> CheckUpdateMaster(string key)
@@ -59,6 +86,9 @@ namespace VeganLife.Services
             {
                 case nameof(VitaminModel):
                     ver = await GetUpdateMasterVitamin();
+                    break;
+                case nameof(USDAFoodPreviewModel):
+                    ver = await GetUpdateMasterUsdaFoods();
                     break;
             }
 
@@ -72,9 +102,9 @@ namespace VeganLife.Services
         }
 
         // Method for fetching a single item
-        public async Task<T> GetSingleDataFromFirebaseAsync<T>(string path, T defaultValue = default)
+        private async Task<T> GetSingleDataFromFirebaseAsync<T>(string path, T defaultValue = default)
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path) || await GetMaintenanceStatusAsync())
             {
                 return defaultValue;
             }
@@ -94,7 +124,7 @@ namespace VeganLife.Services
         // Method for fetching a collection
         private async Task<IReadOnlyCollection<FirebaseObject<T>>> GetCollectionFromFirebaseAsync<T>(string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path) || await GetMaintenanceStatusAsync())
             {
                 return null;
             }
@@ -110,6 +140,94 @@ namespace VeganLife.Services
                 return null;
             }
         }
+
+        private async Task<IEnumerable<TModel>> GetDatasAsync<TModel>(string modelName, string dataAddress)
+            where TModel : new()
+        {
+            var localData = _dataStore[modelName] as IDataStoreService<TModel>;
+            var masterData = await CheckUpdateMaster(modelName);
+            if (masterData.HasUpdate)
+            {
+                var data = await this.GetCollectionFromFirebaseAsync<TModel>(dataAddress);
+                if (data == null)
+                {
+                    return Enumerable.Empty<TModel>();
+                }
+
+                var result = data.Select(MapToModel).ToList();
+
+                if (localData is null)
+                {
+                    return result;
+                }
+
+                if (masterData.IsExistMasterTable)
+                {
+                    await localData.DeleteAllItems();
+                }
+
+                await Task.WhenAll(localData.SaveItems(result), UpdateMasterDataAsync(modelName, masterData))
+                    .ConfigureAwait(false);
+                return result;
+            }
+            else
+            {
+                if (localData == null)
+                {
+                    return Enumerable.Empty<TModel>();
+                }
+
+                return await localData.GetItemsAsync();
+            }
+        }
+
+        private TModel MapToModel<TModel>(FirebaseObject<TModel> firebaseObject)
+            where TModel : new()
+        {
+            if (typeof(TModel) == typeof(VitaminModel) && firebaseObject.Object is VitaminModel data)
+            {
+                var item = firebaseObject.Object as VitaminModel;
+                return (TModel)((object)new VitaminModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = data.Content ?? string.Empty,
+                    Date = data.Date ?? string.Empty,
+                });
+            }
+            else if (typeof(TModel) == typeof(USDAFoodPreviewModel))
+            {
+                var item = firebaseObject.Object as USDAFoodPreviewModel;
+                return (TModel)(object)new USDAFoodPreviewModel
+                {
+                    Id = firebaseObject.Key,
+                    Image = item?.Image ?? string.Empty,
+                    Name = item?.Name ?? string.Empty,
+                    Category = item?.Category ?? string.Empty,
+                    IsPlantOrigin = item?.IsPlantOrigin ?? false,
+                };
+            }
+            else
+            {
+                throw new InvalidOperationException("Unsupported model type");
+            }
+        }
+
+        private async Task UpdateMasterDataAsync(string modelName, UpdateMasterStruct masterData)
+        {
+            await _updateMasterDataStoreService.AddOrUpdateItemAsync(
+                new UpdateMasterModel()
+                {
+                    Id = modelName,
+                    Version = masterData.Ver,
+                },
+                isUpdate: masterData.IsExistMasterTable);
+        }
+
+        public async Task<IEnumerable<VitaminModel>> GetVitamins() =>
+            await GetDatasAsync<VitaminModel>(nameof(VitaminModel), VitaminListAddress);
+
+        public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA() =>
+            await GetDatasAsync<USDAFoodPreviewModel>(nameof(USDAFoodPreviewModel), UsdaFoodPreviewsAddress);
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
@@ -202,79 +320,6 @@ namespace VeganLife.Services
 #endif
                 return new UndefinedMacroFoodNutriFactModel();
             }
-        }
-
-        public async Task<IEnumerable<VitaminModel>> GetVitamins()
-        {
-            var localVitaminStore = ServicesHelper.GetService<VitaminsDataStoreService>();
-            var masterData = await CheckUpdateMaster(nameof(VitaminModel));
-            if (masterData.HasUpdate)
-            {
-                var data = await this.GetCollectionFromFirebaseAsync<VitaminModel>(VitaminListAddress);
-                if (data is null)
-                {
-                    return Enumerable.Empty<VitaminModel>();
-                }
-
-                var res = data.Select(i => new VitaminModel
-                {
-                    Id = i.Key,
-                    Content = i.Object?.Content ?? string.Empty,
-                    Date = i.Object?.Date ?? string.Empty,
-                });
-                var localData = _dataStore[nameof(VitaminModel)] as VitaminsDataStoreService;
-                if (localData is null)
-                {
-                    return res;
-                }
-
-                if (masterData.IsExistMasterTable)
-                {
-                    await localData.DeleteAllItems();
-                }
-
-                // Update local data
-                await localData.SaveItems(res)
-                    .ContinueWith(t => _updateMasterDataStoreService
-                        .AddOrUpdateItemAsync(
-                            new UpdateMasterModel()
-                            {
-                                Id = nameof(VitaminModel),
-                                Version = masterData.Ver,
-                            },
-                            isUpdate: masterData.IsExistMasterTable))
-                    .ConfigureAwait(false);
-                return res;
-            }
-            else
-            {
-                return await localVitaminStore.GetItemsAsync();
-            }
-        }
-
-        public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA()
-        {
-            try
-            {
-                var data = await this.firebaseDatabase.Child("/USDA/food_data_central/list").OnceAsync<USDAFoodPreviewModel>();
-                return data.Select(item => new USDAFoodPreviewModel
-                {
-                    Id = item.Key,
-                    Image = item.Object.Image,
-                    Name = item.Object.Name,
-                    Category = item.Object.Category,
-                    IsPlantOrigin = item.Object.IsPlantOrigin,
-                });
-            }
-            catch (FirebaseException e)
-            {
-                _ = e;
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
-            }
-
-            return new[] { new USDAFoodPreviewModel { } };
         }
 
         public IEnumerable<Item> ReadRssFeed(string url)
@@ -400,7 +445,22 @@ namespace VeganLife.Services
         {
             try
             {
-                var data = await this.firebaseDatabase.Child(UpdateMasterVitamin).OnceSingleAsync<int>();
+                var data = await this.firebaseDatabase.Child(UpdateMasterVitaminAddress).OnceSingleAsync<int>();
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+                _ = e;
+                return -1;
+            }
+        }
+
+        // get update master for usda foods
+        private async Task<int> GetUpdateMasterUsdaFoods()
+        {
+            try
+            {
+                var data = await this.firebaseDatabase.Child(UpdateMasterUsdaFoodsAddress).OnceSingleAsync<int>();
                 return data;
             }
             catch (FirebaseException e)

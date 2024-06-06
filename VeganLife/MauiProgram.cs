@@ -120,6 +120,7 @@ namespace VeganLife
             services.AddSingleton<ChatLogsDataStoreService>();
             services.AddSingleton<VitaminsDataStoreService>();
             services.AddSingleton<UpdateMasterDataStoreService>();
+            services.AddSingleton<UsdaFoodPreviewsDataStore>();
 
             // page
             services.AddTransient<SettingPage, SettingViewModel>();
