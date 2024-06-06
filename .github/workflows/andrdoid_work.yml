@@ -4,12 +4,12 @@
 name: android pre-release
 
 on:
-  push:
-    branches: [ "develop_1.0" ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+  # push:
+  #   branches: [ "develop_1.0" ]
+  #   paths-ignore:
+  #     - '**/*.md'
+  #     - '**/*.gitignore'
+  #     - '**/*.gitattributes'
   pull_request:
     branches: [ "develop_1.0" ]
 

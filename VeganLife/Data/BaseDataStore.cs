@@ -28,6 +28,36 @@ namespace VeganLife.Data
             Init().ConfigureAwait(false);
         }
 
+        public async Task<bool> SaveItems(IEnumerable<T> items)
+        {
+            await this.Init();
+            try
+            {
+                var res = await this._connection.InsertAllAsync(items);
+                return res > 0;
+            }
+            catch (Exception e)
+            {
+                e.LogError();
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteAllItems()
+        {
+            await this.Init();
+            try
+            {
+                var res = await this._connection.DeleteAllAsync<T>();
+                return res > 0;
+            }
+            catch (Exception e)
+            {
+                e.LogError();
+                return false;
+            }
+        }
+
         /// <inheritdoc/>
         public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
@@ -104,9 +134,7 @@ namespace VeganLife.Data
             catch (Exception e)
             {
                 _ = e;
-#if DEBUG
-                await Console.Out.WriteLineAsync("Cant retrieve local data, " + e.Message);
-#endif
+                Debug.WriteLine("Cant retrieve local data, " + e.Message);
                 return default!;
             }
         }

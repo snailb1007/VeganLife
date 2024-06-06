@@ -32,5 +32,7 @@ namespace VeganLife.Services
         Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA();
 
         Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id);
+
+        Task<bool> GetMaintenanceStatusAsync();
     }
 }

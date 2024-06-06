@@ -1,8 +1,8 @@
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class CaloriesTab : ContentView
+public partial class VitaminsTab : ContentView
 {
-    public CaloriesTab()
+    public VitaminsTab()
     {
         InitializeComponent();
     }

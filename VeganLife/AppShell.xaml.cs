@@ -32,6 +32,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
 
             // Init data
             this.Dispatcher.Dispatch(async () =>
@@ -148,7 +149,7 @@ namespace VeganLife
                 return false;
             }
 
-            return page is MainPage || page is VitaminAndMineralPage || page is NewsFeedPage || page is MainTool;
+            return page is MainPage || page is NewsFeedPage || page is MainTool;
         }
 
         private void RegisterRoutes()

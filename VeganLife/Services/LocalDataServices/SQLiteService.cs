@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using SQLite;
+using VeganLife.Helpers.AppSetting;
+
 namespace VeganLife.Services.LocalDataServices
 {
-    using SQLite;
-    using VeganLife.Helpers.AppSetting;
-
     public class SQLiteService : ISQLite
     {
         public SQLiteAsyncConnection GetAsyncConnection()

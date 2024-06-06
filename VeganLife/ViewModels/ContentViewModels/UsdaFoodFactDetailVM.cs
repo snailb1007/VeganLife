@@ -7,7 +7,6 @@ using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Services.CommunityFreeService;
-using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -74,7 +73,14 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             IsLoading = true;
-            await Shell.Current.GoToAsync($"//home/vitamins_mineral?PassedData={param}");
+            await this.navigationService.PopToRootAsync();
+            var rootVM = ServicesHelper.GetCurrentViewModel<ReportPageViewModel>();
+            if (rootVM != null)
+            {
+                rootVM.SelectedViewModelIndex = 1;
+                rootVM.VitaminAndMineralVM.VitaminSearchText = param;
+            }
+
             IsLoading = false;
         }
 
