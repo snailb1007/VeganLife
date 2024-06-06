@@ -711,6 +711,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Infor_common.
+        /// </summary>
+        internal static string Infor_common {
+            get {
+                return ResourceManager.GetString("Infor_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ingredients.
         /// </summary>
         internal static string ingredient_foodDetailPage {
@@ -1164,6 +1173,15 @@ namespace VeganLife.Resources.Translations {
         internal static string searchPlace_mainPage {
             get {
                 return ResourceManager.GetString("searchPlace_mainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ServiecStop_common.
+        /// </summary>
+        internal static string ServiecStop_common {
+            get {
+                return ResourceManager.GetString("ServiecStop_common", resourceCulture);
             }
         }
         

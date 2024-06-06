@@ -587,4 +587,10 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="Copper_common" xml:space="preserve">
     <value>Đồng</value>
   </data>
+	<data name="Infor_common" xml:space="preserve">
+    <value>Thông tin</value>
+  </data>
+	<data name="ServiecStop_common" xml:space="preserve">
+    <value>Hệ thống đang được bảo trì tạm thời.</value>
+  </data>
 </root>
