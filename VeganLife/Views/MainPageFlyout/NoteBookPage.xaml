@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <base:BasePage
-    x:Class="VeganLife.Views.MainPageFlyout.ReportPage"
+    x:Class="VeganLife.Views.MainPageFlyout.NoteBookPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:localVM="clr-namespace:VeganLife.ViewModels"
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -103,7 +104,8 @@
                     Grid.Column="1"
                     Padding="0"
                     HeightRequest="50"
-                    IsVisible="False">
+                    IsVisible="False"
+                    StrokeShape="RoundRectangle 20">
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding SelectedViewModelIndex}"
@@ -112,12 +114,45 @@
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                     </Border.Triggers>
-                    <DatePicker
-                        BackgroundColor="White"
-                        Format="dd/MM/yyyy"
-                        HeightRequest="48"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Center" />
+                    <Grid
+                        x:DataType="localVM:VitaminAndMineralViewModel"
+                        BindingContext="{Binding BindingContext.VitaminAndMineralVM, Source={x:Reference rootReportPage}}"
+                        ColumnDefinitions="*,48">
+                        <SearchBar
+                            x:DataType="localVM:VitaminAndMineralViewModel"
+                            HeightRequest="48"
+                            HorizontalOptions="Fill"
+                            Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
+                            PlaceholderColor="{StaticResource Gray200}"
+                            Text="{Binding VitaminSearchText}"
+                            TextColor="White"
+                            VerticalOptions="Center">
+                            <SearchBar.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding EnsureSearchCommand}"
+                                    MinimumLengthThreshold="1"
+                                    ShouldDismissKeyboardAutomatically="False"
+                                    StoppedTypingTimeThreshold="500" />
+                            </SearchBar.Behaviors>
+                        </SearchBar>
+                        <!--<Button
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            Command="{Binding FilterCommand}"
+                            FontFamily="FAThin"
+                            FontSize="Medium"
+                            Text="&#xf0b0;">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsFilterOpened}"
+                                    TargetType="Button"
+                                    Value="True">
+                                    <Setter Property="Text" Value="&#xe17c;" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>-->
+                    </Grid>
                 </Border>
             </Grid>
         </ContentView>
@@ -138,23 +173,10 @@
                             <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
                             <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
                         </Style>
-                        <Style TargetType="sharpnado:BadgeView">
-                            <!--<Setter Property="BackgroundColor" Value="White" />-->
-                            <!--<Setter Property="TextColor" Value="Red" />-->
-                        </Style>
                     </ResourceDictionary>
                 </sharpnado:TabHostView.Resources>
                 <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.title_macroTab}" />
-                <sharpnado:MaterialUnderlinedTabItem IsClippedToBounds="True" Label="CALORIES">
-                    <sharpnado:MaterialUnderlinedTabItem.Badge>
-                        <sharpnado:BadgeView Text="{Binding NumberBadgeCalories}" />
-                    </sharpnado:MaterialUnderlinedTabItem.Badge>
-                </sharpnado:MaterialUnderlinedTabItem>
-                <sharpnado:MaterialUnderlinedTabItem Label="NUTRIENTS">
-                    <sharpnado:MaterialUnderlinedTabItem.Badge>
-                        <sharpnado:BadgeView Text="{Binding NumberBadgeCart}" />
-                    </sharpnado:MaterialUnderlinedTabItem.Badge>
-                </sharpnado:MaterialUnderlinedTabItem>
+                <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
             </sharpnado:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">
@@ -171,14 +193,9 @@
                     BindingContext="{Binding MacrosViewModel}"
                     UseActivityIndicator="False" />
                 <sharpnado:DelayedView
-                    x:TypeArguments="views:CaloriesTab"
+                    x:TypeArguments="views:VitaminsTab"
                     Animate="True"
-                    BindingContext="{Binding CaloriesViewModel}"
-                    UseActivityIndicator="True" />
-                <sharpnado:DelayedView
-                    x:TypeArguments="views:NutrientsTab"
-                    Animate="True"
-                    BindingContext="{Binding NutrientsViewModel}"
+                    BindingContext="{Binding VitaminAndMineralVM}"
                     UseActivityIndicator="True" />
             </sharpnado:ViewSwitcher>
         </ContentView>

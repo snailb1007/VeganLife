@@ -204,6 +204,12 @@ Danh sách trống.</value>
 	<data name="app_common_portionTab" xml:space="preserve">
     <value>Khẩu phần</value>
   </data>
+	<data name="app_common_encyclopediaTab" xml:space="preserve">
+    <value>Toàn thư</value>
+  </data>
+	<data name="app_common_recipeTab" xml:space="preserve">
+    <value>Công thức</value>
+  </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
     <value>Tùy chọn</value>
   </data>
@@ -580,5 +586,11 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
   </data>
 	<data name="Copper_common" xml:space="preserve">
     <value>Đồng</value>
+  </data>
+	<data name="Infor_common" xml:space="preserve">
+    <value>Thông tin</value>
+  </data>
+	<data name="ServiecStop_common" xml:space="preserve">
+    <value>Hệ thống đang được bảo trì tạm thời.</value>
   </data>
 </root>

@@ -3,6 +3,8 @@
 // </copyright>
 
 using Android.Content;
+using Android.OS;
+using Android.Views;
 using Java.Util;
 
 namespace VeganLife.Services
@@ -16,7 +18,11 @@ namespace VeganLife.Services
             int resourceId = Platform.CurrentActivity?.Resources?.GetIdentifier(NaviBar, "dimen", "android") ?? 0;
             if (resourceId > 0)
             {
-                return (int)Platform.CurrentActivity?.Resources?.GetDimensionPixelSize(resourceId);
+                var resources = Platform.CurrentActivity?.Resources;
+                if (resources != null)
+                {
+                    return (int)resources.GetDimensionPixelSize(resourceId);
+                }
             }
 
             return 0;
@@ -30,9 +36,7 @@ namespace VeganLife.Services
             {
                 if (Platform.CurrentActivity is null)
                 {
-#if DEBUG
-                    Console.WriteLine("==> Platform.CurrentActivity is null");
-#endif
+                    System.Diagnostics.Debug.WriteLine("==> Platform.CurrentActivity is null");
                     return false;
                 }
 
@@ -44,9 +48,7 @@ namespace VeganLife.Services
                 if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
                 {
                     _ = nativeEx;
-#if DEBUG
-                    Console.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
-#endif
+                    System.Diagnostics.Debug.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
                 }
 
                 return false;
@@ -59,9 +61,7 @@ namespace VeganLife.Services
             {
                 if (Platform.CurrentActivity is null)
                 {
-#if DEBUG
-                    Console.WriteLine("==> Platform.CurrentActivity is null");
-#endif
+                    System.Diagnostics.Debug.WriteLine("==> Platform.CurrentActivity is null");
                     return false;
                 }
 
@@ -73,9 +73,7 @@ namespace VeganLife.Services
                 if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
                 {
                     _ = nativeEx;
-#if DEBUG
-                    Console.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
-#endif
+                    System.Diagnostics.Debug.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
                 }
 
                 return false;
@@ -87,6 +85,42 @@ namespace VeganLife.Services
             Intent intent = new Intent(Android.Provider.Settings.ActionDateSettings);
             intent.AddFlags(ActivityFlags.NewTask);
             Android.App.Application.Context.StartActivity(intent);
+        }
+
+        public void SetNavigationBarColor(string hexColor)
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    var currentWindow = GetCurrentWindow();
+                    currentWindow?.SetNavigationBarColor(global::Android.Graphics.Color.ParseColor(hexColor));
+                });
+            }
+        }
+
+        private Android.Views.Window? GetCurrentWindow()
+        {
+            var window = Platform.CurrentActivity?.Window;
+            if (window == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                // clear FLAG_TRANSLUCENT_STATUS flag:
+                window.ClearFlags(WindowManagerFlags.TranslucentStatus);
+
+                // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+                window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+
+                return window;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
