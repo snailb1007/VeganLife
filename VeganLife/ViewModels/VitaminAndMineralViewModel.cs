@@ -13,7 +13,6 @@ namespace VeganLife.ViewModels
     public partial class VitaminAndMineralViewModel : BaseViewModel
     {
         private IEnumerable<VitaminModel> _allVitamins;
-        private readonly VitaminsDataStoreService _vitaminsDataStoreService;
 
         [ObservableProperty]
         private ObservableCollection<VitaminModel> vitamins;
@@ -24,7 +23,6 @@ namespace VeganLife.ViewModels
         public VitaminAndMineralViewModel()
             : base()
         {
-            _vitaminsDataStoreService = ServicesHelper.GetService<VitaminsDataStoreService>();
         }
 
         public override async Task ViewAppearingVM()
@@ -62,7 +60,7 @@ namespace VeganLife.ViewModels
             }
 
             IsLoading = true;
-            var searchResult = SearchFoodByName(this.Vitamins.AsParallel(), VitaminSearchText);
+            var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
             this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
             IsLoading = false;
         }
