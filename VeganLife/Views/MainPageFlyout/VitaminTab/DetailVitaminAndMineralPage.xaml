@@ -22,7 +22,10 @@
     <ScrollView x:Name="DetailVitaminAndMineralScrollView">
         <StackLayout>
             <!--  Menu List  -->
-            <ListView ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownMenuConverter}}" SelectionMode="None">
+            <ListView
+                ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownMenuConverter}}"
+                SelectionMode="None"
+                VerticalScrollBarVisibility="Never">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="converterModel:MarkdownMenuModel">
                         <TextCell

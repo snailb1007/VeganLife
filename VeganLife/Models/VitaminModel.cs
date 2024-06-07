@@ -3,15 +3,16 @@
 // </copyright>
 
 using Newtonsoft.Json;
+using SQLite;
 using VeganLife.Helpers;
-using Xamarin.Google.Crypto.Tink.Shaded.Protobuf;
 
 namespace VeganLife.Models
 {
     public partial class VitaminModel
     {
         [JsonIgnore]
-        required public string Id { get; set; }
+        [PrimaryKey]
+        public string Id { get; set; }
 
         [JsonProperty("content")]
         public string Content { get; set; }

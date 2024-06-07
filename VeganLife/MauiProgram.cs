@@ -5,13 +5,11 @@
 #if DEBUG
 using Microsoft.Extensions.Logging;
 #endif
-using Android.Widget;
 using ChatGptNet;
 using ChatGptNet.Models;
 using FFImageLoading.Maui;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
 using Mopups.Hosting;
 using PanCardView;
 using Sharpnado.MaterialFrame;
@@ -84,7 +82,10 @@ namespace VeganLife
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
             });
             CustomEntry();
-            CustomSearchBar();
+            builder.ConfigureMauiHandlers((handlers) =>
+            {
+                handlers.AddHandler(typeof(SearchBar), typeof(Handlers.SearchBarHandler));
+            });
             AllowMultiLineTruncationOnAndroid();
             return builder.Build();
         }
@@ -108,50 +109,47 @@ namespace VeganLife
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
             services.AddSingleton<USDAApiService>();
+            services.AddSingleton<SentryService>();
+
+            // local service
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
             services.AddSingleton<ChatLogsDataStoreService>();
-            services.AddSingleton<SentryService>();
+            services.AddSingleton<VitaminsDataStoreService>();
+            services.AddSingleton<UpdateMasterDataStoreService>();
+            services.AddSingleton<UsdaFoodPreviewsDataStore>();
 
             // page
-            // services.AddTransient<WebViewPage, WebViewViewModel>();
-            // services.AddTransient<WelcomePage, WelcomeViewModel>();
-            // services.AddTransient<ChatListPage>();
-            // services.AddTransient<LoginPage>();
-            // services.AddTransient<LoginViewModel>();
-            // services.AddTransient<RegistrationPage>();
-            // services.AddTransient<RegistrationViewModel>();
             services.AddTransient<SettingPage, SettingViewModel>();
             services.AddTransient<MainTool, MainToolViewModel>();
             services.AddTransient<MainPage, MainViewModel>();
             services.AddTransient<NewsFeedPage, NewsFeedViewModel>();
             services.AddTransient<FlyoutHeader, FlyouttHeaderViewModel>();
-            services.AddTransient<VitaminAndMineralPage, VitaminAndMineralViewModel>();
             services.AddTransient<FoodDetailPage, FoodDetailViewModel>();
             services.AddTransient<BookmarkPage, BookmarkViewModel>();
             services.AddTransient<FoodsByCategoryPage, FoodsByCategoryViewModel>();
             services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage, LicenseViewModel>();
             services.AddTransient<ProfilePage, ProfileViewModel>();
-            services.AddTransient<ReportPage, ReportPageViewModel>();
-            services.AddTransient<CaloriesTab, CaloriesViewModel>();
-            services.AddTransient<MacrosTab, MacrosViewModel>();
-            services.AddTransient<NutrientsTab, NutrientsViewModel>();
+            services.AddTransient<NoteBookPage, ReportPageViewModel>();
             services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
             services.AddTransient<SupportPage, SupportPageVM>();
 
+            // tab content
+            services.AddTransient<MacrosTab, MacrosViewModel>();
+            services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
+
             services.AddTransient<ChatGPTDisClaimerPage>();
             services.AddTransient<ChatGPTDetailPage>();
 
             // Toolkit pop-up
             services.AddTransient<AboutAppPopup>();
-
             services.AddTransientPopup<BmiMoreInfoToolBarPopup, BmiMoreInfoToolBarPopupVM>();
 
             // Mopup
@@ -204,23 +202,6 @@ namespace VeganLife
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #elif IOS
 			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#endif
-            });
-        }
-
-        private static void CustomSearchBar()
-        {
-            SearchBarHandler.Mapper.AppendToMapping("CustomizationSearchBar", (handler, view) =>
-            {
-#if ANDROID
-                var child = handler.PlatformView.GetChildrenOfType<ImageView>();
-                foreach (var item in child)
-                {
-                    item.SetColorFilter(Colors.Gray.ToAndroid());
-                }
-
-                // remove underline
-                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #endif
             });
         }

@@ -18,7 +18,7 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
         protected override void OnTabReselected(ShellSection shellSection)
         {
             base.OnTabReselected(shellSection);
-            this.DisplayedPage.Dispatcher.Dispatch(async () => await PerformTabReselectedAsync());
+            this.DisplayedPage?.Dispatcher?.Dispatch(async () => await PerformTabReselectedAsync());
         }
 
         protected override bool OnItemSelected(global::Android.Views.IMenuItem item)

@@ -18,6 +18,8 @@ namespace VeganLife.Services
 
         void OpenDateSettings();
 
-        Task SendEmailAsync(string subject, string body, List<string> recipients, List<string> CCrecipients = null);
+        Task SendEmailAsync(string subject, string body, List<string> recipients, List<string>? cCrecipients = null);
+
+        void SetNavigationBarColor(string hexColor);
     }
 }

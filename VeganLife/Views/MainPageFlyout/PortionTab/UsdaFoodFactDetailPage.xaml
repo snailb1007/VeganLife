@@ -66,7 +66,6 @@
                                 </Label.Triggers>
                             </Label>
                         </toolkit:Expander.Header>
-
                         <Grid
                             Margin="0,0,0,5"
                             ColumnDefinitions="*,*,*"
