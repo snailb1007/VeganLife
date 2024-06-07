@@ -8,12 +8,16 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     {
         [PrimaryKey]
         public string Id { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
+
         [JsonProperty("category")]
         public string Category { get; set; }
+
         [JsonProperty("image")]
         public string Image { get; set; }
+
         [JsonProperty("isPlantOrigin")]
         public bool IsPlantOrigin { get; set; }
     }
@@ -22,6 +26,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     {
         [ObservableProperty]
         private int countCorrectWordOnSearch;
+
         public bool IsUSDAFood => !string.IsNullOrEmpty(Id) && !Id.Contains(ConstantHelper.TAG);
     }
 }

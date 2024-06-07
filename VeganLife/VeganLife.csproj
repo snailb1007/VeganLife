@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.28</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.30</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -90,6 +90,10 @@
 		<Compile Remove="Views\RegistrationPage.xaml.cs" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\letter_thankYou.txt" />
+	</ItemGroup>
+
 	<!--<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\chat_detail.txt" />
 	  <MauiAsset Remove="Resources\Raw\chat_disclaimer.txt" />
@@ -110,16 +114,16 @@
 		<None Remove="Resources\Raw\chat_detail.txt" />
 		<None Remove="Resources\Raw\chat_disclaimer.txt" />
 		<None Remove="Resources\Raw\empty_list.json" />
+		<None Remove="Resources\Raw\letter_thankYou.txt" />
 		<None Remove="Resources\Raw\loading.json" />
 		<None Remove="Resources\Raw\mail_template.txt" />
 		<None Remove="Resources\Raw\swipe_rightToLeft.json" />
-		<None Remove="Resources\Raw\tutorial.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\Raw\chat_detail.txt" />
 		<EmbeddedResource Include="Resources\Raw\chat_disclaimer.txt" />
-		<EmbeddedResource Include="Resources\Raw\tutorial.txt" />
+		<EmbeddedResource Include="Resources\Raw\letter_thankYou.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -185,6 +189,9 @@
 		<Compile Update="Views\Controls\Tabs\MacrosPage.xaml.cs">
 			<DependentUpon>MacrosPage.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="Views\MainPageFlyout\NoteBookPage.xaml.cs">
+		  <DependentUpon>NoteBookPage.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Views\ToolFlyout\MainTool.xaml.cs">
 			<DependentUpon>MainTool.xaml</DependentUpon>
 		</Compile>
@@ -221,6 +228,9 @@
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\VitaminsTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Controls\MaterialFrameSelectControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -248,16 +258,7 @@
 		<MauiXaml Update="Views\ContentViews\ElementFoodDetailCW.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\Tabs\CaloriesTab.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\MacrosTab.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ContentViews\Tabs\NutrientsTab.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\MainPageFlyout\VitaminAndMineralPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\FlyoutHeader.xaml">
@@ -305,7 +306,7 @@
 		<MauiXaml Update="Views\ProfilePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\MainPageFlyout\ReportPage.xaml">
+		<MauiXaml Update="Views\MainPageFlyout\NoteBookPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SettingFlyout\SettingPage.xaml">

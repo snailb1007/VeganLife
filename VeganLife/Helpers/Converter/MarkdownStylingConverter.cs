@@ -8,7 +8,9 @@ namespace VeganLife.Helpers.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not string text)
+            {
                 return null;
+            }
 
             var lines = text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var processedLines = new List<MarkdownStylingModel>();

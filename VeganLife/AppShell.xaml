@@ -24,23 +24,20 @@
         Icon="home"
         Route="home">
         <ShellContent
-            Title="{x:Static translate:AppResources.veganFood_feedPage}"
+            Title="{x:Static translate:AppResources.app_common_recipeTab}"
             ContentTemplate="{DataTemplate local:MainPage}"
             Icon="vegan_food"
-            Route="main"
+            Route="recipe"
             Shell.NavBarIsVisible="False" />
         <ShellContent
-            Title="{x:Static translate:AppResources.app_common_portionTab}"
-            ContentTemplate="{DataTemplate mainFlyout:ReportPage}"
-            Icon="plan"
-            Route="ration_plan"
-            Shell.NavBarIsVisible="False" />
-        <ShellContent
-            Title="{x:Static translate:AppResources.app_common_vitaminsTab}"
-            ContentTemplate="{DataTemplate mainFlyout:VitaminAndMineralPage}"
-            Icon="vitamin"
-            Route="vitamins_mineral"
-            Shell.NavBarIsVisible="False" />
+            Title="{x:Static translate:AppResources.app_common_encyclopediaTab}"
+            ContentTemplate="{DataTemplate mainFlyout:NoteBookPage}"
+            Route="encyclopedia"
+            Shell.NavBarIsVisible="False">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FALight" Glyph="&#xf5db;" />
+            </ShellContent.Icon>
+        </ShellContent>
         <ShellContent
             Title="{x:Static translate:AppResources.explore_common}"
             ContentTemplate="{DataTemplate mainFlyout:NewsFeedPage}"
@@ -92,15 +89,6 @@
             Route="bmr_calculator_tool"
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
-    <!--<FlyoutItem
-        Title="{x:Static translate:AppResources.app_common_webViewTab}"
-        FlyoutDisplayOptions="AsSingleItem"
-        Icon="web_view">
-        <ShellContent
-            ContentTemplate="{DataTemplate view:WebViewPage}"
-            Route="web_view"
-            Shell.NavBarIsVisible="False" />
-    </FlyoutItem>-->
     <FlyoutItem Title="{x:Static translate:AppResources.title_supportPage}" FlyoutDisplayOptions="AsSingleItem">
         <FlyoutItem.Icon>
             <FontImageSource
