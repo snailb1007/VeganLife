@@ -60,9 +60,11 @@ namespace VeganLife.Platforms.Android.Vision
             surface.SetDefaultBufferSize(width, height);
         }
 
+        private bool _isProcessingFrame;
+
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-            // process somthing
+            surface.Dispose();
         }
 
         internal void StartPreview()
