@@ -19,6 +19,8 @@ namespace VeganLife
             get => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
         }
 
+        public static Window Window { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
         /// </summary>
@@ -28,6 +30,12 @@ namespace VeganLife
             _ = this.SetupThemeAsync();
             this.SetupLanguage();
             this.MainPage = new AppShell();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            Window = base.CreateWindow(activationState);
+            return Window;
         }
 
         private void SetupLanguage()

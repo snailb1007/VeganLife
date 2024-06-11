@@ -243,6 +243,12 @@
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\PracticePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\VisionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\SupportPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

@@ -85,6 +85,7 @@ namespace VeganLife
             builder.ConfigureMauiHandlers((handlers) =>
             {
                 handlers.AddHandler(typeof(SearchBar), typeof(Handlers.SearchBarHandler));
+                handlers.AddHandler(typeof(Camera2PreviewView), typeof(Handlers.Camera2PreviewHandlerAndroid));
             });
             AllowMultiLineTruncationOnAndroid();
             return builder.Build();
@@ -140,6 +141,8 @@ namespace VeganLife
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
             services.AddTransient<SupportPage, SupportPageVM>();
+            services.AddTransient<VisionPage, VisionPageVM>();
+            services.AddTransient<PracticePage, PracticePageVM>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();

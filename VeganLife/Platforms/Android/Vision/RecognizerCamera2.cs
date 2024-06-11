@@ -10,12 +10,13 @@ using Java.Lang;
 
 namespace VeganLife.Platforms.Android.Vision
 {
-    internal class RecognizerCamera2 : FrameLayout, TextureView.ISurfaceTextureListener
+    public class RecognizerCamera2 : FrameLayout, TextureView.ISurfaceTextureListener
     {
         private global::Android.Util.Size _previewSize;
         private CaptureRequest.Builder _requestBuilder;
         private bool _isFlashSupported;
         private bool _isClosingCam;
+        private bool _isTorchOn;
         private CameraManager _cameraManager;
         private CameraCaptureSession _previewSession;
         private CaptureRequest _previewRequest;
@@ -270,6 +271,37 @@ namespace VeganLife.Platforms.Android.Vision
             {
                 throw new RuntimeException("Interrupted while trying to lock camera opening.", e);
             }
+        }
+
+        internal void StopBackgroundThread()
+        {
+            if (_isTorchOn)
+            {
+                _isTorchOn = false;
+            }
+
+            //if (App.CurrentViewModel is ScanVinTextViewModel viewModel && viewModel.IsTorch)
+            //    viewModel.IsTorch = false;
+            _backgroundHandler?.RemoveCallbacksAndMessages(this);
+            _backgroundThread?.Interrupt();
+            _backgroundThread?.QuitSafely();
+            try
+            {
+                _backgroundThread?.Join();
+                _backgroundThread = null;
+                _backgroundHandler = null;
+            }
+            catch (InterruptedException e)
+            {
+                e.PrintStackTrace();
+            }
+        }
+
+        internal void DisposeControl()
+        {
+            CameraTexturePreview?.Dispose();
+            RemoveAllViews();
+            Dispose();
         }
 
         private void UpdatePreview()
