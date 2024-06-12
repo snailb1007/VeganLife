@@ -21,7 +21,7 @@
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding Vitamins, Mode=OneWay}"
             SelectionMode="None"
-            VerticalOptions="CenterAndExpand">
+            VerticalOptions="Start">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
             </CollectionView.ItemsLayout>
@@ -42,6 +42,18 @@
                     </VerticalStackLayout>
                 </ContentView>
             </CollectionView.EmptyView>
+            <CollectionView.Header>
+                <Label HorizontalOptions="End">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                Text="{Binding Vitamins.Count}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:VitaminModel">
                     <Border
