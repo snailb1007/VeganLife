@@ -5,20 +5,21 @@
 using Newtonsoft.Json;
 using SQLite;
 using VeganLife.Helpers;
+using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
 {
-    public partial class VitaminModel
+    public partial class VitaminModel : NutritionBaseModel
     {
-        [JsonIgnore]
-        [PrimaryKey]
-        public string Id { get; set; }
+        //[JsonIgnore]
+        //[PrimaryKey]
+        //public string Id { get; set; }
 
-        [JsonProperty("content")]
-        public string Content { get; set; }
+        //[JsonProperty("content")]
+        //public string Content { get; set; }
 
-        [JsonProperty("date")]
-        public string Date { get; set; }
+        //[JsonProperty("date")]
+        //public string Date { get; set; }
     }
 
     public partial class VitaminModel

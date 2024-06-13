@@ -33,6 +33,8 @@ namespace VeganLife.Services
         private const string MenuFoodAddress = "App/img/menu_food";
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins";
+        private const string AthleticNutritionsAddress = "/AthleticNutritions";
+
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
         private const string UsdaFoodPreviewsAddress = "/USDA/food_data_central/list";
