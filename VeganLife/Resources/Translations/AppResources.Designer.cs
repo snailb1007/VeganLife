@@ -89,6 +89,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to app_common_AthleticNutritionTab_Title.
+        /// </summary>
+        internal static string app_common_AthleticNutritionTab_Title {
+            get {
+                return ResourceManager.GetString("app_common_AthleticNutritionTab_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         internal static string app_common_bookmarkTab {

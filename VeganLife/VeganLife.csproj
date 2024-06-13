@@ -222,6 +222,9 @@
 		<MauiXaml Update="Views\ContentViews\ShellFlyoutFooterCustom.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\AthleticNutritionTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\NutritionFactsFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

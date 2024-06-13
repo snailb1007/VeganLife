@@ -12,9 +12,8 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     x:Name="rootReportPage"
-    Title="ReportPage"
-    x:DataType="viewmodel:ReportPageViewModel"
-    x:TypeArguments="viewmodel:ReportPageViewModel">
+    x:DataType="viewmodel:NoteBookPageViewModel"
+    x:TypeArguments="localVM:NoteBookPageViewModel">
     <Grid RowDefinitions="80, 60, *">
         <ContentView Padding="10">
             <ContentView.Background>
@@ -177,6 +176,7 @@
                 </sharpnado:TabHostView.Resources>
                 <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.title_macroTab}" />
                 <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
+                <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}" />
             </sharpnado:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">
@@ -194,6 +194,11 @@
                     UseActivityIndicator="False" />
                 <sharpnado:DelayedView
                     x:TypeArguments="views:VitaminsTab"
+                    Animate="True"
+                    BindingContext="{Binding VitaminAndMineralVM}"
+                    UseActivityIndicator="True" />
+                <sharpnado:DelayedView
+                    x:TypeArguments="views:AthleticNutritionTab"
                     Animate="True"
                     BindingContext="{Binding VitaminAndMineralVM}"
                     UseActivityIndicator="True" />

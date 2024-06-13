@@ -2,9 +2,9 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout;
 
-public partial class NoteBookPage : BasePage<ReportPageViewModel>
+public partial class NoteBookPage : BasePage<NoteBookPageViewModel>
 {
-    public NoteBookPage(ReportPageViewModel vm)
+    public NoteBookPage(NoteBookPageViewModel vm)
         : base(vm)
     {
         this.InitializeComponent();
