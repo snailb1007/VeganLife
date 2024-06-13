@@ -134,7 +134,7 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage, LicenseViewModel>();
             services.AddTransient<ProfilePage, ProfileViewModel>();
-            services.AddTransient<NoteBookPage, ReportPageViewModel>();
+            services.AddTransient<NoteBookPage, NoteBookPageViewModel>();
             services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();

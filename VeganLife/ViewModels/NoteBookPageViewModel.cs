@@ -1,4 +1,4 @@
-﻿// <copyright file="ReportPageViewModel.cs" company="PlaceholderCompany">
+﻿// <copyright file="NoteBookPageViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,7 @@ using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.ViewModels
 {
-    public partial class ReportPageViewModel : BaseViewModel, IScrollToTop
+    public partial class NoteBookPageViewModel : BaseViewModel, IScrollToTop
     {
         [ObservableProperty]
         private int _selectedViewModelIndex = 0;
@@ -18,7 +18,7 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private VitaminAndMineralViewModel _vitaminAndMineralVM;
 
-        public ReportPageViewModel()
+        public NoteBookPageViewModel()
             : base()
         {
             MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
