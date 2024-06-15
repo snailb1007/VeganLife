@@ -50,6 +50,7 @@ namespace VeganLife.Services
             {
                 { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
                 { nameof(USDAFoodPreviewModel), ServicesHelper.GetService<UsdaFoodPreviewsDataStore>() },
+                { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
             };
             _ = _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
@@ -92,6 +93,9 @@ namespace VeganLife.Services
                 case nameof(USDAFoodPreviewModel):
                     ver = await GetUpdateMasterUsdaFoods();
                     break;
+                case nameof(AthleticNutritionModel):
+                    ver = await GetUpdateMasterAthleticNutritions();
+                    break;
             }
 
             var updateMaster = _updateMasters.FirstOrDefault(i => i.Id == key);
@@ -100,7 +104,7 @@ namespace VeganLife.Services
                 return new(true, ver, false);
             }
 
-            return new(ver > updateMaster.Version, ver);
+            return new(ver == 0 || ver > updateMaster.Version, ver);
         }
 
         // Method for fetching a single item
@@ -208,6 +212,16 @@ namespace VeganLife.Services
                     IsPlantOrigin = item?.IsPlantOrigin ?? false,
                 };
             }
+            else if (typeof(TModel) == typeof(AthleticNutritionModel) && firebaseObject.Object is AthleticNutritionModel thleticNutritionModelData)
+            {
+                var item = firebaseObject.Object as AthleticNutritionModel;
+                return (TModel)((object)new AthleticNutritionModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = thleticNutritionModelData.Content ?? string.Empty,
+                    Date = thleticNutritionModelData.Date ?? string.Empty,
+                });
+            }
             else
             {
                 throw new InvalidOperationException("Unsupported model type");
@@ -230,6 +244,9 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA() =>
             await GetDatasAsync<USDAFoodPreviewModel>(nameof(USDAFoodPreviewModel), UsdaFoodPreviewsAddress);
+
+        public async Task<IEnumerable<AthleticNutritionModel>> GetAthleticNutritions() =>
+            await GetDatasAsync<AthleticNutritionModel>(nameof(AthleticNutritionModel), AthleticNutritionsAddress);
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
@@ -463,6 +480,21 @@ namespace VeganLife.Services
             try
             {
                 var data = await this.firebaseDatabase.Child(UpdateMasterUsdaFoodsAddress).OnceSingleAsync<int>();
+                return data;
+            }
+            catch (FirebaseException e)
+            {
+                _ = e;
+                return -1;
+            }
+        }
+
+        // get update master for AthleticNutritions
+        private async Task<int> GetUpdateMasterAthleticNutritions()
+        {
+            try
+            {
+                var data = await this.firebaseDatabase.Child("/App/updateMaster/athleticNutrition").OnceSingleAsync<int>();
                 return data;
             }
             catch (FirebaseException e)

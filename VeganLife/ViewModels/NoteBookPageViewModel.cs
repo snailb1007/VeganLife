@@ -10,19 +10,21 @@ namespace VeganLife.ViewModels
     public partial class NoteBookPageViewModel : BaseViewModel, IScrollToTop
     {
         [ObservableProperty]
-        private int _selectedViewModelIndex = 0;
+        private int selectedViewModelIndex = 0;
 
         [ObservableProperty]
-        private MacrosViewModel _macrosViewModel;
+        private MacrosViewModel macrosViewModel;
 
         [ObservableProperty]
-        private VitaminAndMineralViewModel _vitaminAndMineralVM;
+        private VitaminAndMineralViewModel vitaminAndMineralVM;
+
+        [ObservableProperty]
+        private AthleticNutritionTabVM athleticNutritionTabVM;
 
         public NoteBookPageViewModel()
             : base()
         {
             MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
-            VitaminAndMineralVM = ServicesHelper.GetService<VitaminAndMineralViewModel>();
         }
 
         [RelayCommand]
@@ -45,7 +47,12 @@ namespace VeganLife.ViewModels
                     _ = MacrosViewModel.ViewAppearingVM();
                     break;
                 case 1:
+                    VitaminAndMineralVM ??= ServicesHelper.GetService<VitaminAndMineralViewModel>();
                     _ = VitaminAndMineralVM.ViewAppearingVM();
+                    break;
+                case 2:
+                    AthleticNutritionTabVM ??= ServicesHelper.GetService<AthleticNutritionTabVM>();
+                    _ = AthleticNutritionTabVM.ViewAppearingVM();
                     break;
             }
         }
