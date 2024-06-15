@@ -200,7 +200,7 @@
                 <sharpnado:DelayedView
                     x:TypeArguments="views:AthleticNutritionTab"
                     Animate="True"
-                    BindingContext="{Binding VitaminAndMineralVM}"
+                    BindingContext="{Binding AthleticNutritionTabVM}"
                     UseActivityIndicator="True" />
             </sharpnado:ViewSwitcher>
         </ContentView>

@@ -121,6 +121,7 @@ namespace VeganLife
             services.AddSingleton<VitaminsDataStoreService>();
             services.AddSingleton<UpdateMasterDataStoreService>();
             services.AddSingleton<UsdaFoodPreviewsDataStore>();
+            services.AddSingleton<AthleticNutritionDataStore>();
 
             // page
             services.AddTransient<SettingPage, SettingViewModel>();
@@ -140,10 +141,12 @@ namespace VeganLife
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
             services.AddTransient<SupportPage, SupportPageVM>();
+            services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
             services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
+            services.AddTransient<AthleticNutritionTab, AthleticNutritionTabVM>();
 
             services.AddTransient<ChatGPTDisClaimerPage>();
             services.AddTransient<ChatGPTDetailPage>();

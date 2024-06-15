@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.MainPageFlyout.VitaminTab.DetailAthleticNutritionPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:converterModel="clr-namespace:VeganLife.Models.ConverterModels"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    x:Name="selfDetailAthleticNutritionP"
+    Title="{Binding AthleticNutrition.Id}"
+    x:DataType="viewmodel:DetailAthleticNutritionPageVM"
+    x:TypeArguments="viewmodel:DetailAthleticNutritionPageVM">
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <converter:MarkdownStylingConverter x:Key="MarkdownStylingConverter" />
+            <converter:MarkdownMenuConverter x:Key="MarkdownMenuConverter" />
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+    <ScrollView x:Name="DetailAthleticNutritionScrollView">
+        <StackLayout>
+            <!--  Menu List  -->
+            <ListView
+                ItemsSource="{Binding AthleticNutrition.Content, Converter={StaticResource MarkdownMenuConverter}}"
+                SelectionMode="None"
+                VerticalScrollBarVisibility="Never">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="converterModel:MarkdownMenuModel">
+                        <TextCell
+                            Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference selfDetailAthleticNutritionP}}"
+                            CommandParameter="{Binding Id}"
+                            Text="{Binding Content}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <VerticalStackLayout
+                Margin="16,16,16,0"
+                Padding="0,0,0,16"
+                BindableLayout.ItemsSource="{Binding AthleticNutrition.Content, Converter={StaticResource MarkdownStylingConverter}}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="converterModel:MarkdownStylingModel">
+                        <Label AutomationId="{Binding Id}" FormattedText="{Binding FormattedString}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </StackLayout>
+    </ScrollView>
+</base:BasePage>

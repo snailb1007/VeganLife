@@ -2,9 +2,9 @@
 
 namespace VeganLife.Data.LocalData
 {
-    internal class VitaminsDataStoreService : BaseDataStore<VitaminModel>
+    internal class AthleticNutritionDataStore : BaseDataStore<AthleticNutritionModel>
     {
-        public VitaminsDataStoreService(ISQLite database)
+        public AthleticNutritionDataStore(ISQLite database)
             : base(database)
         {
         }
