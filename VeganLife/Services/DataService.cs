@@ -34,6 +34,7 @@ namespace VeganLife.Services
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins";
         private const string AthleticNutritionsAddress = "/AthleticNutritions";
+        private const string PharmacoLogicalAddress = "/PharmacoLogical";
 
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
@@ -51,6 +52,7 @@ namespace VeganLife.Services
                 { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
                 { nameof(USDAFoodPreviewModel), ServicesHelper.GetService<UsdaFoodPreviewsDataStore>() },
                 { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
+                { nameof(PharmacoLogicalModel), ServicesHelper.GetService<PharmacoLogicalDataStoreService>() },
             };
             _ = _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
@@ -95,6 +97,9 @@ namespace VeganLife.Services
                     break;
                 case nameof(AthleticNutritionModel):
                     ver = await GetUpdateMasterAthleticNutritions();
+                    break;
+                case nameof(PharmacoLogicalModel):
+                    ver = await GetUpdateMasterPharmacoLogical();
                     break;
             }
 
@@ -222,6 +227,16 @@ namespace VeganLife.Services
                     Date = thleticNutritionModelData.Date ?? string.Empty,
                 });
             }
+            else if (typeof(TModel) == typeof(PharmacoLogicalModel) && firebaseObject.Object is PharmacoLogicalModel pharmacoLogicalModelData)
+            {
+                var item = firebaseObject.Object as PharmacoLogicalModel;
+                return (TModel)((object)new PharmacoLogicalModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = pharmacoLogicalModelData.Content ?? string.Empty,
+                    Date = pharmacoLogicalModelData.Date ?? string.Empty,
+                });
+            }
             else
             {
                 throw new InvalidOperationException("Unsupported model type");
@@ -247,6 +262,9 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<AthleticNutritionModel>> GetAthleticNutritions() =>
             await GetDatasAsync<AthleticNutritionModel>(nameof(AthleticNutritionModel), AthleticNutritionsAddress);
+
+        public async Task<IEnumerable<PharmacoLogicalModel>> GetPharmacoLogical() =>
+            await GetDatasAsync<PharmacoLogicalModel>(nameof(PharmacoLogicalModel), PharmacoLogicalAddress);
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
@@ -462,46 +480,22 @@ namespace VeganLife.Services
 
         private async Task<int> GetUpdateMasterVitamin()
         {
-            try
-            {
-                var data = await this.firebaseDatabase.Child(UpdateMasterVitaminAddress).OnceSingleAsync<int>();
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-                _ = e;
-                return -1;
-            }
+            return await this.GetSingleDataFromFirebaseAsync<int>(UpdateMasterVitaminAddress, defaultValue: 0);
         }
 
-        // get update master for usda foods
         private async Task<int> GetUpdateMasterUsdaFoods()
         {
-            try
-            {
-                var data = await this.firebaseDatabase.Child(UpdateMasterUsdaFoodsAddress).OnceSingleAsync<int>();
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-                _ = e;
-                return -1;
-            }
+            return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/usdaFoods", defaultValue: 0);
         }
 
-        // get update master for AthleticNutritions
         private async Task<int> GetUpdateMasterAthleticNutritions()
         {
-            try
-            {
-                var data = await this.firebaseDatabase.Child("/App/updateMaster/athleticNutrition").OnceSingleAsync<int>();
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-                _ = e;
-                return -1;
-            }
+            return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/athleticNutrition", defaultValue: 0);
+        }
+
+        private async Task<int> GetUpdateMasterPharmacoLogical()
+        {
+            return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/pharmacoLogical", defaultValue: 0);
         }
     }
 

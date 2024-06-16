@@ -94,7 +94,7 @@ namespace VeganLife.ViewModels
         private async Task GoListPageAsync()
         {
             IsLoading = true;
-            await Shell.Current.GoToAsync("//home/main");
+            await Shell.Current.GoToAsync("//home/recipe");
             IsLoading = false;
         }
 

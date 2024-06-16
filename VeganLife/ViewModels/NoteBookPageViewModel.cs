@@ -21,6 +21,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private AthleticNutritionTabVM athleticNutritionTabVM;
 
+        [ObservableProperty]
+        private PharmacoLogicalTabVM pharmacoLogicalTabVM;
+
         public NoteBookPageViewModel()
             : base()
         {
@@ -53,6 +56,10 @@ namespace VeganLife.ViewModels
                 case 2:
                     AthleticNutritionTabVM ??= ServicesHelper.GetService<AthleticNutritionTabVM>();
                     _ = AthleticNutritionTabVM.ViewAppearingVM();
+                    break;
+                case 3:
+                    PharmacoLogicalTabVM ??= ServicesHelper.GetService<PharmacoLogicalTabVM>();
+                    _ = PharmacoLogicalTabVM.ViewAppearingVM();
                     break;
             }
         }
