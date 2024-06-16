@@ -21,7 +21,7 @@ namespace VeganLife.Views.MainPageFlyout.FoodTab
             : base(vm)
         {
             this.InitializeComponent();
-            WidthOfTabView = App.MainSize / 2;
+            WidthOfTabView = App.MainWidthSize / 2;
         }
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)

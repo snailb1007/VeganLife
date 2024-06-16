@@ -4,6 +4,7 @@
 
 using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
+using VeganLife.Views.MainPageFlyout;
 
 namespace VeganLife.ViewModels
 {
@@ -31,8 +32,13 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        private void OpenMenu()
+        private async Task OpenMenuAsync()
         {
+            //if (Shell.Current.CurrentPage is NoteBookPage page)
+            //{
+            //    await page.AnimateShellMenu();
+            //}
+
             AppShell.ShowFlyOut();
         }
 

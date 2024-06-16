@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.Base;
 using VeganLife.Views.Popups;
@@ -13,9 +14,11 @@ namespace VeganLife
     /// <summary>
     /// auto-generated.
     /// </summary>
-    public partial class MainPage : BasePage<MainViewModel>
+    public partial class MainPage : BasePage<MainViewModel>, IBaseRootPage
     {
         private readonly MainViewModel viewModel;
+
+        public bool IsAnimated { get; set; }
 
         public MainPage(MainViewModel vm)
             : base(vm)
@@ -59,6 +62,16 @@ namespace VeganLife
             {
                 Dispatcher.Dispatch(async () => await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>()));
             }
+        }
+
+        public async Task OnOpenedShellFlyout()
+        {
+            await this.AnimateShellMenu(mainGridContent);
+        }
+
+        public async Task OnClosedShellFlyout()
+        {
+            await this.AnimateCloseShellMenu(mainGridContent);
         }
     }
 }
