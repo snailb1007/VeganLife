@@ -1,6 +1,4 @@
-﻿using VeganLife.Views.Base;
-
-namespace VeganLife.Helpers.Extensions
+﻿namespace VeganLife.Helpers.Extensions
 {
     internal static class PageExtension
     {
