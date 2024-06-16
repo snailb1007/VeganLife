@@ -16,6 +16,9 @@ namespace VeganLife.Models.BaseModel
         [JsonProperty("date")]
         public string Date { get; set; }
 
+        [JsonProperty("category")]
+        public string Category { get; set; }
+
         public DateTime DateTime => DateTime.ParseExact(this.Date, "yyyyMMdd", CultureInfo.InvariantCulture);
 
         public string TimeAgo => DateTimeHelper.CalculateTimeAgo(this.DateTime);

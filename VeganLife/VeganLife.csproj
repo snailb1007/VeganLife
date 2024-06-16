@@ -229,6 +229,9 @@
 		<MauiXaml Update="Views\ContentViews\Tabs\NutritionFactsFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\PharmacoLogicalTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -242,6 +245,9 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailAthleticNutritionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailPharmacoLogicalPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SupportPage.xaml">

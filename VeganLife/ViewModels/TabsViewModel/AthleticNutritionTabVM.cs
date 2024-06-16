@@ -1,4 +1,5 @@
-﻿using VeganLife.Views.MainPageFlyout.VitaminTab;
+﻿using VeganLife.Helpers;
+using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
@@ -52,9 +53,25 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
 
             IsLoading = true;
-            //var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
-            //this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
+            var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
+            this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
             IsLoading = false;
+        }
+
+        partial void OnAthleticNutritionSearchTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            {
+                this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(this._allAthleticNutritions ?? []);
+            }
+        }
+
+        private ParallelQuery<AthleticNutritionModel> SearchFoodByName(ParallelQuery<AthleticNutritionModel> vitamins, string name)
+        {
+            // Normalize input name to support UTF-8 and improve search accuracy
+            var normalizedNames = name.NormalizeStringAndSplit();
+            return vitamins.Where(item => normalizedNames
+                .Any(normalizedName => item.Id.NormalizeString().Contains(normalizedName)));
         }
     }
 }

@@ -36,5 +36,7 @@ namespace VeganLife.Services
         Task<bool> GetMaintenanceStatusAsync();
 
         Task<IEnumerable<AthleticNutritionModel>> GetAthleticNutritions();
+
+        Task<IEnumerable<PharmacoLogicalModel>> GetPharmacoLogical();
     }
 }
