@@ -16,10 +16,14 @@
     x:Name="mainPageRoot"
     x:DataType="viewmodel:MainViewModel"
     x:TypeArguments="viewmodel:MainViewModel"
-    BackgroundColor="{AppThemeBinding Light=#f8f8f8,
-                                      Dark=Black}"
     Loaded="mainPageRoot_LoadedAsync"
     Shell.NavBarIsVisible="False">
+    <base:BasePage.Background>
+        <LinearGradientBrush EndPoint="1,0">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
+            <GradientStop Offset="1.0" Color="White" />
+        </LinearGradientBrush>
+    </base:BasePage.Background>
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
@@ -27,6 +31,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid
+        x:Name="mainGridContent"
+        BackgroundColor="{AppThemeBinding Light=#f8f8f8,
+                                          Dark=Black}"
         IsEnabled="{Binding GoFoodDetailCommand.IsRunning, Converter={StaticResource ReverseConverter}}"
         RowDefinitions="56, Auto,Auto, *"
         RowSpacing="0">

@@ -14,6 +14,12 @@
     x:Name="rootReportPage"
     x:DataType="viewmodel:NoteBookPageViewModel"
     x:TypeArguments="localVM:NoteBookPageViewModel">
+    <base:BasePage.Background>
+        <LinearGradientBrush EndPoint="1,0">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
+            <GradientStop Offset="1.0" Color="White" />
+        </LinearGradientBrush>
+    </base:BasePage.Background>
     <base:BasePage.Resources>
         <Style x:Key="noteBookSearch" TargetType="SearchBar">
             <Setter Property="HeightRequest" Value="48" />
@@ -24,7 +30,10 @@
             <Setter Property="IsVisible" Value="False" />
         </Style>
     </base:BasePage.Resources>
-    <Grid RowDefinitions="80, 60, *">
+    <Grid
+        x:Name="mainGridContent"
+        BackgroundColor="White"
+        RowDefinitions="80, 60, *">
         <ContentView Padding="10">
             <ContentView.Background>
                 <LinearGradientBrush EndPoint="0,1">
@@ -156,7 +165,8 @@
                 Orientation="Horizontal"
                 SegmentedOutlineColor="Transparent"
                 SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
-                TabType="Scrollable">
+                TabType="Scrollable"
+                VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>
                     <ResourceDictionary>
                         <Style TargetType="sharpnado:MaterialUnderlinedTabItem">

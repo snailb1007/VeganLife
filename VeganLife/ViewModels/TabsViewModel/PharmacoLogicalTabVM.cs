@@ -1,4 +1,5 @@
-﻿using VeganLife.Views.MainPageFlyout.VitaminTab;
+﻿using VeganLife.Resources.Translations;
+using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
@@ -61,8 +62,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OpenAIConversationAsync()
         {
             IsLoading = true;
-            //await this.navigationService.NavigateToPage<ChatFlyoutPage>()
-            //    .ConfigureAwait(false);
+            string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             IsLoading = false;
         }
     }
