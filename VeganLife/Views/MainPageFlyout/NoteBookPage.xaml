@@ -12,10 +12,28 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     x:Name="rootReportPage"
-    Title="ReportPage"
-    x:DataType="viewmodel:ReportPageViewModel"
-    x:TypeArguments="viewmodel:ReportPageViewModel">
-    <Grid RowDefinitions="80, 60, *">
+    x:DataType="viewmodel:NoteBookPageViewModel"
+    x:TypeArguments="localVM:NoteBookPageViewModel">
+    <base:BasePage.Background>
+        <LinearGradientBrush EndPoint="1,0">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
+            <GradientStop Offset="1.0" Color="White" />
+        </LinearGradientBrush>
+    </base:BasePage.Background>
+    <base:BasePage.Resources>
+        <Style x:Key="noteBookSearch" TargetType="SearchBar">
+            <Setter Property="HeightRequest" Value="48" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Fill" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource Gray200}" />
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </base:BasePage.Resources>
+    <Grid
+        x:Name="mainGridContent"
+        BackgroundColor="White"
+        RowDefinitions="80, 60, *">
         <ContentView Padding="10">
             <ContentView.Background>
                 <LinearGradientBrush EndPoint="0,1">
@@ -50,48 +68,104 @@
                     Grid.Column="1"
                     Padding="0"
                     HeightRequest="50"
-                    IsVisible="False"
                     StrokeShape="RoundRectangle 20">
-                    <Border.Triggers>
-                        <DataTrigger
-                            Binding="{Binding SelectedViewModelIndex}"
-                            TargetType="Border"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                    </Border.Triggers>
-                    <Grid
-                        x:DataType="tabVM:MacrosViewModel"
-                        BindingContext="{Binding BindingContext.MacrosViewModel, Source={x:Reference rootReportPage}}"
-                        ColumnDefinitions="*,48">
+                    <Grid ColumnDefinitions="*,48">
                         <SearchBar
-                            x:DataType="tabVM:MacrosViewModel"
-                            HeightRequest="48"
-                            HorizontalOptions="Fill"
+                            x:Name="macroSearchBar"
                             Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
-                            PlaceholderColor="{StaticResource Gray200}"
-                            Text="{Binding TextSearch}"
-                            TextColor="White"
-                            VerticalOptions="Center">
+                            Style="{StaticResource noteBookSearch}"
+                            Text="{Binding MacrosViewModel.TextSearch}">
                             <SearchBar.Behaviors>
                                 <toolkit:UserStoppedTypingBehavior
-                                    Command="{Binding EnsureSearchCommand}"
+                                    Command="{Binding MacrosViewModel.EnsureSearchCommand}"
                                     MinimumLengthThreshold="1"
                                     ShouldDismissKeyboardAutomatically="False"
                                     StoppedTypingTimeThreshold="500" />
                             </SearchBar.Behaviors>
+                            <SearchBar.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedViewModelIndex}"
+                                    TargetType="SearchBar"
+                                    Value="0">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </SearchBar.Triggers>
+                        </SearchBar>
+                        <SearchBar
+                            Grid.ColumnSpan="2"
+                            Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
+                            Style="{StaticResource noteBookSearch}"
+                            Text="{Binding VitaminAndMineralVM.VitaminSearchText}">
+                            <SearchBar.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding VitaminAndMineralVM.EnsureSearchCommand}"
+                                    MinimumLengthThreshold="1"
+                                    ShouldDismissKeyboardAutomatically="False"
+                                    StoppedTypingTimeThreshold="500" />
+                            </SearchBar.Behaviors>
+                            <SearchBar.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedViewModelIndex}"
+                                    TargetType="SearchBar"
+                                    Value="1">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </SearchBar.Triggers>
+                        </SearchBar>
+                        <SearchBar
+                            Grid.ColumnSpan="2"
+                            Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
+                            Style="{StaticResource noteBookSearch}"
+                            Text="{Binding AthleticNutritionTabVM.AthleticNutritionSearchText}">
+                            <SearchBar.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding AthleticNutritionTabVM.EnsureSearchCommand}"
+                                    MinimumLengthThreshold="1"
+                                    ShouldDismissKeyboardAutomatically="False"
+                                    StoppedTypingTimeThreshold="500" />
+                            </SearchBar.Behaviors>
+                            <SearchBar.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedViewModelIndex}"
+                                    TargetType="SearchBar"
+                                    Value="2">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </SearchBar.Triggers>
+                        </SearchBar>
+                        <SearchBar
+                            Grid.ColumnSpan="2"
+                            Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
+                            Style="{StaticResource noteBookSearch}"
+                            Text="{Binding PharmacoLogicalTabVM.PharmacoLogicalSearchText}">
+                            <SearchBar.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding PharmacoLogicalTabVM.EnsureSearchCommand}"
+                                    MinimumLengthThreshold="1"
+                                    ShouldDismissKeyboardAutomatically="False"
+                                    StoppedTypingTimeThreshold="500" />
+                            </SearchBar.Behaviors>
+                            <SearchBar.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedViewModelIndex}"
+                                    TargetType="SearchBar"
+                                    Value="3">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </SearchBar.Triggers>
                         </SearchBar>
                         <Button
                             Grid.Column="1"
                             Padding="0"
                             BackgroundColor="Transparent"
-                            Command="{Binding FilterCommand}"
+                            Command="{Binding MacrosViewModel.FilterCommand}"
                             FontFamily="FAThin"
                             FontSize="Medium"
+                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible}"
                             Text="&#xf0b0;">
                             <Button.Triggers>
                                 <DataTrigger
-                                    Binding="{Binding IsFilterOpened}"
+                                    Binding="{Binding MacrosViewModel.IsFilterOpened}"
                                     TargetType="Button"
                                     Value="True">
                                     <Setter Property="Text" Value="&#xe17c;" />
@@ -100,72 +174,20 @@
                         </Button>
                     </Grid>
                 </Border>
-                <Border
-                    Grid.Column="1"
-                    Padding="0"
-                    HeightRequest="50"
-                    IsVisible="False"
-                    StrokeShape="RoundRectangle 20">
-                    <Border.Triggers>
-                        <DataTrigger
-                            Binding="{Binding SelectedViewModelIndex}"
-                            TargetType="Border"
-                            Value="1">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                    </Border.Triggers>
-                    <Grid
-                        x:DataType="localVM:VitaminAndMineralViewModel"
-                        BindingContext="{Binding BindingContext.VitaminAndMineralVM, Source={x:Reference rootReportPage}}"
-                        ColumnDefinitions="*,48">
-                        <SearchBar
-                            x:DataType="localVM:VitaminAndMineralViewModel"
-                            HeightRequest="48"
-                            HorizontalOptions="Fill"
-                            Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
-                            PlaceholderColor="{StaticResource Gray200}"
-                            Text="{Binding VitaminSearchText}"
-                            TextColor="White"
-                            VerticalOptions="Center">
-                            <SearchBar.Behaviors>
-                                <toolkit:UserStoppedTypingBehavior
-                                    Command="{Binding EnsureSearchCommand}"
-                                    MinimumLengthThreshold="1"
-                                    ShouldDismissKeyboardAutomatically="False"
-                                    StoppedTypingTimeThreshold="500" />
-                            </SearchBar.Behaviors>
-                        </SearchBar>
-                        <!--<Button
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            Command="{Binding FilterCommand}"
-                            FontFamily="FAThin"
-                            FontSize="Medium"
-                            Text="&#xf0b0;">
-                            <Button.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsFilterOpened}"
-                                    TargetType="Button"
-                                    Value="True">
-                                    <Setter Property="Text" Value="&#xe17c;" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>-->
-                    </Grid>
-                </Border>
             </Grid>
         </ContentView>
         <ContentView Grid.Row="1" Margin="0,0,0,5">
             <sharpnado:TabHostView
                 BackgroundColor="{StaticResource Gray100}"
                 CornerRadius="0"
+                HeightRequest="48"
                 HorizontalOptions="FillAndExpand"
                 IsSegmented="True"
                 Orientation="Horizontal"
                 SegmentedOutlineColor="Transparent"
                 SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
-                TabType="Fixed">
+                TabType="Scrollable"
+                VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>
                     <ResourceDictionary>
                         <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
@@ -175,11 +197,19 @@
                         </Style>
                     </ResourceDictionary>
                 </sharpnado:TabHostView.Resources>
-                <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.title_macroTab}" />
-                <sharpnado:MaterialUnderlinedTabItem Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
+                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.title_macroTab}" />
+                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
+                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}" />
+                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="Pharmaco Logical Tab" />
             </sharpnado:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">
+            <ContentView.Resources>
+                <Style x:Key="normalDelayedView" TargetType="sharpnado:DelayedView">
+                    <Setter Property="Animate" Value="True" />
+                    <Setter Property="UseActivityIndicator" Value="True" />
+                </Style>
+            </ContentView.Resources>
             <sharpnado:ViewSwitcher
                 x:Name="switcher"
                 Grid.Row="1"
@@ -191,11 +221,21 @@
                     x:TypeArguments="views:MacrosTab"
                     Animate="True"
                     BindingContext="{Binding MacrosViewModel}"
-                    UseActivityIndicator="False" />
+                    UseActivityIndicator="True" />
                 <sharpnado:DelayedView
                     x:TypeArguments="views:VitaminsTab"
                     Animate="True"
                     BindingContext="{Binding VitaminAndMineralVM}"
+                    UseActivityIndicator="True" />
+                <sharpnado:DelayedView
+                    x:TypeArguments="views:AthleticNutritionTab"
+                    Animate="True"
+                    BindingContext="{Binding AthleticNutritionTabVM}"
+                    UseActivityIndicator="True" />
+                <sharpnado:DelayedView
+                    x:TypeArguments="views:PharmacoLogicalTab"
+                    Animate="True"
+                    BindingContext="{Binding PharmacoLogicalTabVM}"
                     UseActivityIndicator="True" />
             </sharpnado:ViewSwitcher>
         </ContentView>

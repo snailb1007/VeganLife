@@ -89,6 +89,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to app_common_AthleticNutritionTab_Title.
+        /// </summary>
+        internal static string app_common_AthleticNutritionTab_Title {
+            get {
+                return ResourceManager.GetString("app_common_AthleticNutritionTab_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         internal static string app_common_bookmarkTab {
@@ -626,6 +635,24 @@ namespace VeganLife.Resources.Translations {
         internal static string fillText_placeHolder_macroTab {
             get {
                 return ResourceManager.GetString("fillText_placeHolder_macroTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to firstQuery_athleticNutritionTab.
+        /// </summary>
+        internal static string firstQuery_athleticNutritionTab {
+            get {
+                return ResourceManager.GetString("firstQuery_athleticNutritionTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to firstQuery_pharmacoLogicalTab.
+        /// </summary>
+        internal static string firstQuery_pharmacoLogicalTab {
+            get {
+                return ResourceManager.GetString("firstQuery_pharmacoLogicalTab", resourceCulture);
             }
         }
         

@@ -121,6 +121,8 @@ namespace VeganLife
             services.AddSingleton<VitaminsDataStoreService>();
             services.AddSingleton<UpdateMasterDataStoreService>();
             services.AddSingleton<UsdaFoodPreviewsDataStore>();
+            services.AddSingleton<AthleticNutritionDataStore>();
+            services.AddSingleton<PharmacoLogicalDataStoreService>();
 
             // page
             services.AddTransient<SettingPage, SettingViewModel>();
@@ -134,16 +136,20 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage, LicenseViewModel>();
             services.AddTransient<ProfilePage, ProfileViewModel>();
-            services.AddTransient<NoteBookPage, ReportPageViewModel>();
+            services.AddTransient<NoteBookPage, NoteBookPageViewModel>();
             services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
             services.AddTransient<SupportPage, SupportPageVM>();
+            services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
+            services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
             services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
+            services.AddTransient<AthleticNutritionTab, AthleticNutritionTabVM>();
+            services.AddTransient<PharmacoLogicalTab, PharmacoLogicalTabVM>();
 
             services.AddTransient<ChatGPTDisClaimerPage>();
             services.AddTransient<ChatGPTDetailPage>();

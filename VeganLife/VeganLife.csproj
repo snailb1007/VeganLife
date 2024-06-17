@@ -5,7 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>8.0.40</MauiVersion>
+		<MauiVersion>8.0.60</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.33</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.35</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -53,12 +53,10 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#a4a7ea" ForegroundScale="0.65" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#a4a7ea" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#e3e4a0" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<!--<MauiImage Update="Resources\Images\facebook2019.svg" BaseSize="50,50" />-->
-		<!--<MauiImage Update="Resources\Images\google.svg" BaseSize="50,50" />-->
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -106,7 +104,6 @@
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
 		<!--<None Remove="Resources\Images\facebook2019.svg" />-->
-		<!--<None Remove="Resources\Images\google.svg" />-->
 		<!--<None Remove="Resources\Images\microsoft.svg" />-->
 		<None Remove="Resources\Images\nutrition_plan.svg" />
 		<!--<None Remove="Resources\Images\trending_fire.png" />-->
@@ -136,7 +133,7 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.8" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.4" />
 		<PackageReference Include="CardsView.Maui" Version="0.0.6" />
@@ -151,6 +148,7 @@
 		<PackageReference Include="Sharpnado.MaterialFrame.Maui" Version="2.0.0" />
 		<PackageReference Include="Utf8Json" Version="1.3.7" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -222,8 +220,14 @@
 		<MauiXaml Update="Views\ContentViews\ShellFlyoutFooterCustom.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\AthleticNutritionTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\NutritionFactsFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentViews\Tabs\PharmacoLogicalTab.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ContentViews\Tabs\RecipeFoodDetail.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -236,6 +240,12 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\NutritionFactImportantBorder.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailAthleticNutritionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailPharmacoLogicalPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SupportPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
