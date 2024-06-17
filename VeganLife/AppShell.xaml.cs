@@ -4,6 +4,7 @@
 
 using Mopups.Services;
 using VeganLife.Helpers;
+using VeganLife.Views.Base;
 using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.MainPageFlyout.FoodTab;
 using VeganLife.Views.SettingTab;
@@ -26,6 +27,7 @@ namespace VeganLife
         public AppShell()
         {
             this.InitializeComponent();
+            this.FlyoutWidth = App.MainWidthSize * 0.7;
             this.RegisterRoutes();
         }
 
@@ -44,6 +46,34 @@ namespace VeganLife
                 })
                 .ConfigureAwait(false);
             });
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName.Equals("FlyoutIsPresented")
+                && this.CurrentPage is IBaseRootPage page
+                && page is not null)
+            {
+                if (this.FlyoutIsPresented)
+                {
+                    if (!page.IsAnimated)
+                    {
+                        Shell.SetTabBarIsVisible(CurrentPage, false);
+                        page.OnOpenedShellFlyout();
+                        page.IsAnimated = true;
+                    }
+                }
+                else
+                {
+                    if (page.IsAnimated)
+                    {
+                        page.OnClosedShellFlyout();
+                        SetTabBarIsVisible(CurrentPage, true);
+                        page.IsAnimated = false;
+                    }
+                }
+            }
         }
 
         public static void ShowFlyOut()

@@ -14,10 +14,7 @@ namespace VeganLife
     /// </summary>
     public partial class App : Application
     {
-        public static double MainSize
-        {
-            get => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-        }
+        public readonly static double MainWidthSize = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
@@ -25,9 +22,9 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
-            _ = this.SetupThemeAsync();
             this.SetupLanguage();
             this.MainPage = new AppShell();
+            _ = this.SetupThemeAsync().ConfigureAwait(false);
         }
 
         private void SetupLanguage()

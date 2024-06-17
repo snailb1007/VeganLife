@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.MainPageFlyout.VitaminTab.DetailPharmacoLogicalPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:converterModel="clr-namespace:VeganLife.Models.ConverterModels"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="{Binding PharmacoLogicalModel.Id}"
+    x:DataType="viewmodel:DetailPharmacoLogicalPageVM"
+    x:TypeArguments="viewmodel:DetailPharmacoLogicalPageVM"
+    Shell.NavBarIsVisible="True">
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <converter:MarkdownStylingConverter x:Key="MarkdownStylingConverter" />
+            <converter:MarkdownMenuConverter x:Key="MarkdownMenuConverter" />
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+    <ScrollView>
+        <VerticalStackLayout
+            Margin="16,16,16,0"
+            Padding="0,0,0,16"
+            BindableLayout.ItemsSource="{Binding PharmacoLogicalModel.Content, Converter={StaticResource MarkdownStylingConverter}}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="converterModel:MarkdownStylingModel">
+                    <Label AutomationId="{Binding Id}" FormattedText="{Binding FormattedString}" />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+    </ScrollView>
+</base:BasePage>
