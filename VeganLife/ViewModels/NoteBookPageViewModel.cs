@@ -4,7 +4,6 @@
 
 using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
-using VeganLife.Views.MainPageFlyout;
 
 namespace VeganLife.ViewModels
 {
