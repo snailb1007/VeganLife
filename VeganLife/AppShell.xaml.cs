@@ -59,6 +59,7 @@ namespace VeganLife
                 {
                     if (!page.IsAnimated)
                     {
+                        Shell.SetTabBarIsVisible(CurrentPage, false);
                         page.OnOpenedShellFlyout();
                         page.IsAnimated = true;
                     }
@@ -68,6 +69,7 @@ namespace VeganLife
                     if (page.IsAnimated)
                     {
                         page.OnClosedShellFlyout();
+                        SetTabBarIsVisible(CurrentPage, true);
                         page.IsAnimated = false;
                     }
                 }

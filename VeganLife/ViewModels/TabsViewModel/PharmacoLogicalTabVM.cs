@@ -1,4 +1,5 @@
-﻿using VeganLife.Resources.Translations;
+﻿using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
@@ -53,8 +54,8 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
 
             IsLoading = true;
-            //var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
-            //this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
+            var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
+            this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
             IsLoading = false;
         }
 
@@ -65,6 +66,23 @@ namespace VeganLife.ViewModels.TabsViewModel
             string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
             await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             IsLoading = false;
+        }
+
+        private ParallelQuery<PharmacoLogicalModel> SearchFoodByName(ParallelQuery<PharmacoLogicalModel> vitamins, string name)
+        {
+            // Normalize input name to support UTF-8 and improve search accuracy
+            var normalizedNames = name.NormalizeStringAndSplit();
+            return vitamins.Where(item => normalizedNames
+                .Any(normalizedName => item.Id.NormalizeString().Contains(normalizedName)));
+        }
+
+        partial void OnPharmacoLogicalSearchTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value)
+                || string.IsNullOrWhiteSpace(value))
+            {
+                PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(this._allPharmacoLogical);
+            }
         }
     }
 }

@@ -300,6 +300,12 @@ List is empty!</value>
 	<data name="firstQuery_vitaminPage" xml:space="preserve">
     <value>firstQuery_vitaminPage</value>
   </data>
+	<data name="firstQuery_athleticNutritionTab" xml:space="preserve">
+    <value>firstQuery_athleticNutritionTab</value>
+  </data>
+	<data name="firstQuery_pharmacoLogicalTab" xml:space="preserve">
+    <value>firstQuery_pharmacoLogicalTab</value>
+  </data>
 	<data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
     <value>No information about {0} dishes.
 List is empty!</value>

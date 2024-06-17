@@ -22,9 +22,9 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
-            _ = this.SetupThemeAsync();
             this.SetupLanguage();
             this.MainPage = new AppShell();
+            _ = this.SetupThemeAsync().ConfigureAwait(false);
         }
 
         private void SetupLanguage()

@@ -35,6 +35,7 @@
                             WidthRequest="150" />
                         <Label Text="{x:Static translate:AppResources.noVitamin_vitaminPage}" />
                         <Button
+                            Command="{Binding OpenAIConversationCommand}"
                             HorizontalOptions="Center"
                             Text="{x:Static translate:AppResources.askingAI_conversationChat}"
                             VerticalOptions="Center" />
