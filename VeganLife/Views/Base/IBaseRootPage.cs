@@ -4,8 +4,8 @@
     {
         bool IsAnimated { get; set; }
 
-        Task OnOpenedShellFlyout();
+        void OnOpenedShellFlyout();
 
-        Task OnClosedShellFlyout();
+        void OnClosedShellFlyout();
     }
 }

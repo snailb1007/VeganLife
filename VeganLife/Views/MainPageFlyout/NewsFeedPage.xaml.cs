@@ -17,14 +17,14 @@ namespace VeganLife.Views.MainPageFlyout
             this.InitializeComponent();
         }
 
-        public async Task OnClosedShellFlyout()
+        public void OnClosedShellFlyout()
         {
-            await this.AnimateCloseShellMenu(this.mainGridContent);
+            this.AnimateCloseShellMenu(this.mainGridContent);
         }
 
-        public async Task OnOpenedShellFlyout()
+        public void OnOpenedShellFlyout()
         {
-            await this.AnimateShellMenu(this.mainGridContent);
+            this.AnimateShellMenu(this.mainGridContent);
         }
 
         private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
