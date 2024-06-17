@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.33</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.35</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -53,12 +53,10 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#a4a7ea" ForegroundScale="0.65" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#a4a7ea" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#e3e4a0" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<!--<MauiImage Update="Resources\Images\facebook2019.svg" BaseSize="50,50" />-->
-		<!--<MauiImage Update="Resources\Images\google.svg" BaseSize="50,50" />-->
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -106,7 +104,6 @@
 		<None Remove="Resources\Fonts\FontAwesome6FreeRegular.otf" />
 		<None Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
 		<!--<None Remove="Resources\Images\facebook2019.svg" />-->
-		<!--<None Remove="Resources\Images\google.svg" />-->
 		<!--<None Remove="Resources\Images\microsoft.svg" />-->
 		<None Remove="Resources\Images\nutrition_plan.svg" />
 		<!--<None Remove="Resources\Images\trending_fire.png" />-->

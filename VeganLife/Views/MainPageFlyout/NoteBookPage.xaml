@@ -133,6 +133,27 @@
                                 </DataTrigger>
                             </SearchBar.Triggers>
                         </SearchBar>
+                        <SearchBar
+                            Grid.ColumnSpan="2"
+                            Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
+                            Style="{StaticResource noteBookSearch}"
+                            Text="{Binding PharmacoLogicalTabVM.PharmacoLogicalSearchText}">
+                            <SearchBar.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding PharmacoLogicalTabVM.EnsureSearchCommand}"
+                                    MinimumLengthThreshold="1"
+                                    ShouldDismissKeyboardAutomatically="False"
+                                    StoppedTypingTimeThreshold="500" />
+                            </SearchBar.Behaviors>
+                            <SearchBar.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedViewModelIndex}"
+                                    TargetType="SearchBar"
+                                    Value="3">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </SearchBar.Triggers>
+                        </SearchBar>
                         <Button
                             Grid.Column="1"
                             Padding="0"

@@ -639,6 +639,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to firstQuery_athleticNutritionTab.
+        /// </summary>
+        internal static string firstQuery_athleticNutritionTab {
+            get {
+                return ResourceManager.GetString("firstQuery_athleticNutritionTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to firstQuery_pharmacoLogicalTab.
+        /// </summary>
+        internal static string firstQuery_pharmacoLogicalTab {
+            get {
+                return ResourceManager.GetString("firstQuery_pharmacoLogicalTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to firstQuery_vitaminPage.
         /// </summary>
         internal static string firstQuery_vitaminPage {
