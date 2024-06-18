@@ -24,12 +24,16 @@ namespace VeganLife.Helpers.Converter
                 {
                     headerCount++;
                     sectinon.Id = headerCount;
-                    sectinon.FormattedString.Spans.Add(new Span
+                    if (!line.Contains($"{headerCount}. "))
                     {
-                        Text = $"{headerCount}. ",
-                        FontAttributes = FontAttributes.Bold,
-                        FontSize = 20,
-                    });
+                        sectinon.FormattedString.Spans.Add(new Span
+                        {
+                            Text = $"{headerCount}. ",
+                            FontAttributes = FontAttributes.Bold,
+                            FontSize = 20,
+                        });
+                    }
+
                     sectinon.FormattedString.Spans.Add(new Span
                     {
                         Text = line.Substring(5),
