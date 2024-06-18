@@ -33,6 +33,9 @@ namespace VeganLife.Services
         private const string MenuFoodAddress = "App/img/menu_food";
         private const string FoodListAddress = "Foods/list";
         private const string VitaminListAddress = "Vitamins";
+        private const string AthleticNutritionsAddress = "/AthleticNutritions";
+        private const string PharmacoLogicalAddress = "/PharmacoLogical";
+
         private const string FoodNutriFacts = "Foods/nutritionFact";
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
         private const string UsdaFoodPreviewsAddress = "/USDA/food_data_central/list";
@@ -48,6 +51,8 @@ namespace VeganLife.Services
             {
                 { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
                 { nameof(USDAFoodPreviewModel), ServicesHelper.GetService<UsdaFoodPreviewsDataStore>() },
+                { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
+                { nameof(PharmacoLogicalModel), ServicesHelper.GetService<PharmacoLogicalDataStoreService>() },
             };
             _ = _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
@@ -90,6 +95,12 @@ namespace VeganLife.Services
                 case nameof(USDAFoodPreviewModel):
                     ver = await GetUpdateMasterUsdaFoods();
                     break;
+                case nameof(AthleticNutritionModel):
+                    ver = await GetUpdateMasterAthleticNutritions();
+                    break;
+                case nameof(PharmacoLogicalModel):
+                    ver = await GetUpdateMasterPharmacoLogical();
+                    break;
             }
 
             var updateMaster = _updateMasters.FirstOrDefault(i => i.Id == key);
@@ -98,7 +109,7 @@ namespace VeganLife.Services
                 return new(true, ver, false);
             }
 
-            return new(ver > updateMaster.Version, ver);
+            return new(ver == 0 || ver > updateMaster.Version, ver);
         }
 
         // Method for fetching a single item
@@ -206,6 +217,26 @@ namespace VeganLife.Services
                     IsPlantOrigin = item?.IsPlantOrigin ?? false,
                 };
             }
+            else if (typeof(TModel) == typeof(AthleticNutritionModel) && firebaseObject.Object is AthleticNutritionModel thleticNutritionModelData)
+            {
+                var item = firebaseObject.Object as AthleticNutritionModel;
+                return (TModel)((object)new AthleticNutritionModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = thleticNutritionModelData.Content ?? string.Empty,
+                    Date = thleticNutritionModelData.Date ?? string.Empty,
+                });
+            }
+            else if (typeof(TModel) == typeof(PharmacoLogicalModel) && firebaseObject.Object is PharmacoLogicalModel pharmacoLogicalModelData)
+            {
+                var item = firebaseObject.Object as PharmacoLogicalModel;
+                return (TModel)((object)new PharmacoLogicalModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = pharmacoLogicalModelData.Content ?? string.Empty,
+                    Date = pharmacoLogicalModelData.Date ?? string.Empty,
+                });
+            }
             else
             {
                 throw new InvalidOperationException("Unsupported model type");
@@ -228,6 +259,12 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<USDAFoodPreviewModel>> GetFoodsUSDA() =>
             await GetDatasAsync<USDAFoodPreviewModel>(nameof(USDAFoodPreviewModel), UsdaFoodPreviewsAddress);
+
+        public async Task<IEnumerable<AthleticNutritionModel>> GetAthleticNutritions() =>
+            await GetDatasAsync<AthleticNutritionModel>(nameof(AthleticNutritionModel), AthleticNutritionsAddress);
+
+        public async Task<IEnumerable<PharmacoLogicalModel>> GetPharmacoLogical() =>
+            await GetDatasAsync<PharmacoLogicalModel>(nameof(PharmacoLogicalModel), PharmacoLogicalAddress);
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
@@ -443,31 +480,22 @@ namespace VeganLife.Services
 
         private async Task<int> GetUpdateMasterVitamin()
         {
-            try
-            {
-                var data = await this.firebaseDatabase.Child(UpdateMasterVitaminAddress).OnceSingleAsync<int>();
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-                _ = e;
-                return -1;
-            }
+            return await this.GetSingleDataFromFirebaseAsync<int>(UpdateMasterVitaminAddress, defaultValue: 0);
         }
 
-        // get update master for usda foods
         private async Task<int> GetUpdateMasterUsdaFoods()
         {
-            try
-            {
-                var data = await this.firebaseDatabase.Child(UpdateMasterUsdaFoodsAddress).OnceSingleAsync<int>();
-                return data;
-            }
-            catch (FirebaseException e)
-            {
-                _ = e;
-                return -1;
-            }
+            return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/usdaFoods", defaultValue: 0);
+        }
+
+        private async Task<int> GetUpdateMasterAthleticNutritions()
+        {
+            return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/athleticNutrition", defaultValue: 0);
+        }
+
+        private async Task<int> GetUpdateMasterPharmacoLogical()
+        {
+            return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/pharmacoLogical", defaultValue: 0);
         }
     }
 

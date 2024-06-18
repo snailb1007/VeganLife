@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System.Text;
+using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
@@ -84,14 +84,10 @@ namespace VeganLife.ViewModels
         private ParallelQuery<VitaminModel> SearchFoodByName(ParallelQuery<VitaminModel> vitamins, string name)
         {
             // Normalize input name to support UTF-8 and improve search accuracy
-            var normalizedName = NormalizeString(name);
-            return vitamins.Where(item => NormalizeString(item.Id).Contains(normalizedName)
-            || NormalizeString(item.VietnameseName).Contains(normalizedName));
-
-            string NormalizeString(string input)
-            {
-                return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
-            }
+            var normalizedNames = name.NormalizeStringAndSplit();
+            return vitamins.Where(item => normalizedNames
+                .Any(normalizedName => item.Id.NormalizeString().Contains(normalizedName)
+                    || item.VietnameseName.NormalizeString().Contains(normalizedName)));
         }
     }
 }

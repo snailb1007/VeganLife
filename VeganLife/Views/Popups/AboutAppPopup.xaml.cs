@@ -12,7 +12,7 @@ public partial class AboutAppPopup : Popup
     public AboutAppPopup()
     {
         this.InitializeComponent();
-        rootGrid.WidthRequest = App.MainSize * 0.8;
+        rootGrid.WidthRequest = App.MainWidthSize * 0.8;
         lbVersion.Text = AppInfo.Current.VersionString;
     }
 

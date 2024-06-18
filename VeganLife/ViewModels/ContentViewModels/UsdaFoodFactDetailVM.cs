@@ -74,7 +74,7 @@ namespace VeganLife.ViewModels.ContentViewModels
 
             IsLoading = true;
             await this.navigationService.PopToRootAsync();
-            var rootVM = ServicesHelper.GetCurrentViewModel<ReportPageViewModel>();
+            var rootVM = ServicesHelper.GetCurrentViewModel<NoteBookPageViewModel>();
             if (rootVM != null)
             {
                 rootVM.SelectedViewModelIndex = 1;

@@ -1,5 +1,6 @@
 ﻿using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Platform;
 
 namespace VeganLife.Handlers
 {
@@ -14,6 +15,11 @@ namespace VeganLife.Handlers
             {
                 linearLayout.Background = null;
                 platformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+            }
+
+            foreach (var item in platformView.GetChildrenOfType<ImageView>())
+            {
+                item.SetColorFilter(Colors.Gray.ToAndroid());
             }
 
             base.ConnectHandler(platformView);

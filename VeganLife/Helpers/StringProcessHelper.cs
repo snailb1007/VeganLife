@@ -98,5 +98,19 @@ namespace VeganLife.Helpers
             // If no translation is available, just return the English name
             return enName;
         }
+
+        public static string NormalizeString(this string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
+        }
+
+        public static IEnumerable<string> NormalizeStringAndSplit(this string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD)
+                .ToLower()
+                .Split(',')
+                .Select(s => s.Trim())
+                .Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s));
+        }
     }
 }

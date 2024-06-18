@@ -24,12 +24,6 @@
         Icon="home"
         Route="home">
         <ShellContent
-            Title="{x:Static translate:AppResources.app_common_recipeTab}"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Icon="vegan_food"
-            Route="recipe"
-            Shell.NavBarIsVisible="False" />
-        <ShellContent
             Title="{x:Static translate:AppResources.app_common_encyclopediaTab}"
             ContentTemplate="{DataTemplate mainFlyout:NoteBookPage}"
             Route="encyclopedia"
@@ -38,6 +32,12 @@
                 <FontImageSource FontFamily="FALight" Glyph="&#xf5db;" />
             </ShellContent.Icon>
         </ShellContent>
+        <ShellContent
+            Title="{x:Static translate:AppResources.app_common_recipeTab}"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Icon="vegan_food"
+            Route="recipe"
+            Shell.NavBarIsVisible="False" />
         <ShellContent
             Title="{x:Static translate:AppResources.explore_common}"
             ContentTemplate="{DataTemplate mainFlyout:NewsFeedPage}"

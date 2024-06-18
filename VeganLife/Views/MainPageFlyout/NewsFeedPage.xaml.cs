@@ -2,16 +2,29 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Helpers.Extensions;
 using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout
 {
-    public partial class NewsFeedPage : BasePage<NewsFeedViewModel>
+    public partial class NewsFeedPage : BasePage<NewsFeedViewModel>, IBaseRootPage
     {
+        public bool IsAnimated { get; set; }
+
         public NewsFeedPage(NewsFeedViewModel vm)
             : base(vm)
         {
             this.InitializeComponent();
+        }
+
+        public void OnClosedShellFlyout()
+        {
+            this.AnimateCloseShellMenu(this.mainGridContent);
+        }
+
+        public void OnOpenedShellFlyout()
+        {
+            this.AnimateShellMenu(this.mainGridContent);
         }
 
         private void DiscoverMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
