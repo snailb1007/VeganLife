@@ -3,6 +3,8 @@
 // </copyright>
 
 using Mopups.Services;
+using Plugin.MauiMTAdmob.Extra;
+using Plugin.MauiMTAdmob;
 using VeganLife.Helpers;
 using VeganLife.Views.Base;
 using VeganLife.Views.MainPageFlyout;
@@ -28,6 +30,11 @@ namespace VeganLife
         {
             this.InitializeComponent();
             this.FlyoutWidth = App.MainWidthSize * 0.7;
+            CrossMauiMTAdmob.Current.TagForChildDirectedTreatment = MTTagForChildDirectedTreatment.TagForChildDirectedTreatmentUnspecified;
+            CrossMauiMTAdmob.Current.TagForUnderAgeOfConsent = MTTagForUnderAgeOfConsent.TagForUnderAgeOfConsentUnspecified;
+            CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
+            CrossMauiMTAdmob.Current.AdChoicesCorner = AdChoicesCorner.ADCHOICES_BOTTOM_RIGHT;
+            CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
             this.RegisterRoutes();
         }
 

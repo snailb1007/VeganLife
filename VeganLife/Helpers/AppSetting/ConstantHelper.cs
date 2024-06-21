@@ -19,6 +19,17 @@ namespace VeganLife.Helpers.AppSetting
             // public const string OpenAIEndpoint_Generations = "v1/images/generations";
         }
 
+        public static class GoogleAdMob
+        {
+#if DEBUG
+            public const string BannerId = "ca-app-pub-3940256099942544/6300978111";
+            public const string RewardedId = "ca-app-pub-3940256099942544/5224354917";
+#else
+            public const string BannerId = "ca-app-pub-4076544648724623/1109865014";
+            public const string RewardedId = "ca-app-pub-4076544648724623/2340674293";
+#endif
+        }
+
         public const float AverageDaysInYear = 365.25f;
         public const string LanguageVietnam = "vi";
         public const string LanguageEnglish = "en";

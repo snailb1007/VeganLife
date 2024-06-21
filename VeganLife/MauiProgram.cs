@@ -37,6 +37,7 @@ using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
+using Plugin.MauiMTAdmob;
 
 namespace VeganLife
 {
@@ -69,9 +70,10 @@ namespace VeganLife
             builder.Logging.AddDebug();
 #endif
             builder
+                .UseMauiCommunityToolkit()
+                .UseMauiMTAdmob()
                 .ConfigureMopups()
                 .UseFFImageLoading()
-                .UseMauiCommunityToolkit()
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)

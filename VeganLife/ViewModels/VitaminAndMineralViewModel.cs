@@ -18,6 +18,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string vitaminSearchText;
 
+        [ObservableProperty]
+        private bool isBannerClosed = false;
+
         public VitaminAndMineralViewModel()
             : base()
         {
@@ -70,6 +73,12 @@ namespace VeganLife.ViewModels
             string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
             await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        private void CloseBanner()
+        {
+            this.IsBannerClosed = true;
         }
 
         partial void OnVitaminSearchTextChanged(string value)

@@ -13,10 +13,6 @@
     BackgroundColor="#f8f8f8">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding BindingContext.CurrentChat.TimesLimit, Source={x:Reference ConversationPageRoot}}" />
-        <!--<ToolbarItem
-            Command="{Binding OpenChatGPTDetailPageCommand, Source={x:Reference ConversationPageRoot}}"
-            Order="Secondary"
-            Text="Detail" />-->
         <ToolbarItem
             Command="{Binding BindingContext.OpenDisclaimerPopupCommand, Source={x:Reference ConversationPageRoot}}"
             Order="Secondary"
@@ -35,6 +31,23 @@
             UserMessageItemTemplate="{StaticResource UserMessageItemTemplate}" />
     </ContentPage.Resources>
     <Grid IsEnabled="{Binding IsTrustedSetting, Mode=OneWay}" RowDefinitions="48, *, Auto">
+        <Grid Background="{StaticResource Yellow200Accent}" IsVisible="True">
+            <!--<Grid.Triggers>
+                <DataTrigger
+                    Binding="{Binding CurrentChat.TimesLimit}"
+                    TargetType="Grid"
+                    Value="0">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </Grid.Triggers>-->
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenRewardedAdPageCommand}" />
+            </Grid.GestureRecognizers>
+            <Label
+                HorizontalOptions="Center"
+                Text="Your points is 0. Get more point &gt;&gt;"
+                VerticalOptions="Center" />
+        </Grid>
         <Border
             Grid.Row="1"
             Padding="16,10"
