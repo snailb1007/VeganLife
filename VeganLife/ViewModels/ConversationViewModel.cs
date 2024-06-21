@@ -3,7 +3,10 @@
 // </copyright>
 
 using Android.Media;
+using AndroidX.Core.View;
+using Plugin.MauiMTAdmob;
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
 
@@ -183,6 +186,21 @@ namespace VeganLife.ViewModels
             }
 
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
+        }
+
+        [RelayCommand]
+        private async Task OpenRewardedAdPage()
+        {
+            if (OpenRewardedAdPageCommand.IsRunning)
+            {
+                return;
+            }
+
+            IsLoading = true;
+            CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
+            await Task.Delay(2000);
+            CrossMauiMTAdmob.Current.ShowRewarded();
+            IsLoading = false;
         }
 
         partial void OnPassedDataChanged(string value)

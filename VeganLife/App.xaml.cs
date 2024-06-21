@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Plugin.MauiMTAdmob;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -22,6 +23,9 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
+            CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+            CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
+            CrossMauiMTAdmob.Current.UseRestrictedDataProcessing = true;
             this.SetupLanguage();
             this.MainPage = new AppShell();
             _ = this.SetupThemeAsync().ConfigureAwait(false);

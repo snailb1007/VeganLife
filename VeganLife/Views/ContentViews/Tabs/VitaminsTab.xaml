@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.ContentViews.Tabs.VitaminsTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:adsControl="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -12,85 +13,112 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <ScrollView>
-        <CollectionView
-            x:Name="vitaminsCollection"
-            Margin="10"
-            ItemSizingStrategy="MeasureAllItems"
-            ItemsSource="{Binding Vitamins, Mode=OneWay}"
-            SelectionMode="None"
-            VerticalOptions="Start">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.EmptyView>
-                <ContentView>
-                    <VerticalStackLayout>
-                        <ContentView
-                            ControlTemplate="{StaticResource CantFindAnimationTemplate}"
-                            HeightRequest="150"
-                            HorizontalOptions="Center"
-                            WidthRequest="150" />
-                        <Label Text="{x:Static translate:AppResources.noVitamin_vitaminPage}" />
-                        <Button
-                            Command="{Binding OpenAIConversationCommand}"
-                            HorizontalOptions="Center"
-                            Text="{x:Static translate:AppResources.askingAI_conversationChat}"
-                            VerticalOptions="Center" />
-                    </VerticalStackLayout>
-                </ContentView>
-            </CollectionView.EmptyView>
-            <CollectionView.Header>
-                <Label HorizontalOptions="End">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span
-                                FontAttributes="Bold"
-                                FontSize="Medium"
-                                Text="{Binding Vitamins.Count}" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </CollectionView.Header>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:VitaminModel">
-                    <Border
-                        Padding="5"
-                        BackgroundColor="White"
-                        HeightRequest="80"
-                        StrokeShape="RoundRectangle 10"
-                        StrokeThickness="0">
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfVitaminAndMineralPage}}" CommandParameter="{Binding .}" />
-                        </Border.GestureRecognizers>
+    <Grid RowDefinitions="Auto, *" RowSpacing="10">
+        <Grid Margin="0,0,10,0" IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
+            <adsControl:MTAdView
+                x:Name="mtAdFixed"
+                HeightRequest="50"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="CenterAndExpand" />
+            <Label
+                BackgroundColor="{StaticResource Gray300}"
+                FontFamily="FARegular"
+                FontSize="20"
+                HeightRequest="20"
+                HorizontalOptions="End"
+                HorizontalTextAlignment="Center"
+                Text="&#xf00d;"
+                TextColor="White"
+                VerticalOptions="Start"
+                VerticalTextAlignment="Center"
+                WidthRequest="20">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseBannerCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <CollectionView
+                x:Name="vitaminsCollection"
+                Margin="10"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsSource="{Binding Vitamins, Mode=OneWay}"
+                SelectionMode="None"
+                VerticalOptions="Start">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <ContentView>
                         <VerticalStackLayout>
-                            <Label
-                                FontSize="Medium"
-                                HorizontalOptions="FillAndExpand"
-                                LineBreakMode="WordWrap"
-                                MaxLines="2"
-                                TextColor="Black"
-                                VerticalOptions="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding Id}" />
-                                        <Span Text="{Binding VietnameseName, StringFormat=' ({0})'}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label FontSize="Small" Text="{Binding TimeAgo}" />
-                            <BoxView
-                                Margin="0,10,0,0"
-                                HeightRequest="1"
-                                HorizontalOptions="Fill"
-                                Opacity="0.8"
-                                Color="{StaticResource PrimaryDark}" />
+                            <ContentView
+                                ControlTemplate="{StaticResource CantFindAnimationTemplate}"
+                                HeightRequest="150"
+                                HorizontalOptions="Center"
+                                WidthRequest="150" />
+                            <Label Text="{x:Static translate:AppResources.noVitamin_vitaminPage}" />
+                            <Button
+                                Command="{Binding OpenAIConversationCommand}"
+                                HorizontalOptions="Center"
+                                Text="{x:Static translate:AppResources.askingAI_conversationChat}"
+                                VerticalOptions="Center" />
                         </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </ScrollView>
+                    </ContentView>
+                </CollectionView.EmptyView>
+                <CollectionView.Header>
+                    <Label HorizontalOptions="End">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding Vitamins.Count}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:VitaminModel">
+                        <Border
+                            Padding="5"
+                            BackgroundColor="White"
+                            HeightRequest="80"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfVitaminAndMineralPage}}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="Medium"
+                                    HorizontalOptions="FillAndExpand"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    TextColor="Black"
+                                    VerticalOptions="Start">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Id}" />
+                                            <Span Text="{Binding VietnameseName, StringFormat=' ({0})'}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label FontSize="Small" Text="{Binding TimeAgo}" />
+                                <BoxView
+                                    Margin="0,10,0,0"
+                                    HeightRequest="1"
+                                    HorizontalOptions="Fill"
+                                    Opacity="0.8"
+                                    Color="{StaticResource PrimaryDark}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+    </Grid>
 </ContentView>
