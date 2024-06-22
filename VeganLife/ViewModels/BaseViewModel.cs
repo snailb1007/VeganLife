@@ -12,14 +12,16 @@ namespace VeganLife.ViewModels
     /// </summary>
     public abstract partial class BaseViewModel : ObservableObject
     {
+        private bool _hasShownAlert;
+
         protected readonly IDataService dataService;
         protected readonly INavigationService navigationService;
         protected readonly IDeviceService deviceService;
         protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
+        protected readonly ILoadingService loadingService;
 
         protected bool isInitialized;
-        private bool _hasShownAlert;
 
         protected bool IsNetworkConnected
         {
@@ -41,8 +43,8 @@ namespace VeganLife.ViewModels
             }
         }
 
-        [ObservableProperty]
-        private bool isLoading;
+        public bool IsLoading => (loadingService as LoadingService)?.IsLoading ?? false;
+
         [ObservableProperty]
         private bool _isNeedReloadAppearing;
 
@@ -56,6 +58,7 @@ namespace VeganLife.ViewModels
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
+            this.loadingService = ServicesHelper.GetService<ILoadingService>();
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 

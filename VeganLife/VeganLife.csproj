@@ -248,6 +248,9 @@
 		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailPharmacoLogicalPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Popups\LoadingPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\SupportPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
