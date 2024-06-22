@@ -44,24 +44,24 @@ namespace VeganLife.ViewModels.ContentViewModels
             return base.OnNavigatingTo(parameter);
         }
 
-        public async override Task<Task> ViewAppearingVM()
+        public async override Task ViewAppearingVM()
         {
-            this.IsLoading = true;
-            foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
-            if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
+            using (await this.loadingService.Show())
             {
-                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
+                await base.ViewAppearingVM();
+                foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
+                if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
                 {
-                    await ProcessUndefineFoodAsync().ConfigureAwait(false);
-                }
-                else
-                {
-                    await ProcessUsdaFoodAsync().ConfigureAwait(false);
+                    if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
+                    {
+                        await ProcessUndefineFoodAsync().ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        await ProcessUsdaFoodAsync().ConfigureAwait(false);
+                    }
                 }
             }
-
-            this.IsLoading = false;
-            return base.ViewAppearingVM();
         }
 
         [RelayCommand]
@@ -72,16 +72,16 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            IsLoading = true;
-            await this.navigationService.PopToRootAsync();
-            var rootVM = ServicesHelper.GetCurrentViewModel<NoteBookPageViewModel>();
-            if (rootVM != null)
+            using (await this.loadingService.Show())
             {
-                rootVM.SelectedViewModelIndex = 1;
-                rootVM.VitaminAndMineralVM.VitaminSearchText = param;
+                await this.navigationService.PopToRootAsync();
+                var rootVM = ServicesHelper.GetCurrentViewModel<NoteBookPageViewModel>();
+                if (rootVM != null)
+                {
+                    rootVM.SelectedViewModelIndex = 1;
+                    rootVM.VitaminAndMineralVM.VitaminSearchText = param;
+                }
             }
-
-            IsLoading = false;
         }
 
         private async Task ProcessUndefineFoodAsync()

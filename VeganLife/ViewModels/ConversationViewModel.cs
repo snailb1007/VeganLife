@@ -2,8 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Android.Media;
-using AndroidX.Core.View;
 using Plugin.MauiMTAdmob;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
@@ -72,6 +70,13 @@ namespace VeganLife.ViewModels
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
             this._chatLogsDataStoreService = chatLogsDataStoreService;
+            CrossMauiMTAdmob.Current.OnRewardedLoaded += (s, e) =>
+            {
+                if (CrossMauiMTAdmob.Current.IsRewardedLoaded())
+                {
+                    CrossMauiMTAdmob.Current.ShowRewarded();
+                }
+            };
         }
 
         public override async Task<Task> ViewAppearingVM()
@@ -135,18 +140,19 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            if (CurrentChat.TimesLimit > 0)
+            using (await this.loadingService.Show())
             {
-                CurrentChat.TimesLimit -= 1;
-            }
+                if (CurrentChat.TimesLimit > 0)
+                {
+                    CurrentChat.TimesLimit -= 1;
+                }
 
-            string queryCopy = Query;
-            Query = string.Empty;
-            AddMessage(message: queryCopy, isUserMessage: true);
-            IsLoading = true;
-            string answer = await queryManager(_sessionGuid, queryCopy);
-            AddMessage(message: answer.TrimStart(), isUserMessage: false);
-            IsLoading = false;
+                string queryCopy = Query;
+                Query = string.Empty;
+                AddMessage(message: queryCopy, isUserMessage: true);
+                string answer = await queryManager(_sessionGuid, queryCopy);
+                AddMessage(message: answer.TrimStart(), isUserMessage: false);
+            }
         }
 
         private async Task AskQuestionAsync()
@@ -196,11 +202,10 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            IsLoading = true;
-            CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
-            await Task.Delay(2000);
-            CrossMauiMTAdmob.Current.ShowRewarded();
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
+            }
         }
 
         partial void OnPassedDataChanged(string value)

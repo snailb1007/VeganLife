@@ -110,6 +110,7 @@ namespace VeganLife
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
+            services.AddSingleton<ILoadingService, LoadingService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<SentryService>();
 
@@ -163,6 +164,7 @@ namespace VeganLife
             // Mopup
             services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
+            services.AddTransient<LoadingPopup>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

@@ -29,40 +29,41 @@ namespace VeganLife.ViewModels
             _userDataService = ServicesHelper.GetService<IUserDataService>();
         }
 
-        public override async Task<Task> ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
-            IsLoading = true;
-            await this._userDataService.Refresh();
-            MyInfo = (_userDataService as UserDataService)?.UserInfo!;
-            NumberInfoMiss = totalNumberSpec;
-
-            if (MyInfo != null)
+            using (await this.loadingService.Show())
             {
-                if (!string.IsNullOrEmpty(MyInfo.Name))
+                await this._userDataService.Refresh();
+                MyInfo = (_userDataService as UserDataService)?.UserInfo!;
+                NumberInfoMiss = totalNumberSpec;
+
+                if (MyInfo != null)
                 {
-                    NumberInfoMiss--;
+                    if (!string.IsNullOrEmpty(MyInfo.Name))
+                    {
+                        NumberInfoMiss--;
+                    }
+
+                    if (MyInfo.Age > 0)
+                    {
+                        NumberInfoMiss--;
+                    }
+
+                    if (MyInfo.Weight > 0)
+                    {
+                        NumberInfoMiss--;
+                    }
+
+                    if (MyInfo.Height > 0)
+                    {
+                        NumberInfoMiss--;
+                    }
+
+                    DegreePerfection = (totalNumberSpec - NumberInfoMiss) / totalNumberSpec * 100;
                 }
 
-                if (MyInfo.Age > 0)
-                {
-                    NumberInfoMiss--;
-                }
-
-                if (MyInfo.Weight > 0)
-                {
-                    NumberInfoMiss--;
-                }
-
-                if (MyInfo.Height > 0)
-                {
-                    NumberInfoMiss--;
-                }
-
-                DegreePerfection = (totalNumberSpec - NumberInfoMiss) / totalNumberSpec * 100;
+                await base.ViewAppearingVM();
             }
-
-            IsLoading = false;
-            return base.ViewAppearingVM();
         }
 
         [RelayCommand]
