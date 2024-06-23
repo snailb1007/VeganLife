@@ -20,16 +20,19 @@
         <Grid Margin="0,0,10,0" IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
             <adsControl:MTAdView
                 x:Name="mtAdFixed"
+                AdsLoaded="OnAdLoaded"
                 HeightRequest="50"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="CenterAndExpand" />
             <Label
+                x:Name="closeLb"
                 BackgroundColor="{StaticResource Gray300}"
                 FontFamily="FARegular"
                 FontSize="20"
                 HeightRequest="20"
                 HorizontalOptions="End"
                 HorizontalTextAlignment="Center"
+                IsVisible="False"
                 Text="&#xf00d;"
                 TextColor="White"
                 VerticalOptions="Start"
@@ -119,6 +122,5 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-
     </Grid>
 </ContentView>

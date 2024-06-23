@@ -14,4 +14,9 @@ public partial class VitaminsTab : ContentView
     {
         mtAdFixed.AdsId = ConstantHelper.GoogleAdMob.BannerId;
     }
+
+    private void OnAdLoaded(object sender, EventArgs e)
+    {
+        closeLb.IsVisible = true;
+    }
 }

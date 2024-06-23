@@ -12,6 +12,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
 using Mopups.Hosting;
 using PanCardView;
+using Plugin.MauiMTAdmob;
 using Sharpnado.MaterialFrame;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -37,7 +38,6 @@ using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
-using Plugin.MauiMTAdmob;
 
 namespace VeganLife
 {
@@ -126,6 +126,7 @@ namespace VeganLife
             services.AddSingleton<UsdaFoodPreviewsDataStore>();
             services.AddSingleton<AthleticNutritionDataStore>();
             services.AddSingleton<PharmacoLogicalDataStoreService>();
+            services.AddSingleton<GoogleAdValidatorDataStoreService>();
 
             // page
             services.AddTransient<SettingPage, SettingViewModel>();

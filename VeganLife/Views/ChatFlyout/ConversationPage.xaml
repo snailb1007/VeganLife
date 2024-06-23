@@ -3,8 +3,10 @@
     x:Class="VeganLife.Views.ChatFlyout.ConversationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:templates="clr-namespace:VeganLife.Views.Templates"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:vm="clr-namespace:VeganLife.ViewModels"
     x:Name="ConversationPageRoot"
@@ -19,6 +21,9 @@
             Text="Disclaimer" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+        </ResourceDictionary>
         <DataTemplate x:Key="UserMessageItemTemplate">
             <templates:UserMessItemTemplate />
         </DataTemplate>
@@ -31,7 +36,10 @@
             UserMessageItemTemplate="{StaticResource UserMessageItemTemplate}" />
     </ContentPage.Resources>
     <Grid IsEnabled="{Binding IsTrustedSetting, Mode=OneWay}" RowDefinitions="48, *, Auto">
-        <Grid Background="{StaticResource Yellow200Accent}" IsVisible="True">
+        <Grid
+            Background="{StaticResource Yellow200Accent}"
+            ColumnDefinitions="*,Auto"
+            IsVisible="True">
             <!--<Grid.Triggers>
                 <DataTrigger
                     Binding="{Binding CurrentChat.TimesLimit}"
@@ -46,7 +54,50 @@
             <Label
                 HorizontalOptions="Center"
                 Text="Your points is 0. Get more point &gt;&gt;"
-                VerticalOptions="Center" />
+                VerticalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger
+                        Binding="{Binding CurrentAdValidatorData.RewardAdTimesLimit}"
+                        TargetType="Label"
+                        Value="2">
+                        <Setter Property="Text" Value="Times limited! u can get more point" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference countDownLb}, Path=IsVisible}"
+                        TargetType="Label"
+                        Value="True">
+                        <Setter Property="Text" Value="Waiting for ready get more point in next times!" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+            <!--<GraphicsView
+                x:Name="GraphicsViewCountDown"
+                Grid.Column="1"
+                BackgroundColor="Aqua"
+                HeightRequest="42"
+                WidthRequest="42">
+                <GraphicsView.Drawable>
+                    <control:ProgressDrawableControl
+                        ParentView="{Binding Source={x:Reference GraphicsViewCountDown}}"
+                        ProgressColor="{StaticResource PrimaryOrange}"
+                        ProgressLeftColor="{StaticResource PrimaryOrange2}"
+                        Size="40"
+                        TextColor="{StaticResource PrimaryLight}"
+                        Thickness="2" />
+                </GraphicsView.Drawable>
+            </GraphicsView>-->
+            <Label
+                x:Name="countDownLb"
+                Grid.Column="1"
+                IsVisible="{Binding CountDownText, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                VerticalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Ready on " />
+                        <Span Text="{Binding CountDownText}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </Grid>
         <Border
             Grid.Row="1"
