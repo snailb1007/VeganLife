@@ -7,14 +7,39 @@ using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
+using VeganLife.Views.Controls;
 
 namespace VeganLife.ViewModels
 {
     [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class ConversationViewModel : BaseViewModel
     {
+        private DateTime _startTime;
+        private AsyncRelayCommand _currentCommand;
+
+        [ObservableProperty]
+        private GoogleAdValidatorModel currentAdValidatorData;
+
+        private Guid _sessionGuid;
+        private ChatLogsDataStoreService _chatLogsDataStoreService;
+        private GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
+        private CancellationTokenSource _cancellationTokenSource;
+
         private readonly IOpenAIService _openAIService;
         private readonly IDispatcher _dispatcher;
+
+        public AsyncRelayCommand CurrentCommand
+        {
+            get
+            {
+                return _currentCommand ??= new AsyncRelayCommand(AskQuestionAsync);
+            }
+
+            set
+            {
+                SetProperty(ref _currentCommand, value);
+            }
+        }
 
         [ObservableProperty]
         private string query;
@@ -45,37 +70,28 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string passedData;
 
-        private AsyncRelayCommand _currentCommand;
-
-        public AsyncRelayCommand CurrentCommand
-        {
-            get
-            {
-                return _currentCommand ??= new AsyncRelayCommand(AskQuestionAsync);
-            }
-
-            set
-            {
-                SetProperty(ref _currentCommand, value);
-            }
-        }
-
-        private Guid _sessionGuid;
-        private ChatLogsDataStoreService _chatLogsDataStoreService;
-
-        public ConversationViewModel(IDispatcher dispatcher, IOpenAIService openAIService, ChatLogsDataStoreService chatLogsDataStoreService)
+        public ConversationViewModel(
+            IDispatcher dispatcher,
+            IOpenAIService openAIService,
+            ChatLogsDataStoreService chatLogsDataStoreService,
+            GoogleAdValidatorDataStoreService googleAdValidatorDataStoreService)
             : base()
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
             this._chatLogsDataStoreService = chatLogsDataStoreService;
+            _googleAdValidatorDataStoreService = googleAdValidatorDataStoreService;
             CrossMauiMTAdmob.Current.OnRewardedLoaded += (s, e) =>
             {
                 if (CrossMauiMTAdmob.Current.IsRewardedLoaded())
                 {
                     CrossMauiMTAdmob.Current.ShowRewarded();
                 }
+            };
+            CrossMauiMTAdmob.Current.OnUserEarnedReward += (s, e) =>
+            {
+                Console.WriteLine($"==> user collected point...{e.RewardType} and point = {e.RewardAmount}");
             };
         }
 
@@ -108,6 +124,31 @@ namespace VeganLife.ViewModels
                 }
             }
 
+            var adLogs = await _googleAdValidatorDataStoreService.GetItemsAsync();
+            if (adLogs.Count() > 0)
+            {
+                CurrentAdValidatorData = adLogs.Last();
+                if (CurrentAdValidatorData.LastTimeRewardOpen.Date < DateTime.Today.Date)
+                {
+                    await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(new GoogleAdValidatorModel
+                    {
+                        LastTimeRewardOpen = DateTime.Today.Date,
+                        RewardAdTimesLimit = 0,
+                    });
+                }
+
+            }
+            else
+            {
+                await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(new GoogleAdValidatorModel
+                {
+                    LastTimeRewardOpen = DateTime.Today.Date,
+                    RewardAdTimesLimit = 0,
+                });
+            }
+
+            // re-get the lastest data
+            CurrentAdValidatorData = (await _googleAdValidatorDataStoreService.GetItemsAsync())?.LastOrDefault()!;
             return base.ViewAppearingVM();
         }
 
@@ -194,23 +235,65 @@ namespace VeganLife.ViewModels
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
 
+        private ProgressDrawableControl _drawable;
+
         [RelayCommand]
         private async Task OpenRewardedAdPage()
         {
-            if (OpenRewardedAdPageCommand.IsRunning)
+            if (OpenRewardedAdPageCommand.IsRunning
+                || !CurrentAdValidatorData.IsRewardAdAvailable
+                || !string.IsNullOrEmpty(CountDownText))
             {
                 return;
             }
 
+            //if (_drawable is null)
+            //{
+            //    var graphicsView = Shell.Current.CurrentPage.FindByName<GraphicsView>("GraphicsViewCountDown");
+            //    _drawable = (ProgressDrawableControl)graphicsView.Drawable;
+            //}
+
             using (await this.loadingService.Show())
             {
+                _startTime = DateTime.Now;
+                _cancellationTokenSource = new CancellationTokenSource();
                 CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
+                CurrentAdValidatorData.RewardAdTimesLimit += 1;
+                await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
+                _ = UpdateAdProgressCountDown();
             }
         }
 
         partial void OnPassedDataChanged(string value)
         {
             this.Query = value;
+        }
+
+        [ObservableProperty]
+        private string countDownText;
+
+        private async Task UpdateAdProgressCountDown()
+        {
+            while (!_cancellationTokenSource.IsCancellationRequested)
+            {
+                var elapsedTime = DateTime.Now - _startTime;
+                if (elapsedTime.TotalMilliseconds >= TimeSpan.FromMinutes(1).TotalMilliseconds)
+                {
+                    _cancellationTokenSource.Cancel();
+                    CountDownText = string.Empty;
+                    return;
+                }
+
+                var runningTime = TimeSpan.FromMinutes(1) - elapsedTime;
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    CountDownText = runningTime.ToString("mm\\:ss");
+                    //var percent = (int)((60 - runningTime.TotalSeconds) / 60f * 100);
+                    //Console.WriteLine("++ percent " + percent);
+                    //_drawable.Progress = percent;
+                });
+                await Task.Delay(500);
+            }
         }
     }
 }

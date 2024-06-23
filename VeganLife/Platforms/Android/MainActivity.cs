@@ -21,8 +21,8 @@ namespace VeganLife
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            MobileAds.Initialize(this);
-            CrossMauiMTAdmob.Current.Init(this, "com.snailb.healthychef");
+            string appId = "ca-app-pub-4076544648724623~8681233278";
+            CrossMauiMTAdmob.Current.Init(this, appId);
         }
 
         public override bool DispatchTouchEvent(MotionEvent? e)

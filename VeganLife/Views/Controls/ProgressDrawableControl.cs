@@ -2,12 +2,13 @@
 {
     internal class ProgressDrawableControl : BindableObject, IDrawable
     {
-        public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(int), typeof(ProgressDrawableControl));
+        public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(int), typeof(ProgressDrawableControl), propertyChanged: OnPropertyChanged);
         public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(int), typeof(ProgressDrawableControl));
         public static readonly BindableProperty ThicknessProperty = BindableProperty.Create(nameof(Thickness), typeof(int), typeof(ProgressDrawableControl));
         public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create(nameof(ProgressColor), typeof(Color), typeof(ProgressDrawableControl));
         public static readonly BindableProperty ProgressLeftColorProperty = BindableProperty.Create(nameof(ProgressLeftColor), typeof(Color), typeof(ProgressDrawableControl));
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ProgressDrawableControl));
+        public static readonly BindableProperty ParentViewProperty = BindableProperty.Create(nameof(ParentView), typeof(GraphicsView), typeof(ProgressDrawableControl));
 
         public int Progress
         {
@@ -43,6 +44,12 @@
         {
             get { return (Color)GetValue(TextColorProperty); }
             set { SetValue(TextColorProperty, value); }
+        }
+
+        public GraphicsView ParentView
+        {
+            get { return (GraphicsView)GetValue(ParentViewProperty); }
+            set { SetValue(ParentViewProperty, value); }
         }
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
@@ -90,6 +97,12 @@
             // Note: The VerticalAlignment.Center property of the DrawString method seems to have no effect
             float verticalPosition = ((Size / 2) - (fontSize / 2)) * 1.15f;
             canvas.DrawString($"{Progress}%", x, verticalPosition, effectiveSize, effectiveSize / 4, HorizontalAlignment.Center, VerticalAlignment.Center);
+        }
+
+        private static void OnPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var view = bindable as ProgressDrawableControl;
+            view?.ParentView?.Invalidate();
         }
 
         private float GetAngle(int progress)
