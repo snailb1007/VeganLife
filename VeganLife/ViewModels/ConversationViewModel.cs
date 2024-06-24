@@ -5,6 +5,7 @@
 using Plugin.MauiMTAdmob;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Resources.Translations;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
 using VeganLife.Views.Controls;
@@ -16,9 +17,6 @@ namespace VeganLife.ViewModels
     {
         private DateTime _startTime;
         private AsyncRelayCommand _currentCommand;
-
-        [ObservableProperty]
-        private GoogleAdValidatorModel currentAdValidatorData;
 
         private Guid _sessionGuid;
         private ChatLogsDataStoreService _chatLogsDataStoreService;
@@ -38,6 +36,28 @@ namespace VeganLife.ViewModels
             set
             {
                 SetProperty(ref _currentCommand, value);
+            }
+        }
+
+        public string AdRewardedDescription
+        {
+            get
+            {
+                if (CurrentAdValidatorData.IsRewardAdAvailable)
+                {
+                    if (string.IsNullOrEmpty(CountDownText))
+                    {
+                        return AppResources.getMorePoint_info_label;
+                    }
+                    else
+                    {
+                        return AppResources.waitingForCollect_info_label;
+                    }
+                }
+                else
+                {
+                    return AppResources.cantCollect_info_label;
+                }
             }
         }
 
@@ -64,11 +84,23 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private ChatMessageModel theMessage;
+
         [ObservableProperty]
         private ChatLogsModel _currentChat;
 
         [ObservableProperty]
         private string passedData;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
+        private GoogleAdValidatorModel currentAdValidatorData = new GoogleAdValidatorModel();
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
+        private string countDownText = string.Empty;
+
+        [ObservableProperty]
+        private bool isAdInProgress;
 
         public ConversationViewModel(
             IDispatcher dispatcher,
@@ -87,11 +119,17 @@ namespace VeganLife.ViewModels
                 if (CrossMauiMTAdmob.Current.IsRewardedLoaded())
                 {
                     CrossMauiMTAdmob.Current.ShowRewarded();
+                    IsAdInProgress = false;
                 }
             };
             CrossMauiMTAdmob.Current.OnUserEarnedReward += (s, e) =>
             {
-                Console.WriteLine($"==> user collected point...{e.RewardType} and point = {e.RewardAmount}");
+                CurrentChat.TimesLimit++;
+                _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+            };
+            CrossMauiMTAdmob.Current.OnRewardedFailedToLoad += (s, e) =>
+            {
+                IsAdInProgress = false;
             };
         }
 
@@ -120,7 +158,7 @@ namespace VeganLife.ViewModels
                         ChatDate = DateTime.Today.Date,
                         TimesLimit = 5,
                     };
-                    await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+                    _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
                 }
             }
 
@@ -136,7 +174,6 @@ namespace VeganLife.ViewModels
                         RewardAdTimesLimit = 0,
                     });
                 }
-
             }
             else
             {
@@ -257,6 +294,7 @@ namespace VeganLife.ViewModels
             {
                 _startTime = DateTime.Now;
                 _cancellationTokenSource = new CancellationTokenSource();
+                IsAdInProgress = true;
                 CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
                 CurrentAdValidatorData.RewardAdTimesLimit += 1;
                 await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
@@ -268,9 +306,6 @@ namespace VeganLife.ViewModels
         {
             this.Query = value;
         }
-
-        [ObservableProperty]
-        private string countDownText;
 
         private async Task UpdateAdProgressCountDown()
         {

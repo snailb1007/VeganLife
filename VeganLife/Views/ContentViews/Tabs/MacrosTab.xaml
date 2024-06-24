@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.ContentViews.Tabs.MacrosTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:adsControl="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:sho="http://sharpnado.com"
@@ -127,17 +128,46 @@
                         <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.Header>
-                        <Label Margin="0,0,10,0" HorizontalOptions="End">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span
-                                        FontSize="Medium"
-                                        Text="{Binding UsdaFoodPreviews.Count}"
-                                        TextColor="Green" />
-                                    <Span Text="{x:Static translate:AppResources.result_lb}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+                        <VerticalStackLayout>
+                            <Grid Margin="0,0,10,0" IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
+                                <adsControl:MTAdView
+                                    x:Name="mtAdFixed"
+                                    AdsLoaded="OnAdLoaded"
+                                    HeightRequest="50"
+                                    HorizontalOptions="EndAndExpand"
+                                    VerticalOptions="CenterAndExpand" />
+                                <Label
+                                    x:Name="closeLb"
+                                    BackgroundColor="{StaticResource Gray300}"
+                                    FontFamily="FARegular"
+                                    FontSize="20"
+                                    HeightRequest="20"
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="Center"
+                                    IsVisible="False"
+                                    Text="&#xf00d;"
+                                    TextColor="White"
+                                    VerticalOptions="Start"
+                                    VerticalTextAlignment="Center"
+                                    WidthRequest="20">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding CloseAdBannerCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+
+                            <Label Margin="0,0,10,0" HorizontalOptions="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            FontSize="Medium"
+                                            Text="{Binding UsdaFoodPreviews.Count}"
+                                            TextColor="Green" />
+                                        <Span Text="{x:Static translate:AppResources.result_lb}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
                     </CollectionView.Header>
                     <CollectionView.EmptyView>
                         <ContentView>

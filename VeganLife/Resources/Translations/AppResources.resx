@@ -493,6 +493,15 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="askingAI_conversationChat" xml:space="preserve">
     <value>askingAI_conversationChat</value>
   </data>
+	<data name="getMorePoint_info_label" xml:space="preserve">
+    <value>getMorePoint_info_label</value>
+  </data>
+	<data name="waitingForCollect_info_label" xml:space="preserve">
+    <value>waitingForCollect_info_label</value>
+  </data>
+	<data name="cantCollect_info_label" xml:space="preserve">
+    <value>cantCollect_info_label</value>
+  </data>
 	<data name="previous_welcomePage" xml:space="preserve">
     <value>Previous</value>
   </data>
