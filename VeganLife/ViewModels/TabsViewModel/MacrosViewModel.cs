@@ -20,6 +20,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         private bool _isVeganSelected;
         [ObservableProperty]
         private bool _isUnVeganSelected;
+        [ObservableProperty]
+        private bool _isBannerClosed;
 
         [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
@@ -110,6 +112,12 @@ namespace VeganLife.ViewModels.TabsViewModel
                 string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
                 await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             }
+        }
+
+        [RelayCommand]
+        private void CloseAdBanner()
+        {
+            IsBannerClosed = true;
         }
 
         partial void OnIsVeganSelectedChanged(bool value)

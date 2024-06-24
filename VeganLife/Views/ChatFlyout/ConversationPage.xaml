@@ -23,6 +23,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
         <DataTemplate x:Key="UserMessageItemTemplate">
             <templates:UserMessItemTemplate />
@@ -39,56 +40,44 @@
         <Grid
             Background="{StaticResource Yellow200Accent}"
             ColumnDefinitions="*,Auto"
-            IsVisible="True">
-            <!--<Grid.Triggers>
+            IsVisible="True"
+            Opacity="0.8">
+            <Grid.Triggers>
                 <DataTrigger
                     Binding="{Binding CurrentChat.TimesLimit}"
                     TargetType="Grid"
                     Value="0">
-                    <Setter Property="IsVisible" Value="True" />
+                    <Setter Property="Opacity" Value="1" />
                 </DataTrigger>
-            </Grid.Triggers>-->
+            </Grid.Triggers>
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding OpenRewardedAdPageCommand}" />
             </Grid.GestureRecognizers>
             <Label
+                FontAttributes="Bold"
                 HorizontalOptions="Center"
-                Text="Your points is 0. Get more point &gt;&gt;"
+                Text="{Binding AdRewardedDescription}"
                 VerticalOptions="Center">
                 <Label.Triggers>
                     <DataTrigger
-                        Binding="{Binding CurrentAdValidatorData.RewardAdTimesLimit}"
+                        Binding="{Binding AdRewardedDescription}"
                         TargetType="Label"
-                        Value="2">
-                        <Setter Property="Text" Value="Times limited! u can get more point" />
+                        Value="{x:Static translate:AppResources.cantCollect_info_label}">
+                        <Setter Property="TextColor" Value="Gray" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding Source={x:Reference countDownLb}, Path=IsVisible}"
+                        Binding="{Binding AdRewardedDescription}"
                         TargetType="Label"
-                        Value="True">
-                        <Setter Property="Text" Value="Waiting for ready get more point in next times!" />
+                        Value="{x:Static translate:AppResources.waitingForCollect_info_label}">
+                        <Setter Property="TextColor" Value="Gray" />
                     </DataTrigger>
                 </Label.Triggers>
             </Label>
-            <!--<GraphicsView
-                x:Name="GraphicsViewCountDown"
-                Grid.Column="1"
-                BackgroundColor="Aqua"
-                HeightRequest="42"
-                WidthRequest="42">
-                <GraphicsView.Drawable>
-                    <control:ProgressDrawableControl
-                        ParentView="{Binding Source={x:Reference GraphicsViewCountDown}}"
-                        ProgressColor="{StaticResource PrimaryOrange}"
-                        ProgressLeftColor="{StaticResource PrimaryOrange2}"
-                        Size="40"
-                        TextColor="{StaticResource PrimaryLight}"
-                        Thickness="2" />
-                </GraphicsView.Drawable>
-            </GraphicsView>-->
             <Label
                 x:Name="countDownLb"
                 Grid.Column="1"
+                Margin="2,0"
+                HorizontalOptions="Center"
                 IsVisible="{Binding CountDownText, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
                 VerticalOptions="Center">
                 <Label.FormattedText>
@@ -147,15 +136,6 @@
                         Text="{Binding Query, Mode=TwoWay}"
                         TextColor="{StaticResource Gray100}"
                         TranslationY="4" />
-                    <skia:SKLottieView
-                        Grid.Column="1"
-                        HeightRequest="48"
-                        HorizontalOptions="Center"
-                        IsVisible="{Binding IsLoading}"
-                        RepeatCount="-1"
-                        Source="loading.json"
-                        VerticalOptions="Center"
-                        WidthRequest="48" />
                 </Grid>
             </Border>
             <ImageButton
@@ -172,5 +152,14 @@
                 Source="send"
                 WidthRequest="48" />
         </Grid>
+        <skia:SKLottieView
+            Grid.RowSpan="3"
+            HeightRequest="96"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsAdInProgress}"
+            RepeatCount="-1"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="96" />
     </Grid>
 </ContentPage>

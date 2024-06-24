@@ -12,7 +12,7 @@ public partial class VitaminsTab : ContentView
 
     private void SetupAdsBanner()
     {
-        mtAdFixed.AdsId = ConstantHelper.GoogleAdMob.BannerId;
+        mtAdFixed.AdsId = ConstantHelper.GoogleAdMob.VitaminBannerId;
     }
 
     private void OnAdLoaded(object sender, EventArgs e)
