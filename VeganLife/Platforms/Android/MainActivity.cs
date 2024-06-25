@@ -4,7 +4,10 @@
 
 using Android.App;
 using Android.Content.PM;
+using Android.Gms.Ads;
+using Android.OS;
 using Android.Views;
+using Plugin.MauiMTAdmob;
 
 namespace VeganLife
 {
@@ -13,6 +16,13 @@ namespace VeganLife
     {
         public MainActivity()
         {
+        }
+
+        protected override void OnCreate(Bundle? savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            string appId = "ca-app-pub-4076544648724623~8681233278";
+            CrossMauiMTAdmob.Current.Init(this, appId);
         }
 
         public override bool DispatchTouchEvent(MotionEvent? e)

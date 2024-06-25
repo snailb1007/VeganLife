@@ -3,6 +3,8 @@
 // </copyright>
 
 using Mopups.Services;
+using Plugin.MauiMTAdmob.Extra;
+using Plugin.MauiMTAdmob;
 using VeganLife.Helpers;
 using VeganLife.Views.Base;
 using VeganLife.Views.MainPageFlyout;

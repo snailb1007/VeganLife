@@ -12,6 +12,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
 using Mopups.Hosting;
 using PanCardView;
+using Plugin.MauiMTAdmob;
 using Sharpnado.MaterialFrame;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -69,9 +70,10 @@ namespace VeganLife
             builder.Logging.AddDebug();
 #endif
             builder
+                .UseMauiCommunityToolkit()
+                .UseMauiMTAdmob()
                 .ConfigureMopups()
                 .UseFFImageLoading()
-                .UseMauiCommunityToolkit()
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
@@ -108,6 +110,7 @@ namespace VeganLife
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
+            services.AddSingleton<ILoadingService, LoadingService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<SentryService>();
 
@@ -123,6 +126,7 @@ namespace VeganLife
             services.AddSingleton<UsdaFoodPreviewsDataStore>();
             services.AddSingleton<AthleticNutritionDataStore>();
             services.AddSingleton<PharmacoLogicalDataStoreService>();
+            services.AddSingleton<GoogleAdValidatorDataStoreService>();
 
             // page
             services.AddTransient<SettingPage, SettingViewModel>();
@@ -161,6 +165,7 @@ namespace VeganLife
             // Mopup
             services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
+            services.AddTransient<LoadingPopup>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

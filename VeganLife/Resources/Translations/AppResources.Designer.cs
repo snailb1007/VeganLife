@@ -405,6 +405,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cantCollect_info_label.
+        /// </summary>
+        internal static string cantCollect_info_label {
+            get {
+                return ResourceManager.GetString("cantCollect_info_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cantFindBmiResult_bmiCalculatePage.
         /// </summary>
         internal static string cantFindBmiResult_bmiCalculatePage {
@@ -680,6 +689,15 @@ namespace VeganLife.Resources.Translations {
         internal static string GaLactose_common {
             get {
                 return ResourceManager.GetString("GaLactose_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to getMorePoint_info_label.
+        /// </summary>
+        internal static string getMorePoint_info_label {
+            get {
+                return ResourceManager.GetString("getMorePoint_info_label", resourceCulture);
             }
         }
         
@@ -1416,6 +1434,15 @@ namespace VeganLife.Resources.Translations {
         internal static string veganFood_feedPage {
             get {
                 return ResourceManager.GetString("veganFood_feedPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to waitingForCollect_info_label.
+        /// </summary>
+        internal static string waitingForCollect_info_label {
+            get {
+                return ResourceManager.GetString("waitingForCollect_info_label", resourceCulture);
             }
         }
         
