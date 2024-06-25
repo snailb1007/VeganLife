@@ -39,33 +39,36 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            IsLoading = true;
-            await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(param)
+            using (await this.loadingService.Show())
+            {
+                await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(param)
                 .ConfigureAwait(false);
-            IsLoading = false;
+            }
         }
 
         [RelayCommand]
-        private void EnsureSearch()
+        private async Task EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.PharmacoLogicalSearchText) || string.IsNullOrWhiteSpace(this.PharmacoLogicalSearchText))
             {
                 return;
             }
 
-            IsLoading = true;
-            var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
-            this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
+                this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
+            }
         }
 
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-            IsLoading = true;
-            string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
-            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
+                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
+            }
         }
 
         private ParallelQuery<PharmacoLogicalModel> SearchFoodByName(ParallelQuery<PharmacoLogicalModel> vitamins, string name)
