@@ -20,6 +20,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         private bool _isVeganSelected;
         [ObservableProperty]
         private bool _isUnVeganSelected;
+        [ObservableProperty]
+        private bool _isBannerClosed;
 
         [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
@@ -68,9 +70,10 @@ namespace VeganLife.ViewModels.TabsViewModel
                     return;
                 }
 
-                IsLoading = true;
-                await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
-                IsLoading = false;
+                using (await this.loadingService.Show())
+                {
+                    await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
+                }
             }
             finally
             {
@@ -104,10 +107,17 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private async Task OpenAIConversation()
         {
-            IsLoading = true;
-            string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
-            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
+                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
+            }
+        }
+
+        [RelayCommand]
+        private void CloseAdBanner()
+        {
+            IsBannerClosed = true;
         }
 
         partial void OnIsVeganSelectedChanged(bool value)

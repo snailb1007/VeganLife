@@ -18,6 +18,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string vitaminSearchText;
 
+        [ObservableProperty]
+        private bool isBannerClosed = false;
+
         public VitaminAndMineralViewModel()
             : base()
         {
@@ -43,33 +46,41 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            IsLoading = true;
-            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param)
-                .ConfigureAwait(false);
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
+            }
         }
 
         [RelayCommand]
-        private void EnsureSearch()
+        private async Task EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.VitaminSearchText) || string.IsNullOrWhiteSpace(this.VitaminSearchText))
             {
                 return;
             }
 
-            IsLoading = true;
-            var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
-            this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
+                this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
+            }
         }
 
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-            IsLoading = true;
-            string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
-            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
+                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
+            }
+        }
+
+        [RelayCommand]
+        private void CloseBanner()
+        {
+            this.IsBannerClosed = true;
         }
 
         partial void OnVitaminSearchTextChanged(string value)

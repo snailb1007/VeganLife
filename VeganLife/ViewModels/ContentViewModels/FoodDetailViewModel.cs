@@ -44,52 +44,52 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object? parameter)
+        public override async Task OnNavigatingTo(object? parameter)
         {
-            IsLoading = true;
-            if (parameter is not null)
+            await base.OnNavigatingTo(parameter!);
+            using (await this.loadingService.Show())
             {
-                this.FoodPreview = (FoodPreviewModel)parameter;
-                if (FoodPreview is null)
+                if (parameter is not null)
                 {
-                }
-                else
-                {
-                    this.FoodPreview.IsRead = true;
-                    this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
-                    if (this.IsNetworkConnected)
+                    this.FoodPreview = (FoodPreviewModel)parameter;
+                    if (FoodPreview is null)
                     {
-                        this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
-                        await GetMoreImage()
-                        .ContinueWith(t =>
-                        {
-                            foreach (var i in t.Result)
-                            {
-                                FoodImage.Add(i);
-                            }
-
-                            IsShowingSwipeAnimation = true;
-                            Task.Delay(5000).ContinueWith(t =>
-                            {
-                                IsShowingSwipeAnimation = false;
-                            });
-                        })
-                        .ConfigureAwait(false);
-                    }
-
-                    if (this.FoodDetail == null)
-                    {
-                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
                     }
                     else
                     {
-                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                        this.FoodPreview.IsRead = true;
+                        this.FoodImage.Add(this.FoodPreview?.Image ?? string.Empty);
+                        if (this.IsNetworkConnected)
+                        {
+                            this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
+                            await GetMoreImage()
+                            .ContinueWith(t =>
+                            {
+                                foreach (var i in t.Result)
+                                {
+                                    FoodImage.Add(i);
+                                }
+
+                                IsShowingSwipeAnimation = true;
+                                Task.Delay(5000).ContinueWith(t =>
+                                {
+                                    IsShowingSwipeAnimation = false;
+                                });
+                            })
+                            .ConfigureAwait(false);
+                        }
+
+                        if (this.FoodDetail == null)
+                        {
+                            this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
+                        }
+                        else
+                        {
+                            await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                        }
                     }
                 }
             }
-
-            IsLoading = false;
-            return base.OnNavigatingTo(parameter!);
         }
 
         [RelayCommand]

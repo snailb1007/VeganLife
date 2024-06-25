@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Plugin.MauiMTAdmob;
+using Plugin.MauiMTAdmob.Extra;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -22,6 +24,14 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
+            CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+            CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
+            CrossMauiMTAdmob.Current.UseRestrictedDataProcessing = true;
+            CrossMauiMTAdmob.Current.TagForChildDirectedTreatment = MTTagForChildDirectedTreatment.TagForChildDirectedTreatmentUnspecified;
+            CrossMauiMTAdmob.Current.TagForUnderAgeOfConsent = MTTagForUnderAgeOfConsent.TagForUnderAgeOfConsentUnspecified;
+            CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
+            CrossMauiMTAdmob.Current.AdChoicesCorner = AdChoicesCorner.ADCHOICES_BOTTOM_RIGHT;
+            CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
             this.SetupLanguage();
             this.MainPage = new AppShell();
             _ = this.SetupThemeAsync().ConfigureAwait(false);

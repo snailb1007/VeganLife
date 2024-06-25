@@ -26,7 +26,7 @@
         <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}" />
     </Style>
 
-    <ControlTemplate x:Key="FullScreenLoadingTemplate">
+    <!--<ControlTemplate x:Key="FullScreenLoadingTemplate">
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <ContentPresenter Margin="0" Padding="0" />
             <Grid
@@ -59,7 +59,7 @@
                     WidthRequest="100" />
             </Grid>
         </Grid>
-    </ControlTemplate>
+    </ControlTemplate>-->
 
     <ControlTemplate x:Key="EmptyListAnimationTemplate">
         <skia:SKLottieView
@@ -92,7 +92,6 @@
     </ControlTemplate>
 
     <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
-        <Setter Property="ControlTemplate" Value="{StaticResource FullScreenLoadingTemplate}" />
         <Setter Property="HideSoftInputOnTapped" Value="True" />
     </Style>
 

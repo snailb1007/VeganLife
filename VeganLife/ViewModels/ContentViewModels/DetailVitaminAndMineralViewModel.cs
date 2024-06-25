@@ -39,22 +39,22 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            IsLoading = true;
-            var scrollView = Shell.Current.CurrentPage.FindByName<ScrollView>("DetailAthleticNutritionScrollView");
-            if (scrollView != null)
+            using (await this.loadingService.Show())
             {
-                var stackLayout = scrollView.Content as StackLayout;
-                var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
-                var target = mainStackLayout?.Children
-                    .OfType<Label>()
-                    .FirstOrDefault(label => label.AutomationId == param.ToString());
-                if (target != null)
+                var scrollView = Shell.Current.CurrentPage.FindByName<ScrollView>("DetailAthleticNutritionScrollView");
+                if (scrollView != null)
                 {
-                    await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+                    var stackLayout = scrollView.Content as StackLayout;
+                    var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
+                    var target = mainStackLayout?.Children
+                        .OfType<Label>()
+                        .FirstOrDefault(label => label.AutomationId == param.ToString());
+                    if (target != null)
+                    {
+                        await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+                    }
                 }
             }
-
-            IsLoading = false;
         }
     }
 }
