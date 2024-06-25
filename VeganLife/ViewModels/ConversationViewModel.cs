@@ -2,18 +2,64 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Android.Media;
+using Plugin.MauiMTAdmob;
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers.AppSetting;
+using VeganLife.Resources.Translations;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
+using VeganLife.Views.Controls;
 
 namespace VeganLife.ViewModels
 {
     [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class ConversationViewModel : BaseViewModel
     {
+        private DateTime _startTime;
+        private AsyncRelayCommand _currentCommand;
+
+        private Guid _sessionGuid;
+        private ChatLogsDataStoreService _chatLogsDataStoreService;
+        private GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
+        private CancellationTokenSource _cancellationTokenSource;
+
         private readonly IOpenAIService _openAIService;
         private readonly IDispatcher _dispatcher;
+
+        public AsyncRelayCommand CurrentCommand
+        {
+            get
+            {
+                return _currentCommand ??= new AsyncRelayCommand(AskQuestionAsync);
+            }
+
+            set
+            {
+                SetProperty(ref _currentCommand, value);
+            }
+        }
+
+        public string AdRewardedDescription
+        {
+            get
+            {
+                if (CurrentAdValidatorData.IsRewardAdAvailable)
+                {
+                    if (string.IsNullOrEmpty(CountDownText))
+                    {
+                        return AppResources.getMorePoint_info_label;
+                    }
+                    else
+                    {
+                        return AppResources.waitingForCollect_info_label;
+                    }
+                }
+                else
+                {
+                    return AppResources.cantCollect_info_label;
+                }
+            }
+        }
 
         [ObservableProperty]
         private string query;
@@ -38,37 +84,53 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private ChatMessageModel theMessage;
+
         [ObservableProperty]
         private ChatLogsModel _currentChat;
 
         [ObservableProperty]
         private string passedData;
 
-        private AsyncRelayCommand _currentCommand;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
+        private GoogleAdValidatorModel currentAdValidatorData = new GoogleAdValidatorModel();
 
-        public AsyncRelayCommand CurrentCommand
-        {
-            get
-            {
-                return _currentCommand ??= new AsyncRelayCommand(AskQuestionAsync);
-            }
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
+        private string countDownText = string.Empty;
 
-            set
-            {
-                SetProperty(ref _currentCommand, value);
-            }
-        }
+        [ObservableProperty]
+        private bool isAdInProgress;
 
-        private Guid _sessionGuid;
-        private ChatLogsDataStoreService _chatLogsDataStoreService;
-
-        public ConversationViewModel(IDispatcher dispatcher, IOpenAIService openAIService, ChatLogsDataStoreService chatLogsDataStoreService)
+        public ConversationViewModel(
+            IDispatcher dispatcher,
+            IOpenAIService openAIService,
+            ChatLogsDataStoreService chatLogsDataStoreService,
+            GoogleAdValidatorDataStoreService googleAdValidatorDataStoreService)
             : base()
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
             this._chatLogsDataStoreService = chatLogsDataStoreService;
+            _googleAdValidatorDataStoreService = googleAdValidatorDataStoreService;
+            CrossMauiMTAdmob.Current.OnRewardedLoaded += (s, e) =>
+            {
+                if (CrossMauiMTAdmob.Current.IsRewardedLoaded())
+                {
+                    CrossMauiMTAdmob.Current.ShowRewarded();
+                    IsAdInProgress = false;
+                }
+            };
+            CrossMauiMTAdmob.Current.OnUserEarnedReward += (s, e) =>
+            {
+                CurrentChat.TimesLimit++;
+                _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+            };
+            CrossMauiMTAdmob.Current.OnRewardedFailedToLoad += (s, e) =>
+            {
+                IsAdInProgress = false;
+            };
         }
 
         public override async Task<Task> ViewAppearingVM()
@@ -96,10 +158,34 @@ namespace VeganLife.ViewModels
                         ChatDate = DateTime.Today.Date,
                         TimesLimit = 5,
                     };
-                    await _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+                    _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
                 }
             }
 
+            var adLogs = await _googleAdValidatorDataStoreService.GetItemsAsync();
+            if (adLogs.Count() > 0)
+            {
+                CurrentAdValidatorData = adLogs.Last();
+                if (CurrentAdValidatorData.LastTimeRewardOpen.Date < DateTime.Today.Date)
+                {
+                    await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(new GoogleAdValidatorModel
+                    {
+                        LastTimeRewardOpen = DateTime.Today.Date,
+                        RewardAdTimesLimit = 0,
+                    });
+                }
+            }
+            else
+            {
+                await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(new GoogleAdValidatorModel
+                {
+                    LastTimeRewardOpen = DateTime.Today.Date,
+                    RewardAdTimesLimit = 0,
+                });
+            }
+
+            // re-get the lastest data
+            CurrentAdValidatorData = (await _googleAdValidatorDataStoreService.GetItemsAsync())?.LastOrDefault()!;
             return base.ViewAppearingVM();
         }
 
@@ -132,18 +218,19 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            if (CurrentChat.TimesLimit > 0)
+            using (await this.loadingService.Show())
             {
-                CurrentChat.TimesLimit -= 1;
-            }
+                if (CurrentChat.TimesLimit > 0)
+                {
+                    CurrentChat.TimesLimit -= 1;
+                }
 
-            string queryCopy = Query;
-            Query = string.Empty;
-            AddMessage(message: queryCopy, isUserMessage: true);
-            IsLoading = true;
-            string answer = await queryManager(_sessionGuid, queryCopy);
-            AddMessage(message: answer.TrimStart(), isUserMessage: false);
-            IsLoading = false;
+                string queryCopy = Query;
+                Query = string.Empty;
+                AddMessage(message: queryCopy, isUserMessage: true);
+                string answer = await queryManager(_sessionGuid, queryCopy);
+                AddMessage(message: answer.TrimStart(), isUserMessage: false);
+            }
         }
 
         private async Task AskQuestionAsync()
@@ -185,9 +272,63 @@ namespace VeganLife.ViewModels
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
 
+        private ProgressDrawableControl _drawable;
+
+        [RelayCommand]
+        private async Task OpenRewardedAdPage()
+        {
+            if (OpenRewardedAdPageCommand.IsRunning
+                || !CurrentAdValidatorData.IsRewardAdAvailable
+                || !string.IsNullOrEmpty(CountDownText))
+            {
+                return;
+            }
+
+            //if (_drawable is null)
+            //{
+            //    var graphicsView = Shell.Current.CurrentPage.FindByName<GraphicsView>("GraphicsViewCountDown");
+            //    _drawable = (ProgressDrawableControl)graphicsView.Drawable;
+            //}
+
+            using (await this.loadingService.Show())
+            {
+                _startTime = DateTime.Now;
+                _cancellationTokenSource = new CancellationTokenSource();
+                IsAdInProgress = true;
+                CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
+                CurrentAdValidatorData.RewardAdTimesLimit += 1;
+                await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
+                _ = UpdateAdProgressCountDown();
+            }
+        }
+
         partial void OnPassedDataChanged(string value)
         {
             this.Query = value;
+        }
+
+        private async Task UpdateAdProgressCountDown()
+        {
+            while (!_cancellationTokenSource.IsCancellationRequested)
+            {
+                var elapsedTime = DateTime.Now - _startTime;
+                if (elapsedTime.TotalMilliseconds >= TimeSpan.FromMinutes(1).TotalMilliseconds)
+                {
+                    _cancellationTokenSource.Cancel();
+                    CountDownText = string.Empty;
+                    return;
+                }
+
+                var runningTime = TimeSpan.FromMinutes(1) - elapsedTime;
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    CountDownText = runningTime.ToString("mm\\:ss");
+                    //var percent = (int)((60 - runningTime.TotalSeconds) / 60f * 100);
+                    //Console.WriteLine("++ percent " + percent);
+                    //_drawable.Progress = percent;
+                });
+                await Task.Delay(500);
+            }
         }
     }
 }
