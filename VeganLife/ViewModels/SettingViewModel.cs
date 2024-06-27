@@ -50,11 +50,14 @@ namespace VeganLife.ViewModels
 
         partial void OnIsAllowCollectLogsChanged(bool value)
         {
-            using (_ = this.loadingService.Show(delayTime: 500))
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                ServicesHelper.GetService<SentryService>().IsEnabled = value;
-                _ = UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).ConfigureAwait(false);
-            }
+                using (await this.loadingService.Show(delayTime: 500))
+                {
+                    ServicesHelper.GetService<SentryService>().IsEnabled = value;
+                    _ = UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).ConfigureAwait(false);
+                }
+            });
         }
     }
 }
