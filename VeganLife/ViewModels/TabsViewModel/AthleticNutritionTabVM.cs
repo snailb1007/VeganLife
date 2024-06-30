@@ -8,6 +8,9 @@ namespace VeganLife.ViewModels.TabsViewModel
         private IEnumerable<AthleticNutritionModel> _allAthleticNutritions;
 
         [ObservableProperty]
+        private bool isBannerClosed;
+
+        [ObservableProperty]
         private ObservableCollection<AthleticNutritionModel> athleticNutritions;
 
         [ObservableProperty]
@@ -57,6 +60,12 @@ namespace VeganLife.ViewModels.TabsViewModel
                 var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
                 this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
             }
+        }
+
+        [RelayCommand]
+        private void CloseAdBanner()
+        {
+            IsBannerClosed = true;
         }
 
         partial void OnAthleticNutritionSearchTextChanged(string value)

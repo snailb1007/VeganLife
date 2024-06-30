@@ -95,6 +95,20 @@ namespace VeganLife.Helpers.AppSetting
             public const string Sodium = "Sodium";
             public const string Zinc = "Zinc";
             public const string Copper = "Copper";
+            public const string Manganese = "Mangan";
+            public const string Selenium = "Selenium";
+            public const string VitaminC = "Vitamin C";
+            public const string Thiamin = "Thiamin";
+            public const string Riboflavin = "Vitamin B2";
+            public const string Niacin = "Niacin";
+            public const string PantothenicAcid = "Pantothenic Acid";
+            public const string VitaminB6 = "Vitamin B6";
+            public const string Folate = "Folate";
+            public const string VitaminB12 = "Vitamin B12";
+            public const string VitaminA = "Vitamin A";
+            public const string VitaminE = "Vitamin E";
+            public const string VitaminD = "Vitamin D";
+            public const string VitaminK = "Vitamin K";
         }
 
         public const string TAG = "undefined";
