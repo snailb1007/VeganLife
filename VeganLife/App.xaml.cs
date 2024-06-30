@@ -24,6 +24,7 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
+
             CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
             CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
             CrossMauiMTAdmob.Current.UseRestrictedDataProcessing = true;
@@ -32,9 +33,10 @@ namespace VeganLife
             CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
             CrossMauiMTAdmob.Current.AdChoicesCorner = AdChoicesCorner.ADCHOICES_BOTTOM_RIGHT;
             CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
+
             this.SetupLanguage();
-            this.MainPage = new AppShell();
-            _ = this.SetupThemeAsync().ConfigureAwait(false);
+            this.MainPage = new LoadingPage();
+            _ = this.SetupThemeAsync();
         }
 
         private void SetupLanguage()

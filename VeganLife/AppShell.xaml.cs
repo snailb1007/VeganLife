@@ -37,17 +37,6 @@ namespace VeganLife
         {
             base.OnAppearing();
             ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
-
-            // Init data
-            this.Dispatcher.Dispatch(async () =>
-            {
-                await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
-                .ContinueWith(t =>
-                {
-                    HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
-                })
-                .ConfigureAwait(false);
-            });
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
