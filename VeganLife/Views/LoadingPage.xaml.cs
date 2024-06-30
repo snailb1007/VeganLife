@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
+using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;
 using static VeganLife.Helpers.AppSetting.StaticHelper;
 
@@ -22,6 +23,8 @@ public partial class LoadingPage : ContentPage
             {
                 HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
             });
+        _ = ServicesHelper.GetService<IUserDataService>().Refresh();
+        _ = ServicesHelper.GetService<IUserDataService>().Init();
     }
 
     private async void SelfContentLoaded(object sender, EventArgs e)

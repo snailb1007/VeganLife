@@ -103,7 +103,7 @@
                 </VerticalStackLayout>
                 <Grid
                     Grid.Row="1"
-                    ColumnDefinitions="*,*"
+                    ColumnDefinitions="*"
                     HeightRequest="48"
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill">
@@ -117,7 +117,7 @@
                             <Setter Property="IsEnabled" Value="False" />
                         </MultiTrigger>
                     </Grid.Triggers>-->
-                    <Grid BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}" Opacity="1">
+                    <!--<Grid BackgroundColor="{Binding BmiStatusColor, Mode=OneWay}" Opacity="1">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoCommand}" />
                         </Grid.GestureRecognizers>
@@ -136,7 +136,7 @@
                             Text="Go BMI"
                             TextColor="White"
                             VerticalOptions="Center" />
-                    </Grid>
+                    </Grid>-->
                     <Grid Grid.Column="1" BackgroundColor="Gray">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CloseCommand}" />
