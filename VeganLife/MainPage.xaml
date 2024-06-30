@@ -16,7 +16,6 @@
     x:Name="mainPageRoot"
     x:DataType="viewmodel:MainViewModel"
     x:TypeArguments="viewmodel:MainViewModel"
-    Loaded="mainPageRoot_LoadedAsync"
     Shell.NavBarIsVisible="False">
     <base:BasePage.Background>
         <LinearGradientBrush EndPoint="1,0">
@@ -154,7 +153,7 @@
                     IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay}"
                     ZIndex="1">
                     <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="gridTransparent_TapGestureRecognizer_Tapped" />
+                        <TapGestureRecognizer Tapped="GridTransparentTapped" />
                     </Grid.GestureRecognizers>
                 </Grid>
             </Grid>

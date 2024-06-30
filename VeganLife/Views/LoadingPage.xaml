@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VeganLife.Views.LoadingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    Title="LoadingPage"
+    BackgroundColor="Black"
+    Loaded="SelfContentLoaded">
+    <Grid>
+        <skia:SKLottieView
+            Grid.Column="1"
+            Margin="0"
+            Padding="0"
+            HeightRequest="80"
+            HorizontalOptions="Center"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="80" />
+    </Grid>
+</ContentPage>
