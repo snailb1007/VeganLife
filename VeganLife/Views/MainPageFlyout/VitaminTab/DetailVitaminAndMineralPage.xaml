@@ -7,6 +7,7 @@
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:converterModel="clr-namespace:VeganLife.Models.ConverterModels"
+    xmlns:sho="http://sharpnado.com"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="selfDetailVitaminAndMineralPage"
     Title="{Binding Vitamin.Id}"
@@ -19,33 +20,63 @@
             <converter:MarkdownMenuConverter x:Key="MarkdownMenuConverter" />
         </ResourceDictionary>
     </base:BasePage.Resources>
-    <ScrollView x:Name="DetailVitaminAndMineralScrollView">
-        <StackLayout>
-            <!--  Menu List  -->
-            <ListView
-                ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownMenuConverter}}"
-                SelectionMode="None"
-                VerticalScrollBarVisibility="Never">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="converterModel:MarkdownMenuModel">
-                        <TextCell
-                            Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference selfDetailVitaminAndMineralPage}}"
-                            CommandParameter="{Binding Id}"
-                            Text="{Binding Content}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+    <Grid>
+        <ScrollView
+            x:Name="DetailVitaminAndMineralScrollView"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            ZIndex="0">
+            <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
+                <!--  Menu List  -->
+                <ListView
+                    ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownMenuConverter}}"
+                    SelectionMode="None"
+                    VerticalScrollBarVisibility="Never">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="converterModel:MarkdownMenuModel">
+                            <TextCell
+                                Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference selfDetailVitaminAndMineralPage}}"
+                                CommandParameter="{Binding Id}"
+                                Text="{Binding Content}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <VerticalStackLayout
-                Margin="16,16,16,0"
-                Padding="0,0,0,16"
-                BindableLayout.ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownStylingConverter}}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="converterModel:MarkdownStylingModel">
-                        <Label AutomationId="{Binding Id}" FormattedText="{Binding FormattedString}" />
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
-        </StackLayout>
-    </ScrollView>
+                <VerticalStackLayout
+                    Margin="16,16,16,0"
+                    Padding="0,0,0,16"
+                    BindableLayout.ItemsSource="{Binding Vitamin.Content, Converter={StaticResource MarkdownStylingConverter}}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="converterModel:MarkdownStylingModel">
+                            <Label AutomationId="{Binding Id}" FormattedText="{Binding FormattedString}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </StackLayout>
+        </ScrollView>
+        <sho:MaterialFrame
+            x:Name="ideaFrame"
+            Padding="10"
+            CornerRadius="10"
+            HeightRequest="48"
+            HorizontalOptions="End"
+            LightThemeBackgroundColor="{StaticResource PrimaryOrange2}"
+            MaterialTheme="Light"
+            VerticalOptions="End"
+            WidthRequest="48">
+            <sho:MaterialFrame.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+            </sho:MaterialFrame.GestureRecognizers>
+            <Button
+                Padding="0"
+                BackgroundColor="Transparent"
+                FontFamily="FALight"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                InputTransparent="True"
+                Text="&#xf670;"
+                TextColor="Black"
+                VerticalOptions="Center" />
+        </sho:MaterialFrame>
+    </Grid>
 </base:BasePage>
