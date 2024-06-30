@@ -152,19 +152,20 @@ namespace VeganLife.ViewModels
 
             using (await this.loadingService.Show())
             {
+                this.CurrentFoodSelected = null!;
+                var userService = ServicesHelper.GetService<IUserDataService>();
+                _ = userService.Refresh().ContinueWith(t =>
+                {
+                    var userInfo = (userService as UserDataService)?.UserInfo!;
+                    if (userInfo != null)
+                    {
+                        userInfo.TotalFoodDetailRead++;
+                    }
+
+                    _ = userService.SaveData();
+                });
                 await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
             }
-
-            this.CurrentFoodSelected = null!;
-            var userService = ServicesHelper.GetService<IUserDataService>();
-            await userService.Refresh();
-            var userInfo = (userService as UserDataService)?.UserInfo!;
-            if (userInfo != null)
-            {
-                userInfo.TotalFoodDetailRead++;
-            }
-
-            await userService.SaveData();
         }
 
         [RelayCommand]
