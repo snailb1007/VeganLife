@@ -7,13 +7,22 @@
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     BackgroundColor="#80808080"
     CloseWhenBackgroundIsClicked="False">
-    <skia:SKLottieView
-        Grid.Column="1"
-        HeightRequest="100"
-        HorizontalOptions="Center"
-        RepeatCount="-1"
-        RepeatMode="Restart"
-        Source="loading.json"
-        VerticalOptions="Center"
-        WidthRequest="100" />
+    <Border
+        BackgroundColor="White"
+        HeightRequest="80"
+        StrokeShape="RoundRectangle 10"
+        StrokeThickness="0"
+        WidthRequest="80">
+        <skia:SKLottieView
+            Grid.Column="1"
+            Margin="0"
+            Padding="0"
+            HeightRequest="80"
+            HorizontalOptions="Center"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="80" />
+    </Border>
 </mopups:PopupPage>

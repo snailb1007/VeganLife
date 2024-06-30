@@ -11,21 +11,29 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
+    x:Name="selfUsdaFoodFactDetailPage"
     Padding="0"
     x:DataType="viewmodel:UsdaFoodFactDetailVM"
-    BackgroundColor="{StaticResource PrimaryDark}">
+    BackgroundColor="{StaticResource PrimaryDark}"
+    SizeChanged="ContentPage_SizeChanged">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="ReverseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid BackgroundColor="{StaticResource Gray100}" RowDefinitions="*,*">
-        <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
-            <controls:NavBarControl
-                Title="{Binding CurrentFoodPreview.Name}"
-                BackgroundColor="Transparent"
-                VerticalOptions="Start"
-                ZIndex="1" />
+    <Grid BackgroundColor="{StaticResource Gray100}" RowDefinitions="Auto,Auto,*">
+        <controls:NavBarControl
+            x:Name="navBarContentView"
+            Title="{Binding CurrentFoodPreview.Name}"
+            BackgroundColor="Transparent"
+            VerticalOptions="Start"
+            ZIndex="1" />
+        <Grid
+            x:Name="headerImgGrid"
+            Grid.Row="1"
+            ColumnDefinitions="*"
+            IsVisible="{Binding IsDataGridExpanded, Source={Reference selfUsdaFoodFactDetailPage}, Converter={StaticResource ReverseConverter}}">
             <ffimageloading:CachedImage
                 Grid.Row="1"
                 Aspect="AspectFill"
@@ -155,7 +163,7 @@
             </sho:MaterialFrame>
         </Grid>
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             BackgroundColor="White"
             RowDefinitions="Auto,*">
             <Label Margin="5">
@@ -166,6 +174,23 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+            <Button
+                BackgroundColor="Transparent"
+                Clicked="Button_Clicked"
+                FontFamily="FASolid"
+                FontSize="Large"
+                HorizontalOptions="End"
+                Text="&#xf31e;"
+                TextColor="{StaticResource PrimaryDark}">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsDataGridExpanded, Source={Reference selfUsdaFoodFactDetailPage}}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="Text" Value="&#xf78c;" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
             <cw:DataGridNutritionFactCW
                 Grid.Row="1"
                 Margin="5,0"
@@ -173,11 +198,11 @@
                 HeaderHeight="48"
                 HorizontalOptions="Fill"
                 ItemsSource="{Binding CurrentFoodNutritionFact.foodNutrients}"
-                MaximumHeightRequest="400"
                 MinimumHeightRequest="100"
                 RefreshingEnabled="True"
                 RowHeight="40"
-                SelectionMode="None">
+                SelectionMode="None"
+                VerticalOptions="Fill">
                 <cw:DataGridNutritionFactCW.Triggers>
                     <DataTrigger
                         Binding="{Binding CurrentFoodNutritionFact.foodNutrients, Converter={StaticResource IsListNullOrEmptyConverter}}"
