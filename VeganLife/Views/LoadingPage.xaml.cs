@@ -47,7 +47,7 @@ public partial class LoadingPage : ContentPage
         if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
         {
             var aboutView = ServicesHelper.GetService<AboutAppPopup>();
-            await this.ShowPopupAsync(aboutView);
+            MainThread.BeginInvokeOnMainThread(async () => await this.ShowPopupAsync(aboutView));
             await aboutView.WaitingAcceptedTaskSource.Task;
         }
 
