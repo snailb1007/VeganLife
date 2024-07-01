@@ -84,176 +84,6 @@ namespace VeganLife.Services
             }
         }
 
-        private async Task<UpdateMasterStruct> CheckUpdateMaster(string key)
-        {
-            int ver = 0;
-            switch (key)
-            {
-                case nameof(VitaminModel):
-                    ver = await GetUpdateMasterVitamin();
-                    break;
-                case nameof(USDAFoodPreviewModel):
-                    ver = await GetUpdateMasterUsdaFoods();
-                    break;
-                case nameof(AthleticNutritionModel):
-                    ver = await GetUpdateMasterAthleticNutritions();
-                    break;
-                case nameof(PharmacoLogicalModel):
-                    ver = await GetUpdateMasterPharmacoLogical();
-                    break;
-            }
-
-            var updateMaster = _updateMasters.FirstOrDefault(i => i.Id == key);
-            if (updateMaster is null)
-            {
-                return new(true, ver, false);
-            }
-
-            return new(ver == 0 || ver > updateMaster.Version, ver);
-        }
-
-        // Method for fetching a single item
-        private async Task<T> GetSingleDataFromFirebaseAsync<T>(string path, T defaultValue = default)
-        {
-            if (string.IsNullOrEmpty(path) || await GetMaintenanceStatusAsync())
-            {
-                return defaultValue;
-            }
-
-            try
-            {
-                T result = await this.firebaseDatabase.Child(path).OnceSingleAsync<T>().ConfigureAwait(false);
-                return result ?? defaultValue;
-            }
-            catch (FirebaseException e)
-            {
-                Debug.WriteLine($"Firebase error in GetSingleDataFromFirebaseAsync: {e.Message}");
-                return defaultValue;
-            }
-        }
-
-        // Method for fetching a collection
-        private async Task<IReadOnlyCollection<FirebaseObject<T>>> GetCollectionFromFirebaseAsync<T>(string path)
-        {
-            if (string.IsNullOrEmpty(path) || await GetMaintenanceStatusAsync())
-            {
-                return null;
-            }
-
-            try
-            {
-                var result = await this.firebaseDatabase.Child(path).OnceAsync<T>().ConfigureAwait(false);
-                return result;
-            }
-            catch (FirebaseException e)
-            {
-                Debug.WriteLine($"Firebase error in GetCollectionFromFirebaseAsync: {e.Message}");
-                return null;
-            }
-        }
-
-        private async Task<IEnumerable<TModel>> GetDatasAsync<TModel>(string modelName, string dataAddress)
-            where TModel : new()
-        {
-            var localData = _dataStore[modelName] as IDataStoreService<TModel>;
-            var masterData = await CheckUpdateMaster(modelName);
-            if (masterData.HasUpdate)
-            {
-                var data = await this.GetCollectionFromFirebaseAsync<TModel>(dataAddress);
-                if (data == null)
-                {
-                    return Enumerable.Empty<TModel>();
-                }
-
-                var result = data.Select(MapToModel).ToList();
-
-                if (localData is null)
-                {
-                    return result;
-                }
-
-                if (masterData.IsExistMasterTable)
-                {
-                    await localData.DeleteAllItems();
-                }
-
-                await Task.WhenAll(localData.SaveItems(result), UpdateMasterDataAsync(modelName, masterData))
-                    .ConfigureAwait(false);
-                return result;
-            }
-            else
-            {
-                if (localData == null)
-                {
-                    return Enumerable.Empty<TModel>();
-                }
-
-                return await localData.GetItemsAsync();
-            }
-        }
-
-        private TModel MapToModel<TModel>(FirebaseObject<TModel> firebaseObject)
-            where TModel : new()
-        {
-            if (typeof(TModel) == typeof(VitaminModel) && firebaseObject.Object is VitaminModel data)
-            {
-                var item = firebaseObject.Object as VitaminModel;
-                return (TModel)((object)new VitaminModel
-                {
-                    Id = firebaseObject.Key,
-                    Content = data.Content ?? string.Empty,
-                    Date = data.Date ?? string.Empty,
-                });
-            }
-            else if (typeof(TModel) == typeof(USDAFoodPreviewModel))
-            {
-                var item = firebaseObject.Object as USDAFoodPreviewModel;
-                return (TModel)(object)new USDAFoodPreviewModel
-                {
-                    Id = firebaseObject.Key,
-                    Image = item?.Image ?? string.Empty,
-                    Name = item?.Name ?? string.Empty,
-                    Category = item?.Category ?? string.Empty,
-                    IsPlantOrigin = item?.IsPlantOrigin ?? false,
-                };
-            }
-            else if (typeof(TModel) == typeof(AthleticNutritionModel) && firebaseObject.Object is AthleticNutritionModel thleticNutritionModelData)
-            {
-                var item = firebaseObject.Object as AthleticNutritionModel;
-                return (TModel)((object)new AthleticNutritionModel
-                {
-                    Id = firebaseObject.Key,
-                    Content = thleticNutritionModelData.Content ?? string.Empty,
-                    Date = thleticNutritionModelData.Date ?? string.Empty,
-                });
-            }
-            else if (typeof(TModel) == typeof(PharmacoLogicalModel) && firebaseObject.Object is PharmacoLogicalModel pharmacoLogicalModelData)
-            {
-                var item = firebaseObject.Object as PharmacoLogicalModel;
-                return (TModel)((object)new PharmacoLogicalModel
-                {
-                    Id = firebaseObject.Key,
-                    Content = pharmacoLogicalModelData.Content ?? string.Empty,
-                    Date = pharmacoLogicalModelData.Date ?? string.Empty,
-                });
-            }
-            else
-            {
-                throw new InvalidOperationException("Unsupported model type");
-            }
-        }
-
-        private async Task UpdateMasterDataAsync(string modelName, UpdateMasterStruct masterData)
-        {
-            await _updateMasterDataStoreService.AddOrUpdateItemAsync(
-                new UpdateMasterModel()
-                {
-                    Id = modelName,
-                    Version = masterData.Ver,
-                },
-                isUpdate: masterData.IsExistMasterTable);
-        }
-
         public async Task<IEnumerable<VitaminModel>> GetVitamins() =>
             await GetDatasAsync<VitaminModel>(nameof(VitaminModel), VitaminListAddress);
 
@@ -496,6 +326,179 @@ namespace VeganLife.Services
         private async Task<int> GetUpdateMasterPharmacoLogical()
         {
             return await this.GetSingleDataFromFirebaseAsync<int>("/App/updateMaster/pharmacoLogical", defaultValue: 0);
+        }
+
+        private async Task<UpdateMasterStruct> CheckUpdateMaster(string key)
+        {
+            int ver = 0;
+            switch (key)
+            {
+                case nameof(VitaminModel):
+                    //ver = await GetUpdateMasterVitamin();
+                    ver = 0;
+                    break;
+                case nameof(USDAFoodPreviewModel):
+                    ver = await GetUpdateMasterUsdaFoods();
+                    break;
+                case nameof(AthleticNutritionModel):
+                    ver = await GetUpdateMasterAthleticNutritions();
+                    break;
+                case nameof(PharmacoLogicalModel):
+                    ver = await GetUpdateMasterPharmacoLogical();
+                    break;
+            }
+
+            var updateMaster = _updateMasters.FirstOrDefault(i => i.Id == key);
+            if (updateMaster is null)
+            {
+                return new(true, ver, false);
+            }
+
+            return new(ver == 0 || ver > updateMaster.Version, ver);
+        }
+
+        // Method for fetching a single item
+        private async Task<T> GetSingleDataFromFirebaseAsync<T>(string path, T defaultValue = default)
+        {
+            if (string.IsNullOrEmpty(path) || await GetMaintenanceStatusAsync())
+            {
+                return defaultValue;
+            }
+
+            try
+            {
+                T result = await this.firebaseDatabase.Child(path).OnceSingleAsync<T>().ConfigureAwait(false);
+                return result ?? defaultValue;
+            }
+            catch (FirebaseException e)
+            {
+                Debug.WriteLine($"-_- Firebase error in GetSingleDataFromFirebaseAsync: {e.Message}");
+                return defaultValue;
+            }
+        }
+
+        // Method for fetching a collection
+        private async Task<IReadOnlyCollection<FirebaseObject<T>>> GetCollectionFromFirebaseAsync<T>(string path)
+        {
+            if (string.IsNullOrEmpty(path) || await GetMaintenanceStatusAsync())
+            {
+                return null;
+            }
+
+            try
+            {
+                var result = await this.firebaseDatabase.Child(path).OnceAsync<T>().ConfigureAwait(false);
+                return result;
+            }
+            catch (FirebaseException e)
+            {
+                Debug.WriteLine($"Firebase error in GetCollectionFromFirebaseAsync: {e.Message}");
+                return null;
+            }
+        }
+
+        private async Task<IEnumerable<TModel>> GetDatasAsync<TModel>(string modelName, string dataAddress)
+            where TModel : new()
+        {
+            var localData = _dataStore[modelName] as IDataStoreService<TModel>;
+            var masterData = await CheckUpdateMaster(modelName);
+            if (masterData.HasUpdate)
+            {
+                var data = await this.GetCollectionFromFirebaseAsync<TModel>(dataAddress);
+                if (data == null)
+                {
+                    return Enumerable.Empty<TModel>();
+                }
+
+                var result = data.Select(MapToModel).ToList();
+
+                if (localData is null)
+                {
+                    return result;
+                }
+
+                if (masterData.IsExistMasterTable)
+                {
+                    await localData.DeleteAllItems();
+                }
+
+                _ = localData.SaveItems(result);
+                _ = UpdateMasterDataAsync(modelName, masterData);
+
+                return result;
+            }
+            else
+            {
+                if (localData == null)
+                {
+                    return Enumerable.Empty<TModel>();
+                }
+
+                return await localData.GetItemsAsync();
+            }
+        }
+
+        private TModel MapToModel<TModel>(FirebaseObject<TModel> firebaseObject)
+            where TModel : new()
+        {
+            if (typeof(TModel) == typeof(VitaminModel) && firebaseObject.Object is VitaminModel data)
+            {
+                var item = firebaseObject.Object as VitaminModel;
+                return (TModel)((object)new VitaminModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = data.Content ?? string.Empty,
+                    Date = data.Date ?? string.Empty,
+                    Affiliations = data.Affiliations,
+                });
+            }
+            else if (typeof(TModel) == typeof(USDAFoodPreviewModel))
+            {
+                var item = firebaseObject.Object as USDAFoodPreviewModel;
+                return (TModel)(object)new USDAFoodPreviewModel
+                {
+                    Id = firebaseObject.Key,
+                    Image = item?.Image ?? string.Empty,
+                    Name = item?.Name ?? string.Empty,
+                    Category = item?.Category ?? string.Empty,
+                    IsPlantOrigin = item?.IsPlantOrigin ?? false,
+                };
+            }
+            else if (typeof(TModel) == typeof(AthleticNutritionModel) && firebaseObject.Object is AthleticNutritionModel thleticNutritionModelData)
+            {
+                var item = firebaseObject.Object as AthleticNutritionModel;
+                return (TModel)((object)new AthleticNutritionModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = thleticNutritionModelData.Content ?? string.Empty,
+                    Date = thleticNutritionModelData.Date ?? string.Empty,
+                });
+            }
+            else if (typeof(TModel) == typeof(PharmacoLogicalModel) && firebaseObject.Object is PharmacoLogicalModel pharmacoLogicalModelData)
+            {
+                var item = firebaseObject.Object as PharmacoLogicalModel;
+                return (TModel)((object)new PharmacoLogicalModel
+                {
+                    Id = firebaseObject.Key,
+                    Content = pharmacoLogicalModelData.Content ?? string.Empty,
+                    Date = pharmacoLogicalModelData.Date ?? string.Empty,
+                });
+            }
+            else
+            {
+                throw new InvalidOperationException("Unsupported model type");
+            }
+        }
+
+        private async Task UpdateMasterDataAsync(string modelName, UpdateMasterStruct masterData)
+        {
+            await _updateMasterDataStoreService.AddOrUpdateItemAsync(
+                new UpdateMasterModel()
+                {
+                    Id = modelName,
+                    Version = masterData.Ver,
+                },
+                isUpdate: masterData.IsExistMasterTable);
         }
     }
 

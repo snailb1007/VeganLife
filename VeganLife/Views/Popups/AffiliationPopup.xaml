@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="VeganLife.Views.Popups.AffiliationPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    x:Name="selfAffiliationPopup"
+    BackgroundColor="#80808080">
+    <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,2*,*">
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            StrokeShape="RoundRectangle 20"
+            StrokeThickness="0">
+            <CollectionView ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:AffiliationModel">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                            <Label Text="{Binding Name}" TextColor="{StaticResource LinkColor}" />
+                            <Border
+                                Padding="5"
+                                BackgroundColor="Red"
+                                StrokeShape="RoundRectangle 20"
+                                StrokeThickness="0">
+                                <Label Text="Mall" TextColor="White" />
+                            </Border>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</mopups:PopupPage>

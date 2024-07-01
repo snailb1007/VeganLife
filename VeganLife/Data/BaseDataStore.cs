@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AndroidX.Room;
 using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.Extensions;
@@ -49,6 +50,7 @@ namespace VeganLife.Data
             try
             {
                 var res = await this._connection.DeleteAllAsync<T>();
+                await this._connection.DropTableAsync<T>();
                 return res > 0;
             }
             catch (Exception e)
@@ -113,6 +115,13 @@ namespace VeganLife.Data
         {
             try
             {
+                // select * from "VitaminModel" where "Id" = ?
+                var tables = await _connection.GetTableInfoAsync("VitaminModel");
+                foreach (var table in tables)
+                {
+                    Debug.WriteLine($"Column Name: {table.Name}, Column Type: {table.GetType()}");
+                }
+
                 return await this._connection.Table<T>().ToListAsync();
             }
             catch (Exception e)
