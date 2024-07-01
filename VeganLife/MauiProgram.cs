@@ -166,6 +166,7 @@ namespace VeganLife
             services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
             services.AddTransient<LoadingPopup>();
+            services.AddTransient<AffiliationPopup>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

@@ -51,9 +51,10 @@ public partial class LoadingPage : ContentPage
             await aboutView.WaitingAcceptedTaskSource.Task;
         }
 
-        if (Application.Current?.MainPage is not null)
+        if ((App.Current as App) is App app)
         {
-            Application.Current.MainPage = new AppShell();
+            await Task.Delay(500);
+            MainThread.BeginInvokeOnMainThread(() => app.MainPage = new AppShell());
         }
     }
 }

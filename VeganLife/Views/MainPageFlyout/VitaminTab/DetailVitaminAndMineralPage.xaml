@@ -8,6 +8,7 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:converterModel="clr-namespace:VeganLife.Models.ConverterModels"
     xmlns:sho="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="selfDetailVitaminAndMineralPage"
     Title="{Binding Vitamin.Id}"
@@ -18,6 +19,7 @@
         <ResourceDictionary>
             <converter:MarkdownStylingConverter x:Key="MarkdownStylingConverter" />
             <converter:MarkdownMenuConverter x:Key="MarkdownMenuConverter" />
+            <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
         </ResourceDictionary>
     </base:BasePage.Resources>
     <Grid>
@@ -60,12 +62,14 @@
             CornerRadius="10"
             HeightRequest="48"
             HorizontalOptions="End"
+            IsVisible="{Binding Vitamin.Affiliations, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
             LightThemeBackgroundColor="{StaticResource PrimaryOrange2}"
             MaterialTheme="Light"
             VerticalOptions="End"
             WidthRequest="48">
             <sho:MaterialFrame.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+                <TapGestureRecognizer Command="{Binding RecommendedClickedCommand}" />
             </sho:MaterialFrame.GestureRecognizers>
             <Button
                 Padding="0"

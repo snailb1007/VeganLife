@@ -3,6 +3,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Views.Popups;
+
 namespace VeganLife.ViewModels.ContentViewModels
 {
     /// <summary>
@@ -25,6 +27,9 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
             if (parameter is VitaminModel vitamin)
             {
+                vitamin.Affiliations = vitamin.Affiliations
+                    .Where(a => !string.IsNullOrEmpty(a.Link))?
+                    .ToList() ?? Enumerable.Empty<AffiliationModel>().ToList();
                 this.Vitamin = vitamin;
             }
 
@@ -55,6 +60,12 @@ namespace VeganLife.ViewModels.ContentViewModels
                     }
                 }
             }
+        }
+
+        [RelayCommand]
+        private async Task OnRecommendedClicked()
+        {
+            await this.popupNaviService.PushAsync<AffiliationPopup>(this.Vitamin.Affiliations);
         }
     }
 }
