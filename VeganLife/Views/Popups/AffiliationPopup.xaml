@@ -11,24 +11,41 @@
         <Border
             Grid.Row="1"
             Grid.Column="1"
+            BackgroundColor="White"
             StrokeShape="RoundRectangle 20"
             StrokeThickness="0">
-            <CollectionView ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}}}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:AffiliationModel">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                            <Label Text="{Binding Name}" TextColor="{StaticResource LinkColor}" />
-                            <Border
-                                Padding="5"
-                                BackgroundColor="Red"
-                                StrokeShape="RoundRectangle 20"
-                                StrokeThickness="0">
-                                <Label Text="Mall" TextColor="White" />
-                            </Border>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <VerticalStackLayout Spacing="20">
+                <Label
+                    Margin="0,10,0,10"
+                    FontAttributes="Bold"
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    Text="Products Recommend" />
+                <CollectionView ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:AffiliationModel">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                                <Label
+                                    Text="{Binding Name}"
+                                    TextColor="{StaticResource LinkColor}"
+                                    VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Border
+                                    Padding="5"
+                                    BackgroundColor="Red"
+                                    StrokeShape="RoundRectangle 5"
+                                    StrokeThickness="0">
+                                    <Label Text="Mall" TextColor="White" />
+                                </Border>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </mopups:PopupPage>

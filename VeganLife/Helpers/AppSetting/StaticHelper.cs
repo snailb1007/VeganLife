@@ -26,5 +26,10 @@ namespace VeganLife.Helpers.AppSetting
         public static float FemaleHeightAvgUS { get; set; } = 0;
 
         public static float MaleHeightAvgUS { get; set; } = 0;
+
+        public static class Affiliation
+        {
+            public static List<AffiliationModel> Affiliations { get; set; }
+        }
     }
 }
