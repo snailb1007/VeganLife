@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AndroidX.Room;
 using Firebase.Database;
 using Firebase.Database.Query;
 using HtmlAgilityPack;
@@ -95,6 +96,45 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<PharmacoLogicalModel>> GetPharmacoLogical() =>
             await GetDatasAsync<PharmacoLogicalModel>(nameof(PharmacoLogicalModel), PharmacoLogicalAddress);
+
+        public async Task<IEnumerable<AffiliationModel>> GetAllAffiliations()
+        {
+            var database = ServicesHelper.GetService<AffiliationDataStoreService>();
+            var targetUpdateMaster = _updateMasters.FirstOrDefault(i => i.Id == nameof(AffiliationModel));
+            bool isExistMasterTable = targetUpdateMaster is not null;
+            bool hasUpdate = !isExistMasterTable
+                || (DateTime.UtcNow - targetUpdateMaster?.LastUpdated) > TimeSpan.FromDays(1);
+            if (!hasUpdate)
+            {
+                return await database.GetItemsAsync();
+            }
+
+            var data = await this.firebaseDatabase.Child("/Affiliations")
+                    .OnceSingleAsync<Dictionary<string, Dictionary<string, AffiliationModel>>>();
+            await this.UpdateMasterDataAsync(nameof(AffiliationModel), new(true, 0, isExistMasterTable));
+
+            await SaveDataAsync(data);
+            return await database.GetItemsAsync();
+
+            async Task SaveDataAsync(Dictionary<string, Dictionary<string, AffiliationModel>> data)
+            {
+                foreach (var nutrient in data)
+                {
+                    foreach (var supplement in nutrient.Value)
+                    {
+                        var supplementEntity = new AffiliationModel
+                        {
+                            NutrientName = nutrient.Key,
+                            Name = supplement.Key,
+                            Link = supplement.Value.Link,
+                            Mall = supplement.Value.Mall,
+                            Price = supplement.Value.Price,
+                        };
+                        await database.AddOrUpdateItemAsync(supplementEntity);
+                    }
+                }
+            }
+        }
 
         public async Task<FoodDetailModel> GetFoodDetail(string id)
         {
@@ -334,8 +374,7 @@ namespace VeganLife.Services
             switch (key)
             {
                 case nameof(VitaminModel):
-                    //ver = await GetUpdateMasterVitamin();
-                    ver = 0;
+                    ver = await GetUpdateMasterVitamin();
                     break;
                 case nameof(USDAFoodPreviewModel):
                     ver = await GetUpdateMasterUsdaFoods();
@@ -354,7 +393,10 @@ namespace VeganLife.Services
                 return new(true, ver, false);
             }
 
-            return new(ver == 0 || ver > updateMaster.Version, ver);
+            bool hasUpdate = updateMaster.Version != ver
+                || ver == 0
+                || (DateTime.UtcNow - updateMaster.LastUpdated) > TimeSpan.FromDays(1);
+            return new(hasUpdate, ver);
         }
 
         // Method for fetching a single item
@@ -400,18 +442,12 @@ namespace VeganLife.Services
         private async Task<IEnumerable<TModel>> GetDatasAsync<TModel>(string modelName, string dataAddress)
             where TModel : new()
         {
+            var result = Enumerable.Empty<TModel>();
             var localData = _dataStore[modelName] as IDataStoreService<TModel>;
             var masterData = await CheckUpdateMaster(modelName);
             if (masterData.HasUpdate)
             {
-                var data = await this.GetCollectionFromFirebaseAsync<TModel>(dataAddress);
-                if (data == null)
-                {
-                    return Enumerable.Empty<TModel>();
-                }
-
-                var result = data.Select(MapToModel).ToList();
-
+                result = await EnsureCallAPIAsync();
                 if (localData is null)
                 {
                     return result;
@@ -424,8 +460,6 @@ namespace VeganLife.Services
 
                 _ = localData.SaveItems(result);
                 _ = UpdateMasterDataAsync(modelName, masterData);
-
-                return result;
             }
             else
             {
@@ -434,7 +468,25 @@ namespace VeganLife.Services
                     return Enumerable.Empty<TModel>();
                 }
 
-                return await localData.GetItemsAsync();
+                result = await localData.GetItemsAsync();
+            }
+
+            if (!result.Any())
+            {
+                result = await EnsureCallAPIAsync();
+            }
+
+            return result;
+
+            async Task<IEnumerable<TModel>> EnsureCallAPIAsync()
+            {
+                var data = await this.GetCollectionFromFirebaseAsync<TModel>(dataAddress);
+                if (data == null)
+                {
+                    return Enumerable.Empty<TModel>();
+                }
+
+                return data.Select(MapToModel).ToList();
             }
         }
 
@@ -449,7 +501,6 @@ namespace VeganLife.Services
                     Id = firebaseObject.Key,
                     Content = data.Content ?? string.Empty,
                     Date = data.Date ?? string.Empty,
-                    Affiliations = data.Affiliations,
                 });
             }
             else if (typeof(TModel) == typeof(USDAFoodPreviewModel))
@@ -497,6 +548,7 @@ namespace VeganLife.Services
                 {
                     Id = modelName,
                     Version = masterData.Ver,
+                    LastUpdated = DateTime.UtcNow,
                 },
                 isUpdate: masterData.IsExistMasterTable);
         }

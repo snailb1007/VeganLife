@@ -11,44 +11,28 @@ namespace VeganLife.Models
 {
     public partial class VitaminModel : NutritionBaseModel
     {
-        [JsonProperty("affiliates")]
-        public string AffiliationsJson { get; set; }
     }
 
     public partial class VitaminModel
     {
         public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Id);
-
-        [Ignore]
-        public List<AffiliationModel> Affiliations
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(AffiliationsJson)
-                    ? new List<AffiliationModel>()
-                    : JsonConvert.DeserializeObject<List<AffiliationModel>>(AffiliationsJson) ?? Enumerable.Empty<AffiliationModel>().ToList();
-            }
-
-            set
-            {
-                AffiliationsJson = JsonConvert.SerializeObject(value);
-            }
-        }
     }
 
     //TODO
     public class AffiliationModel
     {
+        [PrimaryKey]
         [AutoIncrement]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        [JsonProperty("name")]
+        public string NutrientName { get; set; }
+
         public string Name { get; set; }
 
-        [JsonProperty("link")]
         public string Link { get; set; }
 
-        [JsonProperty("mall")]
-        public bool IsMall { get; set; }
+        public bool Mall { get; set; }
+
+        public string Price { get; set; }
     }
 }

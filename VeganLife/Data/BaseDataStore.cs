@@ -2,7 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AndroidX.Room;
 using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.Extensions;
@@ -50,7 +49,6 @@ namespace VeganLife.Data
             try
             {
                 var res = await this._connection.DeleteAllAsync<T>();
-                await this._connection.DropTableAsync<T>();
                 return res > 0;
             }
             catch (Exception e)
@@ -65,7 +63,7 @@ namespace VeganLife.Data
         {
             try
             {
-                if (await this.IsExistingItem(item))
+                if (isUpdate || await this.IsExistingItem(item))
                 {
                     return await this._connection.UpdateAsync(item) > 0;
                 }
@@ -76,8 +74,12 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
+#if DEBUG
+                throw new Exception("Error in AddOrUpdateItemAsync", e);
+#else
                 e.LogError();
                 return false;
+#endif
             }
         }
 
@@ -115,14 +117,8 @@ namespace VeganLife.Data
         {
             try
             {
-                // select * from "VitaminModel" where "Id" = ?
-                var tables = await _connection.GetTableInfoAsync("VitaminModel");
-                foreach (var table in tables)
-                {
-                    Debug.WriteLine($"Column Name: {table.Name}, Column Type: {table.GetType()}");
-                }
-
-                return await this._connection.Table<T>().ToListAsync();
+                var result = await this._connection.Table<T>().ToListAsync();
+                return result;
             }
             catch (Exception e)
             {

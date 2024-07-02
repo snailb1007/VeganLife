@@ -3,6 +3,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Services;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Views.Popups;
 
 namespace VeganLife.ViewModels.ContentViewModels
@@ -14,6 +16,9 @@ namespace VeganLife.ViewModels.ContentViewModels
     {
         [ObservableProperty]
         private VitaminModel vitamin;
+
+        [ObservableProperty]
+        private List<AffiliationModel> affiliations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVitaminAndMineralViewModel"/> class.
@@ -27,9 +32,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
             if (parameter is VitaminModel vitamin)
             {
-                vitamin.Affiliations = vitamin.Affiliations
-                    .Where(a => !string.IsNullOrEmpty(a.Link))?
-                    .ToList() ?? Enumerable.Empty<AffiliationModel>().ToList();
+                Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
+                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
                 this.Vitamin = vitamin;
             }
 
@@ -65,7 +69,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         [RelayCommand]
         private async Task OnRecommendedClicked()
         {
-            await this.popupNaviService.PushAsync<AffiliationPopup>(this.Vitamin.Affiliations);
+            await MopupService.Instance.PushAsync(new AffiliationPopup(Affiliations));
         }
     }
 }

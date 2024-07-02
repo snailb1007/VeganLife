@@ -38,5 +38,7 @@ namespace VeganLife.Services
         Task<IEnumerable<AthleticNutritionModel>> GetAthleticNutritions();
 
         Task<IEnumerable<PharmacoLogicalModel>> GetPharmacoLogical();
+
+        Task<IEnumerable<AffiliationModel>> GetAllAffiliations();
     }
 }

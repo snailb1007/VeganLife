@@ -78,7 +78,10 @@ namespace VeganLife
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false);
+
             RegisterServices(builder.Services);
+            RegisterPage(builder.Services);
+
             builder.ConfigureMauiHandlers((h) =>
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
@@ -127,27 +130,7 @@ namespace VeganLife
             services.AddSingleton<AthleticNutritionDataStore>();
             services.AddSingleton<PharmacoLogicalDataStoreService>();
             services.AddSingleton<GoogleAdValidatorDataStoreService>();
-
-            // page
-            services.AddTransient<SettingPage, SettingViewModel>();
-            services.AddTransient<MainTool, MainToolViewModel>();
-            services.AddTransient<MainPage, MainViewModel>();
-            services.AddTransient<NewsFeedPage, NewsFeedViewModel>();
-            services.AddTransient<FlyoutHeader, FlyouttHeaderViewModel>();
-            services.AddTransient<FoodDetailPage, FoodDetailViewModel>();
-            services.AddTransient<BookmarkPage, BookmarkViewModel>();
-            services.AddTransient<FoodsByCategoryPage, FoodsByCategoryViewModel>();
-            services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
-            services.AddTransient<LicensePage, LicenseViewModel>();
-            services.AddTransient<ProfilePage, ProfileViewModel>();
-            services.AddTransient<NoteBookPage, NoteBookPageViewModel>();
-            services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
-            services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
-            services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
-            services.AddTransient<ConversationPage, ConversationViewModel>();
-            services.AddTransient<SupportPage, SupportPageVM>();
-            services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
-            services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
+            services.AddSingleton<AffiliationDataStoreService>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
@@ -167,6 +150,29 @@ namespace VeganLife
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
             services.AddTransient<LoadingPopup>();
             services.AddTransient<AffiliationPopup>();
+        }
+
+        private static void RegisterPage(IServiceCollection services)
+        {
+            services.AddTransient<SettingPage, SettingViewModel>();
+            services.AddTransient<MainTool, MainToolViewModel>();
+            services.AddTransient<MainPage, MainViewModel>();
+            services.AddTransient<NewsFeedPage, NewsFeedViewModel>();
+            services.AddTransient<FlyoutHeader, FlyouttHeaderViewModel>();
+            services.AddTransient<FoodDetailPage, FoodDetailViewModel>();
+            services.AddTransient<BookmarkPage, BookmarkViewModel>();
+            services.AddTransient<FoodsByCategoryPage, FoodsByCategoryViewModel>();
+            services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
+            services.AddTransient<LicensePage, LicenseViewModel>();
+            services.AddTransient<ProfilePage, ProfileViewModel>();
+            services.AddTransient<NoteBookPage, NoteBookPageViewModel>();
+            services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
+            services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
+            services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
+            services.AddTransient<ConversationPage, ConversationViewModel>();
+            services.AddTransient<SupportPage, SupportPageVM>();
+            services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
+            services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

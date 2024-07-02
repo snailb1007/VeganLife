@@ -62,7 +62,7 @@
             CornerRadius="10"
             HeightRequest="48"
             HorizontalOptions="End"
-            IsVisible="{Binding Vitamin.Affiliations, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
+            IsVisible="{Binding Affiliations, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
             LightThemeBackgroundColor="{StaticResource PrimaryOrange2}"
             MaterialTheme="Light"
             VerticalOptions="End"

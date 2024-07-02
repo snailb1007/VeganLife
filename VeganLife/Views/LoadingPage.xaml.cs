@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;
@@ -53,7 +54,9 @@ public partial class LoadingPage : ContentPage
 
         if ((App.Current as App) is App app)
         {
-            await Task.Delay(500);
+            var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
+            await Task.WhenAll(Task.Delay(500), t1);
+            StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
             MainThread.BeginInvokeOnMainThread(() => app.MainPage = new AppShell());
         }
     }
