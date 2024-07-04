@@ -18,14 +18,13 @@
     </ContentView.Resources>
     <ScrollView>
         <CollectionView
-            x:Name="nutritionsCollection"
             Margin="10"
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding AthleticNutritions, Mode=OneWay}"
             SelectionMode="None"
             VerticalOptions="Start">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" />
             </CollectionView.ItemsLayout>
             <CollectionView.EmptyView>
                 <ContentView>
@@ -85,33 +84,26 @@
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:VitaminModel">
-                    <Border
-                        Padding="5"
-                        BackgroundColor="White"
-                        HeightRequest="80"
-                        StrokeShape="RoundRectangle 10"
-                        StrokeThickness="0">
-                        <Border.GestureRecognizers>
+                    <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfAthleticNutritionTab}}" CommandParameter="{Binding .}" />
-                        </Border.GestureRecognizers>
-                        <VerticalStackLayout>
-                            <Label
-                                FontSize="Medium"
-                                HorizontalOptions="FillAndExpand"
-                                LineBreakMode="WordWrap"
-                                MaxLines="2"
-                                Text="{Binding Id}"
-                                TextColor="Black"
-                                VerticalOptions="Start" />
-                            <Label FontSize="Small" Text="{Binding TimeAgo}" />
-                            <BoxView
-                                Margin="0,10,0,0"
-                                HeightRequest="1"
-                                HorizontalOptions="Fill"
-                                Opacity="0.8"
-                                Color="{StaticResource PrimaryDark}" />
-                        </VerticalStackLayout>
-                    </Border>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="FillAndExpand"
+                            LineBreakMode="WordWrap"
+                            MaxLines="2"
+                            Text="{Binding Id}"
+                            TextColor="Black"
+                            VerticalOptions="Start" />
+                        <Label FontSize="Small" Text="{Binding TimeAgo}" />
+                        <BoxView
+                            Margin="0,10,0,0"
+                            HeightRequest="1"
+                            HorizontalOptions="Fill"
+                            Opacity="0.8"
+                            Color="{StaticResource PrimaryDark}" />
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
