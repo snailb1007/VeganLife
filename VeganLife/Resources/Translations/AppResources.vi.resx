@@ -612,4 +612,7 @@ Bạn có thể nhận vào hôm sau</value>
 	<data name="app_common_AthleticNutritionTab_Title" xml:space="preserve">
     <value>Thể thao</value>
   </data>
+	<data name="app_common_PharmacoLogical_Title" xml:space="preserve">
+    <value>Dược lý thể thao</value>
+  </data>
 </root>

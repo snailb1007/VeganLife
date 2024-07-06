@@ -83,7 +83,7 @@
                 </VerticalStackLayout>
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:VitaminModel">
+                <DataTemplate x:DataType="model:AthleticNutritionModel">
                     <VerticalStackLayout>
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfAthleticNutritionTab}}" CommandParameter="{Binding .}" />
