@@ -14,6 +14,9 @@ namespace VeganLife.ViewModels.TabsViewModel
         [ObservableProperty]
         private string pharmacoLogicalSearchText;
 
+        [ObservableProperty]
+        private bool isBannerClosed;
+
         public PharmacoLogicalTabVM()
             : base()
         {
@@ -69,6 +72,12 @@ namespace VeganLife.ViewModels.TabsViewModel
                 string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
                 await Shell.Current.GoToAsync($"//chat?PassedData={query}");
             }
+        }
+
+        [RelayCommand]
+        private void CloseBanner()
+        {
+            this.IsBannerClosed = true;
         }
 
         private ParallelQuery<PharmacoLogicalModel> SearchFoodByName(ParallelQuery<PharmacoLogicalModel> vitamins, string name)

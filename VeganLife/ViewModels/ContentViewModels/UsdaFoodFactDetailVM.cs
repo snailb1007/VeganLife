@@ -12,6 +12,8 @@ namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
+        private NutritionMealLogDataStoreService _foodLogService;
+
         [ObservableProperty]
         private USDAFoodPreviewModel currentFoodPreview;
         [ObservableProperty]
@@ -19,15 +21,18 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
 
+        [ObservableProperty]
+        private bool isDataGridExpanded;
+
         // simplys
         [ObservableProperty]
         private UndefinedFoodNutrient proteinValue = null;
+
         [ObservableProperty]
         private UndefinedFoodNutrient carbValue;
+
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
-
-        private NutritionMealLogDataStoreService foodLogService;
 
         public UsdaFoodFactDetailVM()
         {
@@ -39,6 +44,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             if (parameter != null)
             {
                 this.CurrentFoodPreview = (USDAFoodPreviewModel)parameter;
+                IsDataGridExpanded = string.IsNullOrEmpty(this.CurrentFoodPreview?.Image);
             }
 
             return base.OnNavigatingTo(parameter);
@@ -49,7 +55,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             using (await this.loadingService.Show())
             {
                 await base.ViewAppearingVM();
-                foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
+                _foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
                 if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
                 {
                     if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
@@ -81,6 +87,15 @@ namespace VeganLife.ViewModels.ContentViewModels
                     rootVM.SelectedViewModelIndex = 1;
                     rootVM.VitaminAndMineralVM.VitaminSearchText = param;
                 }
+            }
+        }
+
+        [RelayCommand]
+        private async Task ChangeDataGridExpandState()
+        {
+            using (await loadingService.Show(200))
+            {
+                IsDataGridExpanded = !IsDataGridExpanded;
             }
         }
 
