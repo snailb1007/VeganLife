@@ -26,6 +26,7 @@
         <controls:NavBarControl
             x:Name="navBarContentView"
             Title="{Binding CurrentFoodPreview.Name}"
+            Affiliations="{Binding Affiliations, Mode=OneWay}"
             BackgroundColor="Transparent"
             VerticalOptions="Start"
             ZIndex="1" />

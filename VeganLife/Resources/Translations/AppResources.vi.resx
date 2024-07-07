@@ -156,7 +156,7 @@ Sức khỏe vẫn đầy</value>
 Nhật ký ứng dụng được sử dụng để thu thập và phân tích thông tin cho mục đích cải tiến chất lượng, phát triển sản phẩm và cải tiến dịch vụ.</value>
   </data>
 	<data name="close_common" xml:space="preserve">
-    <value>CLOSE</value>
+    <value>Đóng</value>
   </data>
 	<data name="coming_soon" xml:space="preserve">
     <value>Sắp ra mắt</value>
@@ -614,5 +614,8 @@ Bạn có thể nhận vào hôm sau</value>
   </data>
 	<data name="app_common_PharmacoLogical_Title" xml:space="preserve">
     <value>Dược lý thể thao</value>
+  </data>
+	<data name="affiliatePopup_productsRecommend_Title" xml:space="preserve">
+    <value>Sản phẩm đề xuất</value>
   </data>
 </root>

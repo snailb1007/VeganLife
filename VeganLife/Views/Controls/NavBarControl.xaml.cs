@@ -2,7 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Services;
+using System.Net.NetworkInformation;
 using VeganLife.Helpers;
+using VeganLife.Views.Popups;
 
 namespace VeganLife.Views.Controls
 {
@@ -20,9 +23,30 @@ namespace VeganLife.Views.Controls
             set => this.SetValue(TitleProperty, value);
         }
 
+        public static BindableProperty AffiliationsProperty = BindableProperty.Create(
+                propertyName: nameof(Affiliations),
+                declaringType: typeof(NavBarControl),
+                defaultValue: null,
+                returnType: typeof(List<AffiliationModel>));
+
+        public List<AffiliationModel> Affiliations
+        {
+            get => (List<AffiliationModel>)this.GetValue(AffiliationsProperty);
+            set => this.SetValue(AffiliationsProperty, value);
+        }
+
         public NavBarControl()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName == nameof(Affiliations))
+            {
+                affiliationsShoFrame.IsVisible = Affiliations != null && Affiliations.Any();
+            }
         }
 
         private bool _isProcessing;
@@ -41,5 +65,10 @@ namespace VeganLife.Views.Controls
 
         private void hamburger_Clicked(object sender, EventArgs e)
             => AppShell.ShowFlyOut();
+
+        private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        {
+            await MopupService.Instance.PushAsync(new AffiliationPopup(Affiliations));
+        }
     }
 }

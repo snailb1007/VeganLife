@@ -1,4 +1,5 @@
 using Mopups.Pages;
+using Mopups.Services;
 using VeganLife.Helpers;
 
 namespace VeganLife.Views.Popups;
@@ -22,5 +23,10 @@ public partial class AffiliationPopup : PopupPage
         }
 
         await ServicesHelper.OpenViaBrowserAsync(target.Link);
+    }
+
+    private async void CloseBtn_Clicked(object sender, EventArgs e)
+    {
+        await MopupService.Instance.PopAsync();
     }
 }

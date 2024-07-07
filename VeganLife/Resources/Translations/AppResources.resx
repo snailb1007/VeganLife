@@ -613,4 +613,7 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="app_common_PharmacoLogical_Title" xml:space="preserve">
     <value>app_common_PharmacoLogical_Title</value>
   </data>
+	<data name="affiliatePopup_productsRecommend_Title" xml:space="preserve">
+    <value>affiliatePopup_productsRecommend_Title</value>
+  </data>
 </root>

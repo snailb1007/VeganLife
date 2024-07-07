@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:ProfileViewModel"
     x:TypeArguments="viewmodel:ProfileViewModel"
@@ -25,7 +26,11 @@
     </base:BasePage.Resources>
     <base:BasePage.Content>
         <Grid RowDefinitions="*,3*,6*" RowSpacing="0">
-            <Grid Margin="10,0" RowDefinitions="*,1">
+            <Grid
+                Margin="10,0"
+                IsEnabled="False"
+                Opacity="0.5"
+                RowDefinitions="*,1">
                 <Grid
                     Margin="0,5"
                     ColumnDefinitions="Auto,*,Auto"
@@ -97,7 +102,9 @@
             <Grid
                 Grid.Row="1"
                 Margin="20"
-                BackgroundColor="Transparent">
+                BackgroundColor="Transparent"
+                IsEnabled="False"
+                Opacity="0.5">
                 <Border
                     BackgroundColor="{StaticResource PrimaryLight}"
                     Stroke="#1f807b"
@@ -209,6 +216,8 @@
                 Grid.Row="2"
                 Margin="20"
                 CompressedLayout.IsHeadless="True"
+                IsEnabled="False"
+                Opacity="0.5"
                 Spacing="10">
                 <Label
                     FontAttributes="Bold"
@@ -326,6 +335,13 @@
                     FontSize="Medium"
                     Text="Close" />
             </VerticalStackLayout>
+            <Label
+                Grid.RowSpan="3"
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="{x:Static translate:AppResources.coming_soon}"
+                VerticalOptions="Center" />
         </Grid>
     </base:BasePage.Content>
 </base:BasePage>
