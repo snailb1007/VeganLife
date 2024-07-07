@@ -5,8 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     x:Name="selfAffiliationPopup"
-    BackgroundColor="#80808080">
+    BackgroundColor="#80808080"
+    CloseWhenBackgroundIsClicked="True">
     <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,2*,*">
         <Border
             Grid.Row="1"
@@ -14,14 +16,20 @@
             BackgroundColor="White"
             StrokeShape="RoundRectangle 20"
             StrokeThickness="0">
-            <VerticalStackLayout Spacing="20">
+            <Grid
+                RowDefinitions="Auto,*,Auto"
+                RowSpacing="20"
+                VerticalOptions="FillAndExpand">
                 <Label
                     Margin="0,10,0,10"
                     FontAttributes="Bold"
                     FontSize="Title"
                     HorizontalOptions="Center"
-                    Text="Products Recommend" />
-                <CollectionView ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}}">
+                    Text="{x:Static translate:AppResources.affiliatePopup_productsRecommend_Title}" />
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:AffiliationModel">
                             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
@@ -44,8 +52,13 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
-            </VerticalStackLayout>
+                <Button
+                    Grid.Row="2"
+                    Margin="20"
+                    Clicked="CloseBtn_Clicked"
+                    Text="{x:Static translate:AppResources.close_common}"
+                    VerticalOptions="End" />
+            </Grid>
         </Border>
     </Grid>
 </mopups:PopupPage>

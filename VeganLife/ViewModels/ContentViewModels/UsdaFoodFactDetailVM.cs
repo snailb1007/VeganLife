@@ -24,6 +24,9 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private bool isDataGridExpanded;
 
+        [ObservableProperty]
+        private List<AffiliationModel> affiliations;
+
         // simplys
         [ObservableProperty]
         private UndefinedFoodNutrient proteinValue = null;
@@ -45,6 +48,10 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 this.CurrentFoodPreview = (USDAFoodPreviewModel)parameter;
                 IsDataGridExpanded = string.IsNullOrEmpty(this.CurrentFoodPreview?.Image);
+                var nameNormal = this.CurrentFoodPreview?.Name?.RemoveNestedParentheses() ?? string.Empty;
+                Affiliations = (StaticHelper.Affiliation.Affiliations
+                    .Where(i => i.NutrientName == nameNormal || nameNormal.ToLower().Contains(i.NutrientName.ToLower()))
+                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
             }
 
             return base.OnNavigatingTo(parameter);
