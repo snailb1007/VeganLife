@@ -21,6 +21,12 @@ namespace VeganLife.Views.MainPageFlyout.VitaminTab
         {
             switch (e.StatusType)
             {
+                case GestureStatus.Started:
+                    // Save initial translation offsets
+                    xOffset = ideaFrame.TranslationX;
+                    yOffset = ideaFrame.TranslationY;
+                    break;
+
                 case GestureStatus.Running:
                     ideaFrame.TranslationX = xOffset + e.TotalX;
                     ideaFrame.TranslationY = yOffset + e.TotalY;
@@ -29,6 +35,7 @@ namespace VeganLife.Views.MainPageFlyout.VitaminTab
                 case GestureStatus.Completed:
                     xOffset = ideaFrame.TranslationX;
                     yOffset = ideaFrame.TranslationY;
+                    (ideaFrame as IView).InvalidateMeasure();
                     break;
             }
         }

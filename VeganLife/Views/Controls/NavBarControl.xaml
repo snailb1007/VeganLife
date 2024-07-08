@@ -20,7 +20,7 @@
     <Grid
         Margin="16,0"
         BackgroundColor="Transparent"
-        ColumnDefinitions="Auto, *"
+        ColumnDefinitions="Auto, *, 48"
         HeightRequest="56">
         <sharpnado:MaterialFrame
             Padding="0"
@@ -69,7 +69,7 @@
         </sharpnado:MaterialFrame>
         <Label
             Grid.Row="1"
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
             FontAttributes="Bold"
             FontSize="Medium"
             HorizontalOptions="Center"
@@ -77,5 +77,25 @@
             Text="{Binding Title, Source={x:Reference rootNavBarControl}, Mode=OneWay}"
             TextColor="White"
             VerticalOptions="Center" />
+        <sharpnado:MaterialFrame
+            x:Name="affiliationsShoFrame"
+            Grid.Column="2"
+            Padding="0"
+            CornerRadius="20"
+            HeightRequest="44"
+            IsVisible="False"
+            LightThemeBackgroundColor="{StaticResource PrimaryOrange2}"
+            WidthRequest="44">
+            <sharpnado:MaterialFrame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+            </sharpnado:MaterialFrame.GestureRecognizers>
+            <Label
+                FontFamily="FALight"
+                FontSize="25"
+                HorizontalOptions="Center"
+                Text="&#xf670;"
+                TextColor="Black"
+                VerticalOptions="Center" />
+        </sharpnado:MaterialFrame>
     </Grid>
 </ContentView>

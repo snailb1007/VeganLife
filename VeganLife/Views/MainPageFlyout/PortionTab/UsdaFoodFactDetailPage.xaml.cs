@@ -33,15 +33,6 @@ public partial class UsdaFoodFactDetailPage : ContentPage
         });
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        var loadingService = ServicesHelper.GetService<ILoadingService>();
-        using (await loadingService.Show(200))
-        {
-            IsDataGridExpanded = !IsDataGridExpanded;
-        }
-    }
-
     private void ContentPage_SizeChanged(object sender, EventArgs e)
     {
         headerImgGrid.MaximumHeightRequest = (this.Height / 2) - navBarContentView.Height;
