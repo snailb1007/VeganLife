@@ -26,6 +26,7 @@
         <controls:NavBarControl
             x:Name="navBarContentView"
             Title="{Binding CurrentFoodPreview.Name}"
+            Affiliations="{Binding Affiliations, Mode=OneWay}"
             BackgroundColor="Transparent"
             VerticalOptions="Start"
             ZIndex="1" />
@@ -33,7 +34,7 @@
             x:Name="headerImgGrid"
             Grid.Row="1"
             ColumnDefinitions="*"
-            IsVisible="{Binding IsDataGridExpanded, Source={Reference selfUsdaFoodFactDetailPage}, Converter={StaticResource ReverseConverter}}">
+            IsVisible="{Binding IsDataGridExpanded, Converter={StaticResource ReverseConverter}}">
             <ffimageloading:CachedImage
                 Grid.Row="1"
                 Aspect="AspectFill"
@@ -176,15 +177,15 @@
             </Label>
             <Button
                 BackgroundColor="Transparent"
-                Clicked="Button_Clicked"
+                Command="{Binding ChangeDataGridExpandStateCommand}"
                 FontFamily="FASolid"
-                FontSize="Large"
+                FontSize="Medium"
                 HorizontalOptions="End"
                 Text="&#xf31e;"
                 TextColor="{StaticResource PrimaryDark}">
                 <Button.Triggers>
                     <DataTrigger
-                        Binding="{Binding IsDataGridExpanded, Source={Reference selfUsdaFoodFactDetailPage}}"
+                        Binding="{Binding IsDataGridExpanded}"
                         TargetType="Button"
                         Value="True">
                         <Setter Property="Text" Value="&#xf78c;" />

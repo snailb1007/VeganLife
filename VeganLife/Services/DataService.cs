@@ -118,6 +118,7 @@ namespace VeganLife.Services
 
             async Task SaveDataAsync(Dictionary<string, Dictionary<string, AffiliationModel>> data)
             {
+                await database.DeleteAllItems();
                 foreach (var nutrient in data)
                 {
                     foreach (var supplement in nutrient.Value)

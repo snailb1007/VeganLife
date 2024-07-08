@@ -200,7 +200,7 @@
                 <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.title_macroTab}" />
                 <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
                 <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="Pharmaco Logical Tab" />
+                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_PharmacoLogical_Title}" />
             </sharpnado:TabHostView>
         </ContentView>
         <ContentView Grid.Row="2">

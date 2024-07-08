@@ -114,8 +114,9 @@
         <Grid
             Grid.Row="2"
             Padding="16,10,10,10"
-            ColumnDefinitions="*, Auto, Auto"
-            ColumnSpacing="10">
+            ColumnDefinitions="*, Auto"
+            ColumnSpacing="10"
+            RowDefinitions="Auto">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="1,0">
                     <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
@@ -126,17 +127,16 @@
                 Grid.Column="0"
                 BackgroundColor="{StaticResource PrimaryLight}"
                 StrokeShape="RoundRectangle 36">
-                <Grid ColumnDefinitions="*, 50">
-                    <Editor
-                        Margin="16,0"
-                        MaxLength="100"
-                        MaximumHeightRequest="100"
-                        MinimumHeightRequest="48"
-                        Placeholder="Enter text here..."
-                        Text="{Binding Query, Mode=TwoWay}"
-                        TextColor="{StaticResource Gray100}"
-                        TranslationY="4" />
-                </Grid>
+                <Editor
+                    Margin="16,0"
+                    AutoSize="TextChanges"
+                    MaxLength="100"
+                    MaximumHeightRequest="100"
+                    MinimumHeightRequest="48"
+                    Placeholder="Enter text here..."
+                    Text="{Binding Query, Mode=TwoWay}"
+                    TextColor="{StaticResource Gray100}"
+                    TranslationY="4" />
             </Border>
             <ImageButton
                 Grid.Column="1"
