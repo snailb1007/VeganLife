@@ -83,6 +83,7 @@
             Padding="0"
             CornerRadius="20"
             HeightRequest="44"
+            IsVisible="False"
             LightThemeBackgroundColor="{StaticResource PrimaryOrange2}"
             WidthRequest="44">
             <sharpnado:MaterialFrame.GestureRecognizers>
