@@ -3,6 +3,7 @@ using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.AboutYou;
 using VeganLife.Views.Popups;
 using static VeganLife.Helpers.AppSetting.StaticHelper;
 
@@ -18,7 +19,6 @@ public partial class LoadingPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
         _ = ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
             .ContinueWith(t =>
             {
@@ -54,10 +54,20 @@ public partial class LoadingPage : ContentPage
 
         if ((App.Current as App) is App app)
         {
-            var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
-            await Task.WhenAll(Task.Delay(500), t1);
-            StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
-            MainThread.BeginInvokeOnMainThread(() => app.MainPage = new AppShell());
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
+            {
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    app.MainPage = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
+                });
+            }
+            else
+            {
+                var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
+                await Task.WhenAll(Task.Delay(500), t1);
+                StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
+                MainThread.BeginInvokeOnMainThread(() => app.MainPage = new AppShell());
+            }
         }
     }
 }
