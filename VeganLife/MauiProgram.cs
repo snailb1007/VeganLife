@@ -38,6 +38,7 @@ using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
+using VeganLife.Views.AboutYou;
 
 namespace VeganLife
 {
@@ -173,6 +174,7 @@ namespace VeganLife
             services.AddTransient<SupportPage, SupportPageVM>();
             services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
             services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
+            services.AddTransient<NameAboutUPage, NameAboutUPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()
