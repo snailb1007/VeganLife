@@ -175,6 +175,7 @@ namespace VeganLife
             services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
             services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
             services.AddTransient<NameAboutUPage, NameAboutUPageVM>();
+            services.AddTransient<BirthdayAboutPage, BirthdayAboutPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()
