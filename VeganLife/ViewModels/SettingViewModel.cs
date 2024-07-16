@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Views.SettingTab;
 
@@ -48,6 +49,7 @@ namespace VeganLife.ViewModels
             await this.navigationService.NavigateToPage<LicensePage>();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsAllowCollectLogsChanged(bool value)
         {
             MainThread.BeginInvokeOnMainThread(async () =>

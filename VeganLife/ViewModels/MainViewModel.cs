@@ -4,6 +4,7 @@
 
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.Messaging;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -248,6 +249,7 @@ namespace VeganLife.ViewModels
             return x;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSearchTextChanged(string value)
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))

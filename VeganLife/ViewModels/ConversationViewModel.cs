@@ -3,6 +3,7 @@
 // </copyright>
 
 using Plugin.MauiMTAdmob;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -302,6 +303,7 @@ namespace VeganLife.ViewModels
             }
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnPassedDataChanged(string value)
         {
             this.Query = value;
