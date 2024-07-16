@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Mvvm.Messaging;
 using Mopups.Services;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.messages;
@@ -102,6 +103,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             await MopupService.Instance.PopAsync();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsSaveSelectedChanged(bool value)
         {
             if (value && _localeUserInfo != null)
@@ -115,9 +117,8 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
         }
 
-        partial void OnIsAllowSaveBmiResultChanged(bool value)
-        {
-
-        }
+        //partial void OnIsAllowSaveBmiResultChanged(bool value)
+        //{
+        //}
     }
 }

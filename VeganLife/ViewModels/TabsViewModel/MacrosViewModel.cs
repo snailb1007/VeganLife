@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using PropertyChanged;
 using System.Text;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
@@ -120,6 +121,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             IsBannerClosed = true;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsVeganSelectedChanged(bool value)
         {
             if (value)
@@ -130,6 +132,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsUnVeganSelectedChanged(bool value)
         {
             if (value)
@@ -140,6 +143,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             this.UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnTextSearchChanged(string value)
         {
             if (string.IsNullOrEmpty(value))

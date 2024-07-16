@@ -1,4 +1,5 @@
-﻿using VeganLife.Helpers;
+﻿using PropertyChanged;
+using VeganLife.Helpers;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
@@ -68,6 +69,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             IsBannerClosed = true;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnAthleticNutritionSearchTextChanged(string value)
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))

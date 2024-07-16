@@ -1,4 +1,5 @@
-﻿using VeganLife.Helpers;
+﻿using PropertyChanged;
+using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
@@ -88,6 +89,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 .Any(normalizedName => item.Id.NormalizeString().Contains(normalizedName)));
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnPharmacoLogicalSearchTextChanged(string value)
         {
             if (string.IsNullOrEmpty(value)

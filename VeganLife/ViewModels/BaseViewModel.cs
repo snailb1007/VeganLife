@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Services.LocalDataServices;
 
@@ -62,6 +63,7 @@ namespace VeganLife.ViewModels
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
+        [SuppressPropertyChangedWarnings]
         private void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
         {
             if (e.NetworkAccess != NetworkAccess.Internet)

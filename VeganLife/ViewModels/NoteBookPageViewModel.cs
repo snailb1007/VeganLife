@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
 
@@ -47,6 +48,7 @@ namespace VeganLife.ViewModels
             return base.ViewAppearingVM();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedViewModelIndexChanged(int value)
         {
             switch (value)

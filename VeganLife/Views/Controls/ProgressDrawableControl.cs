@@ -1,4 +1,6 @@
-﻿namespace VeganLife.Views.Controls
+﻿using PropertyChanged;
+
+namespace VeganLife.Views.Controls
 {
     internal class ProgressDrawableControl : BindableObject, IDrawable
     {
@@ -99,6 +101,7 @@
             canvas.DrawString($"{Progress}%", x, verticalPosition, effectiveSize, effectiveSize / 4, HorizontalAlignment.Center, VerticalAlignment.Center);
         }
 
+        [SuppressPropertyChangedWarnings]
         private static void OnPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var view = bindable as ProgressDrawableControl;
