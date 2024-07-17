@@ -8,8 +8,9 @@
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     Title="Step 2 of 5"
     x:DataType="viewmodel:BirthdayAboutPageVM"
-    x:TypeArguments="viewmodel:BirthdayAboutPageVM">
-    <VerticalStackLayout>
+    x:TypeArguments="viewmodel:BirthdayAboutPageVM"
+    BackgroundColor="White">
+    <VerticalStackLayout Margin="20,20,20,0">
         <Label
             FontAttributes="Bold"
             FontSize="32"
@@ -21,10 +22,20 @@
             Padding="10"
             CornerRadius="15"
             MaterialTheme="Acrylic">
-            <Entry
-                HeightRequest="48"
-                Placeholder="Your full name"
-                VerticalOptions="Center" />
+            <Grid Margin="5,0,10,0">
+                <DatePicker
+                    FontSize="Large"
+                    HorizontalOptions="Start"
+                    MaximumDate="{Binding MaximumDateOfBirth}"
+                    MinimumDate="01/01/1977"
+                    VerticalOptions="Center" />
+                <Label
+                    FontFamily="FASolid"
+                    FontSize="Large"
+                    HorizontalOptions="End"
+                    Text="&#xf736;"
+                    VerticalOptions="Center" />
+            </Grid>
         </sharpnado:MaterialFrame>
         <Button Margin="10,20,10,0" Text="Continue" />
     </VerticalStackLayout>

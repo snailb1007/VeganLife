@@ -27,6 +27,9 @@
                 Placeholder="Your full name"
                 VerticalOptions="Center" />
         </sharpnado:MaterialFrame>
-        <Button Margin="10,20,10,0" Text="Next" />
+        <Button
+            Margin="10,20,10,0"
+            Command="{Binding NextClickedCommand}"
+            Text="Next" />
     </VerticalStackLayout>
 </base:BasePage>
