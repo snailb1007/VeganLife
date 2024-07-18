@@ -12,6 +12,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
 using Mopups.Hosting;
 using PanCardView;
+using Plugin.MauiMTAdmob;
 using Sharpnado.MaterialFrame;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -69,14 +70,18 @@ namespace VeganLife
             builder.Logging.AddDebug();
 #endif
             builder
+                .UseMauiCommunityToolkit()
+                .UseMauiMTAdmob()
                 .ConfigureMopups()
                 .UseFFImageLoading()
-                .UseMauiCommunityToolkit()
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false);
+
             RegisterServices(builder.Services);
+            RegisterPage(builder.Services);
+
             builder.ConfigureMauiHandlers((h) =>
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
@@ -109,6 +114,7 @@ namespace VeganLife
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
+            services.AddSingleton<ILoadingService, LoadingService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<SentryService>();
 
@@ -122,8 +128,14 @@ namespace VeganLife
             services.AddSingleton<VitaminsDataStoreService>();
             services.AddSingleton<UpdateMasterDataStoreService>();
             services.AddSingleton<UsdaFoodPreviewsDataStore>();
+            services.AddSingleton<AthleticNutritionDataStore>();
+            services.AddSingleton<PharmacoLogicalDataStoreService>();
+            services.AddSingleton<GoogleAdValidatorDataStoreService>();
+            services.AddSingleton<AffiliationDataStoreService>();
+        }
 
-            // page
+        private static void RegisterPage(IServiceCollection services)
+        {
             services.AddTransient<SettingPage, SettingViewModel>();
             services.AddTransient<MainTool, MainToolViewModel>();
             services.AddTransient<MainPage, MainViewModel>();
@@ -135,18 +147,22 @@ namespace VeganLife
             services.AddTransient<DetailVitaminAndMineralPage, DetailVitaminAndMineralViewModel>();
             services.AddTransient<LicensePage, LicenseViewModel>();
             services.AddTransient<ProfilePage, ProfileViewModel>();
-            services.AddTransient<NoteBookPage, ReportPageViewModel>();
+            services.AddTransient<NoteBookPage, NoteBookPageViewModel>();
             services.AddTransient<BMICalculatorPage, BmiCalculatorViewModel>();
             services.AddTransient<BMRCalculatorPage, BmrCalculatorViewModel>();
             services.AddTransient<UsdaFoodFactDetailPage, UsdaFoodFactDetailVM>();
             services.AddTransient<ConversationPage, ConversationViewModel>();
             services.AddTransient<SupportPage, SupportPageVM>();
+            services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
+            services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
             services.AddTransient<VisionPage, VisionPageVM>();
             services.AddTransient<PracticePage, PracticePageVM>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
             services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
+            services.AddTransient<AthleticNutritionTab, AthleticNutritionTabVM>();
+            services.AddTransient<PharmacoLogicalTab, PharmacoLogicalTabVM>();
 
             services.AddTransient<ChatGPTDisClaimerPage>();
             services.AddTransient<ChatGPTDetailPage>();
@@ -158,6 +174,8 @@ namespace VeganLife
             // Mopup
             services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
+            services.AddTransient<LoadingPopup>();
+            services.AddTransient<AffiliationPopup>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

@@ -5,6 +5,7 @@
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.FoodModel;
+using static Android.Telephony.CarrierConfigManager;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -44,9 +45,11 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object? parameter)
+        public override async Task OnNavigatingTo(object? parameter)
         {
-            IsLoading = true;
+            await base.OnNavigatingTo(parameter!);
+            List<string> imgs = new List<string>();
+
             if (parameter is not null)
             {
                 this.FoodPreview = (FoodPreviewModel)parameter;
@@ -60,21 +63,6 @@ namespace VeganLife.ViewModels.ContentViewModels
                     if (this.IsNetworkConnected)
                     {
                         this.FoodDetail = await this.dataService.GetFoodDetail(this.FoodPreview?.Id ?? string.Empty);
-                        await GetMoreImage()
-                        .ContinueWith(t =>
-                        {
-                            foreach (var i in t.Result)
-                            {
-                                FoodImage.Add(i);
-                            }
-
-                            IsShowingSwipeAnimation = true;
-                            Task.Delay(5000).ContinueWith(t =>
-                            {
-                                IsShowingSwipeAnimation = false;
-                            });
-                        })
-                        .ConfigureAwait(false);
                     }
 
                     if (this.FoodDetail == null)
@@ -85,11 +73,27 @@ namespace VeganLife.ViewModels.ContentViewModels
                     {
                         await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
                     }
+
+                    if (this.IsNetworkConnected)
+                    {
+                        imgs = await dataService.GetImageLinksAsync(this.FoodDetail.RootLink);
+                    }
                 }
             }
 
-            IsLoading = false;
-            return base.OnNavigatingTo(parameter!);
+            _ = GetMoreImage(imgs).ContinueWith(t =>
+                {
+                    foreach (var i in t.Result)
+                    {
+                        FoodImage.Add(i);
+                    }
+
+                    IsShowingSwipeAnimation = true;
+                    Task.Delay(5000).ContinueWith(t =>
+                    {
+                        IsShowingSwipeAnimation = false;
+                    });
+                });
         }
 
         [RelayCommand]
@@ -307,9 +311,8 @@ namespace VeganLife.ViewModels.ContentViewModels
             // }
         }
 
-        private async Task<List<string>> GetMoreImage()
+        private async Task<List<string>> GetMoreImage(List<string> imgs)
         {
-            var imgs = await dataService.GetImageLinksAsync(this.FoodDetail.RootLink);
             if (imgs?.Any() ?? false)
             {
                 var filteredImages = imgs.Where(item =>

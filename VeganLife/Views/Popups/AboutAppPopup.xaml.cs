@@ -9,11 +9,14 @@ namespace VeganLife.Views.Popups;
 
 public partial class AboutAppPopup : Popup
 {
+    public TaskCompletionSource<bool> WaitingAcceptedTaskSource { get; set; }
+
     public AboutAppPopup()
     {
         this.InitializeComponent();
-        rootGrid.WidthRequest = App.MainSize * 0.8;
+        rootGrid.WidthRequest = App.MainWidthSize * 0.8;
         lbVersion.Text = AppInfo.Current.VersionString;
+        WaitingAcceptedTaskSource = new TaskCompletionSource<bool>();
     }
 
     private void TermsAndConditions_Tapped(object sender, TappedEventArgs e)
@@ -30,5 +33,6 @@ public partial class AboutAppPopup : Popup
     {
         this.Close();
         await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString());
+        WaitingAcceptedTaskSource.SetResult(true);
     }
 }

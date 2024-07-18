@@ -13,6 +13,9 @@ namespace VeganLife.Platforms.Android.Vision
         public void OnSuccess(Java.Lang.Object result)
         {
             var res = (Pose)result;
+            if (res == null)
+                return;
+            Console.WriteLine("==> pose detect success: " + res.AllPoseLandmarks.Count);
         }
     }
 }

@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.Core.Content;
 using Java.Lang;
+using VeganLife.Platforms.Android.Services;
 
 namespace VeganLife.Platforms.Android.Vision
 {
@@ -25,6 +26,7 @@ namespace VeganLife.Platforms.Android.Vision
         private Context _context;
         private HandlerThread _backgroundThread;
         private string _cameraId;
+        private PoseDetectionAndroid _poseDetectionAndroid;
 
         public Java.Util.Concurrent.Semaphore CameraOpenCloseLock = new Java.Util.Concurrent.Semaphore(1);
 
@@ -41,6 +43,7 @@ namespace VeganLife.Platforms.Android.Vision
             _mStateListener = new CameraStateListener(this);
             CameraTexturePreview = new TextureView(context);
             CameraTexturePreview.SurfaceTextureListener = this;
+            _poseDetectionAndroid = new PoseDetectionAndroid();
         }
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
@@ -53,6 +56,7 @@ namespace VeganLife.Platforms.Android.Vision
         {
             surface.Dispose();
             CloseDevice();
+            _poseDetectionAndroid = null;
             return false;
         }
 
@@ -62,10 +66,28 @@ namespace VeganLife.Platforms.Android.Vision
         }
 
         private bool _isProcessingFrame;
+        private Bitmap _currentDetectingFrame;
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-            surface.Dispose();
+            try
+            {
+                if (_isProcessingFrame)
+                {
+                    return;
+                }
+
+                _isProcessingFrame = true;
+                _ = _poseDetectionAndroid.DetectPoseAsync(_currentDetectingFrame)
+                    .ContinueWith(t => _isProcessingFrame = false);
+            }
+            catch (System.Exception)
+            {
+            }
+            finally
+            {
+                surface.Dispose();
+            }
         }
 
         internal void StartPreview()

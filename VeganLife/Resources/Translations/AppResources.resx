@@ -300,6 +300,12 @@ List is empty!</value>
 	<data name="firstQuery_vitaminPage" xml:space="preserve">
     <value>firstQuery_vitaminPage</value>
   </data>
+	<data name="firstQuery_athleticNutritionTab" xml:space="preserve">
+    <value>firstQuery_athleticNutritionTab</value>
+  </data>
+	<data name="firstQuery_pharmacoLogicalTab" xml:space="preserve">
+    <value>firstQuery_pharmacoLogicalTab</value>
+  </data>
 	<data name="noFoods_foodByCategoryDetailPage" xml:space="preserve">
     <value>No information about {0} dishes.
 List is empty!</value>
@@ -487,6 +493,15 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="askingAI_conversationChat" xml:space="preserve">
     <value>askingAI_conversationChat</value>
   </data>
+	<data name="getMorePoint_info_label" xml:space="preserve">
+    <value>getMorePoint_info_label</value>
+  </data>
+	<data name="waitingForCollect_info_label" xml:space="preserve">
+    <value>waitingForCollect_info_label</value>
+  </data>
+	<data name="cantCollect_info_label" xml:space="preserve">
+    <value>cantCollect_info_label</value>
+  </data>
 	<data name="previous_welcomePage" xml:space="preserve">
     <value>Previous</value>
   </data>
@@ -591,5 +606,14 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
   </data>
 	<data name="ServiecStop_common" xml:space="preserve">
     <value>ServiecStop_common</value>
+  </data>
+	<data name="app_common_AthleticNutritionTab_Title" xml:space="preserve">
+    <value>app_common_AthleticNutritionTab_Title</value>
+  </data>
+	<data name="app_common_PharmacoLogical_Title" xml:space="preserve">
+    <value>app_common_PharmacoLogical_Title</value>
+  </data>
+	<data name="affiliatePopup_productsRecommend_Title" xml:space="preserve">
+    <value>affiliatePopup_productsRecommend_Title</value>
   </data>
 </root>

@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Plugin.MauiMTAdmob;
+using Plugin.MauiMTAdmob.Extra;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -14,10 +16,7 @@ namespace VeganLife
     /// </summary>
     public partial class App : Application
     {
-        public static double MainSize
-        {
-            get => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-        }
+        public readonly static double MainWidthSize = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
         public static Window Window { get; private set; }
 
@@ -27,9 +26,19 @@ namespace VeganLife
         public App()
         {
             this.InitializeComponent();
-            _ = this.SetupThemeAsync();
+
+            CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+            CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
+            CrossMauiMTAdmob.Current.UseRestrictedDataProcessing = true;
+            CrossMauiMTAdmob.Current.TagForChildDirectedTreatment = MTTagForChildDirectedTreatment.TagForChildDirectedTreatmentUnspecified;
+            CrossMauiMTAdmob.Current.TagForUnderAgeOfConsent = MTTagForUnderAgeOfConsent.TagForUnderAgeOfConsentUnspecified;
+            CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
+            CrossMauiMTAdmob.Current.AdChoicesCorner = AdChoicesCorner.ADCHOICES_BOTTOM_RIGHT;
+            CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
+
             this.SetupLanguage();
-            this.MainPage = new AppShell();
+            this.MainPage = new LoadingPage();
+            _ = this.SetupThemeAsync();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

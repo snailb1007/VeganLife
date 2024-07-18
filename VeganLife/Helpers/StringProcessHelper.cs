@@ -98,5 +98,47 @@ namespace VeganLife.Helpers
             // If no translation is available, just return the English name
             return enName;
         }
+
+        public static string NormalizeString(this string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
+        }
+
+        public static IEnumerable<string> NormalizeStringAndSplit(this string input)
+        {
+            return input.Normalize(NormalizationForm.FormKD)
+                .ToLower()
+                .Split(',')
+                .Select(s => s.Trim())
+                .Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s));
+        }
+
+        public static string RemoveNestedParentheses(this string input)
+        {
+            int open = 0;
+            var result = new char[input.Length];
+            int idx = 0;
+
+            foreach (char c in input)
+            {
+                if (c == '(')
+                {
+                    open++;
+                }
+                else if (c == ')')
+                {
+                    if (open > 0)
+                    {
+                        open--;
+                    }
+                }
+                else if (open == 0)
+                {
+                    result[idx++] = c;
+                }
+            }
+
+            return new string(result, 0, idx);
+        }
     }
 }

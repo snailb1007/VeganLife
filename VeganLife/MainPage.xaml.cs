@@ -2,20 +2,19 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using CommunityToolkit.Maui.Views;
-using VeganLife.Helpers;
-using VeganLife.Resources.Translations;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Views.Base;
-using VeganLife.Views.Popups;
 
 namespace VeganLife
 {
     /// <summary>
     /// auto-generated.
     /// </summary>
-    public partial class MainPage : BasePage<MainViewModel>
+    public partial class MainPage : BasePage<MainViewModel>, IBaseRootPage
     {
         private readonly MainViewModel viewModel;
+
+        public bool IsAnimated { get; set; }
 
         public MainPage(MainViewModel vm)
             : base(vm)
@@ -24,7 +23,7 @@ namespace VeganLife
             this.viewModel = vm;
         }
 
-        private void gridTransparent_TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        private void GridTransparentTapped(object sender, TappedEventArgs e)
         {
             this.searchBar.Unfocus();
         }
@@ -38,27 +37,14 @@ namespace VeganLife
             }
         }
 
-        private async void mainPageRoot_LoadedAsync(object sender, EventArgs e)
+        public void OnOpenedShellFlyout()
         {
-            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances))
-            {
-                await UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).ConfigureAwait(false);
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {
-                    var isCollectAccepted = await this.DisplayAlert(
-                    string.Empty,
-                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
-                    accept: AppResources.ok_common,
-                    cancel: AppResources.cancel_common);
-                    ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
-                    await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
-                });
-            }
+            this.AnimateShellMenu(mainGridContent);
+        }
 
-            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
-            {
-                Dispatcher.Dispatch(async () => await this.ShowPopupAsync(ServicesHelper.GetService<AboutAppPopup>()));
-            }
+        public void OnClosedShellFlyout()
+        {
+            this.AnimateCloseShellMenu(mainGridContent);
         }
     }
 }

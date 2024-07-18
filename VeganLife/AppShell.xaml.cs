@@ -3,7 +3,10 @@
 // </copyright>
 
 using Mopups.Services;
+using Plugin.MauiMTAdmob.Extra;
+using Plugin.MauiMTAdmob;
 using VeganLife.Helpers;
+using VeganLife.Views.Base;
 using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.MainPageFlyout.FoodTab;
 using VeganLife.Views.SettingTab;
@@ -26,6 +29,7 @@ namespace VeganLife
         public AppShell()
         {
             this.InitializeComponent();
+            this.FlyoutWidth = App.MainWidthSize * 0.7;
             this.RegisterRoutes();
         }
 
@@ -33,17 +37,34 @@ namespace VeganLife
         {
             base.OnAppearing();
             ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
+        }
 
-            // Init data
-            this.Dispatcher.Dispatch(async () =>
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName.Equals("FlyoutIsPresented")
+                && this.CurrentPage is IBaseRootPage page
+                && page is not null)
             {
-                await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
-                .ContinueWith(t =>
+                if (this.FlyoutIsPresented)
                 {
-                    HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
-                })
-                .ConfigureAwait(false);
-            });
+                    if (!page.IsAnimated)
+                    {
+                        Shell.SetTabBarIsVisible(CurrentPage, false);
+                        page.OnOpenedShellFlyout();
+                        page.IsAnimated = true;
+                    }
+                }
+                else
+                {
+                    if (page.IsAnimated)
+                    {
+                        page.OnClosedShellFlyout();
+                        SetTabBarIsVisible(CurrentPage, true);
+                        page.IsAnimated = false;
+                    }
+                }
+            }
         }
 
         public static void ShowFlyOut()
@@ -61,12 +82,12 @@ namespace VeganLife
                 case 0:
                     this.CurrentItem = mainTool_tool;
                     break;
-                case 1:
-                    this.CurrentItem = bmiCalculator_tool;
-                    break;
-                case 2:
-                    this.CurrentItem = bmrCalculator_tool;
-                    break;
+                //case 1:
+                //    this.CurrentItem = bmiCalculator_tool;
+                //    break;
+                //case 2:
+                //    this.CurrentItem = bmrCalculator_tool;
+                //    break;
             }
         }
 

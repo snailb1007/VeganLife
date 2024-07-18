@@ -34,5 +34,11 @@ namespace VeganLife.Services
         Task<UndefinedMacroFoodNutriFactModel> GetMacroFoodNutriFacts(string id);
 
         Task<bool> GetMaintenanceStatusAsync();
+
+        Task<IEnumerable<AthleticNutritionModel>> GetAthleticNutritions();
+
+        Task<IEnumerable<PharmacoLogicalModel>> GetPharmacoLogical();
+
+        Task<IEnumerable<AffiliationModel>> GetAllAffiliations();
     }
 }

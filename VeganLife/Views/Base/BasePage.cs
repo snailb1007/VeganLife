@@ -40,9 +40,7 @@ namespace VeganLife.Views.Base
                     return;
                 }
 
-                vm.IsLoading = true;
                 await vm.ViewAppearingVM()!;
-                vm.IsLoading = false;
             });
         }
 

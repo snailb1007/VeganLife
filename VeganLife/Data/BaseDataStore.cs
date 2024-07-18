@@ -63,7 +63,7 @@ namespace VeganLife.Data
         {
             try
             {
-                if (await this.IsExistingItem(item))
+                if (isUpdate || await this.IsExistingItem(item))
                 {
                     return await this._connection.UpdateAsync(item) > 0;
                 }
@@ -74,8 +74,12 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
+#if DEBUG
+                throw new Exception("Error in AddOrUpdateItemAsync", e);
+#else
                 e.LogError();
                 return false;
+#endif
             }
         }
 
@@ -113,7 +117,8 @@ namespace VeganLife.Data
         {
             try
             {
-                return await this._connection.Table<T>().ToListAsync();
+                var result = await this._connection.Table<T>().ToListAsync();
+                return result;
             }
             catch (Exception e)
             {

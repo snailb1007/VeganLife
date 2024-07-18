@@ -12,6 +12,8 @@ namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
+        private NutritionMealLogDataStoreService _foodLogService;
+
         [ObservableProperty]
         private USDAFoodPreviewModel currentFoodPreview;
         [ObservableProperty]
@@ -19,15 +21,21 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
 
+        [ObservableProperty]
+        private bool isDataGridExpanded;
+
+        [ObservableProperty]
+        private List<AffiliationModel> affiliations;
+
         // simplys
         [ObservableProperty]
         private UndefinedFoodNutrient proteinValue = null;
+
         [ObservableProperty]
         private UndefinedFoodNutrient carbValue;
+
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
-
-        private NutritionMealLogDataStoreService foodLogService;
 
         public UsdaFoodFactDetailVM()
         {
@@ -39,29 +47,34 @@ namespace VeganLife.ViewModels.ContentViewModels
             if (parameter != null)
             {
                 this.CurrentFoodPreview = (USDAFoodPreviewModel)parameter;
+                IsDataGridExpanded = string.IsNullOrEmpty(this.CurrentFoodPreview?.Image);
+                var nameNormal = this.CurrentFoodPreview?.Name?.RemoveNestedParentheses() ?? string.Empty;
+                Affiliations = (StaticHelper.Affiliation.Affiliations
+                    .Where(i => i.NutrientName == nameNormal || nameNormal.ToLower().Contains(i.NutrientName.ToLower()))
+                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
             }
 
             return base.OnNavigatingTo(parameter);
         }
 
-        public async override Task<Task> ViewAppearingVM()
+        public async override Task ViewAppearingVM()
         {
-            this.IsLoading = true;
-            foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
-            if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
+            using (await this.loadingService.Show())
             {
-                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
+                await base.ViewAppearingVM();
+                _foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
+                if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
                 {
-                    await ProcessUndefineFoodAsync().ConfigureAwait(false);
-                }
-                else
-                {
-                    await ProcessUsdaFoodAsync().ConfigureAwait(false);
+                    if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
+                    {
+                        await ProcessUndefineFoodAsync().ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        await ProcessUsdaFoodAsync().ConfigureAwait(false);
+                    }
                 }
             }
-
-            this.IsLoading = false;
-            return base.ViewAppearingVM();
         }
 
         [RelayCommand]
@@ -72,16 +85,25 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            IsLoading = true;
-            await this.navigationService.PopToRootAsync();
-            var rootVM = ServicesHelper.GetCurrentViewModel<ReportPageViewModel>();
-            if (rootVM != null)
+            using (await this.loadingService.Show())
             {
-                rootVM.SelectedViewModelIndex = 1;
-                rootVM.VitaminAndMineralVM.VitaminSearchText = param;
+                await this.navigationService.PopToRootAsync();
+                var rootVM = ServicesHelper.GetCurrentViewModel<NoteBookPageViewModel>();
+                if (rootVM != null)
+                {
+                    rootVM.SelectedViewModelIndex = 1;
+                    rootVM.VitaminAndMineralVM.VitaminSearchText = param;
+                }
             }
+        }
 
-            IsLoading = false;
+        [RelayCommand]
+        private async Task ChangeDataGridExpandState()
+        {
+            using (await loadingService.Show(200))
+            {
+                IsDataGridExpanded = !IsDataGridExpanded;
+            }
         }
 
         private async Task ProcessUndefineFoodAsync()

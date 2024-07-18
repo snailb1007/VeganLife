@@ -8,5 +8,7 @@ namespace VeganLife.Models
         public string Id { get; set; }
 
         public int Version { get; set; }
+
+        public DateTime LastUpdated { get; set; } // Timestamp to track the last update
     }
 }

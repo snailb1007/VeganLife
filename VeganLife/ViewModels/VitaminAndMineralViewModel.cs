@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System.Text;
+using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 
@@ -17,6 +17,9 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private string vitaminSearchText;
+
+        [ObservableProperty]
+        private bool isBannerClosed = false;
 
         public VitaminAndMineralViewModel()
             : base()
@@ -43,33 +46,41 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            IsLoading = true;
-            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param)
-                .ConfigureAwait(false);
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
+            }
         }
 
         [RelayCommand]
-        private void EnsureSearch()
+        private async Task EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.VitaminSearchText) || string.IsNullOrWhiteSpace(this.VitaminSearchText))
             {
                 return;
             }
 
-            IsLoading = true;
-            var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
-            this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
+                this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
+            }
         }
 
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-            IsLoading = true;
-            string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
-            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            IsLoading = false;
+            using (await this.loadingService.Show())
+            {
+                string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
+                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
+            }
+        }
+
+        [RelayCommand]
+        private void CloseBanner()
+        {
+            this.IsBannerClosed = true;
         }
 
         partial void OnVitaminSearchTextChanged(string value)
@@ -84,14 +95,10 @@ namespace VeganLife.ViewModels
         private ParallelQuery<VitaminModel> SearchFoodByName(ParallelQuery<VitaminModel> vitamins, string name)
         {
             // Normalize input name to support UTF-8 and improve search accuracy
-            var normalizedName = NormalizeString(name);
-            return vitamins.Where(item => NormalizeString(item.Id).Contains(normalizedName)
-            || NormalizeString(item.VietnameseName).Contains(normalizedName));
-
-            string NormalizeString(string input)
-            {
-                return input.Normalize(NormalizationForm.FormKD).ToLower().Trim();
-            }
+            var normalizedNames = name.NormalizeStringAndSplit();
+            return vitamins.Where(item => normalizedNames
+                .Any(normalizedName => item.Id.NormalizeString().Contains(normalizedName)
+                    || item.VietnameseName.NormalizeString().Contains(normalizedName)));
         }
     }
 }

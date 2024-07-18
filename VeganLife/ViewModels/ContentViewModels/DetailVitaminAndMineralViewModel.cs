@@ -3,6 +3,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Services;
+using VeganLife.Helpers.AppSetting;
+using VeganLife.Views.Popups;
+
 namespace VeganLife.ViewModels.ContentViewModels
 {
     /// <summary>
@@ -12,6 +16,9 @@ namespace VeganLife.ViewModels.ContentViewModels
     {
         [ObservableProperty]
         private VitaminModel vitamin;
+
+        [ObservableProperty]
+        private List<AffiliationModel> affiliations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVitaminAndMineralViewModel"/> class.
@@ -25,6 +32,8 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
             if (parameter is VitaminModel vitamin)
             {
+                Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
+                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
                 this.Vitamin = vitamin;
             }
 
@@ -39,22 +48,28 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            IsLoading = true;
-            var scrollView = Shell.Current.CurrentPage.FindByName<ScrollView>("DetailVitaminAndMineralScrollView");
-            if (scrollView != null)
+            using (await this.loadingService.Show())
             {
-                var stackLayout = scrollView.Content as StackLayout;
-                var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
-                var target = mainStackLayout?.Children
-                    .OfType<Label>()
-                    .FirstOrDefault(label => label.AutomationId == param.ToString()); ;
-                if (target != null)
+                var scrollView = Shell.Current.CurrentPage.FindByName<ScrollView>("DetailAthleticNutritionScrollView");
+                if (scrollView != null)
                 {
-                    await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+                    var stackLayout = scrollView.Content as StackLayout;
+                    var mainStackLayout = stackLayout?.Children.OfType<VerticalStackLayout>().FirstOrDefault();
+                    var target = mainStackLayout?.Children
+                        .OfType<Label>()
+                        .FirstOrDefault(label => label.AutomationId == param.ToString());
+                    if (target != null)
+                    {
+                        await scrollView.ScrollToAsync(target, ScrollToPosition.Start, animated: true);
+                    }
                 }
             }
+        }
 
-            IsLoading = false;
+        [RelayCommand]
+        private async Task OnRecommendedClicked()
+        {
+            await MopupService.Instance.PushAsync(new AffiliationPopup(Affiliations));
         }
     }
 }

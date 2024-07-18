@@ -8,7 +8,7 @@ public partial class BmiMoreInfoToolBarPopup : Popup
     public BmiMoreInfoToolBarPopup(BmiMoreInfoToolBarPopupVM vm)
     {
         InitializeComponent();
-        mainGrid.WidthRequest = App.MainSize * 0.8;
+        mainGrid.WidthRequest = App.MainWidthSize * 0.8;
         this.BindingContext = vm;
     }
 
