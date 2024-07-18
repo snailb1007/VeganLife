@@ -3,7 +3,7 @@ using Android.Graphics;
 using VeganLife.Platforms.Android.Vision;
 using Xamarin.Google.MLKit.Vision.Common;
 using Xamarin.Google.MLKit.Vision.Pose;
-using Xamarin.Google.MLKit.Vision.Pose.Accurate;
+//using Xamarin.Google.MLKit.Vision.Pose.Accurate;
 using Xamarin.Google.MLKit.Vision.Pose.Defaults;
 
 namespace VeganLife.Platforms.Android.Services
@@ -15,7 +15,7 @@ namespace VeganLife.Platforms.Android.Services
         public PoseDetectionAndroid()
         {
             var builder = new PoseDetectorOptions.Builder();
-            builder.SetDetectorMode(AccuratePoseDetectorOptions.StreamMode);
+            builder.SetDetectorMode(PoseDetectorOptionsBase.StreamMode);
             var poseDetector = builder.Build();
             _poseDetector = PoseDetection.GetClient(poseDetector);
         }
