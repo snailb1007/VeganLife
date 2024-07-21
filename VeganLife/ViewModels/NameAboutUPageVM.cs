@@ -6,6 +6,11 @@ namespace VeganLife.ViewModels
 {
     public partial class NameAboutUPageVM : BaseViewModel
     {
+        [ObservableProperty]
+        private string name;
+
+        public bool IsFilledName => !string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name);
+
         public override Task ViewAppearingVM()
         {
             ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
@@ -16,10 +21,12 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         public async Task OnNextClicked()
         {
-            using (await this.loadingService.Show())
+            if (NextClickedCommand.IsRunning)
             {
-                await App.Current?.MainPage?.Navigation?.PushAsync(ServicesHelper.GetService<BirthdayAboutPage>())!;
+                return;
             }
+
+            await this.navigationService.NavigateToPage<BirthdayAboutPage>(paramater: Name);
         }
     }
 }

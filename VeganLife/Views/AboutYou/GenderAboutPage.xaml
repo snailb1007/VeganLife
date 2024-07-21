@@ -7,7 +7,7 @@
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Step 3 of 4"
+    Title="Bước 3 of 4"
     x:DataType="viewmodel:GenderAboutPageVM"
     x:TypeArguments="viewmodel:GenderAboutPageVM"
     BackgroundColor="White">
@@ -16,7 +16,7 @@
             FontAttributes="Bold"
             FontSize="32"
             HorizontalOptions="Start"
-            Text="What's your gender?" />
+            Text="Giới tính của bạn là gì?" />
         <sharpnado:MaterialFrame
             Margin="25,20,25,0"
             Padding="15"
@@ -104,7 +104,9 @@
         <Button
             Margin="10,20"
             Command="{Binding NextClickedCommand}"
-            Text="Continue" />
+            FontAttributes="Bold"
+            FontSize="Medium"
+            Text="Tiếp tục" />
         <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
     </VerticalStackLayout>
 </base:BasePage>
