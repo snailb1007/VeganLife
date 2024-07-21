@@ -11,7 +11,8 @@
     Title="Bước 4 of 4"
     x:DataType="viewmodel:HeightAndWeightAboutPageVM"
     x:TypeArguments="viewmodel:HeightAndWeightAboutPageVM"
-    BackgroundColor="White">
+    BackgroundColor="White"
+    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="All" />
@@ -37,7 +38,8 @@
             <Entry
                 HorizontalOptions="Center"
                 Keyboard="Numeric"
-                Placeholder="ví dụ: 165cm">
+                Placeholder="ví dụ: 165cm"
+                Text="{Binding Height}">
                 <Entry.Behaviors>
                     <toolkit:TextValidationBehavior
                         x:Name="heightValidator"
@@ -57,7 +59,8 @@
             <Entry
                 HorizontalOptions="Center"
                 Keyboard="Numeric"
-                Placeholder="ví dụ: 50kg">
+                Placeholder="ví dụ: 50kg"
+                Text="{Binding Weight}">
                 <Entry.Behaviors>
                     <toolkit:TextValidationBehavior
                         x:Name="weightValidator"
@@ -71,6 +74,7 @@
         </sharpnado:MaterialFrame>
         <Button
             Margin="10,20"
+            Command="{Binding SaveClickedCommand}"
             FontAttributes="Bold"
             FontSize="Large"
             Text="Lưu">

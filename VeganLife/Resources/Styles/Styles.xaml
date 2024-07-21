@@ -26,7 +26,7 @@
         <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}" />
     </Style>
 
-    <!--<ControlTemplate x:Key="FullScreenLoadingTemplate">
+    <ControlTemplate x:Key="FullScreenLoadingTemplate">
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <ContentPresenter Margin="0" Padding="0" />
             <Grid
@@ -39,7 +39,7 @@
                     <MultiTrigger TargetType="Grid">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding ., Converter={StaticResource IsNotNullConverter}}" Value="True" />
-                            <BindingCondition Binding="{Binding IsLoading}" Value="True" />
+                            <BindingCondition Binding="{Binding IsBusy}" Value="True" />
                         </MultiTrigger.Conditions>
                         <Setter Property="IsVisible" Value="True" />
                     </MultiTrigger>
@@ -51,7 +51,7 @@
                     Grid.Column="1"
                     HeightRequest="100"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsLoading}"
+                    IsVisible="{Binding IsBusy}"
                     RepeatCount="-1"
                     RepeatMode="Restart"
                     Source="loading.json"
@@ -59,7 +59,7 @@
                     WidthRequest="100" />
             </Grid>
         </Grid>
-    </ControlTemplate>-->
+    </ControlTemplate>
 
     <ControlTemplate x:Key="EmptyListAnimationTemplate">
         <skia:SKLottieView
