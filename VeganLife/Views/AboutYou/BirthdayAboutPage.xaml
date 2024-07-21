@@ -19,7 +19,7 @@
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="Ngày sinh của bạn là gì, " />
-                    <Span Text="Thien" />
+                    <Span Text="{Binding Name}" />
                     <Span Text="?" />
                 </FormattedString>
             </Label.FormattedText>
