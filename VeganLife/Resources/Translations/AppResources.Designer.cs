@@ -116,6 +116,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to app_common_dataNote.
+        /// </summary>
+        internal static string app_common_dataNote {
+            get {
+                return ResourceManager.GetString("app_common_dataNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to app_common_encyclopediaTab.
         /// </summary>
         internal static string app_common_encyclopediaTab {

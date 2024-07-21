@@ -5,8 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:sharpnado="http://sharpnado.com"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Step 1 of 5"
+    Title="Step 1 of 4"
     x:DataType="viewmodel:NameAboutUPageVM"
     x:TypeArguments="viewmodel:NameAboutUPageVM"
     BackgroundColor="White">
@@ -28,8 +29,9 @@
                 VerticalOptions="Center" />
         </sharpnado:MaterialFrame>
         <Button
-            Margin="10,20,10,0"
+            Margin="10,20"
             Command="{Binding NextClickedCommand}"
             Text="Next" />
+        <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
     </VerticalStackLayout>
 </base:BasePage>
