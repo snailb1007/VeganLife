@@ -64,10 +64,7 @@ public partial class LoadingPage : ContentPage
             }
             else
             {
-                var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
-                await Task.WhenAll(Task.Delay(500), t1);
-                StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
-                MainThread.BeginInvokeOnMainThread(() => app.MainPage = new AppShell());
+                await app.RefreshAppShell();
             }
         }
     }
