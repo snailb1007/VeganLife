@@ -4,7 +4,8 @@ namespace VeganLife.ViewModels
 {
     public partial class BirthdayAboutPageVM : BaseViewModel
     {
-        private string _name;
+        [ObservableProperty]
+        private string name;
 
         public DateTime MaximumDateOfBirth => DateTime.Now.AddDays(-30).Date;
 
@@ -23,7 +24,7 @@ namespace VeganLife.ViewModels
         {
             if (parameter is string name)
             {
-                _name = name;
+                Name = name;
             }
 
             return base.OnNavigatingTo(parameter);
@@ -33,7 +34,7 @@ namespace VeganLife.ViewModels
         public async Task OnContinueClicked()
         {
             await this.navigationService.NavigateToPage<GenderAboutPage>(
-                new InitAboutYouDataRecord(Name: _name, Birthday: SelectedDate, false));
+                new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
         }
     }
 
