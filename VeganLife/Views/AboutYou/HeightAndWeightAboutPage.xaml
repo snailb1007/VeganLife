@@ -8,7 +8,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Bước 4 of 4"
+    Title="Bước 4 trên 4"
     x:DataType="viewmodel:HeightAndWeightAboutPageVM"
     x:TypeArguments="viewmodel:HeightAndWeightAboutPageVM"
     BackgroundColor="White"
@@ -30,12 +30,16 @@
             FontSize="32"
             HorizontalOptions="Start"
             Text="Thông Tin Chiều Cao và Cân Nặng:" />
-        <Label Margin="0,10,0,0" Text="1. Chiều cao của bạn là bao nhiêu? (cm)" />
+        <Label
+            x:Name="heightLb"
+            Margin="0,10,0,0"
+            Text="1. Chiều cao của bạn là bao nhiêu? (cm)" />
         <sharpnado:MaterialFrame
             Padding="10"
             CornerRadius="15"
             MaterialTheme="Acrylic">
             <Entry
+                AutomationProperties.LabeledBy="{x:Reference heightLb}"
                 HorizontalOptions="Center"
                 Keyboard="Numeric"
                 Placeholder="ví dụ: 165cm"
@@ -51,12 +55,13 @@
                 </Entry.Behaviors>
             </Entry>
         </sharpnado:MaterialFrame>
-        <Label Text="2. Cân nặng của bạn là bao nhiêu? (kg)" />
+        <Label x:Name="weightLb" Text="2. Cân nặng của bạn là bao nhiêu? (kg)" />
         <sharpnado:MaterialFrame
             Padding="10"
             CornerRadius="15"
             MaterialTheme="Acrylic">
             <Entry
+                AutomationProperties.LabeledBy="{x:Reference weightLb}"
                 HorizontalOptions="Center"
                 Keyboard="Numeric"
                 Placeholder="ví dụ: 50kg"
