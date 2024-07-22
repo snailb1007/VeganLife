@@ -155,6 +155,9 @@ taste the whole moment</value>
     <value>Allows the application to collect crash.
 Application logs are used to collect and analyze information for quality improvement, product development, and service improvement purposes.</value>
   </data>
+	<data name="app_common_gptUnableEx" xml:space="preserve">
+    <value>app_common_gptUnableEx</value>
+  </data>
 	<data name="close_common" xml:space="preserve">
     <value>Close</value>
   </data>
