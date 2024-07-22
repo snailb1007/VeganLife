@@ -33,10 +33,10 @@ namespace VeganLife.Views.Controls
 
         private async Task DisplayUserInfoPreview()
         {
-            var userData = (this._userDataService as UserDataService)?.UserInfo;
+            var userData = this._userDataService.UserInfo;
             if (string.IsNullOrEmpty(userData?.Name))
             {
-                userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
+                userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
             }
 
             if (userData != null)

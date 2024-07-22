@@ -12,8 +12,8 @@ namespace VeganLife.Helpers
         /// <summary>
         /// get bmi.
         /// </summary>
-        /// <param name="mass">mass to Calculate.</param>
-        /// <param name="height">height to Calculate.</param>
+        /// <param name="mass">mass to Calculate.(kg)</param>
+        /// <param name="height">height to Calculate.(meters)</param>
         /// <returns>Bmi value.</returns>
         public static double Calculate(float mass, float height) => Math.Round(mass / (height * height), 2);
 

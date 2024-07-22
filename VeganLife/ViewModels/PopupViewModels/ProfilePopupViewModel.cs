@@ -59,8 +59,8 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService)?.UserInfo!;
-            if (UserInfo is null)
+            UserInfo = ServicesHelper.GetService<IUserDataService>().UserInfo;
+            if (string.IsNullOrEmpty(UserInfo.Name))
             {
                 return;
             }
@@ -124,12 +124,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                     UserInfo.Weight = outValue;
                 }
 
-                await ServicesHelper.GetService<IUserDataService>().SaveData(
-                    this.UserInfo.DateOfBirth,
-                    name: this.UserInfo.Name,
-                    isMale: this.UserInfo.IsMale,
-                    height: this.UserInfo.Height,
-                    weight: this.UserInfo.Weight);
+                await ServicesHelper.GetService<IUserDataService>().SaveData(this.UserInfo);
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
                 await toast.Show(_cancellationTokenSource.Token);
