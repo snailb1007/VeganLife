@@ -215,6 +215,10 @@ Danh sách trống.</value>
 
 Dữ liệu cá nhân của bạn sẽ không được công khai và lưu trữ ở bất kỳ nơi nào khác ngoài thiết bị của bạn.</value>
   </data>
+	<data name="app_common_gptUnableEx" xml:space="preserve">
+    <value>Xin lỗi, hôm nay tôi đang cùng "ốm" tâm sự.
+Nhưng đừng lo, hãy quay lại vào lúc khác</value>
+  </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
     <value>Tùy chọn</value>
   </data>
