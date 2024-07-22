@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using PropertyChanged;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
@@ -102,12 +103,14 @@ namespace VeganLife.Views.Controls
             this.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
         }
 
+        [SuppressPropertyChangedWarnings]
         private static void OnPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var view = bindable as RatingControl;
             view?.InvalidateSurface();
         }
 
+        [SuppressPropertyChangedWarnings]
         private static void OnValueChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var view = bindable as RatingControl;

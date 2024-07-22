@@ -210,6 +210,15 @@ Danh sách trống.</value>
 	<data name="app_common_recipeTab" xml:space="preserve">
     <value>Công thức</value>
   </data>
+	<data name="app_common_dataNote" xml:space="preserve">
+    <value>📢 Lưu ý:
+
+Dữ liệu cá nhân của bạn sẽ không được công khai và lưu trữ ở bất kỳ nơi nào khác ngoài thiết bị của bạn.</value>
+  </data>
+	<data name="app_common_gptUnableEx" xml:space="preserve">
+    <value>Xin lỗi, hôm nay tôi đang cùng "ốm" tâm sự.
+Nhưng đừng lo, hãy quay lại vào lúc khác</value>
+  </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
     <value>Tùy chọn</value>
   </data>

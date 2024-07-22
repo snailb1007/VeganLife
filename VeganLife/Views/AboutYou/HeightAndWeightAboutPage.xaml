@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.AboutYou.HeightAndWeightAboutPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:sharpnado="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="Bước 4 trên 4"
+    x:DataType="viewmodel:HeightAndWeightAboutPageVM"
+    x:TypeArguments="viewmodel:HeightAndWeightAboutPageVM"
+    BackgroundColor="White"
+    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="All" />
+        </ResourceDictionary>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout Margin="20,20,20,0" Spacing="20">
+        <Label
+            FontAttributes="Bold"
+            FontSize="32"
+            HorizontalOptions="Start"
+            Text="Thông Tin Chiều Cao và Cân Nặng:" />
+        <Label
+            x:Name="heightLb"
+            Margin="0,10,0,0"
+            Text="1. Chiều cao của bạn là bao nhiêu? (cm)" />
+        <sharpnado:MaterialFrame
+            Padding="10"
+            CornerRadius="15"
+            MaterialTheme="Acrylic">
+            <Entry
+                AutomationProperties.LabeledBy="{x:Reference heightLb}"
+                HorizontalOptions="Center"
+                Keyboard="Numeric"
+                Placeholder="ví dụ: 165cm"
+                SemanticProperties.Description="LabeledBy heightLb"
+                Text="{Binding Height}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        x:Name="heightValidator"
+                        Flags="ValidateOnValueChanged"
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        IsValid="False"
+                        RegexPattern="^(5[0-9]|[6-9][0-9]|1[0-9]{2}|2[0-4][0-9]|250)$"
+                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                </Entry.Behaviors>
+            </Entry>
+        </sharpnado:MaterialFrame>
+        <Label x:Name="weightLb" Text="2. Cân nặng của bạn là bao nhiêu? (kg)" />
+        <sharpnado:MaterialFrame
+            Padding="10"
+            CornerRadius="15"
+            MaterialTheme="Acrylic">
+            <Entry
+                AutomationProperties.LabeledBy="{x:Reference weightLb}"
+                HorizontalOptions="Center"
+                Keyboard="Numeric"
+                Placeholder="ví dụ: 50kg"
+                Text="{Binding Weight}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        x:Name="weightValidator"
+                        Flags="ValidateOnValueChanged"
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        IsValid="False"
+                        RegexPattern="^([2-9]?\d|1\d{2}|200)(\.\d{1,2})?$"
+                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                </Entry.Behaviors>
+            </Entry>
+        </sharpnado:MaterialFrame>
+        <Button
+            Margin="10,20"
+            Command="{Binding SaveClickedCommand}"
+            FontAttributes="Bold"
+            FontSize="Large"
+            Text="Lưu">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
+                    <Binding Path="IsValid" Source="{x:Reference heightValidator}" />
+                    <Binding Path="IsValid" Source="{x:Reference weightValidator}" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+        <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
+    </VerticalStackLayout>
+</base:BasePage>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.AboutYou.BirthdayAboutPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:sharpnado="http://sharpnado.com"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="Bước 2 trên 5"
+    x:DataType="viewmodel:BirthdayAboutPageVM"
+    x:TypeArguments="viewmodel:BirthdayAboutPageVM"
+    BackgroundColor="White">
+    <VerticalStackLayout Margin="20,20,20,0" Spacing="20">
+        <Label
+            FontAttributes="Bold"
+            FontSize="32"
+            HorizontalOptions="Start">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Ngày sinh của bạn là gì, " />
+                    <Span FontAttributes="Italic, Bold" Text="{Binding Name}" />
+                    <Span Text="?" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <sharpnado:MaterialFrame
+            Margin="0,20,0,0"
+            Padding="10"
+            CornerRadius="15"
+            MaterialTheme="Acrylic">
+            <Grid Margin="5,0,10,0">
+                <DatePicker
+                    Date="{Binding SelectedDate, Mode=OneWayToSource}"
+                    FontSize="Large"
+                    HorizontalOptions="Start"
+                    MaximumDate="{Binding MaximumDateOfBirth}"
+                    MinimumDate="01/01/1977"
+                    VerticalOptions="Center" />
+                <Label
+                    FontFamily="FASolid"
+                    FontSize="Large"
+                    HorizontalOptions="End"
+                    Text="&#xf736;"
+                    VerticalOptions="Center" />
+            </Grid>
+        </sharpnado:MaterialFrame>
+        <Button
+            Margin="10,20"
+            AutomationProperties.HelpText="Tap to continue and send selected data"
+            Command="{Binding ContinueClickedCommand}"
+            FontAttributes="Bold"
+            FontSize="Medium"
+            Text="Tiếp tục" />
+        <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
+    </VerticalStackLayout>
+</base:BasePage>

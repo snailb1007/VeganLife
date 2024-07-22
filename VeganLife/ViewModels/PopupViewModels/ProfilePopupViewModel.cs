@@ -5,6 +5,7 @@
 using Android.OS;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Messaging;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.messages;
@@ -136,30 +137,36 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnUserNameChanged(string value)
         {
             IsWrongFormatName = false;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedDateChanged(DateTime value)
         {
             IsWrongDate = false;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnUserWeightChanged(string value)
         {
             IsWrongFormatWeight = false;
         }
 
-        partial void OnUserHeightChanged(short value)
-        {
-        }
+        //[SuppressPropertyChangedWarnings]
+        //partial void OnUserHeightChanged(short value)
+        //{
+        //}
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsWrongFormatNameChanged(bool value)
         {
             SetupErrorMess();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsWrongFormatWeightChanged(bool value)
         {
             SetupErrorMess();

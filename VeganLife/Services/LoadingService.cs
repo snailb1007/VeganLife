@@ -25,7 +25,7 @@ namespace VeganLife.Services
             await Task.Delay(_delayTime).ContinueWith(t => IsLoading = false).ConfigureAwait(false);
         }
 
-        public async Task<IDisposable> Show(ushort delayTime =0)
+        public async Task<IDisposable> Show(ushort delayTime = 0)
         {
             IsLoading = true;
             _delayTime = delayTime;

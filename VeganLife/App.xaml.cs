@@ -4,6 +4,7 @@
 
 using Plugin.MauiMTAdmob;
 using Plugin.MauiMTAdmob.Extra;
+using Sentry.Protocol;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -75,6 +76,14 @@ namespace VeganLife
                 _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem,
             };
 #endif
+        }
+
+        public async Task RefreshAppShell()
+        {
+            var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
+            await Task.WhenAll(Task.Delay(500), t1);
+            StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
+            MainThread.BeginInvokeOnMainThread(() => this.MainPage = new AppShell());
         }
     }
 }

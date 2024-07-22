@@ -20,16 +20,20 @@ namespace VeganLife.Services
                 {
                     return navigation;
                 }
-                else
-                {
-                    // This is not good!
-                    if (Debugger.IsAttached)
-                    {
-                        Debugger.Break();
-                    }
 
-                    throw new Exception();
+                navigation = Application.Current?.MainPage?.Navigation;
+                if (navigation is not null)
+                {
+                    return navigation;
                 }
+
+                // This is not good!
+                if (Debugger.IsAttached)
+                {
+                    Debugger.Break();
+                }
+
+                throw new Exception();
             }
         }
 
