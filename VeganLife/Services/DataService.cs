@@ -179,6 +179,7 @@ namespace VeganLife.Services
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
+                _ = e;
                 return Enumerable.Empty<FoodPreviewModel>();
             }
         }
@@ -202,6 +203,7 @@ namespace VeganLife.Services
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
+                _ = e;
                 return new FoodNutrientFacts();
             }
         }
@@ -226,6 +228,7 @@ namespace VeganLife.Services
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
+                _ = e
                 return new UndefinedMacroFoodNutriFactModel();
             }
         }
