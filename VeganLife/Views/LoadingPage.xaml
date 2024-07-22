@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<mopups:PopupPage
-    x:Class="VeganLife.Views.Popups.LoadingPopup"
+<ContentPage
+    x:Class="VeganLife.Views.LoadingPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-    BackgroundColor="#80808080"
-    CloseWhenBackgroundIsClicked="False">
-    <Border
-        BackgroundColor="White"
-        HeightRequest="80"
-        StrokeShape="RoundRectangle 10"
-        StrokeThickness="0"
-        WidthRequest="80">
+    Title="LoadingPage"
+    BackgroundColor="Black"
+    Loaded="SelfContentLoaded">
+    <Grid>
         <skia:SKLottieView
             Grid.Column="1"
             Margin="0"
@@ -24,5 +19,5 @@
             Source="loading.json"
             VerticalOptions="Center"
             WidthRequest="80" />
-    </Border>
-</mopups:PopupPage>
+    </Grid>
+</ContentPage>

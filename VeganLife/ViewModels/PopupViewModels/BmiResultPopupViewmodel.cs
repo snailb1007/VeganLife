@@ -104,7 +104,7 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         partial void OnIsSaveSelectedChanged(bool value)
         {
-            if (value)
+            if (value && _localeUserInfo != null)
             {
                 this.IsLocaleUser = _localeUserInfo.Age == _result.Age
                     && _localeUserInfo.IsMale == _result.IsMale;

@@ -78,7 +78,10 @@ namespace VeganLife
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false);
+
             RegisterServices(builder.Services);
+            RegisterPage(builder.Services);
+
             builder.ConfigureMauiHandlers((h) =>
             {
                 h.AddHandler(typeof(Shell), typeof(ShellHandler));
@@ -127,8 +130,30 @@ namespace VeganLife
             services.AddSingleton<AthleticNutritionDataStore>();
             services.AddSingleton<PharmacoLogicalDataStoreService>();
             services.AddSingleton<GoogleAdValidatorDataStoreService>();
+            services.AddSingleton<AffiliationDataStoreService>();
 
-            // page
+            // tab content
+            services.AddTransient<MacrosTab, MacrosViewModel>();
+            services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
+            services.AddTransient<AthleticNutritionTab, AthleticNutritionTabVM>();
+            services.AddTransient<PharmacoLogicalTab, PharmacoLogicalTabVM>();
+
+            services.AddTransient<ChatGPTDisClaimerPage>();
+            services.AddTransient<ChatGPTDetailPage>();
+
+            // Toolkit pop-up
+            services.AddTransient<AboutAppPopup>();
+            services.AddTransientPopup<BmiMoreInfoToolBarPopup, BmiMoreInfoToolBarPopupVM>();
+
+            // Mopup
+            services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
+            services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
+            services.AddTransient<LoadingPopup>();
+            services.AddTransient<AffiliationPopup>();
+        }
+
+        private static void RegisterPage(IServiceCollection services)
+        {
             services.AddTransient<SettingPage, SettingViewModel>();
             services.AddTransient<MainTool, MainToolViewModel>();
             services.AddTransient<MainPage, MainViewModel>();
@@ -148,24 +173,6 @@ namespace VeganLife
             services.AddTransient<SupportPage, SupportPageVM>();
             services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
             services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
-
-            // tab content
-            services.AddTransient<MacrosTab, MacrosViewModel>();
-            services.AddTransient<VitaminsTab, VitaminAndMineralViewModel>();
-            services.AddTransient<AthleticNutritionTab, AthleticNutritionTabVM>();
-            services.AddTransient<PharmacoLogicalTab, PharmacoLogicalTabVM>();
-
-            services.AddTransient<ChatGPTDisClaimerPage>();
-            services.AddTransient<ChatGPTDetailPage>();
-
-            // Toolkit pop-up
-            services.AddTransient<AboutAppPopup>();
-            services.AddTransientPopup<BmiMoreInfoToolBarPopup, BmiMoreInfoToolBarPopupVM>();
-
-            // Mopup
-            services.AddTransient<BmiResultPopup, BmiResultPopupViewmodel>();
-            services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
-            services.AddTransient<LoadingPopup>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

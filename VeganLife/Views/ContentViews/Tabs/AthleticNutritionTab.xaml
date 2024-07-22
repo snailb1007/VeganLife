@@ -3,6 +3,7 @@
     x:Class="VeganLife.Views.ContentViews.Tabs.AthleticNutritionTab"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:adsControl="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -12,18 +13,18 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <ScrollView>
         <CollectionView
-            x:Name="nutritionsCollection"
             Margin="10"
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding AthleticNutritions, Mode=OneWay}"
             SelectionMode="None"
             VerticalOptions="Start">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" />
             </CollectionView.ItemsLayout>
             <CollectionView.EmptyView>
                 <ContentView>
@@ -42,52 +43,67 @@
                 </ContentView>
             </CollectionView.EmptyView>
             <CollectionView.Header>
-                <Label HorizontalOptions="End">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span
-                                FontAttributes="Bold"
-                                FontSize="Medium"
-                                Text="{Binding AthleticNutritions.Count}" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+                <VerticalStackLayout>
+                    <Grid Margin="0,0,10,0" IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
+                        <adsControl:MTAdView
+                            x:Name="mtAdFixed"
+                            AdsLoaded="OnAdLoaded"
+                            HeightRequest="50"
+                            HorizontalOptions="EndAndExpand"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            x:Name="closeLb"
+                            BackgroundColor="{StaticResource Gray300}"
+                            FontFamily="FARegular"
+                            FontSize="20"
+                            HeightRequest="20"
+                            HorizontalOptions="End"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="False"
+                            Text="&#xf00d;"
+                            TextColor="White"
+                            VerticalOptions="Start"
+                            VerticalTextAlignment="Center"
+                            WidthRequest="20">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CloseAdBannerCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                    <Label HorizontalOptions="End">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding AthleticNutritions.Count}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:VitaminModel">
-                    <Border
-                        Padding="5"
-                        BackgroundColor="White"
-                        HeightRequest="80"
-                        StrokeShape="RoundRectangle 10"
-                        StrokeThickness="0">
-                        <Border.GestureRecognizers>
+                <DataTemplate x:DataType="model:AthleticNutritionModel">
+                    <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfAthleticNutritionTab}}" CommandParameter="{Binding .}" />
-                        </Border.GestureRecognizers>
-                        <VerticalStackLayout>
-                            <Label
-                                FontSize="Medium"
-                                HorizontalOptions="FillAndExpand"
-                                LineBreakMode="WordWrap"
-                                MaxLines="2"
-                                TextColor="Black"
-                                VerticalOptions="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding Id}" />
-                                        <!--<Span Text="{Binding VietnameseName, StringFormat=' ({0})'}" />-->
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label FontSize="Small" Text="{Binding TimeAgo}" />
-                            <BoxView
-                                Margin="0,10,0,0"
-                                HeightRequest="1"
-                                HorizontalOptions="Fill"
-                                Opacity="0.8"
-                                Color="{StaticResource PrimaryDark}" />
-                        </VerticalStackLayout>
-                    </Border>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="FillAndExpand"
+                            LineBreakMode="WordWrap"
+                            MaxLines="2"
+                            Text="{Binding Id}"
+                            TextColor="Black"
+                            VerticalOptions="Start" />
+                        <Label FontSize="Small" Text="{Binding TimeAgo}" />
+                        <BoxView
+                            Margin="0,10,0,0"
+                            HeightRequest="1"
+                            HorizontalOptions="Fill"
+                            Opacity="0.8"
+                            Color="{StaticResource PrimaryDark}" />
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

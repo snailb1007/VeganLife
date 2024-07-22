@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Newtonsoft.Json;
+using SQLite;
 using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
 
@@ -16,16 +18,21 @@ namespace VeganLife.Models
         public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Id);
     }
 
-    // TODO
-    //public class AffiliationModel
-    //{
-    //    [JsonIgnore]
-    //    required public string Id { get; set; }
+    //TODO
+    public class AffiliationModel
+    {
+        [PrimaryKey]
+        [AutoIncrement]
+        public int Id { get; set; }
 
-    //    [JsonProperty("name")]
-    //    public string Name { get; set; }
+        public string NutrientName { get; set; }
 
-    //    [JsonProperty("link")]
-    //    public string Link { get; set; }
-    //}
+        public string Name { get; set; }
+
+        public string Link { get; set; }
+
+        public bool Mall { get; set; }
+
+        public string Price { get; set; }
+    }
 }

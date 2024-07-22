@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
         </ResourceDictionary>
         <DataTemplate x:Key="classicItemTemplate" x:DataType="usdaModel:USDAFoodPreviewModel">
             <sho:MaterialFrame
@@ -46,8 +47,20 @@
                             Aspect="AspectFill"
                             CacheType="Disk"
                             DownsampleToViewSize="True"
+                            ErrorPlaceholder="app_icon.jpg"
+                            LoadingPlaceholder="app_icon.jpg"
                             LoadingPriority="Low"
-                            Source="{Binding Image, Mode=OneTime}" />
+                            Source="{Binding Image, Mode=OneTime}">
+                            <ffimageloading:CachedImage.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Image, Converter={StaticResource IsStringNullOrEmptyConverter}}"
+                                    TargetType="ffimageloading:CachedImage"
+                                    Value="True">
+                                    <Setter Property="Source" Value="app_icon.jpg" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </DataTrigger>
+                            </ffimageloading:CachedImage.Triggers>
+                        </ffimageloading:CachedImage>
                     </sho:MaterialFrame>
                     <Grid Grid.Column="1">
                         <Label

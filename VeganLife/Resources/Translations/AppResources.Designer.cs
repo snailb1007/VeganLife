@@ -61,6 +61,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to affiliatePopup_productsRecommend_Title.
+        /// </summary>
+        internal static string affiliatePopup_productsRecommend_Title {
+            get {
+                return ResourceManager.GetString("affiliatePopup_productsRecommend_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Age.
         /// </summary>
         internal static string age_bmiPage {
@@ -121,6 +130,15 @@ namespace VeganLife.Resources.Translations {
         internal static string app_common_homeTab {
             get {
                 return ResourceManager.GetString("app_common_homeTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to app_common_PharmacoLogical_Title.
+        /// </summary>
+        internal static string app_common_PharmacoLogical_Title {
+            get {
+                return ResourceManager.GetString("app_common_PharmacoLogical_Title", resourceCulture);
             }
         }
         

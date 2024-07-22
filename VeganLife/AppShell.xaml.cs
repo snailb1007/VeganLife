@@ -37,17 +37,6 @@ namespace VeganLife
         {
             base.OnAppearing();
             ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
-
-            // Init data
-            this.Dispatcher.Dispatch(async () =>
-            {
-                await ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
-                .ContinueWith(t =>
-                {
-                    HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
-                })
-                .ConfigureAwait(false);
-            });
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -93,12 +82,12 @@ namespace VeganLife
                 case 0:
                     this.CurrentItem = mainTool_tool;
                     break;
-                case 1:
-                    this.CurrentItem = bmiCalculator_tool;
-                    break;
-                case 2:
-                    this.CurrentItem = bmrCalculator_tool;
-                    break;
+                //case 1:
+                //    this.CurrentItem = bmiCalculator_tool;
+                //    break;
+                //case 2:
+                //    this.CurrentItem = bmrCalculator_tool;
+                //    break;
             }
         }
 

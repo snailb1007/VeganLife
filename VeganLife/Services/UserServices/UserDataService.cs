@@ -14,7 +14,7 @@ namespace VeganLife.Services.UserServices
             this.UserInfo = new UserInfo();
         }
 
-        private async Task Init()
+        public async Task Init()
         {
             UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
             this._hasOldData = UserInfo != null;
