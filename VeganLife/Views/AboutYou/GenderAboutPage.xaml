@@ -7,7 +7,7 @@
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Bước 3 of 4"
+    Title="Bước 3 trên 4"
     x:DataType="viewmodel:GenderAboutPageVM"
     x:TypeArguments="viewmodel:GenderAboutPageVM"
     BackgroundColor="White">
@@ -24,7 +24,10 @@
             CornerRadius="15"
             MaterialTheme="Acrylic">
             <sharpnado:MaterialFrame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="0" />
+                <TapGestureRecognizer
+                    AutomationProperties.HelpText="Tap to select female gender"
+                    Command="{Binding SelectGenderCommand}"
+                    CommandParameter="0" />
             </sharpnado:MaterialFrame.GestureRecognizers>
             <sharpnado:MaterialFrame.Triggers>
                 <DataTrigger
@@ -66,7 +69,10 @@
             CornerRadius="15"
             MaterialTheme="Acrylic">
             <sharpnado:MaterialFrame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="1" />
+                <TapGestureRecognizer
+                    AutomationProperties.HelpText="Tap to select male gender"
+                    Command="{Binding SelectGenderCommand}"
+                    CommandParameter="1" />
             </sharpnado:MaterialFrame.GestureRecognizers>
             <sharpnado:MaterialFrame.Triggers>
                 <DataTrigger
@@ -103,6 +109,7 @@
         </sharpnado:MaterialFrame>
         <Button
             Margin="10,20"
+            AutomationProperties.HelpText="Tap to continue and send selected data"
             Command="{Binding NextClickedCommand}"
             FontAttributes="Bold"
             FontSize="Medium"

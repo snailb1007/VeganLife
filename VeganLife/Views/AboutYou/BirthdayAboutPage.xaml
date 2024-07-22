@@ -7,7 +7,7 @@
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Bước 2 of 5"
+    Title="Bước 2 trên 5"
     x:DataType="viewmodel:BirthdayAboutPageVM"
     x:TypeArguments="viewmodel:BirthdayAboutPageVM"
     BackgroundColor="White">
@@ -47,6 +47,7 @@
         </sharpnado:MaterialFrame>
         <Button
             Margin="10,20"
+            AutomationProperties.HelpText="Tap to continue and send selected data"
             Command="{Binding ContinueClickedCommand}"
             FontAttributes="Bold"
             FontSize="Medium"

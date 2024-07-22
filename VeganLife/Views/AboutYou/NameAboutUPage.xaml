@@ -8,12 +8,13 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title="Bước 1 of 4"
+    Title="Bước 1 trên 4"
     x:DataType="viewmodel:NameAboutUPageVM"
     x:TypeArguments="viewmodel:NameAboutUPageVM"
     BackgroundColor="White">
     <VerticalStackLayout Margin="20,20,20,0" Spacing="20">
         <Label
+            x:Name="nameLb"
             FontAttributes="Bold"
             FontSize="32"
             HorizontalOptions="Start"
@@ -29,6 +30,7 @@
             MaterialTheme="Acrylic">
             <Entry
                 x:Name="nameEntry"
+                AutomationProperties.LabeledBy="{x:Reference nameLb}"
                 HeightRequest="48"
                 Placeholder="tên đầy đủ, hoặc biệt danh"
                 Text="{Binding Name}"
@@ -36,6 +38,7 @@
         </sharpnado:MaterialFrame>
         <Button
             Margin="10,20"
+            AutomationProperties.HelpText="Tap to go next  and send Name data"
             Command="{Binding NextClickedCommand}"
             FontAttributes="Bold"
             FontSize="Medium"
