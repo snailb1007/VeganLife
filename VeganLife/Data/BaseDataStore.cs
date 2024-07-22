@@ -69,7 +69,7 @@ namespace VeganLife.Data
                 }
                 else
                 {
-                    return await this._connection.InsertAsync(item) > 0;
+                    return await this._connection.InsertOrReplaceAsync(item) > 0;
                 }
             }
             catch (Exception e)
@@ -99,11 +99,12 @@ namespace VeganLife.Data
         }
 
         /// <inheritdoc/>
-        public async Task<T> GetItemAsync()
+        public async Task<T> GetItemAsync(string id)
         {
             try
             {
-                return await this._connection.Table<T>().FirstOrDefaultAsync();
+                var res = await this._connection.FindAsync<T>(id);
+                return res;
             }
             catch (Exception e)
             {
@@ -132,9 +133,9 @@ namespace VeganLife.Data
             await this.Init();
             try
             {
-                var result = await this._connection.Table<T>().ToListAsync()
-                    .ContinueWith(t => t.Result.FirstOrDefault());
-                return result ?? default!;
+                var result = await this._connection.Table<T>()
+                    .FirstOrDefaultAsync();
+                return result;
             }
             catch (Exception e)
             {

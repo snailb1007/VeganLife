@@ -258,6 +258,9 @@
 		<MauiXaml Update="Views\LoadingPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\MealLogsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\MainPageFlyout\VitaminTab\DetailAthleticNutritionPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

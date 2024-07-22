@@ -29,7 +29,8 @@ namespace VeganLife.Helpers
         }
 
         // get current viewmodel by type
-        public static T GetCurrentViewModel<T>() where T : BaseViewModel
+        public static T? GetCurrentViewModel<T>()
+            where T : BaseViewModel
         {
             return GetCurrentViewModel() as T;
         }

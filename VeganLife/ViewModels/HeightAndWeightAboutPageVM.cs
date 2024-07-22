@@ -35,7 +35,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            if (!double.TryParse(Height, out var height) || !double.TryParse(Weight, out var weight))
+            if (!float.TryParse(Height, out var height) || !float.TryParse(Weight, out var weight))
             {
                 return;
             }
@@ -55,8 +55,7 @@ namespace VeganLife.ViewModels
                 Weight = (float)weight,
             };
 
-            ServicesHelper.GetService<IUserDataService>().UserInfo = user;
-            await ServicesHelper.GetService<IUserDataService>().SaveData();
+            _ = ServicesHelper.GetService<IUserDataService>().SaveData(user);
             _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
             await (App.Current as App)?.RefreshAppShell()!;
