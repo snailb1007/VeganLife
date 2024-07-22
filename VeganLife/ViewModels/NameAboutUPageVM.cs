@@ -1,4 +1,7 @@
-﻿
+﻿// <copyright file="NameAboutUPageVM.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using VeganLife.Helpers;
 using VeganLife.Views.AboutYou;
 
@@ -9,7 +12,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private string name;
 
-        public bool IsFilledName => !string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name);
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(NextClickedCommand))]
+        private bool isFilledName;
 
         public override Task ViewAppearingVM()
         {
@@ -17,7 +22,7 @@ namespace VeganLife.ViewModels
             return base.ViewAppearingVM();
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(IsFilledName))]
         public async Task OnNextClicked()
         {
             if (NextClickedCommand.IsRunning)
@@ -26,6 +31,11 @@ namespace VeganLife.ViewModels
             }
 
             await this.navigationService.NavigateToPage<BirthdayAboutPage>(paramater: Name);
+        }
+
+        partial void OnNameChanged(string value)
+        {
+            IsFilledName = !string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name);
         }
     }
 }

@@ -42,7 +42,6 @@
             Command="{Binding NextClickedCommand}"
             FontAttributes="Bold"
             FontSize="Medium"
-            IsEnabled="{Binding IsFilledName}"
             Text="Kế tiếp" />
         <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
     </VerticalStackLayout>

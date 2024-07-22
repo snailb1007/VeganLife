@@ -228,7 +228,7 @@ namespace VeganLife.Services
 #if DEBUG
                 Console.WriteLine(e.StackTrace);
 #endif
-                _ = e
+                _ = e;
                 return new UndefinedMacroFoodNutriFactModel();
             }
         }

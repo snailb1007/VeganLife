@@ -54,8 +54,8 @@ public partial class LoadingPage : ContentPage
 
         if ((App.Current as App) is App app)
         {
-            //if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
-            if (true)
+            //if (true)
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
             {
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {
