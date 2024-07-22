@@ -15,7 +15,7 @@ namespace VeganLife.Helpers
             if (GetService<IPopupNaviService>().GetPopupStackCount() > 0)
             {
                 // Mop-up
-                return GetService<IPopupNavigation>().PopupStack.LastOrDefault()?.BindingContext
+                return GetService<IPopupNavigation>()?.PopupStack?.LastOrDefault()?.BindingContext
                        as BaseViewModel;
             }
             else if (Shell.Current?.CurrentPage != null)

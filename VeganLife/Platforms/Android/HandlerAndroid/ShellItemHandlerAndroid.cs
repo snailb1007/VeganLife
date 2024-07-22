@@ -21,16 +21,16 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
             this.DisplayedPage?.Dispatcher?.Dispatch(async () => await PerformTabReselectedAsync());
         }
 
-        protected override bool OnItemSelected(global::Android.Views.IMenuItem item)
-        {
-            if (Shell.Current.IsBusy
-                || (ServicesHelper.GetCurrentViewModel()?.IsLoading ?? false))
-            {
-                return false;
-            }
+        //protected override bool OnItemSelected(global::Android.Views.IMenuItem item)
+        //{
+        //    if (Shell.Current.IsBusy
+        //        || (ServicesHelper.GetCurrentViewModel()?.IsLoading ?? false))
+        //    {
+        //        return false;
+        //    }
 
-            return base.OnItemSelected(item);
-        }
+        //    return base.OnItemSelected(item);
+        //}
 
         private async Task PerformTabReselectedAsync()
         {
