@@ -19,7 +19,7 @@
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="Ngày sinh của bạn là gì, " />
-                    <Span Text="{Binding Name}" />
+                    <Span FontAttributes="Italic, Bold" Text="{Binding Name}" />
                     <Span Text="?" />
                 </FormattedString>
             </Label.FormattedText>
@@ -51,7 +51,6 @@
             Command="{Binding ContinueClickedCommand}"
             FontAttributes="Bold"
             FontSize="Medium"
-            IsEnabled="{Binding IsFilledBirthday}"
             Text="Tiếp tục" />
         <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
     </VerticalStackLayout>

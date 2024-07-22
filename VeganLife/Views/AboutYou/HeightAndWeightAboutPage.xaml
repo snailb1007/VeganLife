@@ -43,6 +43,7 @@
                 HorizontalOptions="Center"
                 Keyboard="Numeric"
                 Placeholder="ví dụ: 165cm"
+                SemanticProperties.Description="LabeledBy heightLb"
                 Text="{Binding Height}">
                 <Entry.Behaviors>
                     <toolkit:TextValidationBehavior

@@ -12,7 +12,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private DateTime selectedDate;
 
-        public bool IsFilledBirthday => SelectedDate < MaximumDateOfBirth && SelectedDate > DateTime.MinValue;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ContinueClickedCommand))]
+        private bool isFilledBirthday;
 
         public override Task ViewAppearingVM()
         {
@@ -30,11 +32,16 @@ namespace VeganLife.ViewModels
             return base.OnNavigatingTo(parameter);
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(IsFilledBirthday))]
         public async Task OnContinueClicked()
         {
             await this.navigationService.NavigateToPage<GenderAboutPage>(
                 new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
+        }
+
+        partial void OnSelectedDateChanged(DateTime value)
+        {
+            IsFilledBirthday = value < MaximumDateOfBirth && value > DateTime.MinValue;
         }
     }
 
