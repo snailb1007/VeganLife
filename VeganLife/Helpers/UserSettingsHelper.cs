@@ -12,6 +12,7 @@ namespace VeganLife.Helpers
         HasPriorInstances,
         IsAcceptedCollectLogs,
         IsAcceptedTermsAndConditions,
+        IsShowedRegister,
     }
 
     public static partial class UserSettingsHelper

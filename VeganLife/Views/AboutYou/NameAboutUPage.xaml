@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.AboutYou.NameAboutUPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:sharpnado="http://sharpnado.com"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="Bước 1 trên 4"
+    x:DataType="viewmodel:NameAboutUPageVM"
+    x:TypeArguments="viewmodel:NameAboutUPageVM"
+    BackgroundColor="White">
+    <VerticalStackLayout Margin="20,20,20,0" Spacing="20">
+        <Label
+            x:Name="nameLb"
+            FontAttributes="Bold"
+            FontSize="32"
+            HorizontalOptions="Start"
+            Text="Bạn tên là gì?" />
+        <Label
+            FontSize="Medium"
+            Text="Để chúng tôi biết cách gọi bạn"
+            TextColor="Gray" />
+        <sharpnado:MaterialFrame
+            Margin="0,20,0,0"
+            Padding="10"
+            CornerRadius="15"
+            MaterialTheme="Acrylic">
+            <Entry
+                x:Name="nameEntry"
+                AutomationProperties.LabeledBy="{x:Reference nameLb}"
+                HeightRequest="48"
+                Placeholder="tên đầy đủ, hoặc biệt danh"
+                Text="{Binding Name}"
+                VerticalOptions="Center" />
+        </sharpnado:MaterialFrame>
+        <Button
+            Margin="10,20"
+            AutomationProperties.HelpText="Tap to go next  and send Name data"
+            Command="{Binding NextClickedCommand}"
+            FontAttributes="Bold"
+            FontSize="Medium"
+            Text="Kế tiếp" />
+        <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
+    </VerticalStackLayout>
+</base:BasePage>
