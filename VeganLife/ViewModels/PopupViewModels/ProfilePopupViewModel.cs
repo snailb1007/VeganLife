@@ -2,11 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Android.OS;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Messaging;
 using PropertyChanged;
-using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.messages;
 using VeganLife.Services.UserServices;
@@ -59,8 +57,8 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = ServicesHelper.GetService<IUserDataService>().UserInfo;
-            if (string.IsNullOrEmpty(UserInfo.Name))
+            UserInfo = ServicesHelper.GetService<IUserDataService>().GetUserInfo();
+            if (UserInfo == null || string.IsNullOrEmpty(UserInfo.Name))
             {
                 return;
             }
@@ -149,11 +147,6 @@ namespace VeganLife.ViewModels.PopupViewModels
         {
             IsWrongFormatWeight = false;
         }
-
-        //[SuppressPropertyChangedWarnings]
-        //partial void OnUserHeightChanged(short value)
-        //{
-        //}
 
         [SuppressPropertyChangedWarnings]
         partial void OnIsWrongFormatNameChanged(bool value)

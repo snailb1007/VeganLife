@@ -39,13 +39,13 @@ namespace VeganLife.Views.Controls
         public NavBarRootPageControl()
         {
             this.InitializeComponent();
-            _ = this.LoadUserDataAsync();
+            this.LoadUserData();
             WeakReferenceMessenger.Default.Register(this);
         }
 
-        private async Task LoadUserDataAsync()
+        private void LoadUserData()
         {
-            var userName = await ServicesHelper.GetService<IUserDataService>().GetUserNameAsync() ?? "...";
+            var userName = ServicesHelper.GetService<IUserDataService>().GetUserInfo()?.Name ?? "...";
             lbHi.Text = $"Hi {userName}";
         }
 
@@ -78,7 +78,7 @@ namespace VeganLife.Views.Controls
 
         public void Receive(ProfileChangedMessage message)
         {
-            MainThread.BeginInvokeOnMainThread(async () => await LoadUserDataAsync());
+            MainThread.BeginInvokeOnMainThread(LoadUserData);
         }
     }
 }

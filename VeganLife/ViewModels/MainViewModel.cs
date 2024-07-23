@@ -157,7 +157,7 @@ namespace VeganLife.ViewModels
                 var userService = ServicesHelper.GetService<IUserDataService>();
                 _ = userService.Refresh().ContinueWith(t =>
                 {
-                    var userInfo = userService.UserInfo!;
+                    var userInfo = userService.GetUserInfo();
                     if (userInfo != null)
                     {
                         userInfo.TotalFoodDetailRead++;
