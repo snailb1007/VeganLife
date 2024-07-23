@@ -29,7 +29,7 @@ namespace VeganLife.Helpers
         /// <param name="isMale">sex to analysis.</param>
         /// <param name="bmiData">bmiData to analysis.</param>
         /// <returns>Color for UI.</returns>
-        public static HealthDiagnosisModel GetWeightStatusCategory(short age, bool isMale, float bmiData)
+        public static HealthDiagnosisModel GetWeightStatusCategory(int age, bool isMale, float bmiData)
         {
             switch (age)
             {
