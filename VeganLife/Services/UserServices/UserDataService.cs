@@ -14,7 +14,7 @@ namespace VeganLife.Services.UserServices
         {
             this._userInfo = new UserInfo();
             _userInfoDataStoreServie = ServicesHelper.GetService<UserInfoDataStoreServie>();
-            //_ = InitAsync();
+            _ = InitAsync();
         }
 
         public async Task InitAsync()
