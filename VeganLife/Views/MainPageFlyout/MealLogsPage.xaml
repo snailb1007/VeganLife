@@ -4,6 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -11,12 +13,77 @@
     Title=""
     x:DataType="viewmodel:MealLogsPageVM"
     x:TypeArguments="viewmodel:MealLogsPageVM">
-    <ScrollView>
-        <VerticalStackLayout>
-            <Label
-                HorizontalOptions="Center"
-                Text="Welcome to .NET MAUI!"
-                VerticalOptions="Center" />
-        </VerticalStackLayout>
-    </ScrollView>
+    <base:BasePage.Background>
+        <LinearGradientBrush EndPoint="1,0">
+            <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
+            <GradientStop Offset="1.0" Color="White" />
+        </LinearGradientBrush>
+    </base:BasePage.Background>
+    <Grid x:Name="mainGridContent" RowDefinitions="Auto,*">
+        <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+                <sharpnado:MaterialFrame
+                    Margin="8,20,8,0"
+                    CornerRadius="10"
+                    MaterialTheme="Acrylic">
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        RowDefinitions="Auto,*,Auto,Auto"
+                        RowSpacing="20">
+                        <HorizontalStackLayout Spacing="10">
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="25"
+                                IsClippedToBounds="True">
+                                <ffimageloading:CachedImage HeightRequest="50" Source="{Binding LocalUser.Image}" />
+                            </sharpnado:MaterialFrame>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Title"
+                                Text="{Binding LocalUser.Name}" />
+                        </HorizontalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Spacing="4">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="BMI"
+                                TextColor="Gray" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Subtitle"
+                                Text="{Binding LocalUser.BMIResult, StringFormat='{0:F2}'}"
+                                TextColor="{Binding HealthDiagnosisResult.StatusColor}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="4">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="BMR"
+                                TextColor="Gray" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Subtitle"
+                                Text="{Binding LocalUser.BMRResult, StringFormat='{0:F2}'}"
+                                TextColor="{StaticResource PrimaryDark}" />
+                        </VerticalStackLayout>
+                        <BoxView
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            CornerRadius="1"
+                            HeightRequest="2"
+                            Opacity="0.2" />
+                        <Label
+                            Grid.Row="3"
+                            Grid.ColumnSpan="2"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            Text="{Binding HealthDiagnosisResult.Classify}"
+                            TextColor="{Binding HealthDiagnosisResult.StatusColor}" />
+                    </Grid>
+                </sharpnado:MaterialFrame>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </base:BasePage>

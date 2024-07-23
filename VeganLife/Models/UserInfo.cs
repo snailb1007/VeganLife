@@ -31,11 +31,31 @@ namespace VeganLife.Models
         public uint TotalVitaminRead { get; set; }
 
         public uint TotalDiscoveryRead { get; set; }
+
+        public float BMRResult { get; set; }
+
+        public float TDEEResult { get; set; }
+
+        public string ActivityLevel { get; set; }
     }
 
     public partial class UserInfo
     {
-        public byte Age => (byte)(DateTime.Today.Subtract(this.DateOfBirth).TotalDays / ConstantHelper.AverageDaysInYear);
+        public int Age
+        {
+            get
+            {
+                var today = DateTime.Today;
+                var age = today.Year - this.DateOfBirth.Year;
+
+                if (DateOfBirth.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
 
         public string Image => this.IsMale ? "profile_boy" : "profile_girl_strong";
 
