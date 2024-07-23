@@ -38,7 +38,7 @@ namespace VeganLife.ViewModels
             //{
             //    await page.AnimateShellMenu();
             //}
-
+            await Task.Delay(0);
             AppShell.ShowFlyOut();
         }
 

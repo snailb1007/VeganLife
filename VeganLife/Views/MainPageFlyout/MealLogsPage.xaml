@@ -11,10 +11,12 @@
     Title=""
     x:DataType="viewmodel:MealLogsPageVM"
     x:TypeArguments="viewmodel:MealLogsPageVM">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label
+                HorizontalOptions="Center"
+                Text="Welcome to .NET MAUI!"
+                VerticalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
 </base:BasePage>
