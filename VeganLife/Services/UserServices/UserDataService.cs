@@ -1,5 +1,4 @@
-﻿using Android.Hardware.Lights;
-using VeganLife.Data.LocalData;
+﻿using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 
 namespace VeganLife.Services.UserServices
@@ -8,24 +7,26 @@ namespace VeganLife.Services.UserServices
     {
         private readonly UserInfoDataStoreServie _userInfoDataStoreServie;
 
-        public UserInfo UserInfo { get; set; }
-
+        private UserInfo _userInfo;
         private bool _hasOldData;
 
         public UserDataService()
         {
-            this.UserInfo = new UserInfo();
+            this._userInfo = new UserInfo();
             _userInfoDataStoreServie = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            //_ = InitAsync();
         }
 
-        public async Task Init()
+        public async Task InitAsync()
         {
             UserInfo temp = new();
             var currentDeviceID = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
             temp.Id = currentDeviceID;
 
-            UserInfo = await _userInfoDataStoreServie.GetFirstOrDefaultItem();
-            if (currentDeviceID != UserInfo?.Id)
+            await Refresh();
+
+            if (currentDeviceID != _userInfo?.Id
+                || string.IsNullOrEmpty(_userInfo?.Name))
             {
                 var userHasName = (await _userInfoDataStoreServie.GetItemsAsync())?
                     .FirstOrDefault(u => !string.IsNullOrEmpty(u.Name))!;
@@ -40,40 +41,18 @@ namespace VeganLife.Services.UserServices
 
                 await _userInfoDataStoreServie.DeleteAllItems();
                 await _userInfoDataStoreServie.AddOrUpdateItemAsync(temp);
-                UserInfo = temp;
+                _userInfo = temp;
             }
-
-            //this._hasOldData = UserInfo == null || !string.IsNullOrEmpty(UserInfo.Name);
-            //if (!_hasOldData)
-            //{
-            //    _hasOldData = true;
-            //    UserInfo = new UserInfo();
-            //    UserInfo.Id = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
-            //    UserInfo.TotalFoodDetailRead = 0;
-            //    UserInfo.TotalVitaminRead = 0;
-            //    UserInfo.TotalDiscoveryRead = 0;
-            //    await _userInfoDataStoreServie.AddOrUpdateItemAsync(this.UserInfo);
-            //}
         }
 
         public async Task Refresh()
         {
-            this.UserInfo = await _userInfoDataStoreServie.GetFirstOrDefaultItem();
-        }
-
-        //public short GetUserAge()
-        //{
-        //    return this.UserInfo.Age;
-        //}
-
-        public async Task<string> GetUserNameAsync()
-        {
-            if (!_hasOldData)
+            var localUser = await _userInfoDataStoreServie.GetFirstOrDefaultItem();
+            if (localUser != null)
             {
-                await Init();
+                _userInfo = localUser;
+                _hasOldData = true;
             }
-
-            return this.UserInfo.Name ?? string.Empty;
         }
 
         public async Task SaveData(UserInfo data)
@@ -84,34 +63,24 @@ namespace VeganLife.Services.UserServices
             }
 
             var bmi = BMICalculateHelper.Calculate(data.Weight, data.Height / 100f);
-            this.UserInfo.Name = data.Name;
-            this.UserInfo.DateOfBirth = data.DateOfBirth;
-            this.UserInfo.Weight = data.Weight;
-            this.UserInfo.Height = data.Height;
-            this.UserInfo.IsMale = data.IsMale;
-            this.UserInfo.BMIResult = (float)bmi;
+            this._userInfo.Name = data.Name;
+            this._userInfo.DateOfBirth = data.DateOfBirth;
+            this._userInfo.Weight = data.Weight;
+            this._userInfo.Height = data.Height;
+            this._userInfo.IsMale = data.IsMale;
+            this._userInfo.BMIResult = (float)bmi;
 
             await this.SaveData();
         }
 
         public async Task SaveData()
         {
-            await _userInfoDataStoreServie.AddOrUpdateItemAsync(this.UserInfo, true);
+            await _userInfoDataStoreServie.AddOrUpdateItemAsync(this._userInfo, true);
         }
 
-        //public DateTime GetDateOfBirth()
-        //{
-        //    return this.UserInfo.DateOfBirth;
-        //}
-
-        //public float GetWeight()
-        //{
-        //    return this.UserInfo.Weight;
-        //}
-
-        //public short GetHeight()
-        //{
-        //    return this.UserInfo.Height;
-        //}
+        UserInfo IUserDataService.GetUserInfo()
+        {
+            return this._userInfo;
+        }
     }
 }

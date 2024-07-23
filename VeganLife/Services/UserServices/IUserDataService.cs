@@ -6,11 +6,9 @@ namespace VeganLife.Services.UserServices
 {
     public interface IUserDataService
     {
-        public UserInfo UserInfo { get; set; }
+        UserInfo GetUserInfo();
 
-        Task Init();
-
-        Task<string> GetUserNameAsync();
+        Task InitAsync();
 
         Task Refresh();
 

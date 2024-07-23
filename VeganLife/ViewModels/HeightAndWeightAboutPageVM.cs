@@ -55,7 +55,7 @@ namespace VeganLife.ViewModels
                 Weight = (float)weight,
             };
 
-            _ = ServicesHelper.GetService<IUserDataService>().SaveData(user);
+            await ServicesHelper.GetService<IUserDataService>().SaveData(user);
             _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
             await (App.Current as App)?.RefreshAppShell()!;
