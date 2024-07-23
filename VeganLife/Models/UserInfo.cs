@@ -6,7 +6,6 @@ namespace VeganLife.Models
     public partial class UserInfo
     {
         [PrimaryKey]
-        [AutoIncrement]
         public string Id { get; set; }
 
         public string Name { get; set; }

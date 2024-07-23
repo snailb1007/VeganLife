@@ -63,6 +63,7 @@ namespace VeganLife.Data
         {
             try
             {
+                await this.Init();
                 if (isUpdate || await this.IsExistingItem(item))
                 {
                     return await this._connection.UpdateAsync(item) > 0;
