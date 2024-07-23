@@ -122,5 +122,23 @@ namespace VeganLife.Helpers.AppSetting
         {
             public const string FacebookLink = "https://www.facebook.com/healthychef.life";
         }
+
+        public class CalculateHelper
+        {
+            public enum ActivityLevel
+            {
+                Sedentary = 1,
+                LightlyActive = 2,
+                ModeratelyActive = 3,
+                VeryActive = 4,
+                SuperActive = 5,
+            }
+
+            public const float SedentaryValue = 1.2f;
+            public const float LightlyActiveValue = 1.375f;
+            public const float ModeratelyActiveValue = 1.55f;
+            public const float VeryActiveValue = 1.725f;
+            public const float SuperActiveValue = 1.9f;
+        }
     }
 }
