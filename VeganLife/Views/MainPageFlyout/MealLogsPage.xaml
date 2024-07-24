@@ -34,9 +34,14 @@
                         <HorizontalStackLayout Spacing="10">
                             <sharpnado:MaterialFrame
                                 Padding="0"
-                                CornerRadius="25"
-                                IsClippedToBounds="True">
-                                <ffimageloading:CachedImage HeightRequest="50" Source="{Binding LocalUser.Image}" />
+                                BorderColor="{StaticResource PrimaryOrange1}"
+                                CornerRadius="30"
+                                IsClippedToBounds="True"
+                                MaterialTheme="Acrylic">
+                                <ffimageloading:CachedImage
+                                    DownsampleToViewSize="True"
+                                    HeightRequest="60"
+                                    Source="{Binding LocalUser.Image}" />
                             </sharpnado:MaterialFrame>
                             <Label
                                 FontAttributes="Bold"
@@ -95,12 +100,30 @@
                                 FontAttributes="Bold"
                                 Text="TDEE"
                                 TextColor="Gray" />
-                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="1">
-                                <Picker
-                                    HeightRequest="48"
-                                    ItemsSource="{Binding ActivityLevels, Mode=OneTime}"
-                                    SelectedIndex="{Binding SelectedActivityLevelIndex}" />
-                            </Border>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Subtitle"
+                                Text="{Binding LocalUser.TDEEResult, StringFormat='{0:F2}'}"
+                                TextColor="{StaticResource PrimaryDark}" />
+                            <sharpnado:MaterialFrame
+                                Margin="10"
+                                Padding="10,5"
+                                CornerRadius="10"
+                                MaterialTheme="Acrylic">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Picker
+                                        FontSize="Subtitle"
+                                        HeightRequest="48"
+                                        HorizontalOptions="Start"
+                                        ItemsSource="{Binding ActivityLevels, Mode=OneTime}"
+                                        SelectedIndex="{Binding SelectedActivityLevelIndex}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        FontFamily="FARegular"
+                                        Text="&#xf078;"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </sharpnado:MaterialFrame>
                         </VerticalStackLayout>
                     </Grid>
                 </sharpnado:MaterialFrame>

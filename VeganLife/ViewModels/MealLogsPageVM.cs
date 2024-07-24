@@ -1,6 +1,8 @@
 ﻿
 using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
+using static VeganLife.Helpers.AppSetting.ConstantHelper.CalculateHelper;
 
 namespace VeganLife.ViewModels
 {
@@ -10,11 +12,11 @@ namespace VeganLife.ViewModels
 
         public List<string> ActivityLevels => new List<string>
         {
-            "Sedentary",
-            "Lightly Active",
-            "Moderately Active",
-            "Very Active",
-            "Extra Active",
+            AppResources.mealLogsPage_sedentary,
+            AppResources.mealLogsPage_LightlyActive,
+            AppResources.mealLogsPage_ModeratelyActive,
+            AppResources.mealLogsPage_VeryActive,
+            AppResources.mealLogsPage_SuperActive,
         };
 
         [ObservableProperty]
@@ -44,23 +46,37 @@ namespace VeganLife.ViewModels
             {
                 await this._userDataService.Refresh();
                 LocalUser = _userDataService.GetUserInfo();
-
-                var bmr = TDEEHelper.CalculateBMR(
-                    weight: LocalUser.Weight,
-                    height: LocalUser.Height,
-                    age: LocalUser.Age,
-                    isMale: LocalUser.IsMale);
-                if (LocalUser.BMRResult != bmr)
-                {
-                    LocalUser.BMRResult = bmr;
-                    _ = _userDataService.SaveData(LocalUser);
-                }
-
+                SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
                 HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
                 await base.ViewAppearingVM();
             }
 
             isInitialized = true;
+        }
+
+        partial void OnSelectedActivityLevelIndexChanged(int value)
+        {
+            if (value == (int)LocalUser.NormalFormatActivityLv)
+            {
+                return;
+            }
+
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                using (await this.loadingService.Show(delayTime: 200))
+                {
+                    await UpdateActivityLevelAsync();
+                }
+            });
+
+            async Task UpdateActivityLevelAsync()
+            {
+                var newActivityLevel = (ActivityLevel)value;
+                var newTDEE = TDEEHelper.CalculateTDEE(LocalUser.BMRResult, newActivityLevel);
+                LocalUser.TDEEResult = newTDEE;
+                LocalUser.ActivityLevelData = newActivityLevel.ToString();
+                await _userDataService.SaveData(LocalUser);
+            }
         }
     }
 }

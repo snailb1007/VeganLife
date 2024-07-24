@@ -967,6 +967,51 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_LightlyActive.
+        /// </summary>
+        internal static string mealLogsPage_LightlyActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_LightlyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_ModeratelyActive.
+        /// </summary>
+        internal static string mealLogsPage_ModeratelyActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_ModeratelyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_sedentary.
+        /// </summary>
+        internal static string mealLogsPage_sedentary {
+            get {
+                return ResourceManager.GetString("mealLogsPage_sedentary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_SuperActive.
+        /// </summary>
+        internal static string mealLogsPage_SuperActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_SuperActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_VeryActive.
+        /// </summary>
+        internal static string mealLogsPage_VeryActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_VeryActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minerals.
         /// </summary>
         internal static string Minerals_common {

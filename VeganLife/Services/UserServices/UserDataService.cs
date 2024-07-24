@@ -62,13 +62,68 @@ namespace VeganLife.Services.UserServices
                 return;
             }
 
+            bool isDataChanged = false;
+
+            if (this._userInfo.Name != data.Name)
+            {
+                this._userInfo.Name = data.Name;
+            }
+
+            if (this._userInfo.Weight != data.Weight)
+            {
+                this._userInfo.Weight = data.Weight;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.Height != data.Height)
+            {
+                this._userInfo.Height = data.Height;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.DateOfBirth != data.DateOfBirth)
+            {
+                this._userInfo.DateOfBirth = data.DateOfBirth;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.IsMale != data.IsMale)
+            {
+                this._userInfo.IsMale = data.IsMale;
+                isDataChanged = true;
+            }
+
             var bmi = BMICalculateHelper.Calculate(data.Weight, data.Height / 100f);
-            this._userInfo.Name = data.Name;
-            this._userInfo.DateOfBirth = data.DateOfBirth;
-            this._userInfo.Weight = data.Weight;
-            this._userInfo.Height = data.Height;
-            this._userInfo.IsMale = data.IsMale;
-            this._userInfo.BMIResult = (float)bmi;
+            if (this._userInfo.BMIResult != (float)bmi)
+            {
+                this._userInfo.BMIResult = (float)bmi;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.ActivityLevelData != data.ActivityLevelData)
+            {
+                this._userInfo.ActivityLevelData = data.ActivityLevelData;
+                isDataChanged = true;
+            }
+
+            this._userInfo.BMRResult = TDEEHelper.CalculateBMR(data.Weight, data.Height, data.Age, data.IsMale);
+            if (this._userInfo.TDEEResult != data.TDEEResult)
+            {
+                this._userInfo.TDEEResult = data.TDEEResult;
+                isDataChanged = true;
+            }
+#if DEBUG
+            Debug.WriteLine($"SaveData: {isDataChanged}");
+            Debug.WriteLine($"Name: {this._userInfo.Name}");
+            Debug.WriteLine($"Weight: {this._userInfo.Weight}");
+            Debug.WriteLine($"Height: {this._userInfo.Height}");
+            Debug.WriteLine($"DateOfBirth: {this._userInfo.DateOfBirth}");
+            Debug.WriteLine($"IsMale: {this._userInfo.IsMale}");
+            Debug.WriteLine($"BMIResult: {this._userInfo.BMIResult}");
+            Debug.WriteLine($"ActivityLevelData: {this._userInfo.ActivityLevelData}");
+            Debug.WriteLine($"BMRResult: {this._userInfo.BMRResult}");
+            Debug.WriteLine($"TDEEResult: {this._userInfo.TDEEResult}");
+#endif
 
             await this.SaveData();
         }
