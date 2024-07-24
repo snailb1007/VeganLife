@@ -29,7 +29,7 @@
                     MaterialTheme="Acrylic">
                     <Grid
                         ColumnDefinitions="*,*"
-                        RowDefinitions="Auto,*,Auto,Auto"
+                        RowDefinitions="Auto,*,2,Auto,2,Auto"
                         RowSpacing="20">
                         <HorizontalStackLayout Spacing="10">
                             <sharpnado:MaterialFrame
@@ -81,6 +81,27 @@
                             HorizontalOptions="Center"
                             Text="{Binding HealthDiagnosisResult.Classify}"
                             TextColor="{Binding HealthDiagnosisResult.StatusColor}" />
+                        <!--<BoxView
+                            Grid.Row="4"
+                            Grid.ColumnSpan="2"
+                            CornerRadius="1"
+                            HeightRequest="2"
+                            Opacity="0.2" />-->
+                        <VerticalStackLayout
+                            Grid.Row="5"
+                            Grid.ColumnSpan="2"
+                            Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="TDEE"
+                                TextColor="Gray" />
+                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="1">
+                                <Picker
+                                    HeightRequest="48"
+                                    ItemsSource="{Binding ActivityLevels, Mode=OneTime}"
+                                    SelectedIndex="{Binding SelectedActivityLevelIndex}" />
+                            </Border>
+                        </VerticalStackLayout>
                     </Grid>
                 </sharpnado:MaterialFrame>
             </VerticalStackLayout>
