@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Models
 {
