@@ -127,11 +127,11 @@ namespace VeganLife.Helpers.AppSetting
         {
             public enum ActivityLevel
             {
-                Sedentary = 1,
-                LightlyActive = 2,
-                ModeratelyActive = 3,
-                VeryActive = 4,
-                SuperActive = 5,
+                Sedentary = 0,
+                LightlyActive = 1,
+                ModeratelyActive = 2,
+                VeryActive = 3,
+                SuperActive = 4,
             }
 
             public const float SedentaryValue = 1.2f;
