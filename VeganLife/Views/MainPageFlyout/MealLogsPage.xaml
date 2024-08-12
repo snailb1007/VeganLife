@@ -30,7 +30,7 @@
                     <Grid
                         ColumnDefinitions="*,*"
                         RowDefinitions="Auto,*,2,Auto,2,Auto"
-                        RowSpacing="20">
+                        RowSpacing="10">
                         <HorizontalStackLayout Spacing="10">
                             <sharpnado:MaterialFrame
                                 Padding="0"
@@ -86,12 +86,6 @@
                             HorizontalOptions="Center"
                             Text="{Binding HealthDiagnosisResult.Classify}"
                             TextColor="{Binding HealthDiagnosisResult.StatusColor}" />
-                        <!--<BoxView
-                            Grid.Row="4"
-                            Grid.ColumnSpan="2"
-                            CornerRadius="1"
-                            HeightRequest="2"
-                            Opacity="0.2" />-->
                         <VerticalStackLayout
                             Grid.Row="5"
                             Grid.ColumnSpan="2"
@@ -110,8 +104,12 @@
                                 Padding="10,5"
                                 CornerRadius="10"
                                 MaterialTheme="Acrylic">
-                                <Grid ColumnDefinitions="*,Auto">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,Auto" InputTransparent="True">
                                     <Picker
+                                        x:Name="activityLvPicker"
                                         FontSize="Subtitle"
                                         HeightRequest="48"
                                         HorizontalOptions="Start"

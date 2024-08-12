@@ -22,4 +22,9 @@ public partial class MealLogsPage : BasePage<MealLogsPageVM>, IBaseRootPage
     {
         this.AnimateShellMenu(mainGridContent);
     }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        activityLvPicker.Focus();
+    }
 }

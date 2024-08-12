@@ -45,7 +45,7 @@
             Route="news_feed"
             Shell.NavBarIsVisible="False" />
         <ShellContent
-            Title="Phan tich"
+            Title="Phân tích"
             ContentTemplate="{DataTemplate mainFlyout:MealLogsPage}"
             Route="meal_logs">
             <ShellContent.Icon>

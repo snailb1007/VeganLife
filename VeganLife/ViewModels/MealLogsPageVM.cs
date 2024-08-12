@@ -1,4 +1,8 @@
-﻿
+﻿// <copyright file="MealLogsPageVM.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
@@ -54,6 +58,7 @@ namespace VeganLife.ViewModels
             isInitialized = true;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedActivityLevelIndexChanged(int value)
         {
             if (value == (int)LocalUser.NormalFormatActivityLv)
