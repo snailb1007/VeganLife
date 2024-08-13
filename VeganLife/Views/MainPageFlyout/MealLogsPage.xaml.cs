@@ -25,6 +25,11 @@ public partial class MealLogsPage : BasePage<MealLogsPageVM>, IBaseRootPage
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        activityLvPicker.Focus();
+        this.Dispatcher.Dispatch(() =>
+        {
+            // TODO: https://github.com/dotnet/maui/issues/8946
+            activityLvPicker.Unfocus();
+            activityLvPicker.Focus();
+        });
     }
 }
