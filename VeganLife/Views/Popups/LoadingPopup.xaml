@@ -14,7 +14,6 @@
         StrokeThickness="0"
         WidthRequest="80">
         <skia:SKLottieView
-            Grid.Column="1"
             Margin="0"
             Padding="0"
             HeightRequest="80"
