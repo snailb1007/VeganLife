@@ -2,10 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Mopups.Services;
 using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.Popups;
 using static VeganLife.Helpers.AppSetting.ConstantHelper.CalculateHelper;
 
 namespace VeganLife.ViewModels
@@ -56,6 +58,15 @@ namespace VeganLife.ViewModels
             }
 
             isInitialized = true;
+        }
+
+        [RelayCommand]
+        private async Task OnInfoClickedAsync(string param)
+        {
+            if (param == "BMI")
+            {
+                await MopupService.Instance.PushAsync(new SimpleInformationPopup(AppResources.mealLogsPage_BMI_description));
+            }
         }
 
         [SuppressPropertyChangedWarnings]

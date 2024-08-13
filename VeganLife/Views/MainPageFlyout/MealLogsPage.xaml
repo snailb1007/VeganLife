@@ -49,10 +49,21 @@
                                 Text="{Binding LocalUser.Name}" />
                         </HorizontalStackLayout>
                         <VerticalStackLayout Grid.Row="1" Spacing="4">
-                            <Label
-                                FontAttributes="Bold"
-                                Text="BMI"
-                                TextColor="Gray" />
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="BMI"
+                                    TextColor="Gray" />
+                                <Label
+                                    FontFamily="FALight"
+                                    FontSize="Small"
+                                    Text="{StaticResource IconInfo}"
+                                    TextColor="{StaticResource LinkColor}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding InfoClickedCommand}" CommandParameter="BMI" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </HorizontalStackLayout>
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="Subtitle"
@@ -63,10 +74,17 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Spacing="4">
-                            <Label
-                                FontAttributes="Bold"
-                                Text="BMR"
-                                TextColor="Gray" />
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="BMR"
+                                    TextColor="Gray" />
+                                <Label
+                                    FontFamily="FALight"
+                                    FontSize="Small"
+                                    Text="{StaticResource IconInfo}"
+                                    TextColor="{StaticResource LinkColor}" />
+                            </HorizontalStackLayout>
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="Subtitle"
@@ -90,10 +108,18 @@
                             Grid.Row="5"
                             Grid.ColumnSpan="2"
                             Spacing="10">
-                            <Label
-                                FontAttributes="Bold"
-                                Text="TDEE"
-                                TextColor="Gray" />
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="TDEE"
+                                    TextColor="Gray" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="FALight"
+                                    FontSize="Small"
+                                    Text="{StaticResource IconInfo}"
+                                    TextColor="{StaticResource LinkColor}" />
+                            </HorizontalStackLayout>
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="Subtitle"

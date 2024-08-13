@@ -637,4 +637,7 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="mealLogsPage_SuperActive" xml:space="preserve">
     <value>mealLogsPage_SuperActive</value>
   </data>
+	<data name="mealLogsPage_BMI_description" xml:space="preserve">
+    <value>mealLogsPage_SuperActive</value>
+  </data>
 </root>

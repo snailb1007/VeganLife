@@ -642,4 +642,7 @@ Bạn có thể nhận vào hôm sau</value>
 	<data name="mealLogsPage_SuperActive" xml:space="preserve">
     <value>Siêu năng động</value>
   </data>
+	<data name="mealLogsPage_BMI_description" xml:space="preserve">
+    <value>BMI (Body Mass Index) là một chỉ số được sử dụng để đánh giá tình trạng cơ thể của một người dựa trên cân nặng và chiều cao của bạn.</value>
+  </data>
 </root>
