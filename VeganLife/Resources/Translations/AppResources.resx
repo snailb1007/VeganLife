@@ -640,4 +640,10 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="mealLogsPage_BMI_description" xml:space="preserve">
     <value>mealLogsPage_SuperActive</value>
   </data>
+	<data name="mealLogsPage_BMR_description" xml:space="preserve">
+		<value>mealLogsPage_BMR_description</value>
+  </data>
+	<data name="mealLogsPage_TDEE_description" xml:space="preserve">
+		<value>mealLogsPage_TDEE_description</value>
+  </data>
 </root>

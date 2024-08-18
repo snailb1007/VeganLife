@@ -645,4 +645,16 @@ Bạn có thể nhận vào hôm sau</value>
 	<data name="mealLogsPage_BMI_description" xml:space="preserve">
     <value>BMI (Body Mass Index) là một chỉ số được sử dụng để đánh giá tình trạng cơ thể của một người dựa trên cân nặng và chiều cao của bạn.</value>
   </data>
+	<data name="mealLogsPage_BMR_description" xml:space="preserve">
+    <value>BMR (Basal Metabolic Rate) là chỉ số cho biết lượng năng lượng (calo) mà cơ thể bạn cần để duy trì các chức năng cơ bản như hô hấp, tuần hoàn máu, duy trì nhiệt độ cơ thể, và hoạt động của các cơ quan nội tạng khi bạn ở trạng thái nghỉ ngơi hoàn toàn.
+
+Chỉ số BMR phụ thuộc vào nhiều yếu tố như tuổi tác, giới tính, cân nặng, chiều cao và thành phần cơ thể (tỷ lệ cơ bắp và mỡ). BMR càng cao, cơ thể bạn đốt cháy nhiều calo hơn ngay cả khi không vận động.
+
+Việc biết được chỉ số BMR giúp bạn xác định được lượng calo cần thiết để duy trì cân nặng hiện tại, hoặc điều chỉnh lượng calo để giảm cân, tăng cân, hoặc duy trì một chế độ ăn uống lành mạnh.</value>
+  </data>
+	<data name="mealLogsPage_TDEE_description" xml:space="preserve">
+		<value>TDEE (Total Daily Energy Expenditure) là tổng lượng năng lượng (calo) mà cơ thể bạn tiêu thụ trong một ngày, bao gồm tất cả các hoạt động từ nghỉ ngơi đến vận động. TDEE được tính dựa trên BMR (Basal Metabolic Rate) và mức độ hoạt động hàng ngày của bạn.
+
+TDEE giúp bạn biết được cần tiêu thụ bao nhiêu calo mỗi ngày để duy trì cân nặng hiện tại. Nếu muốn giảm cân, bạn cần ăn ít hơn TDEE, và ngược lại, nếu muốn tăng cân, bạn cần ăn nhiều hơn TDEE. TDEE là một công cụ hữu ích để điều chỉnh chế độ ăn uống và lối sống nhằm đạt được mục tiêu sức khỏe và thể hình của bạn.</value>
+  </data>
 </root>

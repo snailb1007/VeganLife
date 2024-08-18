@@ -6,23 +6,41 @@
     xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     BackgroundColor="#80808080"
     CloseWhenBackgroundIsClicked="True">
-
-    <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,2*,*">
+    <Grid ColumnDefinitions="*,8*,*" RowDefinitions="0.75*,2*,1.25*">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OutsidePopup_Tapped" />
+        </Grid.GestureRecognizers>
         <Border
             Grid.Row="1"
             Grid.Column="1"
+            Padding="10"
+            BackgroundColor="White"
             HorizontalOptions="Center"
+            InputTransparent="False"
             StrokeShape="RoundRectangle 10"
             StrokeThickness="0"
             VerticalOptions="Center">
-            <ScrollView BackgroundColor="White" VerticalOptions="Center">
+            <VerticalStackLayout Spacing="10">
                 <Label
-                    x:Name="lbInfo"
-                    BackgroundColor="White"
-                    HorizontalOptions="Center"
-                    LineBreakMode="WordWrap"
-                    VerticalOptions="Center" />
-            </ScrollView>
+                    FontAttributes="Bold"
+                    FontFamily="FALight"
+                    FontSize="Small"
+                    HorizontalOptions="End"
+                    Text="{StaticResource IconClose}"
+                    TextColor="Red">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OutsidePopup_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <ScrollView VerticalOptions="Center">
+                    <Label
+                        x:Name="lbInfo"
+                        BackgroundColor="White"
+                        HorizontalOptions="Center"
+                        LineBreakMode="WordWrap"
+                        VerticalOptions="Center" />
+                </ScrollView>
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </mopups:PopupPage>
