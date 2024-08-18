@@ -1,4 +1,5 @@
 using Mopups.Pages;
+using Mopups.Services;
 
 namespace VeganLife.Views.Popups;
 
@@ -13,5 +14,10 @@ public partial class SimpleInformationPopup : PopupPage
         }
 
         lbInfo.Text = info;
+    }
+
+    private void OutsidePopup_Tapped(object sender, TappedEventArgs e)
+    {
+        _ = MopupService.Instance.PopAsync();
     }
 }

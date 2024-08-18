@@ -63,10 +63,21 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OnInfoClickedAsync(string param)
         {
-            if (param == "BMI")
+            string data = string.Empty;
+            switch (param)
             {
-                await MopupService.Instance.PushAsync(new SimpleInformationPopup(AppResources.mealLogsPage_BMI_description));
+                case "BMI":
+                    data = AppResources.mealLogsPage_BMI_description;
+                    break;
+                case "BMR":
+                    data = AppResources.mealLogsPage_BMR_description;
+                    break;
+                case "TDEE":
+                    data = AppResources.mealLogsPage_TDEE_description;
+                    break;
             }
+
+            await MopupService.Instance.PushAsync(new SimpleInformationPopup(data));
         }
 
         [SuppressPropertyChangedWarnings]

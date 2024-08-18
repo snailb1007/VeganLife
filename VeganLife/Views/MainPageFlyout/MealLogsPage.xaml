@@ -83,7 +83,11 @@
                                     FontFamily="FALight"
                                     FontSize="Small"
                                     Text="{StaticResource IconInfo}"
-                                    TextColor="{StaticResource LinkColor}" />
+                                    TextColor="{StaticResource LinkColor}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding InfoClickedCommand}" CommandParameter="BMR" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </HorizontalStackLayout>
                             <Label
                                 FontAttributes="Bold"
@@ -118,7 +122,11 @@
                                     FontFamily="FALight"
                                     FontSize="Small"
                                     Text="{StaticResource IconInfo}"
-                                    TextColor="{StaticResource LinkColor}" />
+                                    TextColor="{StaticResource LinkColor}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding InfoClickedCommand}" CommandParameter="TDEE" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </HorizontalStackLayout>
                             <Label
                                 FontAttributes="Bold"
