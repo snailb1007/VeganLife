@@ -16,7 +16,7 @@ public partial class LoadingPage : ContentPage
         InitializeComponent();
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
         _ = ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
@@ -24,8 +24,7 @@ public partial class LoadingPage : ContentPage
             {
                 HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
             });
-        _ = ServicesHelper.GetService<IUserDataService>().Refresh();
-        _ = ServicesHelper.GetService<IUserDataService>().Init();
+        await ServicesHelper.GetService<IUserDataService>().InitAsync();
     }
 
     private async void SelfContentLoaded(object sender, EventArgs e)

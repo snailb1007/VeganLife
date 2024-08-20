@@ -5,83 +5,137 @@ namespace VeganLife.Services.UserServices
 {
     public class UserDataService : IUserDataService
     {
-        public UserInfo UserInfo { get; set; }
+        private readonly UserInfoDataStoreServie _userInfoDataStoreServie;
 
+        private UserInfo _userInfo;
         private bool _hasOldData;
 
         public UserDataService()
         {
-            this.UserInfo = new UserInfo();
+            this._userInfo = new UserInfo();
+            _userInfoDataStoreServie = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            _ = InitAsync();
         }
 
-        public async Task Init()
+        public async Task InitAsync()
         {
-            UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
-            this._hasOldData = UserInfo != null;
-            if (!_hasOldData)
+            UserInfo temp = new();
+            var currentDeviceID = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
+            temp.Id = currentDeviceID;
+
+            await Refresh();
+
+            if (currentDeviceID != _userInfo?.Id
+                || string.IsNullOrEmpty(_userInfo?.Name))
             {
-                _hasOldData = true;
-                UserInfo = new UserInfo();
-                UserInfo.Id = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
-                UserInfo.TotalFoodDetailRead = 0;
-                UserInfo.TotalVitaminRead = 0;
-                UserInfo.TotalDiscoveryRead = 0;
-                await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(this.UserInfo);
+                var userHasName = (await _userInfoDataStoreServie.GetItemsAsync())?
+                    .FirstOrDefault(u => !string.IsNullOrEmpty(u.Name))!;
+                if (userHasName != null)
+                {
+                    temp.Name = userHasName.Name;
+                    temp.Weight = userHasName.Weight;
+                    temp.Height = userHasName.Height;
+                    temp.DateOfBirth = userHasName.DateOfBirth;
+                    temp.IsMale = userHasName.IsMale;
+                }
+
+                await _userInfoDataStoreServie.DeleteAllItems();
+                await _userInfoDataStoreServie.AddOrUpdateItemAsync(temp);
+                _userInfo = temp;
             }
         }
 
         public async Task Refresh()
         {
-            this.UserInfo = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
-        }
-
-        public short GetUserAge()
-        {
-            return this.UserInfo.Age;
-        }
-
-        public async Task<string> GetUserNameAsync()
-        {
-            if (!_hasOldData)
+            var localUser = await _userInfoDataStoreServie.GetFirstOrDefaultItem();
+            if (localUser != null)
             {
-                await Init();
+                _userInfo = localUser;
+                _hasOldData = true;
+            }
+        }
+
+        public async Task SaveData(UserInfo data)
+        {
+            if (string.IsNullOrEmpty(data.Name))
+            {
+                return;
             }
 
-            return this.UserInfo.Name ?? string.Empty;
-        }
+            bool isDataChanged = false;
 
-        public async Task SaveData(DateTime dateOfBirth, string name = null, bool isMale = false, short height = 0, float weight = 0)
-        {
-            if (!string.IsNullOrEmpty(name))
+            if (this._userInfo.Name != data.Name)
             {
-                this.UserInfo.Name = name;
+                this._userInfo.Name = data.Name;
             }
 
-            this.UserInfo.IsMale = isMale;
-            this.UserInfo.Height = height;
-            this.UserInfo.Weight = weight;
-            this.UserInfo.DateOfBirth = dateOfBirth;
+            if (this._userInfo.Weight != data.Weight)
+            {
+                this._userInfo.Weight = data.Weight;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.Height != data.Height)
+            {
+                this._userInfo.Height = data.Height;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.DateOfBirth != data.DateOfBirth)
+            {
+                this._userInfo.DateOfBirth = data.DateOfBirth;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.IsMale != data.IsMale)
+            {
+                this._userInfo.IsMale = data.IsMale;
+                isDataChanged = true;
+            }
+
+            var bmi = BMICalculateHelper.Calculate(data.Weight, data.Height / 100f);
+            if (this._userInfo.BMIResult != (float)bmi)
+            {
+                this._userInfo.BMIResult = (float)bmi;
+                isDataChanged = true;
+            }
+
+            if (this._userInfo.ActivityLevelData != data.ActivityLevelData)
+            {
+                this._userInfo.ActivityLevelData = data.ActivityLevelData;
+                isDataChanged = true;
+            }
+
+            this._userInfo.BMRResult = TDEEHelper.CalculateBMR(data.Weight, data.Height, data.Age, data.IsMale);
+            if (this._userInfo.TDEEResult != data.TDEEResult)
+            {
+                this._userInfo.TDEEResult = data.TDEEResult;
+                isDataChanged = true;
+            }
+#if DEBUG
+            Debug.WriteLine($"SaveData: {isDataChanged}");
+            Debug.WriteLine($"Name: {this._userInfo.Name}");
+            Debug.WriteLine($"Weight: {this._userInfo.Weight}");
+            Debug.WriteLine($"Height: {this._userInfo.Height}");
+            Debug.WriteLine($"DateOfBirth: {this._userInfo.DateOfBirth}");
+            Debug.WriteLine($"IsMale: {this._userInfo.IsMale}");
+            Debug.WriteLine($"BMIResult: {this._userInfo.BMIResult}");
+            Debug.WriteLine($"ActivityLevelData: {this._userInfo.ActivityLevelData}");
+            Debug.WriteLine($"BMRResult: {this._userInfo.BMRResult}");
+            Debug.WriteLine($"TDEEResult: {this._userInfo.TDEEResult}");
+#endif
+
             await this.SaveData();
         }
 
         public async Task SaveData()
         {
-            await ServicesHelper.GetService<UserInfoDataStoreServie>().AddOrUpdateItemAsync(this.UserInfo, true);
+            await _userInfoDataStoreServie.AddOrUpdateItemAsync(this._userInfo, true);
         }
 
-        public DateTime GetDateOfBirth()
+        UserInfo IUserDataService.GetUserInfo()
         {
-            return this.UserInfo.DateOfBirth;
-        }
-
-        public float GetWeight()
-        {
-            return this.UserInfo.Weight;
-        }
-
-        public short GetHeight()
-        {
-            return this.UserInfo.Height;
+            return this._userInfo;
         }
     }
 }
