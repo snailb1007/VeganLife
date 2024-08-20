@@ -38,7 +38,7 @@ namespace VeganLife.ViewModels
         private string? weightValue;
 
         [ObservableProperty]
-        private byte ageValue;
+        private int ageValue;
 
         [ObservableProperty]
         private string? backgroundImg;
@@ -177,7 +177,7 @@ namespace VeganLife.ViewModels
         }
 
         [SuppressPropertyChangedWarnings]
-        partial void OnAgeValueChanged(byte value)
+        partial void OnAgeValueChanged(int value)
         {
             if (value <= 0)
             {

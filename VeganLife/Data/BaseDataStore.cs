@@ -25,12 +25,12 @@ namespace VeganLife.Data
         public BaseDataStore(ISQLite database)
         {
             this._localDatabase = database;
-            Init().ConfigureAwait(false);
+            _ = InitAsync();
         }
 
         public async Task<bool> SaveItems(IEnumerable<T> items)
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
                 var res = await this._connection.InsertAllAsync(items);
@@ -45,7 +45,7 @@ namespace VeganLife.Data
 
         public async Task<bool> DeleteAllItems()
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
                 var res = await this._connection.DeleteAllAsync<T>();
@@ -63,13 +63,24 @@ namespace VeganLife.Data
         {
             try
             {
+                await this.InitAsync();
                 if (isUpdate || await this.IsExistingItem(item))
                 {
                     return await this._connection.UpdateAsync(item) > 0;
                 }
                 else
                 {
-                    return await this._connection.InsertAsync(item) > 0;
+                    Task<int> task;
+                    if (typeof(T) == typeof(UserInfo))
+                    {
+                        task = this._connection.InsertOrReplaceAsync(item);
+                    }
+                    else
+                    {
+                        task = this._connection.InsertAsync(item);
+                    }
+
+                    return (await task) > 0;
                 }
             }
             catch (Exception e)
@@ -86,7 +97,7 @@ namespace VeganLife.Data
         /// <inheritdoc/>
         public async Task<bool> DeleteItem(T item)
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
                 return await this._connection.DeleteAsync(item) > 0;
@@ -99,11 +110,12 @@ namespace VeganLife.Data
         }
 
         /// <inheritdoc/>
-        public async Task<T> GetItemAsync()
+        public async Task<T> GetItemAsync(string id)
         {
             try
             {
-                return await this._connection.Table<T>().FirstOrDefaultAsync();
+                var res = await this._connection.FindAsync<T>(id);
+                return res;
             }
             catch (Exception e)
             {
@@ -129,12 +141,12 @@ namespace VeganLife.Data
 
         public async Task<T> GetFirstOrDefaultItem()
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
-                var result = await this._connection.Table<T>().ToListAsync()
-                    .ContinueWith(t => t.Result.FirstOrDefault());
-                return result ?? default!;
+                var result = await this._connection.Table<T>()
+                    .FirstOrDefaultAsync();
+                return result;
             }
             catch (Exception e)
             {
@@ -144,7 +156,7 @@ namespace VeganLife.Data
             }
         }
 
-        private async Task Init()
+        private async Task InitAsync()
         {
             if (this._connection is not null)
             {

@@ -6,7 +6,7 @@ namespace VeganLife.Models
 {
     public class BMIResultModel
     {
-        public byte Age { get; set; }
+        public int Age { get; set; }
 
         public bool IsMale { get; set; }
 

@@ -10,7 +10,7 @@ namespace VeganLife.Data.LocalData
 
         Task<bool> DeleteItem(T item);
 
-        Task<T> GetItemAsync();
+        Task<T> GetItemAsync(string id);
 
         Task<T> GetFirstOrDefaultItem();
 

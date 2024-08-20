@@ -9,7 +9,7 @@ namespace VeganLife.ViewModels
 {
     public partial class ProfileViewModel : BaseViewModel
     {
-        private const byte totalNumberSpec = 4;
+        private const byte TotalNumberSpec = 4;
 
         private readonly IUserDataService _userDataService;
 
@@ -34,8 +34,8 @@ namespace VeganLife.ViewModels
             using (await this.loadingService.Show())
             {
                 await this._userDataService.Refresh();
-                MyInfo = (_userDataService as UserDataService)?.UserInfo!;
-                NumberInfoMiss = totalNumberSpec;
+                MyInfo = _userDataService.GetUserInfo();
+                NumberInfoMiss = TotalNumberSpec;
 
                 if (MyInfo != null)
                 {
@@ -59,7 +59,7 @@ namespace VeganLife.ViewModels
                         NumberInfoMiss--;
                     }
 
-                    DegreePerfection = (totalNumberSpec - NumberInfoMiss) / totalNumberSpec * 100;
+                    DegreePerfection = (TotalNumberSpec - NumberInfoMiss) / TotalNumberSpec * 100;
                 }
 
                 await base.ViewAppearingVM();

@@ -44,6 +44,14 @@
             Icon="compass"
             Route="news_feed"
             Shell.NavBarIsVisible="False" />
+        <ShellContent
+            Title="Phan tich"
+            ContentTemplate="{DataTemplate mainFlyout:MealLogsPage}"
+            Route="meal_logs">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FALight" Glyph="&#xf64e;" />
+            </ShellContent.Icon>
+        </ShellContent>
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_bookmarkTab}"

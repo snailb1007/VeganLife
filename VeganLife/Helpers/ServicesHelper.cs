@@ -15,7 +15,7 @@ namespace VeganLife.Helpers
             if (GetService<IPopupNaviService>().GetPopupStackCount() > 0)
             {
                 // Mop-up
-                return GetService<IPopupNavigation>().PopupStack.LastOrDefault()?.BindingContext
+                return GetService<IPopupNavigation>()?.PopupStack?.LastOrDefault()?.BindingContext
                        as BaseViewModel;
             }
             else if (Shell.Current?.CurrentPage != null)
@@ -29,7 +29,8 @@ namespace VeganLife.Helpers
         }
 
         // get current viewmodel by type
-        public static T GetCurrentViewModel<T>() where T : BaseViewModel
+        public static T? GetCurrentViewModel<T>()
+            where T : BaseViewModel
         {
             return GetCurrentViewModel() as T;
         }

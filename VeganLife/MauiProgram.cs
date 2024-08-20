@@ -27,6 +27,7 @@ using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.ViewModels.PopupViewModels;
 using VeganLife.ViewModels.TabsViewModel;
 using VeganLife.ViewModels.ToolsFlyoutViewModel;
+using VeganLife.Views.AboutYou;
 using VeganLife.Views.ChatFlyout;
 using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.Controls;
@@ -38,7 +39,6 @@ using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
-using VeganLife.Views.AboutYou;
 
 namespace VeganLife
 {
@@ -103,7 +103,7 @@ namespace VeganLife
             services.AddChatGpt(options =>
             {
                 options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
-                options.DefaultModel = OpenAIChatGptModels.Gpt35_Turbo;
+                options.DefaultModel = OpenAIChatGptModels.Gpt4_o_mini;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });
@@ -178,6 +178,7 @@ namespace VeganLife
             services.AddTransient<BirthdayAboutPage, BirthdayAboutPageVM>();
             services.AddTransient<GenderAboutPage, GenderAboutPageVM>();
             services.AddTransient<HeightAndWeightAboutPage, HeightAndWeightAboutPageVM>();
+            services.AddTransient<MealLogsPage, MealLogsPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

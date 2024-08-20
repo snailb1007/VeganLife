@@ -28,7 +28,12 @@ namespace VeganLife.Services
             return 0;
         }
 
-        public string GetDeviceId() => UUID.RandomUUID()?.ToString() ?? string.Empty;
+        public string GetDeviceId()
+        {
+            var context = Android.App.Application.Context;
+            var res = Android.Provider.Settings.Secure.GetString(context.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
+            return res ?? string.Empty;
+        }
 
         public bool IsAutomaticDateTimeEnabled()
         {
