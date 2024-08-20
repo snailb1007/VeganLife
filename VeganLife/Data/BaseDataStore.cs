@@ -5,6 +5,7 @@
 using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.Extensions;
+using VeganLife.Models.FoodModel;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.Data

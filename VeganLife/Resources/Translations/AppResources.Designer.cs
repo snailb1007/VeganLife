@@ -967,6 +967,24 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_SuperActive.
+        /// </summary>
+        internal static string mealLogsPage_BMI_description {
+            get {
+                return ResourceManager.GetString("mealLogsPage_BMI_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_BMR_description.
+        /// </summary>
+        internal static string mealLogsPage_BMR_description {
+            get {
+                return ResourceManager.GetString("mealLogsPage_BMR_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to mealLogsPage_LightlyActive.
         /// </summary>
         internal static string mealLogsPage_LightlyActive {
@@ -999,6 +1017,15 @@ namespace VeganLife.Resources.Translations {
         internal static string mealLogsPage_SuperActive {
             get {
                 return ResourceManager.GetString("mealLogsPage_SuperActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_TDEE_description.
+        /// </summary>
+        internal static string mealLogsPage_TDEE_description {
+            get {
+                return ResourceManager.GetString("mealLogsPage_TDEE_description", resourceCulture);
             }
         }
         

@@ -1,7 +1,13 @@
-﻿
+﻿// <copyright file="MealLogsPageVM.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Mopups.Services;
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.Popups;
 using static VeganLife.Helpers.AppSetting.ConstantHelper.CalculateHelper;
 
 namespace VeganLife.ViewModels
@@ -54,6 +60,27 @@ namespace VeganLife.ViewModels
             isInitialized = true;
         }
 
+        [RelayCommand]
+        private async Task OnInfoClickedAsync(string param)
+        {
+            string data = string.Empty;
+            switch (param)
+            {
+                case "BMI":
+                    data = AppResources.mealLogsPage_BMI_description;
+                    break;
+                case "BMR":
+                    data = AppResources.mealLogsPage_BMR_description;
+                    break;
+                case "TDEE":
+                    data = AppResources.mealLogsPage_TDEE_description;
+                    break;
+            }
+
+            await MopupService.Instance.PushAsync(new SimpleInformationPopup(data));
+        }
+
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedActivityLevelIndexChanged(int value)
         {
             if (value == (int)LocalUser.NormalFormatActivityLv)

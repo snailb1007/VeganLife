@@ -3,6 +3,7 @@
 // </copyright>
 
 using Mopups.Interfaces;
+using VeganLife.Views.Popups;
 
 namespace VeganLife.Helpers
 {
@@ -12,11 +13,14 @@ namespace VeganLife.Helpers
 
         public static BaseViewModel? GetCurrentViewModel()
         {
-            if (GetService<IPopupNaviService>().GetPopupStackCount() > 0)
+            var popupService = GetService<IPopupNaviService>();
+            var currentPopup = GetService<IPopupNavigation>()?.PopupStack?.LastOrDefault();
+            if (popupService.GetPopupStackCount() > 0
+                && currentPopup != null
+                && currentPopup is not LoadingPopup)
             {
                 // Mop-up
-                return GetService<IPopupNavigation>()?.PopupStack?.LastOrDefault()?.BindingContext
-                       as BaseViewModel;
+                return currentPopup?.BindingContext as BaseViewModel;
             }
             else if (Shell.Current?.CurrentPage != null)
             {
