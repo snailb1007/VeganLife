@@ -1,4 +1,5 @@
-﻿using VeganLife.Views.AboutYou;
+﻿using PropertyChanged;
+using VeganLife.Views.AboutYou;
 
 namespace VeganLife.ViewModels
 {
@@ -39,6 +40,7 @@ namespace VeganLife.ViewModels
                 new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedDateChanged(DateTime value)
         {
             IsFilledBirthday = value < MaximumDateOfBirth && value > DateTime.MinValue;

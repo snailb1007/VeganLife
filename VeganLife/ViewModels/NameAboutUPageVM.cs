@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Views.AboutYou;
 
@@ -33,6 +34,7 @@ namespace VeganLife.ViewModels
             await this.navigationService.NavigateToPage<BirthdayAboutPage>(paramater: Name);
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnNameChanged(string value)
         {
             IsFilledName = !string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name);
