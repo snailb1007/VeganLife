@@ -102,7 +102,7 @@ namespace VeganLife
             // service
             services.AddChatGpt(options =>
             {
-                options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
+                options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAIKeyV1);
                 options.DefaultModel = OpenAIChatGptModels.Gpt4_o_mini;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour

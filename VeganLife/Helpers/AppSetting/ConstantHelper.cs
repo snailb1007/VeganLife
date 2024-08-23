@@ -11,11 +11,11 @@ namespace VeganLife.Helpers.AppSetting
 
         public static class OpenAIConstant
         {
-            public const string OpenAIUrl = "https://api.openai.com/";
-            public const string OpenAITokenVip = "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";
+            public const string OpenAIKeyV1 = "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";
 
-            public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
-
+            // public const string OpenAITokenVip = "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";
+            // public const string OpenAIUrl = "https://api.openai.com/";
+            // public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
             // public const string OpenAIEndpoint_Generations = "v1/images/generations";
         }
 
