@@ -51,7 +51,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                 var nameNormal = this.CurrentFoodPreview?.Name?.RemoveNestedParentheses() ?? string.Empty;
                 Affiliations = (StaticHelper.Affiliation.Affiliations
                     .Where(i => i.NutrientName == nameNormal || nameNormal.ToLower().Contains(i.NutrientName.ToLower()))
-                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
+                        ?? Enumerable.Empty<AffiliationModel>()).ToList();
             }
 
             return base.OnNavigatingTo(parameter);
@@ -67,11 +67,11 @@ namespace VeganLife.ViewModels.ContentViewModels
                 {
                     if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                     {
-                        await ProcessUndefineFoodAsync().ConfigureAwait(false);
+                        _ = ProcessUndefineFoodAsync().ConfigureAwait(true);
                     }
                     else
                     {
-                        await ProcessUsdaFoodAsync().ConfigureAwait(false);
+                        _ = ProcessUsdaFoodAsync().ConfigureAwait(true);
                     }
                 }
             }
