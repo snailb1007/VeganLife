@@ -2,6 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using FFImageLoading.Helpers;
+using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 
 namespace VeganLife.Services.CommunityFreeService
@@ -10,6 +13,13 @@ namespace VeganLife.Services.CommunityFreeService
     {
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
         private const string apiKey = "***REMOVED***";
+
+        private readonly UsdaFoodDataStoreService _dataStoreService;
+
+        public USDAApiService()
+        {
+            _dataStoreService = ServicesHelper.GetService<UsdaFoodDataStoreService>();
+        }
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
         {
@@ -30,18 +40,14 @@ namespace VeganLife.Services.CommunityFreeService
                 }
                 else
                 {
-#if DEBUG
-                    Console.WriteLine($"API request failed with status code: {response.StatusCode}");
-#endif
+                    Debug.WriteLine($"API request failed with status code: {response.StatusCode}");
                 }
 
                 return result;
             }
             catch (Exception ex)
             {
-#if DEBUG
-                Console.WriteLine($"An error occurred: {ex.Message}");
-#endif
+                Debug.WriteLine($"An error occurred: {ex.Message}");
                 _ = ex;
                 return result;
             }

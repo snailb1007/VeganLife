@@ -18,6 +18,7 @@ namespace VeganLife.Data
     {
         private readonly ISQLite _localDatabase;
         private SQLiteAsyncConnection _connection;
+        private Task _currentInitTask;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDataStore{T}"/> class.
@@ -26,7 +27,8 @@ namespace VeganLife.Data
         public BaseDataStore(ISQLite database)
         {
             this._localDatabase = database;
-            _ = InitAsync();
+            _currentInitTask = InitAsync();
+            _ = _currentInitTask;
         }
 
         public async Task<bool> SaveItems(IEnumerable<T> items)
@@ -159,6 +161,11 @@ namespace VeganLife.Data
 
         private async Task InitAsync()
         {
+            if (this._currentInitTask != null && !this._currentInitTask.IsCompleted)
+            {
+                await _currentInitTask;
+            }
+
             if (this._connection is not null)
             {
                 return;
