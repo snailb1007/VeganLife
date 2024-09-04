@@ -24,6 +24,9 @@ namespace VeganLife.Services
     public class DataService : IDataService
     {
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
+        private readonly UpdateMasterDataStoreService _updateMasterDataStoreService;
+        private readonly IDictionary<string, object> _dataStore;
+
         private const string FirebaseClientLink = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
 
         // update master
@@ -41,9 +44,7 @@ namespace VeganLife.Services
         private const string MacrosFoodNutriFactDetail = "USDA/food_data_central/details";
         private const string UsdaFoodPreviewsAddress = "/USDA/food_data_central/list";
 
-        private readonly UpdateMasterDataStoreService _updateMasterDataStoreService;
         private IList<UpdateMasterModel> _updateMasters;
-        private readonly IDictionary<string, object> _dataStore;
 
         public DataService()
         {
@@ -200,9 +201,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
+                Debug.WriteLine(e.StackTrace);
                 _ = e;
                 return new FoodNutrientFacts();
             }
@@ -225,9 +224,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
+                Debug.WriteLine(e.StackTrace);
                 _ = e;
                 return new UndefinedMacroFoodNutriFactModel();
             }

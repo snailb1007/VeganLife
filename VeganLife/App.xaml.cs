@@ -26,7 +26,7 @@ namespace VeganLife
         {
             this.InitializeComponent();
 
-            CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+            // CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
             CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
             CrossMauiMTAdmob.Current.UseRestrictedDataProcessing = true;
             CrossMauiMTAdmob.Current.TagForChildDirectedTreatment = MTTagForChildDirectedTreatment.TagForChildDirectedTreatmentUnspecified;

@@ -33,7 +33,7 @@ namespace VeganLife.ViewModels
                 if (!isConnected && !_hasShownAlert)
                 {
                     _hasShownAlert = true; // Prevent showing multiple alerts consecutively
-                    MainThread.BeginInvokeOnMainThread(() => DisplayNoInternetAlert().ConfigureAwait(false));
+                    MainThread.BeginInvokeOnMainThread(() => _ = DisplayNoInternetAlert());
                 }
                 else if (isConnected)
                 {
@@ -69,9 +69,9 @@ namespace VeganLife.ViewModels
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
                 // No internet connection
-                MainThread.BeginInvokeOnMainThread(async () =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    await DisplayNoInternetAlert().ConfigureAwait(false);
+                    _ = DisplayNoInternetAlert();
                 });
             }
         }

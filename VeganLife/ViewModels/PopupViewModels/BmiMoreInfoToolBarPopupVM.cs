@@ -7,6 +7,7 @@ namespace VeganLife.ViewModels.PopupViewModels
     {
         [ObservableProperty]
         private ObservableCollection<string> documents;
+
         public BmiMoreInfoToolBarPopupVM()
             : base()
         {

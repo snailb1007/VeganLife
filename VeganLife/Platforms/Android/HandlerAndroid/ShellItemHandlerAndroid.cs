@@ -49,6 +49,7 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
                 }
 
                 await Task.Delay(0);
+
                 //else if (!currentVM.IsLoading)
                 //{
                 //    await navigationService?.PopToRootAsync()!;

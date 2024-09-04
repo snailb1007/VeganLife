@@ -162,6 +162,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private void OnExpandClicked()
         {
             IsExpanded = !IsExpanded;
+
             // if (IsExpanded && nutriFactsLoaded && DailyRadialGaugeChart == null)
             // {
             //    DailyRadialGaugeChart = new RadialGaugeChart()
