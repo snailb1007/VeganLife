@@ -2,9 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using FFImageLoading.Helpers;
 using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 
 namespace VeganLife.Services.CommunityFreeService
@@ -16,9 +14,9 @@ namespace VeganLife.Services.CommunityFreeService
 
         private readonly UsdaFoodDataStoreService _dataStoreService;
 
-        public USDAApiService()
+        public USDAApiService(UsdaFoodDataStoreService usdaFoodDataStore)
         {
-            _dataStoreService = ServicesHelper.GetService<UsdaFoodDataStoreService>();
+            _dataStoreService = usdaFoodDataStore;
         }
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)

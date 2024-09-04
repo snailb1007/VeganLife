@@ -34,7 +34,7 @@
                 MaterialTheme="Acrylic">
                 <Entry
                     x:Name="nameEntry"
-                    AutomationProperties.LabeledBy="{x:Reference nameLb}"
+                    AutomationProperties.Name="{x:Reference nameLb}"
                     HeightRequest="48"
                     Placeholder="tên đầy đủ, hoặc biệt danh"
                     Text="{Binding Name}"

@@ -29,7 +29,6 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private ObservableCollection<Discovery> discoveryMenu;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
         /// </summary>

@@ -42,7 +42,6 @@ namespace VeganLife.Models.FoodModel
 
         public ushort Calcium { get; set; }
 
-
         public ushort D { get; set; }
 
         public ushort Kali { get; set; } // Potassium
