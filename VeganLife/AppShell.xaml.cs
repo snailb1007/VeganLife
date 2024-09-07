@@ -3,15 +3,12 @@
 // </copyright>
 
 using Mopups.Services;
-using Plugin.MauiMTAdmob.Extra;
-using Plugin.MauiMTAdmob;
 using VeganLife.Helpers;
 using VeganLife.Views.Base;
 using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.MainPageFlyout.FoodTab;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
-using static VeganLife.Helpers.AppSetting.StaticHelper;
 
 // Ignore Spelling: App
 namespace VeganLife

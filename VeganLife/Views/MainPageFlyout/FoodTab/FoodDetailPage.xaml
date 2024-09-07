@@ -134,7 +134,6 @@
                     <VerticalStackLayout BackgroundColor="Transparent" Spacing="8">
                         <Label
                             FontAttributes="Bold"
-                            FontFamily="PlayfairDisplaySemiBold"
                             FontSize="18"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="TailTruncation"

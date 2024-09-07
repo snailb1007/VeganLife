@@ -59,7 +59,6 @@ namespace VeganLife
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
 
                     // v6.5.1
                     fonts.AddFont("fa-solid-900.ttf", "FASolid");

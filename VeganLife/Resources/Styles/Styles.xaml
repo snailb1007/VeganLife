@@ -507,10 +507,6 @@
     </Style>-->
 
     <!--  custom  -->
-    <Style x:Key="TitleFood" TargetType="Label">
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontFamily" Value="PlayfairDisplaySemiBold" />
-    </Style>
     <DataTemplate x:Key="FoodPreviewCollection" x:DataType="modelFood:FoodPreviewModel">
         <Border
             BackgroundColor="{AppThemeBinding Light=White,
