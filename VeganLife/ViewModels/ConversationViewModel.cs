@@ -273,7 +273,7 @@ namespace VeganLife.ViewModels
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
 
-        private ProgressDrawableControl _drawable;
+        // private ProgressDrawableControl _drawable;
 
         [RelayCommand]
         private async Task OpenRewardedAdPage()
