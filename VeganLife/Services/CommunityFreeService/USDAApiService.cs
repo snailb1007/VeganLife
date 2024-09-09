@@ -3,6 +3,8 @@
 // </copyright>
 
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Models.CommunityFreeServiceModel;
 
 namespace VeganLife.Services.CommunityFreeService
@@ -12,9 +14,9 @@ namespace VeganLife.Services.CommunityFreeService
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
         private const string apiKey = "***REMOVED***";
 
-        private readonly UsdaFoodDataStoreService _dataStoreService;
+        private readonly UsdaFoodNutritionFactDataStoreService _dataStoreService;
 
-        public USDAApiService(UsdaFoodDataStoreService usdaFoodDataStore)
+        public USDAApiService(UsdaFoodNutritionFactDataStoreService usdaFoodDataStore)
         {
             _dataStoreService = usdaFoodDataStore;
         }
@@ -25,29 +27,46 @@ namespace VeganLife.Services.CommunityFreeService
             try
             {
                 string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
-                HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
+                result = await _dataStoreService.GetItemAsync(foodId);
+                //HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var streamData = await response.Content.ReadAsStreamAsync();
-                    var responseData = await Utf8Json.JsonSerializer.DeserializeAsync<USDAFoodNutritionFactModel>(streamData);
-                    if (responseData is not null)
-                    {
-                        result = responseData;
-                    }
-                }
-                else
-                {
-                    Debug.WriteLine($"API request failed with status code: {response.StatusCode}");
-                }
+                //if (response.IsSuccessStatusCode)
+                //{
+                //    var streamData = await response.Content.ReadAsStreamAsync();
+                //    var responseData = await Utf8Json.JsonSerializer.DeserializeAsync<USDAFoodNutritionFactModel>(streamData);
+                //    if (responseData is not null)
+                //    {
+                //        _ = _dataStoreService.AddOrUpdateItemAsync(responseData);
+                //        result = responseData;
+                //    }
+                //}
+                //else
+                //{
+                //    Debug.WriteLine($"API request failed with status code: {response.StatusCode}");
+                //}
 
                 return result;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"An error occurred: {ex.Message}");
+                ex.LogError();
+                result = await _dataStoreService.GetItemAsync(foodId);
                 _ = ex;
                 return result;
+            }
+            finally
+            {
+                if (result.Id <= 0)
+                {
+                    if (!ServicesHelper.GetNetworkStatus() && ServicesHelper.GetCurrentViewModel() is BaseViewModel vm)
+                    {
+                        _ = vm.DisplayNoInternetAlert();
+                    }
+                    else
+                    {
+                        _ = ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Food item not found", "OK");
+                    }
+                }
             }
         }
     }

@@ -12,12 +12,15 @@ namespace VeganLife.ViewModels.ContentViewModels
 {
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
-        private NutritionMealLogDataStoreService _foodLogService;
+        private readonly USDAApiService _usdaApiService;
+        private readonly NutritionMealLogDataStoreService _foodLogService;
 
         [ObservableProperty]
         private USDAFoodPreviewModel currentFoodPreview;
+
         [ObservableProperty]
         private USDAFoodNutritionFactModel currentFoodNutritionFact;
+
         [ObservableProperty]
         private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
 
@@ -37,9 +40,11 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
 
-        public UsdaFoodFactDetailVM()
+        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, NutritionMealLogDataStoreService nutritionMealLogDataStoreService)
         {
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
+            _foodLogService = nutritionMealLogDataStoreService;
+            _usdaApiService = uSDAApiService;
         }
 
         public override Task OnNavigatingTo(object? parameter)
@@ -62,16 +67,15 @@ namespace VeganLife.ViewModels.ContentViewModels
             using (await this.loadingService.Show())
             {
                 await base.ViewAppearingVM();
-                _foodLogService ??= ServicesHelper.GetService<NutritionMealLogDataStoreService>();
                 if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
                 {
                     if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                     {
-                        _ = ProcessUndefineFoodAsync().ConfigureAwait(true);
+                        _ = ProcessUndefineFoodAsync();
                     }
                     else
                     {
-                        _ = ProcessUsdaFoodAsync().ConfigureAwait(true);
+                        _ = ProcessUsdaFoodAsync();
                     }
                 }
             }
@@ -140,12 +144,12 @@ namespace VeganLife.ViewModels.ContentViewModels
         private UndefinedFoodNutrient _proteinValue = null;
         private UndefinedFoodNutrient _carbValue = null;
 
-        public async Task ProcessUsdaFoodAsync()
+        private async Task ProcessUsdaFoodAsync()
         {
-            this.CurrentFoodNutritionFact = await ServicesHelper.GetService<USDAApiService>()
-                    .GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
+            this.CurrentFoodNutritionFact = await _usdaApiService.GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
             if (this.CurrentFoodNutritionFact?.foodNutrients?.Any() ?? false)
             {
+                // try summarize usda food nutrients
                 foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
                 {
                     SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);

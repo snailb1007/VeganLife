@@ -50,5 +50,10 @@ namespace VeganLife.Helpers
                 //await AlertHelper.ShowErrorAlertAsync(I18nHelper.Get("Common_Error_BrowserNotFound"));
             }
         }
+
+        public static bool GetNetworkStatus()
+        {
+            return Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+        }
     }
 }
