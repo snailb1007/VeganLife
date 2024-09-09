@@ -10,7 +10,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     {
         [PrimaryKey]
         [DataMember(Name = "fdcId")]
-        public int FdcId { get; set; }
+        public int Id { get; set; } = -1;
 
         public string? publicationDate { get; set; }
 
