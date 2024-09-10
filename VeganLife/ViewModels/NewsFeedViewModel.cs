@@ -196,10 +196,9 @@ namespace VeganLife.ViewModels
                 catch (Exception ex)
                 {
                     _ = ex;
-#if DEBUG
+
                     // An unexpected error occured. No browser may be installed on the device.
-                    await Console.Out.WriteLineAsync("No browser may be installed on the device\n" + ex.Message);
-#endif
+                    Debug.WriteLine("==> No browser may be installed on the device\n" + ex.Message);
                 }
             }
         }

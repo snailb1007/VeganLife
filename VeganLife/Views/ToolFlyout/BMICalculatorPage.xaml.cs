@@ -1,3 +1,4 @@
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 using VeganLife.ViewModels.ToolsFlyoutViewModel;
@@ -14,8 +15,8 @@ public partial class BMICalculatorPage : BasePage<BmiCalculatorViewModel>
         InitializeComponent();
     }
 
-    private async void ToolbarItem_Clicked(object sender, EventArgs e)
+    private void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-        await this.ShowPopupAsync(ServicesHelper.GetService<BmiMoreInfoToolBarPopup>());
+        this.ShowPopupAsync(ServicesHelper.GetService<BmiMoreInfoToolBarPopup>()).SafeFireAndForget();
     }
 }

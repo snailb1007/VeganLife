@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
@@ -71,11 +72,11 @@ namespace VeganLife.ViewModels.ContentViewModels
                 {
                     if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                     {
-                        _ = ProcessUndefineFoodAsync();
+                        await ProcessUndefineFoodAsync();
                     }
                     else
                     {
-                        _ = ProcessUsdaFoodAsync();
+                        await ProcessUsdaFoodAsync();
                     }
                 }
             }

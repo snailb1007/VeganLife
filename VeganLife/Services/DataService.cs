@@ -3,6 +3,7 @@
 // </copyright>
 
 using AndroidX.Room;
+using AsyncAwaitBestPractices;
 using Firebase.Database;
 using Firebase.Database.Query;
 using HtmlAgilityPack;
@@ -56,11 +57,12 @@ namespace VeganLife.Services
                 { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
                 { nameof(PharmacoLogicalModel), ServicesHelper.GetService<PharmacoLogicalDataStoreService>() },
             };
-            _ = _updateMasterDataStoreService.GetItemsAsync()
+            _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
                     _updateMasters = new List<UpdateMasterModel>(t.Result);
-                });
+                })
+                .SafeFireAndForget();
         }
 
         public async Task<bool> GetMaintenanceStatusAsync()
@@ -459,8 +461,8 @@ namespace VeganLife.Services
                     await localData.DeleteAllItems();
                 }
 
-                _ = localData.SaveItems(result);
-                _ = UpdateMasterDataAsync(modelName, masterData);
+                localData.SaveItems(result).SafeFireAndForget();
+                UpdateMasterDataAsync(modelName, masterData).SafeFireAndForget();
             }
             else
             {
