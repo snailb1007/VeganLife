@@ -1,3 +1,4 @@
+using AsyncAwaitBestPractices;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
 
@@ -12,14 +13,12 @@ public partial class ShellFlyoutFooterCustom : ContentView
 
     private void OnButtonShareTapped(object sender, TappedEventArgs e)
     {
-        this.Dispatcher.Dispatch(async () =>
+        var requestTask = Share.RequestAsync(new ShareTextRequest
         {
-            await Share.RequestAsync(new ShareTextRequest
-            {
-                Uri = ConstantHelper.AppStoreLink,
-                Title = AppResources.app_name,
-                Text = "Invite your friends",
-            });
+            Uri = ConstantHelper.AppStoreLink,
+            Title = AppResources.app_name,
+            Text = "Invite your friends",
         });
+        requestTask.SafeFireAndForget(onException: ex => Debug.WriteLine("==> " + ex.Message));
     }
 }

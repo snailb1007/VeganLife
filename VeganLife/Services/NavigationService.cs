@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using VeganLife.Helpers;
 
 namespace VeganLife.Services
@@ -113,8 +114,8 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
-            => await this.CallNavigatedTo((sender as Page)!);
+        private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
+            => this.CallNavigatedTo((sender as Page)!).SafeFireAndForget(onException: ex => Debug.WriteLine("==> baseNavi: " + ex));
 
         private Task CallNavigatedTo(Page p)
         {
@@ -127,7 +128,7 @@ namespace VeganLife.Services
             return Task.CompletedTask;
         }
 
-        private async void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
+        private void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
@@ -141,7 +142,7 @@ namespace VeganLife.Services
                     thisPage.NavigatedTo -= this.Page_NavigatedTo;
                 }
 
-                await this.CallNavigatedFrom(thisPage, isForwardNavigation);
+                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => Debug.WriteLine("==> baseNavi: " + ex));
             }
         }
 

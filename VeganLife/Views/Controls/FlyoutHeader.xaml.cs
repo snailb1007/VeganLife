@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
@@ -52,7 +53,7 @@ namespace VeganLife.Views.Controls
             }
         }
 
-        private async void AvatarView_Tapped(object sender, TappedEventArgs e)
+        private void AvatarView_Tapped(object sender, TappedEventArgs e)
         {
             if (_isProcessing)
             {
@@ -61,7 +62,7 @@ namespace VeganLife.Views.Controls
 
             _isProcessing = true;
             Shell.Current.FlyoutIsPresented = false;
-            await ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>();
+            ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>().SafeFireAndForget();
             _isProcessing = false;
         }
 
@@ -73,7 +74,7 @@ namespace VeganLife.Views.Controls
             });
         }
 
-        private async void OnEditProfileClicked(object sender, TappedEventArgs e)
+        private void OnEditProfileClicked(object sender, TappedEventArgs e)
         {
             if (_isProcessing)
             {
@@ -81,7 +82,9 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
+            ServicesHelper.GetService<IPopupNaviService>()
+                .PushAsync<ProfilePopup>()
+                .SafeFireAndForget();
             _isProcessing = false;
         }
     }
