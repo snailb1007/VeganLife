@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using Plugin.MauiMTAdmob.Extra;
 using Sentry.Protocol;
@@ -37,7 +38,7 @@ namespace VeganLife
 
             this.SetupLanguage();
             this.MainPage = new LoadingPage();
-            _ = this.SetupThemeAsync();
+            this.SetupThemeAsync().SafeFireAndForget();
         }
 
         private void SetupLanguage()

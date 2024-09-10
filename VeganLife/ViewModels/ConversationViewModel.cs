@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using PropertyChanged;
 using VeganLife.Data.LocalData;
@@ -126,7 +127,7 @@ namespace VeganLife.ViewModels
             CrossMauiMTAdmob.Current.OnUserEarnedReward += (s, e) =>
             {
                 CurrentChat.TimesLimit++;
-                _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+                _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat).SafeFireAndForget();
             };
             CrossMauiMTAdmob.Current.OnRewardedFailedToLoad += (s, e) =>
             {
