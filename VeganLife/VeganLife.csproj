@@ -150,6 +150,7 @@
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 		<PackageReference Include="Plugin.MauiMTAdmob" Version="1.6.3" />
+		<PackageReference Include="AsyncAwaitBestPractices" Version="8.0.0" />
 		<!--<PackageReference Include="Plugin.Maui.Calendar" Version="1.2.0" />-->
 	</ItemGroup>
 

@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Mopups.Interfaces;
 using Mopups.Pages;
 using Mopups.Services;
@@ -95,8 +96,8 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
-            => await this.CallNavigatedTo(sender as PopupPage);
+        private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
+            => this.CallNavigatedTo(sender as PopupPage).SafeFireAndForget(onException: ex => Debug.WriteLine("==> base: " + ex));
 
         private Task CallNavigatedTo(PopupPage? p)
         {
@@ -109,7 +110,7 @@ namespace VeganLife.Services
             return Task.CompletedTask;
         }
 
-        private async void Page_NavigatedFrom(object? sender, NavigatedFromEventArgs e)
+        private void Page_NavigatedFrom(object? sender, NavigatedFromEventArgs e)
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
@@ -124,7 +125,7 @@ namespace VeganLife.Services
                     thisPage.NavigatedFrom -= this.Page_NavigatedFrom;
                 }
 
-                await this.CallNavigatedFrom(thisPage, isForwardNavigation);
+                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => Debug.WriteLine("==> base: " + ex));
             }
         }
 

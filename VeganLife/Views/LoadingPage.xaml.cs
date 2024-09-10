@@ -1,3 +1,4 @@
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
@@ -16,7 +17,7 @@ public partial class LoadingPage : ContentPage
         InitializeComponent();
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
         _ = ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
@@ -24,25 +25,31 @@ public partial class LoadingPage : ContentPage
             {
                 HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
             });
-        await ServicesHelper.GetService<IUserDataService>().InitAsync();
+        ServicesHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
     }
 
-    private async void SelfContentLoaded(object sender, EventArgs e)
+    private void SelfContentLoaded(object sender, EventArgs e)
     {
-        if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances))
+        var getLocalFlagTask = UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances);
+        getLocalFlagTask.ContinueWith(async t =>
         {
-            await UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).ConfigureAwait(false);
-            await MainThread.InvokeOnMainThreadAsync(async () =>
+            if (!t.Result)
             {
-                var isCollectAccepted = await this.DisplayAlert(
-                string.Empty,
-                message: AppResources.Alert_CollectOperationLogsPermission_Message,
-                accept: AppResources.ok_common,
-                cancel: AppResources.cancel_common);
-                ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
-                await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
-            });
-        }
+                UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString())
+                .SafeFireAndForget();
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    var isCollectAccepted = await this.DisplayAlert(
+                    string.Empty,
+                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
+                    accept: AppResources.ok_common,
+                    cancel: AppResources.cancel_common);
+                    ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
+                    await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
+                });
+            }
+        });
+        getLocalFlagTask.SafeFireAndForget();
 
         if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
         {
