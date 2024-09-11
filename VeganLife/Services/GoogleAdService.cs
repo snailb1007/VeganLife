@@ -6,7 +6,8 @@ namespace VeganLife.Services
     internal class GoogleAdService
     {
         private static GoogleAdService _instance;
-        private int _bannerAdCount;
+
+        //private int _bannerAdCount;
         private int _rewardAdCount;
         private System.Timers.Timer _resetTimer;
 
@@ -14,7 +15,7 @@ namespace VeganLife.Services
 
         private GoogleAdService()
         {
-            _bannerAdCount = 0;
+            //_bannerAdCount = 0;
             _rewardAdCount = 0;
 
             _resetTimer = new System.Timers.Timer(60000); // 1 minute
@@ -24,7 +25,7 @@ namespace VeganLife.Services
 
         private void ResetAdCounts(object sender, ElapsedEventArgs e)
         {
-            _bannerAdCount = 0;
+            //_bannerAdCount = 0;
             _rewardAdCount = 0;
         }
 

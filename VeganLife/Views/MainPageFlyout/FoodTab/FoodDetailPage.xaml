@@ -87,7 +87,6 @@
                             ErrorPlaceholder="error_snail.jpg"
                             HorizontalOptions="FillAndExpand"
                             LoadingPlaceholder="relaxing.jpg"
-                            PropertyChanged="Image_PropertyChanged"
                             Source="{Binding ., Mode=OneWay}"
                             VerticalOptions="FillAndExpand" />
                     </DataTemplate>

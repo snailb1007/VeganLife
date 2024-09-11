@@ -40,7 +40,7 @@ namespace VeganLife.Services
 
         private readonly IServiceProvider services;
 
-        private Page? mainPage => Application.Current?.MainPage;
+        private Page? MainPage => Application.Current?.MainPage;
 
         // private IDispatcher? dispatcher => Application.Current?.Dispatcher;
 
@@ -67,11 +67,11 @@ namespace VeganLife.Services
 
         /// <inheritdoc/>
         public async Task<bool> DisplayAlert(string title, string message, string ok, string cancel)
-            => await this.mainPage?.DisplayAlert(title, message, ok, cancel)!;
+            => await this.MainPage?.DisplayAlert(title, message, ok, cancel)!;
 
         /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, string ok)
-            => await this.mainPage?.DisplayAlert(title, message, ok)!;
+            => await this.MainPage?.DisplayAlert(title, message, ok)!;
 
         /// <inheritdoc/>
         public async Task<Page> PopAsync()

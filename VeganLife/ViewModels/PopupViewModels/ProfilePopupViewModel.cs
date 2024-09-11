@@ -6,7 +6,7 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Messaging;
 using PropertyChanged;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 using VeganLife.Services.UserServices;
 
 namespace VeganLife.ViewModels.PopupViewModels

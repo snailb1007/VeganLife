@@ -79,7 +79,8 @@ namespace VeganLife
                 case 0:
                     this.CurrentItem = mainTool_tool;
                     break;
-                //case 1:
+
+                    //case 1:
                 //    this.CurrentItem = bmiCalculator_tool;
                 //    break;
                 //case 2:
