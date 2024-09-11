@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Views.SettingTab;
@@ -57,7 +58,7 @@ namespace VeganLife.ViewModels
                 using (await this.loadingService.Show(delayTime: 500))
                 {
                     ServicesHelper.GetService<SentryService>().IsEnabled = value;
-                    _ = UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).ConfigureAwait(false);
+                    UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
                 }
             });
         }
