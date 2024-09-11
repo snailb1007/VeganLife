@@ -49,10 +49,8 @@ namespace VeganLife.Services
             }
             catch (Exception e)
             {
-                _ = e;
                 if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
                 {
-                    _ = nativeEx;
                     System.Diagnostics.Debug.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
                 }
 
@@ -74,10 +72,8 @@ namespace VeganLife.Services
             }
             catch (Exception e)
             {
-                _ = e;
                 if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
                 {
-                    _ = nativeEx;
                     System.Diagnostics.Debug.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
                 }
 

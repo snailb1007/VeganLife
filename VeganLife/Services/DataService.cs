@@ -13,6 +13,7 @@ using System.Xml;
 using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Models.FirebaseDataModel;
 using VeganLife.Models.FoodModel;
@@ -82,8 +83,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                _ = e;
-                Debug.WriteLine(e.StackTrace);
+                e.LogError();
                 return false;
             }
         }
@@ -179,10 +179,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
-                _ = e;
+                e.LogError();
                 return Enumerable.Empty<FoodPreviewModel>();
             }
         }
@@ -255,8 +252,7 @@ namespace VeganLife.Services
             }
             catch (Exception ex)
             {
-                _ = ex;
-                Debug.WriteLine(ex.Message);
+                ex.LogError();
                 return Enumerable.Empty<Item>();
             }
         }
@@ -305,8 +301,7 @@ namespace VeganLife.Services
                 }
                 catch (Exception ex)
                 {
-                    _ = ex;
-                    Debug.WriteLine($"An error occurred: {ex.Message}");
+                    ex.LogError();
                 }
             }
 

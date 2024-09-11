@@ -3,6 +3,7 @@
 // </copyright>
 
 using Microsoft.Maui.Platform;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
 {
@@ -37,13 +38,11 @@ namespace VeganLife.Services
             }
             catch (FeatureNotSupportedException fbsEx)
             {
-                // Email is not supported on this device
-                _ = fbsEx;
+                fbsEx.LogError(description: "Email is not supported on this device");
             }
             catch (Exception ex)
             {
-                // Some other exception occurred
-                _ = ex;
+                ex.LogError(description: "Some other exception occurred");
             }
         }
     }

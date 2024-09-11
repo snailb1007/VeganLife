@@ -51,7 +51,6 @@ namespace VeganLife.Services.CommunityFreeService
             {
                 ex.LogError();
                 result = await _dataStoreService.GetItemAsync(foodId);
-                _ = ex;
                 return result;
             }
             finally

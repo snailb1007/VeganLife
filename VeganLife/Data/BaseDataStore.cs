@@ -154,8 +154,7 @@ namespace VeganLife.Data
             }
             catch (Exception e)
             {
-                _ = e;
-                Debug.WriteLine("Cant retrieve local data, " + e.Message);
+                e.LogError(description: "Cant retrieve local data");
                 return default!;
             }
         }
