@@ -18,17 +18,16 @@ namespace VeganLife.Views.Controls
     {
         private readonly IUserDataService _userDataService;
         private bool _isProcessing;
+        private readonly IEnumerable<string> grettingList;
 
         public bool IsMale { get; set; }
-
-        private readonly IEnumerable<string> grettingList;
 
         public FlyoutHeader()
         {
             this.InitializeComponent();
             grettingList = new List<string>() { AppResources.prompt_greeting, AppResources.prompt_greeting_v1 };
             _userDataService = ServicesHelper.GetService<IUserDataService>();
-            _ = DisplayUserInfoPreview();
+            DisplayUserInfoPreview().SafeFireAndForget();
             WeakReferenceMessenger.Default.Register(this);
         }
 

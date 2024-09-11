@@ -20,11 +20,12 @@ public partial class LoadingPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _ = ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
+        ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
             .ContinueWith(t =>
             {
                 HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
-            });
+            })
+            .SafeFireAndForget();
         ServicesHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
     }
 

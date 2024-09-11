@@ -1,4 +1,5 @@
-﻿using VeganLife.Data.LocalData;
+﻿using AsyncAwaitBestPractices;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 
 namespace VeganLife.Services.UserServices
@@ -9,16 +10,23 @@ namespace VeganLife.Services.UserServices
 
         private UserInfo _userInfo;
         private bool _hasOldData;
+        private Task _currentInitTask;
 
         public UserDataService()
         {
             this._userInfo = new UserInfo();
             _userInfoDataStoreServie = ServicesHelper.GetService<UserInfoDataStoreServie>();
-            _ = InitAsync();
+            _currentInitTask = InitAsync();
+            _currentInitTask.SafeFireAndForget();
         }
 
         public async Task InitAsync()
         {
+            if (this._currentInitTask != null && !this._currentInitTask.IsCompleted)
+            {
+                await _currentInitTask;
+            }
+
             UserInfo temp = new();
             var currentDeviceID = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
             temp.Id = currentDeviceID;
@@ -112,7 +120,7 @@ namespace VeganLife.Services.UserServices
                 this._userInfo.TDEEResult = data.TDEEResult;
                 isDataChanged = true;
             }
-#if DEBUG
+
             Debug.WriteLine($"SaveData: {isDataChanged}");
             Debug.WriteLine($"Name: {this._userInfo.Name}");
             Debug.WriteLine($"Weight: {this._userInfo.Weight}");
@@ -123,14 +131,13 @@ namespace VeganLife.Services.UserServices
             Debug.WriteLine($"ActivityLevelData: {this._userInfo.ActivityLevelData}");
             Debug.WriteLine($"BMRResult: {this._userInfo.BMRResult}");
             Debug.WriteLine($"TDEEResult: {this._userInfo.TDEEResult}");
-#endif
 
             await this.SaveData();
         }
 
-        public async Task SaveData()
+        public Task SaveData()
         {
-            await _userInfoDataStoreServie.AddOrUpdateItemAsync(this._userInfo, true);
+            return _userInfoDataStoreServie.AddOrUpdateItemAsync(this._userInfo, true);
         }
 
         UserInfo IUserDataService.GetUserInfo()
