@@ -326,6 +326,7 @@ namespace VeganLife.ViewModels
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     CountDownText = runningTime.ToString("mm\\:ss");
+
                     //var percent = (int)((60 - runningTime.TotalSeconds) / 60f * 100);
                     //Console.WriteLine("++ percent " + percent);
                     //_drawable.Progress = percent;

@@ -9,7 +9,8 @@ namespace VeganLife.Views.MainPageFlyout.VitaminTab
 {
     public partial class DetailVitaminAndMineralPage : BasePage<DetailVitaminAndMineralViewModel>
     {
-        private double xOffset, yOffset;
+        private double _xOffset;
+        private double _yOffset;
 
         public DetailVitaminAndMineralPage(DetailVitaminAndMineralViewModel vm)
             : base(vm)
@@ -23,18 +24,18 @@ namespace VeganLife.Views.MainPageFlyout.VitaminTab
             {
                 case GestureStatus.Started:
                     // Save initial translation offsets
-                    xOffset = ideaFrame.TranslationX;
-                    yOffset = ideaFrame.TranslationY;
+                    _xOffset = ideaFrame.TranslationX;
+                    _yOffset = ideaFrame.TranslationY;
                     break;
 
                 case GestureStatus.Running:
-                    ideaFrame.TranslationX = xOffset + e.TotalX;
-                    ideaFrame.TranslationY = yOffset + e.TotalY;
+                    ideaFrame.TranslationX = _xOffset + e.TotalX;
+                    ideaFrame.TranslationY = _yOffset + e.TotalY;
                     break;
 
                 case GestureStatus.Completed:
-                    xOffset = ideaFrame.TranslationX;
-                    yOffset = ideaFrame.TranslationY;
+                    _xOffset = ideaFrame.TranslationX;
+                    _yOffset = ideaFrame.TranslationY;
                     (ideaFrame as IView).InvalidateMeasure();
                     break;
             }

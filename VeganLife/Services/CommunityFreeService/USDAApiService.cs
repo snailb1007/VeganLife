@@ -28,6 +28,7 @@ namespace VeganLife.Services.CommunityFreeService
             try
             {
                 string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
+
                 // result = await _dataStoreService.GetItemAsync(foodId);
                 HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
                 if (response.IsSuccessStatusCode)

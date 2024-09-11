@@ -6,7 +6,7 @@ using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;

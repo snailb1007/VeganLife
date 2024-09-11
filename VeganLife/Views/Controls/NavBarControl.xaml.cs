@@ -64,7 +64,7 @@ namespace VeganLife.Views.Controls
             _isProcessing = false;
         }
 
-        private void hamburger_Clicked(object sender, EventArgs e)
+        private void Hamburger_Clicked(object sender, EventArgs e)
             => AppShell.ShowFlyOut();
 
         private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)

@@ -9,12 +9,12 @@ namespace VeganLife.Views.MainPageFlyout.FoodTab
 {
     public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
     {
-        private double widthOfTabView;
+        private double _widthOfTabView;
 
         public double WidthOfTabView
         {
-            get => this.widthOfTabView;
-            set => SetProperty(ref this.widthOfTabView, value);
+            get => this._widthOfTabView;
+            set => SetProperty(ref this._widthOfTabView, value);
         }
 
         public FoodDetailPage(FoodDetailViewModel vm)
@@ -24,20 +24,20 @@ namespace VeganLife.Views.MainPageFlyout.FoodTab
             WidthOfTabView = App.MainWidthSize / 2;
         }
 
-        private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
+        //private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //}
 
-        private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
+        //private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //}
 
-        private void GoNutriFact_SwipeGesture_Swiped(object sender, SwipedEventArgs e)
-        {
-        }
+        //private void GoNutriFact_SwipeGesture_Swiped(object sender, SwipedEventArgs e)
+        //{
+        //}
 
-        private void tabItemNutritionFacts_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
+        //private void tabItemNutritionFacts_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //}
     }
 }

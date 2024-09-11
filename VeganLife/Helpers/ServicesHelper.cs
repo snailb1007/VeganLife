@@ -11,7 +11,7 @@ namespace VeganLife.Helpers
     {
         public static T GetService<T>() => IPlatformApplication.Current.Services.GetService<T>();
 
-        public static BaseViewModel? GetCurrentViewModel()
+        public static BaseViewModel GetCurrentViewModel()
         {
             var popupService = GetService<IPopupNaviService>();
             var currentPopup = GetService<IPopupNavigation>()?.PopupStack?.LastOrDefault();
@@ -33,7 +33,7 @@ namespace VeganLife.Helpers
         }
 
         // get current viewmodel by type
-        public static T? GetCurrentViewModel<T>()
+        public static T GetCurrentViewModel<T>()
             where T : BaseViewModel
         {
             return GetCurrentViewModel() as T;

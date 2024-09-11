@@ -9,7 +9,6 @@ namespace VeganLife.Services.UserServices
         private readonly UserInfoDataStoreServie _userInfoDataStoreServie;
 
         private UserInfo _userInfo;
-        private bool _hasOldData;
         private Task _currentInitTask;
 
         public UserDataService()
@@ -59,7 +58,6 @@ namespace VeganLife.Services.UserServices
             if (localUser != null)
             {
                 _userInfo = localUser;
-                _hasOldData = true;
             }
         }
 

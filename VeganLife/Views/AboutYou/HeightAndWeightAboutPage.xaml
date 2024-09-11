@@ -40,8 +40,8 @@
                 Padding="10"
                 CornerRadius="15"
                 MaterialTheme="Acrylic">
+                <!--  AutomationProperties.Name="{x:Reference heightLb}"  -->
                 <Entry
-                    AutomationProperties.Name="{x:Reference heightLb}"
                     FontSize="Medium"
                     HorizontalOptions="Center"
                     Keyboard="Numeric"
@@ -65,8 +65,8 @@
                 Padding="10"
                 CornerRadius="15"
                 MaterialTheme="Acrylic">
+                <!--  AutomationProperties.Name="{x:Reference weightLb}"  -->
                 <Entry
-                    AutomationProperties.Name="{x:Reference weightLb}"
                     FontSize="Medium"
                     HorizontalOptions="Center"
                     Keyboard="Numeric"
