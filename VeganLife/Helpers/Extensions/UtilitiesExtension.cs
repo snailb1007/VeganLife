@@ -87,9 +87,9 @@
             }
         }
 
-        public static void LogError(this Exception e)
+        public static void LogError(this Exception e, string description = "")
         {
-            Debug.WriteLine($"==> Error: {e.Message}");
+            Debug.WriteLine($"==> Error: {description}\n{e.Message}");
         }
     }
 }

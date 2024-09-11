@@ -76,9 +76,9 @@ namespace VeganLife.ViewModels
             }
         }
 
-        public async Task DisplayNoInternetAlert()
+        public Task DisplayNoInternetAlert()
         {
-            await navigationService.DisplayAlert(
+            return navigationService.DisplayAlert(
                 "Connectivity Issue",
                 "No Internet connection is available. Please check your connection and try again.",
                 "OK");

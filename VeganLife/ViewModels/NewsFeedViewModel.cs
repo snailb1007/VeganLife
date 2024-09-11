@@ -3,6 +3,7 @@
 // </copyright>
 
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Models.GoogleNewsModels;
 using VeganLife.Resources.Translations;
 
@@ -195,10 +196,7 @@ namespace VeganLife.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    _ = ex;
-
-                    // An unexpected error occured. No browser may be installed on the device.
-                    Debug.WriteLine("==> No browser may be installed on the device\n" + ex.Message);
+                    ex.LogError(description: "No browser may be installed on the device");
                 }
             }
         }
