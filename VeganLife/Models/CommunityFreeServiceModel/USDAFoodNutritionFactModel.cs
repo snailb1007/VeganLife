@@ -12,17 +12,18 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [DataMember(Name = "fdcId")]
         public int Id { get; set; } = -1;
 
-        public string? publicationDate { get; set; }
+        [DataMember(Name = "publicationDate")]
+        public string? PublicationDate { get; set; }
 
         public List<FoodNutrient>? foodNutrients { get; set; }
 
-        public string? dataType { get; set; }
+        //public string? dataType { get; set; }
 
-        public string? foodClass { get; set; }
+        //public string? foodClass { get; set; }
 
-        public List<object>? inputFoods { get; set; }
+        //public List<object>? inputFoods { get; set; }
 
-        public FoodCategory? foodCategory { get; set; }
+        //public FoodCategory? foodCategory { get; set; }
     }
 
     public class FoodCategory
@@ -37,13 +38,14 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodNutrient
     {
+        [PrimaryKey]
+        [DataMember(Name = "id")]
+        public int? id { get; set; } = -1;
+
         [DataMember(Name = "nutrient")]
         public Nutrient? Nutrient { get; set; }
 
         public string? type { get; set; }
-
-        [PrimaryKey]
-        public int? id { get; set; } = -1;
 
         [DataMember(Name = "amount")]
         public double? Amount { get; set; }

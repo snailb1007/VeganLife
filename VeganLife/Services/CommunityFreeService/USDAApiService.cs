@@ -19,7 +19,7 @@ namespace VeganLife.Services.CommunityFreeService
 
         public USDAApiService(UsdaFoodNutritionFactDataStoreService usdaFoodDataStore)
         {
-            _dataStoreService = usdaFoodDataStore;
+            //_dataStoreService = usdaFoodDataStore;
         }
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
@@ -38,7 +38,7 @@ namespace VeganLife.Services.CommunityFreeService
                     if (responseData is not null)
                     {
                         // Add or update the item to the local data store
-                        _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget(ex => ex.LogError());
+                        //_dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget(ex => ex.LogError());
                         result = responseData;
                     }
                 }

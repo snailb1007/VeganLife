@@ -6,7 +6,6 @@ using AsyncAwaitBestPractices;
 using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.Extensions;
-using VeganLife.Models.FoodModel;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.Data
@@ -29,7 +28,7 @@ namespace VeganLife.Data
         {
             this._localDatabase = database;
             _currentInitTask = InitAsync();
-            _currentInitTask.SafeFireAndForget();
+            _currentInitTask.SafeFireAndForget(ex => ex.LogError());
         }
 
         public async Task<bool> SaveItems(IEnumerable<T> items)
