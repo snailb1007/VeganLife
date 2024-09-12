@@ -27,6 +27,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodCategory
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         public string code { get; set; }
@@ -41,7 +42,8 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
         public string? type { get; set; }
 
-        public int? id { get; set; }
+        [PrimaryKey]
+        public int? id { get; set; } = -1;
 
         [DataMember(Name = "amount")]
         public double? Amount { get; set; }
@@ -55,6 +57,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodNutrientDerivation
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         public string? code { get; set; }
@@ -66,6 +69,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodNutrientSource
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         public string? code { get; set; }
@@ -75,6 +79,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodPortion
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         public double gramWeight { get; set; }
@@ -92,6 +97,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class MeasureUnit
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         public string? name { get; set; }
@@ -101,6 +107,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public partial class Nutrient
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         [DataMember(Name = "name")]
@@ -118,6 +125,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class NutrientConversionFactor
     {
+        [PrimaryKey]
         public int id { get; set; }
 
         public double proteinValue { get; set; }
