@@ -37,7 +37,8 @@ namespace VeganLife.Services.CommunityFreeService
                     var responseData = await Utf8Json.JsonSerializer.DeserializeAsync<USDAFoodNutritionFactModel>(streamData);
                     if (responseData is not null)
                     {
-                        _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget();
+                        // Add or update the item to the local data store
+                        _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget(ex => ex.LogError());
                         result = responseData;
                     }
                 }
