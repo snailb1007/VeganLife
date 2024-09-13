@@ -25,19 +25,18 @@ namespace VeganLife.Services.CommunityFreeService
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
         {
-            var result = new USDAFoodNutritionFactModel();
             try
             {
-                string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
-
-                result = await _dataStoreService.GetItemAsync(foodId);
-                if (!string.IsNullOrEmpty(result.FoodNutrientsJsonData))
+                var localData = await _dataStoreService.GetItemAsync(foodId);
+                if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
                 {
-                    Console.WriteLine("==> have data");
-                    //result.foodNutrients = JsonConvert.DeserializeObject<FoodNutrient>(result.FoodNutrientsJsonData);
+                    Debug.WriteLine("==> have local data for " + foodId);
+                    localData.foodNutrients = JsonConvert.DeserializeObject<List<FoodNutrient>>(localData.FoodNutrientsJsonData);
+                    return localData;
                 }
 
-                return result;
+                var result = new USDAFoodNutritionFactModel();
+                string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
                 HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -47,7 +46,6 @@ namespace VeganLife.Services.CommunityFreeService
                     {
                         responseData.FoodNutrientsJsonData = System.Text.Json.JsonSerializer.Serialize(responseData.foodNutrients);
                         _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget();
-
                         result = responseData;
                     }
                 }
