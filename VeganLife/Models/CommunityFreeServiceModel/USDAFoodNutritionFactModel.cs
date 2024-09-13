@@ -15,7 +15,10 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [DataMember(Name = "publicationDate")]
         public string? PublicationDate { get; set; }
 
+        [Ignore]
         public List<FoodNutrient>? foodNutrients { get; set; }
+
+        public string FoodNutrientsJsonData { get; set; }
 
         //public string? dataType { get; set; }
 
@@ -26,19 +29,18 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         //public FoodCategory? foodCategory { get; set; }
     }
 
-    public class FoodCategory
-    {
-        [PrimaryKey]
-        public int id { get; set; }
+    //public class FoodCategory
+    //{
+    //    [PrimaryKey]
+    //    public int id { get; set; }
 
-        public string code { get; set; }
+    //    public string code { get; set; }
 
-        public string description { get; set; }
-    }
+    //    public string description { get; set; }
+    //}
 
     public class FoodNutrient
     {
-        [PrimaryKey]
         [DataMember(Name = "id")]
         public int? id { get; set; } = -1;
 
@@ -57,55 +59,55 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public double? min { get; set; }
     }
 
-    public class FoodNutrientDerivation
-    {
-        [PrimaryKey]
-        public int id { get; set; }
+    //public class FoodNutrientDerivation
+    //{
+    //    [PrimaryKey]
+    //    public int id { get; set; }
 
-        public string? code { get; set; }
+    //    public string? code { get; set; }
 
-        public string? description { get; set; }
+    //    public string? description { get; set; }
 
-        public FoodNutrientSource? foodNutrientSource { get; set; }
-    }
+    //    public FoodNutrientSource? foodNutrientSource { get; set; }
+    //}
 
-    public class FoodNutrientSource
-    {
-        [PrimaryKey]
-        public int id { get; set; }
+    //public class FoodNutrientSource
+    //{
+    //    [PrimaryKey]
+    //    public int id { get; set; }
 
-        public string? code { get; set; }
+    //    public string? code { get; set; }
 
-        public string? description { get; set; }
-    }
+    //    public string? description { get; set; }
+    //}
 
-    public class FoodPortion
-    {
-        [PrimaryKey]
-        public int id { get; set; }
+    //public class FoodPortion
+    //{
+    //    [PrimaryKey]
+    //    public int id { get; set; }
 
-        public double gramWeight { get; set; }
+    //    public double gramWeight { get; set; }
 
-        public int sequenceNumber { get; set; }
+    //    public int sequenceNumber { get; set; }
 
-        public int amount { get; set; }
+    //    public int amount { get; set; }
 
-        public string? modifier { get; set; }
+    //    public string? modifier { get; set; }
 
-        public MeasureUnit? measureUnit { get; set; }
+    //    public MeasureUnit? measureUnit { get; set; }
 
-        public int? dataPoints { get; set; }
-    }
+    //    public int? dataPoints { get; set; }
+    //}
 
-    public class MeasureUnit
-    {
-        [PrimaryKey]
-        public int id { get; set; }
+    //public class MeasureUnit
+    //{
+    //    [PrimaryKey]
+    //    public int id { get; set; }
 
-        public string? name { get; set; }
+    //    public string? name { get; set; }
 
-        public string? abbreviation { get; set; }
-    }
+    //    public string? abbreviation { get; set; }
+    //}
 
     public partial class Nutrient
     {

@@ -3,6 +3,7 @@
 // </copyright>
 
 using AsyncAwaitBestPractices;
+using Newtonsoft.Json;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
@@ -19,7 +20,7 @@ namespace VeganLife.Services.CommunityFreeService
 
         public USDAApiService(UsdaFoodNutritionFactDataStoreService usdaFoodDataStore)
         {
-            //_dataStoreService = usdaFoodDataStore;
+            _dataStoreService = usdaFoodDataStore;
         }
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
@@ -29,7 +30,14 @@ namespace VeganLife.Services.CommunityFreeService
             {
                 string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
 
-                // result = await _dataStoreService.GetItemAsync(foodId);
+                result = await _dataStoreService.GetItemAsync(foodId);
+                if (!string.IsNullOrEmpty(result.FoodNutrientsJsonData))
+                {
+                    Console.WriteLine("==> have data");
+                    //result.foodNutrients = JsonConvert.DeserializeObject<FoodNutrient>(result.FoodNutrientsJsonData);
+                }
+
+                return result;
                 HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -37,8 +45,9 @@ namespace VeganLife.Services.CommunityFreeService
                     var responseData = await Utf8Json.JsonSerializer.DeserializeAsync<USDAFoodNutritionFactModel>(streamData);
                     if (responseData is not null)
                     {
-                        // Add or update the item to the local data store
-                        //_dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget(ex => ex.LogError());
+                        responseData.FoodNutrientsJsonData = System.Text.Json.JsonSerializer.Serialize(responseData.foodNutrients);
+                        _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget();
+
                         result = responseData;
                     }
                 }
