@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Fdc
 
+using Newtonsoft.Json;
 using SQLite;
 using System.Runtime.Serialization;
 using VeganLife.Helpers;
@@ -9,10 +10,10 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     public class USDAFoodNutritionFactModel
     {
         [PrimaryKey]
-        [DataMember(Name = "fdcId")]
-        public int Id { get; set; } = -1;
+        [JsonProperty("fdcId")]
+        public int Id { get; set; }
 
-        [DataMember(Name = "publicationDate")]
+        [JsonProperty("publicationDate")]
         public string? PublicationDate { get; set; }
 
         [Ignore]
@@ -41,15 +42,15 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public class FoodNutrient
     {
-        [DataMember(Name = "id")]
-        public int? id { get; set; } = -1;
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-        [DataMember(Name = "nutrient")]
+        [JsonProperty("nutrient")]
         public Nutrient? Nutrient { get; set; }
 
         public string? type { get; set; }
 
-        [DataMember(Name = "amount")]
+        [JsonProperty("amount")]
         public double? Amount { get; set; }
 
         public int? dataPoints { get; set; }
@@ -114,12 +115,14 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [PrimaryKey]
         public int id { get; set; }
 
-        [DataMember(Name = "name")]
+        [JsonProperty("name")]
         public string? Name { get; set; }
 
-        public int rank { get; set; }
+        [JsonProperty("rank")]
+        public int Rank { get; set; }
 
-        public string? unitName { get; set; }
+        [JsonProperty("unitName")]
+        public string? UnitName { get; set; }
     }
 
     public partial class Nutrient
@@ -127,21 +130,21 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
     }
 
-    public class NutrientConversionFactor
-    {
-        [PrimaryKey]
-        public int id { get; set; }
+    //public class NutrientConversionFactor
+    //{
+    //    [PrimaryKey]
+    //    public int id { get; set; }
 
-        public double proteinValue { get; set; }
+    //    public double proteinValue { get; set; }
 
-        public double fatValue { get; set; }
+    //    public double fatValue { get; set; }
 
-        public double carbohydrateValue { get; set; }
+    //    public double carbohydrateValue { get; set; }
 
-        public string? type { get; set; }
+    //    public string? type { get; set; }
 
-        public string? name { get; set; }
+    //    public string? name { get; set; }
 
-        public double? value { get; set; }
-    }
+    //    public double? value { get; set; }
+    //}
 }

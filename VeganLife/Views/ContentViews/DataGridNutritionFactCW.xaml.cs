@@ -22,7 +22,7 @@ public partial class DataGridNutritionFactCW : DataGrid
                 }
                 else
                 {
-                    unitNameColumn.PropertyName = "Nutrient.unitName";
+                    unitNameColumn.PropertyName = "Nutrient.UnitName";
                 }
             }
         }

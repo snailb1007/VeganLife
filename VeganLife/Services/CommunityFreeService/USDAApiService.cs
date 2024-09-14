@@ -8,6 +8,7 @@ using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
 using VeganLife.Models.CommunityFreeServiceModel;
+using VeganLife.Resources.Translations;
 
 namespace VeganLife.Services.CommunityFreeService
 {
@@ -25,26 +26,26 @@ namespace VeganLife.Services.CommunityFreeService
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
         {
+            var localData = await _dataStoreService.GetItemAsync(foodId);
+            if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
+            {
+                Debug.WriteLine("==> have local data for " + foodId);
+                localData.foodNutrients = JsonConvert.DeserializeObject<List<FoodNutrient>>(localData.FoodNutrientsJsonData);
+                return localData;
+            }
+
+            var result = new USDAFoodNutritionFactModel();
+            string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
             try
             {
-                var localData = await _dataStoreService.GetItemAsync(foodId);
-                if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
-                {
-                    Debug.WriteLine("==> have local data for " + foodId);
-                    localData.foodNutrients = JsonConvert.DeserializeObject<List<FoodNutrient>>(localData.FoodNutrientsJsonData);
-                    return localData;
-                }
-
-                var result = new USDAFoodNutritionFactModel();
-                string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
                 HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    var streamData = await response.Content.ReadAsStreamAsync();
-                    var responseData = await Utf8Json.JsonSerializer.DeserializeAsync<USDAFoodNutritionFactModel>(streamData);
+                    var streamData = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<USDAFoodNutritionFactModel>(streamData);
                     if (responseData is not null)
                     {
-                        responseData.FoodNutrientsJsonData = System.Text.Json.JsonSerializer.Serialize(responseData.foodNutrients);
+                        responseData.FoodNutrientsJsonData = JsonConvert.SerializeObject(responseData.foodNutrients);
                         _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget();
                         result = responseData;
                     }
@@ -59,7 +60,6 @@ namespace VeganLife.Services.CommunityFreeService
             catch (Exception ex)
             {
                 ex.LogError();
-                result = await _dataStoreService.GetItemAsync(foodId);
                 return result;
             }
             finally
@@ -72,7 +72,8 @@ namespace VeganLife.Services.CommunityFreeService
                     }
                     else
                     {
-                        _ = ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Food item not found", "OK");
+                        _ = ServicesHelper.GetService<INavigationService>()
+                            .DisplayAlert(AppResources.error_common, AppResources.notFound_common, "OK");
                     }
                 }
             }
