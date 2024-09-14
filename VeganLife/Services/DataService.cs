@@ -2,15 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AndroidX.Room;
 using AsyncAwaitBestPractices;
 using Firebase.Database;
 using Firebase.Database.Query;
 using HtmlAgilityPack;
-using System.Runtime.ConstrainedExecution;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
@@ -200,8 +197,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                Debug.WriteLine(e.StackTrace);
-                _ = e;
+                e.LogError();
                 return new FoodNutrientFacts();
             }
         }
@@ -223,8 +219,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                Debug.WriteLine(e.StackTrace);
-                _ = e;
+                e.LogError();
                 return new UndefinedMacroFoodNutriFactModel();
             }
         }
@@ -340,8 +335,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                _ = e;
-                Debug.WriteLine(e.StackTrace);
+                e.LogError();
                 return null;
             }
         }

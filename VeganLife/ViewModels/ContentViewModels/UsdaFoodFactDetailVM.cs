@@ -177,7 +177,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                         targetNutrient = new UndefinedFoodNutrient()
                         {
                             Amount = source.Amount,
-                            Unit = source?.Nutrient?.unitName,
+                            Unit = source?.Nutrient?.UnitName,
                         };
                     }
                 }

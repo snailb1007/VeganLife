@@ -158,8 +158,14 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
 	<data name="close_common" xml:space="preserve">
     <value>Đóng</value>
   </data>
+	<data name="error_common" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
 	<data name="coming_soon" xml:space="preserve">
     <value>Sắp ra mắt</value>
+  </data>
+	<data name="notFound_common" xml:space="preserve">
+    <value>Không tìm thấy thông tin</value>
   </data>
 	<data name="empty_list" xml:space="preserve">
     <value>Không có gì ở đây!
