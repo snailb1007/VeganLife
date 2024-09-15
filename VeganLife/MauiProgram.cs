@@ -131,6 +131,7 @@ namespace VeganLife
             services.AddSingleton<PharmacoLogicalDataStoreService>();
             services.AddSingleton<GoogleAdValidatorDataStoreService>();
             services.AddSingleton<AffiliationDataStoreService>();
+            services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();

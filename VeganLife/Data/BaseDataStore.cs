@@ -74,24 +74,25 @@ namespace VeganLife.Data
                 else
                 {
                     Task<int> task;
-                    if (typeof(T) == typeof(UserInfo))
-                    {
-                        task = this._connection.InsertOrReplaceAsync(item);
-                    }
-                    else
-                    {
-                        task = this._connection.InsertAsync(item);
-                    }
-
+                    task = this._connection.InsertOrReplaceAsync(item);
                     return (await task) > 0;
                 }
             }
             catch (Exception e)
             {
-#if DEBUG
-                throw new Exception("Error in AddOrUpdateItemAsync", e);
-#else
                 e.LogError();
+                if (e is SQLiteException sqliteException
+                    && sqliteException.Result == SQLite3.Result.Error)
+                {
+                    sqliteException.LogError("Error in AddOrUpdateItemAsync");
+                    await this._connection.DropTableAsync<T>();
+                    await this._connection.CreateTableAsync<T>();
+                    var retry = await this._connection.InsertOrReplaceAsync(item);
+                    return retry > 0;
+                }
+#if DEBUG
+                throw new Exception("==> Error in AddOrUpdateItemAsync", e);
+#else
                 return false;
 #endif
             }
