@@ -2,7 +2,6 @@
 
 using Newtonsoft.Json;
 using SQLite;
-using System.Runtime.Serialization;
 using VeganLife.Helpers;
 
 namespace VeganLife.Models.CommunityFreeServiceModel

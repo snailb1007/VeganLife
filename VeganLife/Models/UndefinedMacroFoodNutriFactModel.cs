@@ -4,7 +4,6 @@
 
 using Newtonsoft.Json;
 using SQLite;
-
 //using System.Runtime.Serialization;
 //using System.Text.Json.Serialization;
 using VeganLife.Helpers;
@@ -15,12 +14,15 @@ namespace VeganLife.Models
     {
         [PrimaryKey]
         [JsonIgnore]
-        public string FdcId { get; set; }
+        [JsonProperty("FdcId")]
+        public string Id { get; set; }
 
         public string Name { get; set; }
 
         [Ignore]
         public List<UndefinedFoodNutrient> foodNutrients { get; set; }
+
+        public string FoodNutrientsJsonData { get; set; }
     }
 
     public class UndefinedFoodNutrient
