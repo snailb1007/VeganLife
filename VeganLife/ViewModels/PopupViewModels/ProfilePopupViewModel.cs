@@ -64,7 +64,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
 
             UserName = UserInfo.Name;
-            SelectedDate = UserInfo.DateOfBirth;
+            SelectedDate = UserInfo.DateOfBirth.Value;
             UserWeight = UserInfo.Weight.ToString();
             UserHeight = UserInfo.Height;
             IsMale = UserInfo.IsMale;

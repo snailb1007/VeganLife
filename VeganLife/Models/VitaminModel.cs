@@ -2,7 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Newtonsoft.Json;
 using SQLite;
 using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
