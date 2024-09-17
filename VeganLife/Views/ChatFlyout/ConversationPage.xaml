@@ -18,7 +18,7 @@
         <ToolbarItem
             Command="{Binding BindingContext.OpenDisclaimerPopupCommand, Source={x:Reference ConversationPageRoot}}"
             Order="Secondary"
-            Text="Disclaimer" />
+            Text="{x:Static translate:AppResources.disclaimer_common}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
