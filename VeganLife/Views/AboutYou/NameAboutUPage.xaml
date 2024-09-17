@@ -40,7 +40,7 @@
                     Text="{Binding Name}"
                     VerticalOptions="Center" />
             </sharpnado:MaterialFrame>
-            <!--  AutomationProperties.HelpText="Tap to go next  and send Name data"  -->
+            <!--  AutomationProperties.HelpText="Tap to go next and send Name data"  -->
             <Button
                 Margin="25,20"
                 Command="{Binding NextClickedCommand}"

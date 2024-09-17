@@ -2,8 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using PropertyChanged;
 using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
@@ -60,27 +60,13 @@ namespace VeganLife.ViewModels
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
             this.loadingService = ServicesHelper.GetService<ILoadingService>();
-            Connectivity.ConnectivityChanged += OnConnectivityChanged;
-        }
-
-        [SuppressPropertyChangedWarnings]
-        private void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
-        {
-            if (e.NetworkAccess != NetworkAccess.Internet)
-            {
-                // No internet connection
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    _ = DisplayNoInternetAlert();
-                });
-            }
         }
 
         public Task DisplayNoInternetAlert()
         {
             return navigationService.DisplayAlert(
-                "Connectivity Issue",
-                "No Internet connection is available. Please check your connection and try again.",
+                AppResources.noInternet_common,
+                AppResources.checkInternet_common,
                 "OK");
         }
 
