@@ -1,3 +1,4 @@
+using AsyncAwaitBestPractices;
 using Mopups.Pages;
 using Mopups.Services;
 
@@ -18,6 +19,6 @@ public partial class SimpleInformationPopup : PopupPage
 
     private void OutsidePopup_Tapped(object sender, TappedEventArgs e)
     {
-        _ = MopupService.Instance.PopAsync();
+        MopupService.Instance.PopAsync().SafeFireAndForget();
     }
 }

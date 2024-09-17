@@ -22,7 +22,7 @@ namespace VeganLife.Models
 
         public uint TotalRead { get; set; } = 0;
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; } = null;
 
         public float BMIResult { get; set; } = -1;
 
@@ -45,10 +45,12 @@ namespace VeganLife.Models
         {
             get
             {
+                if (this.DateOfBirth == null || !this.DateOfBirth.HasValue)
+                    return -1;
                 var today = DateTime.Today;
-                var age = today.Year - this.DateOfBirth.Year;
+                var age = today.Year - this.DateOfBirth.Value.Year;
 
-                if (DateOfBirth.Date > today.AddYears(-age))
+                if (DateOfBirth.Value.Date > today.AddYears(-age))
                 {
                     age--;
                 }

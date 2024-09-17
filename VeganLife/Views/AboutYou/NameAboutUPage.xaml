@@ -32,17 +32,17 @@
                 Padding="10"
                 CornerRadius="15"
                 MaterialTheme="Acrylic">
+                <!--  AutomationProperties.Name="{x:Reference nameLb}"  -->
                 <Entry
                     x:Name="nameEntry"
-                    AutomationProperties.Name="{x:Reference nameLb}"
                     HeightRequest="48"
                     Placeholder="tên đầy đủ, hoặc biệt danh"
                     Text="{Binding Name}"
                     VerticalOptions="Center" />
             </sharpnado:MaterialFrame>
+            <!--  AutomationProperties.HelpText="Tap to go next  and send Name data"  -->
             <Button
                 Margin="25,20"
-                AutomationProperties.HelpText="Tap to go next  and send Name data"
                 Command="{Binding NextClickedCommand}"
                 FontAttributes="Bold"
                 FontSize="Medium"

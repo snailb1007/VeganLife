@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Shapes;
+﻿using AsyncAwaitBestPractices;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace VeganLife.Helpers.Extensions
 {
@@ -11,7 +12,7 @@ namespace VeganLife.Helpers.Extensions
         {
             mainGridContent.AbortAnimation(_openMenuAnimation);
             mainGridContent.AbortAnimation(_closeMenuAnimation);
-            _ = mainGridContent.FadeTo(0.5, 150);
+            mainGridContent.FadeTo(0.5, 150).SafeFireAndForget();
             mainGridContent.Clip = new RoundRectangleGeometry(new CornerRadius(30), new Rect(0, 0, mainGridContent.Width, mainGridContent.Height));
             var animation = new Animation(d =>
             {
@@ -45,7 +46,7 @@ namespace VeganLife.Helpers.Extensions
                 mainGridContent.RotationY = 0;
                 mainGridContent.Clip = null;
             });
-            _ = mainGridContent.FadeTo(1, 150);
+            mainGridContent.FadeTo(1, 150).SafeFireAndForget();
         }
     }
 }

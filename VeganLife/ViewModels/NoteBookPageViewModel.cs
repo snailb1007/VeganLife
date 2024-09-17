@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.ViewModels.TabsViewModel;
@@ -54,19 +55,19 @@ namespace VeganLife.ViewModels
             switch (value)
             {
                 case 0:
-                    _ = MacrosViewModel.ViewAppearingVM();
+                    MacrosViewModel.ViewAppearingVM().SafeFireAndForget();
                     break;
                 case 1:
                     VitaminAndMineralVM ??= ServicesHelper.GetService<VitaminAndMineralViewModel>();
-                    _ = VitaminAndMineralVM.ViewAppearingVM();
+                    VitaminAndMineralVM.ViewAppearingVM().SafeFireAndForget();
                     break;
                 case 2:
                     AthleticNutritionTabVM ??= ServicesHelper.GetService<AthleticNutritionTabVM>();
-                    _ = AthleticNutritionTabVM.ViewAppearingVM();
+                    AthleticNutritionTabVM.ViewAppearingVM().SafeFireAndForget();
                     break;
                 case 3:
                     PharmacoLogicalTabVM ??= ServicesHelper.GetService<PharmacoLogicalTabVM>();
-                    _ = PharmacoLogicalTabVM.ViewAppearingVM();
+                    PharmacoLogicalTabVM.ViewAppearingVM().SafeFireAndForget();
                     break;
             }
         }

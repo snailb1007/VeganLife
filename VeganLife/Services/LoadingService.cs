@@ -1,4 +1,5 @@
-﻿using Mopups.Interfaces;
+﻿using AsyncAwaitBestPractices;
+using Mopups.Interfaces;
 using Mopups.Services;
 using VeganLife.Helpers;
 using VeganLife.Views.Popups;
@@ -19,10 +20,11 @@ namespace VeganLife.Services
             _navigation = MopupService.Instance;
         }
 
-        public async void Dispose()
+        public void Dispose()
         {
-            await _navigation.PopAsync();
-            await Task.Delay(_delayTime).ContinueWith(t => IsLoading = false).ConfigureAwait(false);
+            _navigation.PopAsync().SafeFireAndForget();
+            _ = Task.Delay(_delayTime)
+                .ContinueWith(t => IsLoading = false);
         }
 
         public async Task<IDisposable> Show(ushort delayTime = 0)

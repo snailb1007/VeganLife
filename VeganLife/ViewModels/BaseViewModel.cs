@@ -28,7 +28,7 @@ namespace VeganLife.ViewModels
         {
             get
             {
-                var isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+                var isConnected = ServicesHelper.GetNetworkStatus();
 
                 if (!isConnected && !_hasShownAlert)
                 {
@@ -76,9 +76,9 @@ namespace VeganLife.ViewModels
             }
         }
 
-        protected async Task DisplayNoInternetAlert()
+        public Task DisplayNoInternetAlert()
         {
-            await navigationService.DisplayAlert(
+            return navigationService.DisplayAlert(
                 "Connectivity Issue",
                 "No Internet connection is available. Please check your connection and try again.",
                 "OK");

@@ -8,12 +8,6 @@ public partial class VitaminsTab : ContentView
     public VitaminsTab()
     {
         InitializeComponent();
-        SetupAdsBanner();
-    }
-
-    private void SetupAdsBanner()
-    {
-        mtAdFixedVitaminAndMineral.AdsId = ConstantHelper.GoogleAdMob.VitaminBannerId;
     }
 
     private void OnAdLoaded(object sender, EventArgs e)
@@ -24,5 +18,15 @@ public partial class VitaminsTab : ContentView
     private void MtAdFixedVitaminAndMineral_AdsFailedToLoad(object sender, Plugin.MauiMTAdmob.Extra.MTEventArgs e)
     {
         ServicesHelper.GetService<SentryService>().LogMessage($"VitaminsTab AdsFailedToLoad\nCode: {e.ErrorCode} {e.ErrorMessage}");
+    }
+
+    private void ThisView_Loaded(object sender, EventArgs e)
+    {
+        SetupAdsBanner();
+    }
+
+    private void SetupAdsBanner()
+    {
+        mtAdFixedVitaminAndMineral.AdsId = ConstantHelper.GoogleAdMob.VitaminBannerId;
     }
 }

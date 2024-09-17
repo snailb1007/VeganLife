@@ -9,7 +9,8 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="selfVitaminAndMineralPage"
-    x:DataType="viewmodel:VitaminAndMineralViewModel">
+    x:DataType="viewmodel:VitaminAndMineralViewModel"
+    Loaded="ThisView_Loaded">
     <ContentView.Resources>
         <ResourceDictionary>
             <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />

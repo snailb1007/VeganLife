@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Mopups.Services;
 using System.Net.NetworkInformation;
 using VeganLife.Helpers;
@@ -51,7 +52,7 @@ namespace VeganLife.Views.Controls
 
         private bool _isProcessing;
 
-        private async void Back_Clicked(object sender, EventArgs e)
+        private void Back_Clicked(object sender, EventArgs e)
         {
             if (_isProcessing)
             {
@@ -59,16 +60,16 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            await ServicesHelper.GetService<INavigationService>().PopAsync();
+            ServicesHelper.GetService<INavigationService>().PopAsync().SafeFireAndForget();
             _isProcessing = false;
         }
 
-        private void hamburger_Clicked(object sender, EventArgs e)
+        private void Hamburger_Clicked(object sender, EventArgs e)
             => AppShell.ShowFlyOut();
 
-        private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
-            await MopupService.Instance.PushAsync(new AffiliationPopup(Affiliations));
+            MopupService.Instance.PushAsync(new AffiliationPopup(Affiliations)).SafeFireAndForget();
         }
     }
 }

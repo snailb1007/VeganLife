@@ -1,3 +1,4 @@
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
@@ -16,55 +17,60 @@ public partial class LoadingPage : ContentPage
         InitializeComponent();
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
-        _ = ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
+        ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
             .ContinueWith(t =>
             {
                 HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
-            });
-        await ServicesHelper.GetService<IUserDataService>().InitAsync();
+            })
+            .SafeFireAndForget();
+        ServicesHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
     }
 
-    private async void SelfContentLoaded(object sender, EventArgs e)
+    private void SelfContentLoaded(object sender, EventArgs e)
     {
-        if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances))
+        var getLocalFlagTask = UserSettingsHelper.GetBoolKey(UserSettingKey.HasPriorInstances);
+        getLocalFlagTask.ContinueWith(async t =>
         {
-            await UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).ConfigureAwait(false);
-            await MainThread.InvokeOnMainThreadAsync(async () =>
+            if (!t.Result)
             {
-                var isCollectAccepted = await this.DisplayAlert(
-                string.Empty,
-                message: AppResources.Alert_CollectOperationLogsPermission_Message,
-                accept: AppResources.ok_common,
-                cancel: AppResources.cancel_common);
-                ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
-                await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString()).ConfigureAwait(false);
-            });
-        }
-
-        if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
-        {
-            var aboutView = ServicesHelper.GetService<AboutAppPopup>();
-            MainThread.BeginInvokeOnMainThread(async () => await this.ShowPopupAsync(aboutView));
-            await aboutView.WaitingAcceptedTaskSource.Task;
-        }
-
-        if ((App.Current as App) is App app)
-        {
-            //if (true)
-            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
-            {
-                await MainThread.InvokeOnMainThreadAsync(() =>
+                UserSettingsHelper.SetAsync(UserSettingKey.HasPriorInstances, true.ToString()).SafeFireAndForget();
+                await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
-                    app.MainPage = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
+                    var isCollectAccepted = await this.DisplayAlert(
+                    string.Empty,
+                    message: AppResources.Alert_CollectOperationLogsPermission_Message,
+                    accept: AppResources.ok_common,
+                    cancel: AppResources.cancel_common);
+                    ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
+                    await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString());
                 });
             }
-            else
+
+            if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
             {
-                await app.RefreshAppShell();
+                var aboutView = ServicesHelper.GetService<AboutAppPopup>();
+                MainThread.BeginInvokeOnMainThread(async () => await this.ShowPopupAsync(aboutView));
+                await aboutView.WaitingAcceptedTaskSource.Task;
             }
-        }
+
+            if (App.Current is App app)
+            {
+                //if (true)
+                if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        app.MainPage = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
+                    });
+                }
+                else
+                {
+                    app.RefreshAppShell().SafeFireAndForget();
+                }
+            }
+        }).SafeFireAndForget();
     }
 }
