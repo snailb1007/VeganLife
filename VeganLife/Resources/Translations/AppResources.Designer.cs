@@ -585,6 +585,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        internal static string disclaimer_common {
+            get {
+                return ResourceManager.GetString("disclaimer_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty list!.
         /// </summary>
         internal static string empty_list {

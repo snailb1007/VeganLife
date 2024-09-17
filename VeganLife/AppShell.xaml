@@ -63,7 +63,7 @@
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
     <FlyoutItem
-        Title="Conversation"
+        Title="Hội thoại thông minh"
         FlyoutDisplayOptions="AsSingleItem"
         Icon="conversation">
         <ShellContent
