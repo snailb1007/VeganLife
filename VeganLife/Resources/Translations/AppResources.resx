@@ -167,6 +167,12 @@ Application logs are used to collect and analyze information for quality improve
 	<data name="notFound_common" xml:space="preserve">
     <value>Not Found</value>
   </data>
+	<data name="noInternet_common" xml:space="preserve">
+    <value>No Internet</value>
+  </data>
+	<data name="checkInternet_common" xml:space="preserve">
+    <value>No Internet connection is available. Please check your connection and try again.</value>
+  </data>
 	<data name="coming_soon" xml:space="preserve">
     <value>Coming Soon</value>
   </data>

@@ -477,6 +477,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Internet connection is available. Please check your connection and try again..
+        /// </summary>
+        internal static string checkInternet_common {
+            get {
+                return ResourceManager.GetString("checkInternet_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string close_common {
@@ -1099,6 +1108,15 @@ namespace VeganLife.Resources.Translations {
         internal static string noFoods_foodByCategoryDetailPage {
             get {
                 return ResourceManager.GetString("noFoods_foodByCategoryDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Internet.
+        /// </summary>
+        internal static string noInternet_common {
+            get {
+                return ResourceManager.GetString("noInternet_common", resourceCulture);
             }
         }
         
