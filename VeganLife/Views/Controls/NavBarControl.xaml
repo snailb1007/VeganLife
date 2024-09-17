@@ -57,7 +57,7 @@
                     Padding="0"
                     AutomationProperties.IsInAccessibleTree="False"
                     BorderColor="Transparent"
-                    Clicked="hamburger_Clicked"
+                    Clicked="Hamburger_Clicked"
                     HeightRequest="30"
                     HorizontalOptions="Center"
                     SemanticProperties.Description="hamburger image button"

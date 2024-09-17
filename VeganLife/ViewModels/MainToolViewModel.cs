@@ -2,7 +2,7 @@
 using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 using VeganLife.Views.Popups;
 using VeganLife.Views.ToolFlyout;
 

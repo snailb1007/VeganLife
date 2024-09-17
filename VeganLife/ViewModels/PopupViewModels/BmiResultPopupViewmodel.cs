@@ -7,7 +7,7 @@ using Mopups.Services;
 using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 
 namespace VeganLife.ViewModels.PopupViewModels
 {

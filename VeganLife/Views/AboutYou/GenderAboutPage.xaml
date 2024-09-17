@@ -25,10 +25,8 @@
                 CornerRadius="15"
                 MaterialTheme="Acrylic">
                 <sharpnado:MaterialFrame.GestureRecognizers>
-                    <TapGestureRecognizer
-                        AutomationProperties.HelpText="Tap to select female gender"
-                        Command="{Binding SelectGenderCommand}"
-                        CommandParameter="0" />
+                    <!--  AutomationProperties.HelpText="Tap to select female gender"  -->
+                    <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="0" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Triggers>
                     <DataTrigger
@@ -70,10 +68,8 @@
                 CornerRadius="15"
                 MaterialTheme="Acrylic">
                 <sharpnado:MaterialFrame.GestureRecognizers>
-                    <TapGestureRecognizer
-                        AutomationProperties.HelpText="Tap to select male gender"
-                        Command="{Binding SelectGenderCommand}"
-                        CommandParameter="1" />
+                    <!--  AutomationProperties.HelpText="Tap to select male gender"  -->
+                    <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="1" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Triggers>
                     <DataTrigger
@@ -108,9 +104,9 @@
                         TextColor="{Binding Source={Reference maleIconLb}, Path=TextColor}" />
                 </HorizontalStackLayout>
             </sharpnado:MaterialFrame>
+            <!--  AutomationProperties.HelpText="Tap to continue and send selected data"  -->
             <Button
                 Margin="10,20"
-                AutomationProperties.HelpText="Tap to continue and send selected data"
                 Command="{Binding NextClickedCommand}"
                 FontAttributes="Bold"
                 FontSize="Medium"

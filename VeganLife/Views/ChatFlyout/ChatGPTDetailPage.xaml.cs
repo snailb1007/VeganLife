@@ -1,8 +1,11 @@
+using AsyncAwaitBestPractices;
+
 namespace VeganLife.Views.ChatFlyout;
 
 public partial class ChatGPTDetailPage : ContentPage
 {
     private INavigationService _navigationService;
+
     public ChatGPTDetailPage(INavigationService navigationService)
     {
         InitializeComponent();
@@ -12,14 +15,13 @@ public partial class ChatGPTDetailPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        Dispatcher.Dispatch(async () =>
-        {
-            lbContent.Text = await Helpers.ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.chat_detail.txt");
-        });
+        var getDataTask = Helpers.ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.chat_detail.txt")
+            .ContinueWith(t => lbContent.Text = t.Result);
+        getDataTask.SafeFireAndForget();
     }
 
-    private async void OnCloseButton_Clicked(object sender, EventArgs e)
+    private void OnCloseButton_Clicked(object sender, EventArgs e)
     {
-        await _navigationService.PopAsync();
+        _navigationService.PopAsync().SafeFireAndForget();
     }
 }

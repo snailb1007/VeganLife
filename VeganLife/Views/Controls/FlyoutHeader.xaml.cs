@@ -2,10 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;
@@ -17,17 +18,16 @@ namespace VeganLife.Views.Controls
     {
         private readonly IUserDataService _userDataService;
         private bool _isProcessing;
+        private readonly IEnumerable<string> grettingList;
 
         public bool IsMale { get; set; }
-
-        private readonly IEnumerable<string> grettingList;
 
         public FlyoutHeader()
         {
             this.InitializeComponent();
             grettingList = new List<string>() { AppResources.prompt_greeting, AppResources.prompt_greeting_v1 };
             _userDataService = ServicesHelper.GetService<IUserDataService>();
-            _ = DisplayUserInfoPreview();
+            DisplayUserInfoPreview().SafeFireAndForget();
             WeakReferenceMessenger.Default.Register(this);
         }
 
@@ -52,7 +52,7 @@ namespace VeganLife.Views.Controls
             }
         }
 
-        private async void AvatarView_Tapped(object sender, TappedEventArgs e)
+        private void AvatarView_Tapped(object sender, TappedEventArgs e)
         {
             if (_isProcessing)
             {
@@ -61,7 +61,7 @@ namespace VeganLife.Views.Controls
 
             _isProcessing = true;
             Shell.Current.FlyoutIsPresented = false;
-            await ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>();
+            ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>().SafeFireAndForget();
             _isProcessing = false;
         }
 
@@ -73,7 +73,7 @@ namespace VeganLife.Views.Controls
             });
         }
 
-        private async void OnEditProfileClicked(object sender, TappedEventArgs e)
+        private void OnEditProfileClicked(object sender, TappedEventArgs e)
         {
             if (_isProcessing)
             {
@@ -81,7 +81,9 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<ProfilePopup>();
+            ServicesHelper.GetService<IPopupNaviService>()
+                .PushAsync<ProfilePopup>()
+                .SafeFireAndForget();
             _isProcessing = false;
         }
     }

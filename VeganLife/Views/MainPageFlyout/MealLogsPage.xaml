@@ -55,6 +55,7 @@
                                     Text="BMI"
                                     TextColor="Gray" />
                                 <Label
+                                    Padding="0,0,1,0"
                                     FontFamily="FALight"
                                     FontSize="Small"
                                     Text="{StaticResource IconInfo}"
@@ -89,11 +90,21 @@
                                     </Label.GestureRecognizers>
                                 </Label>
                             </HorizontalStackLayout>
-                            <Label
-                                FontAttributes="Bold"
-                                FontSize="Subtitle"
-                                Text="{Binding LocalUser.BMRResult, StringFormat='{0:F2}'}"
-                                TextColor="{StaticResource PrimaryDark}" />
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            Text="{Binding LocalUser.BMRResult, StringFormat='{0:F2}'}"
+                                            TextColor="{StaticResource PrimaryDark}" />
+                                        <Span
+                                            FontSize="Small"
+                                            Text=" kcal/day"
+                                            TextColor="Gray" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </VerticalStackLayout>
                         <BoxView
                             Grid.Row="2"
@@ -112,13 +123,13 @@
                             Grid.Row="5"
                             Grid.ColumnSpan="2"
                             Spacing="10">
-                            <HorizontalStackLayout Spacing="5">
+                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
                                 <Label
                                     FontAttributes="Bold"
                                     Text="TDEE"
                                     TextColor="Gray" />
                                 <Label
-                                    FontAttributes="Bold"
+                                    Grid.Column="1"
                                     FontFamily="FALight"
                                     FontSize="Small"
                                     Text="{StaticResource IconInfo}"
@@ -127,12 +138,22 @@
                                         <TapGestureRecognizer Command="{Binding InfoClickedCommand}" CommandParameter="TDEE" />
                                     </Label.GestureRecognizers>
                                 </Label>
-                            </HorizontalStackLayout>
-                            <Label
-                                FontAttributes="Bold"
-                                FontSize="Subtitle"
-                                Text="{Binding LocalUser.TDEEResult, StringFormat='{0:F2}'}"
-                                TextColor="{StaticResource PrimaryDark}" />
+                            </Grid>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            FontAttributes="Bold"
+                                            FontSize="Subtitle"
+                                            Text="{Binding LocalUser.TDEEResult, StringFormat='{0:F2}'}"
+                                            TextColor="{StaticResource PrimaryDark}" />
+                                        <Span
+                                            FontSize="Small"
+                                            Text=" kcal/day"
+                                            TextColor="Gray" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                             <sharpnado:MaterialFrame
                                 Margin="10"
                                 Padding="10,5"

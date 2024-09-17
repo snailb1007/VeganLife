@@ -4,7 +4,7 @@
 
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace VeganLife.messages
+namespace VeganLife.Messages
 {
     public class BmiResultSelectedOptionMessage : ValueChangedMessage<byte>
     {

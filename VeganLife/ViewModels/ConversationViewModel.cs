@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using PropertyChanged;
 using VeganLife.Data.LocalData;
@@ -126,7 +127,7 @@ namespace VeganLife.ViewModels
             CrossMauiMTAdmob.Current.OnUserEarnedReward += (s, e) =>
             {
                 CurrentChat.TimesLimit++;
-                _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+                _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat).SafeFireAndForget();
             };
             CrossMauiMTAdmob.Current.OnRewardedFailedToLoad += (s, e) =>
             {
@@ -273,7 +274,7 @@ namespace VeganLife.ViewModels
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
 
-        private ProgressDrawableControl _drawable;
+        // private ProgressDrawableControl _drawable;
 
         [RelayCommand]
         private async Task OpenRewardedAdPage()
@@ -325,6 +326,7 @@ namespace VeganLife.ViewModels
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     CountDownText = runningTime.ToString("mm\\:ss");
+
                     //var percent = (int)((60 - runningTime.TotalSeconds) / 60f * 100);
                     //Console.WriteLine("++ percent " + percent);
                     //_drawable.Progress = percent;

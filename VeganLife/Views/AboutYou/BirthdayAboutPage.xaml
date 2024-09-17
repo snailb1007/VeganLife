@@ -46,9 +46,9 @@
                         VerticalOptions="Center" />
                 </Grid>
             </sharpnado:MaterialFrame>
+            <!--  AutomationProperties.HelpText="Tap to continue and send selected data"  -->
             <Button
                 Margin="25,20"
-                AutomationProperties.HelpText="Tap to continue and send selected data"
                 Command="{Binding ContinueClickedCommand}"
                 FontAttributes="Bold"
                 FontSize="Medium"

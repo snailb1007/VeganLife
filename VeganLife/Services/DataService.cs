@@ -2,16 +2,16 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AndroidX.Room;
+using AsyncAwaitBestPractices;
 using Firebase.Database;
 using Firebase.Database.Query;
 using HtmlAgilityPack;
-using System.Runtime.ConstrainedExecution;
+using Newtonsoft.Json;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Models.FirebaseDataModel;
 using VeganLife.Models.FoodModel;
@@ -56,11 +56,12 @@ namespace VeganLife.Services
                 { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
                 { nameof(PharmacoLogicalModel), ServicesHelper.GetService<PharmacoLogicalDataStoreService>() },
             };
-            _ = _updateMasterDataStoreService.GetItemsAsync()
+            _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
                     _updateMasters = new List<UpdateMasterModel>(t.Result);
-                });
+                })
+                .SafeFireAndForget();
         }
 
         public async Task<bool> GetMaintenanceStatusAsync()
@@ -80,8 +81,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                _ = e;
-                Debug.WriteLine(e.StackTrace);
+                e.LogError();
                 return false;
             }
         }
@@ -177,10 +177,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-#if DEBUG
-                Console.WriteLine(e.StackTrace);
-#endif
-                _ = e;
+                e.LogError();
                 return Enumerable.Empty<FoodPreviewModel>();
             }
         }
@@ -201,8 +198,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                Debug.WriteLine(e.StackTrace);
-                _ = e;
+                e.LogError();
                 return new FoodNutrientFacts();
             }
         }
@@ -214,18 +210,31 @@ namespace VeganLife.Services
                 return new UndefinedMacroFoodNutriFactModel();
             }
 
+            var localServie = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+            var localData = await localServie.GetItemAsync(id);
+            if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
+            {
+                localData.foodNutrients = JsonConvert.DeserializeObject<List<UndefinedFoodNutrient>>(localData.FoodNutrientsJsonData);
+                return localData;
+            }
+
             try
             {
                 var data = await this.firebaseDatabase.Child(MacrosFoodNutriFactDetail).Child(id)
                     .OnceSingleAsync<UndefinedMacroFoodNutriFactModel>();
                 data ??= new UndefinedMacroFoodNutriFactModel();
-                data.FdcId = id;
+                if (!string.IsNullOrEmpty(data.Name))
+                {
+                    data.Id = id;
+                    data.FoodNutrientsJsonData = JsonConvert.SerializeObject(data.foodNutrients);
+                    localServie.AddOrUpdateItemAsync(data).SafeFireAndForget();
+                }
+
                 return data;
             }
             catch (FirebaseException e)
             {
-                Debug.WriteLine(e.StackTrace);
-                _ = e;
+                e.LogError();
                 return new UndefinedMacroFoodNutriFactModel();
             }
         }
@@ -253,8 +262,7 @@ namespace VeganLife.Services
             }
             catch (Exception ex)
             {
-                _ = ex;
-                Debug.WriteLine(ex.Message);
+                ex.LogError();
                 return Enumerable.Empty<Item>();
             }
         }
@@ -303,8 +311,7 @@ namespace VeganLife.Services
                 }
                 catch (Exception ex)
                 {
-                    _ = ex;
-                    Debug.WriteLine($"An error occurred: {ex.Message}");
+                    ex.LogError();
                 }
             }
 
@@ -343,8 +350,7 @@ namespace VeganLife.Services
             }
             catch (FirebaseException e)
             {
-                _ = e;
-                Debug.WriteLine(e.StackTrace);
+                e.LogError();
                 return null;
             }
         }
@@ -459,8 +465,8 @@ namespace VeganLife.Services
                     await localData.DeleteAllItems();
                 }
 
-                _ = localData.SaveItems(result);
-                _ = UpdateMasterDataAsync(modelName, masterData);
+                localData.SaveItems(result).SafeFireAndForget();
+                UpdateMasterDataAsync(modelName, masterData).SafeFireAndForget();
             }
             else
             {

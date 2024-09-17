@@ -59,7 +59,6 @@ namespace VeganLife
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
 
                     // v6.5.1
                     fonts.AddFont("fa-solid-900.ttf", "FASolid");
@@ -121,7 +120,7 @@ namespace VeganLife
             // local service
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
-            services.AddSingleton<UsdaFoodDataStoreService>();
+            services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
             services.AddSingleton<ChatLogsDataStoreService>();
@@ -132,6 +131,7 @@ namespace VeganLife
             services.AddSingleton<PharmacoLogicalDataStoreService>();
             services.AddSingleton<GoogleAdValidatorDataStoreService>();
             services.AddSingleton<AffiliationDataStoreService>();
+            services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();

@@ -37,7 +37,7 @@
             <Label
                 FontSize="Small"
                 HorizontalOptions="Center"
-                Text="{Binding Nutrient.unitName}"
+                Text="{Binding Nutrient.UnitName}"
                 TextColor="{StaticResource PrimaryLight}" />
             <Label
                 FontAttributes="Bold"
