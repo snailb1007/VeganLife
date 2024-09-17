@@ -167,6 +167,12 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
 	<data name="notFound_common" xml:space="preserve">
     <value>Không tìm thấy thông tin</value>
   </data>
+	<data name="noInternet_common" xml:space="preserve">
+    <value>Vấn đề kết nối</value>
+  </data>
+	<data name="checkInternet_common" xml:space="preserve">
+    <value>Không có kết nối Internet. Vui lòng kiểm tra kết nối của bạn và thử lại.</value>
+  </data>
 	<data name="empty_list" xml:space="preserve">
     <value>Không có gì ở đây!
 Danh sách trống.</value>
