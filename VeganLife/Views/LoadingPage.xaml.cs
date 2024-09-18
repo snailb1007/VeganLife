@@ -68,7 +68,7 @@ public partial class LoadingPage : ContentPage
                 }
                 else
                 {
-                    app.RefreshAppShell().SafeFireAndForget();
+                    await app.RefreshAppShell();
                 }
             }
         }).SafeFireAndForget();
