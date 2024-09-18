@@ -206,7 +206,8 @@ namespace VeganLife
                 .Concat(navigation.ModalStack)
                 .Where(p => p is not null).ToHashSet();
 
-        private void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
+        [PropertyChanged.SuppressPropertyChangedWarnings]
+        private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
