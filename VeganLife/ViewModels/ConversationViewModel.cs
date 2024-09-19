@@ -17,6 +17,9 @@ namespace VeganLife.ViewModels
     [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class ConversationViewModel : BaseViewModel
     {
+        private readonly IOpenAIService _openAIService;
+        private readonly IDispatcher _dispatcher;
+
         private DateTime _startTime;
         private AsyncRelayCommand _currentCommand;
 
@@ -24,9 +27,6 @@ namespace VeganLife.ViewModels
         private ChatLogsDataStoreService _chatLogsDataStoreService;
         private GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
         private CancellationTokenSource _cancellationTokenSource;
-
-        private readonly IOpenAIService _openAIService;
-        private readonly IDispatcher _dispatcher;
 
         public AsyncRelayCommand CurrentCommand
         {

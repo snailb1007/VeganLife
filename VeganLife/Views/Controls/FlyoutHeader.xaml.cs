@@ -17,8 +17,9 @@ namespace VeganLife.Views.Controls
     public partial class FlyoutHeader : ContentView, IRecipient<ProfileChangedMessage>
     {
         private readonly IUserDataService _userDataService;
-        private bool _isProcessing;
         private readonly IEnumerable<string> grettingList;
+
+        private bool _isProcessing;
 
         public bool IsMale { get; set; }
 

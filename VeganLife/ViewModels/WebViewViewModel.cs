@@ -1,6 +1,6 @@
-﻿//// <copyright file="WebViewViewModel.cs" company="PlaceholderCompany">
-//// Copyright (c) PlaceholderCompany. All rights reserved.
-//// </copyright>
+﻿// <copyright file="WebViewViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 //using System.Threading.Tasks;
 //using VeganLife.Resources.Translations;
