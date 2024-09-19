@@ -8,13 +8,13 @@ namespace VeganLife.Services.CommunityFreeService
 {
     internal class HttpClientService
     {
-        public static HttpClient Instance { get => lazyClient.Value; }
+        public static HttpClient Instance { get => LazyClient.Value; }
 
         private HttpClientService()
         {
         }
 
-        private static readonly Lazy<HttpClient> lazyClient = new Lazy<HttpClient>(() =>
+        private static readonly Lazy<HttpClient> LazyClient = new Lazy<HttpClient>(() =>
         {
             var client = new HttpClient();
 
