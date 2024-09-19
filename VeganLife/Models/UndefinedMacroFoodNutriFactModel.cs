@@ -4,8 +4,6 @@
 
 using Newtonsoft.Json;
 using SQLite;
-//using System.Runtime.Serialization;
-//using System.Text.Json.Serialization;
 using VeganLife.Helpers;
 
 namespace VeganLife.Models
