@@ -8,6 +8,7 @@ using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
+using VeganLife.Services.CommunityFreeService;
 using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.PortionTab;
 
@@ -44,6 +45,16 @@ namespace VeganLife.ViewModels.TabsViewModel
             {
                 return base.ViewAppearingVM();
             }
+
+            var target = new FoodsListRequestModel
+            {
+                DataType = new List<string> { "Survey (FNDDS)" },
+                PageSize = 10,
+                PageNumber = 1,
+                SortBy = "dataType.keyword",
+                SortOrder = "desc",
+            };
+            var x = await ServicesHelper.GetService<USDAApiService>().GetFoodsListAsync(target);
 
             if (!_allUSDAFoodPreview?.Any() ?? true)
             {

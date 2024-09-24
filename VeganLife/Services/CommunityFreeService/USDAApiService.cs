@@ -82,7 +82,7 @@ namespace VeganLife.Services.CommunityFreeService
 
         public async Task<List<FoodDetailListRequest>> GetFoodsListAsync(FoodsListRequestModel request)
         {
-            var url = $"foods/list?api_key={ApiKey}";
+            var url = $"{BaseUrl}foods/list?api_key={ApiKey}";
 
             var jsonRequest = JsonConvert.SerializeObject(request);
             var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
@@ -91,7 +91,9 @@ namespace VeganLife.Services.CommunityFreeService
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                var foods = JsonConvert.DeserializeObject<List<FoodDetailListRequest>>(jsonResponse);
+                var foods = JsonConvert.DeserializeObject<List<FoodDetailListRequest>>(
+                    jsonResponse,
+                    new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat, NullValueHandling = NullValueHandling.Ignore });
                 return foods;
             }
             else
