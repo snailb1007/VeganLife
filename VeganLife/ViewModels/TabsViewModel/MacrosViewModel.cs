@@ -10,6 +10,7 @@ using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.CommunityFreeService;
 using VeganLife.Views.ContentViews.Tabs;
+using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.PortionTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
@@ -130,6 +131,20 @@ namespace VeganLife.ViewModels.TabsViewModel
         private void CloseAdBanner()
         {
             IsBannerClosed = true;
+        }
+
+        [RelayCommand]
+        private async Task OnUSDABannerClicked()
+        {
+            if (this.USDABannerClickedCommand.IsRunning)
+            {
+                return;
+            }
+
+            using (await this.loadingService.Show())
+            {
+                await navigationService.NavigateToPage<USDAFoodListPage>();
+            }
         }
 
         [SuppressPropertyChangedWarnings]
