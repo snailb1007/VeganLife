@@ -72,6 +72,7 @@
                             <sho:MaterialFrame
                                 Margin="0"
                                 Padding="2"
+                                sho:Commands.Tap="{Binding BindingContext.USDABannerClickedCommand, Source={x:Reference macroTabRoot}}"
                                 CornerRadius="4"
                                 IsVisible="{Binding IsUSDAFood, Mode=OneWay}"
                                 LightThemeBackgroundColor="{StaticResource PrimaryOrange2}">
