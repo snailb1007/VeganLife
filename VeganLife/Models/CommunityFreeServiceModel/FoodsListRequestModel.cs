@@ -23,7 +23,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     public class FoodDetailListRequest
     {
         [JsonProperty("fdcId")]
-        public int FdcId { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -40,7 +40,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [JsonProperty("foodCategory")]
         public string FoodCategory { get; set; }
 
-        [JsonProperty("nutrients")]
+        [JsonProperty("foodNutrients")]
         public List<NutrientDetailListRequest> Nutrients { get; set; }
     }
 
