@@ -47,16 +47,6 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return base.ViewAppearingVM();
             }
 
-            var target = new FoodsListRequestModel
-            {
-                DataType = new List<string> { "Survey (FNDDS)" },
-                PageSize = 10,
-                PageNumber = 1,
-                SortBy = "dataType.keyword",
-                SortOrder = "desc",
-            };
-            var x = await ServicesHelper.GetService<USDAApiService>().GetFoodsListAsync(target);
-
             if (!_allUSDAFoodPreview?.Any() ?? true)
             {
                 if (!_allUSDAFoodPreview?.Any() ?? true)
