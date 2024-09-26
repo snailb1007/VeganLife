@@ -8,6 +8,7 @@ namespace VeganLife.Models.GoogleNewsModels
 {
     public class Item
     {
+#pragma warning disable SA1300 // Element should begin with upper-case letter
         public string title { get; set; }
 
         public string link { get; set; }
@@ -17,6 +18,7 @@ namespace VeganLife.Models.GoogleNewsModels
         public string pubDate { get; set; }
 
         public string description { get; set; }
+#pragma warning restore SA1300 // Element should begin with upper-case letter
 
         // public Source source { get; set; }
 

@@ -23,13 +23,12 @@
             <sho:MaterialFrame
                 Margin="10,5"
                 Padding="0"
+                sho:Commands.Tap="{Binding BindingContext.ItemSelectedChangedCommand, Source={x:Reference macroTabRoot}}"
+                sho:Commands.TapParameter="{Binding .}"
                 CornerRadius="10"
                 HorizontalOptions="FillAndExpand"
                 MaterialTheme="Acrylic"
                 VerticalOptions="CenterAndExpand">
-                <sho:MaterialFrame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                </sho:MaterialFrame.GestureRecognizers>
                 <Grid
                     Margin="5"
                     ColumnDefinitions="*,2*"
@@ -136,6 +135,7 @@
                     ItemSizingStrategy="MeasureFirstItem"
                     ItemTemplate="{StaticResource classicItemTemplate}"
                     ItemsSource="{Binding UsdaFoodPreviews}"
+                    Scrolled="FoodsPreviewCollection_Scrolled"
                     SelectionMode="None"
                     VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemsLayout>
@@ -143,6 +143,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.Header>
                         <VerticalStackLayout>
+                            <Grid BackgroundColor="Transparent" HeightRequest="60" />
                             <Grid Margin="0,0,10,0" IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
                                 <adsControl:MTAdView
                                     x:Name="mtAdFixed"
@@ -169,7 +170,6 @@
                                     </Label.GestureRecognizers>
                                 </Label>
                             </Grid>
-
                             <Label Margin="0,0,10,0" HorizontalOptions="End">
                                 <Label.FormattedText>
                                     <FormattedString>

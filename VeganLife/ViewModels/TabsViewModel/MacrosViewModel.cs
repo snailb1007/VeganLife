@@ -25,6 +25,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         private bool _isUnVeganSelected;
         [ObservableProperty]
         private bool _isBannerClosed;
+        [ObservableProperty]
+        private bool isScrolling;
 
         [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
