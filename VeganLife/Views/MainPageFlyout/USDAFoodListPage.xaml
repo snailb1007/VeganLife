@@ -21,7 +21,7 @@
                 <Grid>
                     <Label
                         HorizontalOptions="Center"
-                        Text="EMPTY!!!"
+                        Text="..."
                         VerticalOptions="Center" />
                 </Grid>
             </vlv:VirtualListView.EmptyView>
