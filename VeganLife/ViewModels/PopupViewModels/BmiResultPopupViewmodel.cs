@@ -116,9 +116,5 @@ namespace VeganLife.ViewModels.PopupViewModels
                 }
             }
         }
-
-        //partial void OnIsAllowSaveBmiResultChanged(bool value)
-        //{
-        //}
     }
 }

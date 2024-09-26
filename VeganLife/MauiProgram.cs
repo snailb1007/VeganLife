@@ -77,7 +77,8 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseSharpnadoMaterialFrame(loggerEnable: false);
+                .UseSharpnadoMaterialFrame(loggerEnable: false)
+                .UseVirtualListView();
 
             RegisterServices(builder.Services);
             RegisterPage(builder.Services);
