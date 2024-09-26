@@ -49,14 +49,14 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
         public string? type { get; set; }
 
-        [JsonProperty("amount")]
-        public double? Amount { get; set; }
-
         public int? dataPoints { get; set; }
 
         public double? max { get; set; }
 
         public double? min { get; set; }
+
+        [JsonProperty("amount")]
+        public double? Amount { get; set; }
     }
 
     //public class FoodNutrientDerivation
