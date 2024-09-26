@@ -39,7 +39,7 @@ public partial class MacrosTab : ContentView
     private void FoodsPreviewCollection_Scrolled(object sender, ItemsViewScrolledEventArgs e)
     {
         _vm.IsScrolling = true;
-        this._timer.Change(500, Timeout.Infinite);
+        _ = Task.Run(() => this._timer.Change(500, Timeout.Infinite));
     }
 
     private void ScrollTimerElapsed(object obj)
