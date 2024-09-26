@@ -1,6 +1,5 @@
-﻿
+﻿using Microsoft.Maui.Adapters;
 using VeganLife.Helpers;
-using VeganLife.Helpers.Extensions;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Services.CommunityFreeService;
 
@@ -9,11 +8,12 @@ namespace VeganLife.ViewModels
     public partial class USDAFoodListPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private ObservableRangeCollection<FoodDetailListRequest> uSDAFoods = new();
+        private ObservableCollectionAdapter<FoodDetailListRequest> uSDAFoods;
 
         public override async Task ViewAppearingVM()
         {
-            if (this.USDAFoods.Any())
+            await base.ViewAppearingVM();
+            if (this.USDAFoods != null)
             {
                 return;
             }
@@ -21,14 +21,19 @@ namespace VeganLife.ViewModels
             var request = new FoodsListRequestModel
             {
                 DataType = new List<string> { "Survey (FNDDS)" },
-                PageSize = 10,
+                PageSize = 200,
                 PageNumber = 1,
                 SortBy = "dataType.keyword",
                 SortOrder = "desc",
             };
             var data = await ServicesHelper.GetService<USDAApiService>().GetFoodsListAsync(request);
-            this.USDAFoods.Replace(data);
-            await base.ViewAppearingVM();
+            if (data?.Any() == false)
+            {
+                return;
+            }
+
+            this.USDAFoods = new ObservableCollectionAdapter<FoodDetailListRequest>(
+                new ObservableCollection<FoodDetailListRequest>(data));
         }
     }
 }

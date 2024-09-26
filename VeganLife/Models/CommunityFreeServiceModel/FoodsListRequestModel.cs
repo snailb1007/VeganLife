@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using VeganLife.Helpers;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
@@ -20,7 +21,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public string SortOrder { get; set; }
     }
 
-    public class FoodDetailListRequest
+    public partial class FoodDetailListRequest
     {
         [JsonProperty("fdcId")]
         public int Id { get; set; }
@@ -42,6 +43,11 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
         [JsonProperty("foodNutrients")]
         public List<NutrientDetailListRequest> Nutrients { get; set; }
+    }
+
+    public partial class FoodDetailListRequest
+    {
+        public string TimeAgo => DateTimeHelper.CalculateTimeAgo(this.PublicationDate.Date);
     }
 
     public class NutrientDetailListRequest
