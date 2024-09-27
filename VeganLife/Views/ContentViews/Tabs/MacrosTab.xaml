@@ -23,6 +23,8 @@
             <sho:MaterialFrame
                 Margin="10,5"
                 Padding="0"
+                sho:Commands.LongTap="{Binding BindingContext.ItemLongTapCommand, Source={x:Reference macroTabRoot}}"
+                sho:Commands.LongTapParameter="{Binding .}"
                 sho:Commands.Tap="{Binding BindingContext.ItemSelectedChangedCommand, Source={x:Reference macroTabRoot}}"
                 sho:Commands.TapParameter="{Binding .}"
                 CornerRadius="10"
@@ -82,6 +84,11 @@
                                     TextColor="{StaticResource PrimaryLight}"
                                     VerticalOptions="Center" />
                             </sho:MaterialFrame>
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding IsShowingEdit}"
+                                Text="+" />
+                            <Entry IsVisible="{Binding IsShowingEdit}" Placeholder="100" />
                         </HorizontalStackLayout>
                         <Label
                             FontFamily="FAThin"
