@@ -139,6 +139,12 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
         }
 
+        [RelayCommand]
+        private void OnItemLongTap(USDAFoodPreviewModel param)
+        {
+            param.IsShowingEdit = true;
+        }
+
         [SuppressPropertyChangedWarnings]
         partial void OnIsVeganSelectedChanged(bool value)
         {

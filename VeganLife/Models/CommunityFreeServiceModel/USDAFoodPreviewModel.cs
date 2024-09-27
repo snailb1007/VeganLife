@@ -28,5 +28,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         private int countCorrectWordOnSearch;
 
         public bool IsUSDAFood => !string.IsNullOrEmpty(Id) && !Id.Contains(ConstantHelper.TAG);
+
+        public bool IsShowingEdit { get; set; }
     }
 }
