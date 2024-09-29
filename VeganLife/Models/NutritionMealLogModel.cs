@@ -13,5 +13,7 @@ namespace VeganLife.Models
         public UndefinedMacroFoodNutriFactModel UndefinedFood { get; set; }
 
         public DateTime EatingDay { get; set; }
+
+        public int Amount { get; set; }
     }
 }
