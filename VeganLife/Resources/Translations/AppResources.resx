@@ -538,6 +538,9 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
     <value>Fill text here</value>
   </data>
+	<data name="addML_btn_macroTab" xml:space="preserve">
+    <value>Add to meal logs</value>
+  </data>
 	<data name="title_macroTab" xml:space="preserve">
     <value>MACRO</value>
   </data>

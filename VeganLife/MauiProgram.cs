@@ -65,11 +65,7 @@ namespace VeganLife
                     fonts.AddFont("fa-regular-400.ttf", "FARegular");
                     fonts.AddFont("fa-thin-100.ttf", "FAThin");
                     fonts.AddFont("fa-light-300.ttf", "FALight");
-                });
-#if DEBUG
-            builder.Logging.AddDebug();
-#endif
-            builder
+                })
                 .UseMauiCommunityToolkit()
                 .UseMauiMTAdmob()
                 .ConfigureMopups()
@@ -79,6 +75,9 @@ namespace VeganLife
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false)
                 .UseVirtualListView();
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
 
             RegisterServices(builder.Services);
             RegisterPage(builder.Services);

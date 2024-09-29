@@ -13,7 +13,6 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutIcon="hamburger_white"
     Shell.NavBarIsVisible="False">
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
