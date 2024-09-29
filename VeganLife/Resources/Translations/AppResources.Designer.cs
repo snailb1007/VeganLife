@@ -61,6 +61,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to meal logs.
+        /// </summary>
+        internal static string addML_btn_macroTab {
+            get {
+                return ResourceManager.GetString("addML_btn_macroTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to affiliatePopup_productsRecommend_Title.
         /// </summary>
         internal static string affiliatePopup_productsRecommend_Title {
