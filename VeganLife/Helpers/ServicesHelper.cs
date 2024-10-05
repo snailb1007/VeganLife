@@ -9,12 +9,26 @@ namespace VeganLife.Helpers
 {
     public static class ServicesHelper
     {
-        public static T GetService<T>() => IPlatformApplication.Current.Services.GetService<T>();
+        public static T GetService<T>()
+        {
+            if (IPlatformApplication.Current is null)
+            {
+                throw new InvalidOperationException("IPlatformApplication.Current is null.");
+            }
 
-        public static BaseViewModel GetCurrentViewModel()
+            var result = IPlatformApplication.Current.Services.GetService<T>();
+            if (result is null)
+            {
+                throw new InvalidOperationException($"Service of type {typeof(T).Name} is not registered.");
+            }
+
+            return result;
+        }
+
+        public static BaseViewModel? GetCurrentViewModel()
         {
             var popupService = GetService<IPopupNaviService>();
-            var currentPopup = GetService<IPopupNavigation>()?.PopupStack?.LastOrDefault();
+            var currentPopup = popupService.GetLastMopupPage();
             if (popupService.GetPopupStackCount() > 0
                 && currentPopup != null
                 && currentPopup is not LoadingPopup)
@@ -33,11 +47,11 @@ namespace VeganLife.Helpers
         }
 
         // get current viewmodel by type
-        public static T GetCurrentViewModel<T>()
-            where T : BaseViewModel
-        {
-            return GetCurrentViewModel() as T;
-        }
+        //public static T GetCurrentViewModel<T>()
+        //    where T : BaseViewModel
+        //{
+        //    return GetCurrentViewModel() as T;
+        //}
 
         public static async Task OpenViaBrowserAsync(string uri)
         {

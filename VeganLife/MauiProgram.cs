@@ -82,13 +82,10 @@ namespace VeganLife
             RegisterServices(builder.Services);
             RegisterPage(builder.Services);
 
-            builder.ConfigureMauiHandlers((h) =>
-            {
-                h.AddHandler(typeof(Shell), typeof(ShellHandler));
-            });
             CustomEntry();
             builder.ConfigureMauiHandlers((handlers) =>
             {
+                handlers.AddHandler(typeof(Shell), typeof(ShellHandler));
                 handlers.AddHandler(typeof(SearchBar), typeof(Handlers.SearchBarHandler));
             });
             AllowMultiLineTruncationOnAndroid();

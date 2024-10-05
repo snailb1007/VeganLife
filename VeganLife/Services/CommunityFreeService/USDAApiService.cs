@@ -30,7 +30,7 @@ namespace VeganLife.Services.CommunityFreeService
             var localData = await _dataStoreService.GetItemAsync(foodId);
             if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
             {
-                Debug.WriteLine("==> have local data for " + foodId);
+                UtilitiesExtension.LogError("have local data for " + foodId);
                 localData.foodNutrients = JsonConvert.DeserializeObject<List<FoodNutrient>>(localData.FoodNutrientsJsonData);
                 return localData;
             }
@@ -53,7 +53,7 @@ namespace VeganLife.Services.CommunityFreeService
                 }
                 else
                 {
-                    Debug.WriteLine($"API request failed with status code: {response.StatusCode}");
+                    UtilitiesExtension.LogError($"API request failed with status code: {response.StatusCode}");
                 }
 
                 return result;

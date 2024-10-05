@@ -1,5 +1,6 @@
 using AsyncAwaitBestPractices;
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
 
 namespace VeganLife.Views.ContentViews;
@@ -19,6 +20,6 @@ public partial class ShellFlyoutFooterCustom : ContentView
             Title = AppResources.app_name,
             Text = "Invite your friends",
         });
-        requestTask.SafeFireAndForget(onException: ex => Debug.WriteLine("==> " + ex.Message));
+        requestTask.SafeFireAndForget(onException: ex => ex.LogError());
     }
 }

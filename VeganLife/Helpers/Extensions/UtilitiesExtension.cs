@@ -91,5 +91,10 @@
         {
             Debug.WriteLine($"==> Error: {description}\n{e.Message}");
         }
+
+        public static void LogError(string description = "")
+        {
+            Debug.WriteLine($"==> Error: {description}");
+        }
     }
 }
