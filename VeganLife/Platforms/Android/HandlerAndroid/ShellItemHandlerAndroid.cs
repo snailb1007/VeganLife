@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Microsoft.Maui.Controls.Platform.Compatibility;
 using VeganLife.Helpers;
 
@@ -18,7 +19,7 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
         protected override void OnTabReselected(ShellSection shellSection)
         {
             base.OnTabReselected(shellSection);
-            this.DisplayedPage?.Dispatcher?.Dispatch(async () => await PerformTabReselectedAsync());
+            PerformTabReselectedAsync().SafeFireAndForget();
         }
 
         //protected override bool OnItemSelected(global::Android.Views.IMenuItem item)

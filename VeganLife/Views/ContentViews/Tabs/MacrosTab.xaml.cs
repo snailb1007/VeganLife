@@ -18,7 +18,7 @@ public partial class MacrosTab : ContentView
     protected override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
-        _vm ??= this.BindingContext as MacrosViewModel;
+        _vm ??= this.BindingContext as MacrosViewModel ?? throw new NullReferenceException();
     }
 
     private void RefreshView_Refreshing(object sender, EventArgs e)
@@ -42,7 +42,7 @@ public partial class MacrosTab : ContentView
         _ = Task.Run(() => this._timer.Change(500, Timeout.Infinite));
     }
 
-    private void ScrollTimerElapsed(object obj)
+    private void ScrollTimerElapsed(object? obj)
     {
         _vm.IsScrolling = false;
     }
