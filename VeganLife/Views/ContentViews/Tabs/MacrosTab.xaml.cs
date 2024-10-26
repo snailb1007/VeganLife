@@ -38,6 +38,11 @@ public partial class MacrosTab : ContentView
 
     private void FoodsPreviewCollection_Scrolled(object sender, ItemsViewScrolledEventArgs e)
     {
+        if (_vm is null)
+        {
+            return;
+        }
+
         _vm.IsScrolling = true;
         _ = Task.Run(() => this._timer.Change(500, Timeout.Infinite));
     }
