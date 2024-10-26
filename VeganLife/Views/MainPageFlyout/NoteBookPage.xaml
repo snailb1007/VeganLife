@@ -202,18 +202,29 @@
                 TabType="Scrollable"
                 VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>
-                    <ResourceDictionary>
-                        <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
-                            <Setter Property="LabelSize" Value="15" />
-                            <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
-                            <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
-                        </Style>
-                    </ResourceDictionary>
+                    <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
+                        <Setter Property="LabelSize" Value="15" />
+                        <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
+                        <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
+                    </Style>
                 </sharpnado:TabHostView.Resources>
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.title_macroTab}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_PharmacoLogical_Title}" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.title_macroTab}"
+                    SelectedTabColor="{StaticResource PrimaryDark}" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.app_common_vitaminsTab}"
+                    SelectedTabColor="{StaticResource PrimaryDark}"
+                    VerticalOptions="FillAndExpand" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}"
+                    SelectedTabColor="{StaticResource PrimaryDark}" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.app_common_PharmacoLogical_Title}"
+                    SelectedTabColor="{StaticResource PrimaryDark}" />
             </sharpnado:TabHostView>
         </ContentView>
         <ContentView
