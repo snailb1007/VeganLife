@@ -8,15 +8,15 @@ namespace VeganLife.Helpers
 {
     public static class DateTimeHelper
     {
-        public static DateTime GetDateTime(string dateString)
+        public static DateTime GetDateTime(string dateString, string format = "yyyy-MM-dd")
         {
             if (string.IsNullOrEmpty(dateString))
             {
                 return DateTime.MinValue;
             }
 
-            string parseFormat = "ddd, dd MMM yyyy HH:mm:ss 'GMT'K";
-            return DateTime.ParseExact(dateString, parseFormat, CultureInfo.InvariantCulture);
+            // string parseFormat = "ddd, dd MMM yyyy HH:mm:ss 'GMT'K";
+            return DateTime.ParseExact(dateString, format, CultureInfo.InvariantCulture);
         }
 
         public static string CalculateTimeAgo(DateTime dateTime)
