@@ -32,6 +32,7 @@
                 MaterialTheme="Acrylic">
                 <Grid Margin="5,0,10,0">
                     <DatePicker
+                        AutomationId="dateOfBirthPicker"
                         Date="{Binding SelectedDate, Mode=OneWayToSource}"
                         FontSize="Large"
                         HorizontalOptions="Start"
@@ -49,6 +50,7 @@
             <!--  AutomationProperties.HelpText="Tap to continue and send selected data"  -->
             <Button
                 Margin="25,20"
+                AutomationId="continueBtn"
                 Command="{Binding ContinueClickedCommand}"
                 FontAttributes="Bold"
                 FontSize="Medium"
