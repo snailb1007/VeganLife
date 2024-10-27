@@ -3,6 +3,7 @@
 // </copyright>
 
 using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
@@ -27,12 +28,12 @@ namespace VeganLife.ViewModels
         {
             get
             {
-                var isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+                var isConnected = ServicesHelper.GetNetworkStatus();
 
                 if (!isConnected && !_hasShownAlert)
                 {
                     _hasShownAlert = true; // Prevent showing multiple alerts consecutively
-                    MainThread.BeginInvokeOnMainThread(() => DisplayNoInternetAlert().ConfigureAwait(false));
+                    MainThread.BeginInvokeOnMainThread(() => _ = DisplayNoInternetAlert());
                 }
                 else if (isConnected)
                 {
@@ -59,26 +60,13 @@ namespace VeganLife.ViewModels
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
             this.loadingService = ServicesHelper.GetService<ILoadingService>();
-            Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
-        private void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
+        public Task DisplayNoInternetAlert()
         {
-            if (e.NetworkAccess != NetworkAccess.Internet)
-            {
-                // No internet connection
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await DisplayNoInternetAlert().ConfigureAwait(false);
-                });
-            }
-        }
-
-        protected async Task DisplayNoInternetAlert()
-        {
-            await navigationService.DisplayAlert(
-                "Connectivity Issue",
-                "No Internet connection is available. Please check your connection and try again.",
+            return navigationService.DisplayAlert(
+                AppResources.noInternet_common,
+                AppResources.checkInternet_common,
                 "OK");
         }
 

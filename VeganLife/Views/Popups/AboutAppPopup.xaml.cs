@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 
@@ -21,18 +22,19 @@ public partial class AboutAppPopup : Popup
 
     private void TermsAndConditions_Tapped(object sender, TappedEventArgs e)
     {
-        Browser.Default.OpenAsync("https://veganhealthies.wordpress.com/2023/07/23/dieu-khoan-dieu-kien/");
+        Browser.Default.OpenAsync("https://veganhealthies.wordpress.com/2023/07/23/dieu-khoan-dieu-kien/").SafeFireAndForget();
     }
 
     private void PrivacyPolicy_Tapped(object sender, TappedEventArgs e)
     {
-        Browser.Default.OpenAsync("https://veganhealthies.wordpress.com/2023/07/23/chinh-sach-quyen-rieng-tu/");
+        Browser.Default.OpenAsync("https://veganhealthies.wordpress.com/2023/07/23/chinh-sach-quyen-rieng-tu/").SafeFireAndForget();
     }
 
-    private async void Close_Clicked(object sender, EventArgs e)
+    private void Close_Clicked(object sender, EventArgs e)
     {
         this.Close();
-        await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString());
-        WaitingAcceptedTaskSource.SetResult(true);
+        UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedTermsAndConditions, true.ToString())
+            .ContinueWith(t => WaitingAcceptedTaskSource.SetResult(true))
+            .SafeFireAndForget();
     }
 }

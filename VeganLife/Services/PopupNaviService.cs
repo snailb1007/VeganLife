@@ -2,17 +2,17 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Mopups.Interfaces;
 using Mopups.Pages;
 using Mopups.Services;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
 {
     public class PopupNaviService : IPopupNaviService
     {
-        private readonly IServiceProvider services;
-
         private IPopupNavigation Navigation
         {
             get
@@ -37,11 +37,10 @@ namespace VeganLife.Services
 
         public int GetPopupStackCount() => this.Navigation?.PopupStack?.Count ?? 0;
 
-        public BaseViewModel GetPopupViewModel(PopupPage? popup) => popup?.BindingContext as BaseViewModel;
+        public BaseViewModel? GetPopupViewModel(PopupPage? popup) => popup?.BindingContext as BaseViewModel;
 
-        public PopupNaviService(IServiceProvider serviceProvider)
+        public PopupNaviService()
         {
-            this.services = serviceProvider;
         }
 
         public async Task PopAllAsync(bool animate = true)
@@ -69,7 +68,7 @@ namespace VeganLife.Services
         public async Task PushAsync<T>(object? param = null, bool animate = true)
             where T : PopupPage
         {
-            var toPage = this.ResolvePage<T>();
+            var toPage = ServicesHelper.GetService<T>();
             if (toPage is not null)
             {
                 toPage.NavigatedTo += Page_NavigatedTo;
@@ -95,8 +94,19 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
-            => await this.CallNavigatedTo(sender as PopupPage);
+        public PopupPage? GetLastMopupPage()
+        {
+            if (this.GetPopupStackCount() < 1)
+            {
+                return null;
+            }
+
+            var result = this.Navigation.PopupStack.Last();
+            return result;
+        }
+
+        private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
+            => this.CallNavigatedTo(sender as PopupPage).SafeFireAndForget(onException: ex => ex.LogError());
 
         private Task CallNavigatedTo(PopupPage? p)
         {
@@ -109,7 +119,7 @@ namespace VeganLife.Services
             return Task.CompletedTask;
         }
 
-        private async void Page_NavigatedFrom(object? sender, NavigatedFromEventArgs e)
+        private void Page_NavigatedFrom(object? sender, NavigatedFromEventArgs e)
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
@@ -124,7 +134,7 @@ namespace VeganLife.Services
                     thisPage.NavigatedFrom -= this.Page_NavigatedFrom;
                 }
 
-                await this.CallNavigatedFrom(thisPage, isForwardNavigation);
+                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => ex.LogError());
             }
         }
 
@@ -138,12 +148,6 @@ namespace VeganLife.Services
             }
 
             return Task.CompletedTask;
-        }
-
-        private T ResolvePage<T>()
-            where T : PopupPage
-        {
-            return this.services.GetService<T>();
         }
     }
 }

@@ -6,6 +6,8 @@ using ChatGptNet;
 using ChatGptNet.Exceptions;
 using ChatGptNet.Extensions;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
+using VeganLife.Resources.Translations;
 
 namespace VeganLife.Services.OpenAIService
 {
@@ -26,10 +28,8 @@ namespace VeganLife.Services.OpenAIService
             }
             catch (ChatGptException chatEX)
             {
-#if DEBUG
-                await Console.Out.WriteLineAsync($"==> Failed code: {chatEX.StatusCode}\n{chatEX.Message}");
-#endif
-                return string.Empty;
+                chatEX.LogError(description: $"{chatEX.StatusCode}");
+                return AppResources.app_common_gptUnableEx;
             }
         }
     }

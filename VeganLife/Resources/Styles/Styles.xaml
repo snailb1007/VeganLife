@@ -8,7 +8,8 @@
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations">
     <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
     <x:String x:Key="IconInfo">&#xf05a;</x:String>
     <x:String x:Key="IconClose">&#xf057;</x:String>
@@ -26,7 +27,7 @@
         <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}" />
     </Style>
 
-    <!--<ControlTemplate x:Key="FullScreenLoadingTemplate">
+    <ControlTemplate x:Key="FullScreenLoadingTemplate">
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <ContentPresenter Margin="0" Padding="0" />
             <Grid
@@ -39,7 +40,7 @@
                     <MultiTrigger TargetType="Grid">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding ., Converter={StaticResource IsNotNullConverter}}" Value="True" />
-                            <BindingCondition Binding="{Binding IsLoading}" Value="True" />
+                            <BindingCondition Binding="{Binding IsBusy}" Value="True" />
                         </MultiTrigger.Conditions>
                         <Setter Property="IsVisible" Value="True" />
                     </MultiTrigger>
@@ -51,7 +52,7 @@
                     Grid.Column="1"
                     HeightRequest="100"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsLoading}"
+                    IsVisible="{Binding IsBusy}"
                     RepeatCount="-1"
                     RepeatMode="Restart"
                     Source="loading.json"
@@ -59,7 +60,7 @@
                     WidthRequest="100" />
             </Grid>
         </Grid>
-    </ControlTemplate>-->
+    </ControlTemplate>
 
     <ControlTemplate x:Key="EmptyListAnimationTemplate">
         <skia:SKLottieView
@@ -506,10 +507,6 @@
     </Style>-->
 
     <!--  custom  -->
-    <Style x:Key="TitleFood" TargetType="Label">
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontFamily" Value="PlayfairDisplaySemiBold" />
-    </Style>
     <DataTemplate x:Key="FoodPreviewCollection" x:DataType="modelFood:FoodPreviewModel">
         <Border
             BackgroundColor="{AppThemeBinding Light=White,
@@ -547,7 +544,7 @@
                 <VerticalStackLayout
                     Grid.Column="1"
                     Spacing="10"
-                    VerticalOptions="CenterAndExpand">
+                    VerticalOptions="Center">
                     <Label
                         Margin="0"
                         FontAttributes="Bold"
@@ -575,8 +572,9 @@
                     Command="{Binding BookmarkClickedCommand}"
                     CommandParameter="{Binding .}"
                     CornerRadius="20"
+                    FontAttributes="Bold"
                     SemanticProperties.Description="Button save food"
-                    Text="Save"
+                    Text="{x:Static translate:AppResources.save}"
                     TextColor="{StaticResource PrimaryDark}"
                     VerticalOptions="Center">
                     <Button.Triggers>

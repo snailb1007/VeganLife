@@ -2,8 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using Plugin.MauiMTAdmob.Extra;
+using Sentry.Protocol;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -25,7 +27,7 @@ namespace VeganLife
         {
             this.InitializeComponent();
 
-            CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+            // CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
             CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
             CrossMauiMTAdmob.Current.UseRestrictedDataProcessing = true;
             CrossMauiMTAdmob.Current.TagForChildDirectedTreatment = MTTagForChildDirectedTreatment.TagForChildDirectedTreatmentUnspecified;
@@ -36,7 +38,7 @@ namespace VeganLife
 
             this.SetupLanguage();
             this.MainPage = new LoadingPage();
-            _ = this.SetupThemeAsync();
+            this.SetupThemeAsync().SafeFireAndForget();
         }
 
         private void SetupLanguage()
@@ -75,6 +77,14 @@ namespace VeganLife
                 _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem,
             };
 #endif
+        }
+
+        public async Task RefreshAppShell()
+        {
+            var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
+            await Task.WhenAll(Task.Delay(500), t1);
+            StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
+            MainThread.BeginInvokeOnMainThread(() => this.MainPage = new AppShell());
         }
     }
 }

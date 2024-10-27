@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.Extensions;
@@ -17,6 +18,7 @@ namespace VeganLife.Data
     {
         private readonly ISQLite _localDatabase;
         private SQLiteAsyncConnection _connection;
+        private Task _currentInitTask;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDataStore{T}"/> class.
@@ -25,12 +27,13 @@ namespace VeganLife.Data
         public BaseDataStore(ISQLite database)
         {
             this._localDatabase = database;
-            Init().ConfigureAwait(false);
+            _currentInitTask = InitAsync();
+            _currentInitTask.SafeFireAndForget(ex => ex.LogError());
         }
 
         public async Task<bool> SaveItems(IEnumerable<T> items)
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
                 var res = await this._connection.InsertAllAsync(items);
@@ -45,7 +48,7 @@ namespace VeganLife.Data
 
         public async Task<bool> DeleteAllItems()
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
                 var res = await this._connection.DeleteAllAsync<T>();
@@ -63,21 +66,33 @@ namespace VeganLife.Data
         {
             try
             {
+                await this.InitAsync();
                 if (isUpdate || await this.IsExistingItem(item))
                 {
                     return await this._connection.UpdateAsync(item) > 0;
                 }
                 else
                 {
-                    return await this._connection.InsertAsync(item) > 0;
+                    Task<int> task;
+                    task = this._connection.InsertOrReplaceAsync(item);
+                    return (await task) > 0;
                 }
             }
             catch (Exception e)
             {
-#if DEBUG
-                throw new Exception("Error in AddOrUpdateItemAsync", e);
-#else
                 e.LogError();
+                if (e is SQLiteException sqliteException
+                    && sqliteException.Result == SQLite3.Result.Error)
+                {
+                    sqliteException.LogError("Error in AddOrUpdateItemAsync");
+                    await this._connection.DropTableAsync<T>();
+                    await this._connection.CreateTableAsync<T>();
+                    var retry = await this._connection.InsertOrReplaceAsync(item);
+                    return retry > 0;
+                }
+#if DEBUG
+                throw new Exception("==> Error in AddOrUpdateItemAsync", e);
+#else
                 return false;
 #endif
             }
@@ -86,7 +101,7 @@ namespace VeganLife.Data
         /// <inheritdoc/>
         public async Task<bool> DeleteItem(T item)
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
                 return await this._connection.DeleteAsync(item) > 0;
@@ -99,11 +114,12 @@ namespace VeganLife.Data
         }
 
         /// <inheritdoc/>
-        public async Task<T> GetItemAsync()
+        public async Task<T> GetItemAsync(string id)
         {
             try
             {
-                return await this._connection.Table<T>().FirstOrDefaultAsync();
+                var res = await this._connection.FindAsync<T>(id);
+                return res;
             }
             catch (Exception e)
             {
@@ -129,23 +145,27 @@ namespace VeganLife.Data
 
         public async Task<T> GetFirstOrDefaultItem()
         {
-            await this.Init();
+            await this.InitAsync();
             try
             {
-                var result = await this._connection.Table<T>().ToListAsync()
-                    .ContinueWith(t => t.Result.FirstOrDefault());
-                return result ?? default!;
+                var result = await this._connection.Table<T>()
+                    .FirstOrDefaultAsync();
+                return result;
             }
             catch (Exception e)
             {
-                _ = e;
-                Debug.WriteLine("Cant retrieve local data, " + e.Message);
+                e.LogError(description: "Cant retrieve local data");
                 return default!;
             }
         }
 
-        private async Task Init()
+        private async Task InitAsync()
         {
+            if (this._currentInitTask != null && !this._currentInitTask.IsCompleted)
+            {
+                await _currentInitTask;
+            }
+
             if (this._connection is not null)
             {
                 return;
@@ -155,7 +175,7 @@ namespace VeganLife.Data
             await this._connection?.CreateTableAsync<T>()!;
         }
 
-        private async Task<bool> IsExistingItem(T item)
+        public async Task<bool> IsExistingItem(T item)
         {
             var idProperty = typeof(T).GetProperty("Id");
             if (idProperty == null)
@@ -163,7 +183,12 @@ namespace VeganLife.Data
                 throw new InvalidOperationException("Type must have an 'Id' property.");
             }
 
-            var idValue = idProperty?.GetValue(item);
+            var result = await this.IsExistingItem(idValue: idProperty.GetValue(item));
+            return result;
+        }
+
+        public async Task<bool> IsExistingItem(object idValue)
+        {
             var goalItem = await this._connection.FindAsync<T>(idValue);
             return goalItem != null;
         }

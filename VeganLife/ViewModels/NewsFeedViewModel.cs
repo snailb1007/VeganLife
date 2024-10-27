@@ -3,6 +3,7 @@
 // </copyright>
 
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Models.GoogleNewsModels;
 using VeganLife.Resources.Translations;
 
@@ -28,7 +29,6 @@ namespace VeganLife.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<Discovery> discoveryMenu;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
@@ -196,11 +196,7 @@ namespace VeganLife.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    _ = ex;
-#if DEBUG
-                    // An unexpected error occured. No browser may be installed on the device.
-                    await Console.Out.WriteLineAsync("No browser may be installed on the device\n" + ex.Message);
-#endif
+                    ex.LogError(description: "No browser may be installed on the device");
                 }
             }
         }

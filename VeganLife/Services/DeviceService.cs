@@ -3,6 +3,7 @@
 // </copyright>
 
 using Microsoft.Maui.Platform;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
 {
@@ -20,7 +21,7 @@ namespace VeganLife.Services
 
         // public double WidthScreen => Application.Current?.MainPage?.Width ?? default;
         // public double HeightScreen => Application.Current?.MainPage?.Height ?? default;
-        public async Task SendEmailAsync(string subject, string body, List<string> recipients, List<string> CCrecipients = null)
+        public async Task SendEmailAsync(string subject, string body, List<string> recipients, List<string> ccrecipients = null)
         {
             try
             {
@@ -29,7 +30,7 @@ namespace VeganLife.Services
                     Subject = subject,
                     Body = body,
                     To = recipients,
-                    Cc = CCrecipients,
+                    Cc = ccrecipients,
                     BodyFormat = EmailBodyFormat.PlainText, // Use EmailBodyFormat.Html for HTML content
                 };
 
@@ -37,13 +38,11 @@ namespace VeganLife.Services
             }
             catch (FeatureNotSupportedException fbsEx)
             {
-                // Email is not supported on this device
-                _ = fbsEx;
+                fbsEx.LogError(description: "Email is not supported on this device");
             }
             catch (Exception ex)
             {
-                // Some other exception occurred
-                _ = ex;
+                ex.LogError(description: "Some other exception occurred");
             }
         }
     }

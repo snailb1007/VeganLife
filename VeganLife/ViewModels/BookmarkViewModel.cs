@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
@@ -67,10 +68,10 @@ namespace VeganLife.ViewModels
             });
         }
 
-        private async void Init()
+        private void Init()
         {
             this.Foods = new ObservableCollection<FoodPreviewModel>();
-            await this.LoadDataAsync();
+            this.LoadDataAsync().SafeFireAndForget();
         }
 
         private async Task LoadDataAsync()

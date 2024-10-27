@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using PropertyChanged;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
@@ -83,6 +84,7 @@ namespace VeganLife.ViewModels
             this.IsBannerClosed = true;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnVitaminSearchTextChanged(string value)
         {
             if (string.IsNullOrEmpty(value)

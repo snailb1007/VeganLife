@@ -2,7 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
 {
@@ -20,22 +22,26 @@ namespace VeganLife.Services
                 {
                     return navigation;
                 }
-                else
-                {
-                    // This is not good!
-                    if (Debugger.IsAttached)
-                    {
-                        Debugger.Break();
-                    }
 
-                    throw new Exception();
+                navigation = Application.Current?.MainPage?.Navigation;
+                if (navigation is not null)
+                {
+                    return navigation;
                 }
+
+                // This is not good!
+                if (Debugger.IsAttached)
+                {
+                    Debugger.Break();
+                }
+
+                throw new Exception();
             }
         }
 
         private readonly IServiceProvider services;
 
-        private Page? mainPage => Application.Current?.MainPage;
+        private Page? MainPage => Application.Current?.MainPage;
 
         // private IDispatcher? dispatcher => Application.Current?.Dispatcher;
 
@@ -62,11 +68,11 @@ namespace VeganLife.Services
 
         /// <inheritdoc/>
         public async Task<bool> DisplayAlert(string title, string message, string ok, string cancel)
-            => await this.mainPage?.DisplayAlert(title, message, ok, cancel)!;
+            => await this.MainPage?.DisplayAlert(title, message, ok, cancel)!;
 
         /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, string ok)
-            => await this.mainPage?.DisplayAlert(title, message, ok)!;
+            => await this.MainPage?.DisplayAlert(title, message, ok)!;
 
         /// <inheritdoc/>
         public async Task<Page> PopAsync()
@@ -109,8 +115,8 @@ namespace VeganLife.Services
             }
         }
 
-        private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
-            => await this.CallNavigatedTo((sender as Page)!);
+        private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
+            => this.CallNavigatedTo((sender as Page)!).SafeFireAndForget(onException: ex => ex.LogError());
 
         private Task CallNavigatedTo(Page p)
         {
@@ -123,7 +129,7 @@ namespace VeganLife.Services
             return Task.CompletedTask;
         }
 
-        private async void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
+        private void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
@@ -137,7 +143,7 @@ namespace VeganLife.Services
                     thisPage.NavigatedTo -= this.Page_NavigatedTo;
                 }
 
-                await this.CallNavigatedFrom(thisPage, isForwardNavigation);
+                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => ex.LogError());
             }
         }
 

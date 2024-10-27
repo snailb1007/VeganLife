@@ -158,8 +158,23 @@ Nhật ký ứng dụng được sử dụng để thu thập và phân tích th
 	<data name="close_common" xml:space="preserve">
     <value>Đóng</value>
   </data>
+	<data name="error_common" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
 	<data name="coming_soon" xml:space="preserve">
     <value>Sắp ra mắt</value>
+  </data>
+	<data name="notFound_common" xml:space="preserve">
+    <value>Không tìm thấy thông tin</value>
+  </data>
+	<data name="noInternet_common" xml:space="preserve">
+    <value>Vấn đề kết nối</value>
+  </data>
+	<data name="checkInternet_common" xml:space="preserve">
+    <value>Không có kết nối Internet. Vui lòng kiểm tra kết nối của bạn và thử lại.</value>
+  </data>
+	<data name="disclaimer_common" xml:space="preserve">
+    <value>Miễn trừ trách nhiệm</value>
   </data>
 	<data name="empty_list" xml:space="preserve">
     <value>Không có gì ở đây!
@@ -209,6 +224,15 @@ Danh sách trống.</value>
   </data>
 	<data name="app_common_recipeTab" xml:space="preserve">
     <value>Công thức</value>
+  </data>
+	<data name="app_common_dataNote" xml:space="preserve">
+    <value>📢 Lưu ý:
+
+Dữ liệu cá nhân của bạn sẽ không được công khai và lưu trữ ở bất kỳ nơi nào khác ngoài thiết bị của bạn.</value>
+  </data>
+	<data name="app_common_gptUnableEx" xml:space="preserve">
+    <value>Xin lỗi, hôm nay tôi đang cùng "ốm" tâm sự.
+Nhưng đừng lo, hãy quay lại vào lúc khác</value>
   </data>
 	<data name="optionTitle_settingTab" xml:space="preserve">
     <value>Tùy chọn</value>
@@ -522,6 +546,9 @@ Bạn có thể nhận vào hôm sau</value>
 	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
     <value>Nhập để tìm kiếm nguyên liệu, thực phẩm,...</value>
   </data>
+	<data name="addML_btn_macroTab" xml:space="preserve">
+    <value>+ Nhật ký</value>
+  </data>
 	<data name="chatWithUs_supportPage" xml:space="preserve">
     <value>Trò chuyện với chúng tôi</value>
   </data>
@@ -617,5 +644,35 @@ Bạn có thể nhận vào hôm sau</value>
   </data>
 	<data name="affiliatePopup_productsRecommend_Title" xml:space="preserve">
     <value>Sản phẩm đề xuất</value>
+  </data>
+	<data name="mealLogsPage_sedentary" xml:space="preserve">
+    <value>ít vận động</value>
+  </data>
+	<data name="mealLogsPage_LightlyActive" xml:space="preserve">
+    <value>Hoạt động nhẹ</value>
+  </data>
+	<data name="mealLogsPage_ModeratelyActive" xml:space="preserve">
+    <value>Hoạt động vừa phải</value>
+  </data>
+	<data name="mealLogsPage_VeryActive" xml:space="preserve">
+    <value>Rất tích cực</value>
+  </data>
+	<data name="mealLogsPage_SuperActive" xml:space="preserve">
+    <value>Siêu năng động</value>
+  </data>
+	<data name="mealLogsPage_BMI_description" xml:space="preserve">
+    <value>BMI (Body Mass Index) là một chỉ số được sử dụng để đánh giá tình trạng cơ thể của một người dựa trên cân nặng và chiều cao của bạn.</value>
+  </data>
+	<data name="mealLogsPage_BMR_description" xml:space="preserve">
+    <value>BMR (Basal Metabolic Rate) là chỉ số cho biết lượng năng lượng (calo) mà cơ thể bạn cần để duy trì các chức năng cơ bản như hô hấp, tuần hoàn máu, duy trì nhiệt độ cơ thể, và hoạt động của các cơ quan nội tạng khi bạn ở trạng thái nghỉ ngơi hoàn toàn.
+
+Chỉ số BMR phụ thuộc vào nhiều yếu tố như tuổi tác, giới tính, cân nặng, chiều cao và thành phần cơ thể (tỷ lệ cơ bắp và mỡ). BMR càng cao, cơ thể bạn đốt cháy nhiều calo hơn ngay cả khi không vận động.
+
+Việc biết được chỉ số BMR giúp bạn xác định được lượng calo cần thiết để duy trì cân nặng hiện tại, hoặc điều chỉnh lượng calo để giảm cân, tăng cân, hoặc duy trì một chế độ ăn uống lành mạnh.</value>
+  </data>
+	<data name="mealLogsPage_TDEE_description" xml:space="preserve">
+		<value>TDEE (Total Daily Energy Expenditure) là tổng lượng năng lượng (calo) mà cơ thể bạn tiêu thụ trong một ngày, bao gồm tất cả các hoạt động từ nghỉ ngơi đến vận động. TDEE được tính dựa trên BMR (Basal Metabolic Rate) và mức độ hoạt động hàng ngày của bạn.
+
+TDEE giúp bạn biết được cần tiêu thụ bao nhiêu calo mỗi ngày để duy trì cân nặng hiện tại. Nếu muốn giảm cân, bạn cần ăn ít hơn TDEE, và ngược lại, nếu muốn tăng cân, bạn cần ăn nhiều hơn TDEE. TDEE là một công cụ hữu ích để điều chỉnh chế độ ăn uống và lối sống nhằm đạt được mục tiêu sức khỏe và thể hình của bạn.</value>
   </data>
 </root>

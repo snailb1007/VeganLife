@@ -2,12 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Android.OS;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Messaging;
-using VeganLife.Data.LocalData;
+using PropertyChanged;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 using VeganLife.Services.UserServices;
 
 namespace VeganLife.ViewModels.PopupViewModels
@@ -58,14 +57,14 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = (ServicesHelper.GetService<IUserDataService>() as UserDataService)?.UserInfo!;
-            if (UserInfo is null)
+            UserInfo = ServicesHelper.GetService<IUserDataService>().GetUserInfo();
+            if (UserInfo == null || string.IsNullOrEmpty(UserInfo.Name))
             {
                 return;
             }
 
             UserName = UserInfo.Name;
-            SelectedDate = UserInfo.DateOfBirth;
+            SelectedDate = UserInfo.DateOfBirth.Value;
             UserWeight = UserInfo.Weight.ToString();
             UserHeight = UserInfo.Height;
             IsMale = UserInfo.IsMale;
@@ -123,12 +122,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                     UserInfo.Weight = outValue;
                 }
 
-                await ServicesHelper.GetService<IUserDataService>().SaveData(
-                    this.UserInfo.DateOfBirth,
-                    name: this.UserInfo.Name,
-                    isMale: this.UserInfo.IsMale,
-                    height: this.UserInfo.Height,
-                    weight: this.UserInfo.Weight);
+                await ServicesHelper.GetService<IUserDataService>().SaveData(this.UserInfo);
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
                 await toast.Show(_cancellationTokenSource.Token);
@@ -136,30 +130,31 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnUserNameChanged(string value)
         {
             IsWrongFormatName = false;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedDateChanged(DateTime value)
         {
             IsWrongDate = false;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnUserWeightChanged(string value)
         {
             IsWrongFormatWeight = false;
         }
 
-        partial void OnUserHeightChanged(short value)
-        {
-        }
-
+        [SuppressPropertyChangedWarnings]
         partial void OnIsWrongFormatNameChanged(bool value)
         {
             SetupErrorMess();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsWrongFormatWeightChanged(bool value)
         {
             SetupErrorMess();

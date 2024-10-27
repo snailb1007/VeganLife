@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.AboutYou.GenderAboutPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:sharpnado="http://sharpnado.com"
+    xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    Title="Bước 3 trên 4"
+    x:DataType="viewmodel:GenderAboutPageVM"
+    x:TypeArguments="viewmodel:GenderAboutPageVM"
+    BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Margin="20,20,20,0" Spacing="20">
+            <Label
+                FontAttributes="Bold"
+                FontSize="32"
+                HorizontalOptions="Start"
+                Text="Giới tính của bạn là gì?" />
+            <sharpnado:MaterialFrame
+                Margin="25,20,25,0"
+                Padding="15"
+                BackgroundColor="LightBlue"
+                CornerRadius="15"
+                MaterialTheme="Acrylic">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <!--  AutomationProperties.HelpText="Tap to select female gender"  -->
+                    <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="0" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsMale}"
+                        TargetType="sharpnado:MaterialFrame"
+                        Value="True">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                </sharpnado:MaterialFrame.Triggers>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Label
+                        x:Name="femaleIconLb"
+                        FontFamily="FARegular"
+                        FontSize="20"
+                        Text="&#xf221;"
+                        TextColor="{StaticResource PrimaryDark}"
+                        VerticalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsMale}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="TextColor" Value="Gray" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.female_bmiPage}"
+                        TextColor="{Binding Source={Reference femaleIconLb}, Path=TextColor}" />
+                </HorizontalStackLayout>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Margin="25,20,25,0"
+                Padding="15"
+                BackgroundColor="Transparent"
+                CornerRadius="15"
+                MaterialTheme="Acrylic">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <!--  AutomationProperties.HelpText="Tap to select male gender"  -->
+                    <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="1" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsMale}"
+                        TargetType="sharpnado:MaterialFrame"
+                        Value="True">
+                        <Setter Property="BackgroundColor" Value="LightBlue" />
+                    </DataTrigger>
+                </sharpnado:MaterialFrame.Triggers>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Label
+                        x:Name="maleIconLb"
+                        FontFamily="FARegular"
+                        FontSize="20"
+                        Text="&#xf222;"
+                        TextColor="Gray"
+                        VerticalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsMale}"
+                                TargetType="Label"
+                                Value="True">
+                                <Setter Property="TextColor" Value="{StaticResource PrimaryDark}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="{x:Static translate:AppResources.male_bmiPage}"
+                        TextColor="{Binding Source={Reference maleIconLb}, Path=TextColor}" />
+                </HorizontalStackLayout>
+            </sharpnado:MaterialFrame>
+            <!--  AutomationProperties.HelpText="Tap to continue and send selected data"  -->
+            <Button
+                Margin="10,20"
+                Command="{Binding NextClickedCommand}"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Tiếp tục" />
+            <Label Text="{x:Static translate:AppResources.app_common_dataNote}" TextColor="Red" />
+        </VerticalStackLayout>
+    </ScrollView>
+</base:BasePage>

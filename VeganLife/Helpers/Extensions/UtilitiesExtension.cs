@@ -87,11 +87,14 @@
             }
         }
 
-        public static void LogError(this Exception e)
+        public static void LogError(this Exception e, string description = "")
         {
-#if DEBUG
-            Console.Out.WriteLineAsync($"Error: {e.Message}");
-#endif
+            Debug.WriteLine($"==> Error: {description}\n{e.Message}");
+        }
+
+        public static void LogError(string description = "")
+        {
+            Debug.WriteLine($"==> Error: {description}");
         }
     }
 }

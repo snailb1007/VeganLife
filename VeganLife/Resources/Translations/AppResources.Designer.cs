@@ -61,6 +61,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to meal logs.
+        /// </summary>
+        internal static string addML_btn_macroTab {
+            get {
+                return ResourceManager.GetString("addML_btn_macroTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to affiliatePopup_productsRecommend_Title.
         /// </summary>
         internal static string affiliatePopup_productsRecommend_Title {
@@ -116,11 +125,29 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to app_common_dataNote.
+        /// </summary>
+        internal static string app_common_dataNote {
+            get {
+                return ResourceManager.GetString("app_common_dataNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to app_common_encyclopediaTab.
         /// </summary>
         internal static string app_common_encyclopediaTab {
             get {
                 return ResourceManager.GetString("app_common_encyclopediaTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to app_common_gptUnableEx.
+        /// </summary>
+        internal static string app_common_gptUnableEx {
+            get {
+                return ResourceManager.GetString("app_common_gptUnableEx", resourceCulture);
             }
         }
         
@@ -459,6 +486,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Internet connection is available. Please check your connection and try again..
+        /// </summary>
+        internal static string checkInternet_common {
+            get {
+                return ResourceManager.GetString("checkInternet_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string close_common {
@@ -558,6 +594,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        internal static string disclaimer_common {
+            get {
+                return ResourceManager.GetString("disclaimer_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty list!.
         /// </summary>
         internal static string empty_list {
@@ -608,6 +653,15 @@ namespace VeganLife.Resources.Translations {
         internal static string enterSearchTerm_Placeholder_shell {
             get {
                 return ResourceManager.GetString("enterSearchTerm_Placeholder_shell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string error_common {
+            get {
+                return ResourceManager.GetString("error_common", resourceCulture);
             }
         }
         
@@ -949,6 +1003,78 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_SuperActive.
+        /// </summary>
+        internal static string mealLogsPage_BMI_description {
+            get {
+                return ResourceManager.GetString("mealLogsPage_BMI_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_BMR_description.
+        /// </summary>
+        internal static string mealLogsPage_BMR_description {
+            get {
+                return ResourceManager.GetString("mealLogsPage_BMR_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_LightlyActive.
+        /// </summary>
+        internal static string mealLogsPage_LightlyActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_LightlyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_ModeratelyActive.
+        /// </summary>
+        internal static string mealLogsPage_ModeratelyActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_ModeratelyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_sedentary.
+        /// </summary>
+        internal static string mealLogsPage_sedentary {
+            get {
+                return ResourceManager.GetString("mealLogsPage_sedentary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_SuperActive.
+        /// </summary>
+        internal static string mealLogsPage_SuperActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_SuperActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_TDEE_description.
+        /// </summary>
+        internal static string mealLogsPage_TDEE_description {
+            get {
+                return ResourceManager.GetString("mealLogsPage_TDEE_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_VeryActive.
+        /// </summary>
+        internal static string mealLogsPage_VeryActive {
+            get {
+                return ResourceManager.GetString("mealLogsPage_VeryActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minerals.
         /// </summary>
         internal static string Minerals_common {
@@ -1004,6 +1130,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Internet.
+        /// </summary>
+        internal static string noInternet_common {
+            get {
+                return ResourceManager.GetString("noInternet_common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bình thường.
         /// </summary>
         internal static string normal_classify_bmi {
@@ -1027,6 +1162,15 @@ namespace VeganLife.Resources.Translations {
         internal static string note_foodDetailPage {
             get {
                 return ResourceManager.GetString("note_foodDetailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Found.
+        /// </summary>
+        internal static string notFound_common {
+            get {
+                return ResourceManager.GetString("notFound_common", resourceCulture);
             }
         }
         

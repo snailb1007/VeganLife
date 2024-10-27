@@ -3,6 +3,7 @@ using LiveChartsCore.SkiaSharpView;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.ViewModels.ToolsFlyoutViewModel
 {
@@ -37,7 +38,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             {
                 this.UpdateHeightAveragesAsync(),
             };
-            var getLocalUserTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetItemAsync();
+            var getLocalUserTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
             tasks.Add(getLocalUserTask);
             await Task.WhenAll(tasks);
             MainThread.BeginInvokeOnMainThread(() => this.LocalUserInfo = getLocalUserTask.Result);
@@ -141,8 +142,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                 }
                 catch (Exception ex)
                 {
-                    // Handle errors such as parsing errors or network issues
-                    Debug.WriteLine($"Error updating value for {key}: {ex.Message}");
+                    ex.LogError($"Error updating value for {key}");
                 }
             }
         }

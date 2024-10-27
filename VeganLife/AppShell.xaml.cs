@@ -3,15 +3,13 @@
 // </copyright>
 
 using Mopups.Services;
-using Plugin.MauiMTAdmob.Extra;
-using Plugin.MauiMTAdmob;
 using VeganLife.Helpers;
+using VeganLife.Resources.Translations;
 using VeganLife.Views.Base;
 using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.MainPageFlyout.FoodTab;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
-using static VeganLife.Helpers.AppSetting.StaticHelper;
 
 // Ignore Spelling: App
 namespace VeganLife
@@ -21,6 +19,10 @@ namespace VeganLife
     /// </summary>
     public partial class AppShell : Shell
     {
+        private ShellNavigationSource _currentShellNavigationSource;
+
+        public IEnumerable<Page> PreviousPageStack { get; set; }
+
         public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
 
         /// <summary>
@@ -31,6 +33,7 @@ namespace VeganLife
             this.InitializeComponent();
             this.FlyoutWidth = App.MainWidthSize * 0.7;
             this.RegisterRoutes();
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
         protected override void OnAppearing()
@@ -82,7 +85,8 @@ namespace VeganLife
                 case 0:
                     this.CurrentItem = mainTool_tool;
                     break;
-                //case 1:
+
+                    //case 1:
                 //    this.CurrentItem = bmiCalculator_tool;
                 //    break;
                 //case 2:
@@ -126,10 +130,6 @@ namespace VeganLife
             base.OnNavigating(args);
         }
 
-        private ShellNavigationSource _currentShellNavigationSource;
-
-        public IEnumerable<Page> PreviousPageStack { get; set; }
-
         /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs args)
         {
@@ -161,6 +161,14 @@ namespace VeganLife
             }
 
             PreviousPageStack = currentSectionStack;
+        }
+
+        public Task DisplayNoInternetAlert()
+        {
+            return this.DisplayAlert(
+                AppResources.noInternet_common,
+                AppResources.checkInternet_common,
+                "OK");
         }
 
         private static bool IsRootPage(VisualElement page)
@@ -197,6 +205,16 @@ namespace VeganLife
             => navigation.NavigationStack
                 .Concat(navigation.ModalStack)
                 .Where(p => p is not null).ToHashSet();
+
+        [PropertyChanged.SuppressPropertyChangedWarnings]
+        private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess != NetworkAccess.Internet)
+            {
+                // No internet connection
+                MainThread.BeginInvokeOnMainThread(() => DisplayNoInternetAlert());
+            }
+        }
 
         // List<Page> GetCurrentSectionStack()
         // {

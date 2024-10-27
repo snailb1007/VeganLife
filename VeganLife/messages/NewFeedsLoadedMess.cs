@@ -1,4 +1,4 @@
-﻿namespace VeganLife.messages
+﻿namespace VeganLife.Messages
 {
     public class NewFeedsLoadedMess
     {

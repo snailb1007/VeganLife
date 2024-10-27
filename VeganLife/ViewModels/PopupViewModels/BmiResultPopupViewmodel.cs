@@ -4,9 +4,10 @@
 
 using CommunityToolkit.Mvvm.Messaging;
 using Mopups.Services;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 
 namespace VeganLife.ViewModels.PopupViewModels
 {
@@ -102,6 +103,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             await MopupService.Instance.PopAsync();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnIsSaveSelectedChanged(bool value)
         {
             if (value && _localeUserInfo != null)
@@ -113,11 +115,6 @@ namespace VeganLife.ViewModels.PopupViewModels
                     _localeUserInfo.BMIResult = this._bmiResult;
                 }
             }
-        }
-
-        partial void OnIsAllowSaveBmiResultChanged(bool value)
-        {
-
         }
     }
 }

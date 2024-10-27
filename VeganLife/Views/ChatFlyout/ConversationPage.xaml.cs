@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
+
 namespace VeganLife.Views.ChatFlyout;
 
 public partial class ConversationPage : ContentPage
@@ -12,9 +14,9 @@ public partial class ConversationPage : ContentPage
         InitializeComponent();
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
-        await (this.BindingContext as ConversationViewModel)?.ViewAppearingVM()!;
+        (this.BindingContext as ConversationViewModel)?.ViewAppearingVM().SafeFireAndForget();
     }
 }

@@ -2,7 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -15,6 +17,9 @@ namespace VeganLife.ViewModels
     [QueryProperty(nameof(PassedData), nameof(PassedData))]
     public partial class ConversationViewModel : BaseViewModel
     {
+        private readonly IOpenAIService _openAIService;
+        private readonly IDispatcher _dispatcher;
+
         private DateTime _startTime;
         private AsyncRelayCommand _currentCommand;
 
@@ -22,9 +27,6 @@ namespace VeganLife.ViewModels
         private ChatLogsDataStoreService _chatLogsDataStoreService;
         private GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
         private CancellationTokenSource _cancellationTokenSource;
-
-        private readonly IOpenAIService _openAIService;
-        private readonly IDispatcher _dispatcher;
 
         public AsyncRelayCommand CurrentCommand
         {
@@ -125,7 +127,7 @@ namespace VeganLife.ViewModels
             CrossMauiMTAdmob.Current.OnUserEarnedReward += (s, e) =>
             {
                 CurrentChat.TimesLimit++;
-                _ = _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat);
+                _chatLogsDataStoreService.AddOrUpdateItemAsync(CurrentChat).SafeFireAndForget();
             };
             CrossMauiMTAdmob.Current.OnRewardedFailedToLoad += (s, e) =>
             {
@@ -272,7 +274,7 @@ namespace VeganLife.ViewModels
             await navigationService.NavigateToPage<ChatGPTDetailPage>();
         }
 
-        private ProgressDrawableControl _drawable;
+        // private ProgressDrawableControl _drawable;
 
         [RelayCommand]
         private async Task OpenRewardedAdPage()
@@ -302,6 +304,7 @@ namespace VeganLife.ViewModels
             }
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnPassedDataChanged(string value)
         {
             this.Query = value;
@@ -323,6 +326,7 @@ namespace VeganLife.ViewModels
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     CountDownText = runningTime.ToString("mm\\:ss");
+
                     //var percent = (int)((60 - runningTime.TotalSeconds) / 60f * 100);
                     //Console.WriteLine("++ percent " + percent);
                     //_drawable.Progress = percent;

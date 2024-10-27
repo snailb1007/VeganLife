@@ -13,7 +13,6 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:view="clr-namespace:VeganLife.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutIcon="hamburger_white"
     Shell.NavBarIsVisible="False">
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
@@ -44,6 +43,14 @@
             Icon="compass"
             Route="news_feed"
             Shell.NavBarIsVisible="False" />
+        <ShellContent
+            Title="Phân tích"
+            ContentTemplate="{DataTemplate mainFlyout:MealLogsPage}"
+            Route="meal_logs">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FALight" Glyph="&#xf64e;" />
+            </ShellContent.Icon>
+        </ShellContent>
     </FlyoutItem>
     <FlyoutItem
         Title="{x:Static translate:AppResources.app_common_bookmarkTab}"
@@ -55,7 +62,7 @@
             Shell.NavBarIsVisible="True" />
     </FlyoutItem>
     <FlyoutItem
-        Title="Conversation"
+        Title="Hội thoại thông minh"
         FlyoutDisplayOptions="AsSingleItem"
         Icon="conversation">
         <ShellContent

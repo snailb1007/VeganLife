@@ -27,6 +27,7 @@ using VeganLife.ViewModels.ContentViewModels;
 using VeganLife.ViewModels.PopupViewModels;
 using VeganLife.ViewModels.TabsViewModel;
 using VeganLife.ViewModels.ToolsFlyoutViewModel;
+using VeganLife.Views.AboutYou;
 using VeganLife.Views.ChatFlyout;
 using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.Controls;
@@ -58,18 +59,13 @@ namespace VeganLife
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("PlayfairDisplay-SemiBold.ttf", "PlayfairDisplaySemiBold");
 
                     // v6.5.1
                     fonts.AddFont("fa-solid-900.ttf", "FASolid");
                     fonts.AddFont("fa-regular-400.ttf", "FARegular");
                     fonts.AddFont("fa-thin-100.ttf", "FAThin");
                     fonts.AddFont("fa-light-300.ttf", "FALight");
-                });
-#if DEBUG
-            builder.Logging.AddDebug();
-#endif
-            builder
+                })
                 .UseMauiCommunityToolkit()
                 .UseMauiMTAdmob()
                 .ConfigureMopups()
@@ -77,18 +73,19 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseSharpnadoMaterialFrame(loggerEnable: false);
+                .UseSharpnadoMaterialFrame(loggerEnable: false)
+                .UseVirtualListView();
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
 
             RegisterServices(builder.Services);
             RegisterPage(builder.Services);
 
-            builder.ConfigureMauiHandlers((h) =>
-            {
-                h.AddHandler(typeof(Shell), typeof(ShellHandler));
-            });
             CustomEntry();
             builder.ConfigureMauiHandlers((handlers) =>
             {
+                handlers.AddHandler(typeof(Shell), typeof(ShellHandler));
                 handlers.AddHandler(typeof(SearchBar), typeof(Handlers.SearchBarHandler));
             });
             AllowMultiLineTruncationOnAndroid();
@@ -101,8 +98,8 @@ namespace VeganLife
             // service
             services.AddChatGpt(options =>
             {
-                options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAITokenVip);
-                options.DefaultModel = OpenAIChatGptModels.Gpt35_Turbo;
+                options.UseOpenAI(apiKey: ConstantHelper.OpenAIConstant.OpenAIKeyV1);
+                options.DefaultModel = OpenAIChatGptModels.Gpt4_o_mini;
                 options.MessageLimit = 15; // Default: 15
                 options.MessageExpiration = TimeSpan.FromMinutes(3); // Default: 1 hour
             });
@@ -120,7 +117,7 @@ namespace VeganLife
             // local service
             services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
-            services.AddSingleton<UsdaFoodDataStoreService>();
+            services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();
             services.AddSingleton<NutritionMealLogDataStoreService>();
             services.AddSingleton<ChatLogsDataStoreService>();
@@ -131,6 +128,7 @@ namespace VeganLife
             services.AddSingleton<PharmacoLogicalDataStoreService>();
             services.AddSingleton<GoogleAdValidatorDataStoreService>();
             services.AddSingleton<AffiliationDataStoreService>();
+            services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
@@ -173,6 +171,12 @@ namespace VeganLife
             services.AddTransient<SupportPage, SupportPageVM>();
             services.AddTransient<DetailAthleticNutritionPage, DetailAthleticNutritionPageVM>();
             services.AddTransient<DetailPharmacoLogicalPage, DetailPharmacoLogicalPageVM>();
+            services.AddTransient<NameAboutUPage, NameAboutUPageVM>();
+            services.AddTransient<BirthdayAboutPage, BirthdayAboutPageVM>();
+            services.AddTransient<GenderAboutPage, GenderAboutPageVM>();
+            services.AddTransient<HeightAndWeightAboutPage, HeightAndWeightAboutPageVM>();
+            services.AddTransient<MealLogsPage, MealLogsPageVM>();
+            services.AddTransient<USDAFoodListPage, USDAFoodListPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

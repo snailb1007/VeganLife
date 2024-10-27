@@ -3,9 +3,9 @@ using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.Data.LocalData
 {
-    public class UsdaFoodDataStoreService : BaseDataStore<USDAFoodNutritionFactModel>
+    public class UsdaFoodNutritionFactDataStoreService : BaseDataStore<USDAFoodNutritionFactModel>
     {
-        public UsdaFoodDataStoreService(ISQLite database)
+        public UsdaFoodNutritionFactDataStoreService(ISQLite database)
             : base(database)
         {
         }

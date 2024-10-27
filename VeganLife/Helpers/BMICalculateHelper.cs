@@ -12,8 +12,8 @@ namespace VeganLife.Helpers
         /// <summary>
         /// get bmi.
         /// </summary>
-        /// <param name="mass">mass to Calculate.</param>
-        /// <param name="height">height to Calculate.</param>
+        /// <param name="mass">mass to Calculate.(kg)</param>
+        /// <param name="height">height to Calculate.(meters)</param>
         /// <returns>Bmi value.</returns>
         public static double Calculate(float mass, float height) => Math.Round(mass / (height * height), 2);
 
@@ -29,7 +29,7 @@ namespace VeganLife.Helpers
         /// <param name="isMale">sex to analysis.</param>
         /// <param name="bmiData">bmiData to analysis.</param>
         /// <returns>Color for UI.</returns>
-        public static HealthDiagnosisModel GetWeightStatusCategory(short age, bool isMale, float bmiData)
+        public static HealthDiagnosisModel GetWeightStatusCategory(int age, bool isMale, float bmiData)
         {
             switch (age)
             {

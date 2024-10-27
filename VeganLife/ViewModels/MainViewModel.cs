@@ -3,7 +3,9 @@
 // </copyright>
 
 using System.Text.RegularExpressions;
+using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -154,16 +156,16 @@ namespace VeganLife.ViewModels
             {
                 this.CurrentFoodSelected = null!;
                 var userService = ServicesHelper.GetService<IUserDataService>();
-                _ = userService.Refresh().ContinueWith(t =>
+                userService.Refresh().ContinueWith(t =>
                 {
-                    var userInfo = (userService as UserDataService)?.UserInfo!;
+                    var userInfo = userService.GetUserInfo();
                     if (userInfo != null)
                     {
                         userInfo.TotalFoodDetailRead++;
                     }
 
-                    _ = userService.SaveData();
-                });
+                    userService.SaveData().SafeFireAndForget();
+                }).SafeFireAndForget();
                 await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
             }
         }
@@ -248,6 +250,7 @@ namespace VeganLife.ViewModels
             return x;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSearchTextChanged(string value)
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))

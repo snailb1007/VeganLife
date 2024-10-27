@@ -9,15 +9,19 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:Name="selfVitaminAndMineralPage"
-    x:DataType="viewmodel:VitaminAndMineralViewModel">
+    x:DataType="viewmodel:VitaminAndMineralViewModel"
+    Loaded="ThisView_Loaded">
     <ContentView.Resources>
         <ResourceDictionary>
             <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Grid RowDefinitions="Auto, *" RowSpacing="10">
-        <Grid Margin="0,0,10,0" IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
+    <Grid RowDefinitions="60,Auto, *" RowSpacing="10">
+        <Grid
+            Grid.Row="1"
+            Margin="0,0,10,0"
+            IsVisible="{Binding IsBannerClosed, Converter={StaticResource InvertedBoolConverter}}">
             <adsControl:MTAdView
                 x:Name="mtAdFixedVitaminAndMineral"
                 AdsFailedToLoad="MtAdFixedVitaminAndMineral_AdsFailedToLoad"
@@ -44,7 +48,7 @@
                 </Label.GestureRecognizers>
             </Label>
         </Grid>
-        <ScrollView Grid.Row="1">
+        <ScrollView Grid.Row="2">
             <CollectionView
                 x:Name="vitaminsCollection"
                 Margin="10"

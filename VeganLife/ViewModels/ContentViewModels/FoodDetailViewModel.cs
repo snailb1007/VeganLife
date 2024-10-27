@@ -81,19 +81,16 @@ namespace VeganLife.ViewModels.ContentViewModels
                 }
             }
 
-            _ = GetMoreImage(imgs).ContinueWith(t =>
-                {
-                    foreach (var i in t.Result)
-                    {
-                        FoodImage.Add(i);
-                    }
+            foreach (var i in GetMoreImage(imgs))
+            {
+                FoodImage.Add(i);
+            }
 
-                    IsShowingSwipeAnimation = true;
-                    Task.Delay(5000).ContinueWith(t =>
-                    {
-                        IsShowingSwipeAnimation = false;
-                    });
-                });
+            IsShowingSwipeAnimation = true;
+            _ = Task.Delay(5000).ContinueWith(t =>
+            {
+                IsShowingSwipeAnimation = false;
+            });
         }
 
         [RelayCommand]
@@ -162,6 +159,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private void OnExpandClicked()
         {
             IsExpanded = !IsExpanded;
+
             // if (IsExpanded && nutriFactsLoaded && DailyRadialGaugeChart == null)
             // {
             //    DailyRadialGaugeChart = new RadialGaugeChart()
@@ -311,7 +309,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             // }
         }
 
-        private async Task<List<string>> GetMoreImage(List<string> imgs)
+        private List<string> GetMoreImage(List<string> imgs)
         {
             if (imgs?.Any() ?? false)
             {

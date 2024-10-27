@@ -1,0 +1,51 @@
+﻿using PropertyChanged;
+using VeganLife.Views.AboutYou;
+
+namespace VeganLife.ViewModels
+{
+    public partial class BirthdayAboutPageVM : BaseViewModel
+    {
+        [ObservableProperty]
+        private string name;
+
+        public DateTime MaximumDateOfBirth => DateTime.Now.AddDays(-30).Date;
+
+        [ObservableProperty]
+        private DateTime selectedDate;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ContinueClickedCommand))]
+        private bool isFilledBirthday;
+
+        public override Task ViewAppearingVM()
+        {
+            SelectedDate = MaximumDateOfBirth;
+            return base.ViewAppearingVM();
+        }
+
+        public override Task OnNavigatingTo(object? parameter)
+        {
+            if (parameter is string name)
+            {
+                Name = name;
+            }
+
+            return base.OnNavigatingTo(parameter);
+        }
+
+        [RelayCommand(CanExecute = nameof(IsFilledBirthday))]
+        public async Task OnContinueClicked()
+        {
+            await this.navigationService.NavigateToPage<GenderAboutPage>(
+                new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
+        }
+
+        [SuppressPropertyChangedWarnings]
+        partial void OnSelectedDateChanged(DateTime value)
+        {
+            IsFilledBirthday = value < MaximumDateOfBirth && value > DateTime.MinValue;
+        }
+    }
+
+    internal record InitAboutYouDataRecord(string Name, DateTime Birthday, bool IsMale);
+}

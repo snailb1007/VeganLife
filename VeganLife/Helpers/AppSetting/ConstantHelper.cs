@@ -11,11 +11,11 @@ namespace VeganLife.Helpers.AppSetting
 
         public static class OpenAIConstant
         {
-            public const string OpenAIUrl = "https://api.openai.com/";
-            public const string OpenAITokenVip = "***REMOVED***";
+            public const string OpenAIKeyV1 = "***REMOVED***";
 
-            public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
-
+            // public const string OpenAITokenVip = "***REMOVED***";
+            // public const string OpenAIUrl = "https://api.openai.com/";
+            // public const string OpenAIEndpoint_Completions = "https://api.openai.com/v1/completions";
             // public const string OpenAIEndpoint_Generations = "v1/images/generations";
         }
 
@@ -121,6 +121,24 @@ namespace VeganLife.Helpers.AppSetting
         public class Community
         {
             public const string FacebookLink = "https://www.facebook.com/healthychef.life";
+        }
+
+        public class CalculateHelper
+        {
+            public enum ActivityLevel
+            {
+                Sedentary = 0,
+                LightlyActive = 1,
+                ModeratelyActive = 2,
+                VeryActive = 3,
+                SuperActive = 4,
+            }
+
+            public const float SedentaryValue = 1.2f;
+            public const float LightlyActiveValue = 1.375f;
+            public const float ModeratelyActiveValue = 1.55f;
+            public const float VeryActiveValue = 1.725f;
+            public const float SuperActiveValue = 1.9f;
         }
     }
 }

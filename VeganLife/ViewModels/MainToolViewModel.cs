@@ -1,7 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using PropertyChanged;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
-using VeganLife.messages;
+using VeganLife.Messages;
 using VeganLife.Views.Popups;
 using VeganLife.Views.ToolFlyout;
 
@@ -37,7 +38,7 @@ namespace VeganLife.ViewModels
         private string? weightValue;
 
         [ObservableProperty]
-        private byte ageValue;
+        private int ageValue;
 
         [ObservableProperty]
         private string? backgroundImg;
@@ -148,6 +149,7 @@ namespace VeganLife.ViewModels
             this.IsMale = !this.IsMale;
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnWeightValueChanged(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -174,7 +176,8 @@ namespace VeganLife.ViewModels
             this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
-        partial void OnAgeValueChanged(byte value)
+        [SuppressPropertyChangedWarnings]
+        partial void OnAgeValueChanged(int value)
         {
             if (value <= 0)
             {
@@ -199,6 +202,7 @@ namespace VeganLife.ViewModels
             this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnHeightChanged(int value)
         {
             this.Height = (int)Height;

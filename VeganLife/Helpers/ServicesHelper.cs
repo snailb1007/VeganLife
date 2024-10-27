@@ -3,20 +3,38 @@
 // </copyright>
 
 using Mopups.Interfaces;
+using VeganLife.Views.Popups;
 
 namespace VeganLife.Helpers
 {
     public static class ServicesHelper
     {
-        public static T GetService<T>() => IPlatformApplication.Current.Services.GetService<T>();
+        public static T GetService<T>()
+        {
+            if (IPlatformApplication.Current is null)
+            {
+                throw new InvalidOperationException("IPlatformApplication.Current is null.");
+            }
+
+            var result = IPlatformApplication.Current.Services.GetService<T>();
+            if (result is null)
+            {
+                throw new InvalidOperationException($"Service of type {typeof(T).Name} is not registered.");
+            }
+
+            return result;
+        }
 
         public static BaseViewModel? GetCurrentViewModel()
         {
-            if (GetService<IPopupNaviService>().GetPopupStackCount() > 0)
+            var popupService = GetService<IPopupNaviService>();
+            var currentPopup = popupService.GetLastMopupPage();
+            if (popupService.GetPopupStackCount() > 0
+                && currentPopup != null
+                && currentPopup is not LoadingPopup)
             {
                 // Mop-up
-                return GetService<IPopupNavigation>().PopupStack.LastOrDefault()?.BindingContext
-                       as BaseViewModel;
+                return currentPopup?.BindingContext as BaseViewModel;
             }
             else if (Shell.Current?.CurrentPage != null)
             {
@@ -29,10 +47,11 @@ namespace VeganLife.Helpers
         }
 
         // get current viewmodel by type
-        public static T GetCurrentViewModel<T>() where T : BaseViewModel
-        {
-            return GetCurrentViewModel() as T;
-        }
+        //public static T GetCurrentViewModel<T>()
+        //    where T : BaseViewModel
+        //{
+        //    return GetCurrentViewModel() as T;
+        //}
 
         public static async Task OpenViaBrowserAsync(string uri)
         {
@@ -44,6 +63,11 @@ namespace VeganLife.Helpers
             {
                 //await AlertHelper.ShowErrorAlertAsync(I18nHelper.Get("Common_Error_BrowserNotFound"));
             }
+        }
+
+        public static bool GetNetworkStatus()
+        {
+            return Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
         }
     }
 }

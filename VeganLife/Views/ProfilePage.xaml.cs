@@ -5,6 +5,7 @@
 using VeganLife.Views.Base;
 
 namespace VeganLife.Views;
+
 public partial class ProfilePage : BasePage<ProfileViewModel>
 {
     public ProfilePage(ProfileViewModel vm)
