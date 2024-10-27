@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Concurrent;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Helpers
 {
@@ -66,7 +67,7 @@ namespace VeganLife.Helpers
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine(ex.Message);
+                        ex.LogError();
                         throw; // Consider rethrowing to notify about the failure
                     }
                 }

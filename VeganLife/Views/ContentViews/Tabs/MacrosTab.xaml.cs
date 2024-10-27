@@ -5,21 +5,25 @@ namespace VeganLife.Views.ContentViews.Tabs;
 
 public partial class MacrosTab : ContentView
 {
+    private MacrosViewModel _vm;
+    private Timer _timer;
+
     public MacrosTab()
     {
         InitializeComponent();
+        _timer = new Timer(this.ScrollTimerElapsed, null, Timeout.Infinite, Timeout.Infinite);
         SetupAdsBanner();
+    }
+
+    protected override void OnBindingContextChanged()
+    {
+        base.OnBindingContextChanged();
+        _vm ??= this.BindingContext as MacrosViewModel ?? throw new NullReferenceException();
     }
 
     private void RefreshView_Refreshing(object sender, EventArgs e)
     {
         refreshView.IsRefreshing = false;
-    }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-        (this.BindingContext as MacrosViewModel)?.ItemSelectedChangedCommand
-            .Execute((sender as View)?.BindingContext);
     }
 
     private void SetupAdsBanner()
@@ -30,5 +34,21 @@ public partial class MacrosTab : ContentView
     private void OnAdLoaded(object sender, EventArgs e)
     {
         closeLb.IsVisible = true;
+    }
+
+    private void FoodsPreviewCollection_Scrolled(object sender, ItemsViewScrolledEventArgs e)
+    {
+        if (_vm is null)
+        {
+            return;
+        }
+
+        _vm.IsScrolling = true;
+        _ = Task.Run(() => this._timer.Change(500, Timeout.Infinite));
+    }
+
+    private void ScrollTimerElapsed(object? obj)
+    {
+        _vm.IsScrolling = false;
     }
 }

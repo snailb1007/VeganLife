@@ -19,5 +19,9 @@ namespace VeganLife.Data.LocalData
         Task<bool> SaveItems(IEnumerable<T> items);
 
         Task<bool> DeleteAllItems();
+
+        Task<bool> IsExistingItem(T item);
+
+        Task<bool> IsExistingItem(object idValue);
     }
 }

@@ -141,9 +141,9 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
         }
 
-        private UndefinedFoodNutrient _caloriesValue = null;
-        private UndefinedFoodNutrient _proteinValue = null;
-        private UndefinedFoodNutrient _carbValue = null;
+        private UndefinedFoodNutrient? _caloriesValue = null;
+        private UndefinedFoodNutrient? _proteinValue = null;
+        private UndefinedFoodNutrient? _carbValue = null;
 
         private async Task ProcessUsdaFoodAsync()
         {
@@ -168,16 +168,17 @@ namespace VeganLife.ViewModels.ContentViewModels
                 ProteinValue = _proteinValue;
                 CarbValue = _carbValue;
                 CaloriesValue = _caloriesValue;
-                void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source, string[] searchTerms)
+                void SetNutrientValue(ref UndefinedFoodNutrient? targetNutrient, FoodNutrient source, string[] searchTerms)
                 {
                     var nutrientName = source.Nutrient?.Name;
-                    bool isMatchesAllTerms = searchTerms.All(term => nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
+                    bool isMatchesAllTerms = searchTerms
+                        .All(term => !string.IsNullOrEmpty(nutrientName) && nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
                     if (targetNutrient == null && isMatchesAllTerms)
                     {
                         targetNutrient = new UndefinedFoodNutrient()
                         {
                             Amount = source.Amount,
-                            Unit = source?.Nutrient?.UnitName,
+                            Unit = source?.Nutrient?.UnitName ?? string.Empty,
                         };
                     }
                 }

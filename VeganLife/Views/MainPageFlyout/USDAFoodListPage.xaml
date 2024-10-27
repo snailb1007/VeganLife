@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="VeganLife.Views.MainPageFlyout.USDAFoodListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:VeganLife.Views.Base"
+    xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
+    xmlns:vlv="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
+    x:Name="usdaFoodListPageRoot"
+    x:DataType="viewmodel:USDAFoodListPageVM"
+    x:TypeArguments="viewmodel:USDAFoodListPageVM">
+    <Grid RowDefinitions="Auto,*">
+        <control:NavBarControl Title="Danh sach USDA Food" />
+        <vlv:VirtualListView
+            Grid.Row="1"
+            Margin="10,10,10,0"
+            Adapter="{Binding USDAFoods}">
+            <vlv:VirtualListView.EmptyView>
+                <Grid>
+                    <Label
+                        HorizontalOptions="Center"
+                        Text="..."
+                        VerticalOptions="Center" />
+                </Grid>
+            </vlv:VirtualListView.EmptyView>
+            <vlv:VirtualListView.ItemTemplate>
+                <DataTemplate x:DataType="model:FoodDetailListRequest">
+                    <vlv:VirtualViewCell>
+                        <StackLayout Padding="4" Spacing="2">
+                            <Label
+                                Margin="10,0"
+                                FontSize="Header"
+                                Text="{Binding Description}" />
+                            <Label
+                                Margin="10,0"
+                                FontSize="Small"
+                                Opacity="0.8"
+                                Text="{Binding TimeAgo}" />
+                            <BoxView
+                                Margin="5,0"
+                                BackgroundColor="{StaticResource Gray100}"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand" />
+                        </StackLayout>
+                    </vlv:VirtualViewCell>
+                </DataTemplate>
+            </vlv:VirtualListView.ItemTemplate>
+        </vlv:VirtualListView>
+    </Grid>
+</base:BasePage>

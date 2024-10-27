@@ -65,11 +65,7 @@ namespace VeganLife
                     fonts.AddFont("fa-regular-400.ttf", "FARegular");
                     fonts.AddFont("fa-thin-100.ttf", "FAThin");
                     fonts.AddFont("fa-light-300.ttf", "FALight");
-                });
-#if DEBUG
-            builder.Logging.AddDebug();
-#endif
-            builder
+                })
                 .UseMauiCommunityToolkit()
                 .UseMauiMTAdmob()
                 .ConfigureMopups()
@@ -77,18 +73,19 @@ namespace VeganLife
                 .UseCardsView()
                 .UseSkiaSharp(true)
                 .UseSharpnadoTabs(loggerEnable: false)
-                .UseSharpnadoMaterialFrame(loggerEnable: false);
+                .UseSharpnadoMaterialFrame(loggerEnable: false)
+                .UseVirtualListView();
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
 
             RegisterServices(builder.Services);
             RegisterPage(builder.Services);
 
-            builder.ConfigureMauiHandlers((h) =>
-            {
-                h.AddHandler(typeof(Shell), typeof(ShellHandler));
-            });
             CustomEntry();
             builder.ConfigureMauiHandlers((handlers) =>
             {
+                handlers.AddHandler(typeof(Shell), typeof(ShellHandler));
                 handlers.AddHandler(typeof(SearchBar), typeof(Handlers.SearchBarHandler));
             });
             AllowMultiLineTruncationOnAndroid();
@@ -179,6 +176,7 @@ namespace VeganLife
             services.AddTransient<GenderAboutPage, GenderAboutPageVM>();
             services.AddTransient<HeightAndWeightAboutPage, HeightAndWeightAboutPageVM>();
             services.AddTransient<MealLogsPage, MealLogsPageVM>();
+            services.AddTransient<USDAFoodListPage, USDAFoodListPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

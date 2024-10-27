@@ -46,7 +46,10 @@ namespace VeganLife.Models
             get
             {
                 if (this.DateOfBirth == null || !this.DateOfBirth.HasValue)
+                {
                     return -1;
+                }
+
                 var today = DateTime.Today;
                 var age = today.Year - this.DateOfBirth.Value.Year;
 

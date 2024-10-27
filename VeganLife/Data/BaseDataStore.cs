@@ -175,7 +175,7 @@ namespace VeganLife.Data
             await this._connection?.CreateTableAsync<T>()!;
         }
 
-        private async Task<bool> IsExistingItem(T item)
+        public async Task<bool> IsExistingItem(T item)
         {
             var idProperty = typeof(T).GetProperty("Id");
             if (idProperty == null)
@@ -183,7 +183,12 @@ namespace VeganLife.Data
                 throw new InvalidOperationException("Type must have an 'Id' property.");
             }
 
-            var idValue = idProperty?.GetValue(item);
+            var result = await this.IsExistingItem(idValue: idProperty.GetValue(item));
+            return result;
+        }
+
+        public async Task<bool> IsExistingItem(object idValue)
+        {
             var goalItem = await this._connection.FindAsync<T>(idValue);
             return goalItem != null;
         }

@@ -21,6 +21,8 @@
         </LinearGradientBrush>
     </base:BasePage.Background>
     <base:BasePage.Resources>
+        <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+
         <Style x:Key="noteBookSearch" TargetType="SearchBar">
             <Setter Property="HeightRequest" Value="48" />
             <Setter Property="VerticalOptions" Value="Center" />
@@ -176,34 +178,59 @@
                 </Border>
             </Grid>
         </ContentView>
-        <ContentView Grid.Row="1" Margin="0,0,0,5">
+        <ContentView
+            Grid.Row="1"
+            Padding="0,0,0,5"
+            BackgroundColor="Transparent"
+            ZIndex="1">
+            <ContentView.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="White" />
+                    <GradientStop Offset="1.0" Color="Transparent" />
+                </LinearGradientBrush>
+            </ContentView.Background>
             <sharpnado:TabHostView
                 BackgroundColor="{StaticResource Gray100}"
                 CornerRadius="0"
                 HeightRequest="48"
                 HorizontalOptions="FillAndExpand"
                 IsSegmented="True"
+                IsVisible="{Binding MacrosViewModel.IsScrolling, Converter={StaticResource InvertedBoolConverter}}"
                 Orientation="Horizontal"
                 SegmentedOutlineColor="Transparent"
                 SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
                 TabType="Scrollable"
                 VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>
-                    <ResourceDictionary>
-                        <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
-                            <Setter Property="LabelSize" Value="15" />
-                            <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
-                            <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
-                        </Style>
-                    </ResourceDictionary>
+                    <Style TargetType="sharpnado:MaterialUnderlinedTabItem">
+                        <Setter Property="LabelSize" Value="15" />
+                        <Setter Property="SelectedTabColor" Value="{StaticResource PrimaryDark}" />
+                        <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray400}" />
+                    </Style>
                 </sharpnado:TabHostView.Resources>
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.title_macroTab}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_vitaminsTab}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}" />
-                <sharpnado:MaterialUnderlinedTabItem Padding="20,0" Label="{x:Static translate:AppResources.app_common_PharmacoLogical_Title}" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.title_macroTab}"
+                    SelectedTabColor="{StaticResource PrimaryDark}" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.app_common_vitaminsTab}"
+                    SelectedTabColor="{StaticResource PrimaryDark}"
+                    VerticalOptions="FillAndExpand" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.app_common_AthleticNutritionTab_Title}"
+                    SelectedTabColor="{StaticResource PrimaryDark}" />
+                <sharpnado:MaterialUnderlinedTabItem
+                    Padding="20,0"
+                    Label="{x:Static translate:AppResources.app_common_PharmacoLogical_Title}"
+                    SelectedTabColor="{StaticResource PrimaryDark}" />
             </sharpnado:TabHostView>
         </ContentView>
-        <ContentView Grid.Row="2">
+        <ContentView
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            ZIndex="0">
             <ContentView.Resources>
                 <Style x:Key="normalDelayedView" TargetType="sharpnado:DelayedView">
                     <Setter Property="Animate" Value="True" />
