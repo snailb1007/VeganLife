@@ -16,5 +16,7 @@ namespace VeganLife.Services
         Task PopAllAsync(bool animate = true);
 
         int GetPopupStackCount();
+
+        PopupPage? GetLastMopupPage();
     }
 }

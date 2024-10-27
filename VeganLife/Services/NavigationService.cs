@@ -4,6 +4,7 @@
 
 using AsyncAwaitBestPractices;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
 {
@@ -115,7 +116,7 @@ namespace VeganLife.Services
         }
 
         private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
-            => this.CallNavigatedTo((sender as Page)!).SafeFireAndForget(onException: ex => Debug.WriteLine("==> baseNavi: " + ex));
+            => this.CallNavigatedTo((sender as Page)!).SafeFireAndForget(onException: ex => ex.LogError());
 
         private Task CallNavigatedTo(Page p)
         {
@@ -142,7 +143,7 @@ namespace VeganLife.Services
                     thisPage.NavigatedTo -= this.Page_NavigatedTo;
                 }
 
-                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => Debug.WriteLine("==> baseNavi: " + ex));
+                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => ex.LogError());
             }
         }
 

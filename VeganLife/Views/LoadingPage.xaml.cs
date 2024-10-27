@@ -6,7 +6,6 @@ using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.AboutYou;
 using VeganLife.Views.Popups;
-using static VeganLife.Helpers.AppSetting.StaticHelper;
 
 namespace VeganLife.Views;
 
@@ -23,7 +22,7 @@ public partial class LoadingPage : ContentPage
         ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
             .ContinueWith(t =>
             {
-                HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
+                StaticHelper.HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
             })
             .SafeFireAndForget();
         ServicesHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();

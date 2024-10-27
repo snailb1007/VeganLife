@@ -7,6 +7,7 @@
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:mx="http://compiledbindings.com/x"
     xmlns:sho="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -206,9 +207,9 @@
                 VerticalOptions="Fill">
                 <cw:DataGridNutritionFactCW.Triggers>
                     <DataTrigger
-                        Binding="{Binding CurrentFoodNutritionFact.foodNutrients, Converter={StaticResource IsListNullOrEmptyConverter}}"
+                        Binding="{x:Bind CurrentFoodNutritionFact.foodNutrients.Count ge 0}"
                         TargetType="cw:DataGridNutritionFactCW"
-                        Value="True">
+                        Value="False">
                         <Setter Property="ItemsSource" Value="{Binding CurrentUndefinedMacroFoodNutriFact.foodNutrients}" />
                     </DataTrigger>
                 </cw:DataGridNutritionFactCW.Triggers>

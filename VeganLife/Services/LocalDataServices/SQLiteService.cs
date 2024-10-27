@@ -60,12 +60,11 @@ namespace VeganLife.Services.LocalDataServices
             {
                 if (tableName == "sqlite_sequence")
                 {
-                    continue; // Skip SQLite's internal sequence table for autoincrement
+                    continue;
                 }
 
                 await _sQLiteConnectionData.ExecuteAsync($"DROP TABLE IF EXISTS {tableName}");
             }
         }
-
     }
 }

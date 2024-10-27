@@ -5,7 +5,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Views;
-using Java.Util;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
 {
@@ -37,48 +37,12 @@ namespace VeganLife.Services
 
         public bool IsAutomaticDateTimeEnabled()
         {
-            try
-            {
-                if (Platform.CurrentActivity is null)
-                {
-                    System.Diagnostics.Debug.WriteLine("==> Platform.CurrentActivity is null");
-                    return false;
-                }
-
-                return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver, global::Android.Provider.Settings.Global.AutoTime) == 1;
-            }
-            catch (Exception e)
-            {
-                if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
-                {
-                    System.Diagnostics.Debug.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
-                }
-
-                return false;
-            }
+            return this.CheckIfSettingEnabled(global::Android.Provider.Settings.Global.AutoTime);
         }
 
         public bool IsAutomaticTimeZoneEnabled()
         {
-            try
-            {
-                if (Platform.CurrentActivity is null)
-                {
-                    System.Diagnostics.Debug.WriteLine("==> Platform.CurrentActivity is null");
-                    return false;
-                }
-
-                return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver, global::Android.Provider.Settings.Global.AutoTimeZone) == 1;
-            }
-            catch (Exception e)
-            {
-                if (e is global::Android.Provider.Settings.SettingNotFoundException nativeEx)
-                {
-                    System.Diagnostics.Debug.WriteLine($"==> {nameof(DeviceService)} IsAutomaticDateTimeEnabled:\n{nativeEx.Message}");
-                }
-
-                return false;
-            }
+            return this.CheckIfSettingEnabled(global::Android.Provider.Settings.Global.AutoTimeZone);
         }
 
         public void OpenDateSettings()
@@ -121,6 +85,30 @@ namespace VeganLife.Services
             catch
             {
                 return null;
+            }
+        }
+
+        private bool CheckIfSettingEnabled(string settingName)
+        {
+            try
+            {
+                if (Platform.CurrentActivity == null)
+                {
+                    UtilitiesExtension.LogError("Platform.CurrentActivity is null");
+                    return false;
+                }
+
+                return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver, settingName) == 1;
+            }
+            catch (global::Android.Provider.Settings.SettingNotFoundException e)
+            {
+                e.LogError(description: $"{nameof(DeviceService)} {settingName}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                UtilitiesExtension.LogError($"Checking setting {settingName}: {e.Message}");
+                return false;
             }
         }
     }

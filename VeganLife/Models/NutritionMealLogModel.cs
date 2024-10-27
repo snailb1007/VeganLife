@@ -8,8 +8,12 @@ namespace VeganLife.Models
         [PrimaryKey]
         public string Id { get; set; }
 
-        public FoodNutrient Food { get; set; }
+        public USDAFoodNutritionFactModel Food { get; set; }
+
+        public UndefinedMacroFoodNutriFactModel UndefinedFood { get; set; }
 
         public DateTime EatingDay { get; set; }
+
+        public int Amount { get; set; }
     }
 }

@@ -546,6 +546,9 @@ Bạn có thể nhận vào hôm sau</value>
 	<data name="fillText_placeHolder_macroTab" xml:space="preserve">
     <value>Nhập để tìm kiếm nguyên liệu, thực phẩm,...</value>
   </data>
+	<data name="addML_btn_macroTab" xml:space="preserve">
+    <value>+ Nhật ký</value>
+  </data>
 	<data name="chatWithUs_supportPage" xml:space="preserve">
     <value>Trò chuyện với chúng tôi</value>
   </data>

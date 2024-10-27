@@ -29,9 +29,7 @@ namespace VeganLife.Views.Base
         protected override void OnAppearing()
         {
             base.OnAppearing();
-#if DEBUG
             Debug.WriteLine($"★ OnAppearing: {this.Title}");
-#endif
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 var vm = this.BindingContext as BaseViewModel;
@@ -48,9 +46,7 @@ namespace VeganLife.Views.Base
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-#if DEBUG
             Debug.WriteLine($"★ OnDisappearing: {this.Title}");
-#endif
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await (this.BindingContext as BaseViewModel)?.ViewDisappearingVM()!;
@@ -59,9 +55,7 @@ namespace VeganLife.Views.Base
 
         protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
         {
-#if DEBUG
             Debug.WriteLine($"★ OnNavigatedFrom: {this.Title}");
-#endif
             base.OnNavigatedFrom(args);
         }
 

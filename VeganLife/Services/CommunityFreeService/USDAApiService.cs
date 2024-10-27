@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Text;
 using AsyncAwaitBestPractices;
 using Newtonsoft.Json;
 using VeganLife.Data.LocalData;
@@ -15,7 +16,7 @@ namespace VeganLife.Services.CommunityFreeService
     public class USDAApiService
     {
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
-        private const string apiKey = "8tgleoubqLXYdky38LaQFpMaQIEqvTez4eFV6obc";
+        private const string ApiKey = "8tgleoubqLXYdky38LaQFpMaQIEqvTez4eFV6obc";
 
         private readonly UsdaFoodNutritionFactDataStoreService _dataStoreService;
 
@@ -29,13 +30,13 @@ namespace VeganLife.Services.CommunityFreeService
             var localData = await _dataStoreService.GetItemAsync(foodId);
             if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
             {
-                Debug.WriteLine("==> have local data for " + foodId);
+                UtilitiesExtension.LogError("have local data for " + foodId);
                 localData.foodNutrients = JsonConvert.DeserializeObject<List<FoodNutrient>>(localData.FoodNutrientsJsonData);
                 return localData;
             }
 
             var result = new USDAFoodNutritionFactModel();
-            string url = $"{BaseUrl}food/{foodId}?api_key={apiKey}";
+            string url = $"{BaseUrl}food/{foodId}?api_key={ApiKey}";
             try
             {
                 HttpResponseMessage response = await HttpClientService.Instance.GetAsync(url);
@@ -52,7 +53,7 @@ namespace VeganLife.Services.CommunityFreeService
                 }
                 else
                 {
-                    Debug.WriteLine($"API request failed with status code: {response.StatusCode}");
+                    UtilitiesExtension.LogError($"API request failed with status code: {response.StatusCode}");
                 }
 
                 return result;
@@ -76,6 +77,30 @@ namespace VeganLife.Services.CommunityFreeService
                             .DisplayAlert(AppResources.error_common, AppResources.notFound_common, "OK");
                     }
                 }
+            }
+        }
+
+        public async Task<List<FoodDetailListRequest>> GetFoodsListAsync(FoodsListRequestModel request)
+        {
+            var url = $"{BaseUrl}foods/list?api_key={ApiKey}";
+
+            var jsonRequest = JsonConvert.SerializeObject(request);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            var response = await HttpClientService.Instance.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var foods = JsonConvert.DeserializeObject<List<FoodDetailListRequest>>(
+                    jsonResponse,
+                    new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat, NullValueHandling = NullValueHandling.Ignore });
+                return foods;
+            }
+            else
+            {
+                // Handle error response
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"==> Error: {response.StatusCode}, Details: {errorContent}");
             }
         }
     }

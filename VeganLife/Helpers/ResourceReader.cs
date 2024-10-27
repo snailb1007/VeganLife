@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Helpers
 {
@@ -44,7 +45,7 @@ namespace VeganLife.Helpers
                 return Colors.Transparent;
             }
 
-            var currentTheme = Application.Current.RequestedTheme;
+            var currentTheme = Application.Current?.RequestedTheme;
             var result = targetColor.Default ?? Colors.Transparent;
             switch (currentTheme)
             {
@@ -75,7 +76,7 @@ namespace VeganLife.Helpers
                 }
                 else
                 {
-                    Debug.WriteLine($"{nameof(GetResourceByKey)}: {key} not found!");
+                    UtilitiesExtension.LogError($"{nameof(GetResourceByKey)}: {key} not found!");
                     return null;
                 }
             }

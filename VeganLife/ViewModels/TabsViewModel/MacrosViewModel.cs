@@ -8,34 +8,51 @@ using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
+using VeganLife.Services.CommunityFreeService;
 using VeganLife.Views.ContentViews.Tabs;
+using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.PortionTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
+        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService;
+        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService;
+        private readonly USDAApiService _uSDAApiService;
+
+        private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
+
         [ObservableProperty]
         private bool _isFilterOpened;
+
         [ObservableProperty]
         private bool _isVeganSelected;
+
         [ObservableProperty]
         private bool _isUnVeganSelected;
+
         [ObservableProperty]
         private bool _isBannerClosed;
 
         [ObservableProperty]
+        private bool isScrolling;
+
+        [ObservableProperty]
         private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
+
         [ObservableProperty]
         private string textSearch;
+
         [ObservableProperty]
         private USDAFoodPreviewModel usdaFoodPreviewCurrent;
-
-        private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
 
         public MacrosViewModel()
             : base()
         {
+            _usdaFoodNutritionFactDataStoreService = ServicesHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
+            _uSDAApiService = ServicesHelper.GetService<USDAApiService>();
+            _undefinedMacroFoodNutriFactDataStoreService = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
         }
 
         public override async Task<Task> ViewAppearingVM()
@@ -64,13 +81,21 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private async Task ItemSelectedChanged(USDAFoodPreviewModel param)
         {
+            if (ItemSelectedChangedCommand.IsRunning
+                || IsLoading
+                || param is null)
+            {
+                return;
+            }
+
+            if (param.IsShowingEdit)
+            {
+                param.IsShowingEdit = false;
+                return;
+            }
+
             try
             {
-                if (ItemSelectedChangedCommand.IsRunning || IsLoading || param is null)
-                {
-                    return;
-                }
-
                 using (await this.loadingService.Show())
                 {
                     await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
@@ -119,6 +144,56 @@ namespace VeganLife.ViewModels.TabsViewModel
         private void CloseAdBanner()
         {
             IsBannerClosed = true;
+        }
+
+        [RelayCommand]
+        private async Task OnUSDABannerClicked()
+        {
+            if (this.USDABannerClickedCommand.IsRunning)
+            {
+                return;
+            }
+
+            using (await this.loadingService.Show())
+            {
+                await navigationService.NavigateToPage<USDAFoodListPage>();
+            }
+        }
+
+        [RelayCommand]
+        private void OnItemEditedTap(USDAFoodPreviewModel param)
+        {
+            param.IsShowingEdit = !param.IsShowingEdit;
+        }
+
+        [RelayCommand]
+        private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
+        {
+            bool isExistingItem;
+            if (param.IsUSDAFood)
+            {
+                isExistingItem = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
+                if (isExistingItem)
+                {
+                    Console.WriteLine(" Item already exists");
+                }
+                else
+                {
+                    var targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
+                }
+            }
+            else
+            {
+                isExistingItem = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
+                if (isExistingItem)
+                {
+                    Console.WriteLine(" Item already exists");
+                }
+                else
+                {
+                    var targetItem = await dataService.GetMacroFoodNutriFacts(param.Id);
+                }
+            }
         }
 
         [SuppressPropertyChangedWarnings]
