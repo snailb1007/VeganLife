@@ -37,7 +37,8 @@ namespace VeganLife
             CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
 
             this.SetupLanguage();
-            this.MainPage = new LoadingPage();
+            // this.MainPage = new LoadingPage();
+            this.Windows[0].Page = new LoadingPage();
             this.SetupThemeAsync().SafeFireAndForget();
         }
 
@@ -84,7 +85,7 @@ namespace VeganLife
             var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
             await Task.WhenAll(Task.Delay(500), t1);
             StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
-            MainThread.BeginInvokeOnMainThread(() => this.MainPage = new AppShell());
+            MainThread.BeginInvokeOnMainThread(() => this.Windows[0].Page = new AppShell());
         }
     }
 }

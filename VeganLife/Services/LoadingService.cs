@@ -38,6 +38,7 @@ namespace VeganLife.Services
 
         private int _requestCount;
         private bool _active = true;
+
         public bool Active
         {
             get => _active;
@@ -72,13 +73,17 @@ namespace VeganLife.Services
         public void IncreaseRequest()
         {
             if (Active)
+            {
                 _whenRequestCountChanged.OnNext(++_requestCount);
+            }
         }
 
         public void DecreaseRequest()
         {
             if (_requestCount > 0 && Active)
+            {
                 _whenRequestCountChanged.OnNext(--_requestCount);
+            }
         }
     }
 }

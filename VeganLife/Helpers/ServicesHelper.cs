@@ -42,7 +42,7 @@ namespace VeganLife.Helpers
             }
             else
             {
-                return Application.Current?.MainPage?.BindingContext as BaseViewModel;
+                return Application.Current?.Windows[0]?.Page.BindingContext as BaseViewModel;
             }
         }
 
