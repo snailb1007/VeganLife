@@ -59,7 +59,14 @@ namespace VeganLife.Services
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     var currentWindow = GetCurrentWindow();
-                    currentWindow?.SetNavigationBarColor(global::Android.Graphics.Color.ParseColor(hexColor));
+                    if (OperatingSystem.IsAndroidVersionAtLeast(35))
+                    {
+                        // TODO: net9
+                    }
+                    else
+                    {
+                        currentWindow?.SetNavigationBarColor(global::Android.Graphics.Color.ParseColor(hexColor));
+                    }
                 });
             }
         }

@@ -71,7 +71,8 @@ namespace VeganLife
                 .ConfigureMopups()
                 .UseFFImageLoading()
                 .UseCardsView()
-                .UseSkiaSharp(true)
+                //.UseSkiaSharp(true)
+                .UseSkiaSharp()
                 .UseSharpnadoTabs(loggerEnable: false)
                 .UseSharpnadoMaterialFrame(loggerEnable: false)
                 .UseVirtualListView();
