@@ -5,7 +5,6 @@
 using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using Plugin.MauiMTAdmob.Extra;
-using Sentry.Protocol;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -35,11 +34,13 @@ namespace VeganLife
             CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
             CrossMauiMTAdmob.Current.AdChoicesCorner = AdChoicesCorner.ADCHOICES_BOTTOM_RIGHT;
             CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
+        }
 
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
             this.SetupLanguage();
-            // this.MainPage = new LoadingPage();
-            this.Windows[0].Page = new LoadingPage();
             this.SetupThemeAsync().SafeFireAndForget();
+            return new Window(new LoadingPage());
         }
 
         private void SetupLanguage()
