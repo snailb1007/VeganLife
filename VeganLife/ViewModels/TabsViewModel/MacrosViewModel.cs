@@ -70,7 +70,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                     this._allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
                 }
 
-                App.Current?.MainPage?.Dispatcher?
+                App.Current?.Windows[0]?.Page?.Dispatcher?
                     .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(_allUSDAFoodPreview ?? []));
             }
 
