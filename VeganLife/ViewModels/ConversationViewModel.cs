@@ -220,7 +220,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 if (CurrentChat.TimesLimit > 0)
                 {
@@ -292,7 +292,7 @@ namespace VeganLife.ViewModels
             //    _drawable = (ProgressDrawableControl)graphicsView.Drawable;
             //}
 
-            using (await this.loadingService.Show())
+             
             {
                 _startTime = DateTime.Now;
                 _cancellationTokenSource = new CancellationTokenSource();

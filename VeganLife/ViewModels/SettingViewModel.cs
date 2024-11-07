@@ -55,11 +55,8 @@ namespace VeganLife.ViewModels
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                using (await this.loadingService.Show(delayTime: 500))
-                {
-                    ServicesHelper.GetService<SentryService>().IsEnabled = value;
-                    UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
-                }
+                ServicesHelper.GetService<SentryService>().IsEnabled = value;
+                UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
             });
         }
     }

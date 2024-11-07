@@ -96,10 +96,7 @@ namespace VeganLife.ViewModels.TabsViewModel
 
             try
             {
-                using (await this.loadingService.Show())
-                {
-                    await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
-                }
+                await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
             }
             finally
             {
@@ -133,11 +130,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private async Task OpenAIConversation()
         {
-            using (await this.loadingService.Show())
-            {
-                string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
-                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            }
+            string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
         }
 
         [RelayCommand]
@@ -154,10 +148,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await navigationService.NavigateToPage<USDAFoodListPage>();
-            }
+            await navigationService.NavigateToPage<USDAFoodListPage>();
         }
 
         [RelayCommand]

@@ -84,7 +84,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task GoFoodDetail(object obj)
         {
-            using (await this.loadingService.Show())
+             
             {
                 await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
                 await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
@@ -95,7 +95,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task GoListPageAsync()
         {
-            using (await this.loadingService.Show())
+             
             {
                 await Shell.Current.GoToAsync("//home/recipe");
             }

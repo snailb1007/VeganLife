@@ -32,7 +32,7 @@ namespace VeganLife.ViewModels
         private async Task OnNextClicked()
         {
 #if DEV || DEBUG
-            using (await this.loadingService.Show())
+             
             {
                 var user = new UserInfo
                 {

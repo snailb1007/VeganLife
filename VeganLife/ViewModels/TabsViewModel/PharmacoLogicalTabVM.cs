@@ -43,7 +43,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(param)
                 .ConfigureAwait(false);
@@ -58,7 +58,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
                 this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
@@ -68,7 +68,7 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-            using (await this.loadingService.Show())
+             
             {
                 string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
                 await Shell.Current.GoToAsync($"//chat?PassedData={query}");
