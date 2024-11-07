@@ -65,7 +65,7 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         public async override Task ViewAppearingVM()
         {
-            using (await this.loadingService.Show())
+
             {
                 await base.ViewAppearingVM();
                 if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
@@ -90,25 +90,20 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+
+            await this.navigationService.PopToRootAsync();
+            var rootVM = ServicesHelper.GetCurrentViewModel() as NoteBookPageViewModel;
+            if (rootVM != null)
             {
-                await this.navigationService.PopToRootAsync();
-                var rootVM = ServicesHelper.GetCurrentViewModel() as NoteBookPageViewModel;
-                if (rootVM != null)
-                {
-                    rootVM.SelectedViewModelIndex = 1;
-                    rootVM.VitaminAndMineralVM.VitaminSearchText = param;
-                }
+                rootVM.SelectedViewModelIndex = 1;
+                rootVM.VitaminAndMineralVM.VitaminSearchText = param;
             }
         }
 
         [RelayCommand]
         private async Task ChangeDataGridExpandState()
         {
-            using (await loadingService.Show(200))
-            {
-                IsDataGridExpanded = !IsDataGridExpanded;
-            }
+            IsDataGridExpanded = !IsDataGridExpanded;
         }
 
         private async Task ProcessUndefineFoodAsync()

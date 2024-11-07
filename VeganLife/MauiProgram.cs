@@ -110,7 +110,6 @@ namespace VeganLife
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
-            services.AddSingleton<ILoadingService, LoadingService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<SentryService>();
 

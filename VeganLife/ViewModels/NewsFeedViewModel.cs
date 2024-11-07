@@ -68,7 +68,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 var currentItem = (Discovery)obj;
                 if (currentItem == null || this.DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == currentItem)
@@ -113,7 +113,7 @@ namespace VeganLife.ViewModels
                     }
 
                     MainThread.BeginInvokeOnMainThread(() => this.Feeds
-                        = new ObservableCollection<Item>(this.dataReligion));
+                        = this.dataReligion == null ? new () : new ObservableCollection<Item>(this.dataReligion));
                 }
                 else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
                 {
@@ -124,7 +124,7 @@ namespace VeganLife.ViewModels
                     }
 
                     MainThread.BeginInvokeOnMainThread(() => this.Feeds
-                        = new ObservableCollection<Item>(this.dataLiveStrong));
+                        = this.dataLiveStrong is null ? new () : new ObservableCollection<Item>(this.dataLiveStrong));
                 }
 
                 foreach (var item in this.DiscoveryMenu!)
@@ -181,7 +181,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 var item = obj as Item;
                 try
@@ -203,7 +203,7 @@ namespace VeganLife.ViewModels
 
         private async Task LoadData()
         {
-            using (await this.loadingService.Show())
+             
             {
                 if (this.Feeds != null && this.Feeds.Any())
                 {

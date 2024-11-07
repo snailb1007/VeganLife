@@ -73,7 +73,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task LoadDataAsync()
         {
-            using (await this.loadingService.Show())
+
             {
                 if (this.IsNetworkConnected)
                 {
@@ -152,7 +152,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+
             {
                 this.CurrentFoodSelected = null!;
                 var userService = ServicesHelper.GetService<IUserDataService>();
@@ -184,7 +184,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+
             {
                 var foodByCategory = this._allFoods.Where(i => i.Category.Contains(itemMenu.Title))
                 .ToList();
@@ -211,16 +211,13 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OpenAIConversation()
         {
-            if ((this.loadingService as LoadingService).IsLoading || OpenAIConversationCommand.IsRunning)
+            if (this.IsLoading || OpenAIConversationCommand.IsRunning)
             {
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                string query = AppResources.cookingRecipe_mainPage + SearchText;
-                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            }
+            string query = AppResources.cookingRecipe_mainPage + SearchText;
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
         }
 
         /// <inheritdoc/>

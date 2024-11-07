@@ -48,7 +48,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+
             {
                 await this._userDataService.Refresh();
                 LocalUser = _userDataService.GetUserInfo();
@@ -90,10 +90,7 @@ namespace VeganLife.ViewModels
 
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                using (await this.loadingService.Show(delayTime: 200))
-                {
-                    await UpdateActivityLevelAsync();
-                }
+                await UpdateActivityLevelAsync();
             });
 
             async Task UpdateActivityLevelAsync()

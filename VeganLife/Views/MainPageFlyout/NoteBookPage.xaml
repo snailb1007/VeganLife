@@ -13,7 +13,8 @@
     xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     x:Name="rootReportPage"
     x:DataType="viewmodel:NoteBookPageViewModel"
-    x:TypeArguments="localVM:NoteBookPageViewModel">
+    x:TypeArguments="localVM:NoteBookPageViewModel"
+    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
     <base:BasePage.Background>
         <LinearGradientBrush EndPoint="1,0">
             <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />

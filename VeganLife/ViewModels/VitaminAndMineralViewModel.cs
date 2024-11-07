@@ -47,7 +47,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
             }
@@ -61,7 +61,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
                 this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
@@ -71,7 +71,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-            using (await this.loadingService.Show())
+             
             {
                 string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
                 await Shell.Current.GoToAsync($"//chat?PassedData={query}");

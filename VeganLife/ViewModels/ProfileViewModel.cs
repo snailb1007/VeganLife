@@ -31,7 +31,7 @@ namespace VeganLife.ViewModels
 
         public override async Task ViewAppearingVM()
         {
-            using (await this.loadingService.Show())
+             
             {
                 await this._userDataService.Refresh();
                 MyInfo = _userDataService.GetUserInfo();

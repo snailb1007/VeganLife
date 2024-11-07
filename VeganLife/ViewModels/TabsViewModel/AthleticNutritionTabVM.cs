@@ -42,7 +42,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(param);
             }
@@ -56,7 +56,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
+             
             {
                 var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
                 this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
