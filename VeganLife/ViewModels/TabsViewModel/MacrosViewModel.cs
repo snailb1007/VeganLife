@@ -96,11 +96,13 @@ namespace VeganLife.ViewModels.TabsViewModel
 
             try
             {
+                this.busyManager.Increase();
                 await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
             }
             finally
             {
                 UsdaFoodPreviewCurrent = null!;
+                this.busyManager.Decrease();
             }
         }
 
