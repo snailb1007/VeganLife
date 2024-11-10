@@ -123,37 +123,49 @@
                             Grid.Row="5"
                             Grid.ColumnSpan="2"
                             Spacing="10">
-                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="TDEE"
-                                    TextColor="Gray" />
-                                <Label
-                                    Grid.Column="1"
-                                    FontFamily="FALight"
-                                    FontSize="Small"
-                                    Text="{StaticResource IconInfo}"
-                                    TextColor="{StaticResource LinkColor}">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding InfoClickedCommand}" CommandParameter="TDEE" />
-                                    </Label.GestureRecognizers>
-                                </Label>
+                            <Grid ColumnDefinitions="*,*">
+                                <Grid
+                                    ColumnDefinitions="Auto,Auto"
+                                    ColumnSpacing="5"
+                                    RowDefinitions="Auto,Auto">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        Text="TDEE"
+                                        TextColor="Gray" />
+                                    <Label
+                                        Grid.Column="1"
+                                        FontFamily="FALight"
+                                        FontSize="Small"
+                                        Text="{StaticResource IconInfo}"
+                                        TextColor="{StaticResource LinkColor}">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding InfoClickedCommand}" CommandParameter="TDEE" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label Grid.Row="1">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    FontSize="Subtitle"
+                                                    Text="{Binding LocalUser.TDEEResult, StringFormat='{0:F2}'}"
+                                                    TextColor="{StaticResource PrimaryDark}" />
+                                                <Span
+                                                    FontSize="Small"
+                                                    Text=" kcal/day"
+                                                    TextColor="Gray" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="Recommended Weights" TextColor="Gray" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        Text="{Binding GoalWeight, StringFormat='{0} kg'}"
+                                        TextColor="{StaticResource PrimaryDark}" />
+                                </VerticalStackLayout>
                             </Grid>
-                            <Label>
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span
-                                            FontAttributes="Bold"
-                                            FontSize="Subtitle"
-                                            Text="{Binding LocalUser.TDEEResult, StringFormat='{0:F2}'}"
-                                            TextColor="{StaticResource PrimaryDark}" />
-                                        <Span
-                                            FontSize="Small"
-                                            Text=" kcal/day"
-                                            TextColor="Gray" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
                             <sharpnado:MaterialFrame
                                 Margin="10"
                                 Padding="10,5"
