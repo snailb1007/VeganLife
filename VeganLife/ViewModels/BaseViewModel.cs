@@ -109,11 +109,6 @@ namespace VeganLife.ViewModels
 
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
 
-        partial void OnIsLoadingChanged(bool value)
-        {
-            Console.WriteLine("==> abc " + value);
-        }
-
         void IDisposable.Dispose()
         {
             _busySubscription.Dispose();
@@ -122,8 +117,9 @@ namespace VeganLife.ViewModels
 
     public class BusyManager : IDisposable
     {
-        private int _busyCount;
         private readonly BehaviorSubject<bool> _isBusySubject = new BehaviorSubject<bool>(false);
+
+        private int _busyCount;
 
         public IObservable<bool> IsBusy => _isBusySubject.AsObservable();
 

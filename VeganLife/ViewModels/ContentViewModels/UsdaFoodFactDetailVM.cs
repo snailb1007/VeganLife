@@ -161,9 +161,21 @@ namespace VeganLife.ViewModels.ContentViewModels
                     }
                 }
 
-                ProteinValue = _proteinValue;
-                CarbValue = _carbValue;
-                CaloriesValue = _caloriesValue;
+                if (_proteinValue != null)
+                {
+                    ProteinValue = _proteinValue;
+                }
+
+                if (_carbValue != null)
+                {
+                    CarbValue = _carbValue;
+                }
+
+                if (_caloriesValue != null)
+                {
+                    CaloriesValue = _caloriesValue;
+                }
+
                 void SetNutrientValue(ref UndefinedFoodNutrient? targetNutrient, FoodNutrient source, string[] searchTerms)
                 {
                     var nutrientName = source.Nutrient?.Name;
