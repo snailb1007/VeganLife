@@ -15,8 +15,6 @@ namespace VeganLife.ViewModels
     /// </summary>
     public abstract partial class BaseViewModel : ObservableObject, IDisposable
     {
-        private readonly BusyManager _busyManager;
-
         private bool _hasShownAlert;
         private IDisposable _busySubscription;
 
@@ -48,6 +46,8 @@ namespace VeganLife.ViewModels
             }
         }
 
+        protected readonly BusyManager busyManager;
+
         [ObservableProperty]
         private bool _isLoading;
 
@@ -64,9 +64,9 @@ namespace VeganLife.ViewModels
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
-            _busyManager = new();
+            busyManager = new();
 
-            _busySubscription = _busyManager.IsBusy.Subscribe(busy => IsLoading = busy);
+            _busySubscription = busyManager.IsBusy.Subscribe(busy => IsLoading = busy);
         }
 
         public Task DisplayNoInternetAlert()
@@ -108,6 +108,11 @@ namespace VeganLife.ViewModels
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
 
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
+
+        partial void OnIsLoadingChanged(bool value)
+        {
+            Console.WriteLine("==> abc " + value);
+        }
 
         void IDisposable.Dispose()
         {

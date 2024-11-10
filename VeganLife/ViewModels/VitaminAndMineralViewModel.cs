@@ -47,7 +47,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-             
+
             {
                 await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
             }
@@ -61,21 +61,15 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-             
-            {
-                var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
-                this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
-            }
+            var searchResult = SearchFoodByName(this._allVitamins.AsParallel(), VitaminSearchText);
+            this.Vitamins = new ObservableCollection<VitaminModel>(searchResult);
         }
 
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-             
-            {
-                string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
-                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            }
+            string query = string.Format(AppResources.firstQuery_vitaminPage, VitaminSearchText);
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
         }
 
         [RelayCommand]

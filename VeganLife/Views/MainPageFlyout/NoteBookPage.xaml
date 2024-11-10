@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:localVM="clr-namespace:VeganLife.ViewModels"
+    xmlns:mx="http://compiledbindings.com/x"
     xmlns:sharpnado="http://sharpnado.com"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
@@ -13,8 +15,7 @@
     xmlns:views="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     x:Name="rootReportPage"
     x:DataType="viewmodel:NoteBookPageViewModel"
-    x:TypeArguments="localVM:NoteBookPageViewModel"
-    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+    x:TypeArguments="localVM:NoteBookPageViewModel">
     <base:BasePage.Background>
         <LinearGradientBrush EndPoint="1,0">
             <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
@@ -36,6 +37,7 @@
     <Grid
         x:Name="mainGridContent"
         BackgroundColor="White"
+        Opacity="{x:Bind IsLoading ? 0.5 : 1.0}"
         RowDefinitions="80, 60, *">
         <ContentView Padding="10">
             <ContentView.Background>
@@ -267,5 +269,15 @@
                     UseActivityIndicator="True" />
             </sharpnado:ViewSwitcher>
         </ContentView>
+        <skia:SKLottieView
+            Grid.RowSpan="3"
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsLoading}"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="100" />
     </Grid>
 </base:BasePage>

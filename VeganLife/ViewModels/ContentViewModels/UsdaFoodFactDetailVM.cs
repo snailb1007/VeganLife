@@ -65,21 +65,21 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         public async override Task ViewAppearingVM()
         {
-
+            this.busyManager.Increase();
+            await base.ViewAppearingVM();
+            if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
-                await base.ViewAppearingVM();
-                if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
+                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                 {
-                    if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
-                    {
-                        await ProcessUndefineFoodAsync();
-                    }
-                    else
-                    {
-                        await ProcessUsdaFoodAsync();
-                    }
+                    await ProcessUndefineFoodAsync();
+                }
+                else
+                {
+                    await ProcessUsdaFoodAsync();
                 }
             }
+
+            this.busyManager.Decrease();
         }
 
         [RelayCommand]
@@ -89,7 +89,6 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 return;
             }
-
 
             await this.navigationService.PopToRootAsync();
             var rootVM = ServicesHelper.GetCurrentViewModel() as NoteBookPageViewModel;
@@ -101,9 +100,11 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         [RelayCommand]
-        private async Task ChangeDataGridExpandState()
+        private void ChangeDataGridExpandState()
         {
+            this.busyManager.Increase();
             IsDataGridExpanded = !IsDataGridExpanded;
+            _ = Task.Delay(200).ContinueWith(t => this.busyManager.Decrease());
         }
 
         private async Task ProcessUndefineFoodAsync()

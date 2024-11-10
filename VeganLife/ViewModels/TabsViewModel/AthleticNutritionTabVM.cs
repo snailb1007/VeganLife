@@ -42,25 +42,19 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-             
-            {
-                await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(param);
-            }
+            await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(param);
         }
 
         [RelayCommand]
-        private async Task EnsureSearch()
+        private void EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.AthleticNutritionSearchText) || string.IsNullOrWhiteSpace(this.AthleticNutritionSearchText))
             {
                 return;
             }
 
-             
-            {
-                var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
-                this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
-            }
+            var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
+            this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
         }
 
         [RelayCommand]
