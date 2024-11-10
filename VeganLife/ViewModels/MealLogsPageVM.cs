@@ -48,14 +48,11 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-
-            {
-                await this._userDataService.Refresh();
-                LocalUser = _userDataService.GetUserInfo();
-                SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
-                HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
-                await base.ViewAppearingVM();
-            }
+            await this._userDataService.Refresh();
+            LocalUser = _userDataService.GetUserInfo();
+            SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
+            HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
+            await base.ViewAppearingVM();
 
             isInitialized = true;
         }

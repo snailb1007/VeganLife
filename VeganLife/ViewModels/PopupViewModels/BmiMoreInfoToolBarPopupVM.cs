@@ -13,6 +13,11 @@ namespace VeganLife.ViewModels.PopupViewModels
         {
             this.Documents = new ObservableCollection<string>();
             var document = HealthDiagnosisFirebaseDataModel.BMIModel?.Documents;
+            if (document is null)
+            {
+                return;
+            }
+
             Documents.Add(document.WikiVN);
             Documents.Add(document.WHO);
         }

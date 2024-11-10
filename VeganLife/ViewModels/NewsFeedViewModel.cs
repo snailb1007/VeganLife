@@ -50,7 +50,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        private async Task RefreshFoods()
+        private void RefreshFoods()
         {
             if (this.IsLoading)
             {

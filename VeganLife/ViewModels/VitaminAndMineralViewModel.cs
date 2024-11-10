@@ -47,14 +47,11 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-
-            {
-                await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
-            }
+            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
         }
 
         [RelayCommand]
-        private async Task EnsureSearch()
+        private void EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.VitaminSearchText) || string.IsNullOrWhiteSpace(this.VitaminSearchText))
             {
