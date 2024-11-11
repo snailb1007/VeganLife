@@ -34,6 +34,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private int selectedActivityLevelIndex = 0;
 
+        [ObservableProperty]
+        private double _goalWeight = -1;
+
         public MealLogsPageVM()
             : base()
         {
@@ -48,14 +51,12 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await this._userDataService.Refresh();
-                LocalUser = _userDataService.GetUserInfo();
-                SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
-                HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
-                await base.ViewAppearingVM();
-            }
+            await this._userDataService.Refresh();
+            LocalUser = _userDataService.GetUserInfo();
+            SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
+            HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
+            GoalWeight = Math.Round(Math.Pow(LocalUser.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
+            await base.ViewAppearingVM();
 
             isInitialized = true;
         }
@@ -90,10 +91,7 @@ namespace VeganLife.ViewModels
 
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                using (await this.loadingService.Show(delayTime: 200))
-                {
-                    await UpdateActivityLevelAsync();
-                }
+                await UpdateActivityLevelAsync();
             });
 
             async Task UpdateActivityLevelAsync()

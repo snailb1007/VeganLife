@@ -53,13 +53,10 @@ namespace VeganLife.ViewModels
         [SuppressPropertyChangedWarnings]
         partial void OnIsAllowCollectLogsChanged(bool value)
         {
-            MainThread.BeginInvokeOnMainThread(async () =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                using (await this.loadingService.Show(delayTime: 500))
-                {
-                    ServicesHelper.GetService<SentryService>().IsEnabled = value;
-                    UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
-                }
+                ServicesHelper.GetService<SentryService>().IsEnabled = value;
+                UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
             });
         }
     }

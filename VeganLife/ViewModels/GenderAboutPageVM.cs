@@ -1,7 +1,5 @@
-﻿using IntelliJ.Lang.Annotations;
-using VeganLife.Helpers;
+﻿using VeganLife.Helpers;
 using VeganLife.Services.UserServices;
-using VeganLife.Views.AboutYou;
 
 namespace VeganLife.ViewModels
 {
@@ -32,22 +30,19 @@ namespace VeganLife.ViewModels
         private async Task OnNextClicked()
         {
 #if DEV || DEBUG
-            using (await this.loadingService.Show())
+            var user = new UserInfo
             {
-                var user = new UserInfo
-                {
-                    Name = _data.Name,
-                    DateOfBirth = _data.Birthday,
-                    IsMale = this.IsMale,
-                    Height = 170,
-                    Weight = 57,
-                };
+                Name = _data.Name,
+                DateOfBirth = _data.Birthday,
+                IsMale = this.IsMale,
+                Height = 170,
+                Weight = 57,
+            };
 
-                await ServicesHelper.GetService<IUserDataService>().SaveData(user);
-                _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
+            await ServicesHelper.GetService<IUserDataService>().SaveData(user);
+            _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
-                await (App.Current as App)?.RefreshAppShell()!;
-            }
+            await (App.Current as App)?.RefreshAppShell()!;
 #else
             await this.navigationService.NavigateToPage<HeightAndWeightAboutPage>(
                 new InitAboutYouDataRecord(_data.Name, _data.Birthday, IsMale));
