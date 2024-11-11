@@ -220,19 +220,16 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+            if (CurrentChat.TimesLimit > 0)
             {
-                if (CurrentChat.TimesLimit > 0)
-                {
-                    CurrentChat.TimesLimit -= 1;
-                }
-
-                string queryCopy = Query;
-                Query = string.Empty;
-                AddMessage(message: queryCopy, isUserMessage: true);
-                string answer = await queryManager(_sessionGuid, queryCopy);
-                AddMessage(message: answer.TrimStart(), isUserMessage: false);
+                CurrentChat.TimesLimit -= 1;
             }
+
+            string queryCopy = Query;
+            Query = string.Empty;
+            AddMessage(message: queryCopy, isUserMessage: true);
+            string answer = await queryManager(_sessionGuid, queryCopy);
+            AddMessage(message: answer.TrimStart(), isUserMessage: false);
         }
 
         private async Task AskQuestionAsync()
@@ -292,16 +289,13 @@ namespace VeganLife.ViewModels
             //    _drawable = (ProgressDrawableControl)graphicsView.Drawable;
             //}
 
-            using (await this.loadingService.Show())
-            {
-                _startTime = DateTime.Now;
-                _cancellationTokenSource = new CancellationTokenSource();
-                IsAdInProgress = true;
-                CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
-                CurrentAdValidatorData.RewardAdTimesLimit += 1;
-                await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
-                _ = UpdateAdProgressCountDown();
-            }
+            _startTime = DateTime.Now;
+            _cancellationTokenSource = new CancellationTokenSource();
+            IsAdInProgress = true;
+            CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
+            CurrentAdValidatorData.RewardAdTimesLimit += 1;
+            await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
+            _ = UpdateAdProgressCountDown();
         }
 
         [SuppressPropertyChangedWarnings]

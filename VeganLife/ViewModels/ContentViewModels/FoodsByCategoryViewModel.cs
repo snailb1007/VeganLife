@@ -39,7 +39,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private async Task GoFoodDetail()
         {
             await this.navigationService.NavigateToPage<FoodDetailPage>(this.CurrentSelectedItem);
-            this.CurrentSelectedItem = null;
+            this.CurrentSelectedItem = null!;
         }
     }
 }
