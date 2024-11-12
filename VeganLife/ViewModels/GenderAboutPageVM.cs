@@ -42,7 +42,7 @@ namespace VeganLife.ViewModels
             await ServicesHelper.GetService<IUserDataService>().SaveData(user);
             _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
-            await (App.Current as App)?.RefreshAppShell()!;
+            await (Application.Current as App)?.RefreshAppShell()!;
 #else
             await this.navigationService.NavigateToPage<HeightAndWeightAboutPage>(
                 new InitAboutYouDataRecord(_data.Name, _data.Birthday, IsMale));

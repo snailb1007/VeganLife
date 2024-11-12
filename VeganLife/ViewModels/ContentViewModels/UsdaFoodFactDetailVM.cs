@@ -14,22 +14,22 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
         private readonly USDAApiService _usdaApiService;
-        private readonly NutritionMealLogDataStoreService _foodLogService;
+        //private readonly NutritionMealLogDataStoreService _foodLogService;
 
         [ObservableProperty]
-        private USDAFoodPreviewModel currentFoodPreview;
+        private USDAFoodPreviewModel _currentFoodPreview;
 
         [ObservableProperty]
-        private USDAFoodNutritionFactModel currentFoodNutritionFact;
+        private USDAFoodNutritionFactModel _currentFoodNutritionFact;
 
         [ObservableProperty]
-        private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
+        private UndefinedMacroFoodNutriFactModel _currentUndefinedMacroFoodNutriFact;
 
         [ObservableProperty]
-        private bool isDataGridExpanded;
+        private bool _isDataGridExpanded;
 
         [ObservableProperty]
-        private List<AffiliationModel> affiliations;
+        private List<AffiliationModel> _affiliations;
 
         // simplys
         [ObservableProperty]
@@ -44,7 +44,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, NutritionMealLogDataStoreService nutritionMealLogDataStoreService)
         {
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
-            _foodLogService = nutritionMealLogDataStoreService;
+            //_foodLogService = nutritionMealLogDataStoreService;
             _usdaApiService = uSDAApiService;
         }
 
@@ -63,7 +63,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             return base.OnNavigatingTo(parameter);
         }
 
-        public async override Task ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
             this.busyManager.Increase();
             await base.ViewAppearingVM();
@@ -91,8 +91,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             await this.navigationService.PopToRootAsync();
-            var rootVM = ServicesHelper.GetCurrentViewModel() as NoteBookPageViewModel;
-            if (rootVM != null)
+            if (ServicesHelper.GetCurrentViewModel() is NoteBookPageViewModel rootVM)
             {
                 rootVM.SelectedViewModelIndex = 1;
                 rootVM.VitaminAndMineralVM.VitaminSearchText = param;

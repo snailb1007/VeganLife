@@ -10,12 +10,12 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class FoodsByCategoryViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private string titlePage;
+        private string _titlePage;
         [ObservableProperty]
-        private FoodPreviewModel currentSelectedItem;
+        private FoodPreviewModel _currentSelectedItem;
 
         [ObservableProperty]
-        private IEnumerable<FoodPreviewModel> foods;
+        private IEnumerable<FoodPreviewModel> _foods;
 
         public FoodsByCategoryViewModel()
             : base()
@@ -25,8 +25,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         /// <inheritdoc/>
         public override Task OnNavigatingTo(object? parameter)
         {
-            var data = parameter as Dictionary<string, IEnumerable<FoodPreviewModel>>;
-            if (data != null)
+            if (parameter is Dictionary<string, IEnumerable<FoodPreviewModel>> data)
             {
                 this.TitlePage = data.FirstOrDefault().Key;
                 this.Foods = data.FirstOrDefault().Value;

@@ -15,10 +15,10 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class DetailVitaminAndMineralViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private VitaminModel vitamin;
+        private VitaminModel _vitamin;
 
         [ObservableProperty]
-        private List<AffiliationModel> affiliations;
+        private List<AffiliationModel> _affiliations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVitaminAndMineralViewModel"/> class.

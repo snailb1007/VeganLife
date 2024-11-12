@@ -63,15 +63,14 @@ namespace VeganLife.ViewModels.PopupViewModels
 
                 _result = (BMIResultModel)parameter;
                 _bmiResult = _result.BMIResult;
-                this.BmiResultText = _result.BMIResult.ToString();
+                this.BmiResultText = _result.BMIResult.ToString(CultureInfo.InvariantCulture);
                 var healthDiagnosis = BMICalculateHelper
                     .GetWeightStatusCategory(_result.Age, _result.IsMale, _result.BMIResult);
                 this.BmiStatusColor = healthDiagnosis.StatusColor;
                 this.ClassifyLabel = healthDiagnosis.Classify;
                 this.Note = healthDiagnosis.Note;
                 _localeUserInfo = (await _userStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                if (_localeUserInfo is not null
-                    && !string.IsNullOrEmpty(_localeUserInfo.Name)
+                if (!string.IsNullOrEmpty(_localeUserInfo.Name)
                     && _localeUserInfo.Age > 0
                     && _localeUserInfo.Weight > 0
                     && _localeUserInfo.Height > 0)
@@ -106,7 +105,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         [SuppressPropertyChangedWarnings]
         partial void OnIsSaveSelectedChanged(bool value)
         {
-            if (value && _localeUserInfo != null)
+            if (value)
             {
                 this.IsLocaleUser = _localeUserInfo.Age == _result.Age
                     && _localeUserInfo.IsMale == _result.IsMale;
