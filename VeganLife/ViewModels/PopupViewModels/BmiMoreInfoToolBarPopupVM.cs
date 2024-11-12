@@ -6,7 +6,7 @@ namespace VeganLife.ViewModels.PopupViewModels
     public partial class BmiMoreInfoToolBarPopupVM : BaseViewModel
     {
         [ObservableProperty]
-        private ObservableCollection<string> documents;
+        private ObservableCollection<string> _documents;
 
         public BmiMoreInfoToolBarPopupVM()
             : base()

@@ -23,37 +23,37 @@ namespace VeganLife.ViewModels
 
         // private short age;
         [ObservableProperty]
-        private int height;
+        private int _height;
 
         [ObservableProperty]
-        private bool isDisplayedSexDetail;
+        private bool _isDisplayedSexDetail;
 
         [ObservableProperty]
-        private bool isMale;
+        private bool _isMale;
 
         [ObservableProperty]
-        private bool isEnableSubmit;
+        private bool _isEnableSubmit;
 
         [ObservableProperty]
-        private string? weightValue;
+        private string? _weightValue;
 
         [ObservableProperty]
-        private int ageValue;
+        private int _ageValue;
 
         [ObservableProperty]
-        private string? backgroundImg;
+        private string? _backgroundImg;
 
         [ObservableProperty]
-        private string? weightErrMess;
+        private string? _weightErrMess;
 
         [ObservableProperty]
-        private string? ageErrMess;
+        private string? _ageErrMess;
 
         [ObservableProperty]
-        private string? generalError;
+        private string? _generalError;
 
         [ObservableProperty]
-        private double bmiResult;
+        private double _bmiResult;
 
         public MainToolViewModel(UserInfoDataStoreServie userInfoDataStoreServie)
             : base()
@@ -126,17 +126,14 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            var entryWeight = view.FindByName("entryWeight") as Entry;
-
-            if (entryWeight != null && entryWeight.IsFocused)
+            if (view.FindByName("entryWeight") is Entry { IsFocused: true } entryWeight)
             {
                 this.deviceService.HideKeyboard();
                 entryWeight.Unfocus();
                 return;
             }
 
-            var entryAge = view.FindByName("entryAge") as Entry;
-            if (entryAge != null && entryAge.IsFocused)
+            if (view.FindByName("entryAge") is Entry entryAge && entryAge.IsFocused)
             {
                 this.deviceService.HideKeyboard();
                 entryAge.Unfocus();
@@ -224,10 +221,7 @@ namespace VeganLife.ViewModels
 
             if (data.ToString() == "weight")
             {
-                if (WeightValue is null)
-                {
-                    WeightValue = "0";
-                }
+                WeightValue ??= "0";
 
                 if (int.TryParse(WeightValue, out int weightNumber))
                 {

@@ -14,13 +14,13 @@ namespace VeganLife.ViewModels
         private readonly IUserDataService _userDataService;
 
         [ObservableProperty]
-        private UserInfo myInfo;
+        private UserInfo _myInfo;
 
         [ObservableProperty]
-        private byte numberInfoMiss;
+        private byte _numberInfoMiss;
 
         [ObservableProperty]
-        private int degreePerfection;
+        private int _degreePerfection;
 
         public ProfileViewModel()
             : base()

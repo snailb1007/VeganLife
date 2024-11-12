@@ -15,12 +15,12 @@ namespace VeganLife.ViewModels
     public partial class SettingViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private bool isDarkMode;
+        private bool _isDarkMode;
         [ObservableProperty]
-        private string appVersionDisplay;
+        private string _appVersionDisplay;
 
         [ObservableProperty]
-        private bool isAllowCollectLogs;
+        private bool _isAllowCollectLogs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingViewModel"/> class.

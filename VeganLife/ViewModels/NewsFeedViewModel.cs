@@ -25,10 +25,10 @@ namespace VeganLife.ViewModels
         private byte currentNumberItem;
 
         [ObservableProperty]
-        private ObservableCollection<Item> feeds;
+        private ObservableCollection<Item> _feeds;
 
         [ObservableProperty]
-        private ObservableCollection<Discovery> discoveryMenu;
+        private ObservableCollection<Discovery> _discoveryMenu;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
@@ -112,7 +112,7 @@ namespace VeganLife.ViewModels
                 }
 
                 MainThread.BeginInvokeOnMainThread(() => this.Feeds
-                    = this.dataReligion == null ? new() : new ObservableCollection<Item>(this.dataReligion));
+                    = this.dataReligion == null ? [] : new ObservableCollection<Item>(this.dataReligion));
             }
             else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
             {
@@ -123,7 +123,7 @@ namespace VeganLife.ViewModels
                 }
 
                 MainThread.BeginInvokeOnMainThread(() => this.Feeds
-                    = this.dataLiveStrong is null ? new() : new ObservableCollection<Item>(this.dataLiveStrong));
+                    = this.dataLiveStrong is null ? [] : new ObservableCollection<Item>(this.dataLiveStrong));
             }
 
             foreach (var item in this.DiscoveryMenu!)
@@ -158,10 +158,10 @@ namespace VeganLife.ViewModels
                 listTemp = this.isLiveStrongFeed ? this.dataLiveStrong : this.dataReligion;
             }
 
-            bool isLoadedAllData = this.Feeds?.Count > 0 && this.Feeds?.Count == listTemp?.Count();
+            var isLoadedAllData = this.Feeds?.Count > 0 && this.Feeds?.Count == listTemp?.Count();
             if (!isLoadedAllData)
             {
-                for (int i = 0; i < 10 && (i + this.currentNumberItem) < listTemp?.Count(); i++)
+                for (var i = 0; i < 10 && (i + this.currentNumberItem) < listTemp?.Count(); i++)
                 {
                     this.Feeds?.Add(listTemp.ElementAt(i + this.currentNumberItem));
                 }

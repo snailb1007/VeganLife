@@ -3,7 +3,7 @@
     public partial class DetailAthleticNutritionPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private AthleticNutritionModel athleticNutrition;
+        private AthleticNutritionModel _athleticNutrition;
 
         public DetailAthleticNutritionPageVM()
             : base()

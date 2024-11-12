@@ -12,11 +12,11 @@ namespace VeganLife.ViewModels
     public partial class NameAboutUPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private string name;
+        private string _name;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(NextClickedCommand))]
-        private bool isFilledName;
+        private bool _isFilledName;
 
         public override Task ViewAppearingVM()
         {
@@ -25,7 +25,7 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(IsFilledName))]
-        public async Task OnNextClicked()
+        private async Task OnNextClicked()
         {
             if (NextClickedCommand.IsRunning)
             {
