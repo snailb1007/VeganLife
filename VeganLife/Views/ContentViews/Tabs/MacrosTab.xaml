@@ -23,12 +23,13 @@
             <sho:MaterialFrame
                 Margin="10,5"
                 Padding="0"
-                sho:Commands.Tap="{Binding BindingContext.ItemSelectedChangedCommand, Source={x:Reference macroTabRoot}}"
-                sho:Commands.TapParameter="{Binding .}"
                 CornerRadius="10"
                 HorizontalOptions="FillAndExpand"
                 MaterialTheme="Acrylic"
                 VerticalOptions="CenterAndExpand">
+                <sho:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedChangedCommand, Source={x:Reference macroTabRoot}}" CommandParameter="{Binding .}" />
+                </sho:MaterialFrame.GestureRecognizers>
                 <Grid
                     Margin="5"
                     ColumnDefinitions="*,2*"
@@ -139,6 +140,7 @@
                                 Margin="5,10"
                                 Command="{Binding BindingContext.AddMealLogsClickedCommand, Source={x:Reference macroTabRoot}}"
                                 CommandParameter="{Binding .}"
+                                InputTransparent="False"
                                 Text="{x:Static translate:AppResources.addML_btn_macroTab}"
                                 VerticalOptions="Center" />
                             <Label

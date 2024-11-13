@@ -3,7 +3,7 @@
     public partial class DetailPharmacoLogicalPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private PharmacoLogicalModel pharmacoLogicalModel;
+        private PharmacoLogicalModel _pharmacoLogicalModel;
 
         public DetailPharmacoLogicalPageVM()
             : base()

@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.LocalDataServices;
@@ -11,16 +13,16 @@ namespace VeganLife.ViewModels
     /// <summary>
     /// Base class for view-model class.
     /// </summary>
-    public abstract partial class BaseViewModel : ObservableObject
+    public abstract partial class BaseViewModel : ObservableObject, IDisposable
     {
         private bool _hasShownAlert;
+        private IDisposable _busySubscription;
 
         protected readonly IDataService dataService;
         protected readonly INavigationService navigationService;
         protected readonly IDeviceService deviceService;
         protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
-        protected readonly ILoadingService loadingService;
 
         protected bool isInitialized;
 
@@ -44,7 +46,10 @@ namespace VeganLife.ViewModels
             }
         }
 
-        public bool IsLoading => (loadingService as LoadingService)?.IsLoading ?? false;
+        protected readonly BusyManager busyManager;
+
+        [ObservableProperty]
+        private bool _isLoading;
 
         [ObservableProperty]
         private bool _isNeedReloadAppearing;
@@ -59,7 +64,9 @@ namespace VeganLife.ViewModels
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
             this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
-            this.loadingService = ServicesHelper.GetService<ILoadingService>();
+            busyManager = new();
+
+            _busySubscription = busyManager.IsBusy.Subscribe(busy => IsLoading = busy);
         }
 
         public Task DisplayNoInternetAlert()
@@ -101,5 +108,46 @@ namespace VeganLife.ViewModels
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
 
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
+
+        void IDisposable.Dispose()
+        {
+            _busySubscription.Dispose();
         }
+    }
+
+    public class BusyManager : IDisposable
+    {
+        private readonly BehaviorSubject<bool> _isBusySubject = new BehaviorSubject<bool>(false);
+
+        private int _busyCount;
+
+        public IObservable<bool> IsBusy => _isBusySubject.AsObservable();
+
+        public void Increase()
+        {
+            int newCount = Interlocked.Increment(ref _busyCount);
+            UpdateBusyState(newCount);
+        }
+
+        public void Decrease()
+        {
+            int newCount = Interlocked.Decrement(ref _busyCount);
+            if (newCount < 0)
+            {
+                throw new InvalidOperationException("Busy count cannot be negative.");
+            }
+
+            UpdateBusyState(newCount);
+        }
+
+        private void UpdateBusyState(int newCount)
+        {
+            _isBusySubject.OnNext(newCount > 0);
+        }
+
+        void IDisposable.Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+    }
 }

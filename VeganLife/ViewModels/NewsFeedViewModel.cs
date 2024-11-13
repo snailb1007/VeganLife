@@ -25,10 +25,10 @@ namespace VeganLife.ViewModels
         private byte currentNumberItem;
 
         [ObservableProperty]
-        private ObservableCollection<Item> feeds;
+        private ObservableCollection<Item> _feeds;
 
         [ObservableProperty]
-        private ObservableCollection<Discovery> discoveryMenu;
+        private ObservableCollection<Discovery> _discoveryMenu;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsFeedViewModel"/> class.
@@ -42,7 +42,7 @@ namespace VeganLife.ViewModels
         {
             if (!isInitialized)
             {
-                await LoadData();
+                LoadData();
                 isInitialized = true;
             }
 
@@ -50,90 +50,89 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand]
-        private async Task RefreshFoods()
+        private void RefreshFoods()
         {
             if (this.IsLoading)
             {
                 return;
             }
 
-            await this.LoadData();
+            this.LoadData();
         }
 
         [RelayCommand]
-        private async Task SelectDiscoveryMenu(object obj)
+        private void SelectDiscoveryMenu(object obj)
         {
             if (this.IsLoading)
             {
                 return;
             }
 
-            using (await this.loadingService.Show())
+            this.busyManager.Increase();
+            var currentItem = (Discovery)obj;
+            if (currentItem == null || this.DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == currentItem)
             {
-                var currentItem = (Discovery)obj;
-                if (currentItem == null || this.DiscoveryMenu?.Where(i => i.IsSelected)?.FirstOrDefault() == currentItem)
-                {
-                    return;
-                }
-
-                this.currentNumberItem = 20;
-                this.Feeds?.Clear();
-                if (currentItem.Title.Equals(AppResources.veganFood_feedPage))
-                {
-                    this.SetFlagDiscoverySelected(isFood: true);
-                    if (!this.dataFood?.Any() ?? true)
-                    {
-                        this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
-                    }
-
-                    foreach (var item in this.dataFood?.Take(this.currentNumberItem)!)
-                    {
-                        this.Feeds?.Add(item);
-                    }
-                }
-                else if (currentItem.Title.Equals(AppResources.healthy_feedPage))
-                {
-                    this.SetFlagDiscoverySelected(isHealthy: true);
-                    if (!this.dataHealthy?.Any() ?? true)
-                    {
-                        this.dataHealthy = dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
-                    }
-
-                    foreach (var item in this.dataHealthy?.Take(this.currentNumberItem)!)
-                    {
-                        this.Feeds?.Add(item);
-                    }
-                }
-                else if (currentItem.Title.Equals(AppResources.religion_feedPage))
-                {
-                    this.SetFlagDiscoverySelected();
-                    if (!this.dataReligion?.Any() ?? true)
-                    {
-                        this.dataReligion = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsReligion);
-                    }
-
-                    MainThread.BeginInvokeOnMainThread(() => this.Feeds
-                        = new ObservableCollection<Item>(this.dataReligion));
-                }
-                else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
-                {
-                    this.SetFlagDiscoverySelected(liveStrong: true);
-                    if (!this.dataLiveStrong?.Any() ?? true)
-                    {
-                        this.dataLiveStrong = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
-                    }
-
-                    MainThread.BeginInvokeOnMainThread(() => this.Feeds
-                        = new ObservableCollection<Item>(this.dataLiveStrong));
-                }
-
-                foreach (var item in this.DiscoveryMenu!)
-                {
-                    item.IsSelected = false;
-                }
-
-                currentItem.IsSelected = true;
+                return;
             }
+
+            this.currentNumberItem = 20;
+            this.Feeds?.Clear();
+            if (currentItem.Title.Equals(AppResources.veganFood_feedPage))
+            {
+                this.SetFlagDiscoverySelected(isFood: true);
+                if (!this.dataFood?.Any() ?? true)
+                {
+                    this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+                }
+
+                foreach (var item in this.dataFood?.Take(this.currentNumberItem)!)
+                {
+                    this.Feeds?.Add(item);
+                }
+            }
+            else if (currentItem.Title.Equals(AppResources.healthy_feedPage))
+            {
+                this.SetFlagDiscoverySelected(isHealthy: true);
+                if (!this.dataHealthy?.Any() ?? true)
+                {
+                    this.dataHealthy = dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganHealthy);
+                }
+
+                foreach (var item in this.dataHealthy?.Take(this.currentNumberItem)!)
+                {
+                    this.Feeds?.Add(item);
+                }
+            }
+            else if (currentItem.Title.Equals(AppResources.religion_feedPage))
+            {
+                this.SetFlagDiscoverySelected();
+                if (!this.dataReligion?.Any() ?? true)
+                {
+                    this.dataReligion = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsReligion);
+                }
+
+                MainThread.BeginInvokeOnMainThread(() => this.Feeds
+                    = this.dataReligion == null ? [] : new ObservableCollection<Item>(this.dataReligion));
+            }
+            else if (currentItem.Title.Equals(AppResources.liveStrong_feedPage))
+            {
+                this.SetFlagDiscoverySelected(liveStrong: true);
+                if (!this.dataLiveStrong?.Any() ?? true)
+                {
+                    this.dataLiveStrong = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsLiveStrong);
+                }
+
+                MainThread.BeginInvokeOnMainThread(() => this.Feeds
+                    = this.dataLiveStrong is null ? [] : new ObservableCollection<Item>(this.dataLiveStrong));
+            }
+
+            foreach (var item in this.DiscoveryMenu!)
+            {
+                item.IsSelected = false;
+            }
+
+            currentItem.IsSelected = true;
+            this.busyManager.Decrease();
         }
 
         [RelayCommand]
@@ -159,10 +158,10 @@ namespace VeganLife.ViewModels
                 listTemp = this.isLiveStrongFeed ? this.dataLiveStrong : this.dataReligion;
             }
 
-            bool isLoadedAllData = this.Feeds?.Count > 0 && this.Feeds?.Count == listTemp?.Count();
+            var isLoadedAllData = this.Feeds?.Count > 0 && this.Feeds?.Count == listTemp?.Count();
             if (!isLoadedAllData)
             {
-                for (int i = 0; i < 10 && (i + this.currentNumberItem) < listTemp?.Count(); i++)
+                for (var i = 0; i < 10 && (i + this.currentNumberItem) < listTemp?.Count(); i++)
                 {
                     this.Feeds?.Add(listTemp.ElementAt(i + this.currentNumberItem));
                 }
@@ -181,45 +180,39 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+            var item = obj as Item;
+            try
             {
-                var item = obj as Item;
-                try
+                if (item == null)
                 {
-                    if (item == null)
-                    {
-                        return;
-                    }
+                    return;
+                }
 
-                    Uri uri = new Uri(item.link);
-                    await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
-                }
-                catch (Exception ex)
-                {
-                    ex.LogError(description: "No browser may be installed on the device");
-                }
+                Uri uri = new Uri(item.link);
+                await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                ex.LogError(description: "No browser may be installed on the device");
             }
         }
 
-        private async Task LoadData()
+        private void LoadData()
         {
-            using (await this.loadingService.Show())
+            if (this.Feeds != null && this.Feeds.Any())
             {
-                if (this.Feeds != null && this.Feeds.Any())
-                {
-                    this.Feeds.Clear();
-                }
-
-                if (this.DiscoveryMenu != null && this.DiscoveryMenu.Any())
-                {
-                    this.DiscoveryMenu.Clear();
-                }
-
-                this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
-                this.InitMenu();
-                this.currentNumberItem = 20;
-                this.Feeds = new ObservableCollection<Item>(this.dataFood.Take(this.currentNumberItem));
+                this.Feeds.Clear();
             }
+
+            if (this.DiscoveryMenu != null && this.DiscoveryMenu.Any())
+            {
+                this.DiscoveryMenu.Clear();
+            }
+
+            this.dataFood = this.dataService.ReadRssFeed(ConstantHelper.RssFeedNews.GoogleNewsVeganFoods);
+            this.InitMenu();
+            this.currentNumberItem = 20;
+            this.Feeds = new ObservableCollection<Item>(this.dataFood.Take(this.currentNumberItem));
         }
 
         private void InitMenu()

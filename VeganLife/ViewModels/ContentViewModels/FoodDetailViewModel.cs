@@ -14,23 +14,24 @@ namespace VeganLife.ViewModels.ContentViewModels
     /// </summary>
     public partial class FoodDetailViewModel : BaseViewModel
     {
-        private FoodDetailDataStoreService foodDetailDataStoreService;
-        [ObservableProperty]
-        private FoodPreviewModel foodPreview;
+        private readonly FoodDetailDataStoreService _foodDetailDataStoreService;
 
         [ObservableProperty]
-        private FoodDetailModel foodDetail;
+        private FoodPreviewModel _foodPreview;
 
         [ObservableProperty]
-        private FoodNutrientFacts foodNutriFacts;
+        private FoodDetailModel _foodDetail;
 
         [ObservableProperty]
-        private bool isExpanded;
-        [ObservableProperty]
-        private bool isShowingSwipeAnimation;
+        private FoodNutrientFacts _foodNutriFacts;
 
         [ObservableProperty]
-        private ObservableCollection<string> foodImage;
+        private bool _isExpanded;
+        [ObservableProperty]
+        private bool _isShowingSwipeAnimation;
+
+        [ObservableProperty]
+        private ObservableCollection<string> _foodImage;
         [ObservableProperty]
         private int _selectedViewModelIndex = 0;
 
@@ -40,7 +41,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         public FoodDetailViewModel()
             : base()
         {
-            this.foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
+            this._foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
             this.FoodImage = new ObservableCollection<string>();
         }
 
@@ -67,11 +68,11 @@ namespace VeganLife.ViewModels.ContentViewModels
 
                     if (this.FoodDetail == null)
                     {
-                        this.FoodDetail = (await this.foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
+                        this.FoodDetail = (await this._foodDetailDataStoreService.GetItemsAsync())?.FirstOrDefault()!;
                     }
                     else
                     {
-                        await this.foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
+                        await this._foodDetailDataStoreService.AddOrUpdateItemAsync(this.FoodDetail);
                     }
 
                     if (this.IsNetworkConnected)

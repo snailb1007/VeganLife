@@ -17,7 +17,7 @@ namespace VeganLife
     /// </summary>
     public partial class App : Application
     {
-        public readonly static double MainWidthSize = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+        public static double MainWidthSize = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
