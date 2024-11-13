@@ -16,46 +16,47 @@ namespace VeganLife.ViewModels
     {
         private readonly IUserDataService _userDataService;
 
-        public List<string> ActivityLevels => new List<string>
-        {
+        public List<string> ActivityLevels =>
+        [
             AppResources.mealLogsPage_sedentary,
             AppResources.mealLogsPage_LightlyActive,
             AppResources.mealLogsPage_ModeratelyActive,
             AppResources.mealLogsPage_VeryActive,
-            AppResources.mealLogsPage_SuperActive,
-        };
+            AppResources.mealLogsPage_SuperActive
+        ];
 
         [ObservableProperty]
-        private UserInfo localUser;
+        private UserInfo _localUser;
 
         [ObservableProperty]
-        private HealthDiagnosisModel healthDiagnosisResult;
+        private HealthDiagnosisModel _healthDiagnosisResult;
 
         [ObservableProperty]
-        private int selectedActivityLevelIndex = 0;
+        private int _selectedActivityLevelIndex = 0;
+
+        [ObservableProperty]
+        private double _goalWeight = -1;
 
         public MealLogsPageVM()
             : base()
         {
-            localUser = new UserInfo();
+            LocalUser = new UserInfo();
             _userDataService = ServicesHelper.GetService<IUserDataService>();
         }
 
-        public async override Task ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
             if (isInitialized)
             {
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await this._userDataService.Refresh();
-                LocalUser = _userDataService.GetUserInfo();
-                SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
-                HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
-                await base.ViewAppearingVM();
-            }
+            await this._userDataService.Refresh();
+            LocalUser = _userDataService.GetUserInfo();
+            SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
+            HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
+            GoalWeight = Math.Round(Math.Pow(LocalUser.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
+            await base.ViewAppearingVM();
 
             isInitialized = true;
         }
@@ -63,19 +64,13 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OnInfoClickedAsync(string param)
         {
-            string data = string.Empty;
-            switch (param)
+            string data = param switch
             {
-                case "BMI":
-                    data = AppResources.mealLogsPage_BMI_description;
-                    break;
-                case "BMR":
-                    data = AppResources.mealLogsPage_BMR_description;
-                    break;
-                case "TDEE":
-                    data = AppResources.mealLogsPage_TDEE_description;
-                    break;
-            }
+                "BMI" => AppResources.mealLogsPage_BMI_description,
+                "BMR" => AppResources.mealLogsPage_BMR_description,
+                "TDEE" => AppResources.mealLogsPage_TDEE_description,
+                _ => string.Empty,
+            };
 
             await MopupService.Instance.PushAsync(new SimpleInformationPopup(data));
         }
@@ -88,13 +83,12 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            MainThread.BeginInvokeOnMainThread(async () =>
+            async void Action()
             {
-                using (await this.loadingService.Show(delayTime: 200))
-                {
-                    await UpdateActivityLevelAsync();
-                }
-            });
+                await UpdateActivityLevelAsync();
+            }
+
+            MainThread.BeginInvokeOnMainThread(Action);
 
             async Task UpdateActivityLevelAsync()
             {

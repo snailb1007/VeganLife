@@ -11,8 +11,7 @@
     Title="Bước 4 trên 4"
     x:DataType="viewmodel:HeightAndWeightAboutPageVM"
     x:TypeArguments="viewmodel:HeightAndWeightAboutPageVM"
-    BackgroundColor="White"
-    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+    BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="All" />

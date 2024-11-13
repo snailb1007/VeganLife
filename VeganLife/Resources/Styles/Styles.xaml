@@ -27,9 +27,9 @@
         <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}" />
     </Style>
 
-    <ControlTemplate x:Key="FullScreenLoadingTemplate">
+    <!--<ControlTemplate x:Key="FullScreenLoadingTemplate">
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <ContentPresenter Margin="0" Padding="0" />
+            <ContentPresenter />
             <Grid
                 BindingContext="{TemplateBinding BindingContext}"
                 HorizontalOptions="FillAndExpand"
@@ -40,19 +40,15 @@
                     <MultiTrigger TargetType="Grid">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding ., Converter={StaticResource IsNotNullConverter}}" Value="True" />
-                            <BindingCondition Binding="{Binding IsBusy}" Value="True" />
+                            <BindingCondition Binding="{Binding IsLoading}" Value="True" />
                         </MultiTrigger.Conditions>
                         <Setter Property="IsVisible" Value="True" />
                     </MultiTrigger>
                 </Grid.Triggers>
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer />
-                </Grid.GestureRecognizers>
                 <skia:SKLottieView
                     Grid.Column="1"
                     HeightRequest="100"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsBusy}"
                     RepeatCount="-1"
                     RepeatMode="Restart"
                     Source="loading.json"
@@ -60,7 +56,11 @@
                     WidthRequest="100" />
             </Grid>
         </Grid>
-    </ControlTemplate>
+    </ControlTemplate>-->
+
+    <!--<Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+        <Setter Property="ControlTemplate" Value="{StaticResource FullScreenLoadingTemplate}" />
+    </Style>-->
 
     <ControlTemplate x:Key="EmptyListAnimationTemplate">
         <skia:SKLottieView

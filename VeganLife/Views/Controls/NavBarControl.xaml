@@ -3,7 +3,6 @@
     x:Class="VeganLife.Views.Controls.NavBarControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="rootNavBarControl"

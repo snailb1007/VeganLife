@@ -21,6 +21,8 @@ dotnet_diagnostic.SA1629.severity = none
 dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.CS8618.severity = none
 dotnet_diagnostic.SA1300.severity = none
+# from CompiledBindings pack
+dotnet_diagnostic.SA1027.severity = none
 
 csharp_using_directive_placement = outside_namespace:silent
 csharp_prefer_simple_using_statement = true:suggestion

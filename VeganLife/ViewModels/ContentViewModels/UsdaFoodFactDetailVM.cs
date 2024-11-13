@@ -14,22 +14,22 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
         private readonly USDAApiService _usdaApiService;
-        private readonly NutritionMealLogDataStoreService _foodLogService;
+        //private readonly NutritionMealLogDataStoreService _foodLogService;
 
         [ObservableProperty]
-        private USDAFoodPreviewModel currentFoodPreview;
+        private USDAFoodPreviewModel _currentFoodPreview;
 
         [ObservableProperty]
-        private USDAFoodNutritionFactModel currentFoodNutritionFact;
+        private USDAFoodNutritionFactModel _currentFoodNutritionFact;
 
         [ObservableProperty]
-        private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
+        private UndefinedMacroFoodNutriFactModel _currentUndefinedMacroFoodNutriFact;
 
         [ObservableProperty]
-        private bool isDataGridExpanded;
+        private bool _isDataGridExpanded;
 
         [ObservableProperty]
-        private List<AffiliationModel> affiliations;
+        private List<AffiliationModel> _affiliations;
 
         // simplys
         [ObservableProperty]
@@ -44,7 +44,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, NutritionMealLogDataStoreService nutritionMealLogDataStoreService)
         {
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
-            _foodLogService = nutritionMealLogDataStoreService;
+            //_foodLogService = nutritionMealLogDataStoreService;
             _usdaApiService = uSDAApiService;
         }
 
@@ -63,23 +63,23 @@ namespace VeganLife.ViewModels.ContentViewModels
             return base.OnNavigatingTo(parameter);
         }
 
-        public async override Task ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
-            using (await this.loadingService.Show())
+            this.busyManager.Increase();
+            await base.ViewAppearingVM();
+            if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
             {
-                await base.ViewAppearingVM();
-                if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
+                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                 {
-                    if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
-                    {
-                        await ProcessUndefineFoodAsync();
-                    }
-                    else
-                    {
-                        await ProcessUsdaFoodAsync();
-                    }
+                    await ProcessUndefineFoodAsync();
+                }
+                else
+                {
+                    await ProcessUsdaFoodAsync();
                 }
             }
+
+            this.busyManager.Decrease();
         }
 
         [RelayCommand]
@@ -90,25 +90,20 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+            await this.navigationService.PopToRootAsync();
+            if (ServicesHelper.GetCurrentViewModel() is NoteBookPageViewModel rootVM)
             {
-                await this.navigationService.PopToRootAsync();
-                var rootVM = ServicesHelper.GetCurrentViewModel() as NoteBookPageViewModel;
-                if (rootVM != null)
-                {
-                    rootVM.SelectedViewModelIndex = 1;
-                    rootVM.VitaminAndMineralVM.VitaminSearchText = param;
-                }
+                rootVM.SelectedViewModelIndex = 1;
+                rootVM.VitaminAndMineralVM.VitaminSearchText = param;
             }
         }
 
         [RelayCommand]
-        private async Task ChangeDataGridExpandState()
+        private void ChangeDataGridExpandState()
         {
-            using (await loadingService.Show(200))
-            {
-                IsDataGridExpanded = !IsDataGridExpanded;
-            }
+            this.busyManager.Increase();
+            IsDataGridExpanded = !IsDataGridExpanded;
+            _ = Task.Delay(200).ContinueWith(t => this.busyManager.Decrease());
         }
 
         private async Task ProcessUndefineFoodAsync()
@@ -165,9 +160,21 @@ namespace VeganLife.ViewModels.ContentViewModels
                     }
                 }
 
-                ProteinValue = _proteinValue;
-                CarbValue = _carbValue;
-                CaloriesValue = _caloriesValue;
+                if (_proteinValue != null)
+                {
+                    ProteinValue = _proteinValue;
+                }
+
+                if (_carbValue != null)
+                {
+                    CarbValue = _carbValue;
+                }
+
+                if (_caloriesValue != null)
+                {
+                    CaloriesValue = _caloriesValue;
+                }
+
                 void SetNutrientValue(ref UndefinedFoodNutrient? targetNutrient, FoodNutrient source, string[] searchTerms)
                 {
                     var nutrientName = source.Nutrient?.Name;
