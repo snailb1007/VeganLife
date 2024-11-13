@@ -6,7 +6,6 @@
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
-    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:mx="http://compiledbindings.com/x"
     xmlns:sho="http://sharpnado.com"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
