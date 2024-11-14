@@ -85,7 +85,7 @@ namespace VeganLife.ViewModels
         private double _opacityModeImage = 0.5;
 
         [ObservableProperty]
-        private ChatMessageModel theMessage;
+        private ChatMessageModel _theMessage;
 
         [ObservableProperty]
         private ChatLogsModel _currentChat;
@@ -165,7 +165,7 @@ namespace VeganLife.ViewModels
             }
 
             var adLogs = await _googleAdValidatorDataStoreService.GetItemsAsync();
-            if (adLogs.Count() > 0)
+            if (adLogs.Any())
             {
                 CurrentAdValidatorData = adLogs.Last();
                 if (CurrentAdValidatorData.LastTimeRewardOpen.Date < DateTime.Today.Date)

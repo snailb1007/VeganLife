@@ -56,7 +56,7 @@ namespace VeganLife.ViewModels
 
         private void Init()
         {
-            this.Foods = new ObservableCollection<FoodPreviewModel>();
+            this.Foods = [];
             _dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
@@ -92,13 +92,15 @@ namespace VeganLife.ViewModels
                         bool thisItemAlreadyExisted = false;
                         foreach (var item in localData)
                         {
-                            if (thisOnlineItem?.Id.Equals(item.Id) ?? false)
+                            if (!(thisOnlineItem?.Id.Equals(item.Id) ?? false))
                             {
-                                thisItemAlreadyExisted = true;
-                                thisOnlineItem.IsBookmarked = item.IsBookmarked;
-                                thisOnlineItem.IsRead = item.IsRead;
-                                await this._dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                                continue;
                             }
+
+                            thisItemAlreadyExisted = true;
+                            thisOnlineItem.IsBookmarked = item.IsBookmarked;
+                            thisOnlineItem.IsRead = item.IsRead;
+                            await this._dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                         }
 
                         // add new item from server to local
@@ -228,7 +230,7 @@ namespace VeganLife.ViewModels
             foreach (var item in foods)
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
-                int count = (from word in words
+                var count = (from word in words
                              where normalName.Contains(word)
                              select word).Count();
                 item.CountCorrectWordOnSearch = count;

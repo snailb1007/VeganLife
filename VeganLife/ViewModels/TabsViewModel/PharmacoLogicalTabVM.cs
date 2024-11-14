@@ -10,18 +10,13 @@ namespace VeganLife.ViewModels.TabsViewModel
         private IEnumerable<PharmacoLogicalModel> _allPharmacoLogical;
 
         [ObservableProperty]
-        private ObservableCollection<PharmacoLogicalModel> pharmacoLogicals;
+        private ObservableCollection<PharmacoLogicalModel> _pharmacoLogicals;
 
         [ObservableProperty]
-        private string pharmacoLogicalSearchText;
+        private string _pharmacoLogicalSearchText;
 
         [ObservableProperty]
-        private bool isBannerClosed;
-
-        public PharmacoLogicalTabVM()
-            : base()
-        {
-        }
+        private bool _isBannerClosed;
 
         public override async Task ViewAppearingVM()
         {
