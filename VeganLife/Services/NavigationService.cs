@@ -39,7 +39,7 @@ namespace VeganLife.Services
             }
         }
 
-        private readonly IServiceProvider services;
+        private readonly IServiceProvider _services;
 
         private Page? MainPage => Application.Current?.MainPage;
 
@@ -56,7 +56,7 @@ namespace VeganLife.Services
         /// </summary>
         public NavigationService(IServiceProvider services)
         {
-            this.services = services;
+            this._services = services;
         }
 
         /// <summary>
@@ -121,12 +121,7 @@ namespace VeganLife.Services
         private Task CallNavigatedTo(Page p)
         {
             var fromViewModel = this.GetPageViewModel(p);
-            if (fromViewModel is not null)
-            {
-                return fromViewModel.OnNavigatedTo();
-            }
-
-            return Task.CompletedTask;
+            return fromViewModel is not null ? fromViewModel.OnNavigatedTo() : Task.CompletedTask;
         }
 
         private void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
@@ -136,31 +131,28 @@ namespace VeganLife.Services
             bool isForwardNavigation = this.Navigation.NavigationStack.Count > 1
                 && this.Navigation.NavigationStack[^2] == sender;
 
-            if (sender is Page thisPage)
+            if (sender is not Page thisPage)
             {
-                if (!isForwardNavigation)
-                {
-                    thisPage.NavigatedTo -= this.Page_NavigatedTo;
-                }
-
-                this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => ex.LogError());
+                return;
             }
+
+            if (!isForwardNavigation)
+            {
+                thisPage.NavigatedTo -= this.Page_NavigatedTo;
+            }
+
+            this.CallNavigatedFrom(thisPage, isForwardNavigation).SafeFireAndForget(onException: ex => ex.LogError());
         }
 
         private Task CallNavigatedFrom(Page p, bool isForward)
         {
             var fromViewModel = this.GetPageViewModel(p);
 
-            if (fromViewModel is not null)
-            {
-                return fromViewModel.OnNavigatedFrom(isForward);
-            }
-
-            return Task.CompletedTask;
+            return fromViewModel is not null ? fromViewModel.OnNavigatedFrom(isForward) : Task.CompletedTask;
         }
 
         private T? ResolvePage<T>()
             where T : Page
-            => this.services?.GetService<T>();
+            => this._services?.GetService<T>();
     }
 }
