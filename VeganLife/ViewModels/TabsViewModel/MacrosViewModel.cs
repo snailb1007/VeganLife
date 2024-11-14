@@ -17,9 +17,9 @@ namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
-        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService;
-        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService;
-        private readonly USDAApiService _uSDAApiService;
+        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService = ServicesHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
+        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+        private readonly USDAApiService _uSDAApiService = ServicesHelper.GetService<USDAApiService>();
 
         private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
 
@@ -36,24 +36,16 @@ namespace VeganLife.ViewModels.TabsViewModel
         private bool _isBannerClosed;
 
         [ObservableProperty]
-        private bool isScrolling;
+        private bool _isScrolling;
 
         [ObservableProperty]
-        private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
+        private ObservableCollection<USDAFoodPreviewModel> _usdaFoodPreviews;
 
         [ObservableProperty]
-        private string textSearch;
+        private string _textSearch;
 
         [ObservableProperty]
-        private USDAFoodPreviewModel usdaFoodPreviewCurrent;
-
-        public MacrosViewModel()
-            : base()
-        {
-            _usdaFoodNutritionFactDataStoreService = ServicesHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
-            _uSDAApiService = ServicesHelper.GetService<USDAApiService>();
-            _undefinedMacroFoodNutriFactDataStoreService = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
-        }
+        private USDAFoodPreviewModel _usdaFoodPreviewCurrent;
 
         public override async Task<Task> ViewAppearingVM()
         {
@@ -70,7 +62,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                     this._allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
                 }
 
-                App.Current?.Windows[0]?.Page?.Dispatcher?
+                Application.Current?.Windows[0]?.Page?.Dispatcher?
                     .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(_allUSDAFoodPreview ?? []));
             }
 
@@ -249,7 +241,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
 
             // Filter by categories if specified
-            if (categories != null && categories.Length > 0)
+            if (categories is { Length: > 0 })
             {
                 // Convert categories to a hash set for efficient lookup
                 HashSet<string> categorySet = new HashSet<string>(categories);

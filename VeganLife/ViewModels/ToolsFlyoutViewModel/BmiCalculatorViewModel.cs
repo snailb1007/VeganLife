@@ -11,21 +11,24 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
     {
         private const string HeightMaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_male";
         private const string HeightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
+        
+        private float _heightAvgVN;
+        private float _heightAvgUS;
 
         [ObservableProperty]
         private UserInfo _localUserInfo;
+        
         [ObservableProperty]
         private double _goalWeight;
+        
         [ObservableProperty]
         private double _differentGoalWeight;
+        
         [ObservableProperty]
         private HealthDiagnosisModel _healthDiagnosis;
 
         [ObservableProperty]
         private ISeries[] _series;
-
-        private float _heightAvgVN;
-        private float _heightAvgUS;
 
         public override async Task<Task> ViewAppearingVM()
         {
@@ -37,7 +40,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             tasks.Add(getLocalUserTask);
             await Task.WhenAll(tasks);
             MainThread.BeginInvokeOnMainThread(() => this.LocalUserInfo = getLocalUserTask.Result);
-            if (LocalUserInfo != null && LocalUserInfo.BMIResult > 0)
+            if (LocalUserInfo is { BMIResult: > 0 })
             {
                 this.GoalWeight = Math.Round(Math.Pow(this.LocalUserInfo.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
                 this.DifferentGoalWeight = Math.Abs(GoalWeight - this.LocalUserInfo.Weight);
