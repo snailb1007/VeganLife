@@ -27,19 +27,19 @@ namespace VeganLife.ViewModels
 
         // private IList<FoodPreviewModel> passFilterFoods;
         [ObservableProperty]
-        private bool isSearchFocused;
+        private bool _isSearchFocused;
         [ObservableProperty]
-        private bool isFilterContentExpaned;
+        private bool _isFilterContentExpaned;
         [ObservableProperty]
-        private ObservableCollection<FoodPreviewModel> foods;
+        private ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
-        private IEnumerable<FoodMenuCategoryModel> category;
+        private IEnumerable<FoodMenuCategoryModel> _category;
         [ObservableProperty]
-        private FoodPreviewModel currentFoodSelected;
+        private FoodPreviewModel _currentFoodSelected;
         [ObservableProperty]
-        private string searchText;
+        private string _searchText;
 
-        private bool isLoadDataOnAppearingDone;
+        private bool _isLoadDataOnAppearingDone;
 
         // public IAsyncRelayCommand GoFoodDetailCommand { get; }
 
@@ -62,7 +62,7 @@ namespace VeganLife.ViewModels
 
         public override Task ViewAppearingVM()
         {
-            if (!isLoadDataOnAppearingDone)
+            if (!_isLoadDataOnAppearingDone)
             {
                 LoadDataCommand.Execute(null);
             }
@@ -133,7 +133,7 @@ namespace VeganLife.ViewModels
             }
 
             await this.SetupMenu();
-            this.isLoadDataOnAppearingDone = true;
+            this._isLoadDataOnAppearingDone = true;
         }
 
         private async Task SetupMenu()

@@ -13,21 +13,16 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
         private const string HeightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
 
         [ObservableProperty]
-        private UserInfo localUserInfo;
+        private UserInfo _localUserInfo;
         [ObservableProperty]
-        private double goalWeight;
+        private double _goalWeight;
         [ObservableProperty]
-        private double differentGoalWeight;
+        private double _differentGoalWeight;
         [ObservableProperty]
-        private HealthDiagnosisModel healthDiagnosis;
+        private HealthDiagnosisModel _healthDiagnosis;
 
         [ObservableProperty]
-        private ISeries[] series;
-
-        public BmiCalculatorViewModel()
-           : base()
-        {
-        }
+        private ISeries[] _series;
 
         private float _heightAvgVN;
         private float _heightAvgUS;

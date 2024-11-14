@@ -17,11 +17,6 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private IEnumerable<FoodPreviewModel> _foods;
 
-        public FoodsByCategoryViewModel()
-            : base()
-        {
-        }
-
         /// <inheritdoc/>
         public override Task OnNavigatingTo(object? parameter)
         {

@@ -5,11 +5,6 @@
         [ObservableProperty]
         private AthleticNutritionModel _athleticNutrition;
 
-        public DetailAthleticNutritionPageVM()
-            : base()
-        {
-        }
-
         public override Task OnNavigatingTo(object? parameter)
         {
             if (parameter is AthleticNutritionModel model)
