@@ -19,7 +19,7 @@ namespace VeganLife.ViewModels
 
         public string AgeBmiRegexPattern { get; } = @"^\d+$";
 
-        private float weight;
+        private float _weight;
 
         // private short age;
         [ObservableProperty]
@@ -73,7 +73,7 @@ namespace VeganLife.ViewModels
                     this.IsMale = _localUserInfor.IsMale;
                     this.AgeValue = _localUserInfor.Age;
                     this.Height = _localUserInfor.Height;
-                    this.WeightValue = _localUserInfor.Weight.ToString();
+                    this.WeightValue = _localUserInfor.Weight.ToString(CultureInfo.InvariantCulture);
                 }
             }).ConfigureAwait(false);
             WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
@@ -89,7 +89,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task CalculateBmi()
         {
-            this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
+            this.BmiResult = BMICalculateHelper.Calculate(this._weight, this.Height / 100f);
             _bmiResultData = new BMIResultModel()
             {
                 BMIResult = (float)this.BmiResult,
@@ -156,12 +156,12 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            this.weight = float.TryParse(value, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue) ? outValue : 0;
-            if (weight < 2)
+            this._weight = float.TryParse(value, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue) ? outValue : 0;
+            if (_weight < 2)
             {
                 this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooLow_bmiCalculatePage;
             }
-            else if (weight > 635)
+            else if (_weight > 635)
             {
                 this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooHigh_bmiCalculatePage;
             }
@@ -272,7 +272,7 @@ namespace VeganLife.ViewModels
                     WeightValue = "0";
                     AgeValue = 0;
                 }
-                else if (Application.Current?.MainPage is AppShell currentShell)
+                else if (Application.Current?.Windows[0]?.Page is AppShell currentShell)
                 {
                     MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param, this._bmiResultData));
                 }

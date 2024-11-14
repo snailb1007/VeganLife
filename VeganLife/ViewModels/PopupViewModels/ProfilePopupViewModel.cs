@@ -16,36 +16,36 @@ namespace VeganLife.ViewModels.PopupViewModels
     /// </summary>
     public partial class ProfilePopupViewModel : BaseViewModel
     {
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         [ObservableProperty]
-        private UserInfo userInfo;
+        private UserInfo _userInfo;
 
         [ObservableProperty]
-        private string userName;
+        private string _userName;
         [ObservableProperty]
-        private bool isWrongFormatName;
+        private bool _isWrongFormatName;
 
         [ObservableProperty]
-        private DateTime selectedDate;
+        private DateTime _selectedDate;
         [ObservableProperty]
-        private bool isWrongDate;
+        private bool _isWrongDate;
 
         [ObservableProperty]
-        private short userHeight;
+        private short _userHeight;
 
         [ObservableProperty]
-        private string userWeight;
+        private string _userWeight;
         [ObservableProperty]
-        private bool isWrongFormatWeight;
+        private bool _isWrongFormatWeight;
 
         [ObservableProperty]
-        private string errorMess;
+        private string _errorMess;
         [ObservableProperty]
-        private bool isUserLocalDataUpdating;
+        private bool _isUserLocalDataUpdating;
 
         [ObservableProperty]
-        private bool isMale;
+        private bool _isMale;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePopupViewModel"/> class.

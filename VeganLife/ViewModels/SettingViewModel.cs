@@ -40,7 +40,7 @@ namespace VeganLife.ViewModels
 
         private void Init()
         {
-            var currentDeviceTheme = App.Current?.UserAppTheme;
+            var currentDeviceTheme = Application.Current?.UserAppTheme;
             this.IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }
 

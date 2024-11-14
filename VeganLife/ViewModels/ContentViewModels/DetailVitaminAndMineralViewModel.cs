@@ -33,7 +33,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             if (parameter is VitaminModel vitamin)
             {
                 Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
-                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
+                    ?? []).ToList();
                 this.Vitamin = vitamin;
             }
 

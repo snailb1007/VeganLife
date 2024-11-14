@@ -5,11 +5,6 @@
         [ObservableProperty]
         private PharmacoLogicalModel _pharmacoLogicalModel;
 
-        public DetailPharmacoLogicalPageVM()
-            : base()
-        {
-        }
-
         public override Task OnNavigatingTo(object? parameter)
         {
             if (parameter is PharmacoLogicalModel model)

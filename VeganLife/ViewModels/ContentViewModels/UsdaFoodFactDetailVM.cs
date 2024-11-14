@@ -57,7 +57,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                 var nameNormal = this.CurrentFoodPreview?.Name?.RemoveNestedParentheses() ?? string.Empty;
                 Affiliations = (StaticHelper.Affiliation.Affiliations
                     .Where(i => i.NutrientName == nameNormal || nameNormal.ToLower().Contains(i.NutrientName.ToLower()))
-                        ?? Enumerable.Empty<AffiliationModel>()).ToList();
+                        ?? []).ToList();
             }
 
             return base.OnNavigatingTo(parameter);
@@ -91,10 +91,10 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             await this.navigationService.PopToRootAsync();
-            if (ServicesHelper.GetCurrentViewModel() is NoteBookPageViewModel rootVM)
+            if (ServicesHelper.GetCurrentViewModel() is NoteBookPageViewModel rootVm)
             {
-                rootVM.SelectedViewModelIndex = 1;
-                rootVM.VitaminAndMineralVM.VitaminSearchText = param;
+                rootVm.SelectedViewModelIndex = 1;
+                rootVm.VitaminAndMineralVM.VitaminSearchText = param;
             }
         }
 

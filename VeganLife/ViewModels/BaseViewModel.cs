@@ -16,12 +16,12 @@ namespace VeganLife.ViewModels
     public abstract partial class BaseViewModel : ObservableObject, IDisposable
     {
         private bool _hasShownAlert;
-        private IDisposable _busySubscription;
+        private readonly IDisposable _busySubscription;
 
         protected readonly IDataService dataService;
         protected readonly INavigationService navigationService;
         protected readonly IDeviceService deviceService;
-        protected readonly ISQLite localDatabase;
+        //protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
 
         protected bool isInitialized;
@@ -62,7 +62,7 @@ namespace VeganLife.ViewModels
             this.dataService = ServicesHelper.GetService<IDataService>();
             this.navigationService = ServicesHelper.GetService<INavigationService>();
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
-            this.localDatabase = ServicesHelper.GetService<ISQLite>();
+            //this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
             busyManager = new();
 
