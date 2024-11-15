@@ -64,8 +64,12 @@ namespace VeganLife.ViewModels.PopupViewModels
             }
 
             UserName = UserInfo.Name;
-            SelectedDate = UserInfo.DateOfBirth.Value;
-            UserWeight = UserInfo.Weight.ToString();
+            if (UserInfo.DateOfBirth != null)
+            {
+                SelectedDate = UserInfo.DateOfBirth.Value;
+            }
+
+            UserWeight = UserInfo.Weight.ToString(CultureInfo.InvariantCulture);
             UserHeight = UserInfo.Height;
             IsMale = UserInfo.IsMale;
         }
@@ -126,7 +130,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
                 await toast.Show(_cancellationTokenSource.Token);
-                WeakReferenceMessenger.Default.Send(new ProfileChangedMessage(null));
+                WeakReferenceMessenger.Default.Send(new ProfileChangedMessage(null!));
             }
         }
 

@@ -3,7 +3,7 @@ using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class PharmacoLogicalTab : ContentView
+public partial class PharmacoLogicalTab
 {
     public PharmacoLogicalTab()
     {

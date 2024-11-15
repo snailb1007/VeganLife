@@ -17,7 +17,7 @@ namespace VeganLife
     /// <summary>
     /// auto-generated.
     /// </summary>
-    public partial class AppShell : Shell
+    public partial class AppShell
     {
         private ShellNavigationSource _currentShellNavigationSource;
 

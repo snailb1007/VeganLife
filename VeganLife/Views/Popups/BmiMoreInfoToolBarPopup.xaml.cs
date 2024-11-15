@@ -3,7 +3,7 @@ using VeganLife.ViewModels.PopupViewModels;
 
 namespace VeganLife.Views.Popups;
 
-public partial class BmiMoreInfoToolBarPopup : Popup
+public partial class BmiMoreInfoToolBarPopup
 {
     public BmiMoreInfoToolBarPopup(BmiMoreInfoToolBarPopupVM vm)
     {

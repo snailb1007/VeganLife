@@ -7,7 +7,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout
 {
-    public partial class NewsFeedPage : BasePage<NewsFeedViewModel>, IBaseRootPage
+    public partial class NewsFeedPage: IBaseRootPage
     {
         public bool IsAnimated { get; set; }
 

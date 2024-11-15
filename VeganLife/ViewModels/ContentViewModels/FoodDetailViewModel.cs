@@ -42,14 +42,14 @@ namespace VeganLife.ViewModels.ContentViewModels
             : base()
         {
             this._foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
-            this.FoodImage = new ObservableCollection<string>();
+            this.FoodImage = [];
         }
 
         /// <inheritdoc/>
         public override async Task OnNavigatingTo(object? parameter)
         {
             await base.OnNavigatingTo(parameter!);
-            List<string> imgs = new List<string>();
+            var imgs = new List<string>();
 
             if (parameter is not null)
             {
@@ -312,17 +312,18 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         private List<string> GetMoreImage(List<string> imgs)
         {
-            if (imgs?.Any() ?? false)
+            if (!(imgs?.Any() ?? false))
             {
-                var filteredImages = imgs.Where(item =>
-                    !string.IsNullOrEmpty(item) &&
-                    !item.Contains("150") &&
-                    item.Contains(this.FoodDetail.Key) &&
-                    !FoodImage.Contains(item)).ToList();
-                return filteredImages;
+                return [];
             }
 
-            return new List<string>();
+            var filteredImages = imgs.Where(item =>
+                !string.IsNullOrEmpty(item) &&
+                !item.Contains("150") &&
+                item.Contains(this.FoodDetail.Key) &&
+                !FoodImage.Contains(item)).ToList();
+            return filteredImages;
+
         }
     }
 }

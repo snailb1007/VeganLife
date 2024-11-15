@@ -2,7 +2,7 @@ using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class AthleticNutritionTab : ContentView
+public partial class AthleticNutritionTab
 {
     public AthleticNutritionTab()
     {

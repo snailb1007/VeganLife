@@ -5,6 +5,7 @@
 using Mopups.Services;
 using PropertyChanged;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;
@@ -83,12 +84,23 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            async void Action()
+            MainThread.BeginInvokeOnMainThread(async void () =>
+            {
+                try
+                {
+                    await Action();
+                }
+                catch (Exception e)
+                {
+                    e.LogError();
+                }
+            });
+            return;
+
+            async Task Action()
             {
                 await UpdateActivityLevelAsync();
             }
-
-            MainThread.BeginInvokeOnMainThread(Action);
 
             async Task UpdateActivityLevelAsync()
             {

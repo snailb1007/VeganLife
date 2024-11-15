@@ -7,7 +7,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout.VitaminTab
 {
-    public partial class DetailVitaminAndMineralPage : BasePage<DetailVitaminAndMineralViewModel>
+    public partial class DetailVitaminAndMineralPage
     {
         private double _xOffset;
         private double _yOffset;

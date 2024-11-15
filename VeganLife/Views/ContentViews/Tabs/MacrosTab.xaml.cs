@@ -3,10 +3,10 @@ using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class MacrosTab : ContentView
+public partial class MacrosTab
 {
     private MacrosViewModel _vm;
-    private Timer _timer;
+    private readonly Timer _timer;
 
     public MacrosTab()
     {

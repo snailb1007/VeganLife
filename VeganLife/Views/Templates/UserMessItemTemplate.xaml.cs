@@ -1,6 +1,6 @@
 namespace VeganLife.Views.Templates;
 
-public partial class UserMessItemTemplate : Grid
+public partial class UserMessItemTemplate 
 {
     public UserMessItemTemplate()
     {

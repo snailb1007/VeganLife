@@ -32,7 +32,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 if (!string.IsNullOrEmpty(link))
                 {
                     await Browser.Default.OpenAsync(link);
-                    parameter = null;
+                    parameter = null!;
                 }
             }
         }
