@@ -165,7 +165,7 @@
                             Command="{Binding MacrosViewModel.FilterCommand}"
                             FontFamily="FAThin"
                             FontSize="Medium"
-                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible}"
+                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible, x:DataType={x:Type SearchBar}}"
                             Text="&#xf0b0;">
                             <Button.Triggers>
                                 <DataTrigger
@@ -200,7 +200,7 @@
                 IsVisible="{Binding MacrosViewModel.IsScrolling, Converter={StaticResource InvertedBoolConverter}}"
                 Orientation="Horizontal"
                 SegmentedOutlineColor="Transparent"
-                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay, x:DataType={x:Type sharpnado:ViewSwitcher}}"
                 TabType="Scrollable"
                 VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>
