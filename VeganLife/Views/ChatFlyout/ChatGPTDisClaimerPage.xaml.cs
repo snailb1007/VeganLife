@@ -6,7 +6,7 @@ using AsyncAwaitBestPractices;
 
 namespace VeganLife.Views.ChatFlyout;
 
-public partial class ChatGPTDisClaimerPage : ContentPage
+public partial class ChatGPTDisClaimerPage
 {
     private readonly INavigationService _navigationService;
 

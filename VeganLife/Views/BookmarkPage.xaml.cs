@@ -6,7 +6,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views
 {
-    public partial class BookmarkPage : BasePage<BookmarkViewModel>
+    public partial class BookmarkPage
     {
         public BookmarkPage(BookmarkViewModel vm)
             : base(vm)

@@ -9,7 +9,7 @@ using VeganLife.ViewModels.PopupViewModels;
 
 namespace VeganLife.Views.Popups
 {
-    public partial class BmiResultPopup : PopupPage
+    public partial class BmiResultPopup
     {
         public BmiResultPopup(BmiResultPopupViewmodel vm)
         {

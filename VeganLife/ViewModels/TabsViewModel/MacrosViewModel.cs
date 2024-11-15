@@ -11,7 +11,7 @@ using VeganLife.Resources.Translations;
 using VeganLife.Services.CommunityFreeService;
 using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.MainPageFlyout;
-using VeganLife.Views.PortionTab;
+using VeganLife.Views.MainPageFlyout.PortionTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
@@ -59,7 +59,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 if (!_allUSDAFoodPreview?.Any() ?? true)
                 {
                     var foodData = await this.dataService.GetFoodsUSDA();
-                    this._allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
+                    this._allUSDAFoodPreview = [..foodData];
                 }
 
                 Application.Current?.Windows[0]?.Page?.Dispatcher?

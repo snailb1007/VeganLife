@@ -2,7 +2,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views;
 
-public partial class SupportPage : BasePage<SupportPageVM>
+public partial class SupportPage
 {
     public SupportPage(SupportPageVM vm)
         : base(vm)

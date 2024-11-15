@@ -373,9 +373,6 @@
 		<MauiXaml Update="Views\SettingFlyout\LicensePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\ToolFlyout\BMICalculatorPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<!--<MauiXaml Update="Views\WebViewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>-->

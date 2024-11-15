@@ -7,7 +7,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout.FoodTab
 {
-    public partial class FoodDetailPage : BasePage<FoodDetailViewModel>
+    public partial class FoodDetailPage
     {
         private double _widthOfTabView;
 
@@ -23,21 +23,5 @@ namespace VeganLife.Views.MainPageFlyout.FoodTab
             this.InitializeComponent();
             WidthOfTabView = App.MainWidthSize / 2;
         }
-
-        //private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //}
-
-        //private void VerticalStackLayout_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //}
-
-        //private void GoNutriFact_SwipeGesture_Swiped(object sender, SwipedEventArgs e)
-        //{
-        //}
-
-        //private void tabItemNutritionFacts_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //}
     }
 }

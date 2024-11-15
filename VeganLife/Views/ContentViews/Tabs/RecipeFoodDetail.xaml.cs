@@ -1,6 +1,6 @@
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class RecipeFoodDetail : VerticalStackLayout
+public partial class RecipeFoodDetail
 {
     public RecipeFoodDetail()
     {

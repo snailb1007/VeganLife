@@ -10,9 +10,9 @@ namespace VeganLife
     /// <summary>
     /// auto-generated.
     /// </summary>
-    public partial class MainPage : BasePage<MainViewModel>, IBaseRootPage
+    public partial class MainPage : IBaseRootPage
     {
-        private readonly MainViewModel viewModel;
+        private readonly MainViewModel _viewModel;
 
         public bool IsAnimated { get; set; }
 
@@ -20,7 +20,7 @@ namespace VeganLife
             : base(vm)
         {
             this.InitializeComponent();
-            this.viewModel = vm;
+            this._viewModel = vm;
         }
 
         private void GridTransparentTapped(object sender, TappedEventArgs e)
@@ -30,7 +30,7 @@ namespace VeganLife
 
         private void RefreshView_Refreshing(object sender, EventArgs e)
         {
-            viewModel.LoadDataCommand.Execute(null);
+            _viewModel.LoadDataCommand.Execute(null);
             if (sender is RefreshView refreshView)
             {
                 refreshView.IsRefreshing = false;

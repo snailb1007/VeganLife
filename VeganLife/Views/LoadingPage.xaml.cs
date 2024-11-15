@@ -9,7 +9,7 @@ using VeganLife.Views.Popups;
 
 namespace VeganLife.Views;
 
-public partial class LoadingPage : ContentPage
+public partial class LoadingPage
 {
     public LoadingPage()
     {
