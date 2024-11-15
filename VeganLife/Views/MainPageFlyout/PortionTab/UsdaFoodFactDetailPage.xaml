@@ -68,7 +68,7 @@
                                 TextColor="{StaticResource PrimaryDark}">
                                 <Label.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
+                                        Binding="{Binding IsExpanded, Source={x:Reference titleExpander}, x:DataType={x:Type toolkit:Expander}}"
                                         TargetType="Label"
                                         Value="True">
                                         <Setter Property="Text" Value="{StaticResource IconAngleDown}" />

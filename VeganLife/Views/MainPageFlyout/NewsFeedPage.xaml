@@ -48,7 +48,7 @@
                     Margin="0,0,5,0"
                     BackgroundColor="{AppThemeBinding Dark=White,
                                                       Light=Black}"
-                    HeightRequest="{Binding Source={x:Reference lbDiscoverTitle}, Path=FontSize}"
+                    HeightRequest="{Binding Source={x:Reference lbDiscoverTitle}, Path=FontSize, x:DataType={x:Type Label}}"
                     VerticalOptions="Center"
                     WidthRequest="5" />
                 <Label

@@ -8,7 +8,7 @@
 		<MauiVersion>9.0.0</MauiVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 
 		<!-- Display name -->
 		<ApplicationTitle>HealthyChef</ApplicationTitle>
@@ -23,6 +23,8 @@
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+
+		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 		<DefineConstants>$(DefineConstants);DATACENTER;DEV</DefineConstants>
 	</PropertyGroup>
 
