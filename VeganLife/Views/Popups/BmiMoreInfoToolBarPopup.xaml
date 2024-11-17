@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converterCustom="clr-namespace:VeganLife.Helpers.Converter"
+    xmlns:popup="clr-namespace:VeganLife.Views.Popups"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.PopupViewModels"
     x:Name="root"
@@ -47,7 +48,7 @@
                                     TextColor="SkyBlue"
                                     VerticalOptions="Center">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding HyperlinkClickedCommand}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding ViewModel.HyperlinkClickedCommand, Source={x:Reference root}, x:DataType={x:Type popup:BmiMoreInfoToolBarPopup}}" CommandParameter="{Binding .}" />
                                     </Label.GestureRecognizers>
                                 </Label>
                             </ViewCell>

@@ -27,7 +27,7 @@
     <toolkit:Expander
         x:Name="expander"
         x:DataType="cw:ElementFoodDetailCW"
-        BindingContext="{Binding Source={x:Reference rootElementFoodDetailCW}}"
+        BindingContext="{Binding Source={Reference rootElementFoodDetailCW}, x:DataType={x:Type cw:ElementFoodDetailCW}}"
         IsExpanded="{Binding IsExpanded}">
         <toolkit:Expander.Header>
             <StackLayout>
