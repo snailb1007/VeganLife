@@ -7,7 +7,7 @@ namespace VeganLife.Views.ContentViews.Tabs;
 public partial class PharmacoLogicalTab
 {
     public PharmacoLogicalTabVM ViewModel { get; private set; }
-    
+
     public PharmacoLogicalTab()
     {
         InitializeComponent();

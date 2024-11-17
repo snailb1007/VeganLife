@@ -1,9 +1,6 @@
-﻿#if DEBUG
-using VeganLife.Helpers;
+﻿using VeganLife.Helpers;
 using VeganLife.Services.UserServices;
-#else
 using VeganLife.Views.AboutYou;
-#endif
 
 namespace VeganLife.ViewModels
 {

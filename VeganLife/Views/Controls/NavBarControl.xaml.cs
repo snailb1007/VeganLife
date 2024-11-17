@@ -4,7 +4,6 @@
 
 using AsyncAwaitBestPractices;
 using Mopups.Services;
-using System.Net.NetworkInformation;
 using VeganLife.Helpers;
 using VeganLife.Views.Popups;
 
