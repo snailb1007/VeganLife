@@ -36,15 +36,15 @@ namespace VeganLife.Models.FoodModel
     public partial class FoodPreviewModel : ObservableObject
     {
         [ObservableProperty]
-        private int countCorrectWordOnSearch;
+        private int _countCorrectWordOnSearch;
 
-        private string[]? TimeArr => this.Time?.Split('-');
-
-        [ObservableProperty]
-        private bool isBookmarked;
+        private string[] TimeArr => this.Time?.Split('-');
 
         [ObservableProperty]
-        private bool isRead;
+        private bool _isBookmarked;
+
+        [ObservableProperty]
+        private bool _isRead;
 
         public byte PrepTime
             => (this.TimeArr != null && byte.TryParse(this.TimeArr[0], out var i)) ? i : (byte)0;

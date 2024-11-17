@@ -37,7 +37,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(param);
+            await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(paramater: param);
         }
 
         [RelayCommand]

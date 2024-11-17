@@ -163,7 +163,7 @@ namespace VeganLife.ViewModels
 
                 userService.SaveData().SafeFireAndForget();
             }).SafeFireAndForget();
-            await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(currentViewModel: this, paramater: obj);
         }
 
         [RelayCommand]
@@ -186,7 +186,7 @@ namespace VeganLife.ViewModels
                 {
                     { itemMenu.Category, foodByCategory },
                 };
-            await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
+            await this.navigationService.NavigateToPage<FoodsByCategoryPage>(paramater: consignment);
         }
 
         [RelayCommand]

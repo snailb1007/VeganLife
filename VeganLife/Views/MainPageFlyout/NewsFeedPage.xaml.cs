@@ -34,7 +34,7 @@ namespace VeganLife.Views.MainPageFlyout
                 return;
             }
 
-            (this.BindingContext as NewsFeedViewModel).SelectDiscoveryMenuCommand.Execute(e.CurrentSelection);
+            BindingContext.SelectDiscoveryMenuCommand.Execute(e.CurrentSelection);
             this.collectionFeeds.ScrollTo(0, 0);
         }
     }

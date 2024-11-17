@@ -8,7 +8,7 @@ namespace VeganLife.Messages
 {
     public class ProfileChangedMessage : ValueChangedMessage<object>
     {
-        public ProfileChangedMessage(object? value)
+        public ProfileChangedMessage(object value)
             : base(value)
         {
         }

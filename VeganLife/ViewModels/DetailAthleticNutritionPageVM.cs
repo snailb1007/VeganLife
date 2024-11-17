@@ -5,7 +5,7 @@
         [ObservableProperty]
         private AthleticNutritionModel _athleticNutrition;
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is AthleticNutritionModel model)
             {

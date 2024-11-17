@@ -38,7 +38,7 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(param);
+            await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(paramater: param);
         }
 
         [RelayCommand]

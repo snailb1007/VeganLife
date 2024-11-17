@@ -36,7 +36,7 @@ namespace VeganLife
             CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
+        protected override Window CreateWindow(IActivationState activationState)
         {
             this.SetupLanguage();
             this.SetupThemeAsync().SafeFireAndForget();

@@ -5,7 +5,7 @@
         [ObservableProperty]
         private PharmacoLogicalModel _pharmacoLogicalModel;
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is PharmacoLogicalModel model)
             {

@@ -47,7 +47,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
+            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(paramater: param);
         }
 
         [RelayCommand]

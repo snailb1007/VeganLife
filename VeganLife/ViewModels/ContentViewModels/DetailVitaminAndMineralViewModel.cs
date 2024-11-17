@@ -28,14 +28,16 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
         }
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
-            if (parameter is VitaminModel vitamin)
+            if (parameter is not VitaminModel vitamin)
             {
-                Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
-                    ?? []).ToList();
-                this.Vitamin = vitamin;
+                return base.OnNavigatingTo(parameter);
             }
+
+            Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
+                            ?? []).ToList();
+            this.Vitamin = vitamin;
 
             return base.OnNavigatingTo(parameter);
         }

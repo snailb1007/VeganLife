@@ -33,7 +33,7 @@
             Grid.ColumnSpan="2"
             BackgroundColor="{StaticResource Gray100}"
             Orientation="Vertical">
-            <Label x:Name="lbContent" WidthRequest="{Binding Source={x:Reference rootGrid}, Path=Width, Mode=OneWay}" />
+            <Label x:Name="lbContent" WidthRequest="{Binding Source={x:Reference rootGrid}, Path=Width, Mode=OneWay, x:DataType={x:Type Grid}}" />
         </ScrollView>
         <Button
             Grid.Row="2"

@@ -23,7 +23,7 @@ namespace VeganLife.ViewModels
             return base.ViewAppearingVM();
         }
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is string name)
             {
@@ -37,7 +37,7 @@ namespace VeganLife.ViewModels
         private async Task OnContinueClicked()
         {
             await this.navigationService.NavigateToPage<GenderAboutPage>(
-                new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
+                paramater: new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
         }
 
         [SuppressPropertyChangedWarnings]

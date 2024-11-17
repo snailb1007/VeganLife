@@ -16,7 +16,7 @@
             ItemsSource="{Binding Foods, Mode=OneWay}"
             SelectedItem="{Binding FoodSelected, Mode=TwoWay}"
             SelectionChangedCommand="{Binding GoFoodDetailCommand}"
-            SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
+            SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem, x:DataType={x:Type CollectionView}}"
             SelectionMode="Single">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />

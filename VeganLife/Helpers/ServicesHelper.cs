@@ -25,7 +25,7 @@ namespace VeganLife.Helpers
             return result;
         }
 
-        public static BaseViewModel? GetCurrentViewModel()
+        public static BaseViewModel GetCurrentViewModel()
         {
             var popupService = GetService<IPopupNaviService>();
             var currentPopup = popupService.GetLastMopupPage();
@@ -42,7 +42,7 @@ namespace VeganLife.Helpers
             }
             else
             {
-                return Application.Current?.Windows[0]?.Page.BindingContext as BaseViewModel;
+                return Application.Current?.Windows[0]?.Page?.BindingContext as BaseViewModel;
             }
         }
 

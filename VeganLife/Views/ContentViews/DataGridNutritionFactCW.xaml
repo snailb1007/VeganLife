@@ -3,8 +3,9 @@
     x:Class="VeganLife.Views.ContentViews.DataGridNutritionFactCW"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:contentViews="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
-    xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
+    xmlns:model="clr-namespace:VeganLife.Models.BaseModel"
     x:Name="selfDataGridNutritionFactCW"
     HeaderBackground="{StaticResource PrimaryOrange1}"
     Refreshing="SelfDataGridNutritionFactCW_Refreshing"
@@ -23,7 +24,7 @@
                 </FormattedString>
             </dg:DataGridColumn.FormattedTitle>
             <dg:DataGridColumn.CellTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:BaseNutrientModel">
                     <ContentView HorizontalOptions="Fill" VerticalOptions="Fill">
                         <Label
                             HorizontalOptions="CenterAndExpand"
@@ -37,7 +38,7 @@
                                         TextColor="{StaticResource LinkColor}"
                                         TextDecorations="Underline">
                                         <Span.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding BindingContext.GoDetailVitaminCommand, Source={x:Reference selfDataGridNutritionFactCW}}" CommandParameter="{Binding Name}" />
+                                            <TapGestureRecognizer Command="{Binding ViewModel.GoDetailVitaminCommand, Source={x:Reference selfDataGridNutritionFactCW}, x:DataType={x:Type contentViews:DataGridNutritionFactCW}}" CommandParameter="{Binding Name}" />
                                         </Span.GestureRecognizers>
                                     </Span>
                                 </FormattedString>

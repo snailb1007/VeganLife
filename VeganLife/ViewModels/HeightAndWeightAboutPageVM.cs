@@ -17,7 +17,7 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private bool _sBusy;
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is InitAboutYouDataRecord data)
             {

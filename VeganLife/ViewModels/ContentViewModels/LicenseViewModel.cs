@@ -7,9 +7,9 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class LicenseViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private IList<LicenseModel>? _licenses;
+        private IList<LicenseModel> _licenses;
         [ObservableProperty]
-        private LicenseModel? _selectedItem;
+        private LicenseModel _selectedItem;
 
         public LicenseViewModel()
             : base()

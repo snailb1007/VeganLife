@@ -16,7 +16,7 @@ namespace VeganLife.Services
 
         BaseViewModel GetPageViewModel(Page page);
 
-        Task NavigateToPage<T>(object? paramater = null)
+        Task NavigateToPage<T>(BaseViewModel currentViewModel = null, object paramater = null)
             where T : Page;
 
         int GetStackCount();

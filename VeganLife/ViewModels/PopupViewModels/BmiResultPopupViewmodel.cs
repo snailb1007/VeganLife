@@ -30,7 +30,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         [ObservableProperty]
         private string _classifyLabel;
         [ObservableProperty]
-        private string? _note;
+        private string _note;
         [ObservableProperty]
         private bool _isReCalculateSelected;
         [ObservableProperty]
@@ -52,11 +52,11 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object? parameter)
+        public override async Task<Task> OnNavigatingTo(object parameter)
         {
             if (parameter == null)
             {
-                return base.OnNavigatingTo(parameter!);
+                return base.OnNavigatingTo(null);
             }
 
             if (parameter is not BMIResultModel model)

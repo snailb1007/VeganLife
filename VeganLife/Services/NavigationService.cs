@@ -23,7 +23,7 @@ namespace VeganLife.Services
                     return navigation;
                 }
 
-                navigation = Application.Current?.MainPage?.Navigation;
+                navigation = Application.Current?.Windows[0]?.Page.Navigation;
                 if (navigation is not null)
                 {
                     return navigation;
@@ -41,7 +41,7 @@ namespace VeganLife.Services
 
         private readonly IServiceProvider _services;
 
-        private Page? MainPage => Application.Current?.MainPage;
+        private Page MainPage => Application.Current?.Windows[0].Page;
 
         // private IDispatcher? dispatcher => Application.Current?.Dispatcher;
 
@@ -64,15 +64,15 @@ namespace VeganLife.Services
         /// </summary>
         /// <param name="page">Page to get BindingContext.</param>
         /// <returns>BaseViewModel.</returns>
-        public BaseViewModel GetPageViewModel(Page page) => (page?.BindingContext as BaseViewModel)!;
+        public BaseViewModel GetPageViewModel(Page page) => (page?.BindingContext as BaseViewModel);
 
         /// <inheritdoc/>
         public async Task<bool> DisplayAlert(string title, string message, string ok, string cancel)
-            => await this.MainPage?.DisplayAlert(title, message, ok, cancel)!;
+            => await this.MainPage?.DisplayAlert(title, message, ok, cancel);
 
         /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, string ok)
-            => await this.MainPage?.DisplayAlert(title, message, ok)!;
+            => await this.MainPage?.DisplayAlert(title, message, ok);
 
         /// <inheritdoc/>
         public async Task<Page> PopAsync()
@@ -89,7 +89,7 @@ namespace VeganLife.Services
         public async Task PopToRootAsync() => await this.Navigation.PopToRootAsync();
 
         /// <inheritdoc/>
-        public async Task NavigateToPage<T>(object? parameter = null)
+        public async Task NavigateToPage<T>(BaseViewModel currentViewModel = null, object parameter = null)
             where T : Page
         {
             var toPage = this.ResolvePage<T>();
@@ -101,13 +101,23 @@ namespace VeganLife.Services
                 // passing param
                 if (toViewModel is not null)
                 {
-                    await toViewModel.OnNavigatingTo(parameter!);
+                    await toViewModel.OnNavigatingTo(parameter);
                 }
 
                 ServicesHelper.GetService<IDeviceService>().HideKeyboard();
 
                 // navigate
-                MainThread.BeginInvokeOnMainThread(async () => await this.Navigation.PushAsync(toPage));
+                MainThread.BeginInvokeOnMainThread(async void () =>
+                {
+                    try
+                    {
+                        await (currentViewModel?.NavigationViewModel ?? this.Navigation).PushAsync(toPage);
+                    }
+                    catch (Exception e)
+                    {
+                        e.LogError();
+                    }
+                });
             }
             else
             {
@@ -115,8 +125,8 @@ namespace VeganLife.Services
             }
         }
 
-        private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
-            => this.CallNavigatedTo((sender as Page)!).SafeFireAndForget(onException: ex => ex.LogError());
+        private void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
+            => this.CallNavigatedTo((sender as Page)).SafeFireAndForget(onException: ex => ex.LogError());
 
         private Task CallNavigatedTo(Page p)
         {
@@ -128,8 +138,8 @@ namespace VeganLife.Services
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
-            bool isForwardNavigation = this.Navigation.NavigationStack.Count > 1
-                && this.Navigation.NavigationStack[^2] == sender;
+            var isForwardNavigation = this.Navigation.NavigationStack.Count > 1
+                                      && this.Navigation.NavigationStack[^2] == sender;
 
             if (sender is not Page thisPage)
             {
@@ -151,7 +161,7 @@ namespace VeganLife.Services
             return fromViewModel is not null ? fromViewModel.OnNavigatedFrom(isForward) : Task.CompletedTask;
         }
 
-        private T? ResolvePage<T>()
+        private T ResolvePage<T>()
             where T : Page
             => this._services?.GetService<T>();
     }

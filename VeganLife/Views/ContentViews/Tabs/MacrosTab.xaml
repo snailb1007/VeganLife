@@ -12,10 +12,10 @@
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     x:Name="macroTabRoot"
+    xmlns:tabsView="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     x:DataType="vm:MacrosViewModel">
     <ContentView.Resources>
         <ResourceDictionary>
-            <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
             <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
         </ResourceDictionary>
@@ -28,7 +28,7 @@
                 MaterialTheme="Acrylic"
                 VerticalOptions="CenterAndExpand">
                 <sho:MaterialFrame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedChangedCommand, Source={x:Reference macroTabRoot}}" CommandParameter="{Binding .}" />
+                    <TapGestureRecognizer Command="{Binding ViewModel.ItemSelectedChangedCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}" CommandParameter="{Binding .}" />
                 </sho:MaterialFrame.GestureRecognizers>
                 <Grid
                     Margin="5"
@@ -77,7 +77,7 @@
                         <Button
                             Grid.Column="1"
                             Padding="5"
-                            Command="{Binding BindingContext.ItemEditedTapCommand, Source={x:Reference macroTabRoot}}"
+                            Command="{Binding ViewModel.ItemEditedTapCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                             CommandParameter="{Binding .}"
                             FontFamily="FALight"
                             HeightRequest="25"
@@ -102,7 +102,7 @@
                             <sho:MaterialFrame
                                 Margin="0"
                                 Padding="2"
-                                sho:Commands.Tap="{Binding BindingContext.USDABannerClickedCommand, Source={x:Reference macroTabRoot}}"
+                                sho:Commands.Tap="{Binding ViewModel.USDABannerClickedCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                                 CornerRadius="4"
                                 IsVisible="{Binding IsUSDAFood, Mode=OneWay}"
                                 LightThemeBackgroundColor="{StaticResource PrimaryOrange2}">
@@ -138,14 +138,14 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Margin="5,10"
-                                Command="{Binding BindingContext.AddMealLogsClickedCommand, Source={x:Reference macroTabRoot}}"
+                                Command="{Binding ViewModel.AddMealLogsClickedCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                                 CommandParameter="{Binding .}"
                                 InputTransparent="False"
                                 Text="{x:Static translate:AppResources.addML_btn_macroTab}"
                                 VerticalOptions="Center" />
                             <Label
                                 Grid.ColumnSpan="2"
-                                sho:Commands.Tap="{Binding BindingContext.ItemEditedTapCommand, Source={x:Reference macroTabRoot}}"
+                                sho:Commands.Tap="{Binding ViewModel.ItemEditedTapCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                                 sho:Commands.TapParameter="{Binding .}"
                                 FontFamily="FALight"
                                 FontSize="Medium"

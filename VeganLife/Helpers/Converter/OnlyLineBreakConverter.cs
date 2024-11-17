@@ -2,19 +2,21 @@
 
 public class OnlyLineBreakConverter : IValueConverter
 {
-    public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value != null)
+        if (value == null)
         {
-            value = (value as string)?.Replace("\\r\\n", Environment.NewLine);
-            value = (value as string)?.Replace("\r\n", Environment.NewLine);
-            value = (value as string)?.Replace("\n", Environment.NewLine);
+            return string.Empty;
         }
+
+        value = (value as string)?.Replace("\\r\\n", Environment.NewLine);
+        value = ((string)value)?.Replace("\r\n", Environment.NewLine);
+        value = ((string)value)?.Replace("\n", Environment.NewLine);
 
         return value ?? string.Empty;
     }
 
-    public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return string.Empty;
     }

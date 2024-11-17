@@ -13,9 +13,9 @@
     x:DataType="vm:ConversationViewModel"
     BackgroundColor="#f8f8f8">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding BindingContext.CurrentChat.TimesLimit, Source={x:Reference ConversationPageRoot}}" />
+        <ToolbarItem Text="{Binding CurrentChat.TimesLimit}" />
         <ToolbarItem
-            Command="{Binding BindingContext.OpenDisclaimerPopupCommand, Source={x:Reference ConversationPageRoot}}"
+            Command="{Binding OpenDisclaimerPopupCommand}"
             Order="Secondary"
             Text="{x:Static translate:AppResources.disclaimer_common}" />
     </ContentPage.ToolbarItems>

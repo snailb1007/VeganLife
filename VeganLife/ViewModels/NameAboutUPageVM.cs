@@ -4,7 +4,6 @@
 
 using PropertyChanged;
 using VeganLife.Helpers;
-using VeganLife.Helpers.AppSetting;
 using VeganLife.Views.AboutYou;
 
 namespace VeganLife.ViewModels
@@ -35,8 +34,7 @@ namespace VeganLife.ViewModels
 #if DEV
             var initDateOfBithday = DateTimeHelper.GetDateTime("1999-01-01").Date;
             await this.navigationService.NavigateToPage<GenderAboutPage>(
-                new InitAboutYouDataRecord(Name: Name, Birthday: initDateOfBithday, false));
-            return;
+                paramater: new InitAboutYouDataRecord(Name: Name, Birthday: initDateOfBithday, false));
 #else
             await this.navigationService.NavigateToPage<BirthdayAboutPage>(paramater: Name);
 #endif
