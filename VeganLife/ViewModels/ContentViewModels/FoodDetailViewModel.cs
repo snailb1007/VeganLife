@@ -46,9 +46,9 @@ namespace VeganLife.ViewModels.ContentViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task OnNavigatingTo(object? parameter)
+        public override async Task OnNavigatingTo(object parameter)
         {
-            await base.OnNavigatingTo(parameter!);
+            await base.OnNavigatingTo(parameter);
             var imgs = new List<string>();
 
             if (parameter is not null)

@@ -85,7 +85,7 @@ namespace VeganLife.ViewModels
         private async Task GoFoodDetail(object obj)
         {
             await this._dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
-            await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(paramater: obj);
             FoodSelected = null;
         }
 

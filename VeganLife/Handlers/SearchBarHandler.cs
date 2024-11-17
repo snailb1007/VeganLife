@@ -8,7 +8,7 @@ namespace VeganLife.Handlers
     {
         protected override void ConnectHandler(AndroidX.AppCompat.Widget.SearchView platformView)
         {
-            LinearLayout? linearLayout = platformView.GetChildAt(0) as LinearLayout;
+            var linearLayout = platformView.GetChildAt(0) as LinearLayout;
             linearLayout = linearLayout?.GetChildAt(2) as LinearLayout;
             linearLayout = linearLayout?.GetChildAt(1) as LinearLayout;
             if (linearLayout != null)

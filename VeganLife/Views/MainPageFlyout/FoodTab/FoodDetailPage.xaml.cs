@@ -3,19 +3,12 @@
 // </copyright>
 
 using VeganLife.ViewModels.ContentViewModels;
-using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout.FoodTab
 {
     public partial class FoodDetailPage
     {
-        private double _widthOfTabView;
-
-        public double WidthOfTabView
-        {
-            get => this._widthOfTabView;
-            set => SetProperty(ref this._widthOfTabView, value);
-        }
+        public double WidthOfTabView { get; set; }
 
         public FoodDetailPage(FoodDetailViewModel vm)
             : base(vm)

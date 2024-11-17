@@ -12,7 +12,6 @@
     x:DataType="viewmodel:AthleticNutritionTabVM">
     <ContentView.Resources>
         <ResourceDictionary>
-            <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentView.Resources>

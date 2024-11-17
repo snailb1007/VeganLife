@@ -78,7 +78,7 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index, BMIResultModel? bMIResult = null)
+        public void SwitchShellContentToolsTab(byte index)
         {
             switch (index)
             {

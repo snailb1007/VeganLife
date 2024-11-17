@@ -12,7 +12,7 @@ namespace VeganLife.ViewModels
     {
         private readonly UserInfoDataStoreServie _infoDataStoreServie;
 
-        private BMIResultModel? _bmiResultData;
+        private BMIResultModel _bmiResultData;
         private UserInfo _localUserInfor;
 
         public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
@@ -35,22 +35,22 @@ namespace VeganLife.ViewModels
         private bool _isEnableSubmit;
 
         [ObservableProperty]
-        private string? _weightValue;
+        private string _weightValue;
 
         [ObservableProperty]
         private int _ageValue;
 
         [ObservableProperty]
-        private string? _backgroundImg;
+        private string _backgroundImg;
 
         [ObservableProperty]
-        private string? _weightErrMess;
+        private string _weightErrMess;
 
         [ObservableProperty]
-        private string? _ageErrMess;
+        private string _ageErrMess;
 
         [ObservableProperty]
-        private string? _generalError;
+        private string _generalError;
 
         [ObservableProperty]
         private double _bmiResult;
@@ -117,11 +117,6 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void UnFocus(object obj)
         {
-            if (obj == null)
-            {
-                return;
-            }
-
             var view = (MainTool)obj;
             if (view == null)
             {
@@ -272,7 +267,7 @@ namespace VeganLife.ViewModels
             }
             else if (Application.Current?.Windows[0]?.Page is AppShell currentShell)
             {
-                MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param, this._bmiResultData));
+                MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param));
             }
         }
     }

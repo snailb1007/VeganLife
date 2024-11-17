@@ -14,7 +14,7 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private bool _isMale;
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is InitAboutYouDataRecord data)
             {

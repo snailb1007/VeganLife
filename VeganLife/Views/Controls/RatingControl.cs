@@ -147,7 +147,7 @@ namespace VeganLife.Views.Controls
             OnPropertyChanged(bindable, oldValue, newValue);
         }
 
-        private void Handle_PaintSurface(object? sender, SKPaintSurfaceEventArgs e)
+        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
             this.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
         }

@@ -48,11 +48,11 @@ namespace VeganLife.ViewModels.ContentViewModels
             _usdaApiService = uSDAApiService;
         }
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter == null)
             {
-                return base.OnNavigatingTo(parameter);
+                return base.OnNavigatingTo(null);
             }
 
             this.CurrentFoodPreview = (USDAFoodPreviewModel)parameter;
@@ -140,9 +140,9 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
         }
 
-        private UndefinedFoodNutrient? _caloriesValue = null;
-        private UndefinedFoodNutrient? _proteinValue = null;
-        private UndefinedFoodNutrient? _carbValue = null;
+        private UndefinedFoodNutrient _caloriesValue = null;
+        private UndefinedFoodNutrient _proteinValue = null;
+        private UndefinedFoodNutrient _carbValue = null;
 
         private async Task ProcessUsdaFoodAsync()
         {
@@ -159,7 +159,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                 if (any ?? false)
                 {
                     // try summarize usda food nutrients
-                    foreach (var i in this.CurrentFoodNutritionFact?.foodNutrients!)
+                    foreach (var i in this.CurrentFoodNutritionFact?.foodNutrients)
                     {
                         SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
                         SetNutrientValue(ref _carbValue, i,
@@ -189,7 +189,7 @@ namespace VeganLife.ViewModels.ContentViewModels
                         CaloriesValue = _caloriesValue;
                     }
 
-                    void SetNutrientValue(ref UndefinedFoodNutrient? targetNutrient, FoodNutrient source,
+                    void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source,
                         string[] searchTerms)
                     {
                         var nutrientName = source.Nutrient?.Name;

@@ -6,7 +6,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
-using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
@@ -48,6 +47,8 @@ namespace VeganLife.ViewModels
 
         protected readonly BusyManager busyManager;
 
+        public INavigation NavigationViewModel { get; set; }
+
         [ObservableProperty]
         private bool _isLoading;
 
@@ -82,7 +83,7 @@ namespace VeganLife.ViewModels
         /// </summary>
         /// <param name="parameter">The first name to join.</param>
         /// <returns>>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task OnNavigatingTo(object? parameter)
+        public virtual Task OnNavigatingTo(object parameter)
             => Task.CompletedTask;
 
         /// <summary>
