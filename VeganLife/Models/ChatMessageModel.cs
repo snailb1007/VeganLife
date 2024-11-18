@@ -10,6 +10,6 @@ namespace VeganLife.Models
 
         public bool IsUserMessage { get; set; }
 
-        public string? Avatar { get; set; }
+        public string Avatar { get; set; }
     }
 }

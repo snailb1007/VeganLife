@@ -15,10 +15,10 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class DetailVitaminAndMineralViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private VitaminModel vitamin;
+        private VitaminModel _vitamin;
 
         [ObservableProperty]
-        private List<AffiliationModel> affiliations;
+        private List<AffiliationModel> _affiliations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVitaminAndMineralViewModel"/> class.
@@ -28,14 +28,16 @@ namespace VeganLife.ViewModels.ContentViewModels
         {
         }
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
-            if (parameter is VitaminModel vitamin)
+            if (parameter is not VitaminModel vitamin)
             {
-                Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
-                    ?? Enumerable.Empty<AffiliationModel>()).ToList();
-                this.Vitamin = vitamin;
+                return base.OnNavigatingTo(parameter);
             }
+
+            Affiliations = (StaticHelper.Affiliation.Affiliations.Where(i => i.NutrientName == vitamin.Id)
+                            ?? []).ToList();
+            this.Vitamin = vitamin;
 
             return base.OnNavigatingTo(parameter);
         }

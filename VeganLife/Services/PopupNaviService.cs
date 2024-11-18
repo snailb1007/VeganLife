@@ -37,7 +37,7 @@ namespace VeganLife.Services
 
         public int GetPopupStackCount() => this.Navigation?.PopupStack?.Count ?? 0;
 
-        public BaseViewModel? GetPopupViewModel(PopupPage? popup) => popup?.BindingContext as BaseViewModel;
+        private static BaseViewModel GetPopupViewModel(PopupPage popup) => popup?.BindingContext as BaseViewModel;
 
         public PopupNaviService()
         {
@@ -65,14 +65,14 @@ namespace VeganLife.Services
             }
         }
 
-        public async Task PushAsync<T>(object? param = null, bool animate = true)
+        public async Task PushAsync<T>(object param = null, bool animate = true)
             where T : PopupPage
         {
             var toPage = ServicesHelper.GetService<T>();
             if (toPage is not null)
             {
                 toPage.NavigatedTo += Page_NavigatedTo;
-                var toViewModel = this.GetPopupViewModel(toPage);
+                var toViewModel = GetPopupViewModel(toPage);
 
                 // passing param
                 if (toViewModel is not null)
@@ -94,7 +94,7 @@ namespace VeganLife.Services
             }
         }
 
-        public PopupPage? GetLastMopupPage()
+        public PopupPage GetLastMopupPage()
         {
             if (this.GetPopupStackCount() < 1)
             {
@@ -105,21 +105,16 @@ namespace VeganLife.Services
             return result;
         }
 
-        private void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
+        private void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
             => this.CallNavigatedTo(sender as PopupPage).SafeFireAndForget(onException: ex => ex.LogError());
 
-        private Task CallNavigatedTo(PopupPage? p)
+        private Task CallNavigatedTo(PopupPage p)
         {
-            var fromViewModel = this.GetPopupViewModel(p);
-            if (fromViewModel is not null)
-            {
-                return fromViewModel.OnNavigatedTo();
-            }
-
-            return Task.CompletedTask;
+            var fromViewModel = GetPopupViewModel(p);
+            return fromViewModel is not null ? fromViewModel.OnNavigatedTo() : Task.CompletedTask;
         }
 
-        private void Page_NavigatedFrom(object? sender, NavigatedFromEventArgs e)
+        private void Page_NavigatedFrom(object sender, NavigatedFromEventArgs e)
         {
             // To determine forward navigation, we look at the 2nd to last item on the NavigationStack
             // If that entry equals the sender, it means we navigated forward from the sender to another page
@@ -140,14 +135,9 @@ namespace VeganLife.Services
 
         private Task CallNavigatedFrom(PopupPage p, bool isForward)
         {
-            var fromViewModel = this.GetPopupViewModel(p);
+            var fromViewModel = GetPopupViewModel(p);
 
-            if (fromViewModel is not null)
-            {
-                return fromViewModel.OnNavigatedFrom(isForward);
-            }
-
-            return Task.CompletedTask;
+            return fromViewModel is not null ? fromViewModel.OnNavigatedFrom(isForward) : Task.CompletedTask;
         }
     }
 }

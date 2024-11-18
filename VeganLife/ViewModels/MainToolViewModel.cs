@@ -12,48 +12,48 @@ namespace VeganLife.ViewModels
     {
         private readonly UserInfoDataStoreServie _infoDataStoreServie;
 
-        private BMIResultModel? _bmiResultData;
+        private BMIResultModel _bmiResultData;
         private UserInfo _localUserInfor;
 
         public string WeightBmiRegexPattern { get; } = @"^(?:[1-9]\d*|0)+(?:\.(\d)?(\d)?)?$";
 
         public string AgeBmiRegexPattern { get; } = @"^\d+$";
 
-        private float weight;
+        private float _weight;
 
         // private short age;
         [ObservableProperty]
-        private int height;
+        private int _height;
 
         [ObservableProperty]
-        private bool isDisplayedSexDetail;
+        private bool _isDisplayedSexDetail;
 
         [ObservableProperty]
-        private bool isMale;
+        private bool _isMale;
 
         [ObservableProperty]
-        private bool isEnableSubmit;
+        private bool _isEnableSubmit;
 
         [ObservableProperty]
-        private string? weightValue;
+        private string _weightValue;
 
         [ObservableProperty]
-        private int ageValue;
+        private int _ageValue;
 
         [ObservableProperty]
-        private string? backgroundImg;
+        private string _backgroundImg;
 
         [ObservableProperty]
-        private string? weightErrMess;
+        private string _weightErrMess;
 
         [ObservableProperty]
-        private string? ageErrMess;
+        private string _ageErrMess;
 
         [ObservableProperty]
-        private string? generalError;
+        private string _generalError;
 
         [ObservableProperty]
-        private double bmiResult;
+        private double _bmiResult;
 
         public MainToolViewModel(UserInfoDataStoreServie userInfoDataStoreServie)
             : base()
@@ -68,13 +68,15 @@ namespace VeganLife.ViewModels
                 this._localUserInfor = t?.Result?.FirstOrDefault() ?? new UserInfo();
 
                 // fill data from user service
-                if (!string.IsNullOrEmpty(_localUserInfor.Name))
+                if (string.IsNullOrEmpty(_localUserInfor.Name))
                 {
-                    this.IsMale = _localUserInfor.IsMale;
-                    this.AgeValue = _localUserInfor.Age;
-                    this.Height = _localUserInfor.Height;
-                    this.WeightValue = _localUserInfor.Weight.ToString();
+                    return;
                 }
+
+                this.IsMale = _localUserInfor.IsMale;
+                this.AgeValue = _localUserInfor.Age;
+                this.Height = _localUserInfor.Height;
+                this.WeightValue = _localUserInfor.Weight.ToString(CultureInfo.InvariantCulture);
             }).ConfigureAwait(false);
             WeakReferenceMessenger.Default.Register<BmiResultSelectedOptionMessage>(this);
             return base.ViewAppearingVM();
@@ -89,7 +91,7 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task CalculateBmi()
         {
-            this.BmiResult = BMICalculateHelper.Calculate(this.weight, this.Height / 100f);
+            this.BmiResult = BMICalculateHelper.Calculate(this._weight, this.Height / 100f);
             _bmiResultData = new BMIResultModel()
             {
                 BMIResult = (float)this.BmiResult,
@@ -115,32 +117,26 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private void UnFocus(object obj)
         {
-            if (obj == null)
-            {
-                return;
-            }
-
             var view = (MainTool)obj;
             if (view == null)
             {
                 return;
             }
 
-            var entryWeight = view.FindByName("entryWeight") as Entry;
-
-            if (entryWeight != null && entryWeight.IsFocused)
+            if (view.FindByName("entryWeight") is Entry { IsFocused: true } entryWeight)
             {
                 this.deviceService.HideKeyboard();
                 entryWeight.Unfocus();
                 return;
             }
 
-            var entryAge = view.FindByName("entryAge") as Entry;
-            if (entryAge != null && entryAge.IsFocused)
+            if (view.FindByName("entryAge") is not Entry { IsFocused: true } entryAge)
             {
-                this.deviceService.HideKeyboard();
-                entryAge.Unfocus();
+                return;
             }
+
+            this.deviceService.HideKeyboard();
+            entryAge.Unfocus();
         }
 
         [RelayCommand]
@@ -159,19 +155,13 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            this.weight = float.TryParse(value, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue) ? outValue : 0;
-            if (weight < 2)
+            this._weight = float.TryParse(value, provider: CultureInfo.InvariantCulture.NumberFormat, out var outValue) ? outValue : 0;
+            this.WeightErrMess = _weight switch
             {
-                this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooLow_bmiCalculatePage;
-            }
-            else if (weight > 635)
-            {
-                this.WeightErrMess = Resources.Translations.AppResources.wrongWeight_tooHigh_bmiCalculatePage;
-            }
-            else
-            {
-                this.WeightErrMess = string.Empty;
-            }
+                < 2 => Resources.Translations.AppResources.wrongWeight_tooLow_bmiCalculatePage,
+                > 635 => Resources.Translations.AppResources.wrongWeight_tooHigh_bmiCalculatePage,
+                _ => string.Empty
+            };
 
             this.IsEnableSubmit = CheckEnableButtonCalculate();
         }
@@ -179,24 +169,21 @@ namespace VeganLife.ViewModels
         [SuppressPropertyChangedWarnings]
         partial void OnAgeValueChanged(int value)
         {
-            if (value <= 0)
+            switch (value)
             {
-                this.AgeErrMess = string.Empty;
-                this.IsEnableSubmit = false;
-                return;
-            }
-
-            if (value <= 1)
-            {
-                this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooLow_bmiCalculatePage;
-            }
-            else if (value >= 140)
-            {
-                this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooHigh_bmiCalculatePage;
-            }
-            else
-            {
-                this.AgeErrMess = string.Empty;
+                case <= 0:
+                    this.AgeErrMess = string.Empty;
+                    this.IsEnableSubmit = false;
+                    return;
+                case <= 1:
+                    this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooLow_bmiCalculatePage;
+                    break;
+                case >= 140:
+                    this.AgeErrMess = Resources.Translations.AppResources.wrongAge_tooHigh_bmiCalculatePage;
+                    break;
+                default:
+                    this.AgeErrMess = string.Empty;
+                    break;
             }
 
             this.IsEnableSubmit = CheckEnableButtonCalculate();
@@ -224,12 +211,9 @@ namespace VeganLife.ViewModels
 
             if (data.ToString() == "weight")
             {
-                if (WeightValue is null)
-                {
-                    WeightValue = "0";
-                }
+                WeightValue ??= "0";
 
-                if (int.TryParse(WeightValue, out int weightNumber))
+                if (int.TryParse(WeightValue, out var weightNumber))
                 {
                     WeightValue = (++weightNumber).ToString();
                 }
@@ -248,40 +232,42 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            if (data.ToString() == "weight")
+            switch (data.ToString())
             {
-                if (WeightValue is null)
+                case "weight":
                 {
-                    WeightValue = "0";
-                }
+                    WeightValue ??= "0";
 
-                if (int.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
-                {
-                    WeightValue = (--weightNumber).ToString();
-                }
-            }
+                    if (int.TryParse(WeightValue, out int weightNumber) && weightNumber >= 1)
+                    {
+                        WeightValue = (--weightNumber).ToString();
+                    }
 
-            if (data.ToString() == "age")
-            {
-                AgeValue--;
+                    break;
+                }
+                case "age":
+                    AgeValue--;
+                    break;
             }
         }
 
         public void Receive(BmiResultSelectedOptionMessage message)
         {
-            if (message is not null)
+            if (message is null)
             {
-                var param = message.Value;
-                if (param == 0)
-                {
-                    Height = 0;
-                    WeightValue = "0";
-                    AgeValue = 0;
-                }
-                else if (Application.Current?.MainPage is AppShell currentShell)
-                {
-                    MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param, this._bmiResultData));
-                }
+                return;
+            }
+
+            var param = message.Value;
+            if (param == 0)
+            {
+                Height = 0;
+                WeightValue = "0";
+                AgeValue = 0;
+            }
+            else if (Application.Current?.Windows[0]?.Page is AppShell currentShell)
+            {
+                MainThread.BeginInvokeOnMainThread(() => currentShell.SwitchShellContentToolsTab(param));
             }
         }
     }

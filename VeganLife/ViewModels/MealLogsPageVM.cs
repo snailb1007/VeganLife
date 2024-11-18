@@ -5,6 +5,7 @@
 using Mopups.Services;
 using PropertyChanged;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
 using VeganLife.Views.Popups;
@@ -16,23 +17,23 @@ namespace VeganLife.ViewModels
     {
         private readonly IUserDataService _userDataService;
 
-        public List<string> ActivityLevels => new List<string>
-        {
+        public List<string> ActivityLevels =>
+        [
             AppResources.mealLogsPage_sedentary,
             AppResources.mealLogsPage_LightlyActive,
             AppResources.mealLogsPage_ModeratelyActive,
             AppResources.mealLogsPage_VeryActive,
-            AppResources.mealLogsPage_SuperActive,
-        };
+            AppResources.mealLogsPage_SuperActive
+        ];
 
         [ObservableProperty]
-        private UserInfo localUser;
+        private UserInfo _localUser;
 
         [ObservableProperty]
-        private HealthDiagnosisModel healthDiagnosisResult;
+        private HealthDiagnosisModel _healthDiagnosisResult;
 
         [ObservableProperty]
-        private int selectedActivityLevelIndex = 0;
+        private int _selectedActivityLevelIndex = 0;
 
         [ObservableProperty]
         private double _goalWeight = -1;
@@ -40,11 +41,11 @@ namespace VeganLife.ViewModels
         public MealLogsPageVM()
             : base()
         {
-            localUser = new UserInfo();
+            LocalUser = new UserInfo();
             _userDataService = ServicesHelper.GetService<IUserDataService>();
         }
 
-        public async override Task ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
             if (isInitialized)
             {
@@ -64,19 +65,13 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OnInfoClickedAsync(string param)
         {
-            string data = string.Empty;
-            switch (param)
+            string data = param switch
             {
-                case "BMI":
-                    data = AppResources.mealLogsPage_BMI_description;
-                    break;
-                case "BMR":
-                    data = AppResources.mealLogsPage_BMR_description;
-                    break;
-                case "TDEE":
-                    data = AppResources.mealLogsPage_TDEE_description;
-                    break;
-            }
+                "BMI" => AppResources.mealLogsPage_BMI_description,
+                "BMR" => AppResources.mealLogsPage_BMR_description,
+                "TDEE" => AppResources.mealLogsPage_TDEE_description,
+                _ => string.Empty,
+            };
 
             await MopupService.Instance.PushAsync(new SimpleInformationPopup(data));
         }
@@ -89,10 +84,23 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            MainThread.BeginInvokeOnMainThread(async () =>
+            MainThread.BeginInvokeOnMainThread(async void () =>
+            {
+                try
+                {
+                    await Action();
+                }
+                catch (Exception e)
+                {
+                    e.LogError();
+                }
+            });
+            return;
+
+            async Task Action()
             {
                 await UpdateActivityLevelAsync();
-            });
+            }
 
             async Task UpdateActivityLevelAsync()
             {

@@ -5,7 +5,7 @@ using VeganLife.Helpers;
 
 namespace VeganLife.Views.Popups;
 
-public partial class AffiliationPopup : PopupPage
+public partial class AffiliationPopup
 {
     public List<AffiliationModel> Affiliations { get; set; }
 
@@ -17,8 +17,7 @@ public partial class AffiliationPopup : PopupPage
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        var target = (sender as Label)?.BindingContext as AffiliationModel;
-        if (target is null)
+        if ((sender as Label)?.BindingContext is not AffiliationModel target)
         {
             return;
         }

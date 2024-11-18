@@ -6,7 +6,7 @@ using AsyncAwaitBestPractices;
 
 namespace VeganLife.Views.ChatFlyout;
 
-public partial class ConversationPage : ContentPage
+public partial class ConversationPage
 {
     public ConversationPage(ConversationViewModel viewModel)
     {

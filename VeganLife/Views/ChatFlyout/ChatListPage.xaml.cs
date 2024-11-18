@@ -1,6 +1,6 @@
 namespace VeganLife.Views.ChatFlyout;
 
-public partial class ChatListPage : ContentPage
+public partial class ChatListPage
 {
     public ChatListPage()
     {

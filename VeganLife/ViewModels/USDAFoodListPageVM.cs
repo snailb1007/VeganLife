@@ -8,7 +8,7 @@ namespace VeganLife.ViewModels
     public partial class USDAFoodListPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private ObservableCollectionAdapter<FoodDetailListRequest> uSDAFoods;
+        private ObservableCollectionAdapter<FoodDetailListRequest> _uSDAFoods;
 
         public override async Task ViewAppearingVM()
         {
@@ -32,8 +32,11 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            this.USDAFoods = new ObservableCollectionAdapter<FoodDetailListRequest>(
-                new ObservableCollection<FoodDetailListRequest>(data));
+            if (data != null)
+            {
+                this.USDAFoods = new ObservableCollectionAdapter<FoodDetailListRequest>(
+                    new ObservableCollection<FoodDetailListRequest>(data));
+            }
         }
     }
 }

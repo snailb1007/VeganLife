@@ -24,8 +24,8 @@ namespace VeganLife.ViewModels
         private AsyncRelayCommand _currentCommand;
 
         private Guid _sessionGuid;
-        private ChatLogsDataStoreService _chatLogsDataStoreService;
-        private GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
+        private readonly ChatLogsDataStoreService _chatLogsDataStoreService;
+        private readonly GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
         private CancellationTokenSource _cancellationTokenSource;
 
         public AsyncRelayCommand CurrentCommand
@@ -64,45 +64,45 @@ namespace VeganLife.ViewModels
         }
 
         [ObservableProperty]
-        private string query;
+        private string _query;
 
         [ObservableProperty]
-        private bool isAnimationVisible = true;
+        private bool _isAnimationVisible = true;
 
         [ObservableProperty]
-        private bool isTrustedSetting = true;
+        private bool _isTrustedSetting = true;
 
         [ObservableProperty]
-        private ObservableCollection<ChatMessageModel> messages = new();
+        private ObservableCollection<ChatMessageModel> _messages = new();
 
         [ObservableProperty]
-        private ContentPage conversationView;
+        private ContentPage _conversationView;
 
         [ObservableProperty]
-        private double opacityModeMessage = 1;
+        private double _opacityModeMessage = 1;
 
         [ObservableProperty]
-        private double opacityModeImage = 0.5;
+        private double _opacityModeImage = 0.5;
 
         [ObservableProperty]
-        private ChatMessageModel theMessage;
+        private ChatMessageModel _theMessage;
 
         [ObservableProperty]
         private ChatLogsModel _currentChat;
 
         [ObservableProperty]
-        private string passedData;
+        private string _passedData;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
-        private GoogleAdValidatorModel currentAdValidatorData = new GoogleAdValidatorModel();
+        private GoogleAdValidatorModel _currentAdValidatorData = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
-        private string countDownText = string.Empty;
+        private string _countDownText = string.Empty;
 
         [ObservableProperty]
-        private bool isAdInProgress;
+        private bool _isAdInProgress;
 
         public ConversationViewModel(
             IDispatcher dispatcher,
@@ -165,7 +165,7 @@ namespace VeganLife.ViewModels
             }
 
             var adLogs = await _googleAdValidatorDataStoreService.GetItemsAsync();
-            if (adLogs.Count() > 0)
+            if (adLogs.Any())
             {
                 CurrentAdValidatorData = adLogs.Last();
                 if (CurrentAdValidatorData.LastTimeRewardOpen.Date < DateTime.Today.Date)

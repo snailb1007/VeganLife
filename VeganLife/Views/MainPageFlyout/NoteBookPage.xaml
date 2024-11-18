@@ -8,7 +8,6 @@
     xmlns:mx="http://compiledbindings.com/x"
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-    xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
@@ -166,7 +165,7 @@
                             Command="{Binding MacrosViewModel.FilterCommand}"
                             FontFamily="FAThin"
                             FontSize="Medium"
-                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible}"
+                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible, x:DataType={x:Type SearchBar}}"
                             Text="&#xf0b0;">
                             <Button.Triggers>
                                 <DataTrigger
@@ -201,7 +200,7 @@
                 IsVisible="{Binding MacrosViewModel.IsScrolling, Converter={StaticResource InvertedBoolConverter}}"
                 Orientation="Horizontal"
                 SegmentedOutlineColor="Transparent"
-                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay, x:DataType={x:Type sharpnado:ViewSwitcher}}"
                 TabType="Scrollable"
                 VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>

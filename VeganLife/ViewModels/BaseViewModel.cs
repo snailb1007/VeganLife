@@ -6,7 +6,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
-using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
@@ -16,12 +15,12 @@ namespace VeganLife.ViewModels
     public abstract partial class BaseViewModel : ObservableObject, IDisposable
     {
         private bool _hasShownAlert;
-        private IDisposable _busySubscription;
+        private readonly IDisposable _busySubscription;
 
         protected readonly IDataService dataService;
         protected readonly INavigationService navigationService;
         protected readonly IDeviceService deviceService;
-        protected readonly ISQLite localDatabase;
+        //protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
 
         protected bool isInitialized;
@@ -48,6 +47,8 @@ namespace VeganLife.ViewModels
 
         protected readonly BusyManager busyManager;
 
+        public INavigation NavigationViewModel { get; set; }
+
         [ObservableProperty]
         private bool _isLoading;
 
@@ -62,7 +63,7 @@ namespace VeganLife.ViewModels
             this.dataService = ServicesHelper.GetService<IDataService>();
             this.navigationService = ServicesHelper.GetService<INavigationService>();
             this.deviceService = ServicesHelper.GetService<IDeviceService>();
-            this.localDatabase = ServicesHelper.GetService<ISQLite>();
+            //this.localDatabase = ServicesHelper.GetService<ISQLite>();
             this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
             busyManager = new();
 
@@ -82,7 +83,7 @@ namespace VeganLife.ViewModels
         /// </summary>
         /// <param name="parameter">The first name to join.</param>
         /// <returns>>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task OnNavigatingTo(object? parameter)
+        public virtual Task OnNavigatingTo(object parameter)
             => Task.CompletedTask;
 
         /// <summary>

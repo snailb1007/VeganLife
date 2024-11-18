@@ -5,15 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
-    xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
-    xmlns:model="clr-namespace:VeganLife.Models"
-    xmlns:modelFood="clr-namespace:VeganLife.Models.FoodModel"
     xmlns:models="clr-namespace:VeganLife.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    xmlns:views="clr-namespace:VeganLife.Views"
     x:Name="mainPageRoot"
+    xmlns:rootProj="clr-namespace:VeganLife"
     x:DataType="viewmodel:MainViewModel"
     x:TypeArguments="viewmodel:MainViewModel"
     Shell.NavBarIsVisible="False">
@@ -125,7 +122,7 @@
                                 AutomationProperties.IsInAccessibleTree="False"
                                 SemanticProperties.Description="List category food">
                                 <VerticalStackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.CategoryClickedCommand, Source={x:Reference mainPageRoot}}" CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding ViewModel.CategoryClickedCommand, Source={x:Reference mainPageRoot}, x:DataType={x:Type rootProj:MainPage}}" CommandParameter="{Binding .}" />
                                 </VerticalStackLayout.GestureRecognizers>
                                 <Border
                                     x:Name="img"
@@ -150,7 +147,7 @@
                 <!--  transparent view  -->
                 <Grid
                     BackgroundColor="Transparent"
-                    IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay}"
+                    IsVisible="{Binding Source={x:Reference searchBar}, Path=IsFocused, Mode=OneWay, x:DataType={x:Type SearchBar}}"
                     ZIndex="1">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="GridTransparentTapped" />
@@ -180,7 +177,7 @@
                 ItemsSource="{Binding Foods, Mode=OneWay}"
                 SelectedItem="{Binding CurrentFoodSelected}"
                 SelectionChangedCommand="{Binding GoFoodDetailCommand}"
-                SelectionChangedCommandParameter="{Binding Source={x:Reference foodCollection}, Path=SelectedItem}"
+                SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem, x:DataType={x:Type CollectionView}}"
                 SelectionMode="Single"
                 SemanticProperties.Description="List food in mainpage">
                 <CollectionView.ItemsLayout>

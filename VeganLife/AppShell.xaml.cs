@@ -17,7 +17,7 @@ namespace VeganLife
     /// <summary>
     /// auto-generated.
     /// </summary>
-    public partial class AppShell : Shell
+    public partial class AppShell
     {
         private ShellNavigationSource _currentShellNavigationSource;
 
@@ -78,7 +78,7 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index, BMIResultModel? bMIResult = null)
+        public void SwitchShellContentToolsTab(byte index)
         {
             switch (index)
             {

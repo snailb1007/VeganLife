@@ -5,6 +5,7 @@
 using Newtonsoft.Json;
 using SQLite;
 using VeganLife.Helpers;
+using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
 {
@@ -34,14 +35,14 @@ namespace VeganLife.Models
         public string Unit { get; set; }
     }
 
-    public partial class UndefinedNutrient
+    public partial class UndefinedNutrient : BaseNutrientModel
     {
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        //[JsonProperty("name")]
+        //public string Name { get; set; }
     }
 
-    public partial class UndefinedNutrient
-    {
-        public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
-    }
+    //public partial class UndefinedNutrient
+    //{
+    //    public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
+    //}
 }

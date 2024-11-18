@@ -90,8 +90,8 @@
                 Text="Lưu">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
-                        <Binding Path="IsValid" Source="{x:Reference heightValidator}" />
-                        <Binding Path="IsValid" Source="{x:Reference weightValidator}" />
+                        <Binding Path="IsValid" Source="{Reference heightValidator}" />
+                        <Binding Path="IsValid" Source="{Reference weightValidator}" />
                     </MultiBinding>
                 </Button.IsEnabled>
             </Button>

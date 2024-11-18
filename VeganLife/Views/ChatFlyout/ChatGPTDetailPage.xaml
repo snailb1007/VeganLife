@@ -36,7 +36,7 @@
             <Label
                 x:Name="lbContent"
                 LineBreakMode="WordWrap"
-                WidthRequest="{Binding Source={x:Reference rootGrid}, Path=Width, Mode=OneWay}" />
+                WidthRequest="{Binding Source={x:Reference rootGrid}, Path=Width, Mode=OneWay, x:DataType={x:Type Grid}}" />
         </ScrollView>
         <Button
             Grid.Row="2"

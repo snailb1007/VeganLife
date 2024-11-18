@@ -9,15 +9,15 @@ namespace VeganLife.ViewModels
         private InitAboutYouDataRecord _data;
 
         [ObservableProperty]
-        private string height;
+        private string _height;
 
         [ObservableProperty]
-        private string weight;
+        private string _weight;
 
         [ObservableProperty]
-        private bool isBusy;
+        private bool _sBusy;
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is InitAboutYouDataRecord data)
             {
@@ -45,7 +45,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            IsBusy = true;
+            busyManager.Increase();
             var user = new UserInfo
             {
                 Name = _data.Name,
@@ -58,8 +58,8 @@ namespace VeganLife.ViewModels
             await ServicesHelper.GetService<IUserDataService>().SaveData(user);
             _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
-            await (App.Current as App)?.RefreshAppShell()!;
-            IsBusy = false;
+            await (Application.Current as App)?.RefreshAppShell()!;
+            busyManager.Decrease();
         }
     }
 }

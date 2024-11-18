@@ -7,7 +7,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.ToolFlyout
 {
-    public partial class MainTool : BasePage<MainToolViewModel>
+    public partial class MainTool
     {
         public MainTool(MainToolViewModel vm)
             : base(vm)
@@ -18,7 +18,7 @@ namespace VeganLife.Views.ToolFlyout
         protected override void OnHandlerChanged()
         {
             base.OnHandlerChanged();
-            if ((slider.Handler?.PlatformView as SeekBar) is SeekBar seekBar)
+            if (slider.Handler?.PlatformView is SeekBar seekBar)
             {
                 seekBar.ContentDescription = "this is slider";
             }

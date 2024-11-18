@@ -7,7 +7,7 @@ using VeganLife.Views.Popups;
 
 namespace VeganLife.Views.ToolFlyout;
 
-public partial class BMICalculatorPage : BasePage<BmiCalculatorViewModel>
+public partial class BMICalculatorPage
 {
     public BMICalculatorPage(BmiCalculatorViewModel vm)
         : base(vm)

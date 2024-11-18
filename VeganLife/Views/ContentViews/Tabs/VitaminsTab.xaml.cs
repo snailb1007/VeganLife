@@ -3,8 +3,10 @@ using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class VitaminsTab : ContentView
+public partial class VitaminsTab
 {
+    public VitaminAndMineralViewModel ViewModel => (VitaminAndMineralViewModel)BindingContext;
+
     public VitaminsTab()
     {
         InitializeComponent();
