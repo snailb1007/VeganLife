@@ -6,7 +6,7 @@ namespace VeganLife.ViewModels
     public partial class SupportPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private string letter;
+        private string _letter;
 
         public override async Task ViewAppearingVM()
         {

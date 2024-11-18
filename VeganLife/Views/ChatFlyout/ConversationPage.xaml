@@ -3,7 +3,6 @@
     x:Class="VeganLife.Views.ChatFlyout.ConversationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:templates="clr-namespace:VeganLife.Views.Templates"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -14,16 +13,15 @@
     x:DataType="vm:ConversationViewModel"
     BackgroundColor="#f8f8f8">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding BindingContext.CurrentChat.TimesLimit, Source={x:Reference ConversationPageRoot}}" />
+        <ToolbarItem Text="{Binding CurrentChat.TimesLimit}" />
         <ToolbarItem
-            Command="{Binding BindingContext.OpenDisclaimerPopupCommand, Source={x:Reference ConversationPageRoot}}"
+            Command="{Binding OpenDisclaimerPopupCommand}"
             Order="Secondary"
             Text="{x:Static translate:AppResources.disclaimer_common}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
         <DataTemplate x:Key="UserMessageItemTemplate">
             <templates:UserMessItemTemplate />

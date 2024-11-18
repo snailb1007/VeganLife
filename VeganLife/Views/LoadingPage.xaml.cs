@@ -9,7 +9,7 @@ using VeganLife.Views.Popups;
 
 namespace VeganLife.Views;
 
-public partial class LoadingPage : ContentPage
+public partial class LoadingPage
 {
     public LoadingPage()
     {
@@ -55,14 +55,14 @@ public partial class LoadingPage : ContentPage
                 await aboutView.WaitingAcceptedTaskSource.Task;
             }
 
-            if (App.Current is App app)
+            if (Application.Current is App app)
             {
                 //if (true)
                 if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        app.MainPage = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
+                        app.Windows[0].Page = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
                     });
                 }
                 else

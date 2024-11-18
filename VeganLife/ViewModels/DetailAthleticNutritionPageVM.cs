@@ -3,14 +3,9 @@
     public partial class DetailAthleticNutritionPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private AthleticNutritionModel athleticNutrition;
+        private AthleticNutritionModel _athleticNutrition;
 
-        public DetailAthleticNutritionPageVM()
-            : base()
-        {
-        }
-
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is AthleticNutritionModel model)
             {

@@ -14,13 +14,13 @@ namespace VeganLife.ViewModels
         private IEnumerable<VitaminModel> _allVitamins;
 
         [ObservableProperty]
-        private ObservableCollection<VitaminModel> vitamins;
+        private ObservableCollection<VitaminModel> _vitamins;
 
         [ObservableProperty]
-        private string vitaminSearchText;
+        private string _vitaminSearchText;
 
         [ObservableProperty]
-        private bool isBannerClosed = false;
+        private bool _isBannerClosed = false;
 
         public VitaminAndMineralViewModel()
             : base()
@@ -47,7 +47,7 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(param);
+            await this.navigationService.NavigateToPage<DetailVitaminAndMineralPage>(paramater: param);
         }
 
         [RelayCommand]

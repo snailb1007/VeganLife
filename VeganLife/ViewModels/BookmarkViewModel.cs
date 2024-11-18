@@ -15,12 +15,12 @@ namespace VeganLife.ViewModels
 {
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
-        private readonly FoodPreviewDataStoreService dataStoreService;
+        private readonly FoodPreviewDataStoreService _dataStoreService;
 
         [ObservableProperty]
-        private ObservableCollection<FoodPreviewModel> foods;
+        private ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
-        private FoodPreviewModel foodSelected;
+        private FoodPreviewModel _foodSelected;
 
         public BookmarkViewModel()
             : base()
@@ -28,7 +28,7 @@ namespace VeganLife.ViewModels
             var database = ServicesHelper.GetService<ISQLite>();
             if (database != null)
             {
-                this.dataStoreService = new FoodPreviewDataStoreService(database);
+                this._dataStoreService = new FoodPreviewDataStoreService(database);
             }
 
             this.Init();
@@ -76,7 +76,7 @@ namespace VeganLife.ViewModels
 
         private async Task LoadDataAsync()
         {
-            (await this.dataStoreService.GetItemsAsync())
+            (await this._dataStoreService.GetItemsAsync())
                 .Where(i => i.IsBookmarked)
                 .ToList().ForEach(i => this.Foods.Add(i));
         }
@@ -84,8 +84,8 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task GoFoodDetail(object obj)
         {
-            await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
-            await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
+            await this._dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(paramater: obj);
             FoodSelected = null;
         }
 

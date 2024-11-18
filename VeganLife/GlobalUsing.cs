@@ -4,6 +4,7 @@
 
 #pragma warning disable SA1200 // Using directives should be placed correctly
 global using System.Collections.ObjectModel;
+global using Maui.Plugins.PageResolver;
 global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Globalization;

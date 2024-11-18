@@ -8,14 +8,14 @@ namespace VeganLife.Views.Controls
     public class RatingControl : SKCanvasView
     {
         private const string Star = "M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z";
+        private readonly SKColor _sKOutlineOnColor = SKColors.Transparent;
+        private readonly SKColor _sKOutlineOffColor = SKColors.Gray;
+        private readonly SKColor _sKOutlineOffWhiteColor = SKColors.White;
 
         private float _itemWidth;
         private float _itemHeight;
         private float _canvasScale;
         private SKColor _sKColorOn = SKColor.Parse("#F09235");
-        private SKColor _sKOutlineOnColor = SKColors.Transparent;
-        private SKColor _sKOutlineOffColor = SKColors.Gray;
-        private SKColor _sKOutlineOffWhiteColor = SKColors.White;
 
         public RatingControl()
         {
@@ -27,15 +27,32 @@ namespace VeganLife.Views.Controls
 
         public float StrokeWidth { get; set; } = 0.1f;
 
-        public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double), typeof(RatingControl), default(double), propertyChanged: OnValueChanged);
-        public static readonly BindableProperty PathProperty = BindableProperty.Create(nameof(Path), typeof(string), typeof(RatingControl), Star);
-        public static readonly BindableProperty CountProperty = BindableProperty.Create(nameof(Count), typeof(int), typeof(RatingControl), 5);
-        public static readonly BindableProperty ColorOnProperty = BindableProperty.Create(nameof(ColorOn), typeof(Color), typeof(RatingControl), Colors.Yellow, propertyChanged: ColorOnChanged);
-        public static readonly BindableProperty OutlineOnColorProperty = BindableProperty.Create(nameof(OutlineOnColor), typeof(Color), typeof(RatingControl), Colors.Gray);
-        public static readonly BindableProperty OutlineOffColorProperty = BindableProperty.Create(nameof(OutlineOffColor), typeof(Color), typeof(RatingControl), Colors.Gray);
-        public static readonly BindableProperty RatingTypeProperty = BindableProperty.Create(nameof(RatingFillType), typeof(RatingType), typeof(RatingControl), RatingType.Floating, propertyChanged: OnPropertyChanged);
-        public static readonly BindableProperty SpacingProperty = BindableProperty.Create(nameof(Spacing), typeof(int), typeof(RatingControl), 5, propertyChanged: OnPropertyChanged);
-        public static readonly BindableProperty IsWhiteStarProperty = BindableProperty.Create(nameof(IsWhiteStar), typeof(bool), typeof(RatingControl), false);
+        public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(double),
+            typeof(RatingControl), default(double), propertyChanged: OnValueChanged);
+
+        public static readonly BindableProperty PathProperty =
+            BindableProperty.Create(nameof(Path), typeof(string), typeof(RatingControl), Star);
+
+        public static readonly BindableProperty CountProperty =
+            BindableProperty.Create(nameof(Count), typeof(int), typeof(RatingControl), 5);
+
+        public static readonly BindableProperty ColorOnProperty = BindableProperty.Create(nameof(ColorOn),
+            typeof(Color), typeof(RatingControl), Colors.Yellow, propertyChanged: ColorOnChanged);
+
+        public static readonly BindableProperty OutlineOnColorProperty =
+            BindableProperty.Create(nameof(OutlineOnColor), typeof(Color), typeof(RatingControl), Colors.Gray);
+
+        public static readonly BindableProperty OutlineOffColorProperty =
+            BindableProperty.Create(nameof(OutlineOffColor), typeof(Color), typeof(RatingControl), Colors.Gray);
+
+        public static readonly BindableProperty RatingTypeProperty = BindableProperty.Create(nameof(RatingFillType),
+            typeof(RatingType), typeof(RatingControl), RatingType.Floating, propertyChanged: OnPropertyChanged);
+
+        public static readonly BindableProperty SpacingProperty = BindableProperty.Create(nameof(Spacing), typeof(int),
+            typeof(RatingControl), 5, propertyChanged: OnPropertyChanged);
+
+        public static readonly BindableProperty IsWhiteStarProperty =
+            BindableProperty.Create(nameof(IsWhiteStar), typeof(bool), typeof(RatingControl), false);
 
         public int Spacing
         {
@@ -98,11 +115,6 @@ namespace VeganLife.Views.Controls
             set { SetValue(ValueProperty, IsWhiteStarProperty); }
         }
 
-        private void Handle_PaintSurface(object? sender, SKPaintSurfaceEventArgs e)
-        {
-            this.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
-        }
-
         [SuppressPropertyChangedWarnings]
         private static void OnPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -133,6 +145,11 @@ namespace VeganLife.Views.Controls
 
             view._sKColorOn = ((Color)newValue).ToSKColor();
             OnPropertyChanged(bindable, oldValue, newValue);
+        }
+
+        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        {
+            this.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
         }
 
         private double CalculateValue(double x)
@@ -234,55 +251,52 @@ namespace VeganLife.Views.Controls
                 fillPaintConfig.IsAntialias = true;
             }
 
-            using (var strokeFillPaint = strokeFillPaintConfig)
-            using (var fillPaint = fillPaintConfig)
+            using var strokeFillPaint = strokeFillPaintConfig;
+            using var fillPaint = fillPaintConfig;
+            for (int i = 0; i < this.Count; i++)
             {
-                for (int i = 0; i < this.Count; i++)
+                // Full
+                if (i <= this.Value - 1)
                 {
-                    // Full
-                    if (i <= this.Value - 1)
-                    {
-                        canvas.DrawPath(path, fillPaint);
-                        canvas.DrawPath(path, strokeFillPaint);
-                    }
-
-                    // Partial
-                    else if (i < this.Value)
-                    {
-                        float filledPercentage = (float)(this.Value - Math.Truncate(this.Value));
-                        if (this.IsWhiteStar)
-                        {
-                            fillPaint.Color = this._sKOutlineOffWhiteColor;
-                            canvas.DrawPath(path, fillPaint);
-                        }
-
-                        strokeFillPaint.Color = this._sKOutlineOffColor;
-                        canvas.DrawPath(path, strokeFillPaint);
-
-                        using (var rectPath = new SKPath())
-                        {
-                            var rect = SKRect.Create(path.Bounds.Left + (path.Bounds.Width * filledPercentage), path.Bounds.Top, path.Bounds.Width * (1 - filledPercentage), this._itemHeight);
-                            rectPath.AddRect(rect);
-                            canvas.ClipPath(rectPath, SKClipOperation.Difference);
-                            canvas.DrawPath(path, fillPaint);
-                        }
-                    }
-
-                    // Empty
-                    else
-                    {
-                        if (this.IsWhiteStar)
-                        {
-                            fillPaint.Color = this._sKOutlineOffWhiteColor;
-                            canvas.DrawPath(path, fillPaint);
-                        }
-
-                        strokeFillPaint.Color = this._sKOutlineOffColor;
-                        canvas.DrawPath(path, strokeFillPaint);
-                    }
-
-                    canvas.Translate((this._itemWidth + this.Spacing) / this._canvasScale, 0);
+                    canvas.DrawPath(path, fillPaint);
+                    canvas.DrawPath(path, strokeFillPaint);
                 }
+
+                // Partial
+                else if (i < this.Value)
+                {
+                    float filledPercentage = (float)(this.Value - Math.Truncate(this.Value));
+                    if (this.IsWhiteStar)
+                    {
+                        fillPaint.Color = this._sKOutlineOffWhiteColor;
+                        canvas.DrawPath(path, fillPaint);
+                    }
+
+                    strokeFillPaint.Color = this._sKOutlineOffColor;
+                    canvas.DrawPath(path, strokeFillPaint);
+
+                    using var rectPath = new SKPath();
+                    var rect = SKRect.Create(path.Bounds.Left + (path.Bounds.Width * filledPercentage),
+                        path.Bounds.Top, path.Bounds.Width * (1 - filledPercentage), this._itemHeight);
+                    rectPath.AddRect(rect);
+                    canvas.ClipPath(rectPath, SKClipOperation.Difference);
+                    canvas.DrawPath(path, fillPaint);
+                }
+
+                // Empty
+                else
+                {
+                    if (this.IsWhiteStar)
+                    {
+                        fillPaint.Color = this._sKOutlineOffWhiteColor;
+                        canvas.DrawPath(path, fillPaint);
+                    }
+
+                    strokeFillPaint.Color = this._sKOutlineOffColor;
+                    canvas.DrawPath(path, strokeFillPaint);
+                }
+
+                canvas.Translate((this._itemWidth + this.Spacing) / this._canvasScale, 0);
             }
         }
     }

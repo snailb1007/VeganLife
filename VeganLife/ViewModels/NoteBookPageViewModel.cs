@@ -12,19 +12,19 @@ namespace VeganLife.ViewModels
     public partial class NoteBookPageViewModel : BaseViewModel, IScrollToTop
     {
         [ObservableProperty]
-        private int selectedViewModelIndex = 0;
+        private int _selectedViewModelIndex = 0;
 
         [ObservableProperty]
-        private MacrosViewModel macrosViewModel;
+        private MacrosViewModel _macrosViewModel;
 
         [ObservableProperty]
-        private VitaminAndMineralViewModel vitaminAndMineralVM;
+        private VitaminAndMineralViewModel _vitaminAndMineralVM;
 
         [ObservableProperty]
-        private AthleticNutritionTabVM athleticNutritionTabVM;
+        private AthleticNutritionTabVM _athleticNutritionTabVM;
 
         [ObservableProperty]
-        private PharmacoLogicalTabVM pharmacoLogicalTabVM;
+        private PharmacoLogicalTabVM _pharmacoLogicalTabVM;
 
         public NoteBookPageViewModel()
             : base()

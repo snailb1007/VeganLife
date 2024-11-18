@@ -27,19 +27,19 @@ namespace VeganLife.ViewModels
 
         // private IList<FoodPreviewModel> passFilterFoods;
         [ObservableProperty]
-        private bool isSearchFocused;
+        private bool _isSearchFocused;
         [ObservableProperty]
-        private bool isFilterContentExpaned;
+        private bool _isFilterContentExpaned;
         [ObservableProperty]
-        private ObservableCollection<FoodPreviewModel> foods;
+        private ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
-        private IEnumerable<FoodMenuCategoryModel> category;
+        private IEnumerable<FoodMenuCategoryModel> _category;
         [ObservableProperty]
-        private FoodPreviewModel currentFoodSelected;
+        private FoodPreviewModel _currentFoodSelected;
         [ObservableProperty]
-        private string searchText;
+        private string _searchText;
 
-        private bool isLoadDataOnAppearingDone;
+        private bool _isLoadDataOnAppearingDone;
 
         // public IAsyncRelayCommand GoFoodDetailCommand { get; }
 
@@ -56,13 +56,13 @@ namespace VeganLife.ViewModels
 
         private void Init()
         {
-            this.Foods = new ObservableCollection<FoodPreviewModel>();
+            this.Foods = [];
             _dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
         }
 
         public override Task ViewAppearingVM()
         {
-            if (!isLoadDataOnAppearingDone)
+            if (!_isLoadDataOnAppearingDone)
             {
                 LoadDataCommand.Execute(null);
             }
@@ -92,13 +92,15 @@ namespace VeganLife.ViewModels
                         bool thisItemAlreadyExisted = false;
                         foreach (var item in localData)
                         {
-                            if (thisOnlineItem?.Id.Equals(item.Id) ?? false)
+                            if (!(thisOnlineItem?.Id.Equals(item.Id) ?? false))
                             {
-                                thisItemAlreadyExisted = true;
-                                thisOnlineItem.IsBookmarked = item.IsBookmarked;
-                                thisOnlineItem.IsRead = item.IsRead;
-                                await this._dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
+                                continue;
                             }
+
+                            thisItemAlreadyExisted = true;
+                            thisOnlineItem.IsBookmarked = item.IsBookmarked;
+                            thisOnlineItem.IsRead = item.IsRead;
+                            await this._dataStoreService.AddOrUpdateItemAsync(thisOnlineItem, true);
                         }
 
                         // add new item from server to local
@@ -133,7 +135,7 @@ namespace VeganLife.ViewModels
             }
 
             await this.SetupMenu();
-            this.isLoadDataOnAppearingDone = true;
+            this._isLoadDataOnAppearingDone = true;
         }
 
         private async Task SetupMenu()
@@ -161,7 +163,7 @@ namespace VeganLife.ViewModels
 
                 userService.SaveData().SafeFireAndForget();
             }).SafeFireAndForget();
-            await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(currentViewModel: this, paramater: obj);
         }
 
         [RelayCommand]
@@ -184,7 +186,7 @@ namespace VeganLife.ViewModels
                 {
                     { itemMenu.Category, foodByCategory },
                 };
-            await this.navigationService.NavigateToPage<FoodsByCategoryPage>(consignment);
+            await this.navigationService.NavigateToPage<FoodsByCategoryPage>(paramater: consignment);
         }
 
         [RelayCommand]
@@ -228,7 +230,7 @@ namespace VeganLife.ViewModels
             foreach (var item in foods)
             {
                 var normalName = item.Name.ConvertStringToUnSigned() ?? string.Empty;
-                int count = (from word in words
+                var count = (from word in words
                              where normalName.Contains(word)
                              select word).Count();
                 item.CountCorrectWordOnSearch = count;

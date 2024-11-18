@@ -24,23 +24,23 @@ namespace VeganLife.ViewModels.PopupViewModels
         public string Message { get; set; }
 
         [ObservableProperty]
-        private string bmiResultText;
+        private string _bmiResultText;
         [ObservableProperty]
-        private Color bmiStatusColor;
+        private Color _bmiStatusColor;
         [ObservableProperty]
-        private string classifyLabel;
+        private string _classifyLabel;
         [ObservableProperty]
-        private string? note;
+        private string _note;
         [ObservableProperty]
-        private bool isReCalculateSelected;
+        private bool _isReCalculateSelected;
         [ObservableProperty]
-        private bool isGoAnalysisPageSelected = true;
+        private bool _isGoAnalysisPageSelected = true;
         [ObservableProperty]
-        private bool isSaveSelected;
+        private bool _isSaveSelected;
         [ObservableProperty]
-        private bool isAllowSaveBmiResult;
+        private bool _isAllowSaveBmiResult;
         [ObservableProperty]
-        private bool isLocaleUser;
+        private bool _isLocaleUser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BmiResultPopupViewmodel"/> class.
@@ -52,35 +52,34 @@ namespace VeganLife.ViewModels.PopupViewModels
         }
 
         /// <inheritdoc/>
-        public override async Task<Task> OnNavigatingTo(object? parameter)
+        public override async Task<Task> OnNavigatingTo(object parameter)
         {
-            if (parameter != null)
+            if (parameter == null)
             {
-                if (parameter is not BMIResultModel)
-                {
-                    return base.OnNavigatingTo(parameter);
-                }
-
-                _result = (BMIResultModel)parameter;
-                _bmiResult = _result.BMIResult;
-                this.BmiResultText = _result.BMIResult.ToString();
-                var healthDiagnosis = BMICalculateHelper
-                    .GetWeightStatusCategory(_result.Age, _result.IsMale, _result.BMIResult);
-                this.BmiStatusColor = healthDiagnosis.StatusColor;
-                this.ClassifyLabel = healthDiagnosis.Classify;
-                this.Note = healthDiagnosis.Note;
-                _localeUserInfo = (await _userStoreService.GetItemsAsync())?.FirstOrDefault()!;
-                if (_localeUserInfo is not null
-                    && !string.IsNullOrEmpty(_localeUserInfo.Name)
-                    && _localeUserInfo.Age > 0
-                    && _localeUserInfo.Weight > 0
-                    && _localeUserInfo.Height > 0)
-                {
-                    this.IsLocaleUser = true;
-                }
+                return base.OnNavigatingTo(null);
             }
 
-            return base.OnNavigatingTo(parameter!);
+            if (parameter is not BMIResultModel model)
+            {
+                return base.OnNavigatingTo(parameter);
+            }
+
+            _result = model;
+            _bmiResult = _result.BMIResult;
+            this.BmiResultText = _result.BMIResult.ToString(CultureInfo.InvariantCulture);
+            var healthDiagnosis = BMICalculateHelper
+                .GetWeightStatusCategory(_result.Age, _result.IsMale, _result.BMIResult);
+            this.BmiStatusColor = healthDiagnosis.StatusColor;
+            this.ClassifyLabel = healthDiagnosis.Classify;
+            this.Note = healthDiagnosis.Note;
+            _localeUserInfo = (await _userStoreService.GetItemsAsync())?.FirstOrDefault()!;
+            if (!string.IsNullOrEmpty(_localeUserInfo.Name)
+                && _localeUserInfo is { Age: > 0, Weight: > 0, Height: > 0 })
+            {
+                this.IsLocaleUser = true;
+            }
+
+            return base.OnNavigatingTo(model);
         }
 
         [RelayCommand]
@@ -106,14 +105,16 @@ namespace VeganLife.ViewModels.PopupViewModels
         [SuppressPropertyChangedWarnings]
         partial void OnIsSaveSelectedChanged(bool value)
         {
-            if (value && _localeUserInfo != null)
+            if (!value)
             {
-                this.IsLocaleUser = _localeUserInfo.Age == _result.Age
-                    && _localeUserInfo.IsMale == _result.IsMale;
-                if (_localeUserInfo.BMIResult != this._bmiResult)
-                {
-                    _localeUserInfo.BMIResult = this._bmiResult;
-                }
+                return;
+            }
+
+            this.IsLocaleUser = _localeUserInfo.Age == _result.Age
+                                && _localeUserInfo.IsMale == _result.IsMale;
+            if (Math.Abs(_localeUserInfo.BMIResult - this._bmiResult) > 0.01)
+            {
+                _localeUserInfo.BMIResult = this._bmiResult;
             }
         }
     }

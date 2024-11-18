@@ -3,6 +3,7 @@
 using Newtonsoft.Json;
 using SQLite;
 using VeganLife.Helpers;
+using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
@@ -13,10 +14,10 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public int Id { get; set; }
 
         [JsonProperty("publicationDate")]
-        public string? PublicationDate { get; set; }
+        public string PublicationDate { get; set; }
 
         [Ignore]
-        public List<FoodNutrient>? foodNutrients { get; set; }
+        public List<FoodNutrient> foodNutrients { get; set; }
 
         public string FoodNutrientsJsonData { get; set; }
 
@@ -45,9 +46,9 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         public int Id { get; set; }
 
         [JsonProperty("nutrient")]
-        public Nutrient? Nutrient { get; set; }
+        public Nutrient Nutrient { get; set; }
 
-        public string? type { get; set; }
+        public string type { get; set; }
 
         public int? dataPoints { get; set; }
 
@@ -109,25 +110,25 @@ namespace VeganLife.Models.CommunityFreeServiceModel
     //    public string? abbreviation { get; set; }
     //}
 
-    public partial class Nutrient
+    public class Nutrient : BaseNutrientModel
     {
         [PrimaryKey]
         public int id { get; set; }
 
-        [JsonProperty("name")]
-        public string? Name { get; set; }
+        //[JsonProperty("name")]
+        //public string Name { get; set; }
 
         [JsonProperty("rank")]
         public int Rank { get; set; }
 
         [JsonProperty("unitName")]
-        public string? UnitName { get; set; }
+        public string UnitName { get; set; }
     }
 
-    public partial class Nutrient
-    {
-        public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
-    }
+    //public partial class Nutrient
+    //{
+    //    public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
+    //}
 
     //public class NutrientConversionFactor
     //{

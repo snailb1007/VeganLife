@@ -10,27 +10,23 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class FoodsByCategoryViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private string titlePage;
+        private string _titlePage;
         [ObservableProperty]
-        private FoodPreviewModel currentSelectedItem;
+        private FoodPreviewModel _currentSelectedItem;
 
         [ObservableProperty]
-        private IEnumerable<FoodPreviewModel> foods;
-
-        public FoodsByCategoryViewModel()
-            : base()
-        {
-        }
+        private IEnumerable<FoodPreviewModel> _foods;
 
         /// <inheritdoc/>
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
-            var data = parameter as Dictionary<string, IEnumerable<FoodPreviewModel>>;
-            if (data != null)
+            if (parameter is not Dictionary<string, IEnumerable<FoodPreviewModel>> data)
             {
-                this.TitlePage = data.FirstOrDefault().Key;
-                this.Foods = data.FirstOrDefault().Value;
+                return base.OnNavigatingTo(parameter);
             }
+
+            this.TitlePage = data.FirstOrDefault().Key;
+            this.Foods = data.FirstOrDefault().Value;
 
             return base.OnNavigatingTo(parameter);
         }
@@ -38,7 +34,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         [RelayCommand]
         private async Task GoFoodDetail()
         {
-            await this.navigationService.NavigateToPage<FoodDetailPage>(this.CurrentSelectedItem);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(paramater: this.CurrentSelectedItem);
             this.CurrentSelectedItem = null!;
         }
     }

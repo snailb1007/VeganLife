@@ -2,7 +2,7 @@ using Sharpnado.MaterialFrame;
 
 namespace VeganLife.Views.Controls;
 
-public partial class MaterialFrameSelectControl : MaterialFrame
+public partial class MaterialFrameSelectControl
 {
     public static BindableProperty IsSelectedProperty = BindableProperty.Create(
                 propertyName: nameof(IsSelected),

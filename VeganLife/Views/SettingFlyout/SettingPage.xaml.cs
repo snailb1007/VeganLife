@@ -6,7 +6,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.SettingFlyout
 {
-    public partial class SettingPage : BasePage<SettingViewModel>
+    public partial class SettingPage
     {
         public SettingPage(SettingViewModel vm)
             : base(vm)

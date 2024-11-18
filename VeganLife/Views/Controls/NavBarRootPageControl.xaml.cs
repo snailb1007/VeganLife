@@ -10,7 +10,7 @@ using VeganLife.Services.UserServices;
 
 namespace VeganLife.Views.Controls
 {
-    public partial class NavBarRootPageControl : Grid, IRecipient<ProfileChangedMessage>
+    public partial class NavBarRootPageControl : IRecipient<ProfileChangedMessage>
     {
         public static BindableProperty IsVisibleGreetingContentProperty = BindableProperty.Create(
                 propertyName: "IsVisibleGreetingContent",

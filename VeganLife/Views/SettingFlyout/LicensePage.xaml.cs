@@ -9,7 +9,7 @@ namespace VeganLife.Views.SettingTab
     /// <summary>
     /// class for LicensePage xaml.
     /// </summary>
-    public partial class LicensePage : ContentPage
+    public partial class LicensePage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LicensePage"/> class.

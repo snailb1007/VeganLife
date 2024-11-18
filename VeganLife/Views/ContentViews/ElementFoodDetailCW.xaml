@@ -11,8 +11,6 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <converter:LineBreakConverter x:Key="LineBreakConverter" />
-            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
-            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
             <Style x:Key="lbDetailMenu" TargetType="Label">
                 <Setter Property="Opacity" Value="0.5" />
                 <Setter Property="Margin" Value="0,10,10,10" />
@@ -29,7 +27,7 @@
     <toolkit:Expander
         x:Name="expander"
         x:DataType="cw:ElementFoodDetailCW"
-        BindingContext="{Binding Source={x:Reference rootElementFoodDetailCW}}"
+        BindingContext="{Binding Source={Reference rootElementFoodDetailCW}, x:DataType={x:Type cw:ElementFoodDetailCW}}"
         IsExpanded="{Binding IsExpanded}">
         <toolkit:Expander.Header>
             <StackLayout>

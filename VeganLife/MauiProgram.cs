@@ -33,12 +33,13 @@ using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.Controls;
 using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.MainPageFlyout.FoodTab;
+using VeganLife.Views.MainPageFlyout.PortionTab;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 using VeganLife.Views.Popups;
-using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
+using Maui.Plugins.PageResolver;
 
 namespace VeganLife
 {
@@ -55,6 +56,16 @@ namespace VeganLife
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
+                .UseMauiMTAdmob()
+                .ConfigureMopups()
+                .UseFFImageLoading()
+                .UseCardsView()
+                //.UseSkiaSharp(true)
+                .UseSkiaSharp()
+                .UseSharpnadoTabs(loggerEnable: false)
+                .UseSharpnadoMaterialFrame(loggerEnable: false)
+                .UseVirtualListView()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -65,16 +76,7 @@ namespace VeganLife
                     fonts.AddFont("fa-regular-400.ttf", "FARegular");
                     fonts.AddFont("fa-thin-100.ttf", "FAThin");
                     fonts.AddFont("fa-light-300.ttf", "FALight");
-                })
-                .UseMauiCommunityToolkit()
-                .UseMauiMTAdmob()
-                .ConfigureMopups()
-                .UseFFImageLoading()
-                .UseCardsView()
-                .UseSkiaSharp(true)
-                .UseSharpnadoTabs(loggerEnable: false)
-                .UseSharpnadoMaterialFrame(loggerEnable: false)
-                .UseVirtualListView();
+                });
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

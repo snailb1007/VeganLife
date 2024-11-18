@@ -8,7 +8,7 @@ using VeganLife.Helpers;
 
 namespace VeganLife.Views.Popups;
 
-public partial class AboutAppPopup : Popup
+public partial class AboutAppPopup
 {
     public TaskCompletionSource<bool> WaitingAcceptedTaskSource { get; set; }
 

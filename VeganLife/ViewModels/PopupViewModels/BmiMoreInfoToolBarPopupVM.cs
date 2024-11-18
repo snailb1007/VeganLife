@@ -6,7 +6,7 @@ namespace VeganLife.ViewModels.PopupViewModels
     public partial class BmiMoreInfoToolBarPopupVM : BaseViewModel
     {
         [ObservableProperty]
-        private ObservableCollection<string> documents;
+        private ObservableCollection<string> _documents;
 
         public BmiMoreInfoToolBarPopupVM()
             : base()
@@ -32,7 +32,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 if (!string.IsNullOrEmpty(link))
                 {
                     await Browser.Default.OpenAsync(link);
-                    parameter = null;
+                    parameter = null!;
                 }
             }
         }

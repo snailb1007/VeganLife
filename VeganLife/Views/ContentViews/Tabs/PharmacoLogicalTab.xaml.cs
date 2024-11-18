@@ -1,13 +1,22 @@
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
+using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class PharmacoLogicalTab : ContentView
+public partial class PharmacoLogicalTab
 {
+    public PharmacoLogicalTabVM ViewModel { get; private set; }
+
     public PharmacoLogicalTab()
     {
         InitializeComponent();
+    }
+
+    protected override void OnBindingContextChanged()
+    {
+        base.OnBindingContextChanged();
+        ViewModel = BindingContext as PharmacoLogicalTabVM;
     }
 
     private void SetupAdsBanner()

@@ -3,7 +3,7 @@ using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout;
 
-public partial class NoteBookPage : BasePage<NoteBookPageViewModel>, IBaseRootPage
+public partial class NoteBookPage : IBaseRootPage
 {
     public NoteBookPage(NoteBookPageViewModel vm)
         : base(vm)

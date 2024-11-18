@@ -1,5 +1,6 @@
 ﻿using VeganLife.Helpers;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.AboutYou;
 
 namespace VeganLife.ViewModels
 {
@@ -10,7 +11,7 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private bool _isMale;
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is InitAboutYouDataRecord data)
             {
@@ -42,7 +43,7 @@ namespace VeganLife.ViewModels
             await ServicesHelper.GetService<IUserDataService>().SaveData(user);
             _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
-            await (App.Current as App)?.RefreshAppShell()!;
+            await (Application.Current as App)?.RefreshAppShell()!;
 #else
             await this.navigationService.NavigateToPage<HeightAndWeightAboutPage>(
                 new InitAboutYouDataRecord(_data.Name, _data.Birthday, IsMale));

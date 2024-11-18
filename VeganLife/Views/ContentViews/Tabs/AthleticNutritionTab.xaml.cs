@@ -1,9 +1,12 @@
 using VeganLife.Helpers.AppSetting;
+using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class AthleticNutritionTab : ContentView
+public partial class AthleticNutritionTab
 {
+    public AthleticNutritionTabVM ViewModel => BindingContext as AthleticNutritionTabVM;
+
     public AthleticNutritionTab()
     {
         InitializeComponent();

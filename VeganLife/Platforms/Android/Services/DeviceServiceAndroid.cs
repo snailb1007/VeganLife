@@ -59,12 +59,19 @@ namespace VeganLife.Services
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     var currentWindow = GetCurrentWindow();
-                    currentWindow?.SetNavigationBarColor(global::Android.Graphics.Color.ParseColor(hexColor));
+                    if (OperatingSystem.IsAndroidVersionAtLeast(35))
+                    {
+                        // TODO: net9
+                    }
+                    else
+                    {
+                        currentWindow?.SetNavigationBarColor(global::Android.Graphics.Color.ParseColor(hexColor));
+                    }
                 });
             }
         }
 
-        private Android.Views.Window? GetCurrentWindow()
+        private Android.Views.Window GetCurrentWindow()
         {
             var window = Platform.CurrentActivity?.Window;
             if (window == null)
@@ -92,13 +99,15 @@ namespace VeganLife.Services
         {
             try
             {
-                if (Platform.CurrentActivity == null)
+                if (Platform.CurrentActivity != null)
                 {
-                    UtilitiesExtension.LogError("Platform.CurrentActivity is null");
-                    return false;
+                    return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver,
+                        settingName) == 1;
                 }
 
-                return global::Android.Provider.Settings.Global.GetInt(Platform.CurrentActivity.ContentResolver, settingName) == 1;
+                UtilitiesExtension.LogError("Platform.CurrentActivity is null");
+                return false;
+
             }
             catch (global::Android.Provider.Settings.SettingNotFoundException e)
             {

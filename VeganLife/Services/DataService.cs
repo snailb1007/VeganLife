@@ -71,10 +71,10 @@ namespace VeganLife.Services
                 var data = await this.firebaseDatabase.Child("/App/isServerInMaintenance").OnceSingleAsync<bool>();
                 if (data)
                 {
-                    await App.Current?.MainPage?.DisplayAlert(
+                    await Application.Current?.Windows[0]?.Page?.DisplayAlert(
                         title: AppResources.Infor_common,
                         message: AppResources.ServiecStop_common,
-                        "OK")!;
+                        "OK");
                 }
 
                 return data;

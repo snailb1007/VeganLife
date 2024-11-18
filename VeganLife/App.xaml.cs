@@ -5,7 +5,6 @@
 using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using Plugin.MauiMTAdmob.Extra;
-using Sentry.Protocol;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
@@ -18,7 +17,7 @@ namespace VeganLife
     /// </summary>
     public partial class App : Application
     {
-        public readonly static double MainWidthSize = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+        public static double MainWidthSize = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
@@ -35,10 +34,13 @@ namespace VeganLife
             CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
             CrossMauiMTAdmob.Current.AdChoicesCorner = AdChoicesCorner.ADCHOICES_BOTTOM_RIGHT;
             CrossMauiMTAdmob.Current.MaximumNumberOfAdsCached = 3;
+        }
 
+        protected override Window CreateWindow(IActivationState activationState)
+        {
             this.SetupLanguage();
-            this.MainPage = new LoadingPage();
             this.SetupThemeAsync().SafeFireAndForget();
+            return new Window(new LoadingPage());
         }
 
         private void SetupLanguage()
@@ -84,7 +86,7 @@ namespace VeganLife
             var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
             await Task.WhenAll(Task.Delay(500), t1);
             StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
-            MainThread.BeginInvokeOnMainThread(() => this.MainPage = new AppShell());
+            MainThread.BeginInvokeOnMainThread(() => this.Windows[0].Page = new AppShell());
         }
     }
 }
