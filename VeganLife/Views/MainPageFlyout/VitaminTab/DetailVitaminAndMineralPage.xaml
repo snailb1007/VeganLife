@@ -7,6 +7,7 @@
     xmlns:converter="clr-namespace:VeganLife.Helpers.Converter"
     xmlns:converterModel="clr-namespace:VeganLife.Models.ConverterModels"
     xmlns:sho="http://sharpnado.com"
+    xmlns:tab="clr-namespace:VeganLife.Views.MainPageFlyout.VitaminTab"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
     x:Name="selfDetailVitaminAndMineralPage"
@@ -36,7 +37,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="converterModel:MarkdownMenuModel">
                             <TextCell
-                                Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference selfDetailVitaminAndMineralPage}}"
+                                Command="{Binding ViewModel.ItemSelectedCommand, Source={x:Reference selfDetailVitaminAndMineralPage}, x:DataType={x:Type tab:DetailVitaminAndMineralPage}}"
                                 CommandParameter="{Binding Id}"
                                 Text="{Binding Content}" />
                         </DataTemplate>

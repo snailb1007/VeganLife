@@ -40,7 +40,7 @@
                 <Label Text="Các tài liệu được tham khảo và đề cập xuyên suốt được liệt kê dưới đây:" />
                 <ListView ItemsSource="{Binding Documents, Mode=OneWay}">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="x:String">
                             <ViewCell Height="48">
                                 <Label
                                     MaxLines="1"
