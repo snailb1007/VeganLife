@@ -116,7 +116,8 @@ namespace VeganLife
             services.AddSingleton<SentryService>();
 
             // local service
-            services.AddSingleton<UserInfoDataStoreServie>();
+            services.AddSingleton<LocalDataStoreFactory>();
+            //services.AddSingleton<UserInfoDataStoreServie>();
             services.AddSingleton<FoodDetailDataStoreService>();
             services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
             services.AddSingleton<FoodPreviewDataStoreService>();

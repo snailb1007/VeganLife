@@ -5,6 +5,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Mopups.Services;
 using PropertyChanged;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -16,7 +17,7 @@ namespace VeganLife.ViewModels.PopupViewModels
     /// </summary>
     public partial class BmiResultPopupViewmodel : BaseViewModel
     {
-        private readonly UserInfoDataStoreServie _userStoreService;
+        private readonly BaseDataStore<UserInfo> _userStoreService;
         private UserInfo _localeUserInfo;
         private float _bmiResult;
         private BMIResultModel _result;
@@ -48,7 +49,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         public BmiResultPopupViewmodel()
             : base()
         {
-            _userStoreService = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            _userStoreService = ServicesHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>();
         }
 
         /// <inheritdoc/>

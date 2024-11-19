@@ -37,7 +37,7 @@ namespace VeganLife.Views.Controls
             var userData = this._userDataService.GetUserInfo();
             if (string.IsNullOrEmpty(userData?.Name))
             {
-                userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+                userData = await ServicesHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             }
 
             if (userData != null)
