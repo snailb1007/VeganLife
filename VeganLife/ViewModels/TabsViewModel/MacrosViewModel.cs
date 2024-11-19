@@ -114,7 +114,7 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OnSupportRequest()
         {
             var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
-            var userTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            var userTask = ServicesHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             await Task.WhenAll(templateTask, userTask);
             var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
             content = content.Replace("@@@content@@@", TextSearch);

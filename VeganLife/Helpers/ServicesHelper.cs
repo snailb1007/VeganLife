@@ -2,7 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Mopups.Interfaces;
 using VeganLife.Views.Popups;
 
 namespace VeganLife.Helpers
