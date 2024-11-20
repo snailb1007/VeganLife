@@ -184,13 +184,13 @@ namespace VeganLife.Data
             }
 
             var result = await this.IsExistingItem(idValue: idProperty.GetValue(item));
-            return result;
+            return result.isExised;
         }
 
-        public async Task<bool> IsExistingItem(object idValue)
+        public async Task<(bool isExised, T result)> IsExistingItem(object idValue)
         {
             var goalItem = await this._connection.FindAsync<T>(idValue);
-            return goalItem != null;
+            return new (goalItem != null, goalItem);
         }
     }
 }

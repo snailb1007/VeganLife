@@ -22,6 +22,6 @@ namespace VeganLife.Data.LocalData
 
         Task<bool> IsExistingItem(T item);
 
-        Task<bool> IsExistingItem(object idValue);
+        Task<(bool isExised, T result)> IsExistingItem(object idValue);
     }
 }

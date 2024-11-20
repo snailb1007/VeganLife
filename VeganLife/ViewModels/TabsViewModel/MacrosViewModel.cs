@@ -20,7 +20,8 @@ namespace VeganLife.ViewModels.TabsViewModel
     {
         private readonly BaseDataStore<USDAFoodNutritionFactModel> _usdaFoodNutritionFactDataStoreService;
         private readonly BaseDataStore<UndefinedMacroFoodNutriFactModel> _undefinedMacroFoodNutriFactDataStoreService;
-        private readonly USDAApiService _uSDAApiService = FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>();
+        private readonly BaseDataStore<NutritionMealLogModel> _nutritionMealLogDataStoreService;
+        private readonly USDAApiService _uSDAApiService;
 
         private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
 
@@ -53,6 +54,8 @@ namespace VeganLife.ViewModels.TabsViewModel
         {
             this._usdaFoodNutritionFactDataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
             this._undefinedMacroFoodNutriFactDataStoreService = localDataStoreFactory.GetDataStore<UndefinedMacroFoodNutriFactModel>();
+            this._nutritionMealLogDataStoreService = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
+            this._uSDAApiService = FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>();
         }
 
         public override async Task<Task> ViewAppearingVM()
@@ -163,21 +166,30 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
         {
             bool isExistingItem;
+            NutritionMealLogModel nutritionMealLogModel = new();
+            nutritionMealLogModel.EatingDay = DateTime.UtcNow.Date;
+            nutritionMealLogModel.Amount = 100;
             if (param.IsUSDAFood)
             {
-                isExistingItem = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
+                var resultCheckUsda = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
+                isExistingItem = resultCheckUsda.isExised;
                 if (isExistingItem)
                 {
                     Console.WriteLine(" Item already exists");
+                    nutritionMealLogModel.Food = resultCheckUsda.result;
                 }
                 else
                 {
                     var targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
+                    nutritionMealLogModel.Food = targetItem;
                 }
+
+                await this._nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
             }
             else
             {
-                isExistingItem = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
+                var resultCheckUndefined = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
+                isExistingItem = resultCheckUndefined.isExised;
                 if (isExistingItem)
                 {
                     Console.WriteLine(" Item already exists");

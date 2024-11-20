@@ -5,8 +5,8 @@ namespace VeganLife.Models
 {
     public class NutritionMealLogModel
     {
-        [PrimaryKey]
-        public string Id { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
 
         public USDAFoodNutritionFactModel Food { get; set; }
 
