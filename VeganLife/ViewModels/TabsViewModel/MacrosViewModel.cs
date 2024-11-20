@@ -4,6 +4,7 @@
 
 using PropertyChanged;
 using System.Text;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -17,8 +18,8 @@ namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
-        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
-        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+        private readonly BaseDataStore<USDAFoodNutritionFactModel> _usdaFoodNutritionFactDataStoreService;
+        private readonly BaseDataStore<UndefinedMacroFoodNutriFactModel> _undefinedMacroFoodNutriFactDataStoreService;
         private readonly USDAApiService _uSDAApiService = FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>();
 
         private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
@@ -46,6 +47,13 @@ namespace VeganLife.ViewModels.TabsViewModel
 
         [ObservableProperty]
         private USDAFoodPreviewModel _usdaFoodPreviewCurrent;
+
+        public MacrosViewModel(LocalDataStoreFactory localDataStoreFactory)
+            : base()
+        {
+            this._usdaFoodNutritionFactDataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
+            this._undefinedMacroFoodNutriFactDataStoreService = localDataStoreFactory.GetDataStore<UndefinedMacroFoodNutriFactModel>();
+        }
 
         public override async Task<Task> ViewAppearingVM()
         {

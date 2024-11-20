@@ -2,11 +2,11 @@
 
 namespace VeganLife.Data.LocalData
 {
-    public class GoogleAdValidatorDataStoreService : BaseDataStore<GoogleAdValidatorModel>
-    {
-        public GoogleAdValidatorDataStoreService(ISQLite database)
-            : base(database)
-        {
-        }
-    }
+    // public class GoogleAdValidatorDataStoreService : BaseDataStore<GoogleAdValidatorModel>
+    // {
+    //     public GoogleAdValidatorDataStoreService(ISQLite database)
+    //         : base(database)
+    //     {
+    //     }
+    // }
 }

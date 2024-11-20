@@ -2,11 +2,11 @@
 
 namespace VeganLife.Data.LocalData
 {
-    internal class UpdateMasterDataStoreService : BaseDataStore<UpdateMasterModel>
-    {
-        public UpdateMasterDataStoreService(ISQLite database)
-            : base(database)
-        {
-        }
-    }
+    // internal class UpdateMasterDataStoreService : BaseDataStore<UpdateMasterModel>
+    // {
+    //     public UpdateMasterDataStoreService(ISQLite database)
+    //         : base(database)
+    //     {
+    //     }
+    // }
 }

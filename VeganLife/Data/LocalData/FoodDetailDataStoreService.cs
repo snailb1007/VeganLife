@@ -7,11 +7,11 @@ using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.Data.LocalData
 {
-    public class FoodDetailDataStoreService : BaseDataStore<FoodDetailModel>
-    {
-        public FoodDetailDataStoreService(ISQLite database)
-            : base(database)
-        {
-        }
-    }
+    // public class FoodDetailDataStoreService : BaseDataStore<FoodDetailModel>
+    // {
+    //     public FoodDetailDataStoreService(ISQLite database)
+    //         : base(database)
+    //     {
+    //     }
+    // }
 }

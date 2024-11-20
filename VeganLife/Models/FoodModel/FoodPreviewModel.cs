@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using SQLite;
 using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Messages;
 
 namespace VeganLife.Models.FoodModel
@@ -56,7 +55,7 @@ namespace VeganLife.Models.FoodModel
         private async Task BookmarkClicked()
         {
             this.IsBookmarked = !this.IsBookmarked;
-            if (!await FFImageLoading.Helpers.ServiceHelper.GetService<FoodPreviewDataStoreService>().AddOrUpdateItemAsync(this, true))
+            if (!await FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<FoodPreviewModel>().AddOrUpdateItemAsync(this, true))
             {
                 await FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
             }

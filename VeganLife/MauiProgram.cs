@@ -118,19 +118,19 @@ namespace VeganLife
             // local service
             services.AddSingleton<LocalDataStoreFactory>();
             //services.AddSingleton<UserInfoDataStoreServie>();
-            services.AddSingleton<FoodDetailDataStoreService>();
-            services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
-            services.AddSingleton<FoodPreviewDataStoreService>();
-            services.AddSingleton<NutritionMealLogDataStoreService>();
+            //services.AddSingleton<FoodDetailDataStoreService>();
+            //services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
+            //services.AddSingleton<FoodPreviewDataStoreService>();
+            //services.AddSingleton<NutritionMealLogDataStoreService>();
             //services.AddSingleton<ChatLogsDataStoreService>();
-            services.AddSingleton<VitaminsDataStoreService>();
-            services.AddSingleton<UpdateMasterDataStoreService>();
-            services.AddSingleton<UsdaFoodPreviewsDataStore>();
-            services.AddSingleton<AthleticNutritionDataStore>();
-            services.AddSingleton<PharmacoLogicalDataStoreService>();
-            services.AddSingleton<GoogleAdValidatorDataStoreService>();
-            services.AddSingleton<AffiliationDataStoreService>();
-            services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
+            //services.AddSingleton<VitaminsDataStoreService>();
+            //services.AddSingleton<UpdateMasterDataStoreService>();
+            //services.AddSingleton<UsdaFoodPreviewsDataStore>();
+            //services.AddSingleton<AthleticNutritionDataStore>();
+            //services.AddSingleton<PharmacoLogicalDataStoreService>();
+            //services.AddSingleton<GoogleAdValidatorDataStoreService>();
+            //services.AddSingleton<AffiliationDataStoreService>();
+            //services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();

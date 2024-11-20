@@ -2,11 +2,11 @@
 
 namespace VeganLife.Data.LocalData
 {
-    internal class PharmacoLogicalDataStoreService : BaseDataStore<PharmacoLogicalModel>
-    {
-        public PharmacoLogicalDataStoreService(ISQLite database)
-            : base(database)
-        {
-        }
-    }
+    // internal class PharmacoLogicalDataStoreService : BaseDataStore<PharmacoLogicalModel>
+    // {
+    //     public PharmacoLogicalDataStoreService(ISQLite database)
+    //         : base(database)
+    //     {
+    //     }
+    // }
 }

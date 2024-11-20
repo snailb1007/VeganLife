@@ -5,6 +5,7 @@
 using System.Text;
 using AsyncAwaitBestPractices;
 using Newtonsoft.Json;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
@@ -18,11 +19,11 @@ namespace VeganLife.Services.CommunityFreeService
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
         private const string ApiKey = "***REMOVED***";
 
-        private readonly UsdaFoodNutritionFactDataStoreService _dataStoreService;
+        private readonly BaseDataStore<USDAFoodNutritionFactModel> _dataStoreService;
 
-        public USDAApiService(UsdaFoodNutritionFactDataStoreService usdaFoodDataStore)
+        public USDAApiService(LocalDataStoreFactory localDataStoreFactory)
         {
-            _dataStoreService = usdaFoodDataStore;
+            _dataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
         }
 
         public async Task<USDAFoodNutritionFactModel> GetFoodDetailsByIdAsync(string foodId)
