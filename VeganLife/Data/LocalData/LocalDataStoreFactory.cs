@@ -1,6 +1,4 @@
-﻿//using FFImageLoading.Helpers;
-using FFImageLoading.Helpers;
-using VeganLife.Helpers;
+﻿using FFImageLoading.Helpers;
 using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.Data.LocalData
