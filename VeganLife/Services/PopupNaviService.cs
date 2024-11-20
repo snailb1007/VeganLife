@@ -68,7 +68,7 @@ namespace VeganLife.Services
         public async Task PushAsync<T>(object param = null, bool animate = true)
             where T : PopupPage
         {
-            var toPage = ServicesHelper.GetService<T>();
+            var toPage = FFImageLoading.Helpers.ServiceHelper.GetService<T>();
             if (toPage is not null)
             {
                 toPage.NavigatedTo += Page_NavigatedTo;
@@ -80,7 +80,7 @@ namespace VeganLife.Services
                     await toViewModel.OnNavigatingTo(param);
                 }
 
-                ServicesHelper.GetService<IDeviceService>().HideKeyboard();
+                FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().HideKeyboard();
 
                 // navigate
                 await this.Navigation.PushAsync(toPage);

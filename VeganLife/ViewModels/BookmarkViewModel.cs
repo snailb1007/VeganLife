@@ -25,7 +25,7 @@ namespace VeganLife.ViewModels
         public BookmarkViewModel()
             : base()
         {
-            var database = ServicesHelper.GetService<ISQLite>();
+            var database = FFImageLoading.Helpers.ServiceHelper.GetService<ISQLite>();
             if (database != null)
             {
                 this._dataStoreService = new FoodPreviewDataStoreService(database);

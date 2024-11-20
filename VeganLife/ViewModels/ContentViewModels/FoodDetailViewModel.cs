@@ -41,7 +41,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         public FoodDetailViewModel()
             : base()
         {
-            this._foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
+            this._foodDetailDataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<FoodDetailDataStoreService>();
             this.FoodImage = [];
         }
 

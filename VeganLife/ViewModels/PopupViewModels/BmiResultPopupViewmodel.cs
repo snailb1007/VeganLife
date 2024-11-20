@@ -49,7 +49,7 @@ namespace VeganLife.ViewModels.PopupViewModels
         public BmiResultPopupViewmodel()
             : base()
         {
-            _userStoreService = ServicesHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>();
+            _userStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>();
         }
 
         /// <inheritdoc/>

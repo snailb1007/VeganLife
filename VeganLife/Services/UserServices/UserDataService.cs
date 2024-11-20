@@ -28,7 +28,7 @@ namespace VeganLife.Services.UserServices
             }
 
             UserInfo temp = new();
-            var currentDeviceID = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
+            var currentDeviceID = FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().GetDeviceId();
             temp.Id = currentDeviceID;
 
             await Refresh();

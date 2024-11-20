@@ -73,7 +73,7 @@ namespace VeganLife.Services.CommunityFreeService
                     }
                     else
                     {
-                        _ = ServicesHelper.GetService<INavigationService>()
+                        _ = FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>()
                             .DisplayAlert(AppResources.error_common, AppResources.notFound_common, "OK");
                     }
                 }

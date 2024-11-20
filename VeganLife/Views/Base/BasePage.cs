@@ -13,7 +13,7 @@ namespace VeganLife.Views.Base
             : base(viewModel)
         {
             viewModel.NavigationViewModel = this.Navigation;
-            ServicesHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
+            FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
         }
 
         public new TViewModel BindingContext => (TViewModel)base.BindingContext;
