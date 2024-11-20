@@ -2,8 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AsyncAwaitBestPractices;
-using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -14,7 +12,6 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
         private readonly USDAApiService _usdaApiService;
-        //private readonly NutritionMealLogDataStoreService _foodLogService;
 
         [ObservableProperty]
         private USDAFoodPreviewModel _currentFoodPreview;
@@ -41,10 +38,9 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
 
-        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, NutritionMealLogDataStoreService nutritionMealLogDataStoreService)
+        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService)
         {
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
-            //_foodLogService = nutritionMealLogDataStoreService;
             _usdaApiService = uSDAApiService;
         }
 

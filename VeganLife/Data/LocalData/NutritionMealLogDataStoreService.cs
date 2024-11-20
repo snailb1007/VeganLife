@@ -2,11 +2,11 @@
 
 namespace VeganLife.Data.LocalData
 {
-    public class NutritionMealLogDataStoreService : BaseDataStore<NutritionMealLogModel>
-    {
-        public NutritionMealLogDataStoreService(ISQLite database)
-            : base(database)
-        {
-        }
-    }
+    // public class NutritionMealLogDataStoreService : BaseDataStore<NutritionMealLogModel>
+    // {
+    //     public NutritionMealLogDataStoreService(ISQLite database)
+    //         : base(database)
+    //     {
+    //     }
+    // }
 }

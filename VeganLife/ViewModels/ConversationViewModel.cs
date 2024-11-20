@@ -25,7 +25,7 @@ namespace VeganLife.ViewModels
 
         private Guid _sessionGuid;
         private readonly BaseDataStore<ChatLogsModel> _chatLogsDataStoreService;
-        private readonly GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
+        private readonly BaseDataStore<GoogleAdValidatorModel> _googleAdValidatorDataStoreService;
         private CancellationTokenSource _cancellationTokenSource;
 
         public AsyncRelayCommand CurrentCommand
@@ -107,15 +107,14 @@ namespace VeganLife.ViewModels
         public ConversationViewModel(
             IDispatcher dispatcher,
             IOpenAIService openAIService,
-            LocalDataStoreFactory localDataStoreFactory,
-            GoogleAdValidatorDataStoreService googleAdValidatorDataStoreService)
+            LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
             this._chatLogsDataStoreService = localDataStoreFactory.GetDataStore<ChatLogsModel>();
-            _googleAdValidatorDataStoreService = googleAdValidatorDataStoreService;
+            _googleAdValidatorDataStoreService = localDataStoreFactory.GetDataStore<GoogleAdValidatorModel>();
             CrossMauiMTAdmob.Current.OnRewardedLoaded += (s, e) =>
             {
                 if (CrossMauiMTAdmob.Current.IsRewardedLoaded())
