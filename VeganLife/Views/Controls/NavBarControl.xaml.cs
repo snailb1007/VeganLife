@@ -59,7 +59,7 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            ServicesHelper.GetService<INavigationService>().PopAsync().SafeFireAndForget();
+            FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().PopAsync().SafeFireAndForget();
             _isProcessing = false;
         }
 

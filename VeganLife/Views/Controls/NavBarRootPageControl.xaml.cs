@@ -45,7 +45,7 @@ namespace VeganLife.Views.Controls
 
         private void LoadUserData()
         {
-            var userName = ServicesHelper.GetService<IUserDataService>().GetUserInfo()?.Name ?? "...";
+            var userName = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().GetUserInfo()?.Name ?? "...";
             lbHi.Text = $"Hi {userName}";
         }
 

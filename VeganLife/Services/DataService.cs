@@ -48,13 +48,13 @@ namespace VeganLife.Services
 
         public DataService()
         {
-            _updateMasterDataStoreService = ServicesHelper.GetService<UpdateMasterDataStoreService>();
+            _updateMasterDataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<UpdateMasterDataStoreService>();
             _dataStore = new Dictionary<string, object>
             {
-                { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
-                { nameof(USDAFoodPreviewModel), ServicesHelper.GetService<UsdaFoodPreviewsDataStore>() },
-                { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
-                { nameof(PharmacoLogicalModel), ServicesHelper.GetService<PharmacoLogicalDataStoreService>() },
+                { nameof(VitaminModel), FFImageLoading.Helpers.ServiceHelper.GetService<VitaminsDataStoreService>() },
+                { nameof(USDAFoodPreviewModel), FFImageLoading.Helpers.ServiceHelper.GetService<UsdaFoodPreviewsDataStore>() },
+                { nameof(AthleticNutritionModel), FFImageLoading.Helpers.ServiceHelper.GetService<AthleticNutritionDataStore>() },
+                { nameof(PharmacoLogicalModel), FFImageLoading.Helpers.ServiceHelper.GetService<PharmacoLogicalDataStoreService>() },
             };
             _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
@@ -100,7 +100,7 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<AffiliationModel>> GetAllAffiliations()
         {
-            var database = ServicesHelper.GetService<AffiliationDataStoreService>();
+            var database = FFImageLoading.Helpers.ServiceHelper.GetService<AffiliationDataStoreService>();
             var targetUpdateMaster = _updateMasters.FirstOrDefault(i => i.Id == nameof(AffiliationModel));
             bool isExistMasterTable = targetUpdateMaster is not null;
             bool hasUpdate = !isExistMasterTable
@@ -210,7 +210,7 @@ namespace VeganLife.Services
                 return new UndefinedMacroFoodNutriFactModel();
             }
 
-            var localServie = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+            var localServie = FFImageLoading.Helpers.ServiceHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
             var localData = await localServie.GetItemAsync(id);
             if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
             {

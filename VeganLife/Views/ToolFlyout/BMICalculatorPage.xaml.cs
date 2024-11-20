@@ -17,6 +17,6 @@ public partial class BMICalculatorPage
 
     private void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-        this.ShowPopupAsync(ServicesHelper.GetService<BmiMoreInfoToolBarPopup>()).SafeFireAndForget();
+        this.ShowPopupAsync(FFImageLoading.Helpers.ServiceHelper.GetService<BmiMoreInfoToolBarPopup>()).SafeFireAndForget();
     }
 }

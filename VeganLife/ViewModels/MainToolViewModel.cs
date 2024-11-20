@@ -99,7 +99,7 @@ namespace VeganLife.ViewModels
                 IsMale = this.IsMale,
                 Age = this.AgeValue,
             };
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(_bmiResultData);
+            await FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(_bmiResultData);
         }
 
         [RelayCommand]

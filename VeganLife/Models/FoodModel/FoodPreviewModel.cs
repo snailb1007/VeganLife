@@ -56,9 +56,9 @@ namespace VeganLife.Models.FoodModel
         private async Task BookmarkClicked()
         {
             this.IsBookmarked = !this.IsBookmarked;
-            if (!await ServicesHelper.GetService<FoodPreviewDataStoreService>().AddOrUpdateItemAsync(this, true))
+            if (!await FFImageLoading.Helpers.ServiceHelper.GetService<FoodPreviewDataStoreService>().AddOrUpdateItemAsync(this, true))
             {
-                await ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+                await FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
             }
 
             WeakReferenceMessenger.Default.Send(new BookmarkFoodModelMessage(this));

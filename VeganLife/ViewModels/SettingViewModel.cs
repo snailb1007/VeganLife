@@ -55,7 +55,7 @@ namespace VeganLife.ViewModels
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                ServicesHelper.GetService<SentryService>().IsEnabled = value;
+                FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().IsEnabled = value;
                 UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
             });
         }

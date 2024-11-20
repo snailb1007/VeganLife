@@ -38,7 +38,7 @@ namespace VeganLife.Platforms.Android.HandlerAndroid
             var currentVM = ServicesHelper.GetCurrentViewModel();
             if (currentVM != null)
             {
-                INavigationService navigationService = ServicesHelper.GetService<INavigationService>();
+                INavigationService navigationService = FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>();
                 if (navigationService is null)
                 {
                     return;

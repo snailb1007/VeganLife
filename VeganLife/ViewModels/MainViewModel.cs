@@ -57,7 +57,7 @@ namespace VeganLife.ViewModels
         private void Init()
         {
             this.Foods = [];
-            _dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
+            _dataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<FoodPreviewDataStoreService>();
         }
 
         public override Task ViewAppearingVM()
@@ -152,7 +152,7 @@ namespace VeganLife.ViewModels
             }
 
             this.CurrentFoodSelected = null!;
-            var userService = ServicesHelper.GetService<IUserDataService>();
+            var userService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
             userService.Refresh().ContinueWith(t =>
             {
                 var userInfo = userService.GetUserInfo();

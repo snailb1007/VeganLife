@@ -17,9 +17,9 @@ namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
-        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService = ServicesHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
-        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
-        private readonly USDAApiService _uSDAApiService = ServicesHelper.GetService<USDAApiService>();
+        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
+        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService = FFImageLoading.Helpers.ServiceHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+        private readonly USDAApiService _uSDAApiService = FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>();
 
         private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
 
@@ -114,11 +114,11 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OnSupportRequest()
         {
             var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
-            var userTask = ServicesHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
+            var userTask = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             await Task.WhenAll(templateTask, userTask);
             var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
             content = content.Replace("@@@content@@@", TextSearch);
-            await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
+            await FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
         }
 
         [RelayCommand]

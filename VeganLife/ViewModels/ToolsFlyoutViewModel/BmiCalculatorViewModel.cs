@@ -36,7 +36,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             {
                 this.UpdateHeightAveragesAsync(),
             };
-            var getLocalUserTask = ServicesHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
+            var getLocalUserTask = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             tasks.Add(getLocalUserTask);
             await Task.WhenAll(tasks);
             MainThread.BeginInvokeOnMainThread(() => this.LocalUserInfo = getLocalUserTask.Result);
