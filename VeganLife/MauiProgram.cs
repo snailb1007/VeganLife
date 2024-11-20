@@ -39,7 +39,6 @@ using VeganLife.Views.Popups;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
-using Maui.Plugins.PageResolver;
 
 namespace VeganLife
 {
@@ -94,7 +93,6 @@ namespace VeganLife
             return builder.Build();
         }
 
-        // public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
         private static void RegisterServices(IServiceCollection services)
         {
             // service
@@ -117,20 +115,6 @@ namespace VeganLife
 
             // local service
             services.AddSingleton<LocalDataStoreFactory>();
-            //services.AddSingleton<UserInfoDataStoreServie>();
-            //services.AddSingleton<FoodDetailDataStoreService>();
-            //services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
-            //services.AddSingleton<FoodPreviewDataStoreService>();
-            //services.AddSingleton<NutritionMealLogDataStoreService>();
-            //services.AddSingleton<ChatLogsDataStoreService>();
-            //services.AddSingleton<VitaminsDataStoreService>();
-            //services.AddSingleton<UpdateMasterDataStoreService>();
-            //services.AddSingleton<UsdaFoodPreviewsDataStore>();
-            //services.AddSingleton<AthleticNutritionDataStore>();
-            //services.AddSingleton<PharmacoLogicalDataStoreService>();
-            //services.AddSingleton<GoogleAdValidatorDataStoreService>();
-            //services.AddSingleton<AffiliationDataStoreService>();
-            //services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
