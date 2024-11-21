@@ -6,6 +6,7 @@ using PropertyChanged;
 using System.Text;
 using VeganLife.Data;
 using VeganLife.Data.LocalData;
+using VeganLife.Handlers;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
@@ -169,6 +170,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             NutritionMealLogModel nutritionMealLogModel = new();
             nutritionMealLogModel.EatingDay = DateTime.UtcNow.Date;
             nutritionMealLogModel.Amount = 100;
+            nutritionMealLogModel.Name = param.Name;
             if (param.IsUSDAFood)
             {
                 var resultCheckUsda = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
@@ -176,15 +178,16 @@ namespace VeganLife.ViewModels.TabsViewModel
                 if (isExistingItem)
                 {
                     Console.WriteLine(" Item already exists");
-                    nutritionMealLogModel.Food = resultCheckUsda.result;
+                    nutritionMealLogModel.UsdaFoodId = resultCheckUsda.result.Id;
                 }
                 else
                 {
                     var targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
-                    nutritionMealLogModel.Food = targetItem;
+                    nutritionMealLogModel.UsdaFoodId = targetItem.Id;
                 }
 
                 await this._nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+                (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
             }
             else
             {

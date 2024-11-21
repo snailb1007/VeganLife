@@ -4,6 +4,8 @@
 
 using Mopups.Services;
 using PropertyChanged;
+using VeganLife.Data;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
@@ -16,6 +18,7 @@ namespace VeganLife.ViewModels
     public partial class MealLogsPageVM : BaseViewModel
     {
         private readonly IUserDataService _userDataService;
+        private readonly BaseDataStore<NutritionMealLogModel> _nutritionMealLogDataStoreService;
 
         public List<string> ActivityLevels =>
         [
@@ -38,15 +41,22 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private double _goalWeight = -1;
 
-        public MealLogsPageVM()
+        public MealLogsPageVM(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             LocalUser = new UserInfo();
             _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
+            this._nutritionMealLogDataStoreService  = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
         }
 
         public override async Task ViewAppearingVM()
         {
+            var x = await _nutritionMealLogDataStoreService.GetItemsAsync();
+            foreach (var i in x)
+            {
+                Console.WriteLine("==> " + i.Name);
+            }
+
             if (isInitialized)
             {
                 return;
