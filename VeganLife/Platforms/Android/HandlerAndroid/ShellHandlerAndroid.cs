@@ -11,6 +11,7 @@ namespace VeganLife.Handlers
 {
     public partial class ShellHandler
     {
+        ShellBottomNaviHandler _shellBottomNaviHandler;
         /// <inheritdoc/>
         protected override IShellItemRenderer CreateShellItemRenderer(ShellItem shellItem)
         {
@@ -19,17 +20,23 @@ namespace VeganLife.Handlers
 
         protected override IShellBottomNavViewAppearanceTracker CreateBottomNavViewAppearanceTracker(ShellItem shellItem)
         {
-            return base.CreateBottomNavViewAppearanceTracker(shellItem);
+            this._shellBottomNaviHandler = new ShellBottomNaviHandler(this, shellItem);
+            return _shellBottomNaviHandler;
+        }
+
+        public void ChangeBageInfo(int infoNumber)
+        {
+            this._shellBottomNaviHandler.SetMessBadge(infoNumber);
         }
     }
 
     public class ShellBottomNaviHandler : ShellBottomNavViewAppearanceTracker
     {
-        const byte _messageTabIndex = 1;
+        const byte _mealLogsTabIndex = 3;
 
         BottomNavigationView _bottomNaviView;
-        BadgeDrawable _messBadge;
-        int? _messTabId => _bottomNaviView?.Menu?.FindItem(_messageTabIndex)?.ItemId;
+        BadgeDrawable _mealLogsTabBadge;
+        int? _messTabId => _bottomNaviView?.Menu?.FindItem(_mealLogsTabIndex)?.ItemId;
 
         public ShellBottomNaviHandler(IShellContext shellContext, ShellItem shellItem)
             : base(shellContext, shellItem)
@@ -49,23 +56,23 @@ namespace VeganLife.Handlers
             {
                 if (number == 0)
                 {
-                    _messBadge.ClearNumber();
+                    _mealLogsTabBadge.ClearNumber();
                     if (_messTabId is not null)
                         _bottomNaviView.RemoveBadge(_messTabId.Value);
-                    _messBadge = null;
+                    _mealLogsTabBadge = null;
                 }
                 else
                 {
-                    var messNavi = _bottomNaviView?.Menu?.FindItem(_messageTabIndex);
+                    var messNavi = _bottomNaviView?.Menu?.FindItem(_mealLogsTabIndex);
                     var widthMess = messNavi?.Icon?.IntrinsicWidth;
                     if (_messTabId is not null)
                     {
-                        _messBadge = _bottomNaviView.GetOrCreateBadge(_messTabId.Value);
-                        _messBadge.VerticalOffset = 10;
-                        _messBadge.HorizontalOffset = (int)Math.Abs((decimal)(widthMess * 0.3));
-                        _messBadge.BadgeTextColor = global::Android.Graphics.Color.White;
-                        _messBadge.BackgroundColor = global::Android.Graphics.Color.Red;
-                        _messBadge.Number = number;
+                        _mealLogsTabBadge = _bottomNaviView.GetOrCreateBadge(_messTabId.Value);
+                        _mealLogsTabBadge.VerticalOffset = 10;
+                        _mealLogsTabBadge.HorizontalOffset = (int)Math.Abs((decimal)(widthMess * 0.3));
+                        _mealLogsTabBadge.BadgeTextColor = global::Android.Graphics.Color.White;
+                        _mealLogsTabBadge.BackgroundColor = global::Android.Graphics.Color.Red;
+                        _mealLogsTabBadge.Number = number;
                     }
                 }
             }
