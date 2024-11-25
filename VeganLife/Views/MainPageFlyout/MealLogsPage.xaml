@@ -22,7 +22,7 @@
     <Grid x:Name="mainGridContent" RowDefinitions="Auto,*">
         <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout>
+            <VerticalStackLayout Spacing="20">
                 <sharpnado:MaterialFrame
                     Margin="8,20,8,0"
                     CornerRadius="10"
@@ -192,6 +192,7 @@
                         </VerticalStackLayout>
                     </Grid>
                 </sharpnado:MaterialFrame>
+                <Label FontSize="Medium" Text="Meal logs" />
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

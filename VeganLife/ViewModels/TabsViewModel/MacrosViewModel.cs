@@ -167,10 +167,12 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
         {
             bool isExistingItem;
-            NutritionMealLogModel nutritionMealLogModel = new();
-            nutritionMealLogModel.EatingDay = DateTime.UtcNow.Date;
-            nutritionMealLogModel.Amount = 100;
-            nutritionMealLogModel.Name = param.Name;
+            var nutritionMealLogModel = new NutritionMealLogModel
+            {
+                EatingDay = DateTime.UtcNow.Date,
+                Amount = 100,
+                Name = param.Name
+            };
             if (param.IsUSDAFood)
             {
                 var resultCheckUsda = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);

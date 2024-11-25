@@ -64,38 +64,18 @@ namespace VeganLife.Data
         /// <inheritdoc/>
         public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
-            try
+            await this.InitAsync();
+            return await ExecuteWithRetryAsync(async () =>
             {
-                await this.InitAsync();
-                if (isUpdate || await this.IsExistingItem(item))
+                if (isUpdate || await IsExistingItem(item))
                 {
-                    return await this._connection.UpdateAsync(item) > 0;
+                    return await UpdateItemAsync(item);
                 }
                 else
                 {
-                    Task<int> task;
-                    task = this._connection.InsertOrReplaceAsync(item);
-                    return (await task) > 0;
+                    return await AddItemAsync(item);
                 }
-            }
-            catch (Exception e)
-            {
-                e.LogError();
-                if (e is SQLiteException sqliteException
-                    && sqliteException.Result == SQLite3.Result.Error)
-                {
-                    sqliteException.LogError("Error in AddOrUpdateItemAsync");
-                    await this._connection.DropTableAsync<T>();
-                    await this._connection.CreateTableAsync<T>();
-                    var retry = await this._connection.InsertOrReplaceAsync(item);
-                    return retry > 0;
-                }
-#if DEBUG
-                throw new Exception("==> Error in AddOrUpdateItemAsync", e);
-#else
-                return false;
-#endif
-            }
+            });
         }
 
         /// <inheritdoc/>
@@ -189,8 +169,53 @@ namespace VeganLife.Data
 
         public async Task<(bool isExised, T result)> IsExistingItem(object idValue)
         {
+            // Treat Id == 0 as a new item that does not exist
+            if (idValue is int intId && intId == 0)
+            {
+                return (false, default);
+            }
+
             var goalItem = await this._connection.FindAsync<T>(idValue);
-            return new (goalItem != null, goalItem);
+            return new(goalItem != null, goalItem);
+        }
+
+        // Add a new item
+        private async Task<bool> AddItemAsync(T item)
+        {
+            return await _connection.InsertAsync(item) > 0;
+        }
+
+        // Update an existing item
+        private async Task<bool> UpdateItemAsync(T item)
+        {
+            return await _connection.UpdateAsync(item) > 0;
+        }
+
+        // Centralized error handling
+        private async Task<bool> ExecuteWithRetryAsync(Func<Task<bool>> operation)
+        {
+            try
+            {
+                return await operation();
+            }
+            catch (SQLiteException ex) when (ex.Result == SQLite3.Result.Error)
+            {
+                ex.LogError("SQLite error in ExecuteWithRetryAsync");
+                await HandleDatabaseErrorAsync();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ex.LogError("General error in ExecuteWithRetryAsync");
+                return false;
+            }
+        }
+
+        // Handle database errors (e.g., recreate table)
+        private async Task HandleDatabaseErrorAsync()
+        {
+            await _connection.DropTableAsync<T>();
+            await _connection.CreateTableAsync<T>();
         }
     }
 }
