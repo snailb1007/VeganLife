@@ -1,4 +1,3 @@
-using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Views.ContentViews.Tabs;
