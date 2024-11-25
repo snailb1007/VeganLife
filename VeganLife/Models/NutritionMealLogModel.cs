@@ -16,5 +16,7 @@ namespace VeganLife.Models
         public DateTime EatingDay { get; set; }
 
         public int Amount { get; set; }
+
+        public bool IsRead {  get; set; }
     }
 }
