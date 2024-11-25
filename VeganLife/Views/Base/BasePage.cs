@@ -2,8 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using VeganLife.Helpers;
-
 namespace VeganLife.Views.Base
 {
     public abstract class BasePage<TViewModel> : BasePage
@@ -39,29 +37,5 @@ namespace VeganLife.Views.Base
         {
             this.BindingContext = viewModel;
         }
-
-        //protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
-        //{
-        //    if (EqualityComparer<T>.Default.Equals(backingStore, value))
-        //    {
-        //        return false;
-        //    }
-
-        //    backingStore = value;
-        //    onChanged?.Invoke();
-        //    this.OnPropertyChanged(propertyName);
-        //    return true;
-        //}
-
-        //public event PropertyChangedEventHandler BasePagePropertyChanged;
-
-        ///// <inheritdoc/>
-        //protected override void OnPropertyChanged([CallerMemberName] string propertyName = $"")
-        //{
-        //    base.OnPropertyChanged(propertyName);
-        //    var changed = this.BasePagePropertyChanged;
-
-        //    changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
     }
 }

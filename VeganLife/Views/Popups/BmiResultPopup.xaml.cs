@@ -3,7 +3,6 @@
 // </copyright>
 
 using AsyncAwaitBestPractices;
-using Mopups.Pages;
 using Mopups.Services;
 using VeganLife.ViewModels.PopupViewModels;
 

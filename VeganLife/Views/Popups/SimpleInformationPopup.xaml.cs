@@ -1,5 +1,4 @@
 using AsyncAwaitBestPractices;
-using Mopups.Pages;
 using Mopups.Services;
 
 namespace VeganLife.Views.Popups;

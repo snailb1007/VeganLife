@@ -3,7 +3,6 @@
 // </copyright>
 
 using AsyncAwaitBestPractices;
-using CommunityToolkit.Maui.Views;
 using VeganLife.Helpers;
 
 namespace VeganLife.Views.Popups;
