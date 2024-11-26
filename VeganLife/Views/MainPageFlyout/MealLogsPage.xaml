@@ -6,11 +6,11 @@
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:sharpnado="http://sharpnado.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    Title=""
     x:DataType="viewmodel:MealLogsPageVM"
     x:TypeArguments="viewmodel:MealLogsPageVM">
     <base:BasePage.Background>
@@ -193,6 +193,20 @@
                     </Grid>
                 </sharpnado:MaterialFrame>
                 <Label FontSize="Medium" Text="Meal logs" />
+                <CollectionView ItemsSource="{Binding NutritionMealLogs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:NutritionMealLogModel">
+                            <VerticalStackLayout Padding="10">
+                                <Label
+                                    FontSize="Small"
+                                    Text="{Binding UsdaFoodId}"
+                                    TextColor="Gray" />
+                                <Label Text="{Binding Name}" />
+                                <Line HeightRequest="1" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

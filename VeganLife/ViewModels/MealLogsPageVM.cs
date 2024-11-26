@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Mopups.Services;
 using PropertyChanged;
 using VeganLife.Data;
@@ -41,6 +42,9 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private double _goalWeight = -1;
 
+        [ObservableProperty]
+        private List<NutritionMealLogModel> _nutritionMealLogs;
+
         public MealLogsPageVM(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
@@ -51,11 +55,15 @@ namespace VeganLife.ViewModels
 
         public override async Task ViewAppearingVM()
         {
-            var x = await _nutritionMealLogDataStoreService.GetItemsAsync();
-            foreach (var i in x)
-            {
-                Console.WriteLine("==> " + i.Name);
-            }
+            _nutritionMealLogDataStoreService.GetItemsAsync()
+                .ContinueWith(t =>
+                {
+                    NutritionMealLogs = t.Result.ToList();
+                    foreach (var i in t.Result)
+                    {
+                        Console.WriteLine("==> " + i.Name);
+                    }
+                }).SafeFireAndForget();
 
             if (isInitialized)
             {
