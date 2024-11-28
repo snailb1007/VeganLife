@@ -45,12 +45,19 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private List<NutritionMealLogModel> _nutritionMealLogs;
 
+        [ObservableProperty]
+        private CultureInfo _calendarCultureInfo;
+
+        [ObservableProperty]
+        private IList<DateTime> _selectedDate = new List<DateTime>();
+
         public MealLogsPageVM(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             LocalUser = new UserInfo();
             _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
             this._nutritionMealLogDataStoreService  = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
+            CalendarCultureInfo = AppResources.Culture;
         }
 
         public override async Task ViewAppearingVM()
