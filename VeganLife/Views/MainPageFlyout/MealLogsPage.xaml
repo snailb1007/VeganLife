@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:control="clr-namespace:VeganLife.Views.Controls"
+    xmlns:controls="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:sharpnado="http://sharpnado.com"
@@ -193,7 +194,25 @@
                     </Grid>
                 </sharpnado:MaterialFrame>
                 <Label FontSize="Medium" Text="Meal logs" />
-                <CollectionView ItemsSource="{Binding NutritionMealLogs}">
+                <toolkit:Expander IsExpanded="False">
+                    <toolkit:Expander.Header>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            Text="Baboon" />
+                    </toolkit:Expander.Header>
+                    <controls:MultiSelectionCalendar
+                        x:Name="logsCalendar"
+                        Culture="{Binding CalendarCultureInfo}"
+                        HeightRequest="300"
+                        HorizontalOptions="Fill"
+                        SelectedDates="{Binding SelectedDate, Mode=TwoWay}"
+                        TodayTextColor="{StaticResource PrimaryOrange}"
+                        VerticalOptions="Fill"
+                        WidthRequest="300" />
+                </toolkit:Expander>
+
+                <!--<CollectionView ItemsSource="{Binding NutritionMealLogs}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutritionMealLogModel">
                             <VerticalStackLayout Padding="10">
@@ -206,7 +225,7 @@
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                </CollectionView>
+                </CollectionView>-->
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
