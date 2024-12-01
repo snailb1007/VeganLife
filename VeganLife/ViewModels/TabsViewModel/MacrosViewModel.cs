@@ -173,36 +173,76 @@ namespace VeganLife.ViewModels.TabsViewModel
                 Amount = 100,
                 Name = param.Name
             };
+            var mealLogs = await _nutritionMealLogDataStoreService.GetItemsAsync();
+            NutritionMealLogModel mealTargetItem;
             if (param.IsUSDAFood)
             {
+                USDAFoodNutritionFactModel targetItem;
                 var resultCheckUsda = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
                 isExistingItem = resultCheckUsda.isExised;
                 if (isExistingItem)
                 {
-                    Console.WriteLine(" Item already exists");
-                    nutritionMealLogModel.UsdaFoodId = resultCheckUsda.result.Id;
+                    Debug.WriteLine("USDA Item already exists");
+                    targetItem = resultCheckUsda.result;
                 }
                 else
                 {
-                    var targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
-                    nutritionMealLogModel.UsdaFoodId = targetItem.Id;
+                    targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
                 }
 
-                await this._nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+                nutritionMealLogModel.UsdaFoodId = targetItem.Id;
+                nutritionMealLogModel.Calories = targetItem.Calories;
+                nutritionMealLogModel.Protein = targetItem.Protein;
+                nutritionMealLogModel.Carbohydrate = targetItem.Carbohydrate;
+                nutritionMealLogModel.Fat = targetItem.Fat;
+
+                mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay && x.UsdaFoodId == nutritionMealLogModel.UsdaFoodId);
+                if (mealTargetItem != null)
+                {
+                    mealTargetItem.Amount += nutritionMealLogModel.Amount;
+                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
+                }
+                else
+                {
+                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+                }
+
                 (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
             }
             else
             {
+                UndefinedMacroFoodNutriFactModel targetItem;
                 var resultCheckUndefined = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
                 isExistingItem = resultCheckUndefined.isExised;
+
                 if (isExistingItem)
                 {
-                    Console.WriteLine(" Item already exists");
+                    Debug.WriteLine("Undefined Item already exists");
+                    targetItem = resultCheckUndefined.result;
                 }
                 else
                 {
-                    var targetItem = await dataService.GetMacroFoodNutriFacts(param.Id);
+                    targetItem = await dataService.GetMacroFoodNutriFacts(param.Id);
                 }
+
+                nutritionMealLogModel.UndefinedFoodId = targetItem.Id;
+                nutritionMealLogModel.Calories = targetItem.Calories;
+                nutritionMealLogModel.Protein = targetItem.Protein;
+                nutritionMealLogModel.Carbohydrate = targetItem.Carbohydrate;
+                nutritionMealLogModel.Fat = targetItem.Fat;
+
+                mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay && x.UndefinedFoodId == nutritionMealLogModel.UndefinedFoodId);
+                if (mealTargetItem != null)
+                {
+                    mealTargetItem.Amount += nutritionMealLogModel.Amount;
+                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
+                }
+                else
+                {
+                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+                }
+
+                (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
             }
         }
 
