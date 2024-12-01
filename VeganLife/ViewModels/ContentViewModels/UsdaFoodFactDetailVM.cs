@@ -67,6 +67,11 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         public override async Task ViewAppearingVM()
         {
+            if (this.isInitialized)
+            {
+                return;
+            }
+
             this.busyManager.Increase();
             await base.ViewAppearingVM();
             if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
@@ -82,6 +87,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
 
             this.busyManager.Decrease();
+            this.isInitialized = true;
         }
 
         [RelayCommand]
@@ -143,6 +149,7 @@ namespace VeganLife.ViewModels.ContentViewModels
         private UndefinedFoodNutrient _caloriesValue = null;
         private UndefinedFoodNutrient _proteinValue = null;
         private UndefinedFoodNutrient _carbValue = null;
+        private UndefinedFoodNutrient _fatValue = null;
 
         private async Task ProcessUsdaFoodAsync()
         {
@@ -156,27 +163,22 @@ namespace VeganLife.ViewModels.ContentViewModels
                     return;
                 }
 
-                var x = new Stopwatch();
-                x.Start();
-
                 // try summarize usda food nutrients
                 foreach (var i in foodNutrients)
                 {
                     NutritionFactsHelper.SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
-                    NutritionFactsHelper.SetNutrientValue(ref _carbValue, i,
-                        [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
+                    NutritionFactsHelper.SetNutrientValue(ref _carbValue, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
                     NutritionFactsHelper.SetNutrientValue(ref _caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
+                    NutritionFactsHelper.SetNutrientValue(ref _fatValue, i, [ConstantHelper.UsdaFoodNutrition.Fat]);
 
                     if (_proteinValue != null
                         && _carbValue != null
-                        && _caloriesValue != null)
+                        && _caloriesValue != null
+                        && _fatValue != null)
                     {
                         break;
                     }
                 }
-
-                x.Stop();
-                Console.WriteLine("==> time run: " + x.ElapsedMilliseconds + " ms.");
 
                 bool isNeedUpdate = false;
                 if (_proteinValue != null)
@@ -197,6 +199,14 @@ namespace VeganLife.ViewModels.ContentViewModels
                 {
                     CaloriesValue = _caloriesValue;
                     this.CurrentFoodNutritionFact.Calories = _caloriesValue?.Amount.Value ?? -1;
+                    isNeedUpdate = true;
+                }
+
+                if (_fatValue != null)
+                {
+                    // TODO: need implement
+                    //FatValue = _fatValue;
+                    this.CurrentFoodNutritionFact.Fat = _fatValue?.Amount.Value ?? -1;
                     isNeedUpdate = true;
                 }
 

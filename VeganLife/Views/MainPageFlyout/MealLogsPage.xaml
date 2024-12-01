@@ -197,14 +197,27 @@
                 <CollectionView ItemsSource="{Binding NutritionMealLogs}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutritionMealLogModel">
-                            <VerticalStackLayout Padding="10">
-                                <Label
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Padding="10">
+                                    <Label
+                                        FontSize="Small"
+                                        Text="{Binding UsdaFoodId}"
+                                        TextColor="Gray" />
+                                    <Label Text="{Binding Name}" />
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label FontSize="Small" Text="{Binding DisplayCalories, StringFormat='Calories: {0:F1}'}" />
+                                        <Label FontSize="Small" Text="{Binding DisplayProtein, StringFormat='P: {0:F1}'}" />
+                                        <Label FontSize="Small" Text="{Binding DisplayFat, StringFormat='F: {0:F1}'}" />
+                                        <Label FontSize="Small" Text="{Binding DisplayCarbs, StringFormat='Carbs: {0:F1}'}" />
+                                    </HorizontalStackLayout>
+                                    <Line BackgroundColor="Gray" HeightRequest="1" />
+                                </VerticalStackLayout>
+                                <Button
+                                    BackgroundColor="{StaticResource PrimaryOrange1}"
                                     FontSize="Small"
-                                    Text="{Binding UsdaFoodId}"
-                                    TextColor="Gray" />
-                                <Label Text="{Binding Name}" />
-                                <Line HeightRequest="1" />
-                            </VerticalStackLayout>
+                                    IsVisible="{Binding IsMayBeFailedData}"
+                                    Text="repair!" />
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
