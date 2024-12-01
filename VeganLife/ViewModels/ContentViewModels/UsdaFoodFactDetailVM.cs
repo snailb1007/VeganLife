@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Data;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Models.CommunityFreeServiceModel;
@@ -12,6 +14,7 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
         private readonly USDAApiService _usdaApiService;
+        private readonly BaseDataStore<USDAFoodNutritionFactModel> _usdaDataStoreService;
 
         [ObservableProperty]
         private USDAFoodPreviewModel _currentFoodPreview;
@@ -38,10 +41,11 @@ namespace VeganLife.ViewModels.ContentViewModels
         [ObservableProperty]
         private UndefinedFoodNutrient caloriesValue;
 
-        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService)
+        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, LocalDataStoreFactory localDataStoreFactory)
         {
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
             _usdaApiService = uSDAApiService;
+            _usdaDataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
         }
 
         public override Task OnNavigatingTo(object parameter)
@@ -143,65 +147,62 @@ namespace VeganLife.ViewModels.ContentViewModels
         private async Task ProcessUsdaFoodAsync()
         {
             this.CurrentFoodNutritionFact = await _usdaApiService.GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
-            bool? any = false;
+            //bool? any = false;
             var foodNutrients = this.CurrentFoodNutritionFact?.foodNutrients;
             if (foodNutrients != null)
             {
-                if (foodNutrients.Count != 0)
+                if (!foodNutrients.Any())
                 {
-                    any = true;
+                    return;
                 }
 
-                if (any ?? false)
+                var x = new Stopwatch();
+                x.Start();
+
+                // try summarize usda food nutrients
+                foreach (var i in foodNutrients)
                 {
-                    // try summarize usda food nutrients
-                    foreach (var i in this.CurrentFoodNutritionFact?.foodNutrients)
-                    {
-                        SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
-                        SetNutrientValue(ref _carbValue, i,
-                            [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
-                        SetNutrientValue(ref _caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
+                    NutritionFactsHelper.SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
+                    NutritionFactsHelper.SetNutrientValue(ref _carbValue, i,
+                        [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
+                    NutritionFactsHelper.SetNutrientValue(ref _caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
 
-                        if (_proteinValue != null
-                            && _carbValue != null
-                            && _caloriesValue != null)
-                        {
-                            break;
-                        }
-                    }
-
-                    if (_proteinValue != null)
+                    if (_proteinValue != null
+                        && _carbValue != null
+                        && _caloriesValue != null)
                     {
-                        ProteinValue = _proteinValue;
+                        break;
                     }
+                }
 
-                    if (_carbValue != null)
-                    {
-                        CarbValue = _carbValue;
-                    }
+                x.Stop();
+                Console.WriteLine("==> time run: " + x.ElapsedMilliseconds + " ms.");
 
-                    if (_caloriesValue != null)
-                    {
-                        CaloriesValue = _caloriesValue;
-                    }
+                bool isNeedUpdate = false;
+                if (_proteinValue != null)
+                {
+                    ProteinValue = _proteinValue;
+                    this.CurrentFoodNutritionFact.Protein = _proteinValue?.Amount.Value ?? -1;
+                    isNeedUpdate = true;
+                }
 
-                    void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source,
-                        string[] searchTerms)
-                    {
-                        var nutrientName = source.Nutrient?.Name;
-                        var isMatchesAllTerms = searchTerms
-                            .All(term =>
-                                !string.IsNullOrEmpty(nutrientName) &&
-                                nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
-                        if (targetNutrient == null && isMatchesAllTerms)
-                        {
-                            targetNutrient = new UndefinedFoodNutrient()
-                            {
-                                Amount = source.Amount,
-                                Unit = source?.Nutrient?.UnitName ?? string.Empty,
-                            };
-                        }
-                    }
+                if (_carbValue != null)
+                {
+                    CarbValue = _carbValue;
+                    this.CurrentFoodNutritionFact.Carbohydrate = _carbValue?.Amount.Value ?? -1;
+                    isNeedUpdate = true;
+                }
+
+                if (_caloriesValue != null)
+                {
+                    CaloriesValue = _caloriesValue;
+                    this.CurrentFoodNutritionFact.Calories = _caloriesValue?.Amount.Value ?? -1;
+                    isNeedUpdate = true;
+                }
+
+                if (isNeedUpdate)
+                {
+                    await _usdaDataStoreService.AddOrUpdateItemAsync(this.CurrentFoodNutritionFact, isUpdate: true);
                 }
             }
         }

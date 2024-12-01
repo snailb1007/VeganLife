@@ -6,7 +6,7 @@ using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
 {
-    public class USDAFoodNutritionFactModel
+    public partial class USDAFoodNutritionFactModel : BaseFoodModel
     {
         [PrimaryKey]
         [JsonProperty("fdcId")]
@@ -18,6 +18,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [Ignore]
         public List<FoodNutrient> foodNutrients { get; set; }
 
+        [JsonIgnore]
         public string FoodNutrientsJsonData { get; set; }
     }
 
