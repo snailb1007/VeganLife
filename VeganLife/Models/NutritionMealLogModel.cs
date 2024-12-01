@@ -1,8 +1,9 @@
 ﻿using SQLite;
+using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
 {
-    public class NutritionMealLogModel
+    public partial class NutritionMealLogModel : BaseFoodModel
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

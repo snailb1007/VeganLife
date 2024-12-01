@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="VeganLife.Views.Popups.MealLogsCalendarMopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:calendarControls="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:vm="clr-namespace:VeganLife.ViewModels.PopupViewModels"
+    x:DataType="vm:MealLogsMopupVM"
+    BackgroundColor="{StaticResource PopupBackgroundColor}"
+    CloseWhenBackgroundIsClicked="True">
+    <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,Auto,2*">
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Padding="10"
+            BackgroundColor="White"
+            Opacity="1"
+            StrokeShape="RoundRectangle 8"
+            StrokeThickness="0">
+            <Border.Triggers>
+                <DataTrigger
+                    Binding="{Binding IsLoading}"
+                    TargetType="Border"
+                    Value="True">
+                    <Setter Property="Opacity" Value="0.5" />
+                </DataTrigger>
+            </Border.Triggers>
+            <VerticalStackLayout>
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding ClosePopupCommand}"
+                    FontFamily="FALight"
+                    FontSize="Medium"
+                    HorizontalOptions="End"
+                    Text="{StaticResource IconClose}"
+                    TextColor="Gray" />
+                <calendarControls:MultiSelectionCalendar
+                    x:Name="logsCalendar"
+                    ArrowsBorderWidth="0"
+                    CalendarLayout="Month"
+                    Culture="{Binding CalendarCultureInfo}"
+                    DaysTitleWeekendColor="{StaticResource PrimaryOrange}"
+                    HorizontalOptions="Fill"
+                    MaximumDate="{Binding Today, Mode=OneWay}"
+                    SelectedDates="{Binding SelectedDate, Mode=TwoWay}"
+                    TodayTextColor="Red"
+                    VerticalOptions="Fill"
+                    WeekendDayColor="{StaticResource PrimaryOrange}" />
+                <Button
+                    Margin="20,0"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Apply" />
+            </VerticalStackLayout>
+        </Border>
+        <ContentView
+            Grid.Row="1"
+            Grid.Column="1"
+            ControlTemplate="{StaticResource LoadingAnimationTemplate}"
+            IsVisible="{Binding IsLoading}" />
+    </Grid>
+</mopups:PopupPage>

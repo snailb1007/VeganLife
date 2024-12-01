@@ -4,7 +4,6 @@
 
 // Ignore Spelling: Nav
 using CommunityToolkit.Mvvm.Messaging;
-using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Services.UserServices;
 

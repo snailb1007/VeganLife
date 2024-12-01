@@ -6,7 +6,6 @@ using AsyncAwaitBestPractices;
 using Mopups.Interfaces;
 using Mopups.Pages;
 using Mopups.Services;
-using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
 
 namespace VeganLife.Services
@@ -37,12 +36,6 @@ namespace VeganLife.Services
 
         public int GetPopupStackCount() => this.Navigation?.PopupStack?.Count ?? 0;
 
-        private static BaseViewModel GetPopupViewModel(PopupPage popup) => popup?.BindingContext as BaseViewModel;
-
-        public PopupNaviService()
-        {
-        }
-
         public async Task PopAllAsync(bool animate = true)
         {
             if (this.GetPopupStackCount() > 0)
@@ -55,43 +48,39 @@ namespace VeganLife.Services
 
         public async Task PopAsync(bool animate = true)
         {
-            if (this.GetPopupStackCount() > 0)
-            {
-                await this.Navigation.PopAsync(animate);
-            }
-            else
+            if (this.GetPopupStackCount() < 0)
             {
                 throw new InvalidOperationException("No pages to navigate back to!");
             }
+
+            await this.Navigation.PopAsync(animate);
         }
 
         public async Task PushAsync<T>(object param = null, bool animate = true)
             where T : PopupPage
         {
             var toPage = FFImageLoading.Helpers.ServiceHelper.GetService<T>();
-            if (toPage is not null)
-            {
-                toPage.NavigatedTo += Page_NavigatedTo;
-                var toViewModel = GetPopupViewModel(toPage);
-
-                // passing param
-                if (toViewModel is not null)
-                {
-                    await toViewModel.OnNavigatingTo(param);
-                }
-
-                FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().HideKeyboard();
-
-                // navigate
-                await this.Navigation.PushAsync(toPage);
-
-                // subscribe
-                toPage.NavigatedFrom += this.Page_NavigatedFrom;
-            }
-            else
+            if (toPage is null)
             {
                 throw new InvalidOperationException($"Unable to resolve type {typeof(T).FullName}");
             }
+
+            toPage.NavigatedTo += Page_NavigatedTo;
+            var toViewModel = GetPopupViewModel(toPage);
+
+            // passing param
+            if (toViewModel is not null)
+            {
+                await toViewModel.OnNavigatingTo(param);
+            }
+
+            FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().HideKeyboard();
+
+            // navigate
+            await this.Navigation.PushAsync(toPage);
+
+            // subscribe
+            toPage.NavigatedFrom += this.Page_NavigatedFrom;
         }
 
         public PopupPage GetLastMopupPage()
@@ -104,6 +93,8 @@ namespace VeganLife.Services
             var result = this.Navigation.PopupStack.Last();
             return result;
         }
+
+        private static BaseViewModel GetPopupViewModel(PopupPage popup) => popup?.BindingContext as BaseViewModel;
 
         private void Page_NavigatedTo(object sender, NavigatedToEventArgs e)
             => this.CallNavigatedTo(sender as PopupPage).SafeFireAndForget(onException: ex => ex.LogError());
