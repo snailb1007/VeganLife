@@ -7,12 +7,12 @@
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:sho="http://sharpnado.com"
+    xmlns:tabsView="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:usdaModel="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:vm="clr-namespace:VeganLife.ViewModels.TabsViewModel"
     x:Name="macroTabRoot"
-    xmlns:tabsView="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     x:DataType="vm:MacrosViewModel">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -74,16 +74,21 @@
                             MaxLines="1"
                             Text="{Binding Name}"
                             VerticalOptions="Start" />
-                        <Button
+                        <sho:MaterialFrame
                             Grid.Column="1"
-                            Padding="5"
-                            Command="{Binding ViewModel.ItemEditedTapCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
-                            CommandParameter="{Binding .}"
-                            FontFamily="FALight"
-                            HeightRequest="25"
-                            InputTransparent="False"
-                            Text="&#xf64e;"
-                            VerticalOptions="End" />
+                            Margin="0,0,1,1"
+                            Padding="8"
+                            sho:Commands.Tap="{Binding ViewModel.ItemEditedTapCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
+                            sho:Commands.TapParameter="{Binding .}"
+                            CornerRadius="4"
+                            MaterialTheme="Acrylic"
+                            VerticalOptions="End">
+                            <Label
+                                FontFamily="FALight"
+                                FontSize="Medium"
+                                InputTransparent="True"
+                                Text="&#xf64e;" />
+                        </sho:MaterialFrame>
                         <HorizontalStackLayout Spacing="4" VerticalOptions="End">
                             <Label
                                 FontFamily="FAThin"
@@ -127,7 +132,23 @@
                                 Spacing="4"
                                 VerticalOptions="Center">
                                 <Border BackgroundColor="{StaticResource Gray100}" StrokeShape="RoundRectangle 10">
-                                    <Entry Placeholder="100" WidthRequest="100" />
+                                    <Entry
+                                        Keyboard="Numeric"
+                                        Placeholder="100"
+                                        Text="{Binding Amount, Mode=OneWayToSource}"
+                                        WidthRequest="100">
+                                        <Entry.Behaviors>
+                                            <toolkit:NumericValidationBehavior
+                                                x:Name="amountEntryValidator"
+                                                Flags="ValidateOnValueChanged"
+                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                IsValid="False"
+                                                MaximumDecimalPlaces="0"
+                                                MaximumValue="10000"
+                                                MinimumValue="5"
+                                                ValidStyle="{StaticResource ValidEntryStyle}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
                                 </Border>
                                 <Label
                                     Text="g(grams)"
@@ -141,18 +162,23 @@
                                 Command="{Binding ViewModel.AddMealLogsClickedCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                                 CommandParameter="{Binding .}"
                                 InputTransparent="False"
+                                IsEnabled="{Binding IsValid, Source={x:Reference amountEntryValidator}, x:DataType={x:Type toolkit:NumericValidationBehavior}}"
                                 Text="{x:Static translate:AppResources.addML_btn_macroTab}"
                                 VerticalOptions="Center" />
-                            <Label
+                            <sho:MaterialFrame
                                 Grid.ColumnSpan="2"
+                                Margin="0,1,1,0"
+                                Padding="2"
                                 sho:Commands.Tap="{Binding ViewModel.ItemEditedTapCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                                 sho:Commands.TapParameter="{Binding .}"
-                                FontFamily="FALight"
-                                FontSize="Medium"
                                 HorizontalOptions="End"
                                 InputTransparent="False"
-                                Text="&#xf00d;"
-                                VerticalOptions="Start" />
+                                VerticalOptions="Start">
+                                <Label
+                                    FontFamily="FALight"
+                                    FontSize="Medium"
+                                    Text="&#xf00d;" />
+                            </sho:MaterialFrame>
                         </Grid>
                     </sho:MaterialFrame>
                 </Grid>
@@ -184,6 +210,7 @@
                 Grid.Row="1"
                 IsClippedToBounds="False"
                 IsRefreshing="False"
+                Opacity="{x:Bind IsLoading ? 0.5 : 1.0}"
                 Refreshing="RefreshView_Refreshing">
                 <CollectionView
                     x:Name="FoodsPreviewCollection"
@@ -267,6 +294,10 @@
                     </CollectionView.EmptyView>
                 </CollectionView>
             </RefreshView>
+            <ContentView
+                Grid.ColumnSpan="2"
+                ControlTemplate="{StaticResource LoadingAnimationTemplate}"
+                IsVisible="{Binding IsLoading}" />
         </Grid>
     </ContentView.Content>
 </ContentView>

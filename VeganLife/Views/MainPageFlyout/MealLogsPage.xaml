@@ -212,11 +212,6 @@
                                     </HorizontalStackLayout>
                                     <Line BackgroundColor="Gray" HeightRequest="1" />
                                 </VerticalStackLayout>
-                                <Button
-                                    BackgroundColor="{StaticResource PrimaryOrange1}"
-                                    FontSize="Small"
-                                    IsVisible="{Binding IsMayBeFailedData}"
-                                    Text="repair!" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
