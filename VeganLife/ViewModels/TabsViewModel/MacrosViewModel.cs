@@ -157,92 +157,80 @@ namespace VeganLife.ViewModels.TabsViewModel
             await navigationService.NavigateToPage<USDAFoodListPage>();
         }
 
+        bool _isProcessing;
         [RelayCommand]
         private void OnItemEditedTap(USDAFoodPreviewModel param)
         {
+            if (IsLoading || _isProcessing)
+            {
+                return;
+            }
+
+            _isProcessing = true;
             param.IsShowingEdit = !param.IsShowingEdit;
+            Task.Delay(100).ContinueWith(t => _isProcessing = false);
         }
 
         [RelayCommand]
         private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
         {
-            bool isExistingItem;
             var nutritionMealLogModel = new NutritionMealLogModel
             {
-                EatingDay = DateTime.UtcNow.Date,
-                Amount = 100,
+                EatingDay = DateTime.Now.Date,
+                Amount = param.Amount,
                 Name = param.Name
             };
             var mealLogs = await _nutritionMealLogDataStoreService.GetItemsAsync();
             NutritionMealLogModel mealTargetItem;
+
+            var (itemExists, targetItem) = await GetFoodDetailsAsync(param.IsUSDAFood, param.Id);
+
+            nutritionMealLogModel.Calories = targetItem.Calories;
+            nutritionMealLogModel.Protein = targetItem.Protein;
+            nutritionMealLogModel.Carbohydrate = targetItem.Carbohydrate;
+            nutritionMealLogModel.Fat = targetItem.Fat;
+
             if (param.IsUSDAFood)
             {
-                USDAFoodNutritionFactModel targetItem;
-                var resultCheckUsda = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
-                isExistingItem = resultCheckUsda.isExised;
-                if (isExistingItem)
-                {
-                    Debug.WriteLine("USDA Item already exists");
-                    targetItem = resultCheckUsda.result;
-                }
-                else
-                {
-                    targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
-                }
-
                 nutritionMealLogModel.UsdaFoodId = targetItem.Id;
-                nutritionMealLogModel.Calories = targetItem.Calories;
-                nutritionMealLogModel.Protein = targetItem.Protein;
-                nutritionMealLogModel.Carbohydrate = targetItem.Carbohydrate;
-                nutritionMealLogModel.Fat = targetItem.Fat;
-
-                mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay && x.UsdaFoodId == nutritionMealLogModel.UsdaFoodId);
-                if (mealTargetItem != null)
-                {
-                    mealTargetItem.Amount += nutritionMealLogModel.Amount;
-                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
-                }
-                else
-                {
-                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
-                }
-
-                (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
             }
             else
             {
-                UndefinedMacroFoodNutriFactModel targetItem;
-                var resultCheckUndefined = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
-                isExistingItem = resultCheckUndefined.isExised;
-
-                if (isExistingItem)
-                {
-                    Debug.WriteLine("Undefined Item already exists");
-                    targetItem = resultCheckUndefined.result;
-                }
-                else
-                {
-                    targetItem = await dataService.GetMacroFoodNutriFacts(param.Id);
-                }
-
                 nutritionMealLogModel.UndefinedFoodId = targetItem.Id;
-                nutritionMealLogModel.Calories = targetItem.Calories;
-                nutritionMealLogModel.Protein = targetItem.Protein;
-                nutritionMealLogModel.Carbohydrate = targetItem.Carbohydrate;
-                nutritionMealLogModel.Fat = targetItem.Fat;
+            }
 
-                mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay && x.UndefinedFoodId == nutritionMealLogModel.UndefinedFoodId);
-                if (mealTargetItem != null)
+            mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay &&
+                     ((param.IsUSDAFood && x.UsdaFoodId == nutritionMealLogModel.UsdaFoodId) ||
+                     (!param.IsUSDAFood && x.UndefinedFoodId == nutritionMealLogModel.UndefinedFoodId)));
+
+            if (mealTargetItem != null)
+            {
+                mealTargetItem.Amount += nutritionMealLogModel.Amount;
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
+            }
+            else
+            {
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+            }
+
+            (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
+
+            async Task<(bool, dynamic)> GetFoodDetailsAsync(bool isUSDAFood, string id)
+            {
+                if (isUSDAFood)
                 {
-                    mealTargetItem.Amount += nutritionMealLogModel.Amount;
-                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
+                    var result = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(id);
+                    return result.isExised
+                        ? (true, result.result)
+                        : (false, await _uSDAApiService.GetFoodDetailsByIdAsync(id));
                 }
                 else
                 {
-                    await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+                    var result = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(id);
+                    return result.isExised
+                        ? (true, result.result)
+                        : (false, await dataService.GetMacroFoodNutriFacts(id));
                 }
-
-                (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
             }
         }
 
