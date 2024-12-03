@@ -146,11 +146,6 @@ namespace VeganLife.ViewModels.ContentViewModels
             }
         }
 
-        private UndefinedFoodNutrient _caloriesValue = null;
-        private UndefinedFoodNutrient _proteinValue = null;
-        private UndefinedFoodNutrient _carbValue = null;
-        private UndefinedFoodNutrient _fatValue = null;
-
         private async Task ProcessUsdaFoodAsync()
         {
             this.CurrentFoodNutritionFact = await _usdaApiService.GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
@@ -163,57 +158,16 @@ namespace VeganLife.ViewModels.ContentViewModels
                     return;
                 }
 
-                // try summarize usda food nutrients
-                foreach (var i in foodNutrients)
-                {
-                    NutritionFactsHelper.SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
-                    NutritionFactsHelper.SetNutrientValue(ref _carbValue, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
-                    NutritionFactsHelper.SetNutrientValue(ref _caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
-                    NutritionFactsHelper.SetNutrientValue(ref _fatValue, i, [ConstantHelper.UsdaFoodNutrition.Fat]);
+                this.CaloriesValue.Amount = CurrentFoodNutritionFact.Calories.Amount;
+                this.CaloriesValue.Unit = CurrentFoodNutritionFact.Calories.Unit;
 
-                    if (_proteinValue != null
-                        && _carbValue != null
-                        && _caloriesValue != null
-                        && _fatValue != null)
-                    {
-                        break;
-                    }
-                }
+                this.CarbValue.Amount = CurrentFoodNutritionFact.Carbohydrate.Amount;
+                this.CarbValue.Unit = CurrentFoodNutritionFact.Carbohydrate.Unit;
 
-                bool isNeedUpdate = false;
-                if (_proteinValue != null)
-                {
-                    ProteinValue = _proteinValue;
-                    this.CurrentFoodNutritionFact.Protein = _proteinValue?.Amount.Value ?? -1;
-                    isNeedUpdate = true;
-                }
+                this.ProteinValue.Amount = CurrentFoodNutritionFact.Protein.Amount;
+                this.ProteinValue.Unit = CurrentFoodNutritionFact.Protein.Unit;
 
-                if (_carbValue != null)
-                {
-                    CarbValue = _carbValue;
-                    this.CurrentFoodNutritionFact.Carbohydrate = _carbValue?.Amount.Value ?? -1;
-                    isNeedUpdate = true;
-                }
-
-                if (_caloriesValue != null)
-                {
-                    CaloriesValue = _caloriesValue;
-                    this.CurrentFoodNutritionFact.Calories = _caloriesValue?.Amount.Value ?? -1;
-                    isNeedUpdate = true;
-                }
-
-                if (_fatValue != null)
-                {
-                    // TODO: need implement
-                    //FatValue = _fatValue;
-                    this.CurrentFoodNutritionFact.Fat = _fatValue?.Amount.Value ?? -1;
-                    isNeedUpdate = true;
-                }
-
-                if (isNeedUpdate)
-                {
-                    await _usdaDataStoreService.AddOrUpdateItemAsync(this.CurrentFoodNutritionFact, isUpdate: true);
-                }
+                // TODO: fat implement
             }
         }
     }
