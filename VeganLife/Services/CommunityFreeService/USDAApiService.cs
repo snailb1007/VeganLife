@@ -8,7 +8,9 @@ using Newtonsoft.Json;
 using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Helpers.AppSetting;
 using VeganLife.Helpers.Extensions;
+using VeganLife.Models.BaseModel;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
 
@@ -48,6 +50,7 @@ namespace VeganLife.Services.CommunityFreeService
                     if (responseData is not null)
                     {
                         responseData.FoodNutrientsJsonData = JsonConvert.SerializeObject(responseData.foodNutrients);
+                        RepairData(responseData);
                         _dataStoreService.AddOrUpdateItemAsync(responseData).SafeFireAndForget();
                         result = responseData;
                     }
@@ -103,6 +106,42 @@ namespace VeganLife.Services.CommunityFreeService
                 var errorContent = await response.Content.ReadAsStringAsync();
                 throw new Exception($"==> Error: {response.StatusCode}, Details: {errorContent}");
             }
+        }
+
+        private void RepairData(USDAFoodNutritionFactModel data)
+        {
+            UndefinedFoodNutrient caloriesValue = null;
+            UndefinedFoodNutrient proteinValue = null;
+            UndefinedFoodNutrient carbValue = null;
+            UndefinedFoodNutrient fatValue = null;
+
+            foreach (var i in data.foodNutrients)
+            {
+                if (proteinValue != null
+                    && carbValue != null
+                    && caloriesValue != null
+                    && fatValue != null)
+                {
+                    break;
+                }
+
+                NutritionFactsHelper.SetNutrientValue(ref proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
+                NutritionFactsHelper.SetNutrientValue(ref carbValue, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
+                NutritionFactsHelper.SetNutrientValue(ref caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
+                NutritionFactsHelper.SetNutrientValue(ref fatValue, i, [ConstantHelper.UsdaFoodNutrition.Fat]);
+            }
+
+            data.Calories.Amount = caloriesValue?.Amount ?? -1;
+            data.Calories.Unit = caloriesValue.Unit;
+
+            data.Protein.Amount = proteinValue?.Amount ?? -1;
+            data.Protein.Unit = proteinValue.Unit;
+
+            data.Carbohydrate.Amount = carbValue?.Amount ?? -1;
+            data.Carbohydrate.Unit = carbValue?.Unit;
+
+            data.Fat.Amount = fatValue?.Amount ?? -1;
+            data.Fat.Unit = fatValue?.Unit;
         }
     }
 }
