@@ -3,6 +3,7 @@
 // </copyright>
 
 using AsyncAwaitBestPractices;
+using Realms;
 using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.Extensions;
@@ -14,11 +15,13 @@ namespace VeganLife.Data
     /// Local storage using sqlite.
     /// </summary>
     public class BaseDataStore<T> : IDataStoreService<T>
-        where T : new()
+        where T : RealmObject, new()
     {
         private readonly ISQLite _localDatabase;
         private SQLiteAsyncConnection _connection;
         private Task _currentInitTask;
+
+        private readonly Realm _realm;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDataStore{T}"/> class.
@@ -26,9 +29,11 @@ namespace VeganLife.Data
         /// <param name="database">ISQLite.</param>
         public BaseDataStore(ISQLite database)
         {
-            this._localDatabase = database;
-            _currentInitTask = InitAsync();
-            _currentInitTask.SafeFireAndForget(ex => ex.LogError());
+            //this._localDatabase = database;
+            //_currentInitTask = InitAsync();
+            //_currentInitTask.SafeFireAndForget(ex => ex.LogError());
+
+            _realm = Realm.GetInstance();
         }
 
         public async Task<bool> SaveItems(IEnumerable<T> items)
@@ -36,8 +41,14 @@ namespace VeganLife.Data
             await this.InitAsync();
             try
             {
-                var res = await this._connection.InsertAllAsync(items);
-                return res > 0;
+                _realm.Write(() =>
+                {
+                    foreach (var item in items)
+                    {
+                        _realm.Add(item, update: true); // Upsert
+                    }
+                });
+                return true;
             }
             catch (Exception e)
             {
@@ -51,8 +62,12 @@ namespace VeganLife.Data
             await this.InitAsync();
             try
             {
-                var res = await this._connection.DeleteAllAsync<T>();
-                return res > 0;
+                _realm.Write(() =>
+                {
+                    var allItems = _realm.All<T>();
+                    _realm.RemoveRange(allItems);
+                });
+                return true;
             }
             catch (Exception e)
             {
@@ -64,8 +79,7 @@ namespace VeganLife.Data
         /// <inheritdoc/>
         public async Task<bool> AddOrUpdateItemAsync(T item, bool isUpdate = false)
         {
-            await this.InitAsync();
-            return await ExecuteWithRetryAsync(async () =>
+            _realm.Write(() =>
             {
                 if (isUpdate || await IsExistingItem(item))
                 {
@@ -141,18 +155,18 @@ namespace VeganLife.Data
 
         private async Task InitAsync()
         {
-            if (this._currentInitTask != null && !this._currentInitTask.IsCompleted)
-            {
-                await _currentInitTask;
-            }
+            //if (this._currentInitTask != null && !this._currentInitTask.IsCompleted)
+            //{
+            //    await _currentInitTask;
+            //}
 
-            if (this._connection is not null)
-            {
-                return;
-            }
+            //if (this._connection is not null)
+            //{
+            //    return;
+            //}
 
-            this._connection = this._localDatabase.GetAsyncConnection();
-            await this._connection?.CreateTableAsync<T>()!;
+            //this._connection = this._localDatabase.GetAsyncConnection();
+            //await this._connection?.CreateTableAsync<T>()!;
         }
 
         public async Task<bool> IsExistingItem(T item)
