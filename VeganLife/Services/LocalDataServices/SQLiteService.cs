@@ -2,25 +2,25 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using SQLite;
+
 using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Services.LocalDataServices
 {
     public class SQLiteService : ISQLite
     {
-        private SQLiteAsyncConnection _sQLiteConnectionData = null;
+        //private SQLiteAsyncConnection _sQLiteConnectionData = null;
 
-        public SQLiteAsyncConnection GetAsyncConnection()
-        {
-            if (this._sQLiteConnectionData != null)
-            {
-                return this._sQLiteConnectionData;
-            }
+        //public SQLiteAsyncConnection GetAsyncConnection()
+        //{
+        //    if (this._sQLiteConnectionData != null)
+        //    {
+        //        return this._sQLiteConnectionData;
+        //    }
 
-            _sQLiteConnectionData = new SQLiteAsyncConnection(ConstantHelper.DatabasePath, ConstantHelper.SQLiteFlags);
-            return _sQLiteConnectionData;
-        }
+        //    _sQLiteConnectionData = new SQLiteAsyncConnection(ConstantHelper.DatabasePath, ConstantHelper.SQLiteFlags);
+        //    return _sQLiteConnectionData;
+        //}
 
         public async Task ApplyMigrationsAsync()
         {

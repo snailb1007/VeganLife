@@ -1,12 +1,12 @@
-﻿using SQLite;
+﻿using Realms;
 using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
 {
     public partial class NutritionMealLogModel : BaseFoodModel
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        [PrimaryKey]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string Name { get; set; }
 
@@ -23,13 +23,13 @@ namespace VeganLife.Models
 
     public partial class NutritionMealLogModel
     {
-        [Ignore]
+        [Ignored]
         public double DisplayCalories => this.Calories.Amount * this.Amount / 100f;
-        [Ignore]
+        [Ignored]
         public double DisplayProtein => this.Protein.Amount * this.Amount / 100f;
-        [Ignore]
+        [Ignored]
         public double DisplayFat => this.Fat.Amount * this.Amount / 100f;
-        [Ignore]
+        [Ignored]
         public double DisplayCarbs => this.Carbohydrate.Amount * this.Amount / 100f;
 
         public bool IsUsda => this.UsdaFoodId > 0;

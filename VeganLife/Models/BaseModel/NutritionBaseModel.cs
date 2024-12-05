@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SQLite;
 using VeganLife.Helpers;
 
 namespace VeganLife.Models.BaseModel

@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using SQLite;
+
 using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
 
@@ -21,8 +21,7 @@ namespace VeganLife.Models
     public class AffiliationModel
     {
         [PrimaryKey]
-        [AutoIncrement]
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string NutrientName { get; set; }
 

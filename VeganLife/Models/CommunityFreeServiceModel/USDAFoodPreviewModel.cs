@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SQLite;
+
 using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
@@ -27,13 +27,13 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [ObservableProperty, JsonIgnore]
         private int _countCorrectWordOnSearch;
 
-        [Ignore]
+        [Ignored]
         public bool IsUSDAFood => !string.IsNullOrEmpty(Id) && !Id.Contains(ConstantHelper.TAG);
 
-        [Ignore]
+        [Ignored]
         public bool IsShowingEdit { get; set; }
 
-        [Ignore]
+        [Ignored]
         public int Amount { get; set; }
     }
 }

@@ -219,14 +219,14 @@ namespace VeganLife.ViewModels.TabsViewModel
             {
                 if (isUSDAFood)
                 {
-                    var result = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(id);
+                    var result = _usdaFoodNutritionFactDataStoreService.IsExistingItem(id);
                     return result.isExised
                         ? (true, result.result)
                         : (false, await _uSDAApiService.GetFoodDetailsByIdAsync(id));
                 }
                 else
                 {
-                    var result = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(id);
+                    var result = _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(id);
                     return result.isExised
                         ? (true, result.result)
                         : (false, await dataService.GetMacroFoodNutriFacts(id));

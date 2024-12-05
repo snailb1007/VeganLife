@@ -1,12 +1,10 @@
-﻿using SQLite;
-
+﻿
 namespace VeganLife.Models
 {
     public partial class GoogleAdValidatorModel
     {
         [PrimaryKey]
-        [AutoIncrement]
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public DateTime LastTimeRewardOpen { get; set; }
 

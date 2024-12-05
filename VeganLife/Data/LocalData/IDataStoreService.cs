@@ -20,8 +20,8 @@ namespace VeganLife.Data.LocalData
 
         Task<bool> DeleteAllItems();
 
-        Task<bool> IsExistingItem(T item);
+        bool IsExistingItem(T item);
 
-        Task<(bool isExised, T result)> IsExistingItem(object idValue);
+        (bool isExised, T result) IsExistingItem(object idValue);
     }
 }

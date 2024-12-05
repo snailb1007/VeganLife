@@ -17,5 +17,6 @@ global using CommunityToolkit.Mvvm.Input;
 global using VeganLife.Models;
 global using VeganLife.Services;
 global using VeganLife.ViewModels;
+global using Realms;
 global using VeganLife.Views;
 #pragma warning restore SA1200 // Using directives should be placed correctly

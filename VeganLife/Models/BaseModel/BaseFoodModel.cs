@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SQLite;
 
 namespace VeganLife.Models.BaseModel
 {
-    public abstract class BaseFoodModel
+    public abstract class BaseFoodModel : Realms.RealmObject
     {
         [JsonIgnore]
         public BaseMacroFoodFactModel Calories { get; set; } = new();

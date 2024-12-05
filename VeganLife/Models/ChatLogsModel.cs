@@ -1,12 +1,9 @@
-﻿using SQLite;
-
-namespace VeganLife.Models
+﻿namespace VeganLife.Models
 {
     public partial class ChatLogsModel : ObservableObject
     {
         [PrimaryKey]
-        [AutoIncrement]
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public DateTime ChatDate { get; set; }
 

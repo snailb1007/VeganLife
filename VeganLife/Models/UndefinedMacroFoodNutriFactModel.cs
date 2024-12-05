@@ -3,7 +3,7 @@
 // </copyright>
 
 using Newtonsoft.Json;
-using SQLite;
+
 using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
 
@@ -18,7 +18,7 @@ namespace VeganLife.Models
 
         public string Name { get; set; }
 
-        [Ignore]
+        [Ignored]
         public List<UndefinedFoodNutrient> foodNutrients { get; set; }
 
         [JsonIgnore]

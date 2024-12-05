@@ -4,7 +4,6 @@
 
 using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
-using SQLite;
 using VeganLife.Data.LocalData;
 using VeganLife.Messages;
 

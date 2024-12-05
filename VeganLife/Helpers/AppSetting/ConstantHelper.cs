@@ -40,16 +40,16 @@ namespace VeganLife.Helpers.AppSetting
         public const string ThemeModeFixed = "fixed";
 
         public const string DatabaseFileName = "SQLiteVeganLife.db3";
-        public const SQLite.SQLiteOpenFlags SQLiteFlags =
+        //public const SQLite.SQLiteOpenFlags SQLiteFlags =
 
-            // open database in read/write mode
-            SQLite.SQLiteOpenFlags.ReadWrite |
+        //    // open database in read/write mode
+        //    SQLite.SQLiteOpenFlags.ReadWrite |
 
-            // create database if does not exist
-            SQLite.SQLiteOpenFlags.Create |
+        //    // create database if does not exist
+        //    SQLite.SQLiteOpenFlags.Create |
 
-            // multi-thread database access
-            SQLite.SQLiteOpenFlags.SharedCache;
+        //    // multi-thread database access
+        //    SQLite.SQLiteOpenFlags.SharedCache;
 
         public static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFileName);
 

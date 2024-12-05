@@ -1,7 +1,7 @@
 ﻿// Ignore Spelling: Fdc
 
 using Newtonsoft.Json;
-using SQLite;
+
 using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models.CommunityFreeServiceModel
@@ -15,7 +15,7 @@ namespace VeganLife.Models.CommunityFreeServiceModel
         [JsonProperty("publicationDate")]
         public string PublicationDate { get; set; }
 
-        [Ignore]
+        [Ignored]
         public List<FoodNutrient> foodNutrients { get; set; }
 
         [JsonIgnore]
