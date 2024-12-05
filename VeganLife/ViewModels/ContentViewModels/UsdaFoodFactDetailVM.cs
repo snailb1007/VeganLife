@@ -158,14 +158,14 @@ namespace VeganLife.ViewModels.ContentViewModels
                     return;
                 }
 
-                this.CaloriesValue.Amount = CurrentFoodNutritionFact.Calories.Amount;
-                this.CaloriesValue.Unit = CurrentFoodNutritionFact.Calories.Unit;
+                this.CaloriesValue.Amount = CurrentFoodNutritionFact.CaloriesAmount;
+                this.CaloriesValue.Unit = CurrentFoodNutritionFact.CaloriesUnit;
 
-                this.CarbValue.Amount = CurrentFoodNutritionFact.Carbohydrate.Amount;
-                this.CarbValue.Unit = CurrentFoodNutritionFact.Carbohydrate.Unit;
+                this.CarbValue.Amount = CurrentFoodNutritionFact.CarbohydrateAmount;
+                this.CarbValue.Unit = CurrentFoodNutritionFact.CarbohydrateUnit;
 
-                this.ProteinValue.Amount = CurrentFoodNutritionFact.Protein.Amount;
-                this.ProteinValue.Unit = CurrentFoodNutritionFact.Protein.Unit;
+                this.ProteinValue.Amount = CurrentFoodNutritionFact.ProteinAmount;
+                this.ProteinValue.Unit = CurrentFoodNutritionFact.ProteinUnit;
 
                 // TODO: fat implement
             }

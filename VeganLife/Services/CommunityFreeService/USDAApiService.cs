@@ -131,17 +131,17 @@ namespace VeganLife.Services.CommunityFreeService
                 NutritionFactsHelper.SetNutrientValue(ref fatValue, i, [ConstantHelper.UsdaFoodNutrition.Fat]);
             }
 
-            data.Calories.Amount = caloriesValue?.Amount ?? -1;
-            data.Calories.Unit = caloriesValue.Unit;
+            data.CaloriesAmount = caloriesValue?.Amount ?? -1;
+            data.CaloriesUnit = caloriesValue.Unit;
 
-            data.Protein.Amount = proteinValue?.Amount ?? -1;
-            data.Protein.Unit = proteinValue.Unit;
+            data.ProteinAmount = proteinValue?.Amount ?? -1;
+            data.ProteinUnit = proteinValue.Unit;
 
-            data.Carbohydrate.Amount = carbValue?.Amount ?? -1;
-            data.Carbohydrate.Unit = carbValue?.Unit;
+            data.CarbohydrateAmount = carbValue?.Amount ?? -1;
+            data.CarbohydrateUnit = carbValue?.Unit;
 
-            data.Fat.Amount = fatValue?.Amount ?? -1;
-            data.Fat.Unit = fatValue?.Unit;
+            data.FatAmount = fatValue?.Amount ?? -1;
+            data.FatUnit = fatValue?.Unit;
         }
     }
 }

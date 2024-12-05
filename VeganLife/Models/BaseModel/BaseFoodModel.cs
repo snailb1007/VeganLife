@@ -6,23 +6,31 @@ namespace VeganLife.Models.BaseModel
     public abstract class BaseFoodModel
     {
         [JsonIgnore]
-        public BaseMacroFoodFactModel Calories { get; set; } = new();
+        public double CaloriesAmount { get; set; }
+        [JsonIgnore]
+        public string CaloriesUnit { get; set; }
 
         [JsonIgnore]
-        public BaseMacroFoodFactModel Carbohydrate { get; set; } = new();
+        public double CarbohydrateAmount { get; set; }
+        [JsonIgnore]
+        public string CarbohydrateUnit { get; set; }
 
         [JsonIgnore]
-        public BaseMacroFoodFactModel Fat { get; set; } = new();
+        public double FatAmount { get; set; }
+        [JsonIgnore]
+        public string FatUnit { get; set; }
 
         [JsonIgnore]
-        public BaseMacroFoodFactModel Protein { get; set; } = new();
+        public double ProteinAmount { get; set; }
+        [JsonIgnore]
+        public string ProteinUnit { get; set; }
 
     }
 
-    public class BaseMacroFoodFactModel
-    {
-        public double Amount { get; set; } = -1;
+    //public class BaseMacroFoodFactModel
+    //{
+    //    public float Amount { get; set; } = -1;
 
-        public string Unit { get; set; } = string.Empty;
-    }
+    //    public string Unit { get; set; } = string.Empty;
+    //}
 }

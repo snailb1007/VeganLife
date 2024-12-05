@@ -185,10 +185,10 @@ namespace VeganLife.ViewModels.TabsViewModel
 
             var (itemExists, targetItem) = await GetFoodDetailsAsync(param.IsUSDAFood, param.Id);
 
-            nutritionMealLogModel.Calories = targetItem.Calories;
-            nutritionMealLogModel.Protein = targetItem.Protein;
-            nutritionMealLogModel.Carbohydrate = targetItem.Carbohydrate;
-            nutritionMealLogModel.Fat = targetItem.Fat;
+            nutritionMealLogModel.CaloriesAmount = targetItem.CaloriesAmount;
+            nutritionMealLogModel.ProteinAmount = targetItem.ProteinAmount;
+            nutritionMealLogModel.CarbohydrateAmount = targetItem.CarbohydrateAmount;
+            nutritionMealLogModel.FatAmount = targetItem.FatAmount;
 
             if (param.IsUSDAFood)
             {
