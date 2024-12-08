@@ -4,7 +4,6 @@
 
 using Newtonsoft.Json;
 using SQLite;
-using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
@@ -25,7 +24,7 @@ namespace VeganLife.Models
         public string FoodNutrientsJsonData { get; set; }
     }
 
-    public class UndefinedFoodNutrient
+    public partial class UndefinedFoodNutrient : ObservableObject
     {
         public double? Amount { get; set; }
 
