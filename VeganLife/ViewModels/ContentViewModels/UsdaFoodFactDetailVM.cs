@@ -33,13 +33,13 @@ namespace VeganLife.ViewModels.ContentViewModels
 
         // simplys
         [ObservableProperty]
-        private UndefinedFoodNutrient proteinValue = null!;
+        private UndefinedFoodNutrient _proteinValue = new ();
 
         [ObservableProperty]
-        private UndefinedFoodNutrient carbValue;
+        private UndefinedFoodNutrient _carbValue = new ();
 
         [ObservableProperty]
-        private UndefinedFoodNutrient caloriesValue;
+        private UndefinedFoodNutrient _caloriesValue = new ();
 
         public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, LocalDataStoreFactory localDataStoreFactory)
         {
@@ -123,7 +123,7 @@ namespace VeganLife.ViewModels.ContentViewModels
             {
                 foreach (var i in this.CurrentUndefinedMacroFoodNutriFact?.foodNutrients!)
                 {
-                    if (ProteinValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein, StringComparison.OrdinalIgnoreCase))
+                    if (ProteinValue.Amount <= 0 && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein, StringComparison.OrdinalIgnoreCase))
                     {
                         ProteinValue = i;
                     }

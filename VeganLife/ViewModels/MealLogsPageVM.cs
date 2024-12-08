@@ -70,12 +70,15 @@ namespace VeganLife.ViewModels
                 return;
             }
 
+            this.busyManager.Increase();
             await this._userDataService.Refresh();
             LocalUser = _userDataService.GetUserInfo();
             SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
+            await this.UpdateActivityLevelAsync(SelectedActivityLevelIndex);
             HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
             GoalWeight = Math.Round(Math.Pow(LocalUser.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
             await base.ViewAppearingVM();
+            this.busyManager.Decrease();
 
             isInitialized = true;
         }
@@ -114,28 +117,22 @@ namespace VeganLife.ViewModels
             {
                 try
                 {
-                    await Action();
+                    await UpdateActivityLevelAsync(value);
                 }
                 catch (Exception e)
                 {
                     e.LogError();
                 }
             });
-            return;
+        }
 
-            async Task Action()
-            {
-                await UpdateActivityLevelAsync();
-            }
-
-            async Task UpdateActivityLevelAsync()
-            {
-                var newActivityLevel = (ActivityLevel)value;
-                var newTDEE = TDEEHelper.CalculateTDEE(LocalUser.BMRResult, newActivityLevel);
-                LocalUser.TDEEResult = newTDEE;
-                LocalUser.ActivityLevelData = newActivityLevel.ToString();
-                await _userDataService.SaveData(LocalUser);
-            }
+        private async Task UpdateActivityLevelAsync(int levelIndex = 0 )
+        {
+            var newActivityLevel = (ActivityLevel)levelIndex;
+            var newTDEE = TDEEHelper.CalculateTDEE(LocalUser.BMRResult, newActivityLevel);
+            LocalUser.TDEEResult = newTDEE;
+            LocalUser.ActivityLevelData = newActivityLevel.ToString();
+            await _userDataService.SaveData(LocalUser);
         }
     }
 }
