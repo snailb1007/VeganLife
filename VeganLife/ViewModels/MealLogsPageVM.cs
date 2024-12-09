@@ -55,6 +55,8 @@ namespace VeganLife.ViewModels
 
         public override async Task ViewAppearingVM()
         {
+            this.busyManager.Increase();
+
             _nutritionMealLogDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
@@ -67,10 +69,10 @@ namespace VeganLife.ViewModels
 
             if (isInitialized)
             {
+                this.busyManager.Decrease();
                 return;
             }
 
-            this.busyManager.Increase();
             await this._userDataService.Refresh();
             LocalUser = _userDataService.GetUserInfo();
             SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
