@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:adsControl="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
+    xmlns:ffTrans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Maui"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:sho="http://sharpnado.com"
     xmlns:tabsView="clr-namespace:VeganLife.Views.ContentViews.Tabs"
@@ -35,33 +36,38 @@
                     ColumnDefinitions="*,2*"
                     ColumnSpacing="5"
                     RowDefinitions="85">
-                    <sho:MaterialFrame
+                    <!--<sho:MaterialFrame
                         Margin="0"
                         Padding="0"
                         CornerRadius="8"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         IsClippedToBounds="True"
-                        VerticalOptions="FillAndExpand">
-                        <ffimageloading:CachedImage
-                            Aspect="AspectFill"
-                            CacheType="Disk"
-                            DownsampleToViewSize="True"
-                            ErrorPlaceholder="app_icon.jpg"
-                            LoadingPlaceholder="app_icon.jpg"
-                            LoadingPriority="Low"
-                            Source="{Binding Image, Mode=OneTime}">
-                            <ffimageloading:CachedImage.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Image, Converter={StaticResource IsStringNullOrEmptyConverter}}"
-                                    TargetType="ffimageloading:CachedImage"
-                                    Value="True">
-                                    <Setter Property="Source" Value="app_icon.jpg" />
-                                    <Setter Property="Opacity" Value="0.7" />
-                                </DataTrigger>
-                            </ffimageloading:CachedImage.Triggers>
-                        </ffimageloading:CachedImage>
-                    </sho:MaterialFrame>
+                        VerticalOptions="FillAndExpand">-->
+                    <ffimageloading:CachedImage
+                        x:Name="imgFoodPreview"
+                        Aspect="AspectFill"
+                        CacheType="Disk"
+                        DownsampleToViewSize="True"
+                        ErrorPlaceholder="app_icon.jpg"
+                        IsVisible="{Binding Source={RelativeSource Self}, Path=IsLoading, x:DataType={x:Type ffimageloading:CachedImage}}"
+                        LoadingPriority="Low"
+                        Source="{Binding Image, Mode=OneTime}">
+                        <ffimageloading:CachedImage.Transformations>
+                            <ffTrans:RoundedTransformation Radius="8" />
+                        </ffimageloading:CachedImage.Transformations>
+                        <ffimageloading:CachedImage.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Image, Converter={StaticResource IsStringNullOrEmptyConverter}}"
+                                TargetType="ffimageloading:CachedImage"
+                                Value="True">
+                                <Setter Property="Source" Value="app_icon.jpg" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </DataTrigger>
+                        </ffimageloading:CachedImage.Triggers>
+                    </ffimageloading:CachedImage>
+                    <ContentView ControlTemplate="{StaticResource LoadingAnimationTemplate}" IsVisible="{Binding IsLoading, Source={Reference imgFoodPreview}, x:DataType={x:Type ffimageloading:CachedImage}}" />
+                    <!--</sho:MaterialFrame>-->
                     <Grid
                         Grid.Column="1"
                         ColumnDefinitions="*,Auto"

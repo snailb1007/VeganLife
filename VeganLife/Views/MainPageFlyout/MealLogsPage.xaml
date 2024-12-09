@@ -12,7 +12,8 @@
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
     x:DataType="viewmodel:MealLogsPageVM"
-    x:TypeArguments="viewmodel:MealLogsPageVM">
+    x:TypeArguments="viewmodel:MealLogsPageVM"
+    IsBusy="{Binding IsLoading}">
     <base:BasePage.Background>
         <LinearGradientBrush EndPoint="1,0">
             <GradientStop Offset="0.1" Color="{StaticResource PrimaryOrange2}" />
@@ -218,9 +219,9 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        <ContentView
+        <!--<ContentView
             Grid.RowSpan="2"
             ControlTemplate="{StaticResource LoadingAnimationTemplate}"
-            IsVisible="{Binding IsLoading}" />
+            IsVisible="{Binding IsLoading}" />-->
     </Grid>
 </base:BasePage>
