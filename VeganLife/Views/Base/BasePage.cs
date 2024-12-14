@@ -38,6 +38,18 @@ namespace VeganLife.Views.Base
             this.BindingContext = viewModel;
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if (this.BindingContext is BaseViewModel vm)
+            {
+                this.SetBinding(IsBusyProperty, new Binding(nameof(vm.IsLoading)));
+                return;
+            }
+
+            this.ClearValue(IsBusyProperty);
+        }
+
         public class BoolToOpacityConverter : IValueConverter
         {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
