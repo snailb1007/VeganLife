@@ -36,21 +36,12 @@
                     ColumnDefinitions="*,2*"
                     ColumnSpacing="5"
                     RowDefinitions="85">
-                    <!--<sho:MaterialFrame
-                        Margin="0"
-                        Padding="0"
-                        CornerRadius="8"
-                        HorizontalOptions="FillAndExpand"
-                        InputTransparent="True"
-                        IsClippedToBounds="True"
-                        VerticalOptions="FillAndExpand">-->
                     <ffimageloading:CachedImage
                         x:Name="imgFoodPreview"
                         Aspect="AspectFill"
                         CacheType="Disk"
                         DownsampleToViewSize="True"
                         ErrorPlaceholder="app_icon.jpg"
-                        IsVisible="{Binding Source={RelativeSource Self}, Path=IsLoading, x:DataType={x:Type ffimageloading:CachedImage}}"
                         LoadingPriority="Low"
                         Source="{Binding Image, Mode=OneTime}">
                         <ffimageloading:CachedImage.Transformations>
@@ -67,7 +58,6 @@
                         </ffimageloading:CachedImage.Triggers>
                     </ffimageloading:CachedImage>
                     <ContentView ControlTemplate="{StaticResource LoadingAnimationTemplate}" IsVisible="{Binding IsLoading, Source={Reference imgFoodPreview}, x:DataType={x:Type ffimageloading:CachedImage}}" />
-                    <!--</sho:MaterialFrame>-->
                     <Grid
                         Grid.Column="1"
                         ColumnDefinitions="*,Auto"
@@ -300,10 +290,6 @@
                     </CollectionView.EmptyView>
                 </CollectionView>
             </RefreshView>
-            <ContentView
-                Grid.ColumnSpan="2"
-                ControlTemplate="{StaticResource LoadingAnimationTemplate}"
-                IsVisible="{Binding IsLoading}" />
         </Grid>
     </ContentView.Content>
 </ContentView>
