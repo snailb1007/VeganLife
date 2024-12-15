@@ -174,6 +174,7 @@ namespace VeganLife.ViewModels.TabsViewModel
         [RelayCommand]
         private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
         {
+            busyManager.Increase();
             var nutritionMealLogModel = new NutritionMealLogModel
             {
                 EatingDay = DateTime.Now.Date,
@@ -214,6 +215,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
 
             (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
+            busyManager.Decrease();
 
             async Task<(bool, dynamic)> GetFoodDetailsAsync(bool isUSDAFood, string id)
             {
