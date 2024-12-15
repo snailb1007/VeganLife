@@ -4,12 +4,11 @@
 
 using Newtonsoft.Json;
 using SQLite;
-using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
 {
-    public class UndefinedMacroFoodNutriFactModel
+    public class UndefinedMacroFoodNutriFactModel : BaseFoodModel
     {
         [PrimaryKey]
         [JsonIgnore]
@@ -21,10 +20,11 @@ namespace VeganLife.Models
         [Ignore]
         public List<UndefinedFoodNutrient> foodNutrients { get; set; }
 
+        [JsonIgnore]
         public string FoodNutrientsJsonData { get; set; }
     }
 
-    public class UndefinedFoodNutrient
+    public partial class UndefinedFoodNutrient : ObservableObject
     {
         public double? Amount { get; set; }
 
@@ -37,12 +37,5 @@ namespace VeganLife.Models
 
     public partial class UndefinedNutrient : BaseNutrientModel
     {
-        //[JsonProperty("name")]
-        //public string Name { get; set; }
     }
-
-    //public partial class UndefinedNutrient
-    //{
-    //    public string VietnameseName => StringProcessHelper.GetNameContainVietnameseTranslations(enName: this.Name ?? string.Empty);
-    //}
 }

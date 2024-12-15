@@ -40,7 +40,7 @@ namespace VeganLife.ViewModels
                 Weight = 57,
             };
 
-            await ServicesHelper.GetService<IUserDataService>().SaveData(user);
+            await FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().SaveData(user);
             _ = UserSettingsHelper.SetAsync(UserSettingKey.IsShowedRegister, true.ToString());
 
             await (Application.Current as App)?.RefreshAppShell()!;

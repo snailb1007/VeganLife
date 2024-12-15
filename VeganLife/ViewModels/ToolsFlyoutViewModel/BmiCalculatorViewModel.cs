@@ -11,19 +11,19 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
     {
         private const string HeightMaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_male";
         private const string HeightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
-        
+
         private float _heightAvgVN;
         private float _heightAvgUS;
 
         [ObservableProperty]
         private UserInfo _localUserInfo;
-        
+
         [ObservableProperty]
         private double _goalWeight;
-        
+
         [ObservableProperty]
         private double _differentGoalWeight;
-        
+
         [ObservableProperty]
         private HealthDiagnosisModel _healthDiagnosis;
 
@@ -36,7 +36,7 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             {
                 this.UpdateHeightAveragesAsync(),
             };
-            var getLocalUserTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            var getLocalUserTask = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             tasks.Add(getLocalUserTask);
             await Task.WhenAll(tasks);
             MainThread.BeginInvokeOnMainThread(() => this.LocalUserInfo = getLocalUserTask.Result);

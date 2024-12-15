@@ -104,7 +104,7 @@ namespace VeganLife.Services
                     await toViewModel.OnNavigatingTo(parameter);
                 }
 
-                ServicesHelper.GetService<IDeviceService>().HideKeyboard();
+                FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().HideKeyboard();
 
                 // navigate
                 MainThread.BeginInvokeOnMainThread(async void () =>

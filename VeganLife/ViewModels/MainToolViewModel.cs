@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using PropertyChanged;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -10,7 +11,7 @@ namespace VeganLife.ViewModels
 {
     public partial class MainToolViewModel : BaseViewModel, IRecipient<BmiResultSelectedOptionMessage>
     {
-        private readonly UserInfoDataStoreServie _infoDataStoreServie;
+        private readonly BaseDataStore<UserInfo> _infoDataStoreServie;
 
         private BMIResultModel _bmiResultData;
         private UserInfo _localUserInfor;
@@ -55,10 +56,10 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private double _bmiResult;
 
-        public MainToolViewModel(UserInfoDataStoreServie userInfoDataStoreServie)
+        public MainToolViewModel(LocalDataStoreFactory localDataStore)
             : base()
         {
-            _infoDataStoreServie = userInfoDataStoreServie;
+            _infoDataStoreServie = localDataStore.GetDataStore<UserInfo>();
         }
 
         public override async Task<Task> ViewAppearingVM()
@@ -98,7 +99,7 @@ namespace VeganLife.ViewModels
                 IsMale = this.IsMale,
                 Age = this.AgeValue,
             };
-            await ServicesHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(_bmiResultData);
+            await FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>().PushAsync<BmiResultPopup>(_bmiResultData);
         }
 
         [RelayCommand]

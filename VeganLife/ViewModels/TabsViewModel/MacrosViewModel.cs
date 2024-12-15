@@ -4,7 +4,9 @@
 
 using PropertyChanged;
 using System.Text;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
+using VeganLife.Handlers;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
@@ -17,9 +19,10 @@ namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
-        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService = ServicesHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
-        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
-        private readonly USDAApiService _uSDAApiService = ServicesHelper.GetService<USDAApiService>();
+        private readonly BaseDataStore<USDAFoodNutritionFactModel> _usdaFoodNutritionFactDataStoreService;
+        private readonly BaseDataStore<UndefinedMacroFoodNutriFactModel> _undefinedMacroFoodNutriFactDataStoreService;
+        private readonly BaseDataStore<NutritionMealLogModel> _nutritionMealLogDataStoreService;
+        private readonly USDAApiService _uSDAApiService;
 
         private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
 
@@ -46,6 +49,15 @@ namespace VeganLife.ViewModels.TabsViewModel
 
         [ObservableProperty]
         private USDAFoodPreviewModel _usdaFoodPreviewCurrent;
+
+        public MacrosViewModel(LocalDataStoreFactory localDataStoreFactory)
+            : base()
+        {
+            this._usdaFoodNutritionFactDataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
+            this._undefinedMacroFoodNutriFactDataStoreService = localDataStoreFactory.GetDataStore<UndefinedMacroFoodNutriFactModel>();
+            this._nutritionMealLogDataStoreService = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
+            this._uSDAApiService = FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>();
+        }
 
         public override async Task<Task> ViewAppearingVM()
         {
@@ -114,11 +126,11 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OnSupportRequest()
         {
             var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
-            var userTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            var userTask = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             await Task.WhenAll(templateTask, userTask);
             var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
             content = content.Replace("@@@content@@@", TextSearch);
-            await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
+            await FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
         }
 
         [RelayCommand]
@@ -145,38 +157,81 @@ namespace VeganLife.ViewModels.TabsViewModel
             await navigationService.NavigateToPage<USDAFoodListPage>();
         }
 
+        bool _isProcessing;
         [RelayCommand]
         private void OnItemEditedTap(USDAFoodPreviewModel param)
         {
+            if (IsLoading || _isProcessing)
+            {
+                return;
+            }
+
+            _isProcessing = true;
             param.IsShowingEdit = !param.IsShowingEdit;
+            Task.Delay(100).ContinueWith(t => _isProcessing = false);
         }
 
         [RelayCommand]
         private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
         {
-            bool isExistingItem;
+            busyManager.Increase();
+            var nutritionMealLogModel = new NutritionMealLogModel
+            {
+                EatingDay = DateTime.Now.Date,
+                Amount = param.Amount,
+                Name = param.Name
+            };
+            var mealLogs = await _nutritionMealLogDataStoreService.GetItemsAsync();
+            NutritionMealLogModel mealTargetItem;
+
+            var (itemExists, targetItem) = await GetFoodDetailsAsync(param.IsUSDAFood, param.Id);
+
+            nutritionMealLogModel.CaloriesAmount = targetItem.CaloriesAmount;
+            nutritionMealLogModel.ProteinAmount = targetItem.ProteinAmount;
+            nutritionMealLogModel.CarbohydrateAmount = targetItem.CarbohydrateAmount;
+            nutritionMealLogModel.FatAmount = targetItem.FatAmount;
+
             if (param.IsUSDAFood)
             {
-                isExistingItem = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
-                if (isExistingItem)
-                {
-                    Console.WriteLine(" Item already exists");
-                }
-                else
-                {
-                    var targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
-                }
+                nutritionMealLogModel.UsdaFoodId = targetItem.Id;
             }
             else
             {
-                isExistingItem = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
-                if (isExistingItem)
+                nutritionMealLogModel.UndefinedFoodId = targetItem.Id;
+            }
+
+            mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay &&
+                     ((param.IsUSDAFood && x.UsdaFoodId == nutritionMealLogModel.UsdaFoodId) ||
+                     (!param.IsUSDAFood && x.UndefinedFoodId == nutritionMealLogModel.UndefinedFoodId)));
+
+            if (mealTargetItem != null)
+            {
+                mealTargetItem.Amount += nutritionMealLogModel.Amount;
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
+            }
+            else
+            {
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+            }
+
+            (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
+            busyManager.Decrease();
+
+            async Task<(bool, dynamic)> GetFoodDetailsAsync(bool isUSDAFood, string id)
+            {
+                if (isUSDAFood)
                 {
-                    Console.WriteLine(" Item already exists");
+                    var result = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(id);
+                    return result.isExised
+                        ? (true, result.result)
+                        : (false, await _uSDAApiService.GetFoodDetailsByIdAsync(id));
                 }
                 else
                 {
-                    var targetItem = await dataService.GetMacroFoodNutriFacts(param.Id);
+                    var result = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(id);
+                    return result.isExised
+                        ? (true, result.result)
+                        : (false, await dataService.GetMacroFoodNutriFacts(id));
                 }
             }
         }

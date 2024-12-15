@@ -183,7 +183,8 @@
                 FontSize="Medium"
                 HorizontalOptions="End"
                 Text="&#xf31e;"
-                TextColor="{StaticResource PrimaryDark}">
+                TextColor="{StaticResource PrimaryDark}"
+                VerticalOptions="Start">
                 <Button.Triggers>
                     <DataTrigger
                         Binding="{Binding IsDataGridExpanded}"

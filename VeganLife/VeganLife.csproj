@@ -5,7 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>9.0.10</MauiVersion>
+		<MauiVersion>9.0.21</MauiVersion>
 		<AndroidXVersion>2.8.7.1</AndroidXVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.69</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.71</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -37,7 +37,7 @@
 		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<LangVersion>latest</LangVersion>
 		<WarningLevel>4</WarningLevel>
-		<_MauiForceXamlCForDebug>False</_MauiForceXamlCForDebug>
+		<!--<_MauiForceXamlCForDebug>False</_MauiForceXamlCForDebug>-->
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
@@ -144,9 +144,9 @@
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.10" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.10" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0-preview2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.5" />
-		<PackageReference Include="CardsView.Maui" Version="1.0.2" />
+		<PackageReference Include="CardsView.Maui" Version="1.1.0" />
 		<PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
 
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
@@ -162,7 +162,7 @@
 		<PackageReference Include="Utf8Json" Version="1.3.7" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="9.0.0" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
-		<PackageReference Include="Plugin.MauiMTAdmob" Version="1.7.0" />
+		<PackageReference Include="Plugin.MauiMTAdmob" Version="1.7.1" />
 		<PackageReference Include="AsyncAwaitBestPractices" Version="9.0.0" />
 		<!--fixed warning-->
 		<PackageReference Include="Xamarin.AndroidX.Lifecycle.ViewModelSavedState" Version="$(AndroidXVersion)" />
@@ -173,7 +173,7 @@
 		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Process" Version="$(AndroidXVersion)" />
 		<PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.4.5.1" />
 		<!--<PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />-->
-		<!--<PackageReference Include="Plugin.Maui.Calendar" Version="1.2.0" />-->
+		<PackageReference Include="Plugin.Maui.Calendar" Version="1.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -281,6 +281,9 @@
 		<MauiXaml Update="Views\LoadingPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\MealLogsAnalysisPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\MainPageFlyout\MealLogsPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -297,6 +300,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\LoadingPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Popups\MealLogsCalendarMopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Popups\SimpleInformationPopup.xaml">

@@ -39,7 +39,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
+            FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -110,7 +110,7 @@ namespace VeganLife
                 });
                 return true;
             }
-            else if (ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
+            else if (FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().GetStackCount() > 1)
             {
                 Shell.Current.Navigation.PopAsync();
                 return true;

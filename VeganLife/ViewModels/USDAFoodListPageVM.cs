@@ -26,7 +26,7 @@ namespace VeganLife.ViewModels
                 SortBy = "dataType.keyword",
                 SortOrder = "desc",
             };
-            var data = await ServicesHelper.GetService<USDAApiService>().GetFoodsListAsync(request);
+            var data = await FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>().GetFoodsListAsync(request);
             if (data?.Any() == false)
             {
                 return;

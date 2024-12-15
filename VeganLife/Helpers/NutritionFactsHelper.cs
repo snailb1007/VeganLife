@@ -1,4 +1,5 @@
 ﻿using VeganLife.Helpers.AppSetting;
+using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
 
 namespace VeganLife.Helpers
@@ -47,5 +48,22 @@ namespace VeganLife.Helpers
             { ConstantHelper.UsdaFoodNutrition.VitaminD, ConstantHelper.UsdaFoodNutrition.VitaminD },
             { ConstantHelper.UsdaFoodNutrition.VitaminK, ConstantHelper.UsdaFoodNutrition.VitaminK },
         };
+        internal static void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source,
+                    string[] searchTerms)
+        {
+            var nutrientName = source.Nutrient?.Name;
+            var isMatchesAllTerms = searchTerms
+                .All(term =>
+                    !string.IsNullOrEmpty(nutrientName) &&
+                    nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
+            if (targetNutrient == null && isMatchesAllTerms)
+            {
+                targetNutrient = new UndefinedFoodNutrient()
+                {
+                    Amount = source.Amount,
+                    Unit = source?.Nutrient?.UnitName ?? string.Empty,
+                };
+            }
+        }
     }
 }

@@ -24,11 +24,16 @@ namespace VeganLife.Models.CommunityFreeServiceModel
 
     public partial class USDAFoodPreviewModel : ObservableObject
     {
-        [ObservableProperty]
-        private int countCorrectWordOnSearch;
+        [ObservableProperty, JsonIgnore]
+        private int _countCorrectWordOnSearch;
 
+        [Ignore]
         public bool IsUSDAFood => !string.IsNullOrEmpty(Id) && !Id.Contains(ConstantHelper.TAG);
 
+        [Ignore]
         public bool IsShowingEdit { get; set; }
+
+        [Ignore]
+        public int Amount { get; set; }
     }
 }

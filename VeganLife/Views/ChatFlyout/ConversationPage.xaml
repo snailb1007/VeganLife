@@ -150,14 +150,10 @@
                 Source="send"
                 WidthRequest="48" />
         </Grid>
-        <skia:SKLottieView
+
+        <ContentView
             Grid.RowSpan="3"
-            HeightRequest="96"
-            HorizontalOptions="Center"
-            IsVisible="{Binding IsAdInProgress}"
-            RepeatCount="-1"
-            Source="loading.json"
-            VerticalOptions="Center"
-            WidthRequest="96" />
+            ControlTemplate="{StaticResource LoadingAnimationTemplate}"
+            IsVisible="{Binding IsAdInProgress}" />
     </Grid>
 </ContentPage>

@@ -19,7 +19,7 @@ namespace VeganLife.ViewModels
 
         public override Task ViewAppearingVM()
         {
-            ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
+            FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
             return base.ViewAppearingVM();
         }
 

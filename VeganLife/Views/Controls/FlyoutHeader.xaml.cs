@@ -27,7 +27,7 @@ namespace VeganLife.Views.Controls
         {
             this.InitializeComponent();
             _grettingList = new List<string>() { AppResources.prompt_greeting, AppResources.prompt_greeting_v1 };
-            _userDataService = ServicesHelper.GetService<IUserDataService>();
+            _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
             DisplayUserInfoPreview().SafeFireAndForget();
             WeakReferenceMessenger.Default.Register(this);
         }
@@ -37,7 +37,7 @@ namespace VeganLife.Views.Controls
             var userData = this._userDataService.GetUserInfo();
             if (string.IsNullOrEmpty(userData?.Name))
             {
-                userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+                userData = await FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             }
 
             if (userData != null)
@@ -62,7 +62,7 @@ namespace VeganLife.Views.Controls
 
             _isProcessing = true;
             Shell.Current.FlyoutIsPresented = false;
-            ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>().SafeFireAndForget();
+            FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>().SafeFireAndForget();
             _isProcessing = false;
         }
 
@@ -82,7 +82,7 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            ServicesHelper.GetService<IPopupNaviService>()
+            FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>()
                 .PushAsync<ProfilePopup>()
                 .SafeFireAndForget();
             _isProcessing = false;

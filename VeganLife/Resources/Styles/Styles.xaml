@@ -92,6 +92,16 @@
             VerticalOptions="Center" />
     </ControlTemplate>
 
+    <ControlTemplate x:Key="LoadingAnimationTemplate">
+        <skia:SKLottieView
+            HeightRequest="96"
+            HorizontalOptions="Center"
+            RepeatCount="-1"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="96" />
+    </ControlTemplate>
+
     <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
         <Setter Property="HideSoftInputOnTapped" Value="True" />
     </Style>
@@ -243,6 +253,13 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+
+    <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+        <Setter Property="TextColor" Value="Red" />
+    </Style>
+    <Style x:Key="ValidEntryStyle" TargetType="Entry">
+        <Setter Property="TextColor" Value="Green" />
     </Style>
 
     <Style TargetType="Frame">

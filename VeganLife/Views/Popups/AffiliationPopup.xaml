@@ -8,7 +8,7 @@
     xmlns:popup="clr-namespace:VeganLife.Views.Popups"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     x:Name="selfAffiliationPopup"
-    BackgroundColor="#80808080"
+    BackgroundColor="{StaticResource PopupBackgroundColor}"
     CloseWhenBackgroundIsClicked="True">
     <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,2*,*">
         <Border

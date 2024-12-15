@@ -26,7 +26,7 @@ namespace VeganLife.ViewModels
             : base()
         {
             MyInfo = new UserInfo();
-            _userDataService = ServicesHelper.GetService<IUserDataService>();
+            _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
         }
 
         public override async Task ViewAppearingVM()

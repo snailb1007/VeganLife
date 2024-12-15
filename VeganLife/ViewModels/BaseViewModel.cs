@@ -60,11 +60,11 @@ namespace VeganLife.ViewModels
         /// </summary>
         protected BaseViewModel()
         {
-            this.dataService = ServicesHelper.GetService<IDataService>();
-            this.navigationService = ServicesHelper.GetService<INavigationService>();
-            this.deviceService = ServicesHelper.GetService<IDeviceService>();
-            //this.localDatabase = ServicesHelper.GetService<ISQLite>();
-            this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
+            this.dataService = FFImageLoading.Helpers.ServiceHelper.GetService<IDataService>();
+            this.navigationService = FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>();
+            this.deviceService = FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>();
+            //this.localDatabase = FFImageLoading.Helpers.ServiceHelper.GetService<ISQLite>();
+            this.popupNaviService = FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>();
             busyManager = new();
 
             _busySubscription = busyManager.IsBusy.Subscribe(busy => IsLoading = busy);
@@ -109,6 +109,11 @@ namespace VeganLife.ViewModels
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
 
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
+
+        partial void OnIsLoadingChanged(bool value)
+        {
+            Debug.WriteLine($"IsLoading: {value}");
+        }
 
         void IDisposable.Dispose()
         {

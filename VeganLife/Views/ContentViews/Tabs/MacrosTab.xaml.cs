@@ -6,7 +6,7 @@ namespace VeganLife.Views.ContentViews.Tabs;
 public partial class MacrosTab
 {
     private readonly Timer _timer;
-    
+
     public MacrosViewModel ViewModel { get; private set; }
 
     public MacrosTab()

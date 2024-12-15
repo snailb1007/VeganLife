@@ -17,7 +17,7 @@ namespace VeganLife.Helpers
                 case ActivityLevel.VeryActive:
                     return VeryActiveValue;
                 case ActivityLevel.SuperActive:
-                    return SedentaryValue;
+                    return SuperActiveValue;
                 default:
                     return SedentaryValue;
             }
