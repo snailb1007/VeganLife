@@ -164,6 +164,7 @@ namespace VeganLife
             services.AddTransient<HeightAndWeightAboutPage, HeightAndWeightAboutPageVM>();
             services.AddTransient<MealLogsPage, MealLogsPageVM>();
             services.AddTransient<USDAFoodListPage, USDAFoodListPageVM>();
+            services.AddTransient<MealLogsAnalysisPage, MealLogsAnalysisPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()
