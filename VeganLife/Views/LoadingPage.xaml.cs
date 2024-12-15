@@ -19,13 +19,13 @@ public partial class LoadingPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
+        FFImageLoading.Helpers.ServiceHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
             .ContinueWith(t =>
             {
                 StaticHelper.HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
             })
             .SafeFireAndForget();
-        ServicesHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
+        FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
     }
 
     private void SelfContentLoaded(object sender, EventArgs e)
@@ -43,14 +43,14 @@ public partial class LoadingPage
                     message: AppResources.Alert_CollectOperationLogsPermission_Message,
                     accept: AppResources.ok_common,
                     cancel: AppResources.cancel_common);
-                    ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
+                    FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
                     await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString());
                 });
             }
 
             if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
             {
-                var aboutView = ServicesHelper.GetService<AboutAppPopup>();
+                var aboutView = FFImageLoading.Helpers.ServiceHelper.GetService<AboutAppPopup>();
                 MainThread.BeginInvokeOnMainThread(async () => await this.ShowPopupAsync(aboutView));
                 await aboutView.WaitingAcceptedTaskSource.Task;
             }
@@ -62,7 +62,7 @@ public partial class LoadingPage
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        app.Windows[0].Page = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
+                        app.Windows[0].Page = new NavigationPage(FFImageLoading.Helpers.ServiceHelper.GetService<NameAboutUPage>());
                     });
                 }
                 else

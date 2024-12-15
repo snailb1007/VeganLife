@@ -7,6 +7,7 @@
     <Color x:Key="PrimaryOrange">#FD8E4E</Color>
     <Color x:Key="PrimaryOrange1">#fcd684</Color>
     <Color x:Key="PrimaryOrange2">#e3e4a0</Color>
+    <Color x:Key="PopupBackgroundColor">#80808080</Color>
 
     <Color x:Key="LinkColor">#0B2D82</Color>
 

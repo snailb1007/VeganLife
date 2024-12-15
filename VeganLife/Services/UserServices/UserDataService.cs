@@ -1,4 +1,5 @@
 ﻿using AsyncAwaitBestPractices;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 
@@ -6,15 +7,15 @@ namespace VeganLife.Services.UserServices
 {
     public class UserDataService : IUserDataService
     {
-        private readonly UserInfoDataStoreServie _userInfoDataStoreServie;
+        private readonly BaseDataStore<UserInfo> _userInfoDataStoreServie;
 
         private UserInfo _userInfo;
         private Task _currentInitTask;
 
-        public UserDataService()
+        public UserDataService(LocalDataStoreFactory localDataStoreFactory)
         {
             this._userInfo = new UserInfo();
-            _userInfoDataStoreServie = ServicesHelper.GetService<UserInfoDataStoreServie>();
+            this._userInfoDataStoreServie = localDataStoreFactory.GetDataStore<UserInfo>();
             _currentInitTask = InitAsync();
             _currentInitTask.SafeFireAndForget();
         }
@@ -27,7 +28,7 @@ namespace VeganLife.Services.UserServices
             }
 
             UserInfo temp = new();
-            var currentDeviceID = ServicesHelper.GetService<IDeviceService>().GetDeviceId();
+            var currentDeviceID = FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().GetDeviceId();
             temp.Id = currentDeviceID;
 
             await Refresh();

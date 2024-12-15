@@ -55,7 +55,7 @@ namespace VeganLife
         private async Task SetupThemeAsync()
         {
             var isCollectAccepted = await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedCollectLogs);
-            ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
+            FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
             if (string.IsNullOrEmpty(await UserSettingsHelper.GetAsync(UserSettingKey.SelectedTheme)))
             {
                 AppThemeHelper.SetTheme(AppTheme.Light);
@@ -83,7 +83,7 @@ namespace VeganLife
 
         public async Task RefreshAppShell()
         {
-            var t1 = ServicesHelper.GetService<IDataService>().GetAllAffiliations();
+            var t1 = FFImageLoading.Helpers.ServiceHelper.GetService<IDataService>().GetAllAffiliations();
             await Task.WhenAll(Task.Delay(500), t1);
             StaticHelper.Affiliation.Affiliations = t1.Result.ToList();
             MainThread.BeginInvokeOnMainThread(() => this.Windows[0].Page = new AppShell());

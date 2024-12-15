@@ -1,4 +1,3 @@
-using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.ViewModels.TabsViewModel;
 
@@ -31,6 +30,6 @@ public partial class PharmacoLogicalTab
 
     private void MtAdFixedPharmacoLogical_AdsFailedToLoad(object sender, Plugin.MauiMTAdmob.Extra.MTEventArgs e)
     {
-        ServicesHelper.GetService<SentryService>().LogMessage($"PharmacoLogicalTab AdsFailedToLoad\nCode: {e.ErrorCode} {e.ErrorMessage}");
+        FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().LogMessage($"PharmacoLogicalTab AdsFailedToLoad\nCode: {e.ErrorCode} {e.ErrorMessage}");
     }
 }

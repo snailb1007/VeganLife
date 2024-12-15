@@ -2,8 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using VeganLife.Helpers;
-
 namespace VeganLife.Views.Base
 {
     public abstract class BasePage<TViewModel> : BasePage
@@ -13,7 +11,7 @@ namespace VeganLife.Views.Base
             : base(viewModel)
         {
             viewModel.NavigationViewModel = this.Navigation;
-            ServicesHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
+            FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
         }
 
         public new TViewModel BindingContext => (TViewModel)base.BindingContext;
@@ -40,28 +38,29 @@ namespace VeganLife.Views.Base
             this.BindingContext = viewModel;
         }
 
-        //protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
-        //{
-        //    if (EqualityComparer<T>.Default.Equals(backingStore, value))
-        //    {
-        //        return false;
-        //    }
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if (this.BindingContext is BaseViewModel vm)
+            {
+                this.SetBinding(IsBusyProperty, new Binding(nameof(vm.IsLoading)));
+                return;
+            }
 
-        //    backingStore = value;
-        //    onChanged?.Invoke();
-        //    this.OnPropertyChanged(propertyName);
-        //    return true;
-        //}
+            this.ClearValue(IsBusyProperty);
+        }
 
-        //public event PropertyChangedEventHandler BasePagePropertyChanged;
+        public class BoolToOpacityConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return (bool)value ? 0.5 : 1;
+            }
 
-        ///// <inheritdoc/>
-        //protected override void OnPropertyChanged([CallerMemberName] string propertyName = $"")
-        //{
-        //    base.OnPropertyChanged(propertyName);
-        //    var changed = this.BasePagePropertyChanged;
-
-        //    changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

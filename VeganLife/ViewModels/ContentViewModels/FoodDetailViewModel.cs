@@ -2,10 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Models.FoodModel;
-using static Android.Telephony.CarrierConfigManager;
 
 namespace VeganLife.ViewModels.ContentViewModels
 {
@@ -14,7 +13,7 @@ namespace VeganLife.ViewModels.ContentViewModels
     /// </summary>
     public partial class FoodDetailViewModel : BaseViewModel
     {
-        private readonly FoodDetailDataStoreService _foodDetailDataStoreService;
+        private readonly BaseDataStore<FoodDetailModel> _foodDetailDataStoreService;
 
         [ObservableProperty]
         private FoodPreviewModel _foodPreview;
@@ -38,10 +37,10 @@ namespace VeganLife.ViewModels.ContentViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="FoodDetailViewModel"/> class.
         /// </summary>
-        public FoodDetailViewModel()
+        public FoodDetailViewModel(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
-            this._foodDetailDataStoreService = ServicesHelper.GetService<FoodDetailDataStoreService>();
+            this._foodDetailDataStoreService = localDataStoreFactory.GetDataStore<FoodDetailModel>();
             this.FoodImage = [];
         }
 

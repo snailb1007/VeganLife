@@ -5,12 +5,12 @@
 using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using PropertyChanged;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
-using VeganLife.Views.Controls;
 
 namespace VeganLife.ViewModels
 {
@@ -24,8 +24,8 @@ namespace VeganLife.ViewModels
         private AsyncRelayCommand _currentCommand;
 
         private Guid _sessionGuid;
-        private readonly ChatLogsDataStoreService _chatLogsDataStoreService;
-        private readonly GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
+        private readonly BaseDataStore<ChatLogsModel> _chatLogsDataStoreService;
+        private readonly BaseDataStore<GoogleAdValidatorModel> _googleAdValidatorDataStoreService;
         private CancellationTokenSource _cancellationTokenSource;
 
         public AsyncRelayCommand CurrentCommand
@@ -107,15 +107,14 @@ namespace VeganLife.ViewModels
         public ConversationViewModel(
             IDispatcher dispatcher,
             IOpenAIService openAIService,
-            ChatLogsDataStoreService chatLogsDataStoreService,
-            GoogleAdValidatorDataStoreService googleAdValidatorDataStoreService)
+            LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
-            this._chatLogsDataStoreService = chatLogsDataStoreService;
-            _googleAdValidatorDataStoreService = googleAdValidatorDataStoreService;
+            this._chatLogsDataStoreService = localDataStoreFactory.GetDataStore<ChatLogsModel>();
+            _googleAdValidatorDataStoreService = localDataStoreFactory.GetDataStore<GoogleAdValidatorModel>();
             CrossMauiMTAdmob.Current.OnRewardedLoaded += (s, e) =>
             {
                 if (CrossMauiMTAdmob.Current.IsRewardedLoaded())

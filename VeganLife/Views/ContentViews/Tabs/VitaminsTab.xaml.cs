@@ -1,4 +1,3 @@
-using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
 
 namespace VeganLife.Views.ContentViews.Tabs;
@@ -19,7 +18,7 @@ public partial class VitaminsTab
 
     private void MtAdFixedVitaminAndMineral_AdsFailedToLoad(object sender, Plugin.MauiMTAdmob.Extra.MTEventArgs e)
     {
-        ServicesHelper.GetService<SentryService>().LogMessage($"VitaminsTab AdsFailedToLoad\nCode: {e.ErrorCode} {e.ErrorMessage}");
+        FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().LogMessage($"VitaminsTab AdsFailedToLoad\nCode: {e.ErrorCode} {e.ErrorMessage}");
     }
 
     private void ThisView_Loaded(object sender, EventArgs e)

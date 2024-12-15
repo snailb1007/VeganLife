@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
 using PropertyChanged;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -21,7 +22,7 @@ namespace VeganLife.ViewModels
     /// </summary>
     public partial class MainViewModel : BaseViewModel, IRecipient<BookmarkFoodModelMessage>
     {
-        private FoodPreviewDataStoreService _dataStoreService;
+        private readonly BaseDataStore<FoodPreviewModel> _dataStoreService;
         private IEnumerable<FoodPreviewModel> _onlineFoodPreviewData;
         private IList<FoodPreviewModel> _allFoods;
 
@@ -46,18 +47,13 @@ namespace VeganLife.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             this._allFoods = new List<FoodPreviewModel>();
-            this.Init();
-            WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
-        }
-
-        private void Init()
-        {
             this.Foods = [];
-            _dataStoreService = ServicesHelper.GetService<FoodPreviewDataStoreService>();
+            _dataStoreService = localDataStoreFactory.GetDataStore<FoodPreviewModel>();
+            WeakReferenceMessenger.Default.Register<BookmarkFoodModelMessage>(this);
         }
 
         public override Task ViewAppearingVM()
@@ -152,7 +148,7 @@ namespace VeganLife.ViewModels
             }
 
             this.CurrentFoodSelected = null!;
-            var userService = ServicesHelper.GetService<IUserDataService>();
+            var userService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
             userService.Refresh().ContinueWith(t =>
             {
                 var userInfo = userService.GetUserInfo();

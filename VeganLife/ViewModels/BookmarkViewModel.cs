@@ -4,6 +4,7 @@
 
 using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -15,21 +16,17 @@ namespace VeganLife.ViewModels
 {
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
-        private readonly FoodPreviewDataStoreService _dataStoreService;
+        private readonly BaseDataStore<FoodPreviewModel> _dataStoreService;
 
         [ObservableProperty]
         private ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
         private FoodPreviewModel _foodSelected;
 
-        public BookmarkViewModel()
+        public BookmarkViewModel(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
-            var database = ServicesHelper.GetService<ISQLite>();
-            if (database != null)
-            {
-                this._dataStoreService = new FoodPreviewDataStoreService(database);
-            }
+            _dataStoreService = localDataStoreFactory.GetDataStore<FoodPreviewModel>();
 
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodChangedMessage>(this);

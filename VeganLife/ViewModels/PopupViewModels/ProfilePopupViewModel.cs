@@ -57,7 +57,7 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = ServicesHelper.GetService<IUserDataService>().GetUserInfo();
+            UserInfo = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().GetUserInfo();
             if (string.IsNullOrEmpty(UserInfo.Name))
             {
                 return;
@@ -126,7 +126,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                     UserInfo.Weight = outValue;
                 }
 
-                await ServicesHelper.GetService<IUserDataService>().SaveData(this.UserInfo);
+                await FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().SaveData(this.UserInfo);
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
                 await toast.Show(_cancellationTokenSource.Token);
