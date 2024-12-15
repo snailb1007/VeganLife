@@ -5,7 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VeganLife</RootNamespace>
 		<UseMaui>true</UseMaui>
-		<MauiVersion>9.0.12</MauiVersion>
+		<MauiVersion>9.0.21</MauiVersion>
 		<AndroidXVersion>2.8.7.1</AndroidXVersion>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -144,7 +144,7 @@
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.10" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.10" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0-preview2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.5" />
 		<PackageReference Include="CardsView.Maui" Version="1.1.0" />
 		<PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
@@ -279,6 +279,9 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\LoadingPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPageFlyout\MealLogsAnalysisPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\MainPageFlyout\MealLogsPage.xaml">

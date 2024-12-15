@@ -1021,6 +1021,15 @@ namespace VeganLife.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mealLogsPage_FoodsToday.
+        /// </summary>
+        internal static string mealLogsPage_FoodsToday {
+            get {
+                return ResourceManager.GetString("mealLogsPage_FoodsToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to mealLogsPage_LightlyActive.
         /// </summary>
         internal static string mealLogsPage_LightlyActive {

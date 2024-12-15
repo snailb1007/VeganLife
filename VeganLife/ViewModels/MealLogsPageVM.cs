@@ -11,6 +11,7 @@ using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.Popups;
 using static VeganLife.Helpers.AppSetting.ConstantHelper.CalculateHelper;
 
@@ -60,7 +61,7 @@ namespace VeganLife.ViewModels
             _nutritionMealLogDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
-                    NutritionMealLogs = t.Result.ToList();
+                    NutritionMealLogs = t.Result.Where(i => i.EatingDay.Date == DateTime.Now.Date).ToList();
                     foreach (var i in t.Result)
                     {
                         Console.WriteLine("==> " + i.Name);
@@ -104,6 +105,14 @@ namespace VeganLife.ViewModels
         {
             busyManager.Increase();
             await this.popupNaviService.PushAsync<MealLogsCalendarMopup>();
+            busyManager.Decrease();
+        }
+
+        [RelayCommand]
+        private async Task OpenMealLogsAnalysisPageAsync()
+        {
+            busyManager.Increase();
+            await this.navigationService.NavigateToPage<MealLogsAnalysisPage>(paramater: NutritionMealLogs);
             busyManager.Decrease();
         }
 

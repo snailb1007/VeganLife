@@ -664,4 +664,7 @@ Hãy thưởng thức mỗi miếng ăn như một bước tiến vững chắc 
 	<data name="mealLogsPage_TDEE_description" xml:space="preserve">
 		<value>mealLogsPage_TDEE_description</value>
   </data>
+	<data name="mealLogsPage_FoodsToday" xml:space="preserve">
+    <value>mealLogsPage_FoodsToday</value>
+  </data>
 </root>
