@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using ChatGptNet;
 using ChatGptNet.Models;
 using FFImageLoading.Maui;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
 using Mopups.Hosting;
 using PanCardView;
@@ -39,6 +38,11 @@ using VeganLife.Views.Popups;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
+#if ANDROID
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#elif IOS
+using UIKit;
+#endif
 
 namespace VeganLife
 {
@@ -211,7 +215,7 @@ namespace VeganLife
                 handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #elif IOS
-			    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+			    // handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
             });
         }

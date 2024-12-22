@@ -2,8 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Android.Widget;
 using VeganLife.Views.Base;
+#if ANDROID
+using Android.Widget;
+#endif
 
 namespace VeganLife.Views.ToolFlyout
 {
@@ -15,6 +17,7 @@ namespace VeganLife.Views.ToolFlyout
             this.InitializeComponent();
         }
 
+#if ANDROID
         protected override void OnHandlerChanged()
         {
             base.OnHandlerChanged();
@@ -23,5 +26,6 @@ namespace VeganLife.Views.ToolFlyout
                 seekBar.ContentDescription = "this is slider";
             }
         }
+#endif
     }
 }

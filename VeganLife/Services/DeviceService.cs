@@ -11,10 +11,13 @@ namespace VeganLife.Services
     {
         public void HideKeyboard()
         {
+            #if ANDROID
             if (Platform.CurrentActivity?.CurrentFocus != null)
             {
                 Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus);
             }
+            #endif
+
         }
 
         // public bool IsVirtual = DeviceInfo.Current.DeviceType switch { DeviceType.Physical => false, DeviceType.Virtual => true, _ => false };

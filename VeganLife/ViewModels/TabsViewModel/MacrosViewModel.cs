@@ -213,8 +213,9 @@ namespace VeganLife.ViewModels.TabsViewModel
             {
                 await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
             }
-
+#if ANDROID
             (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
+#endif
             busyManager.Decrease();
 
             async Task<(bool, dynamic)> GetFoodDetailsAsync(bool isUSDAFood, string id)

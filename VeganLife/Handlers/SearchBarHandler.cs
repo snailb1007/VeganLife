@@ -1,11 +1,14 @@
-﻿using Android.Widget;
+﻿#if ANDROID
+using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#endif
 using Microsoft.Maui.Platform;
 
 namespace VeganLife.Handlers
 {
     internal class SearchBarHandler : Microsoft.Maui.Handlers.SearchBarHandler
     {
+#if ANDROID
         protected override void ConnectHandler(AndroidX.AppCompat.Widget.SearchView platformView)
         {
             var linearLayout = platformView.GetChildAt(0) as LinearLayout;
@@ -24,5 +27,6 @@ namespace VeganLife.Handlers
 
             base.ConnectHandler(platformView);
         }
+#endif
     }
 }
