@@ -11,6 +11,7 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using VeganLife.Data;
 using VeganLife.Data.LocalData;
+using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Models.FirebaseDataModel;
@@ -226,6 +227,7 @@ namespace VeganLife.Services
                 if (!string.IsNullOrEmpty(data.Name))
                 {
                     data.Id = id;
+                    NutritionFactsHelper.SetupUndefinedFood(data);
                     data.FoodNutrientsJsonData = JsonConvert.SerializeObject(data.foodNutrients);
                     localServie.AddOrUpdateItemAsync(data).SafeFireAndForget();
                 }

@@ -117,39 +117,21 @@ namespace VeganLife.ViewModels.ContentViewModels
         private async Task ProcessUndefineFoodAsync()
         {
             this.CurrentUndefinedMacroFoodNutriFact = await dataService.GetMacroFoodNutriFacts(this.CurrentFoodPreview.Id);
-            bool? any = (this.CurrentUndefinedMacroFoodNutriFact?.foodNutrients!).Any();
+            this.CaloriesValue.Amount = CurrentUndefinedMacroFoodNutriFact.CaloriesAmount;
+            this.CaloriesValue.Unit = CurrentUndefinedMacroFoodNutriFact.CaloriesUnit;
 
-            if (any ?? false)
-            {
-                foreach (var i in this.CurrentUndefinedMacroFoodNutriFact?.foodNutrients!)
-                {
-                    if (ProteinValue.Amount <= 0 && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein, StringComparison.OrdinalIgnoreCase))
-                    {
-                        ProteinValue = i;
-                    }
-                    else if (CarbValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate, StringComparison.OrdinalIgnoreCase))
-                    {
-                        CarbValue = i;
-                    }
-                    else if (CaloriesValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy, StringComparison.OrdinalIgnoreCase))
-                    {
-                        CaloriesValue = i;
-                    }
+            this.CarbValue.Amount = CurrentUndefinedMacroFoodNutriFact.CarbohydrateAmount;
+            this.CarbValue.Unit = CurrentUndefinedMacroFoodNutriFact.CarbohydrateUnit;
 
-                    if (ProteinValue != null
-                        && CarbValue != null
-                        && CaloriesValue != null)
-                    {
-                        break;
-                    }
-                }
-            }
+            this.ProteinValue.Amount = CurrentUndefinedMacroFoodNutriFact.ProteinAmount;
+            this.ProteinValue.Unit = CurrentUndefinedMacroFoodNutriFact.ProteinUnit;
+
+            // TODO: fat implement
         }
 
         private async Task ProcessUsdaFoodAsync()
         {
             this.CurrentFoodNutritionFact = await _usdaApiService.GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
-            //bool? any = false;
             var foodNutrients = this.CurrentFoodNutritionFact?.foodNutrients;
             if (foodNutrients != null)
             {

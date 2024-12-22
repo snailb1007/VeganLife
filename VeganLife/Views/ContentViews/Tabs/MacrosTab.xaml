@@ -77,6 +77,7 @@
                             sho:Commands.Tap="{Binding ViewModel.ItemEditedTapCommand, Source={x:Reference macroTabRoot}, x:DataType={x:Type tabsView:MacrosTab}}"
                             sho:Commands.TapParameter="{Binding .}"
                             CornerRadius="4"
+                            InputTransparent="False"
                             MaterialTheme="Acrylic"
                             VerticalOptions="End">
                             <Label
