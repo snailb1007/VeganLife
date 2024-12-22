@@ -23,13 +23,5 @@ namespace VeganLife.Models.BaseModel
         public double ProteinAmount { get; set; }
         [JsonIgnore]
         public string ProteinUnit { get; set; }
-
     }
-
-    //public class BaseMacroFoodFactModel
-    //{
-    //    public float Amount { get; set; } = -1;
-
-    //    public string Unit { get; set; } = string.Empty;
-    //}
 }
