@@ -21,6 +21,7 @@
                 Margin="10,10,10,0"
                 HeightRequest="400"
                 HorizontalOptions="Center"
+                LegendPosition="Right"
                 Series="{Binding Series}"
                 WidthRequest="400" />
         </VerticalStackLayout>
