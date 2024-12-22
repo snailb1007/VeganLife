@@ -1,6 +1,7 @@
 ﻿using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView.Extensions;
-using LiveChartsCore.SkiaSharpView.Maui;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 
 namespace VeganLife.ViewModels
 {
@@ -32,11 +33,39 @@ namespace VeganLife.ViewModels
                 Carbs = data.Sum(x => x.DisplayCarbs);
             }
 
-            Series = new[] { Protein, Fat, Carbs }.AsPieSeries((v, s) =>
-            {
-                s.MaxRadialColumnWidth = 60;
-
-            });
+            Series =
+            [
+                new PieSeries<double>
+                {
+                    Values = [Protein],
+                    Name = "Protein",
+                    MaxRadialColumnWidth = 60,
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsSize = 18,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    DataLabelsFormatter = p => Protein.ToString("N2")
+                },
+                new PieSeries<double>
+                {
+                    Values = new[] {Fat},
+                    Name = "Fat",
+                    MaxRadialColumnWidth = 60,
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsSize = 20,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    DataLabelsFormatter = p => Fat.ToString("N2")
+                },
+                new PieSeries<double>
+                {
+                    Values = new[] {Carbs},
+                    Name = "Carbs",
+                    MaxRadialColumnWidth = 60,
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsSize = 18,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    DataLabelsFormatter = p => Carbs.ToString("N2")
+                }
+            ];
 
             return base.OnNavigatingTo(parameter);
         }

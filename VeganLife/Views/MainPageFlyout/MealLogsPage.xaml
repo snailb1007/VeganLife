@@ -25,11 +25,15 @@
             <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid x:Name="mainGridContent" RowDefinitions="Auto,*,Auto">
+    <Grid x:Name="mainGridContent" RowDefinitions="Auto,*,54">
         <control:NavBarRootPageControl Margin="5" IsVisibleGreetingContent="False" />
-        <VerticalStackLayout Grid.Row="1" Spacing="20">
+        <Grid
+            Grid.Row="1"
+            RowDefinitions="1.2*,*"
+            RowSpacing="5"
+            ZIndex="1">
             <sharpnado:MaterialFrame
-                Margin="8,20,8,0"
+                Margin="8,8,8,0"
                 CornerRadius="10"
                 MaterialTheme="Acrylic">
                 <Grid
@@ -172,7 +176,6 @@
                             </VerticalStackLayout>
                         </Grid>
                         <sharpnado:MaterialFrame
-                            Margin="10"
                             Padding="10,5"
                             CornerRadius="10"
                             MaterialTheme="Acrylic">
@@ -197,45 +200,54 @@
                     </VerticalStackLayout>
                 </Grid>
             </sharpnado:MaterialFrame>
-            <!--<Button Command="{Binding CalendarClickedCommand}" Text="Calendar choose" />-->
-            <Label
-                FontAttributes="Bold"
-                FontSize="Medium"
-                Text="{x:Static translate:AppResources.mealLogsPage_FoodsToday}" />
-            <CollectionView IsVisible="{x:Bind NutritionMealLogs.Count gt 0}" ItemsSource="{Binding NutritionMealLogs}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:NutritionMealLogModel">
-                        <Grid ColumnDefinitions="*,Auto">
-                            <VerticalStackLayout Padding="10">
-                                <Label
-                                    FontSize="Small"
-                                    Text="{Binding UsdaFoodId}"
-                                    TextColor="Gray" />
-                                <Label Text="{Binding Name}" />
-                                <HorizontalStackLayout Spacing="10">
-                                    <Label FontSize="Small" Text="{Binding DisplayCalories, StringFormat='Calories: {0:F1}'}" />
-                                    <Label FontSize="Small" Text="{Binding DisplayProtein, StringFormat='P: {0:F1}'}" />
-                                    <Label FontSize="Small" Text="{Binding DisplayFat, StringFormat='F: {0:F1}'}" />
-                                    <Label FontSize="Small" Text="{Binding DisplayCarbs, StringFormat='Carbs: {0:F1}'}" />
-                                </HorizontalStackLayout>
-                                <Line BackgroundColor="Gray" HeightRequest="1" />
-                            </VerticalStackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <ContentView ControlTemplate="{StaticResource EmptyListAnimationTemplate}" IsVisible="{Binding NutritionMealLogs, Converter={StaticResource IsListNullOrEmptyConverter}}" />
-            <Label
-                HorizontalOptions="Center"
-                IsVisible="{Binding NutritionMealLogs, Converter={StaticResource IsListNullOrEmptyConverter}}"
-                Text="Hôm nay bạn ăn gì chưa?" />
-        </VerticalStackLayout>
+            <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto,Auto">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="{x:Static translate:AppResources.mealLogsPage_FoodsToday}" />
+                <CollectionView
+                    Grid.Row="1"
+                    IsVisible="{x:Bind NutritionMealLogs.Count gt 0}"
+                    ItemsSource="{Binding NutritionMealLogs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:NutritionMealLogModel">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Padding="10">
+                                    <Label
+                                        FontSize="Small"
+                                        Text="{Binding UsdaFoodId}"
+                                        TextColor="Gray" />
+                                    <Label Text="{Binding Name}" />
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label FontSize="Small" Text="{Binding DisplayCalories, StringFormat='Calories: {0:F1}'}" />
+                                        <Label FontSize="Small" Text="{Binding DisplayProtein, StringFormat='P: {0:F1}'}" />
+                                        <Label FontSize="Small" Text="{Binding DisplayFat, StringFormat='F: {0:F1}'}" />
+                                        <Label FontSize="Small" Text="{Binding DisplayCarbs, StringFormat='Carbs: {0:F1}'}" />
+                                    </HorizontalStackLayout>
+                                    <Line BackgroundColor="Gray" HeightRequest="1" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <ContentView
+                    Grid.Row="2"
+                    ControlTemplate="{StaticResource EmptyListAnimationTemplate}"
+                    IsVisible="{Binding NutritionMealLogs, Converter={StaticResource IsListNullOrEmptyConverter}}" />
+                <Label
+                    Grid.Row="3"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding NutritionMealLogs, Converter={StaticResource IsListNullOrEmptyConverter}}"
+                    Text="Hôm nay bạn ăn gì chưa?" />
+            </Grid>
+        </Grid>
         <Button
             Grid.Row="2"
-            Margin="0,0,0,5"
             Command="{Binding OpenMealLogsAnalysisPageCommand}"
             HorizontalOptions="Center"
             IsVisible="{x:Bind NutritionMealLogs.Count gt 0}"
-            Text="Phân tích chi tiết -&gt;" />
+            Text="Phân tích chi tiết -&gt;"
+            VerticalOptions="Start"
+            ZIndex="2" />
     </Grid>
 </base:BasePage>

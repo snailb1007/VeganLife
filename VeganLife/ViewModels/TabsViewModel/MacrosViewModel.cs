@@ -264,7 +264,10 @@ namespace VeganLife.ViewModels.TabsViewModel
             if (string.IsNullOrEmpty(value))
             {
                 UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+                return;
             }
+
+            Task.Delay(200).ContinueWith(t => EnsureSearch());
         }
 
         internal void ScrollToTop()

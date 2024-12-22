@@ -50,24 +50,24 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                 {
                     this.Series =
                     [
-                    new ColumnSeries<double>
-                            {
-                                Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
-                                Values = new ObservableCollection<double> { this.LocalUserInfo.Height },
-                                IsVisible = true,
-                            },
-                    new ColumnSeries<double>
-                            {
-                                Name = $"Trung binh o VN: {_heightAvgVN}cm",
-                                Values = new ObservableCollection<double> { _heightAvgVN },
-                                IsVisible = true,
-                            },
-                    new ColumnSeries<double>
-                            {
-                                Name = $"Trung binh o US: {_heightAvgUS}cm",
-                                Values = new ObservableCollection<double> { _heightAvgUS },
-                                IsVisible = true,
-                            },
+                        new ColumnSeries<double>
+                                {
+                                    Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
+                                    Values = new ObservableCollection<double> { this.LocalUserInfo.Height },
+                                    IsVisible = true,
+                                },
+                        new ColumnSeries<double>
+                                {
+                                    Name = $"Trung binh o VN: {_heightAvgVN}cm",
+                                    Values = new ObservableCollection<double> { _heightAvgVN },
+                                    IsVisible = true,
+                                },
+                        new ColumnSeries<double>
+                                {
+                                    Name = $"Trung binh o US: {_heightAvgUS}cm",
+                                    Values = new ObservableCollection<double> { _heightAvgUS },
+                                    IsVisible = true,
+                                },
                     ];
                 }
 

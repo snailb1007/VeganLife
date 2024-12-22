@@ -79,13 +79,13 @@
                             Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
                             Style="{StaticResource noteBookSearch}"
                             Text="{Binding MacrosViewModel.TextSearch}">
-                            <SearchBar.Behaviors>
+                            <!--<SearchBar.Behaviors>
                                 <toolkit:UserStoppedTypingBehavior
                                     Command="{Binding MacrosViewModel.EnsureSearchCommand}"
                                     MinimumLengthThreshold="1"
                                     ShouldDismissKeyboardAutomatically="False"
                                     StoppedTypingTimeThreshold="500" />
-                            </SearchBar.Behaviors>
+                            </SearchBar.Behaviors>-->
                             <SearchBar.Triggers>
                                 <DataTrigger
                                     Binding="{Binding SelectedViewModelIndex}"
