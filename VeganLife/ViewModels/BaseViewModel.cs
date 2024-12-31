@@ -110,11 +110,6 @@ namespace VeganLife.ViewModels
 
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
 
-        partial void OnIsLoadingChanged(bool value)
-        {
-            Debug.WriteLine($"IsLoading: {value}");
-        }
-
         void IDisposable.Dispose()
         {
             _busySubscription.Dispose();

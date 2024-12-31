@@ -1,4 +1,5 @@
-﻿using VeganLife.Resources.Translations;
+﻿using PropertyChanged;
+using VeganLife.Resources.Translations;
 
 namespace VeganLife.ViewModels.PopupViewModels
 {
@@ -31,6 +32,7 @@ namespace VeganLife.ViewModels.PopupViewModels
             SelectedDate.Clear();
         }
 
+        [SuppressPropertyChangedWarnings]
         partial void OnSelectedDateChanged(IList<DateTime> value)
         {
             if (!value.Any())

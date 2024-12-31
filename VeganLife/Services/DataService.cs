@@ -335,9 +335,7 @@ namespace VeganLife.Services
                 }
                 catch (FirebaseException firebaseE)
                 {
-#if DEBUG
-                    await Console.Out.WriteLineAsync(firebaseE.Message);
-#endif
+                    Debug.WriteLine($"Firebase error in GetFireBaseValue: {firebaseE.Message}");
                     return string.Empty;
                 }
             }

@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>F4C59B5E-E230-4D45-85B2-8BF64759FFE1</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.68</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.70</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion> -->
@@ -28,7 +28,7 @@
 		<!--TODO: net9, from toolkitMaui pack: https://github.com/CommunityToolkit/Maui/issues/2205-->
 		<NoWarn>$(NoWarn);XC0103</NoWarn>
 
-		<DefineConstants>$(DefineConstants);DATACENTER;DEV</DefineConstants>
+		<DefineConstants>$(DefineConstants);DATACENTER</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

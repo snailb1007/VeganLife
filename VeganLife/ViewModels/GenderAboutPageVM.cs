@@ -46,7 +46,7 @@ namespace VeganLife.ViewModels
             await (Application.Current as App)?.RefreshAppShell()!;
 #else
             await this.navigationService.NavigateToPage<HeightAndWeightAboutPage>(
-                new InitAboutYouDataRecord(_data.Name, _data.Birthday, IsMale));
+                paramater: new InitAboutYouDataRecord(_data.Name, _data.Birthday, IsMale));
 #endif
         }
     }
