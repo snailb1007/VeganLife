@@ -17,7 +17,7 @@ namespace VeganLife.Services.OpenAIService
         {
             try
             {
-                var response = await ServicesHelper.GetService<IChatGptClient>()
+                var response = await FFImageLoading.Helpers.ServiceHelper.GetService<IChatGptClient>()
                     .AskAsync(guid, message: question);
                 if (response?.IsSuccessful ?? false)
                 {

@@ -2,9 +2,9 @@ using AsyncAwaitBestPractices;
 
 namespace VeganLife.Views.ChatFlyout;
 
-public partial class ChatGPTDetailPage : ContentPage
+public partial class ChatGPTDetailPage
 {
-    private INavigationService _navigationService;
+    private readonly INavigationService _navigationService;
 
     public ChatGPTDetailPage(INavigationService navigationService)
     {

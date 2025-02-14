@@ -1,9 +1,9 @@
-using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.ViewModels.ContentViewModels;
 
-namespace VeganLife.Views.PortionTab;
+namespace VeganLife.Views.MainPageFlyout.PortionTab;
 
-public partial class UsdaFoodFactDetailPage : ContentPage
+public partial class UsdaFoodFactDetailPage
 {
     private readonly UsdaFoodFactDetailVM _vm;
 
@@ -11,25 +11,39 @@ public partial class UsdaFoodFactDetailPage : ContentPage
 
     public UsdaFoodFactDetailPage(UsdaFoodFactDetailVM vm)
     {
-        this.BindingContext = _vm = vm;
         InitializeComponent();
+        this.BindingContext = _vm = vm;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        Dispatcher.Dispatch(async () =>
+        Dispatcher.Dispatch(async void () =>
         {
-            await _vm.ViewAppearingVM();
+            try
+            {
+                await _vm.ViewAppearingVM();
+            }
+            catch (Exception e)
+            {
+                e.LogError();
+            }
         });
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        Dispatcher.Dispatch(async () =>
+        Dispatcher.Dispatch(async void () =>
         {
-            await _vm.ViewDisappearingVM();
+            try
+            {
+                await _vm.ViewDisappearingVM();
+            }
+            catch (Exception e)
+            {
+                e.LogError();
+            }
         });
     }
 

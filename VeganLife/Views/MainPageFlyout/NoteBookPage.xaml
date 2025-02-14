@@ -5,8 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:VeganLife.Views.Base"
     xmlns:localVM="clr-namespace:VeganLife.ViewModels"
+    xmlns:mx="http://compiledbindings.com/x"
     xmlns:sharpnado="http://sharpnado.com"
-    xmlns:tabVM="clr-namespace:VeganLife.ViewModels.TabsViewModel"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
@@ -35,6 +36,7 @@
     <Grid
         x:Name="mainGridContent"
         BackgroundColor="White"
+        Opacity="{x:Bind IsLoading ? 0.5 : 1.0}"
         RowDefinitions="80, 60, *">
         <ContentView Padding="10">
             <ContentView.Background>
@@ -77,13 +79,13 @@
                             Placeholder="{x:Static translate:AppResources.fillText_placeHolder_macroTab}"
                             Style="{StaticResource noteBookSearch}"
                             Text="{Binding MacrosViewModel.TextSearch}">
-                            <SearchBar.Behaviors>
+                            <!--<SearchBar.Behaviors>
                                 <toolkit:UserStoppedTypingBehavior
                                     Command="{Binding MacrosViewModel.EnsureSearchCommand}"
                                     MinimumLengthThreshold="1"
                                     ShouldDismissKeyboardAutomatically="False"
                                     StoppedTypingTimeThreshold="500" />
-                            </SearchBar.Behaviors>
+                            </SearchBar.Behaviors>-->
                             <SearchBar.Triggers>
                                 <DataTrigger
                                     Binding="{Binding SelectedViewModelIndex}"
@@ -163,7 +165,7 @@
                             Command="{Binding MacrosViewModel.FilterCommand}"
                             FontFamily="FAThin"
                             FontSize="Medium"
-                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible}"
+                            IsVisible="{Binding Source={Reference macroSearchBar}, Path=IsVisible, x:DataType={x:Type SearchBar}}"
                             Text="&#xf0b0;">
                             <Button.Triggers>
                                 <DataTrigger
@@ -198,7 +200,7 @@
                 IsVisible="{Binding MacrosViewModel.IsScrolling, Converter={StaticResource InvertedBoolConverter}}"
                 Orientation="Horizontal"
                 SegmentedOutlineColor="Transparent"
-                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay, x:DataType={x:Type sharpnado:ViewSwitcher}}"
                 TabType="Scrollable"
                 VerticalOptions="StartAndExpand">
                 <sharpnado:TabHostView.Resources>
@@ -266,5 +268,15 @@
                     UseActivityIndicator="True" />
             </sharpnado:ViewSwitcher>
         </ContentView>
+        <skia:SKLottieView
+            Grid.RowSpan="3"
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsLoading}"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="100" />
     </Grid>
 </base:BasePage>

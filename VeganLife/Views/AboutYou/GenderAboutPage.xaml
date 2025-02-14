@@ -58,7 +58,7 @@
                         FontSize="Medium"
                         HorizontalOptions="Center"
                         Text="{x:Static translate:AppResources.female_bmiPage}"
-                        TextColor="{Binding Source={Reference femaleIconLb}, Path=TextColor}" />
+                        TextColor="{Binding Source={Reference femaleIconLb}, Path=TextColor, x:DataType={x:Type Label}}" />
                 </HorizontalStackLayout>
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
@@ -101,7 +101,7 @@
                         FontSize="Medium"
                         HorizontalOptions="Center"
                         Text="{x:Static translate:AppResources.male_bmiPage}"
-                        TextColor="{Binding Source={Reference maleIconLb}, Path=TextColor}" />
+                        TextColor="{Binding Source={Reference maleIconLb}, Path=TextColor, x:DataType={x:Type Label}}" />
                 </HorizontalStackLayout>
             </sharpnado:MaterialFrame>
             <!--  AutomationProperties.HelpText="Tap to continue and send selected data"  -->

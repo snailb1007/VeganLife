@@ -32,8 +32,8 @@
                 HorizontalOptions="StartAndExpand"
                 Text="{x:Static translate:AppResources.collectLog_settingPage}"
                 VerticalOptions="Center" />
+            <!--  IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseConverter}}"  -->
             <Switch
-                IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseConverter}}"
                 IsToggled="{Binding IsAllowCollectLogs, Mode=TwoWay}"
                 ThumbColor="{StaticResource PrimaryLight}"
                 VerticalOptions="Center" />

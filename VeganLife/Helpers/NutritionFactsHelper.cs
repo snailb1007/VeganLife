@@ -1,4 +1,5 @@
 ﻿using VeganLife.Helpers.AppSetting;
+using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
 
 namespace VeganLife.Helpers
@@ -47,5 +48,59 @@ namespace VeganLife.Helpers
             { ConstantHelper.UsdaFoodNutrition.VitaminD, ConstantHelper.UsdaFoodNutrition.VitaminD },
             { ConstantHelper.UsdaFoodNutrition.VitaminK, ConstantHelper.UsdaFoodNutrition.VitaminK },
         };
+        internal static void SetNutrientValue(ref UndefinedFoodNutrient targetNutrient, FoodNutrient source,
+                    string[] searchTerms)
+        {
+            var nutrientName = source.Nutrient?.Name;
+            var isMatchesAllTerms = searchTerms
+                .All(term =>
+                    !string.IsNullOrEmpty(nutrientName) &&
+                    nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
+            if (targetNutrient == null && isMatchesAllTerms)
+            {
+                targetNutrient = new UndefinedFoodNutrient()
+                {
+                    Amount = source.Amount,
+                    Unit = source?.Nutrient?.UnitName ?? string.Empty,
+                };
+            }
+        }
+
+        internal static void SetupUndefinedFood(UndefinedMacroFoodNutriFactModel data)
+        {
+            byte count = 0;
+            foreach (var i in data?.foodNutrients!)
+            {
+                if (i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein, StringComparison.OrdinalIgnoreCase))
+                {
+                    data.ProteinAmount = i.Amount.Value;
+                    data.ProteinUnit = i.Unit;
+                    count++;
+                }
+                else if (i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate, StringComparison.OrdinalIgnoreCase))
+                {
+                    data.CarbohydrateAmount = i.Amount.Value;
+                    data.CarbohydrateUnit = i.Unit;
+                    count++;
+                }
+                else if (i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy, StringComparison.OrdinalIgnoreCase))
+                {
+                    data.CaloriesAmount = i.Amount.Value;
+                    data.CaloriesUnit = i.Unit;
+                    count++;
+                }
+                else if (i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Fat, StringComparison.OrdinalIgnoreCase))
+                {
+                    data.FatAmount = i.Amount.Value;
+                    data.FatUnit = i.Unit;
+                    count++;
+                }
+
+                if (count == 4)
+                {
+                    break;
+                }
+            }
+        }
     }
 }

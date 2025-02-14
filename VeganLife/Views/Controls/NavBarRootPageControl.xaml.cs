@@ -4,13 +4,12 @@
 
 // Ignore Spelling: Nav
 using CommunityToolkit.Mvvm.Messaging;
-using VeganLife.Helpers;
 using VeganLife.Messages;
 using VeganLife.Services.UserServices;
 
 namespace VeganLife.Views.Controls
 {
-    public partial class NavBarRootPageControl : Grid, IRecipient<ProfileChangedMessage>
+    public partial class NavBarRootPageControl : IRecipient<ProfileChangedMessage>
     {
         public static BindableProperty IsVisibleGreetingContentProperty = BindableProperty.Create(
                 propertyName: "IsVisibleGreetingContent",
@@ -45,7 +44,7 @@ namespace VeganLife.Views.Controls
 
         private void LoadUserData()
         {
-            var userName = ServicesHelper.GetService<IUserDataService>().GetUserInfo()?.Name ?? "...";
+            var userName = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().GetUserInfo()?.Name ?? "...";
             lbHi.Text = $"Hi {userName}";
         }
 

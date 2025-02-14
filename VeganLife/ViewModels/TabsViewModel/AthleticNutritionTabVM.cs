@@ -9,18 +9,13 @@ namespace VeganLife.ViewModels.TabsViewModel
         private IEnumerable<AthleticNutritionModel> _allAthleticNutritions;
 
         [ObservableProperty]
-        private bool isBannerClosed;
+        private bool _isBannerClosed;
 
         [ObservableProperty]
-        private ObservableCollection<AthleticNutritionModel> athleticNutritions;
+        private ObservableCollection<AthleticNutritionModel> _athleticNutritions;
 
         [ObservableProperty]
-        private string athleticNutritionSearchText;
-
-        public AthleticNutritionTabVM()
-            : base()
-        {
-        }
+        private string _athleticNutritionSearchText;
 
         public override async Task ViewAppearingVM()
         {
@@ -42,25 +37,19 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(param);
-            }
+            await this.navigationService.NavigateToPage<DetailAthleticNutritionPage>(paramater: param);
         }
 
         [RelayCommand]
-        private async Task EnsureSearch()
+        private void EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.AthleticNutritionSearchText) || string.IsNullOrWhiteSpace(this.AthleticNutritionSearchText))
             {
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
-                this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
-            }
+            var searchResult = SearchFoodByName(this._allAthleticNutritions.AsParallel(), AthleticNutritionSearchText);
+            this.AthleticNutritions = new ObservableCollection<AthleticNutritionModel>(searchResult);
         }
 
         [RelayCommand]

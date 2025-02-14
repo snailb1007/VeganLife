@@ -2,8 +2,6 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using VeganLife.Helpers;
-
 namespace VeganLife.Views.Base
 {
     public abstract class BasePage<TViewModel> : BasePage
@@ -12,79 +10,57 @@ namespace VeganLife.Views.Base
         protected BasePage(TViewModel viewModel)
             : base(viewModel)
         {
-            ServicesHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
+            viewModel.NavigationViewModel = this.Navigation;
+            FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().LogMessage($"★ {this.GetType()} created");
         }
 
         public new TViewModel BindingContext => (TViewModel)base.BindingContext;
-    }
 
-    public abstract class BasePage : ContentPage, INotifyPropertyChanged
-    {
-        protected BasePage(object? viewModel = null)
-        {
-            this.BindingContext = viewModel;
-        }
-
-        /// <inheritdoc/>
         protected override void OnAppearing()
         {
             base.OnAppearing();
             Debug.WriteLine($"★ OnAppearing: {this.Title}");
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                var vm = this.BindingContext as BaseViewModel;
-                if (vm is null)
-                {
-                    return;
-                }
-
-                await vm.ViewAppearingVM()!;
-            });
+            this.Dispatcher.Dispatch(async () => await this.BindingContext?.ViewAppearingVM());
         }
 
-        /// <inheritdoc/>
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             Debug.WriteLine($"★ OnDisappearing: {this.Title}");
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await (this.BindingContext as BaseViewModel)?.ViewDisappearingVM()!;
-            });
+            this.Dispatcher.Dispatch(async () => await this.BindingContext?.ViewDisappearingVM());
+        }
+    }
+
+    public abstract class BasePage : ContentPage
+    {
+        protected BasePage(object viewModel = null)
+        {
+            this.BindingContext = viewModel;
         }
 
-        protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+        protected override void OnBindingContextChanged()
         {
-            Debug.WriteLine($"★ OnNavigatedFrom: {this.Title}");
-            base.OnNavigatedFrom(args);
-        }
-
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action? onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            base.OnBindingContextChanged();
+            if (this.BindingContext is BaseViewModel vm)
             {
-                return false;
-            }
-
-            backingStore = value;
-            onChanged?.Invoke();
-            this.OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        public event PropertyChangedEventHandler BasePagePropertyChanged;
-
-        /// <inheritdoc/>
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.OnPropertyChanged(propertyName);
-            var changed = this.BasePagePropertyChanged;
-            if (changed == null)
-            {
+                this.SetBinding(IsBusyProperty, new Binding(nameof(vm.IsLoading)));
                 return;
             }
 
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.ClearValue(IsBusyProperty);
+        }
+
+        public class BoolToOpacityConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return (bool)value ? 0.5 : 1;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

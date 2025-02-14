@@ -17,14 +17,14 @@ namespace VeganLife
         {
         }
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            string appId = "ca-app-pub-4076544648724623~8681233278";
+            var appId = "ca-app-pub-4076544648724623~8681233278";
             CrossMauiMTAdmob.Current.Init(this, appId);
         }
 
-        public override bool DispatchTouchEvent(MotionEvent? e)
+        public override bool DispatchTouchEvent(MotionEvent e)
         {
             return e?.PointerCount == 1 && base.DispatchTouchEvent(e);
         }

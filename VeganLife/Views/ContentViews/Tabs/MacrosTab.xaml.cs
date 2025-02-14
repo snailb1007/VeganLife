@@ -3,10 +3,11 @@ using VeganLife.ViewModels.TabsViewModel;
 
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class MacrosTab : ContentView
+public partial class MacrosTab
 {
-    private MacrosViewModel _vm;
-    private Timer _timer;
+    private readonly Timer _timer;
+
+    public MacrosViewModel ViewModel { get; private set; }
 
     public MacrosTab()
     {
@@ -18,7 +19,7 @@ public partial class MacrosTab : ContentView
     protected override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
-        _vm ??= this.BindingContext as MacrosViewModel ?? throw new NullReferenceException();
+        ViewModel ??= this.BindingContext as MacrosViewModel ?? throw new NullReferenceException();
     }
 
     private void RefreshView_Refreshing(object sender, EventArgs e)
@@ -38,17 +39,17 @@ public partial class MacrosTab : ContentView
 
     private void FoodsPreviewCollection_Scrolled(object sender, ItemsViewScrolledEventArgs e)
     {
-        if (_vm is null)
+        if (ViewModel is null)
         {
             return;
         }
 
-        _vm.IsScrolling = true;
+        ViewModel.IsScrolling = true;
         _ = Task.Run(() => this._timer.Change(500, Timeout.Infinite));
     }
 
-    private void ScrollTimerElapsed(object? obj)
+    private void ScrollTimerElapsed(object obj)
     {
-        _vm.IsScrolling = false;
+        ViewModel.IsScrolling = false;
     }
 }

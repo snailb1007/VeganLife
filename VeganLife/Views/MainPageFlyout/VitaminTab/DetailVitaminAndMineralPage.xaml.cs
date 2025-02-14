@@ -3,19 +3,21 @@
 // </copyright>
 
 using VeganLife.ViewModels.ContentViewModels;
-using VeganLife.Views.Base;
 
 namespace VeganLife.Views.MainPageFlyout.VitaminTab
 {
-    public partial class DetailVitaminAndMineralPage : BasePage<DetailVitaminAndMineralViewModel>
+    public partial class DetailVitaminAndMineralPage
     {
         private double _xOffset;
         private double _yOffset;
+
+        public DetailVitaminAndMineralViewModel ViewModel { get; private set; }
 
         public DetailVitaminAndMineralPage(DetailVitaminAndMineralViewModel vm)
             : base(vm)
         {
             this.InitializeComponent();
+            ViewModel = vm;
         }
 
         private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)

@@ -6,7 +6,7 @@ using VeganLife.ViewModels.ContentViewModels;
 
 namespace VeganLife.Views.MainPageFlyout.FoodTab
 {
-    public partial class FoodsByCategoryPage : ContentPage
+    public partial class FoodsByCategoryPage
     {
         public FoodsByCategoryPage(FoodsByCategoryViewModel vm)
         {

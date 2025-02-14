@@ -17,7 +17,7 @@ namespace VeganLife
     /// <summary>
     /// auto-generated.
     /// </summary>
-    public partial class AppShell : Shell
+    public partial class AppShell
     {
         private ShellNavigationSource _currentShellNavigationSource;
 
@@ -39,7 +39,7 @@ namespace VeganLife
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
+            FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -78,7 +78,7 @@ namespace VeganLife
             Shell.Current.FlyoutIsPresented = true;
         }
 
-        public void SwitchShellContentToolsTab(byte index, BMIResultModel? bMIResult = null)
+        public void SwitchShellContentToolsTab(byte index)
         {
             switch (index)
             {
@@ -110,7 +110,7 @@ namespace VeganLife
                 });
                 return true;
             }
-            else if (ServicesHelper.GetService<INavigationService>().GetStackCount() > 1)
+            else if (FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().GetStackCount() > 1)
             {
                 Shell.Current.Navigation.PopAsync();
                 return true;

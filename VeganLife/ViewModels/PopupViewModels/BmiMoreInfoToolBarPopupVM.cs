@@ -6,13 +6,18 @@ namespace VeganLife.ViewModels.PopupViewModels
     public partial class BmiMoreInfoToolBarPopupVM : BaseViewModel
     {
         [ObservableProperty]
-        private ObservableCollection<string> documents;
+        private ObservableCollection<string> _documents;
 
         public BmiMoreInfoToolBarPopupVM()
             : base()
         {
             this.Documents = new ObservableCollection<string>();
             var document = HealthDiagnosisFirebaseDataModel.BMIModel?.Documents;
+            if (document is null)
+            {
+                return;
+            }
+
             Documents.Add(document.WikiVN);
             Documents.Add(document.WHO);
         }
@@ -27,7 +32,7 @@ namespace VeganLife.ViewModels.PopupViewModels
                 if (!string.IsNullOrEmpty(link))
                 {
                     await Browser.Default.OpenAsync(link);
-                    parameter = null;
+                    parameter = null!;
                 }
             }
         }

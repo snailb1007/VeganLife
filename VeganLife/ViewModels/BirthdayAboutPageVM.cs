@@ -6,16 +6,16 @@ namespace VeganLife.ViewModels
     public partial class BirthdayAboutPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private string name;
+        private string _name;
 
         public DateTime MaximumDateOfBirth => DateTime.Now.AddDays(-30).Date;
 
         [ObservableProperty]
-        private DateTime selectedDate;
+        private DateTime _selectedDate;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(ContinueClickedCommand))]
-        private bool isFilledBirthday;
+        private bool _isFilledBirthday;
 
         public override Task ViewAppearingVM()
         {
@@ -23,7 +23,7 @@ namespace VeganLife.ViewModels
             return base.ViewAppearingVM();
         }
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
             if (parameter is string name)
             {
@@ -34,10 +34,10 @@ namespace VeganLife.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(IsFilledBirthday))]
-        public async Task OnContinueClicked()
+        private async Task OnContinueClicked()
         {
             await this.navigationService.NavigateToPage<GenderAboutPage>(
-                new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
+                paramater: new InitAboutYouDataRecord(Name: Name, Birthday: SelectedDate, false));
         }
 
         [SuppressPropertyChangedWarnings]

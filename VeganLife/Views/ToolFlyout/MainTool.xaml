@@ -9,7 +9,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels"
-    x:Name="bmiCalculatorPage"
+    x:Name="RootMainToolPage"
     Title="{x:Static translate:AppResources.app_common_toolsTab}"
     x:DataType="viewmodel:MainToolViewModel"
     x:TypeArguments="viewmodel:MainToolViewModel"
@@ -17,12 +17,6 @@
     <base:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:IsNotNullConverter x:Key="NullToFalseConverter" />
-            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-                <Setter Property="TextColor" Value="Red" />
-            </Style>
-            <Style x:Key="ValidEntryStyle" TargetType="Entry">
-                <Setter Property="TextColor" Value="Green" />
-            </Style>
             <Style x:Key="btnPlusMinus" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=Black, Light=White}" />
                 <Setter Property="WidthRequest" Value="30" />
@@ -39,7 +33,7 @@
         <ScrollView>
             <VerticalStackLayout Margin="10,10,10,0" Spacing="10">
                 <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference bmiCalculatorPage}" />
+                    <TapGestureRecognizer Command="{Binding UnFocusCommand}" CommandParameter="{x:Reference RootMainToolPage}" />
                 </VerticalStackLayout.GestureRecognizers>
                 <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
                     <Label
@@ -92,28 +86,28 @@
                     </Label>
                 </Grid>
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                    <Frame
+                    <Border
                         Padding="5"
                         BackgroundColor="Transparent"
-                        BorderColor="CadetBlue"
-                        CornerRadius="5">
-                        <Frame.GestureRecognizers>
+                        Stroke="CadetBlue"
+                        StrokeShape="RoundRectangle 5">
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectGenderCommand}" CommandParameter="0" />
-                        </Frame.GestureRecognizers>
-                        <Frame.Triggers>
+                        </Border.GestureRecognizers>
+                        <Border.Triggers>
                             <DataTrigger
                                 Binding="{Binding IsMale, Mode=OneWay}"
-                                TargetType="Frame"
+                                TargetType="Border"
                                 Value="False">
                                 <Setter Property="BackgroundColor" Value="CadetBlue" />
                             </DataTrigger>
-                        </Frame.Triggers>
+                        </Border.Triggers>
                         <Label
                             FontFamily="FARegular"
                             FontSize="20"
                             Text="&#xf221;"
                             VerticalOptions="Center" />
-                    </Frame>
+                    </Border>
                     <Border
                         Padding="5"
                         BackgroundColor="Transparent"
@@ -170,12 +164,11 @@
                 </Label>
                 <Grid ColumnDefinitions="*,7*,*">
                     <VerticalStackLayout Grid.Column="1" Spacing="20">
-                        <Frame
+                        <Border
                             Padding="5"
                             BackgroundColor="Transparent"
-                            BorderColor="Gray"
-                            CornerRadius="5"
-                            IsClippedToBounds="True">
+                            Stroke="Gray"
+                            StrokeShape="RoundRectangle 5">
                             <VerticalStackLayout Margin="5" Spacing="5">
                                 <Label
                                     Margin="0,0,0,5"
@@ -207,7 +200,7 @@
                                         Value="{Binding Height}" />
                                 </Grid>
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                         <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                             <Border
                                 Padding="10"

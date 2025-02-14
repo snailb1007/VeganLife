@@ -4,6 +4,7 @@
 
 using AsyncAwaitBestPractices;
 using CommunityToolkit.Mvvm.Messaging;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Messages;
@@ -15,21 +16,17 @@ namespace VeganLife.ViewModels
 {
     public partial class BookmarkViewModel : BaseViewModel, IRecipient<BookmarkFoodChangedMessage>
     {
-        private readonly FoodPreviewDataStoreService dataStoreService;
+        private readonly BaseDataStore<FoodPreviewModel> _dataStoreService;
 
         [ObservableProperty]
-        private ObservableCollection<FoodPreviewModel> foods;
+        private ObservableCollection<FoodPreviewModel> _foods;
         [ObservableProperty]
-        private FoodPreviewModel foodSelected;
+        private FoodPreviewModel _foodSelected;
 
-        public BookmarkViewModel()
+        public BookmarkViewModel(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
-            var database = ServicesHelper.GetService<ISQLite>();
-            if (database != null)
-            {
-                this.dataStoreService = new FoodPreviewDataStoreService(database);
-            }
+            _dataStoreService = localDataStoreFactory.GetDataStore<FoodPreviewModel>();
 
             this.Init();
             WeakReferenceMessenger.Default.Register<BookmarkFoodChangedMessage>(this);
@@ -76,7 +73,7 @@ namespace VeganLife.ViewModels
 
         private async Task LoadDataAsync()
         {
-            (await this.dataStoreService.GetItemsAsync())
+            (await this._dataStoreService.GetItemsAsync())
                 .Where(i => i.IsBookmarked)
                 .ToList().ForEach(i => this.Foods.Add(i));
         }
@@ -84,21 +81,15 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task GoFoodDetail(object obj)
         {
-            using (await this.loadingService.Show())
-            {
-                await this.dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
-                await this.navigationService.NavigateToPage<FoodDetailPage>(obj);
-                FoodSelected = null;
-            }
+            await this._dataStoreService.AddOrUpdateItemAsync(this.FoodSelected, true);
+            await this.navigationService.NavigateToPage<FoodDetailPage>(paramater: obj);
+            FoodSelected = null;
         }
 
         [RelayCommand]
         private async Task GoListPageAsync()
         {
-            using (await this.loadingService.Show())
-            {
-                await Shell.Current.GoToAsync("//home/recipe");
-            }
+            await Shell.Current.GoToAsync("//home/recipe");
         }
 
         // partial void OnFoodsChanged(ObservableCollection<FoodPreviewModel> value)

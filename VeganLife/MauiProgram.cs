@@ -33,9 +33,9 @@ using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.Controls;
 using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.MainPageFlyout.FoodTab;
+using VeganLife.Views.MainPageFlyout.PortionTab;
 using VeganLife.Views.MainPageFlyout.VitaminTab;
 using VeganLife.Views.Popups;
-using VeganLife.Views.PortionTab;
 using VeganLife.Views.SettingFlyout;
 using VeganLife.Views.SettingTab;
 using VeganLife.Views.ToolFlyout;
@@ -55,6 +55,16 @@ namespace VeganLife
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
+                .UseMauiMTAdmob()
+                .ConfigureMopups()
+                .UseFFImageLoading()
+                .UseCardsView()
+                //.UseSkiaSharp(true)
+                .UseSkiaSharp()
+                .UseSharpnadoTabs(loggerEnable: false)
+                .UseSharpnadoMaterialFrame(loggerEnable: false)
+                .UseVirtualListView()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -65,16 +75,7 @@ namespace VeganLife
                     fonts.AddFont("fa-regular-400.ttf", "FARegular");
                     fonts.AddFont("fa-thin-100.ttf", "FAThin");
                     fonts.AddFont("fa-light-300.ttf", "FALight");
-                })
-                .UseMauiCommunityToolkit()
-                .UseMauiMTAdmob()
-                .ConfigureMopups()
-                .UseFFImageLoading()
-                .UseCardsView()
-                .UseSkiaSharp(true)
-                .UseSharpnadoTabs(loggerEnable: false)
-                .UseSharpnadoMaterialFrame(loggerEnable: false)
-                .UseVirtualListView();
+                });
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -92,7 +93,6 @@ namespace VeganLife
             return builder.Build();
         }
 
-        // public static string GetDatabasePath() => Path.Combine(FileSystem.AppDataDirectory, "Report.db");
         private static void RegisterServices(IServiceCollection services)
         {
             // service
@@ -110,25 +110,11 @@ namespace VeganLife
             services.AddSingleton<IPopupNaviService, PopupNaviService>();
             services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<IOpenAIService, OpenAIService>();
-            services.AddSingleton<ILoadingService, LoadingService>();
             services.AddSingleton<USDAApiService>();
             services.AddSingleton<SentryService>();
 
             // local service
-            services.AddSingleton<UserInfoDataStoreServie>();
-            services.AddSingleton<FoodDetailDataStoreService>();
-            services.AddSingleton<UsdaFoodNutritionFactDataStoreService>();
-            services.AddSingleton<FoodPreviewDataStoreService>();
-            services.AddSingleton<NutritionMealLogDataStoreService>();
-            services.AddSingleton<ChatLogsDataStoreService>();
-            services.AddSingleton<VitaminsDataStoreService>();
-            services.AddSingleton<UpdateMasterDataStoreService>();
-            services.AddSingleton<UsdaFoodPreviewsDataStore>();
-            services.AddSingleton<AthleticNutritionDataStore>();
-            services.AddSingleton<PharmacoLogicalDataStoreService>();
-            services.AddSingleton<GoogleAdValidatorDataStoreService>();
-            services.AddSingleton<AffiliationDataStoreService>();
-            services.AddSingleton<UndefinedMacroFoodNutriFactDataStoreService>();
+            services.AddSingleton<LocalDataStoreFactory>();
 
             // tab content
             services.AddTransient<MacrosTab, MacrosViewModel>();
@@ -148,6 +134,7 @@ namespace VeganLife
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
             services.AddTransient<LoadingPopup>();
             services.AddTransient<AffiliationPopup>();
+            services.AddTransient<MealLogsCalendarMopup, MealLogsMopupVM>();
         }
 
         private static void RegisterPage(IServiceCollection services)
@@ -177,6 +164,7 @@ namespace VeganLife
             services.AddTransient<HeightAndWeightAboutPage, HeightAndWeightAboutPageVM>();
             services.AddTransient<MealLogsPage, MealLogsPageVM>();
             services.AddTransient<USDAFoodListPage, USDAFoodListPageVM>();
+            services.AddTransient<MealLogsAnalysisPage, MealLogsAnalysisPageVM>();
         }
 
         private static void AllowMultiLineTruncationOnAndroid()

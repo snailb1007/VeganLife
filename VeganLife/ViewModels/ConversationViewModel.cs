@@ -5,12 +5,12 @@
 using AsyncAwaitBestPractices;
 using Plugin.MauiMTAdmob;
 using PropertyChanged;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers.AppSetting;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.OpenAIService;
 using VeganLife.Views.ChatFlyout;
-using VeganLife.Views.Controls;
 
 namespace VeganLife.ViewModels
 {
@@ -24,8 +24,8 @@ namespace VeganLife.ViewModels
         private AsyncRelayCommand _currentCommand;
 
         private Guid _sessionGuid;
-        private ChatLogsDataStoreService _chatLogsDataStoreService;
-        private GoogleAdValidatorDataStoreService _googleAdValidatorDataStoreService;
+        private readonly BaseDataStore<ChatLogsModel> _chatLogsDataStoreService;
+        private readonly BaseDataStore<GoogleAdValidatorModel> _googleAdValidatorDataStoreService;
         private CancellationTokenSource _cancellationTokenSource;
 
         public AsyncRelayCommand CurrentCommand
@@ -64,58 +64,57 @@ namespace VeganLife.ViewModels
         }
 
         [ObservableProperty]
-        private string query;
+        private string _query;
 
         [ObservableProperty]
-        private bool isAnimationVisible = true;
+        private bool _isAnimationVisible = true;
 
         [ObservableProperty]
-        private bool isTrustedSetting = true;
+        private bool _isTrustedSetting = true;
 
         [ObservableProperty]
-        private ObservableCollection<ChatMessageModel> messages = new();
+        private ObservableCollection<ChatMessageModel> _messages = new();
 
         [ObservableProperty]
-        private ContentPage conversationView;
+        private ContentPage _conversationView;
 
         [ObservableProperty]
-        private double opacityModeMessage = 1;
+        private double _opacityModeMessage = 1;
 
         [ObservableProperty]
-        private double opacityModeImage = 0.5;
+        private double _opacityModeImage = 0.5;
 
         [ObservableProperty]
-        private ChatMessageModel theMessage;
+        private ChatMessageModel _theMessage;
 
         [ObservableProperty]
         private ChatLogsModel _currentChat;
 
         [ObservableProperty]
-        private string passedData;
+        private string _passedData;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
-        private GoogleAdValidatorModel currentAdValidatorData = new GoogleAdValidatorModel();
+        private GoogleAdValidatorModel _currentAdValidatorData = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(AdRewardedDescription))]
-        private string countDownText = string.Empty;
+        private string _countDownText = string.Empty;
 
         [ObservableProperty]
-        private bool isAdInProgress;
+        private bool _isAdInProgress;
 
         public ConversationViewModel(
             IDispatcher dispatcher,
             IOpenAIService openAIService,
-            ChatLogsDataStoreService chatLogsDataStoreService,
-            GoogleAdValidatorDataStoreService googleAdValidatorDataStoreService)
+            LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             _openAIService = openAIService;
             _dispatcher = dispatcher;
             _sessionGuid = Guid.Empty;
-            this._chatLogsDataStoreService = chatLogsDataStoreService;
-            _googleAdValidatorDataStoreService = googleAdValidatorDataStoreService;
+            this._chatLogsDataStoreService = localDataStoreFactory.GetDataStore<ChatLogsModel>();
+            _googleAdValidatorDataStoreService = localDataStoreFactory.GetDataStore<GoogleAdValidatorModel>();
             CrossMauiMTAdmob.Current.OnRewardedLoaded += (s, e) =>
             {
                 if (CrossMauiMTAdmob.Current.IsRewardedLoaded())
@@ -165,7 +164,7 @@ namespace VeganLife.ViewModels
             }
 
             var adLogs = await _googleAdValidatorDataStoreService.GetItemsAsync();
-            if (adLogs.Count() > 0)
+            if (adLogs.Any())
             {
                 CurrentAdValidatorData = adLogs.Last();
                 if (CurrentAdValidatorData.LastTimeRewardOpen.Date < DateTime.Today.Date)
@@ -220,19 +219,16 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+            if (CurrentChat.TimesLimit > 0)
             {
-                if (CurrentChat.TimesLimit > 0)
-                {
-                    CurrentChat.TimesLimit -= 1;
-                }
-
-                string queryCopy = Query;
-                Query = string.Empty;
-                AddMessage(message: queryCopy, isUserMessage: true);
-                string answer = await queryManager(_sessionGuid, queryCopy);
-                AddMessage(message: answer.TrimStart(), isUserMessage: false);
+                CurrentChat.TimesLimit -= 1;
             }
+
+            string queryCopy = Query;
+            Query = string.Empty;
+            AddMessage(message: queryCopy, isUserMessage: true);
+            string answer = await queryManager(_sessionGuid, queryCopy);
+            AddMessage(message: answer.TrimStart(), isUserMessage: false);
         }
 
         private async Task AskQuestionAsync()
@@ -292,16 +288,13 @@ namespace VeganLife.ViewModels
             //    _drawable = (ProgressDrawableControl)graphicsView.Drawable;
             //}
 
-            using (await this.loadingService.Show())
-            {
-                _startTime = DateTime.Now;
-                _cancellationTokenSource = new CancellationTokenSource();
-                IsAdInProgress = true;
-                CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
-                CurrentAdValidatorData.RewardAdTimesLimit += 1;
-                await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
-                _ = UpdateAdProgressCountDown();
-            }
+            _startTime = DateTime.Now;
+            _cancellationTokenSource = new CancellationTokenSource();
+            IsAdInProgress = true;
+            CrossMauiMTAdmob.Current.LoadRewarded(ConstantHelper.GoogleAdMob.RewardedId);
+            CurrentAdValidatorData.RewardAdTimesLimit += 1;
+            await _googleAdValidatorDataStoreService.AddOrUpdateItemAsync(CurrentAdValidatorData);
+            _ = UpdateAdProgressCountDown();
         }
 
         [SuppressPropertyChangedWarnings]

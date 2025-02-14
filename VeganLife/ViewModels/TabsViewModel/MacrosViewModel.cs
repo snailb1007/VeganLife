@@ -4,21 +4,24 @@
 
 using PropertyChanged;
 using System.Text;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
+using VeganLife.Handlers;
 using VeganLife.Helpers;
 using VeganLife.Models.CommunityFreeServiceModel;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.CommunityFreeService;
 using VeganLife.Views.ContentViews.Tabs;
 using VeganLife.Views.MainPageFlyout;
-using VeganLife.Views.PortionTab;
+using VeganLife.Views.MainPageFlyout.PortionTab;
 
 namespace VeganLife.ViewModels.TabsViewModel
 {
     public partial class MacrosViewModel : BaseViewModel
     {
-        private readonly UsdaFoodNutritionFactDataStoreService _usdaFoodNutritionFactDataStoreService;
-        private readonly UndefinedMacroFoodNutriFactDataStoreService _undefinedMacroFoodNutriFactDataStoreService;
+        private readonly BaseDataStore<USDAFoodNutritionFactModel> _usdaFoodNutritionFactDataStoreService;
+        private readonly BaseDataStore<UndefinedMacroFoodNutriFactModel> _undefinedMacroFoodNutriFactDataStoreService;
+        private readonly BaseDataStore<NutritionMealLogModel> _nutritionMealLogDataStoreService;
         private readonly USDAApiService _uSDAApiService;
 
         private List<USDAFoodPreviewModel> _allUSDAFoodPreview;
@@ -36,23 +39,24 @@ namespace VeganLife.ViewModels.TabsViewModel
         private bool _isBannerClosed;
 
         [ObservableProperty]
-        private bool isScrolling;
+        private bool _isScrolling;
 
         [ObservableProperty]
-        private ObservableCollection<USDAFoodPreviewModel> usdaFoodPreviews;
+        private ObservableCollection<USDAFoodPreviewModel> _usdaFoodPreviews;
 
         [ObservableProperty]
-        private string textSearch;
+        private string _textSearch;
 
         [ObservableProperty]
-        private USDAFoodPreviewModel usdaFoodPreviewCurrent;
+        private USDAFoodPreviewModel _usdaFoodPreviewCurrent;
 
-        public MacrosViewModel()
+        public MacrosViewModel(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
-            _usdaFoodNutritionFactDataStoreService = ServicesHelper.GetService<UsdaFoodNutritionFactDataStoreService>();
-            _uSDAApiService = ServicesHelper.GetService<USDAApiService>();
-            _undefinedMacroFoodNutriFactDataStoreService = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+            this._usdaFoodNutritionFactDataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
+            this._undefinedMacroFoodNutriFactDataStoreService = localDataStoreFactory.GetDataStore<UndefinedMacroFoodNutriFactModel>();
+            this._nutritionMealLogDataStoreService = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
+            this._uSDAApiService = FFImageLoading.Helpers.ServiceHelper.GetService<USDAApiService>();
         }
 
         public override async Task<Task> ViewAppearingVM()
@@ -67,10 +71,10 @@ namespace VeganLife.ViewModels.TabsViewModel
                 if (!_allUSDAFoodPreview?.Any() ?? true)
                 {
                     var foodData = await this.dataService.GetFoodsUSDA();
-                    this._allUSDAFoodPreview = new List<USDAFoodPreviewModel>(foodData);
+                    this._allUSDAFoodPreview = [..foodData];
                 }
 
-                App.Current?.MainPage?.Dispatcher?
+                Application.Current?.Windows[0]?.Page?.Dispatcher?
                     .Dispatch(() => UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(_allUSDAFoodPreview ?? []));
             }
 
@@ -96,14 +100,13 @@ namespace VeganLife.ViewModels.TabsViewModel
 
             try
             {
-                using (await this.loadingService.Show())
-                {
-                    await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(param);
-                }
+                this.busyManager.Increase();
+                await navigationService.NavigateToPage<UsdaFoodFactDetailPage>(paramater: param);
             }
             finally
             {
                 UsdaFoodPreviewCurrent = null!;
+                this.busyManager.Decrease();
             }
         }
 
@@ -123,21 +126,18 @@ namespace VeganLife.ViewModels.TabsViewModel
         private async Task OnSupportRequest()
         {
             var templateTask = ResourceReader.ReadTextFileAsync("VeganLife.Resources.Raw.mail_template.txt");
-            var userTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            var userTask = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             await Task.WhenAll(templateTask, userTask);
             var content = templateTask.Result.Replace("@@@username@@@", userTask?.Result?.Name);
             content = content.Replace("@@@content@@@", TextSearch);
-            await ServicesHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
+            await FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SendEmailAsync("Support Request", content, new List<string> { "cskhveganlife@gmail.com" });
         }
 
         [RelayCommand]
         private async Task OpenAIConversation()
         {
-            using (await this.loadingService.Show())
-            {
-                string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
-                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            }
+            string query = AppResources.nutritionFact_foodDetail + " " + TextSearch;
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
         }
 
         [RelayCommand]
@@ -154,44 +154,84 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await navigationService.NavigateToPage<USDAFoodListPage>();
-            }
+            await navigationService.NavigateToPage<USDAFoodListPage>();
         }
 
+        bool _isProcessing;
         [RelayCommand]
         private void OnItemEditedTap(USDAFoodPreviewModel param)
         {
+            if (IsLoading || _isProcessing)
+            {
+                return;
+            }
+
+            _isProcessing = true;
             param.IsShowingEdit = !param.IsShowingEdit;
+            Task.Delay(100).ContinueWith(t => _isProcessing = false);
         }
 
         [RelayCommand]
         private async Task OnAddMealLogsClickedAsync(USDAFoodPreviewModel param)
         {
-            bool isExistingItem;
+            busyManager.Increase();
+            var nutritionMealLogModel = new NutritionMealLogModel
+            {
+                EatingDay = DateTime.Now.Date,
+                Amount = param.Amount,
+                Name = param.Name
+            };
+            var mealLogs = await _nutritionMealLogDataStoreService.GetItemsAsync();
+            NutritionMealLogModel mealTargetItem;
+
+            var (itemExists, targetItem) = await GetFoodDetailsAsync(param.IsUSDAFood, param.Id);
+
+            nutritionMealLogModel.CaloriesAmount = targetItem.CaloriesAmount;
+            nutritionMealLogModel.ProteinAmount = targetItem.ProteinAmount;
+            nutritionMealLogModel.CarbohydrateAmount = targetItem.CarbohydrateAmount;
+            nutritionMealLogModel.FatAmount = targetItem.FatAmount;
+
             if (param.IsUSDAFood)
             {
-                isExistingItem = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(idValue: param.Id);
-                if (isExistingItem)
-                {
-                    Console.WriteLine(" Item already exists");
-                }
-                else
-                {
-                    var targetItem = await _uSDAApiService.GetFoodDetailsByIdAsync(param.Id);
-                }
+                nutritionMealLogModel.UsdaFoodId = targetItem.Id;
             }
             else
             {
-                isExistingItem = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(idValue: param.Id);
-                if (isExistingItem)
+                nutritionMealLogModel.UndefinedFoodId = targetItem.Id;
+            }
+
+            mealTargetItem = mealLogs.FirstOrDefault(x => x.EatingDay == nutritionMealLogModel.EatingDay &&
+                     ((param.IsUSDAFood && x.UsdaFoodId == nutritionMealLogModel.UsdaFoodId) ||
+                     (!param.IsUSDAFood && x.UndefinedFoodId == nutritionMealLogModel.UndefinedFoodId)));
+
+            if (mealTargetItem != null)
+            {
+                mealTargetItem.Amount += nutritionMealLogModel.Amount;
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealTargetItem, isUpdate: true);
+            }
+            else
+            {
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(nutritionMealLogModel);
+            }
+
+            (AppShell.Current.Handler as ShellHandler).ChangeBageInfo(1);
+            busyManager.Decrease();
+
+            async Task<(bool, dynamic)> GetFoodDetailsAsync(bool isUSDAFood, string id)
+            {
+                if (isUSDAFood)
                 {
-                    Console.WriteLine(" Item already exists");
+                    var result = await _usdaFoodNutritionFactDataStoreService.IsExistingItem(id);
+                    return result.isExised
+                        ? (true, result.result)
+                        : (false, await _uSDAApiService.GetFoodDetailsByIdAsync(id));
                 }
                 else
                 {
-                    var targetItem = await dataService.GetMacroFoodNutriFacts(param.Id);
+                    var result = await _undefinedMacroFoodNutriFactDataStoreService.IsExistingItem(id);
+                    return result.isExised
+                        ? (true, result.result)
+                        : (false, await dataService.GetMacroFoodNutriFacts(id));
                 }
             }
         }
@@ -224,7 +264,10 @@ namespace VeganLife.ViewModels.TabsViewModel
             if (string.IsNullOrEmpty(value))
             {
                 UsdaFoodPreviews = new ObservableCollection<USDAFoodPreviewModel>(GetFoodsFilter());
+                return;
             }
+
+            Task.Delay(200).ContinueWith(t => EnsureSearch());
         }
 
         internal void ScrollToTop()
@@ -256,7 +299,7 @@ namespace VeganLife.ViewModels.TabsViewModel
             }
 
             // Filter by categories if specified
-            if (categories != null && categories.Length > 0)
+            if (categories is { Length: > 0 })
             {
                 // Convert categories to a hash set for efficient lookup
                 HashSet<string> categorySet = new HashSet<string>(categories);

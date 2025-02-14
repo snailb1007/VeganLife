@@ -14,16 +14,16 @@ namespace VeganLife.Helpers
                 return result;
             }
 
-            Stream? stream = assembly.GetManifestResourceStream(resourceName);
+            var stream = assembly.GetManifestResourceStream(resourceName);
             try
             {
-                if (stream is not null)
+                if (stream is null)
                 {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        result = await reader.ReadToEndAsync();
-                    }
+                    return result;
                 }
+
+                using var reader = new StreamReader(stream);
+                result = await reader.ReadToEndAsync();
 
                 return result;
             }
@@ -39,8 +39,7 @@ namespace VeganLife.Helpers
 
         public static Color GetResourceColorByKey(string key)
         {
-            var targetColor = GetResourceByKey(key) as AppThemeColor;
-            if (targetColor is null)
+            if (GetResourceByKey(key) is not AppThemeColor targetColor)
             {
                 return Colors.Transparent;
             }
@@ -70,7 +69,7 @@ namespace VeganLife.Helpers
             // TODO: https://github.com/dotnet/maui/pull/11214
             object GetResourceByKey(string key)
             {
-                if (!string.IsNullOrEmpty(key) && Application.Current is not null && Application.Current.Resources.TryGetValue(key, out object resource))
+                if (!string.IsNullOrEmpty(key) && Application.Current is not null && Application.Current.Resources.TryGetValue(key, out var resource))
                 {
                     return resource;
                 }

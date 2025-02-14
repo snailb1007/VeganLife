@@ -1,10 +1,9 @@
 using AsyncAwaitBestPractices;
-using Mopups.Pages;
 using Mopups.Services;
 
 namespace VeganLife.Views.Popups;
 
-public partial class SimpleInformationPopup : PopupPage
+public partial class SimpleInformationPopup
 {
     public SimpleInformationPopup(string info)
     {

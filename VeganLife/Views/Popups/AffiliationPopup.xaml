@@ -5,9 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:VeganLife.Models"
     xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:popup="clr-namespace:VeganLife.Views.Popups"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     x:Name="selfAffiliationPopup"
-    BackgroundColor="#80808080"
+    BackgroundColor="{StaticResource PopupBackgroundColor}"
     CloseWhenBackgroundIsClicked="True">
     <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,2*,*">
         <Border
@@ -26,7 +27,7 @@
                     FontSize="Title"
                     HorizontalOptions="Center"
                     Text="{x:Static translate:AppResources.affiliatePopup_productsRecommend_Title}" />
-                <CollectionView Grid.Row="1" ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}}">
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Affiliations, Source={Reference selfAffiliationPopup}, x:DataType={x:Type popup:AffiliationPopup}}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" />
                     </CollectionView.ItemsLayout>

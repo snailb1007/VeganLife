@@ -12,25 +12,23 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
         private const string HeightMaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_male";
         private const string HeightFemaleAvgVN = "/HealthDiagonosis/goal_weight_height_avg/vn/height_female";
 
-        [ObservableProperty]
-        private UserInfo localUserInfo;
-        [ObservableProperty]
-        private double goalWeight;
-        [ObservableProperty]
-        private double differentGoalWeight;
-        [ObservableProperty]
-        private HealthDiagnosisModel healthDiagnosis;
-
-        [ObservableProperty]
-        private ISeries[] series;
-
-        public BmiCalculatorViewModel()
-           : base()
-        {
-        }
-
         private float _heightAvgVN;
         private float _heightAvgUS;
+
+        [ObservableProperty]
+        private UserInfo _localUserInfo;
+
+        [ObservableProperty]
+        private double _goalWeight;
+
+        [ObservableProperty]
+        private double _differentGoalWeight;
+
+        [ObservableProperty]
+        private HealthDiagnosisModel _healthDiagnosis;
+
+        [ObservableProperty]
+        private ISeries[] _series;
 
         public override async Task<Task> ViewAppearingVM()
         {
@@ -38,11 +36,11 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
             {
                 this.UpdateHeightAveragesAsync(),
             };
-            var getLocalUserTask = ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+            var getLocalUserTask = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             tasks.Add(getLocalUserTask);
             await Task.WhenAll(tasks);
             MainThread.BeginInvokeOnMainThread(() => this.LocalUserInfo = getLocalUserTask.Result);
-            if (LocalUserInfo != null && LocalUserInfo.BMIResult > 0)
+            if (LocalUserInfo is { BMIResult: > 0 })
             {
                 this.GoalWeight = Math.Round(Math.Pow(this.LocalUserInfo.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
                 this.DifferentGoalWeight = Math.Abs(GoalWeight - this.LocalUserInfo.Weight);
@@ -52,24 +50,24 @@ namespace VeganLife.ViewModels.ToolsFlyoutViewModel
                 {
                     this.Series =
                     [
-                    new ColumnSeries<double>
-                            {
-                                Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
-                                Values = new ObservableCollection<double> { this.LocalUserInfo.Height },
-                                IsVisible = true,
-                            },
-                    new ColumnSeries<double>
-                            {
-                                Name = $"Trung binh o VN: {_heightAvgVN}cm",
-                                Values = new ObservableCollection<double> { _heightAvgVN },
-                                IsVisible = true,
-                            },
-                    new ColumnSeries<double>
-                            {
-                                Name = $"Trung binh o US: {_heightAvgUS}cm",
-                                Values = new ObservableCollection<double> { _heightAvgUS },
-                                IsVisible = true,
-                            },
+                        new ColumnSeries<double>
+                                {
+                                    Name = $"{this.LocalUserInfo.Name} {this.LocalUserInfo.Height}cm",
+                                    Values = new ObservableCollection<double> { this.LocalUserInfo.Height },
+                                    IsVisible = true,
+                                },
+                        new ColumnSeries<double>
+                                {
+                                    Name = $"Trung binh o VN: {_heightAvgVN}cm",
+                                    Values = new ObservableCollection<double> { _heightAvgVN },
+                                    IsVisible = true,
+                                },
+                        new ColumnSeries<double>
+                                {
+                                    Name = $"Trung binh o US: {_heightAvgUS}cm",
+                                    Values = new ObservableCollection<double> { _heightAvgUS },
+                                    IsVisible = true,
+                                },
                     ];
                 }
 

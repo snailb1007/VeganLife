@@ -16,36 +16,36 @@ namespace VeganLife.ViewModels.PopupViewModels
     /// </summary>
     public partial class ProfilePopupViewModel : BaseViewModel
     {
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         [ObservableProperty]
-        private UserInfo userInfo;
+        private UserInfo _userInfo;
 
         [ObservableProperty]
-        private string userName;
+        private string _userName;
         [ObservableProperty]
-        private bool isWrongFormatName;
+        private bool _isWrongFormatName;
 
         [ObservableProperty]
-        private DateTime selectedDate;
+        private DateTime _selectedDate;
         [ObservableProperty]
-        private bool isWrongDate;
+        private bool _isWrongDate;
 
         [ObservableProperty]
-        private short userHeight;
+        private short _userHeight;
 
         [ObservableProperty]
-        private string userWeight;
+        private string _userWeight;
         [ObservableProperty]
-        private bool isWrongFormatWeight;
+        private bool _isWrongFormatWeight;
 
         [ObservableProperty]
-        private string errorMess;
+        private string _errorMess;
         [ObservableProperty]
-        private bool isUserLocalDataUpdating;
+        private bool _isUserLocalDataUpdating;
 
         [ObservableProperty]
-        private bool isMale;
+        private bool _isMale;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePopupViewModel"/> class.
@@ -57,15 +57,19 @@ namespace VeganLife.ViewModels.PopupViewModels
 
         public void ViewAppearing()
         {
-            UserInfo = ServicesHelper.GetService<IUserDataService>().GetUserInfo();
-            if (UserInfo == null || string.IsNullOrEmpty(UserInfo.Name))
+            UserInfo = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().GetUserInfo();
+            if (string.IsNullOrEmpty(UserInfo.Name))
             {
                 return;
             }
 
             UserName = UserInfo.Name;
-            SelectedDate = UserInfo.DateOfBirth.Value;
-            UserWeight = UserInfo.Weight.ToString();
+            if (UserInfo.DateOfBirth != null)
+            {
+                SelectedDate = UserInfo.DateOfBirth.Value;
+            }
+
+            UserWeight = UserInfo.Weight.ToString(CultureInfo.InvariantCulture);
             UserHeight = UserInfo.Height;
             IsMale = UserInfo.IsMale;
         }
@@ -122,11 +126,11 @@ namespace VeganLife.ViewModels.PopupViewModels
                     UserInfo.Weight = outValue;
                 }
 
-                await ServicesHelper.GetService<IUserDataService>().SaveData(this.UserInfo);
+                await FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().SaveData(this.UserInfo);
                 IsUserLocalDataUpdating = false;
                 var toast = Toast.Make(Resources.Translations.AppResources.infoAlert_userDataSaved_profilePopupEdit);
                 await toast.Show(_cancellationTokenSource.Token);
-                WeakReferenceMessenger.Default.Send(new ProfileChangedMessage(null));
+                WeakReferenceMessenger.Default.Send(new ProfileChangedMessage(null!));
             }
         }
 

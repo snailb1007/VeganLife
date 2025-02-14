@@ -14,56 +14,53 @@ namespace VeganLife.ViewModels
         private readonly IUserDataService _userDataService;
 
         [ObservableProperty]
-        private UserInfo myInfo;
+        private UserInfo _myInfo;
 
         [ObservableProperty]
-        private byte numberInfoMiss;
+        private byte _numberInfoMiss;
 
         [ObservableProperty]
-        private int degreePerfection;
+        private int _degreePerfection;
 
         public ProfileViewModel()
             : base()
         {
             MyInfo = new UserInfo();
-            _userDataService = ServicesHelper.GetService<IUserDataService>();
+            _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
         }
 
         public override async Task ViewAppearingVM()
         {
-            using (await this.loadingService.Show())
+            await this._userDataService.Refresh();
+            MyInfo = _userDataService.GetUserInfo();
+            NumberInfoMiss = TotalNumberSpec;
+
+            if (MyInfo != null)
             {
-                await this._userDataService.Refresh();
-                MyInfo = _userDataService.GetUserInfo();
-                NumberInfoMiss = TotalNumberSpec;
-
-                if (MyInfo != null)
+                if (!string.IsNullOrEmpty(MyInfo.Name))
                 {
-                    if (!string.IsNullOrEmpty(MyInfo.Name))
-                    {
-                        NumberInfoMiss--;
-                    }
-
-                    if (MyInfo.Age > 0)
-                    {
-                        NumberInfoMiss--;
-                    }
-
-                    if (MyInfo.Weight > 0)
-                    {
-                        NumberInfoMiss--;
-                    }
-
-                    if (MyInfo.Height > 0)
-                    {
-                        NumberInfoMiss--;
-                    }
-
-                    DegreePerfection = (TotalNumberSpec - NumberInfoMiss) / TotalNumberSpec * 100;
+                    NumberInfoMiss--;
                 }
 
-                await base.ViewAppearingVM();
+                if (MyInfo.Age > 0)
+                {
+                    NumberInfoMiss--;
+                }
+
+                if (MyInfo.Weight > 0)
+                {
+                    NumberInfoMiss--;
+                }
+
+                if (MyInfo.Height > 0)
+                {
+                    NumberInfoMiss--;
+                }
+
+                DegreePerfection = (TotalNumberSpec - NumberInfoMiss) / TotalNumberSpec * 100;
             }
+
+            await base.ViewAppearingVM();
         }
 
         [RelayCommand]

@@ -2,25 +2,26 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using VeganLife.Helpers;
 using VeganLife.Resources.Translations;
-using VeganLife.Services.LocalDataServices;
 
 namespace VeganLife.ViewModels
 {
     /// <summary>
     /// Base class for view-model class.
     /// </summary>
-    public abstract partial class BaseViewModel : ObservableObject
+    public abstract partial class BaseViewModel : ObservableObject, IDisposable
     {
         private bool _hasShownAlert;
+        private readonly IDisposable _busySubscription;
 
         protected readonly IDataService dataService;
         protected readonly INavigationService navigationService;
         protected readonly IDeviceService deviceService;
-        protected readonly ISQLite localDatabase;
+        //protected readonly ISQLite localDatabase;
         protected readonly IPopupNaviService popupNaviService;
-        protected readonly ILoadingService loadingService;
 
         protected bool isInitialized;
 
@@ -44,7 +45,12 @@ namespace VeganLife.ViewModels
             }
         }
 
-        public bool IsLoading => (loadingService as LoadingService)?.IsLoading ?? false;
+        protected readonly BusyManager busyManager;
+
+        public INavigation NavigationViewModel { get; set; }
+
+        [ObservableProperty]
+        private bool _isLoading;
 
         [ObservableProperty]
         private bool _isNeedReloadAppearing;
@@ -54,12 +60,14 @@ namespace VeganLife.ViewModels
         /// </summary>
         protected BaseViewModel()
         {
-            this.dataService = ServicesHelper.GetService<IDataService>();
-            this.navigationService = ServicesHelper.GetService<INavigationService>();
-            this.deviceService = ServicesHelper.GetService<IDeviceService>();
-            this.localDatabase = ServicesHelper.GetService<ISQLite>();
-            this.popupNaviService = ServicesHelper.GetService<IPopupNaviService>();
-            this.loadingService = ServicesHelper.GetService<ILoadingService>();
+            this.dataService = FFImageLoading.Helpers.ServiceHelper.GetService<IDataService>();
+            this.navigationService = FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>();
+            this.deviceService = FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>();
+            //this.localDatabase = FFImageLoading.Helpers.ServiceHelper.GetService<ISQLite>();
+            this.popupNaviService = FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>();
+            busyManager = new();
+
+            _busySubscription = busyManager.IsBusy.Subscribe(busy => IsLoading = busy);
         }
 
         public Task DisplayNoInternetAlert()
@@ -75,7 +83,7 @@ namespace VeganLife.ViewModels
         /// </summary>
         /// <param name="parameter">The first name to join.</param>
         /// <returns>>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task OnNavigatingTo(object? parameter)
+        public virtual Task OnNavigatingTo(object parameter)
             => Task.CompletedTask;
 
         /// <summary>
@@ -101,5 +109,46 @@ namespace VeganLife.ViewModels
         public virtual Task ViewDisappearingVM() => Task.CompletedTask;
 
         public virtual Task ViewIsRemovedAsync() => Task.CompletedTask;
+
+        void IDisposable.Dispose()
+        {
+            _busySubscription.Dispose();
         }
+    }
+
+    public class BusyManager : IDisposable
+    {
+        private readonly BehaviorSubject<bool> _isBusySubject = new BehaviorSubject<bool>(false);
+
+        private int _busyCount;
+
+        public IObservable<bool> IsBusy => _isBusySubject.AsObservable();
+
+        public void Increase()
+        {
+            int newCount = Interlocked.Increment(ref _busyCount);
+            UpdateBusyState(newCount);
+        }
+
+        public void Decrease()
+        {
+            int newCount = Interlocked.Decrement(ref _busyCount);
+            if (newCount < 0)
+            {
+                throw new InvalidOperationException("Busy count cannot be negative.");
+            }
+
+            UpdateBusyState(newCount);
+        }
+
+        private void UpdateBusyState(int newCount)
+        {
+            _isBusySubject.OnNext(newCount > 0);
+        }
+
+        void IDisposable.Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+    }
 }

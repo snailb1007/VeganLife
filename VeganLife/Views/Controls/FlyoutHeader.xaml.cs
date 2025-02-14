@@ -14,10 +14,10 @@ using VeganLife.Views.Popups;
 // Ignore Spelling: Flyout
 namespace VeganLife.Views.Controls
 {
-    public partial class FlyoutHeader : ContentView, IRecipient<ProfileChangedMessage>
+    public partial class FlyoutHeader : IRecipient<ProfileChangedMessage>
     {
         private readonly IUserDataService _userDataService;
-        private readonly IEnumerable<string> grettingList;
+        private readonly IEnumerable<string> _grettingList;
 
         private bool _isProcessing;
 
@@ -26,8 +26,8 @@ namespace VeganLife.Views.Controls
         public FlyoutHeader()
         {
             this.InitializeComponent();
-            grettingList = new List<string>() { AppResources.prompt_greeting, AppResources.prompt_greeting_v1 };
-            _userDataService = ServicesHelper.GetService<IUserDataService>();
+            _grettingList = new List<string>() { AppResources.prompt_greeting, AppResources.prompt_greeting_v1 };
+            _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
             DisplayUserInfoPreview().SafeFireAndForget();
             WeakReferenceMessenger.Default.Register(this);
         }
@@ -37,7 +37,7 @@ namespace VeganLife.Views.Controls
             var userData = this._userDataService.GetUserInfo();
             if (string.IsNullOrEmpty(userData?.Name))
             {
-                userData = await ServicesHelper.GetService<UserInfoDataStoreServie>().GetFirstOrDefaultItem();
+                userData = await FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UserInfo>().GetFirstOrDefaultItem();
             }
 
             if (userData != null)
@@ -45,8 +45,8 @@ namespace VeganLife.Views.Controls
                 if (!string.IsNullOrEmpty(userData.Name))
                 {
                     lbUserName.Text = userData.Name;
-                    var randomGreetingIndex = new Random().Next(grettingList.Count());
-                    lbGreeting.Text = string.Format(grettingList.ElementAt(randomGreetingIndex), userData.Name);
+                    var randomGreetingIndex = new Random().Next(_grettingList.Count());
+                    lbGreeting.Text = string.Format(_grettingList.ElementAt(randomGreetingIndex), userData.Name);
                 }
 
                 imgAvatar.Source = userData.Image;
@@ -62,7 +62,7 @@ namespace VeganLife.Views.Controls
 
             _isProcessing = true;
             Shell.Current.FlyoutIsPresented = false;
-            ServicesHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>().SafeFireAndForget();
+            FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().NavigateToPage<ProfilePage>().SafeFireAndForget();
             _isProcessing = false;
         }
 
@@ -82,7 +82,7 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            ServicesHelper.GetService<IPopupNaviService>()
+            FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>()
                 .PushAsync<ProfilePopup>()
                 .SafeFireAndForget();
             _isProcessing = false;

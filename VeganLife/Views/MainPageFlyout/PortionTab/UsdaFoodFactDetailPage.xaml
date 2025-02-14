@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="VeganLife.Views.PortionTab.UsdaFoodFactDetailPage"
+    x:Class="VeganLife.Views.MainPageFlyout.PortionTab.UsdaFoodFactDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:VeganLife.Views.Controls"
     xmlns:cw="clr-namespace:VeganLife.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
-    xmlns:model="clr-namespace:VeganLife.Models.CommunityFreeServiceModel"
     xmlns:mx="http://compiledbindings.com/x"
     xmlns:sho="http://sharpnado.com"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.ContentViewModels"
@@ -68,7 +68,7 @@
                                 TextColor="{StaticResource PrimaryDark}">
                                 <Label.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding IsExpanded, Source={x:Reference titleExpander}}"
+                                        Binding="{Binding IsExpanded, Source={x:Reference titleExpander}, x:DataType={x:Type toolkit:Expander}}"
                                         TargetType="Label"
                                         Value="True">
                                         <Setter Property="Text" Value="{StaticResource IconAngleDown}" />
@@ -183,7 +183,8 @@
                 FontSize="Medium"
                 HorizontalOptions="End"
                 Text="&#xf31e;"
-                TextColor="{StaticResource PrimaryDark}">
+                TextColor="{StaticResource PrimaryDark}"
+                VerticalOptions="Start">
                 <Button.Triggers>
                     <DataTrigger
                         Binding="{Binding IsDataGridExpanded}"
@@ -215,5 +216,15 @@
                 </cw:DataGridNutritionFactCW.Triggers>
             </cw:DataGridNutritionFactCW>
         </Grid>
+        <skia:SKLottieView
+            Grid.RowSpan="3"
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsLoading}"
+            RepeatCount="-1"
+            RepeatMode="Restart"
+            Source="loading.json"
+            VerticalOptions="Center"
+            WidthRequest="100" />
     </Grid>
 </ContentPage>

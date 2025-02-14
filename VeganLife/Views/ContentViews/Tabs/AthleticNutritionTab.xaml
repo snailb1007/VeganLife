@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:adsControl="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
     xmlns:model="clr-namespace:VeganLife.Models"
+    xmlns:tabsView="clr-namespace:VeganLife.Views.ContentViews.Tabs"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:translate="clr-namespace:VeganLife.Resources.Translations"
     xmlns:viewmodel="clr-namespace:VeganLife.ViewModels.TabsViewModel"
@@ -12,7 +13,6 @@
     x:DataType="viewmodel:AthleticNutritionTabVM">
     <ContentView.Resources>
         <ResourceDictionary>
-            <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
@@ -87,7 +87,7 @@
                 <DataTemplate x:DataType="model:AthleticNutritionModel">
                     <VerticalStackLayout>
                         <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference selfAthleticNutritionTab}}" CommandParameter="{Binding .}" />
+                            <TapGestureRecognizer Command="{Binding ViewModel.ItemSelectedCommand, Source={x:Reference selfAthleticNutritionTab}, x:DataType={x:Type tabsView:AthleticNutritionTab}}" CommandParameter="{Binding .}" />
                         </VerticalStackLayout.GestureRecognizers>
                         <Label
                             FontSize="Medium"

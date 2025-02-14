@@ -4,7 +4,6 @@
 
 using PropertyChanged;
 using VeganLife.Helpers;
-using VeganLife.Helpers.AppSetting;
 using VeganLife.Views.AboutYou;
 
 namespace VeganLife.ViewModels
@@ -12,20 +11,20 @@ namespace VeganLife.ViewModels
     public partial class NameAboutUPageVM : BaseViewModel
     {
         [ObservableProperty]
-        private string name;
+        private string _name;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(NextClickedCommand))]
-        private bool isFilledName;
+        private bool _isFilledName;
 
         public override Task ViewAppearingVM()
         {
-            ServicesHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
+            FFImageLoading.Helpers.ServiceHelper.GetService<IDeviceService>().SetNavigationBarColor("#144d5a");
             return base.ViewAppearingVM();
         }
 
         [RelayCommand(CanExecute = nameof(IsFilledName))]
-        public async Task OnNextClicked()
+        private async Task OnNextClicked()
         {
             if (NextClickedCommand.IsRunning)
             {
@@ -35,8 +34,7 @@ namespace VeganLife.ViewModels
 #if DEV
             var initDateOfBithday = DateTimeHelper.GetDateTime("1999-01-01").Date;
             await this.navigationService.NavigateToPage<GenderAboutPage>(
-                new InitAboutYouDataRecord(Name: Name, Birthday: initDateOfBithday, false));
-            return;
+                paramater: new InitAboutYouDataRecord(Name: Name, Birthday: initDateOfBithday, false));
 #else
             await this.navigationService.NavigateToPage<BirthdayAboutPage>(paramater: Name);
 #endif

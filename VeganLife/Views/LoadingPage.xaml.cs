@@ -9,7 +9,7 @@ using VeganLife.Views.Popups;
 
 namespace VeganLife.Views;
 
-public partial class LoadingPage : ContentPage
+public partial class LoadingPage
 {
     public LoadingPage()
     {
@@ -19,13 +19,13 @@ public partial class LoadingPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        ServicesHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
+        FFImageLoading.Helpers.ServiceHelper.GetService<IDataService>().GetHealthDiagnosisFirebaseDataModel()
             .ContinueWith(t =>
             {
                 StaticHelper.HealthDiagnosisFirebaseDataModel.BMIModel = t.Result;
             })
             .SafeFireAndForget();
-        ServicesHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
+        FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>().InitAsync().SafeFireAndForget();
     }
 
     private void SelfContentLoaded(object sender, EventArgs e)
@@ -43,26 +43,26 @@ public partial class LoadingPage : ContentPage
                     message: AppResources.Alert_CollectOperationLogsPermission_Message,
                     accept: AppResources.ok_common,
                     cancel: AppResources.cancel_common);
-                    ServicesHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
+                    FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().IsEnabled = isCollectAccepted;
                     await UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, isCollectAccepted.ToString());
                 });
             }
 
             if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsAcceptedTermsAndConditions))
             {
-                var aboutView = ServicesHelper.GetService<AboutAppPopup>();
+                var aboutView = FFImageLoading.Helpers.ServiceHelper.GetService<AboutAppPopup>();
                 MainThread.BeginInvokeOnMainThread(async () => await this.ShowPopupAsync(aboutView));
                 await aboutView.WaitingAcceptedTaskSource.Task;
             }
 
-            if (App.Current is App app)
+            if (Application.Current is App app)
             {
                 //if (true)
                 if (!await UserSettingsHelper.GetBoolKey(UserSettingKey.IsShowedRegister))
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        app.MainPage = new NavigationPage(ServicesHelper.GetService<NameAboutUPage>());
+                        app.Windows[0].Page = new NavigationPage(FFImageLoading.Helpers.ServiceHelper.GetService<NameAboutUPage>());
                     });
                 }
                 else

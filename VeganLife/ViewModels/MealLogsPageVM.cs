@@ -2,11 +2,16 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AsyncAwaitBestPractices;
 using Mopups.Services;
 using PropertyChanged;
+using VeganLife.Data;
+using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
+using VeganLife.Helpers.Extensions;
 using VeganLife.Resources.Translations;
 using VeganLife.Services.UserServices;
+using VeganLife.Views.MainPageFlyout;
 using VeganLife.Views.Popups;
 using static VeganLife.Helpers.AppSetting.ConstantHelper.CalculateHelper;
 
@@ -15,47 +20,68 @@ namespace VeganLife.ViewModels
     public partial class MealLogsPageVM : BaseViewModel
     {
         private readonly IUserDataService _userDataService;
+        private readonly BaseDataStore<NutritionMealLogModel> _nutritionMealLogDataStoreService;
 
-        public List<string> ActivityLevels => new List<string>
-        {
+        public List<string> ActivityLevels =>
+        [
             AppResources.mealLogsPage_sedentary,
             AppResources.mealLogsPage_LightlyActive,
             AppResources.mealLogsPage_ModeratelyActive,
             AppResources.mealLogsPage_VeryActive,
-            AppResources.mealLogsPage_SuperActive,
-        };
+            AppResources.mealLogsPage_SuperActive
+        ];
 
         [ObservableProperty]
-        private UserInfo localUser;
+        private UserInfo _localUser;
 
         [ObservableProperty]
-        private HealthDiagnosisModel healthDiagnosisResult;
+        private HealthDiagnosisModel _healthDiagnosisResult;
 
         [ObservableProperty]
-        private int selectedActivityLevelIndex = 0;
+        private int _selectedActivityLevelIndex = 0;
 
-        public MealLogsPageVM()
+        [ObservableProperty]
+        private double _goalWeight = -1;
+
+        [ObservableProperty]
+        private List<NutritionMealLogModel> _nutritionMealLogs;
+
+        public MealLogsPageVM(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
-            localUser = new UserInfo();
-            _userDataService = ServicesHelper.GetService<IUserDataService>();
+            LocalUser = new UserInfo();
+            _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
+            this._nutritionMealLogDataStoreService  = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
         }
 
-        public async override Task ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
+            this.busyManager.Increase();
+
+            _nutritionMealLogDataStoreService.GetItemsAsync()
+                .ContinueWith(t =>
+                {
+                    NutritionMealLogs = t.Result.Where(i => i.EatingDay.Date == DateTime.Now.Date).ToList();
+                    foreach (var i in t.Result)
+                    {
+                        Console.WriteLine("==> " + i.Name);
+                    }
+                }).SafeFireAndForget();
+
             if (isInitialized)
             {
+                this.busyManager.Decrease();
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await this._userDataService.Refresh();
-                LocalUser = _userDataService.GetUserInfo();
-                SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
-                HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
-                await base.ViewAppearingVM();
-            }
+            await this._userDataService.Refresh();
+            LocalUser = _userDataService.GetUserInfo();
+            SelectedActivityLevelIndex = (int)LocalUser.NormalFormatActivityLv;
+            await this.UpdateActivityLevelAsync(SelectedActivityLevelIndex);
+            HealthDiagnosisResult = BMICalculateHelper.GetWeightStatusCategory(LocalUser.Age, LocalUser.IsMale, LocalUser.BMIResult);
+            GoalWeight = Math.Round(Math.Pow(LocalUser.Height / 100f, 2) * BMICalculateHelper.NormalAVG, 1);
+            await base.ViewAppearingVM();
+            this.busyManager.Decrease();
 
             isInitialized = true;
         }
@@ -63,21 +89,31 @@ namespace VeganLife.ViewModels
         [RelayCommand]
         private async Task OnInfoClickedAsync(string param)
         {
-            string data = string.Empty;
-            switch (param)
+            string data = param switch
             {
-                case "BMI":
-                    data = AppResources.mealLogsPage_BMI_description;
-                    break;
-                case "BMR":
-                    data = AppResources.mealLogsPage_BMR_description;
-                    break;
-                case "TDEE":
-                    data = AppResources.mealLogsPage_TDEE_description;
-                    break;
-            }
+                "BMI" => AppResources.mealLogsPage_BMI_description,
+                "BMR" => AppResources.mealLogsPage_BMR_description,
+                "TDEE" => AppResources.mealLogsPage_TDEE_description,
+                _ => string.Empty,
+            };
 
             await MopupService.Instance.PushAsync(new SimpleInformationPopup(data));
+        }
+
+        [RelayCommand]
+        private async Task CalendarClicked()
+        {
+            busyManager.Increase();
+            await this.popupNaviService.PushAsync<MealLogsCalendarMopup>();
+            busyManager.Decrease();
+        }
+
+        [RelayCommand]
+        private async Task OpenMealLogsAnalysisPageAsync()
+        {
+            busyManager.Increase();
+            await this.navigationService.NavigateToPage<MealLogsAnalysisPage>(paramater: NutritionMealLogs);
+            busyManager.Decrease();
         }
 
         [SuppressPropertyChangedWarnings]
@@ -88,22 +124,26 @@ namespace VeganLife.ViewModels
                 return;
             }
 
-            MainThread.BeginInvokeOnMainThread(async () =>
+            MainThread.BeginInvokeOnMainThread(async void () =>
             {
-                using (await this.loadingService.Show(delayTime: 200))
+                try
                 {
-                    await UpdateActivityLevelAsync();
+                    await UpdateActivityLevelAsync(value);
+                }
+                catch (Exception e)
+                {
+                    e.LogError();
                 }
             });
+        }
 
-            async Task UpdateActivityLevelAsync()
-            {
-                var newActivityLevel = (ActivityLevel)value;
-                var newTDEE = TDEEHelper.CalculateTDEE(LocalUser.BMRResult, newActivityLevel);
-                LocalUser.TDEEResult = newTDEE;
-                LocalUser.ActivityLevelData = newActivityLevel.ToString();
-                await _userDataService.SaveData(LocalUser);
-            }
+        private async Task UpdateActivityLevelAsync(int levelIndex = 0 )
+        {
+            var newActivityLevel = (ActivityLevel)levelIndex;
+            var newTDEE = TDEEHelper.CalculateTDEE(LocalUser.BMRResult, newActivityLevel);
+            LocalUser.TDEEResult = newTDEE;
+            LocalUser.ActivityLevelData = newActivityLevel.ToString();
+            await _userDataService.SaveData(LocalUser);
         }
     }
 }

@@ -12,24 +12,24 @@ namespace VeganLife.ViewModels
     public partial class NoteBookPageViewModel : BaseViewModel, IScrollToTop
     {
         [ObservableProperty]
-        private int selectedViewModelIndex = 0;
+        private int _selectedViewModelIndex = 0;
 
         [ObservableProperty]
-        private MacrosViewModel macrosViewModel;
+        private MacrosViewModel _macrosViewModel;
 
         [ObservableProperty]
-        private VitaminAndMineralViewModel vitaminAndMineralVM;
+        private VitaminAndMineralViewModel _vitaminAndMineralVM;
 
         [ObservableProperty]
-        private AthleticNutritionTabVM athleticNutritionTabVM;
+        private AthleticNutritionTabVM _athleticNutritionTabVM;
 
         [ObservableProperty]
-        private PharmacoLogicalTabVM pharmacoLogicalTabVM;
+        private PharmacoLogicalTabVM _pharmacoLogicalTabVM;
 
         public NoteBookPageViewModel()
             : base()
         {
-            MacrosViewModel = ServicesHelper.GetService<MacrosViewModel>();
+            MacrosViewModel = FFImageLoading.Helpers.ServiceHelper.GetService<MacrosViewModel>();
         }
 
         [RelayCommand]
@@ -58,15 +58,15 @@ namespace VeganLife.ViewModels
                     MacrosViewModel.ViewAppearingVM().SafeFireAndForget();
                     break;
                 case 1:
-                    VitaminAndMineralVM ??= ServicesHelper.GetService<VitaminAndMineralViewModel>();
+                    VitaminAndMineralVM ??= FFImageLoading.Helpers.ServiceHelper.GetService<VitaminAndMineralViewModel>();
                     VitaminAndMineralVM.ViewAppearingVM().SafeFireAndForget();
                     break;
                 case 2:
-                    AthleticNutritionTabVM ??= ServicesHelper.GetService<AthleticNutritionTabVM>();
+                    AthleticNutritionTabVM ??= FFImageLoading.Helpers.ServiceHelper.GetService<AthleticNutritionTabVM>();
                     AthleticNutritionTabVM.ViewAppearingVM().SafeFireAndForget();
                     break;
                 case 3:
-                    PharmacoLogicalTabVM ??= ServicesHelper.GetService<PharmacoLogicalTabVM>();
+                    PharmacoLogicalTabVM ??= FFImageLoading.Helpers.ServiceHelper.GetService<PharmacoLogicalTabVM>();
                     PharmacoLogicalTabVM.ViewAppearingVM().SafeFireAndForget();
                     break;
             }

@@ -15,12 +15,12 @@ namespace VeganLife.ViewModels
     public partial class SettingViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private bool isDarkMode;
+        private bool _isDarkMode;
         [ObservableProperty]
-        private string appVersionDisplay;
+        private string _appVersionDisplay;
 
         [ObservableProperty]
-        private bool isAllowCollectLogs;
+        private bool _isAllowCollectLogs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingViewModel"/> class.
@@ -40,7 +40,7 @@ namespace VeganLife.ViewModels
 
         private void Init()
         {
-            var currentDeviceTheme = App.Current?.UserAppTheme;
+            var currentDeviceTheme = Application.Current?.UserAppTheme;
             this.IsDarkMode = currentDeviceTheme == AppTheme.Dark;
         }
 
@@ -53,13 +53,10 @@ namespace VeganLife.ViewModels
         [SuppressPropertyChangedWarnings]
         partial void OnIsAllowCollectLogsChanged(bool value)
         {
-            MainThread.BeginInvokeOnMainThread(async () =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                using (await this.loadingService.Show(delayTime: 500))
-                {
-                    ServicesHelper.GetService<SentryService>().IsEnabled = value;
-                    UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
-                }
+                FFImageLoading.Helpers.ServiceHelper.GetService<SentryService>().IsEnabled = value;
+                UserSettingsHelper.SetAsync(UserSettingKey.IsAcceptedCollectLogs, value.ToString()).SafeFireAndForget();
             });
         }
     }

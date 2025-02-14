@@ -1,6 +1,6 @@
 namespace VeganLife.Views.Controls;
 
-public partial class NutritionFactImportantBorder : Border
+public partial class NutritionFactImportantBorder
 {
     public static BindableProperty TitleProperty { get; set; } = BindableProperty.Create(
                 propertyName: "Title",

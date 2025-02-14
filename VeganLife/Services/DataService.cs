@@ -9,6 +9,7 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.Extensions;
@@ -24,7 +25,7 @@ namespace VeganLife.Services
     public class DataService : IDataService
     {
         protected readonly FirebaseClient firebaseDatabase = new FirebaseClient(FirebaseClientLink);
-        private readonly UpdateMasterDataStoreService _updateMasterDataStoreService;
+        private readonly BaseDataStore<UpdateMasterModel> _updateMasterDataStoreService;
         private readonly IDictionary<string, object> _dataStore;
 
         private const string FirebaseClientLink = "https://vegan-life-d1c9b-default-rtdb.firebaseio.com/";
@@ -46,15 +47,15 @@ namespace VeganLife.Services
 
         private IList<UpdateMasterModel> _updateMasters;
 
-        public DataService()
+        public DataService(LocalDataStoreFactory localDataStoreFactory)
         {
-            _updateMasterDataStoreService = ServicesHelper.GetService<UpdateMasterDataStoreService>();
+            _updateMasterDataStoreService = localDataStoreFactory.GetDataStore<UpdateMasterModel>();
             _dataStore = new Dictionary<string, object>
             {
-                { nameof(VitaminModel), ServicesHelper.GetService<VitaminsDataStoreService>() },
-                { nameof(USDAFoodPreviewModel), ServicesHelper.GetService<UsdaFoodPreviewsDataStore>() },
-                { nameof(AthleticNutritionModel), ServicesHelper.GetService<AthleticNutritionDataStore>() },
-                { nameof(PharmacoLogicalModel), ServicesHelper.GetService<PharmacoLogicalDataStoreService>() },
+                { nameof(VitaminModel), localDataStoreFactory.GetDataStore<VitaminModel>() },
+                { nameof(USDAFoodPreviewModel), localDataStoreFactory.GetDataStore<USDAFoodPreviewModel>() },
+                { nameof(AthleticNutritionModel), localDataStoreFactory.GetDataStore<AthleticNutritionModel>() },
+                { nameof(PharmacoLogicalModel), localDataStoreFactory.GetDataStore<PharmacoLogicalModel>() },
             };
             _updateMasterDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
@@ -71,10 +72,10 @@ namespace VeganLife.Services
                 var data = await this.firebaseDatabase.Child("/App/isServerInMaintenance").OnceSingleAsync<bool>();
                 if (data)
                 {
-                    await App.Current?.MainPage?.DisplayAlert(
+                    await Application.Current?.Windows[0]?.Page?.DisplayAlert(
                         title: AppResources.Infor_common,
                         message: AppResources.ServiecStop_common,
-                        "OK")!;
+                        "OK");
                 }
 
                 return data;
@@ -100,7 +101,7 @@ namespace VeganLife.Services
 
         public async Task<IEnumerable<AffiliationModel>> GetAllAffiliations()
         {
-            var database = ServicesHelper.GetService<AffiliationDataStoreService>();
+            var database = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<AffiliationModel>();
             var targetUpdateMaster = _updateMasters.FirstOrDefault(i => i.Id == nameof(AffiliationModel));
             bool isExistMasterTable = targetUpdateMaster is not null;
             bool hasUpdate = !isExistMasterTable
@@ -210,7 +211,7 @@ namespace VeganLife.Services
                 return new UndefinedMacroFoodNutriFactModel();
             }
 
-            var localServie = ServicesHelper.GetService<UndefinedMacroFoodNutriFactDataStoreService>();
+            var localServie = FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<UndefinedMacroFoodNutriFactModel>();
             var localData = await localServie.GetItemAsync(id);
             if (!string.IsNullOrEmpty(localData?.FoodNutrientsJsonData))
             {
@@ -226,6 +227,7 @@ namespace VeganLife.Services
                 if (!string.IsNullOrEmpty(data.Name))
                 {
                     data.Id = id;
+                    NutritionFactsHelper.SetupUndefinedFood(data);
                     data.FoodNutrientsJsonData = JsonConvert.SerializeObject(data.foodNutrients);
                     localServie.AddOrUpdateItemAsync(data).SafeFireAndForget();
                 }
@@ -333,9 +335,7 @@ namespace VeganLife.Services
                 }
                 catch (FirebaseException firebaseE)
                 {
-#if DEBUG
-                    await Console.Out.WriteLineAsync(firebaseE.Message);
-#endif
+                    Debug.WriteLine($"Firebase error in GetFireBaseValue: {firebaseE.Message}");
                     return string.Empty;
                 }
             }

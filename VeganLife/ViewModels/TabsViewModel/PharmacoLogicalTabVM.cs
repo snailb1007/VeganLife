@@ -10,18 +10,13 @@ namespace VeganLife.ViewModels.TabsViewModel
         private IEnumerable<PharmacoLogicalModel> _allPharmacoLogical;
 
         [ObservableProperty]
-        private ObservableCollection<PharmacoLogicalModel> pharmacoLogicals;
+        private ObservableCollection<PharmacoLogicalModel> _pharmacoLogicals;
 
         [ObservableProperty]
-        private string pharmacoLogicalSearchText;
+        private string _pharmacoLogicalSearchText;
 
         [ObservableProperty]
-        private bool isBannerClosed;
-
-        public PharmacoLogicalTabVM()
-            : base()
-        {
-        }
+        private bool _isBannerClosed;
 
         public override async Task ViewAppearingVM()
         {
@@ -43,36 +38,26 @@ namespace VeganLife.ViewModels.TabsViewModel
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(param)
-                .ConfigureAwait(false);
-            }
+            await this.navigationService.NavigateToPage<DetailPharmacoLogicalPage>(paramater: param);
         }
 
         [RelayCommand]
-        private async Task EnsureSearch()
+        private void EnsureSearch()
         {
             if (string.IsNullOrEmpty(this.PharmacoLogicalSearchText) || string.IsNullOrWhiteSpace(this.PharmacoLogicalSearchText))
             {
                 return;
             }
 
-            using (await this.loadingService.Show())
-            {
-                var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
-                this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
-            }
+            var searchResult = SearchFoodByName(this._allPharmacoLogical.AsParallel(), PharmacoLogicalSearchText);
+            this.PharmacoLogicals = new ObservableCollection<PharmacoLogicalModel>(searchResult);
         }
 
         [RelayCommand]
         private async Task OpenAIConversationAsync()
         {
-            using (await this.loadingService.Show())
-            {
-                string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
-                await Shell.Current.GoToAsync($"//chat?PassedData={query}");
-            }
+            string query = string.Format(AppResources.firstQuery_vitaminPage, PharmacoLogicalSearchText);
+            await Shell.Current.GoToAsync($"//chat?PassedData={query}");
         }
 
         [RelayCommand]

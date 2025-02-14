@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using SQLite;
 using VeganLife.Data.LocalData;
-using VeganLife.Helpers;
 using VeganLife.Messages;
 
 namespace VeganLife.Models.FoodModel
@@ -36,15 +35,15 @@ namespace VeganLife.Models.FoodModel
     public partial class FoodPreviewModel : ObservableObject
     {
         [ObservableProperty]
-        private int countCorrectWordOnSearch;
+        private int _countCorrectWordOnSearch;
 
-        private string[]? TimeArr => this.Time?.Split('-');
-
-        [ObservableProperty]
-        private bool isBookmarked;
+        private string[] TimeArr => this.Time?.Split('-');
 
         [ObservableProperty]
-        private bool isRead;
+        private bool _isBookmarked;
+
+        [ObservableProperty]
+        private bool _isRead;
 
         public byte PrepTime
             => (this.TimeArr != null && byte.TryParse(this.TimeArr[0], out var i)) ? i : (byte)0;
@@ -56,9 +55,9 @@ namespace VeganLife.Models.FoodModel
         private async Task BookmarkClicked()
         {
             this.IsBookmarked = !this.IsBookmarked;
-            if (!await ServicesHelper.GetService<FoodPreviewDataStoreService>().AddOrUpdateItemAsync(this, true))
+            if (!await FFImageLoading.Helpers.ServiceHelper.GetService<LocalDataStoreFactory>().GetDataStore<FoodPreviewModel>().AddOrUpdateItemAsync(this, true))
             {
-                await ServicesHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
+                await FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().DisplayAlert("Error", "Oh, lỗi rồi!", "ok");
             }
 
             WeakReferenceMessenger.Default.Send(new BookmarkFoodModelMessage(this));

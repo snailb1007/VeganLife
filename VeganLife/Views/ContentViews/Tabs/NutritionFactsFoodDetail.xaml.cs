@@ -1,11 +1,9 @@
 namespace VeganLife.Views.ContentViews.Tabs;
 
-public partial class NutritionFactsFoodDetail : Grid
+public partial class NutritionFactsFoodDetail
 {
     public NutritionFactsFoodDetail()
     {
         InitializeComponent();
-
-        //this.IsExpanded = true;
     }
 }

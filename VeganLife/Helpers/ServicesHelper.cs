@@ -2,32 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Mopups.Interfaces;
 using VeganLife.Views.Popups;
 
 namespace VeganLife.Helpers
 {
     public static class ServicesHelper
     {
-        public static T GetService<T>()
+        public static BaseViewModel GetCurrentViewModel()
         {
-            if (IPlatformApplication.Current is null)
-            {
-                throw new InvalidOperationException("IPlatformApplication.Current is null.");
-            }
-
-            var result = IPlatformApplication.Current.Services.GetService<T>();
-            if (result is null)
-            {
-                throw new InvalidOperationException($"Service of type {typeof(T).Name} is not registered.");
-            }
-
-            return result;
-        }
-
-        public static BaseViewModel? GetCurrentViewModel()
-        {
-            var popupService = GetService<IPopupNaviService>();
+            var popupService = FFImageLoading.Helpers.ServiceHelper.GetService<IPopupNaviService>();
             var currentPopup = popupService.GetLastMopupPage();
             if (popupService.GetPopupStackCount() > 0
                 && currentPopup != null
@@ -42,7 +25,7 @@ namespace VeganLife.Helpers
             }
             else
             {
-                return Application.Current?.MainPage?.BindingContext as BaseViewModel;
+                return Application.Current?.Windows[0]?.Page?.BindingContext as BaseViewModel;
             }
         }
 

@@ -4,13 +4,12 @@
 
 using AsyncAwaitBestPractices;
 using Mopups.Services;
-using System.Net.NetworkInformation;
 using VeganLife.Helpers;
 using VeganLife.Views.Popups;
 
 namespace VeganLife.Views.Controls
 {
-    public partial class NavBarControl : ContentView
+    public partial class NavBarControl
     {
         public static BindableProperty TitleProperty = BindableProperty.Create(
                 propertyName: "Title",
@@ -60,7 +59,7 @@ namespace VeganLife.Views.Controls
             }
 
             _isProcessing = true;
-            ServicesHelper.GetService<INavigationService>().PopAsync().SafeFireAndForget();
+            FFImageLoading.Helpers.ServiceHelper.GetService<INavigationService>().PopAsync().SafeFireAndForget();
             _isProcessing = false;
         }
 

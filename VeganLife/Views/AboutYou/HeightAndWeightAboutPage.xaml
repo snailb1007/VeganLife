@@ -11,18 +11,11 @@
     Title="Bước 4 trên 4"
     x:DataType="viewmodel:HeightAndWeightAboutPageVM"
     x:TypeArguments="viewmodel:HeightAndWeightAboutPageVM"
-    BackgroundColor="White"
-    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+    BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="All" />
         </ResourceDictionary>
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="ValidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Green" />
-        </Style>
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Margin="20,20,20,0" Spacing="20">
@@ -91,8 +84,8 @@
                 Text="Lưu">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
-                        <Binding Path="IsValid" Source="{x:Reference heightValidator}" />
-                        <Binding Path="IsValid" Source="{x:Reference weightValidator}" />
+                        <Binding Path="IsValid" Source="{Reference heightValidator}" />
+                        <Binding Path="IsValid" Source="{Reference weightValidator}" />
                     </MultiBinding>
                 </Button.IsEnabled>
             </Button>

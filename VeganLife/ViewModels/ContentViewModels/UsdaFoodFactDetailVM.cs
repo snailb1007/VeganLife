@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AsyncAwaitBestPractices;
+using VeganLife.Data;
 using VeganLife.Data.LocalData;
 using VeganLife.Helpers;
 using VeganLife.Helpers.AppSetting;
@@ -14,72 +14,80 @@ namespace VeganLife.ViewModels.ContentViewModels
     public partial class UsdaFoodFactDetailVM : BaseViewModel
     {
         private readonly USDAApiService _usdaApiService;
-        private readonly NutritionMealLogDataStoreService _foodLogService;
+        private readonly BaseDataStore<USDAFoodNutritionFactModel> _usdaDataStoreService;
 
         [ObservableProperty]
-        private USDAFoodPreviewModel currentFoodPreview;
+        private USDAFoodPreviewModel _currentFoodPreview;
 
         [ObservableProperty]
-        private USDAFoodNutritionFactModel currentFoodNutritionFact;
+        private USDAFoodNutritionFactModel _currentFoodNutritionFact;
 
         [ObservableProperty]
-        private UndefinedMacroFoodNutriFactModel currentUndefinedMacroFoodNutriFact;
+        private UndefinedMacroFoodNutriFactModel _currentUndefinedMacroFoodNutriFact;
 
         [ObservableProperty]
-        private bool isDataGridExpanded;
+        private bool _isDataGridExpanded;
 
         [ObservableProperty]
-        private List<AffiliationModel> affiliations;
+        private List<AffiliationModel> _affiliations;
 
         // simplys
         [ObservableProperty]
-        private UndefinedFoodNutrient proteinValue = null;
+        private UndefinedFoodNutrient _proteinValue = new ();
 
         [ObservableProperty]
-        private UndefinedFoodNutrient carbValue;
+        private UndefinedFoodNutrient _carbValue = new ();
 
         [ObservableProperty]
-        private UndefinedFoodNutrient caloriesValue;
+        private UndefinedFoodNutrient _caloriesValue = new ();
 
-        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, NutritionMealLogDataStoreService nutritionMealLogDataStoreService)
+        public UsdaFoodFactDetailVM(USDAApiService uSDAApiService, LocalDataStoreFactory localDataStoreFactory)
         {
             CurrentFoodNutritionFact = new USDAFoodNutritionFactModel();
-            _foodLogService = nutritionMealLogDataStoreService;
             _usdaApiService = uSDAApiService;
+            _usdaDataStoreService = localDataStoreFactory.GetDataStore<USDAFoodNutritionFactModel>();
         }
 
-        public override Task OnNavigatingTo(object? parameter)
+        public override Task OnNavigatingTo(object parameter)
         {
-            if (parameter != null)
+            if (parameter == null)
             {
-                this.CurrentFoodPreview = (USDAFoodPreviewModel)parameter;
-                IsDataGridExpanded = string.IsNullOrEmpty(this.CurrentFoodPreview?.Image);
-                var nameNormal = this.CurrentFoodPreview?.Name?.RemoveNestedParentheses() ?? string.Empty;
-                Affiliations = (StaticHelper.Affiliation.Affiliations
-                    .Where(i => i.NutrientName == nameNormal || nameNormal.ToLower().Contains(i.NutrientName.ToLower()))
-                        ?? Enumerable.Empty<AffiliationModel>()).ToList();
+                return base.OnNavigatingTo(null);
             }
+
+            this.CurrentFoodPreview = (USDAFoodPreviewModel)parameter;
+            IsDataGridExpanded = string.IsNullOrEmpty(this.CurrentFoodPreview?.Image);
+            var nameNormal = this.CurrentFoodPreview?.Name?.RemoveNestedParentheses() ?? string.Empty;
+            Affiliations = (StaticHelper.Affiliation.Affiliations
+                                .Where(i => i.NutrientName == nameNormal || nameNormal.ToLower().Contains(i.NutrientName.ToLower()))
+                            ?? []).ToList();
 
             return base.OnNavigatingTo(parameter);
         }
 
-        public async override Task ViewAppearingVM()
+        public override async Task ViewAppearingVM()
         {
-            using (await this.loadingService.Show())
+            if (this.isInitialized)
             {
-                await base.ViewAppearingVM();
-                if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
+                return;
+            }
+
+            this.busyManager.Increase();
+            await base.ViewAppearingVM();
+            if (!string.IsNullOrEmpty(this.CurrentFoodPreview?.Id))
+            {
+                if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
                 {
-                    if (this.CurrentFoodPreview.Id.Contains(ConstantHelper.TAG))
-                    {
-                        await ProcessUndefineFoodAsync();
-                    }
-                    else
-                    {
-                        await ProcessUsdaFoodAsync();
-                    }
+                    await ProcessUndefineFoodAsync();
+                }
+                else
+                {
+                    await ProcessUsdaFoodAsync();
                 }
             }
+
+            this.busyManager.Decrease();
+            this.isInitialized = true;
         }
 
         [RelayCommand]
@@ -90,98 +98,58 @@ namespace VeganLife.ViewModels.ContentViewModels
                 return;
             }
 
-            using (await this.loadingService.Show())
+            await this.navigationService.PopToRootAsync();
+            if (ServicesHelper.GetCurrentViewModel() is NoteBookPageViewModel rootVm)
             {
-                await this.navigationService.PopToRootAsync();
-                var rootVM = ServicesHelper.GetCurrentViewModel() as NoteBookPageViewModel;
-                if (rootVM != null)
-                {
-                    rootVM.SelectedViewModelIndex = 1;
-                    rootVM.VitaminAndMineralVM.VitaminSearchText = param;
-                }
+                rootVm.SelectedViewModelIndex = 1;
+                rootVm.VitaminAndMineralVM.VitaminSearchText = param;
             }
         }
 
         [RelayCommand]
-        private async Task ChangeDataGridExpandState()
+        private void ChangeDataGridExpandState()
         {
-            using (await loadingService.Show(200))
-            {
-                IsDataGridExpanded = !IsDataGridExpanded;
-            }
+            this.busyManager.Increase();
+            IsDataGridExpanded = !IsDataGridExpanded;
+            _ = Task.Delay(200).ContinueWith(t => this.busyManager.Decrease());
         }
 
         private async Task ProcessUndefineFoodAsync()
         {
             this.CurrentUndefinedMacroFoodNutriFact = await dataService.GetMacroFoodNutriFacts(this.CurrentFoodPreview.Id);
-            if (this.CurrentUndefinedMacroFoodNutriFact?.foodNutrients?.Any() ?? false)
-            {
-                foreach (var i in this.CurrentUndefinedMacroFoodNutriFact.foodNutrients)
-                {
-                    if (ProteinValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Protein, StringComparison.OrdinalIgnoreCase))
-                    {
-                        ProteinValue = i;
-                    }
-                    else if (CarbValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Carbohydrate, StringComparison.OrdinalIgnoreCase))
-                    {
-                        CarbValue = i;
-                    }
-                    else if (CaloriesValue == null && i.Nutrient.Name.Contains(ConstantHelper.UsdaFoodNutrition.Energy, StringComparison.OrdinalIgnoreCase))
-                    {
-                        CaloriesValue = i;
-                    }
+            this.CaloriesValue.Amount = CurrentUndefinedMacroFoodNutriFact.CaloriesAmount;
+            this.CaloriesValue.Unit = CurrentUndefinedMacroFoodNutriFact.CaloriesUnit;
 
-                    if (ProteinValue != null
-                        && CarbValue != null
-                        && CaloriesValue != null)
-                    {
-                        break;
-                    }
-                }
-            }
+            this.CarbValue.Amount = CurrentUndefinedMacroFoodNutriFact.CarbohydrateAmount;
+            this.CarbValue.Unit = CurrentUndefinedMacroFoodNutriFact.CarbohydrateUnit;
+
+            this.ProteinValue.Amount = CurrentUndefinedMacroFoodNutriFact.ProteinAmount;
+            this.ProteinValue.Unit = CurrentUndefinedMacroFoodNutriFact.ProteinUnit;
+
+            // TODO: fat implement
         }
-
-        private UndefinedFoodNutrient? _caloriesValue = null;
-        private UndefinedFoodNutrient? _proteinValue = null;
-        private UndefinedFoodNutrient? _carbValue = null;
 
         private async Task ProcessUsdaFoodAsync()
         {
             this.CurrentFoodNutritionFact = await _usdaApiService.GetFoodDetailsByIdAsync(this.CurrentFoodPreview.Id);
-            if (this.CurrentFoodNutritionFact?.foodNutrients?.Any() ?? false)
+            var foodNutrients = this.CurrentFoodNutritionFact?.foodNutrients;
+            if (foodNutrients != null)
             {
-                // try summarize usda food nutrients
-                foreach (var i in this.CurrentFoodNutritionFact.foodNutrients)
+                if (!foodNutrients.Any())
                 {
-                    SetNutrientValue(ref _proteinValue, i, [ConstantHelper.UsdaFoodNutrition.Protein]);
-                    SetNutrientValue(ref _carbValue, i, [ConstantHelper.UsdaFoodNutrition.Carbohydrate, "difference"]);
-                    SetNutrientValue(ref _caloriesValue, i, [ConstantHelper.UsdaFoodNutrition.Energy]);
-
-                    if (_proteinValue != null
-                        && _carbValue != null
-                        && _caloriesValue != null)
-                    {
-                        break;
-                    }
+                    return;
                 }
 
-                ProteinValue = _proteinValue;
-                CarbValue = _carbValue;
-                CaloriesValue = _caloriesValue;
-                void SetNutrientValue(ref UndefinedFoodNutrient? targetNutrient, FoodNutrient source, string[] searchTerms)
-                {
-                    var nutrientName = source.Nutrient?.Name;
-                    bool isMatchesAllTerms = searchTerms
-                        .All(term => !string.IsNullOrEmpty(nutrientName) && nutrientName.Contains(term, StringComparison.OrdinalIgnoreCase));
-                    if (targetNutrient == null && isMatchesAllTerms)
-                    {
-                        targetNutrient = new UndefinedFoodNutrient()
-                        {
-                            Amount = source.Amount,
-                            Unit = source?.Nutrient?.UnitName ?? string.Empty,
-                        };
-                    }
-                }
+                this.CaloriesValue.Amount = CurrentFoodNutritionFact.CaloriesAmount;
+                this.CaloriesValue.Unit = CurrentFoodNutritionFact.CaloriesUnit;
+
+                this.CarbValue.Amount = CurrentFoodNutritionFact.CarbohydrateAmount;
+                this.CarbValue.Unit = CurrentFoodNutritionFact.CarbohydrateUnit;
+
+                this.ProteinValue.Amount = CurrentFoodNutritionFact.ProteinAmount;
+                this.ProteinValue.Unit = CurrentFoodNutritionFact.ProteinUnit;
+
+                // TODO: fat implement
             }
         }
     }
