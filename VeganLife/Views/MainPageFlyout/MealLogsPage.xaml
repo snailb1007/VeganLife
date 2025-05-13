@@ -23,7 +23,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
-            
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="mainGridContent" RowDefinitions="Auto,*,54">
@@ -254,7 +254,7 @@
                                         <HorizontalStackLayout Opacity="0.8" Spacing="2">
                                             <Label
                                                 FontSize="Small"
-                                                Text="{Binding AddedTime, StringFormat='{0:HH:mm}'}"
+                                                Text="{Binding EatingDay, StringFormat='{0:HH:mm}'}"
                                                 TextColor="Gray" />
                                             <Label
                                                 FontSize="Small"
@@ -337,7 +337,7 @@
                                             TextColor="Gray"
                                             VerticalOptions="Center">
                                             <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MealLogsPageVM}}, Path=ShowMealOptionsCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnEditItemTapped" />
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </VerticalStackLayout>

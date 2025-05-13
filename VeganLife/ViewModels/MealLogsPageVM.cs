@@ -3,6 +3,7 @@
 // </copyright>
 
 using AsyncAwaitBestPractices;
+using CommunityToolkit.Maui.Views;
 using Mopups.Services;
 using PropertyChanged;
 using VeganLife.Data;
@@ -46,12 +47,15 @@ namespace VeganLife.ViewModels
         [ObservableProperty]
         private List<NutritionMealLogModel> _nutritionMealLogs;
 
+        [ObservableProperty]
+        private NutritionMealLogModel _selectedMealLog;
+
         public MealLogsPageVM(LocalDataStoreFactory localDataStoreFactory)
             : base()
         {
             LocalUser = new UserInfo();
             _userDataService = FFImageLoading.Helpers.ServiceHelper.GetService<IUserDataService>();
-            this._nutritionMealLogDataStoreService  = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
+            this._nutritionMealLogDataStoreService = localDataStoreFactory.GetDataStore<NutritionMealLogModel>();
         }
 
         public override async Task ViewAppearingVM()
@@ -61,7 +65,11 @@ namespace VeganLife.ViewModels
             _nutritionMealLogDataStoreService.GetItemsAsync()
                 .ContinueWith(t =>
                 {
-                    NutritionMealLogs = t.Result.Where(i => i.EatingDay.Date == DateTime.Now.Date).ToList();
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        NutritionMealLogs = t.Result.Where(i => i.EatingDay.Date == DateTime.Now.Date).ToList();
+                    });
+
                     foreach (var i in t.Result)
                     {
                         Console.WriteLine("==> " + i.Name);
@@ -116,6 +124,94 @@ namespace VeganLife.ViewModels
             busyManager.Decrease();
         }
 
+        [RelayCommand]
+        private async Task ShowMealOptions(NutritionMealLogModel mealLog)
+        {
+            if (mealLog == null)
+                return;
+            busyManager.Increase();
+            SelectedMealLog = mealLog;
+
+            // Create and show the popup
+            var popup = new EditMealPopup(mealLog);
+
+            var result = await AppHelpers.CurrentMainPage.ShowPopupAsync(popup);
+
+            if (result is EditMealPopup.EditMealResult editResult)
+            {
+                if (editResult.IsDeleted)
+                {
+                    // Delete the meal log from your database
+                    await DeleteMealLogAsync(mealLog);
+                }
+                else if (editResult.IsAmountChanged)
+                {
+                    // Update the amount in your database
+                    mealLog.Amount = editResult.NewAmount;
+                    await UpdateMealLogAsync(mealLog);
+                }
+            }
+
+            busyManager.Decrease();
+        }
+
+        private async Task DeleteMealLogAsync(NutritionMealLogModel mealLog)
+        {
+            try
+            {
+                busyManager.Increase();
+
+                // Delete from database
+                await _nutritionMealLogDataStoreService.DeleteItem(mealLog);
+
+                // Update collection
+                if (NutritionMealLogs.Contains(mealLog))
+                {
+                    var updatedList = new List<NutritionMealLogModel>(NutritionMealLogs);
+                    updatedList.Remove(mealLog);
+                    NutritionMealLogs = updatedList;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.LogError(); // Assuming your error logging extension
+                await AppHelpers.CurrentMainPage.DisplayAlert("Error", "Failed to delete meal log", "OK");
+            }
+            finally
+            {
+                busyManager.Decrease();
+            }
+        }
+
+        private async Task UpdateMealLogAsync(NutritionMealLogModel mealLog)
+        {
+            try
+            {
+                busyManager.Increase();
+
+                // Update in database
+                await _nutritionMealLogDataStoreService.AddOrUpdateItemAsync(mealLog, isUpdate: true);
+
+                // Refresh the UI
+                var index = NutritionMealLogs.FindIndex(m => m.Id == mealLog.Id);
+                if (index >= 0)
+                {
+                    var updatedList = new List<NutritionMealLogModel>(NutritionMealLogs);
+                    updatedList[index] = mealLog;
+                    NutritionMealLogs = updatedList;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.LogError();
+                await AppHelpers.CurrentMainPage.DisplayAlert("Error", "Failed to update meal log", "OK");
+            }
+            finally
+            {
+                busyManager.Decrease();
+            }
+        }
+
         [SuppressPropertyChangedWarnings]
         partial void OnSelectedActivityLevelIndexChanged(int value)
         {
@@ -137,7 +233,7 @@ namespace VeganLife.ViewModels
             });
         }
 
-        private async Task UpdateActivityLevelAsync(int levelIndex = 0 )
+        private async Task UpdateActivityLevelAsync(int levelIndex = 0)
         {
             var newActivityLevel = (ActivityLevel)levelIndex;
             var newTDEE = TDEEHelper.CalculateTDEE(LocalUser.BMRResult, newActivityLevel);

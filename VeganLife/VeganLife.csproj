@@ -300,6 +300,9 @@
 		<MauiXaml Update="Views\Popups\AffiliationPopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Popups\EditMealPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Popups\LoadingPopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

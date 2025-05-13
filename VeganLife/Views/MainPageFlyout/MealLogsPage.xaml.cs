@@ -32,4 +32,12 @@ public partial class MealLogsPage : IBaseRootPage
             activityLvPicker.Focus();
         });
     }
+
+    private void OnEditItemTapped(object sender, TappedEventArgs e)
+    {
+        var selectedItem = (sender as Label)?.BindingContext;
+        if (selectedItem == null)
+            return;
+        this.GetViewModel<MealLogsPageVM>().ShowMealOptionsCommand.Execute(selectedItem);
+    }
 }
