@@ -37,10 +37,8 @@
                     TextColor="Gray" />
                 <calendarControls:MultiSelectionCalendar
                     x:Name="logsCalendar"
-                    ArrowsBorderWidth="0"
                     CalendarLayout="Month"
                     Culture="{Binding CalendarCultureInfo}"
-                    DaysTitleWeekendColor="{StaticResource PrimaryOrange}"
                     HorizontalOptions="Fill"
                     MaximumDate="{Binding Today, Mode=OneWay}"
                     SelectedDates="{Binding SelectedDate, Mode=TwoWay}"
