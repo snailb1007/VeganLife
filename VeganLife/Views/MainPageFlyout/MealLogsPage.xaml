@@ -23,6 +23,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsListNullOrEmptyConverter x:Key="IsListNullOrEmptyConverter" />
+            
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="mainGridContent" RowDefinitions="Auto,*,54">
@@ -202,40 +203,159 @@
             </sharpnado:MaterialFrame>
             <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto,Auto">
                 <Label
+                    Margin="10,5"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="{x:Static translate:AppResources.mealLogsPage_FoodsToday}" />
                 <CollectionView
                     Grid.Row="1"
+                    Margin="5,0"
                     IsVisible="{x:Bind NutritionMealLogs.Count gt 0}"
                     ItemsSource="{Binding NutritionMealLogs}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutritionMealLogModel">
-                            <Grid ColumnDefinitions="*,Auto">
-                                <VerticalStackLayout Padding="10">
-                                    <Label
-                                        FontSize="Small"
-                                        Text="{Binding UsdaFoodId}"
-                                        TextColor="Gray" />
-                                    <Label Text="{Binding Name}" />
-                                    <HorizontalStackLayout Spacing="10">
-                                        <Label FontSize="Small" Text="{Binding DisplayCalories, StringFormat='Calories: {0:F1}'}" />
-                                        <Label FontSize="Small" Text="{Binding DisplayProtein, StringFormat='P: {0:F1}'}" />
-                                        <Label FontSize="Small" Text="{Binding DisplayFat, StringFormat='F: {0:F1}'}" />
-                                        <Label FontSize="Small" Text="{Binding DisplayCarbs, StringFormat='Carbs: {0:F1}'}" />
-                                    </HorizontalStackLayout>
-                                    <Line BackgroundColor="Gray" HeightRequest="1" />
-                                </VerticalStackLayout>
-                            </Grid>
+                            <sharpnado:MaterialFrame
+                                Margin="2,5"
+                                Padding="0"
+                                CornerRadius="10"
+                                LightThemeBackgroundColor="#FFFFFF"
+                                MaterialTheme="Acrylic">
+                                <Grid Padding="5" ColumnDefinitions="Auto,*,Auto">
+                                    <!--  Food icon or category indicator  -->
+                                    <Border
+                                        Grid.Column="0"
+                                        Margin="8,5"
+                                        BackgroundColor="{StaticResource PrimaryOrange2}"
+                                        HeightRequest="50"
+                                        Opacity="0.7"
+                                        Stroke="{StaticResource PrimaryOrange1}"
+                                        StrokeShape="RoundRectangle 25"
+                                        StrokeThickness="1"
+                                        WidthRequest="50">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Name}"
+                                            TextColor="White"
+                                            VerticalOptions="Center" />
+                                    </Border>
+
+                                    <!--  Food details  -->
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Padding="10,5"
+                                        Spacing="2">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding Name}" />
+
+                                        <HorizontalStackLayout Opacity="0.8" Spacing="2">
+                                            <Label
+                                                FontSize="Small"
+                                                Text="{Binding AddedTime, StringFormat='{0:HH:mm}'}"
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="Small"
+                                                Text=" • "
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="Small"
+                                                Text="{Binding MealType}"
+                                                TextColor="Gray" />
+                                        </HorizontalStackLayout>
+
+                                        <Grid Margin="0,5,0,0" ColumnDefinitions="*,*,*,*">
+                                            <!--  Calories  -->
+                                            <VerticalStackLayout Grid.Column="0" Spacing="0">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding DisplayCalories, StringFormat='{0:F0}'}"
+                                                    TextColor="{StaticResource PrimaryDark}" />
+                                                <Label
+                                                    FontSize="Micro"
+                                                    HorizontalOptions="Center"
+                                                    Text="kcal"
+                                                    TextColor="Gray" />
+                                            </VerticalStackLayout>
+
+                                            <!--  Protein  -->
+                                            <VerticalStackLayout Grid.Column="1" Spacing="0">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding DisplayProtein, StringFormat='{0:F1}g'}"
+                                                    TextColor="#1E88E5" />
+                                                <Label
+                                                    FontSize="Micro"
+                                                    HorizontalOptions="Center"
+                                                    Text="Protein"
+                                                    TextColor="Gray" />
+                                            </VerticalStackLayout>
+
+                                            <!--  Fat  -->
+                                            <VerticalStackLayout Grid.Column="2" Spacing="0">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding DisplayFat, StringFormat='{0:F1}g'}"
+                                                    TextColor="#FFA726" />
+                                                <Label
+                                                    FontSize="Micro"
+                                                    HorizontalOptions="Center"
+                                                    Text="Fat"
+                                                    TextColor="Gray" />
+                                            </VerticalStackLayout>
+
+                                            <!--  Carbs  -->
+                                            <VerticalStackLayout Grid.Column="3" Spacing="0">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding DisplayCarbs, StringFormat='{0:F1}g'}"
+                                                    TextColor="#66BB6A" />
+                                                <Label
+                                                    FontSize="Micro"
+                                                    HorizontalOptions="Center"
+                                                    Text="Carbs"
+                                                    TextColor="Gray" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </VerticalStackLayout>
+
+                                    <!--  Delete or Edit options  -->
+                                    <VerticalStackLayout
+                                        Grid.Column="2"
+                                        Margin="5,0"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            FontFamily="FARegular"
+                                            FontSize="Medium"
+                                            Text="&#xf142;"
+                                            TextColor="Gray"
+                                            VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MealLogsPageVM}}, Path=ShowMealOptionsCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </sharpnado:MaterialFrame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
+                <!--  Empty state view  -->
                 <ContentView
                     Grid.Row="2"
                     ControlTemplate="{StaticResource EmptyListAnimationTemplate}"
                     IsVisible="{Binding NutritionMealLogs, Converter={StaticResource IsListNullOrEmptyConverter}}" />
                 <Label
                     Grid.Row="3"
+                    Margin="0,10"
+                    FontSize="Medium"
                     HorizontalOptions="Center"
                     IsVisible="{Binding NutritionMealLogs, Converter={StaticResource IsListNullOrEmptyConverter}}"
                     Text="Hôm nay bạn ăn gì chưa?" />
