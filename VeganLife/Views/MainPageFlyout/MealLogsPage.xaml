@@ -207,6 +207,47 @@
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="{x:Static translate:AppResources.mealLogsPage_FoodsToday}" />
+                <!--<HorizontalStackLayout>
+                    <Label
+                        Margin="10,5"
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="{x:Static translate:AppResources.mealLogsPage_FoodsToday}" />
+                    <VerticalStackLayout Margin="10,5">
+                -->
+                <!--  Button to open the calendar popup  -->
+                <!--
+                        <Button
+                            BackgroundColor="{StaticResource PrimaryOrange2}"
+                            Command="{Binding CalendarClickedCommand}"
+                            CornerRadius="10"
+                            Text="Select Dates"
+                            TextColor="White" />
+
+                -->
+                <!--  Display selected dates  -->
+                <!--
+                        <Label
+                            Margin="0,10,0,5"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            Text="Selected Dates:" />
+                        <CollectionView
+                            IsVisible="{Binding SelectedDates.Count, Converter={StaticResource IsListNullOrEmptyConverter}}"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding SelectedDates}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontSize="Small"
+                                        Text="{Binding .}"
+                                        TextColor="Gray" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>-->
+
                 <CollectionView
                     Grid.Row="1"
                     Margin="5,0"
@@ -252,17 +293,13 @@
                                             Text="{Binding Name}" />
 
                                         <HorizontalStackLayout Opacity="0.8" Spacing="2">
-                                            <Label
+                                            <!--<Label
                                                 FontSize="Small"
-                                                Text="{Binding EatingDay, StringFormat='{0:HH:mm}'}"
-                                                TextColor="Gray" />
+                                                Text="{Binding TimeAgo}"
+                                                TextColor="Gray" />-->
                                             <Label
                                                 FontSize="Small"
                                                 Text=" • "
-                                                TextColor="Gray" />
-                                            <Label
-                                                FontSize="Small"
-                                                Text="{Binding MealType}"
                                                 TextColor="Gray" />
                                         </HorizontalStackLayout>
 
@@ -326,21 +363,18 @@
                                     </VerticalStackLayout>
 
                                     <!--  Delete or Edit options  -->
-                                    <VerticalStackLayout
+                                    <Label
                                         Grid.Column="2"
-                                        Margin="5,0"
+                                        Padding="5,8"
+                                        FontFamily="FARegular"
+                                        FontSize="Medium"
+                                        Text="&#xf142;"
+                                        TextColor="Gray"
                                         VerticalOptions="Center">
-                                        <Label
-                                            FontFamily="FARegular"
-                                            FontSize="Medium"
-                                            Text="&#xf142;"
-                                            TextColor="Gray"
-                                            VerticalOptions="Center">
-                                            <Label.GestureRecognizers>
-                                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnEditItemTapped" />
-                                            </Label.GestureRecognizers>
-                                        </Label>
-                                    </VerticalStackLayout>
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnEditItemTapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </Grid>
                             </sharpnado:MaterialFrame>
                         </DataTemplate>

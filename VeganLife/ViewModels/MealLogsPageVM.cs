@@ -108,11 +108,30 @@ namespace VeganLife.ViewModels
             await MopupService.Instance.PushAsync(new SimpleInformationPopup(data));
         }
 
+        [ObservableProperty]
+        private ObservableCollection<string> _selectedDates = [];
+
         [RelayCommand]
         private async Task CalendarClicked()
         {
             busyManager.Increase();
-            await this.popupNaviService.PushAsync<MealLogsCalendarMopup>();
+            var result = await AppHelpers.CurrentMainPage.DisplayPromptAsync("Calendar",
+            "Select up to 7 dates (comma-separated):",
+            "OK",
+            "Cancel");
+            if (!string.IsNullOrWhiteSpace(result))
+            {
+                var dates = result.Split(',')
+                                  .Select(date => date.Trim())
+                                  .Take(7)
+                                  .ToList();
+
+                SelectedDates.Clear();
+                foreach (var date in dates)
+                {
+                    SelectedDates.Add(date);
+                }
+            }
             busyManager.Decrease();
         }
 

@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using VeganLife.Helpers;
 using VeganLife.Models.BaseModel;
 
 namespace VeganLife.Models
@@ -34,5 +35,7 @@ namespace VeganLife.Models
 
         public bool IsUsda => this.UsdaFoodId > 0;
         public bool IsUndefined => !string.IsNullOrEmpty(this.UndefinedFoodId);
+
+        //public string TimeAgo => DateTimeHelper.CalculateTimeAgo(this.EatingDay);
     }
 }

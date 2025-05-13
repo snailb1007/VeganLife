@@ -6,55 +6,60 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     CanBeDismissedByTappingOutsideOfPopup="False"
     Size="300, 350">
-    <VerticalStackLayout
-        Padding="20"
-        BackgroundColor="{AppThemeBinding Light={StaticResource White},
-                                          Dark={StaticResource Gray950}}"
-        Spacing="20">
-        <Label
-            Margin="0,0,0,10"
-            FontAttributes="Bold"
-            FontSize="18"
-            HorizontalOptions="Center"
-            Text="Edit Meal" />
-        <Label
-            x:Name="MealNameLabel"
-            FontSize="16"
-            HorizontalOptions="Center" />
-        <StackLayout Spacing="5">
-            <Label FontSize="14" Text="Amount (g)" />
-            <Entry
-                x:Name="AmountEntry"
-                Margin="0,5,0,0"
+    <Border StrokeShape="RoundRectangle 4" StrokeThickness="0">
+        <VerticalStackLayout
+            Padding="20"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                              Dark={StaticResource Gray950}}"
+            Spacing="20">
+            <Label
+                Margin="0,0,0,10"
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="Center"
+                Text="Edit Meal" />
+            <Label
+                x:Name="MealNameLabel"
+                FontSize="16"
+                HorizontalOptions="Center" />
+            <Label
+                FontAttributes="Bold"
                 FontSize="14"
-                Keyboard="Numeric"
-                Placeholder="Enter amount" />
-        </StackLayout>
-        <StackLayout
-            HorizontalOptions="Center"
-            Orientation="Horizontal"
-            Spacing="10">
-            <Button
-                BackgroundColor="{StaticResource Primary}"
-                Clicked="OnSaveClicked"
+                Text="Khối lượng (g)" />
+            <Border StrokeShape="RoundRectangle 5">
+                <Entry
+                    x:Name="AmountEntry"
+                    Margin="0,5,0,0"
+                    FontSize="14"
+                    Keyboard="Numeric"
+                    Placeholder="Enter amount" />
+            </Border>
+            <StackLayout
                 HorizontalOptions="Center"
-                Text="Save"
-                TextColor="White"
-                WidthRequest="100" />
+                Orientation="Horizontal"
+                Spacing="10">
+                <Button
+                    BackgroundColor="{StaticResource Primary}"
+                    Clicked="OnSaveClicked"
+                    HorizontalOptions="Center"
+                    Text="Save"
+                    TextColor="White"
+                    WidthRequest="100" />
+                <Button
+                    BackgroundColor="Red"
+                    Clicked="OnDeleteClicked"
+                    HorizontalOptions="Center"
+                    Text="Delete"
+                    TextColor="White"
+                    WidthRequest="100" />
+            </StackLayout>
             <Button
-                BackgroundColor="Red"
-                Clicked="OnDeleteClicked"
+                BackgroundColor="{StaticResource Gray500}"
+                Clicked="OnCancelClicked"
                 HorizontalOptions="Center"
-                Text="Delete"
+                Text="Cancel"
                 TextColor="White"
-                WidthRequest="100" />
-        </StackLayout>
-        <Button
-            BackgroundColor="{StaticResource Gray500}"
-            Clicked="OnCancelClicked"
-            HorizontalOptions="Center"
-            Text="Cancel"
-            TextColor="White"
-            WidthRequest="210" />
-    </VerticalStackLayout>
+                WidthRequest="210" />
+        </VerticalStackLayout>
+    </Border>
 </toolkit:Popup>

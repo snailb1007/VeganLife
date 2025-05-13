@@ -134,7 +134,6 @@ namespace VeganLife
             services.AddTransient<ProfilePopup, ProfilePopupViewModel>();
             services.AddTransient<LoadingPopup>();
             services.AddTransient<AffiliationPopup>();
-            services.AddTransient<MealLogsCalendarMopup, MealLogsMopupVM>();
         }
 
         private static void RegisterPage(IServiceCollection services)
