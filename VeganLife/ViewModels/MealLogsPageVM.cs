@@ -131,7 +131,7 @@ namespace VeganLife.ViewModels
                 {
                     SelectedDates.Add(date);
                 }
-            }
+            }       
             busyManager.Decrease();
         }
 

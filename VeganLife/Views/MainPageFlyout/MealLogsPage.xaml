@@ -277,7 +277,7 @@
                                             FontAttributes="Bold"
                                             FontSize="20"
                                             HorizontalOptions="Center"
-                                            Text="{Binding Name}"
+                                            Text="{Binding FirstNameCharacter}"
                                             TextColor="White"
                                             VerticalOptions="Center" />
                                     </Border>

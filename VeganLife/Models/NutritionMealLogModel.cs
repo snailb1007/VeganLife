@@ -35,6 +35,9 @@ namespace VeganLife.Models
 
         public bool IsUsda => this.UsdaFoodId > 0;
         public bool IsUndefined => !string.IsNullOrEmpty(this.UndefinedFoodId);
+        public string FirstNameCharacter => string.IsNullOrEmpty(this.Name) ?
+            "?"
+            : this.Name.ToString()[0].ToString().ToUpper();
 
         //public string TimeAgo => DateTimeHelper.CalculateTimeAgo(this.EatingDay);
     }
