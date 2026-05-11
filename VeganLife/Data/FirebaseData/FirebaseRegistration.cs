@@ -5,7 +5,7 @@
 // {
 //    public class FirebaseRegistration
 //    {
-        // const string web_api_key = "***REMOVED***";
+        // const string web_api_key = "AIzaSyBCCXS21mGG9DWsi6_2UFtXTNqT970AMiU";
         // const string authorized_domain = "vegan-life-d1c9b.firebaseapp.com";
 
         // FirebaseAuthClient _authClient;

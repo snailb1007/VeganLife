@@ -19,7 +19,7 @@ namespace VeganLife.Services.CommunityFreeService
     public class USDAApiService
     {
         private const string BaseUrl = "https://api.nal.usda.gov/fdc/v1/";
-        private const string ApiKey = "***REMOVED***";
+        private const string ApiKey = "8tgleoubqLXYdky38LaQFpMaQIEqvTez4eFV6obc";
 
         private readonly BaseDataStore<USDAFoodNutritionFactModel> _dataStoreService;
 
