@@ -18,6 +18,14 @@ VeganLife is a cross-platform mobile and desktop application built with .NET MAU
 - 🏗️ **Clean Architecture** - Follows the MVVM (Model-View-ViewModel) pattern for robust and maintainable code.
 - 🗄️ **Robust Data Management** - Includes `VeganLifeDataCenter` for structured data handling and migrations via Entity Framework Core.
 
+## Screenshots
+
+<div align="center">
+  <img src="assets/screenshots/home_drawer.jpg" alt="Home Menu & Profile" width="250" />
+  <img src="assets/screenshots/recipe_detail.jpg" alt="Recipe Detail" width="250" />
+  <img src="assets/screenshots/nutrition_detail.jpg" alt="Nutrition Info" width="250" />
+</div>
+
 ## Project Structure
 
 - **`VeganLife`**: The main .NET MAUI application containing the UI (Views), ViewModels, Models, and platform-specific code.
